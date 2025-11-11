@@ -591,14 +591,23 @@ async def use_curriculum_template(
                 outcomes = t_substrand.specific_learning_outcomes or []
                 questions = t_substrand.key_inquiry_questions or []
                 
-                # Create SubStrand
+                # Create SubStrand with all curriculum details
                 new_substrand = SubStrand(
                     strand_id=new_strand.id,
                     substrand_code=t_substrand.substrand_number,
                     substrand_name=t_substrand.substrand_name,
                     lessons_count=t_substrand.number_of_lessons,
-                    learning_outcomes=", ".join(outcomes[:5]),  # Top 5
-                    key_inquiry_questions=", ".join(questions[:3]),  # Top 3
+                    learning_outcomes=", ".join(outcomes[:5]),  # Top 5 for display
+                    key_inquiry_questions=", ".join(questions[:3]),  # Top 3 for display
+                    
+                    # Store complete curriculum data as JSON
+                    specific_learning_outcomes=t_substrand.specific_learning_outcomes,
+                    suggested_learning_experiences=t_substrand.suggested_learning_experiences,
+                    core_competencies=t_substrand.core_competencies,
+                    values=t_substrand.values,
+                    pcis=t_substrand.pcis,
+                    links_to_other_subjects=t_substrand.links_to_other_subjects,
+                    
                     sequence_order=t_substrand.sequence_order or 0
                 )
                 db.add(new_substrand)

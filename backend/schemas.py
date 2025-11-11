@@ -86,6 +86,15 @@ class SubStrandBase(BaseModel):
     lessons_count: int = 0
     learning_outcomes: Optional[str] = None
     key_inquiry_questions: Optional[str] = None
+    
+    # Detailed curriculum fields
+    specific_learning_outcomes: Optional[list] = None
+    suggested_learning_experiences: Optional[list] = None
+    core_competencies: Optional[list] = None
+    values: Optional[list] = None
+    pcis: Optional[list] = None
+    links_to_other_subjects: Optional[list] = None
+    
     sequence_order: int
 
 class SubStrandCreate(SubStrandBase):

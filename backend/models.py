@@ -131,6 +131,15 @@ class SubStrand(Base):
     lessons_count = Column(Integer, default=0)
     learning_outcomes = Column(Text)
     key_inquiry_questions = Column(Text)
+    
+    # Additional curriculum fields from template
+    specific_learning_outcomes = Column(JSON)
+    suggested_learning_experiences = Column(JSON)
+    core_competencies = Column(JSON)
+    values = Column(JSON)
+    pcis = Column(JSON)
+    links_to_other_subjects = Column(JSON)
+    
     sequence_order = Column(Integer, nullable=False)
     created_at = Column(TIMESTAMP, server_default=func.now())
     
