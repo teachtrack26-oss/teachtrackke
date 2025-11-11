@@ -76,12 +76,33 @@ export default function CurriculumDetailPage() {
       const response = await axios.get(`/api/v1/subjects/${subjectId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      
+      if (!response.data) {
+        throw new Error("No data received from server");
+      }
+      
       setSubject(response.data);
+      
       // Expand all strands by default
-      setExpandedStrands(new Set(response.data.strands.map((s: Strand) => s.id)));
+      if (response.data.strands && Array.isArray(response.data.strands)) {
+        setExpandedStrands(
+          new Set(response.data.strands.map((s: Strand) => s.id))
+        );
+      }
     } catch (error) {
       console.error("Failed to fetch subject details:", error);
-      toast.error("Failed to load curriculum details");
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          toast.error("Session expired. Please login again.");
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("user");
+          router.push("/login");
+          return;
+        }
+        toast.error(error.response?.data?.detail || "Failed to load curriculum details");
+      } else {
+        toast.error("Failed to load curriculum details");
+      }
       router.push("/curriculum");
     } finally {
       setLoading(false);
@@ -149,7 +170,7 @@ export default function CurriculumDetailPage() {
             {subject.subject_name} - Grade {subject.grade}
           </h1>
           <p className="text-gray-600">
-            {subject.total_lessons} lessons • {subject.strands.length} strands
+            {subject.total_lessons} lessons • {subject.strands?.length || 0} strands
           </p>
         </div>
 
@@ -182,9 +203,10 @@ export default function CurriculumDetailPage() {
 
         {/* Strands */}
         <div className="space-y-4">
-          {subject.strands
-            .sort((a, b) => a.sequence_order - b.sequence_order)
-            .map((strand) => (
+          {subject.strands && subject.strands.length > 0 ? (
+            subject.strands
+              .sort((a, b) => a.sequence_order - b.sequence_order)
+              .map((strand) => (
               <div key={strand.id} className="bg-white rounded-lg shadow-md">
                 {/* Strand Header */}
                 <button
@@ -270,8 +292,8 @@ export default function CurriculumDetailPage() {
 
                               {/* Suggested Learning Experiences */}
                               {subStrand.suggested_learning_experiences &&
-                                subStrand.suggested_learning_experiences.length >
-                                  0 && (
+                                subStrand.suggested_learning_experiences
+                                  .length > 0 && (
                                   <div>
                                     <h5 className="font-semibold text-gray-900 mb-3 flex items-center">
                                       <FiBook className="w-5 h-5 mr-2 text-blue-600" />
@@ -330,23 +352,24 @@ export default function CurriculumDetailPage() {
                                 )}
 
                               {/* Values */}
-                              {subStrand.values && subStrand.values.length > 0 && (
-                                <div>
-                                  <h5 className="font-semibold text-gray-900 mb-3">
-                                    Values
-                                  </h5>
-                                  <ul className="space-y-2">
-                                    {subStrand.values.map((value, idx) => (
-                                      <li
-                                        key={idx}
-                                        className="text-gray-700 pl-4 border-l-2 border-yellow-400"
-                                      >
-                                        {value}
-                                      </li>
-                                    ))}
-                                  </ul>
-                                </div>
-                              )}
+                              {subStrand.values &&
+                                subStrand.values.length > 0 && (
+                                  <div>
+                                    <h5 className="font-semibold text-gray-900 mb-3">
+                                      Values
+                                    </h5>
+                                    <ul className="space-y-2">
+                                      {subStrand.values.map((value, idx) => (
+                                        <li
+                                          key={idx}
+                                          className="text-gray-700 pl-4 border-l-2 border-yellow-400"
+                                        >
+                                          {value}
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
 
                               {/* PCIs */}
                               {subStrand.pcis && subStrand.pcis.length > 0 && (
@@ -369,7 +392,8 @@ export default function CurriculumDetailPage() {
 
                               {/* Links to Other Subjects */}
                               {subStrand.links_to_other_subjects &&
-                                subStrand.links_to_other_subjects.length > 0 && (
+                                subStrand.links_to_other_subjects.length >
+                                  0 && (
                                   <div>
                                     <h5 className="font-semibold text-gray-900 mb-3">
                                       Links to Other Subjects
@@ -395,7 +419,18 @@ export default function CurriculumDetailPage() {
                   </div>
                 )}
               </div>
-            ))}
+            ))
+          ) : (
+            <div className="bg-white rounded-lg shadow-md p-12 text-center">
+              <FiBook className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
+                No curriculum content yet
+              </h3>
+              <p className="text-gray-600">
+                This subject doesn't have any strands or lessons yet.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

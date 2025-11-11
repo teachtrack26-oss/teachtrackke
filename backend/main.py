@@ -196,7 +196,10 @@ def get_subject(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    subject = db.query(Subject).filter(
+    # Eager load strands and sub-strands
+    subject = db.query(Subject).options(
+        joinedload(Subject.strands).joinedload(Strand.sub_strands)
+    ).filter(
         Subject.id == subject_id,
         Subject.user_id == current_user.id
     ).first()
@@ -204,7 +207,47 @@ def get_subject(
     if not subject:
         raise HTTPException(status_code=404, detail="Subject not found")
     
-    return subject
+    # Format response with nested strands and sub-strands
+    result = {
+        "id": subject.id,
+        "subject_name": subject.subject_name,
+        "grade": subject.grade,
+        "total_lessons": subject.total_lessons,
+        "lessons_completed": subject.lessons_completed,
+        "progress_percentage": subject.progress_percentage,
+        "strands": []
+    }
+    
+    for strand in sorted(subject.strands, key=lambda x: x.sequence_order):
+        strand_data = {
+            "id": strand.id,
+            "strand_code": strand.strand_code,
+            "strand_name": strand.strand_name,
+            "sequence_order": strand.sequence_order,
+            "sub_strands": []
+        }
+        
+        for sub_strand in sorted(strand.sub_strands, key=lambda x: x.sequence_order):
+            sub_strand_data = {
+                "id": sub_strand.id,
+                "substrand_code": sub_strand.substrand_code,
+                "substrand_name": sub_strand.substrand_name,
+                "lessons_count": sub_strand.lessons_count,
+                "learning_outcomes": sub_strand.learning_outcomes,
+                "key_inquiry_questions": sub_strand.key_inquiry_questions,
+                "specific_learning_outcomes": sub_strand.specific_learning_outcomes,
+                "suggested_learning_experiences": sub_strand.suggested_learning_experiences,
+                "core_competencies": sub_strand.core_competencies,
+                "values": sub_strand.values,
+                "pcis": sub_strand.pcis,
+                "links_to_other_subjects": sub_strand.links_to_other_subjects,
+                "sequence_order": sub_strand.sequence_order
+            }
+            strand_data["sub_strands"].append(sub_strand_data)
+        
+        result["strands"].append(strand_data)
+    
+    return result
 
 @app.get(f"{settings.API_V1_PREFIX}/subjects/{{subject_id}}/strands")
 def get_subject_strands(
