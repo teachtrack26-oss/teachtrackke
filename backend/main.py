@@ -190,7 +190,7 @@ def get_subjects(
     subjects = db.query(Subject).filter(Subject.user_id == current_user.id).all()
     return subjects
 
-@app.get(f"{settings.API_V1_PREFIX}/subjects/{{subject_id}}", response_model=SubjectResponse)
+@app.get(f"{settings.API_V1_PREFIX}/subjects/{{subject_id}}")
 def get_subject(
     subject_id: int,
     current_user: User = Depends(get_current_user),
