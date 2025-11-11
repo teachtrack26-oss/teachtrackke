@@ -685,6 +685,238 @@ async def use_curriculum_template(
             detail=f"Error copying curriculum: {str(e)}"
         )
 
+# ============================================================================
+# LESSON TRACKING ENDPOINTS
+# ============================================================================
+
+@app.post(f"{settings.API_V1_PREFIX}/lessons/{{lesson_id}}/complete")
+def mark_lesson_complete(
+    lesson_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Mark a lesson as complete and update subject progress"""
+    
+    # Get lesson and verify ownership through subject
+    lesson = db.query(Lesson).join(SubStrand).join(Strand).join(Subject).filter(
+        Lesson.id == lesson_id,
+        Subject.user_id == current_user.id
+    ).first()
+    
+    if not lesson:
+        raise HTTPException(status_code=404, detail="Lesson not found")
+    
+    if lesson.is_completed:
+        raise HTTPException(status_code=400, detail="Lesson already completed")
+    
+    # Mark lesson as complete
+    lesson.is_completed = True
+    lesson.completed_at = func.now()
+    
+    # Get the subject to update progress
+    subject = db.query(Subject).join(Strand).join(SubStrand).join(Lesson).filter(
+        Lesson.id == lesson_id
+    ).first()
+    
+    if subject:
+        # Count completed lessons
+        completed = db.query(Lesson).join(SubStrand).join(Strand).filter(
+            Strand.subject_id == subject.id,
+            Lesson.is_completed == True
+        ).count()
+        
+        subject.lessons_completed = completed
+        subject.progress_percentage = (completed / subject.total_lessons * 100) if subject.total_lessons > 0 else 0
+    
+    db.commit()
+    
+    return {
+        "message": "Lesson marked as complete",
+        "lesson_id": lesson_id,
+        "subject_progress": subject.progress_percentage if subject else 0
+    }
+
+@app.post(f"{settings.API_V1_PREFIX}/lessons/{{lesson_id}}/uncomplete")
+def mark_lesson_incomplete(
+    lesson_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Mark a lesson as incomplete (undo completion)"""
+    
+    lesson = db.query(Lesson).join(SubStrand).join(Strand).join(Subject).filter(
+        Lesson.id == lesson_id,
+        Subject.user_id == current_user.id
+    ).first()
+    
+    if not lesson:
+        raise HTTPException(status_code=404, detail="Lesson not found")
+    
+    if not lesson.is_completed:
+        raise HTTPException(status_code=400, detail="Lesson is not completed")
+    
+    # Mark lesson as incomplete
+    lesson.is_completed = False
+    lesson.completed_at = None
+    
+    # Update subject progress
+    subject = db.query(Subject).join(Strand).join(SubStrand).join(Lesson).filter(
+        Lesson.id == lesson_id
+    ).first()
+    
+    if subject:
+        completed = db.query(Lesson).join(SubStrand).join(Strand).filter(
+            Strand.subject_id == subject.id,
+            Lesson.is_completed == True
+        ).count()
+        
+        subject.lessons_completed = completed
+        subject.progress_percentage = (completed / subject.total_lessons * 100) if subject.total_lessons > 0 else 0
+    
+    db.commit()
+    
+    return {
+        "message": "Lesson marked as incomplete",
+        "lesson_id": lesson_id,
+        "subject_progress": subject.progress_percentage if subject else 0
+    }
+
+@app.get(f"{settings.API_V1_PREFIX}/subjects/{{subject_id}}/lessons")
+def get_subject_lessons(
+    subject_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all lessons for a subject with completion status"""
+    
+    # Verify subject belongs to user
+    subject = db.query(Subject).filter(
+        Subject.id == subject_id,
+        Subject.user_id == current_user.id
+    ).first()
+    
+    if not subject:
+        raise HTTPException(status_code=404, detail="Subject not found")
+    
+    # Get all lessons with strand/substrand info
+    lessons = db.query(
+        Lesson.id,
+        Lesson.lesson_number,
+        Lesson.lesson_title,
+        Lesson.is_completed,
+        Lesson.completed_at,
+        SubStrand.substrand_name,
+        SubStrand.substrand_code,
+        Strand.strand_name,
+        Strand.strand_code
+    ).join(SubStrand).join(Strand).filter(
+        Strand.subject_id == subject_id
+    ).order_by(Strand.sequence_order, SubStrand.sequence_order, Lesson.sequence_order).all()
+    
+    return {
+        "subject_id": subject_id,
+        "subject_name": subject.subject_name,
+        "total_lessons": subject.total_lessons,
+        "lessons_completed": subject.lessons_completed,
+        "progress_percentage": subject.progress_percentage,
+        "lessons": [
+            {
+                "id": l[0],
+                "lesson_number": l[1],
+                "lesson_title": l[2],
+                "is_completed": l[3],
+                "completed_at": l[4].isoformat() if l[4] else None,
+                "substrand_name": l[5],
+                "substrand_code": l[6],
+                "strand_name": l[7],
+                "strand_code": l[8]
+            }
+            for l in lessons
+        ]
+    }
+
+@app.get(f"{settings.API_V1_PREFIX}/dashboard/curriculum-progress")
+def get_curriculum_progress(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get comprehensive curriculum progress overview for dashboard"""
+    
+    subjects = db.query(Subject).filter(Subject.user_id == current_user.id).all()
+    
+    # Calculate overall statistics
+    total_subjects = len(subjects)
+    total_lessons_all = sum(s.total_lessons for s in subjects)
+    completed_lessons_all = sum(s.lessons_completed for s in subjects)
+    avg_progress = (completed_lessons_all / total_lessons_all * 100) if total_lessons_all > 0 else 0
+    
+    # Get recently completed lessons
+    recent_completions = db.query(
+        Lesson.id,
+        Lesson.lesson_title,
+        Lesson.completed_at,
+        Subject.subject_name,
+        Subject.grade
+    ).join(SubStrand).join(Strand).join(Subject).filter(
+        Subject.user_id == current_user.id,
+        Lesson.is_completed == True
+    ).order_by(Lesson.completed_at.desc()).limit(10).all()
+    
+    # Subject-wise progress
+    subject_progress = []
+    for subject in subjects:
+        # Get strand-level progress
+        strands = db.query(Strand).filter(Strand.subject_id == subject.id).all()
+        strand_data = []
+        
+        for strand in strands:
+            total_in_strand = db.query(Lesson).join(SubStrand).filter(
+                SubStrand.strand_id == strand.id
+            ).count()
+            
+            completed_in_strand = db.query(Lesson).join(SubStrand).filter(
+                SubStrand.strand_id == strand.id,
+                Lesson.is_completed == True
+            ).count()
+            
+            strand_data.append({
+                "strand_code": strand.strand_code,
+                "strand_name": strand.strand_name,
+                "total_lessons": total_in_strand,
+                "completed_lessons": completed_in_strand,
+                "progress": (completed_in_strand / total_in_strand * 100) if total_in_strand > 0 else 0
+            })
+        
+        subject_progress.append({
+            "id": subject.id,
+            "subject_name": subject.subject_name,
+            "grade": subject.grade,
+            "total_lessons": subject.total_lessons,
+            "completed_lessons": subject.lessons_completed,
+            "progress_percentage": float(subject.progress_percentage),
+            "strands": strand_data
+        })
+    
+    return {
+        "overview": {
+            "total_subjects": total_subjects,
+            "total_lessons": total_lessons_all,
+            "completed_lessons": completed_lessons_all,
+            "average_progress": round(avg_progress, 2)
+        },
+        "subjects": subject_progress,
+        "recent_completions": [
+            {
+                "lesson_id": rc[0],
+                "lesson_title": rc[1],
+                "completed_at": rc[2].isoformat() if rc[2] else None,
+                "subject_name": rc[3],
+                "grade": rc[4]
+            }
+            for rc in recent_completions
+        ]
+    }
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

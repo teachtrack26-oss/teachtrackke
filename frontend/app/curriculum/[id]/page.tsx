@@ -76,13 +76,13 @@ export default function CurriculumDetailPage() {
       const response = await axios.get(`/api/v1/subjects/${subjectId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      
+
       if (!response.data) {
         throw new Error("No data received from server");
       }
-      
+
       setSubject(response.data);
-      
+
       // Expand all strands by default
       if (response.data.strands && Array.isArray(response.data.strands)) {
         setExpandedStrands(
@@ -99,7 +99,9 @@ export default function CurriculumDetailPage() {
           router.push("/login");
           return;
         }
-        toast.error(error.response?.data?.detail || "Failed to load curriculum details");
+        toast.error(
+          error.response?.data?.detail || "Failed to load curriculum details"
+        );
       } else {
         toast.error("Failed to load curriculum details");
       }
@@ -170,7 +172,8 @@ export default function CurriculumDetailPage() {
             {subject.subject_name} - Grade {subject.grade}
           </h1>
           <p className="text-gray-600">
-            {subject.total_lessons} lessons • {subject.strands?.length || 0} strands
+            {subject.total_lessons} lessons • {subject.strands?.length || 0}{" "}
+            strands
           </p>
         </div>
 
@@ -207,219 +210,220 @@ export default function CurriculumDetailPage() {
             subject.strands
               .sort((a, b) => a.sequence_order - b.sequence_order)
               .map((strand) => (
-              <div key={strand.id} className="bg-white rounded-lg shadow-md">
-                {/* Strand Header */}
-                <button
-                  onClick={() => toggleStrand(strand.id)}
-                  className="w-full p-6 flex items-center justify-between hover:bg-gray-50 transition-colors"
-                >
-                  <div className="flex items-center space-x-4">
-                    {expandedStrands.has(strand.id) ? (
-                      <FiChevronDown className="w-6 h-6 text-gray-500" />
-                    ) : (
-                      <FiChevronRight className="w-6 h-6 text-gray-500" />
-                    )}
-                    <div className="text-left">
-                      <h3 className="text-lg font-semibold text-gray-900">
-                        {strand.strand_code}. {strand.strand_name}
-                      </h3>
-                      <p className="text-sm text-gray-600">
-                        {strand.sub_strands.length} sub-strands
-                      </p>
+                <div key={strand.id} className="bg-white rounded-lg shadow-md">
+                  {/* Strand Header */}
+                  <button
+                    onClick={() => toggleStrand(strand.id)}
+                    className="w-full p-6 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                  >
+                    <div className="flex items-center space-x-4">
+                      {expandedStrands.has(strand.id) ? (
+                        <FiChevronDown className="w-6 h-6 text-gray-500" />
+                      ) : (
+                        <FiChevronRight className="w-6 h-6 text-gray-500" />
+                      )}
+                      <div className="text-left">
+                        <h3 className="text-lg font-semibold text-gray-900">
+                          {strand.strand_code}. {strand.strand_name}
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          {strand.sub_strands.length} sub-strands
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </button>
+                  </button>
 
-                {/* Sub-Strands */}
-                {expandedStrands.has(strand.id) && (
-                  <div className="border-t border-gray-200">
-                    {strand.sub_strands
-                      .sort((a, b) => a.sequence_order - b.sequence_order)
-                      .map((subStrand) => (
-                        <div
-                          key={subStrand.id}
-                          className="border-b border-gray-100 last:border-b-0"
-                        >
-                          {/* Sub-Strand Header */}
-                          <button
-                            onClick={() => toggleSubStrand(subStrand.id)}
-                            className="w-full p-6 pl-16 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                  {/* Sub-Strands */}
+                  {expandedStrands.has(strand.id) && (
+                    <div className="border-t border-gray-200">
+                      {strand.sub_strands
+                        .sort((a, b) => a.sequence_order - b.sequence_order)
+                        .map((subStrand) => (
+                          <div
+                            key={subStrand.id}
+                            className="border-b border-gray-100 last:border-b-0"
                           >
-                            <div className="flex items-center space-x-4">
-                              {expandedSubStrands.has(subStrand.id) ? (
-                                <FiChevronDown className="w-5 h-5 text-gray-500" />
-                              ) : (
-                                <FiChevronRight className="w-5 h-5 text-gray-500" />
-                              )}
-                              <div className="text-left">
-                                <h4 className="text-md font-medium text-gray-900">
-                                  {subStrand.substrand_code}.{" "}
-                                  {subStrand.substrand_name}
-                                </h4>
-                                <p className="text-sm text-gray-600">
-                                  {subStrand.lessons_count} lessons
-                                </p>
-                              </div>
-                            </div>
-                          </button>
-
-                          {/* Sub-Strand Details */}
-                          {expandedSubStrands.has(subStrand.id) && (
-                            <div className="p-6 pl-24 bg-gray-50 space-y-6">
-                              {/* Specific Learning Outcomes */}
-                              {subStrand.specific_learning_outcomes &&
-                                subStrand.specific_learning_outcomes.length >
-                                  0 && (
-                                  <div>
-                                    <h5 className="font-semibold text-gray-900 mb-3 flex items-center">
-                                      <FiCheckCircle className="w-5 h-5 mr-2 text-green-600" />
-                                      Specific Learning Outcomes
-                                    </h5>
-                                    <ul className="space-y-2">
-                                      {subStrand.specific_learning_outcomes.map(
-                                        (outcome, idx) => (
-                                          <li
-                                            key={idx}
-                                            className="text-gray-700 pl-4 border-l-2 border-green-400"
-                                          >
-                                            {outcome}
-                                          </li>
-                                        )
-                                      )}
-                                    </ul>
-                                  </div>
+                            {/* Sub-Strand Header */}
+                            <button
+                              onClick={() => toggleSubStrand(subStrand.id)}
+                              className="w-full p-6 pl-16 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                            >
+                              <div className="flex items-center space-x-4">
+                                {expandedSubStrands.has(subStrand.id) ? (
+                                  <FiChevronDown className="w-5 h-5 text-gray-500" />
+                                ) : (
+                                  <FiChevronRight className="w-5 h-5 text-gray-500" />
                                 )}
-
-                              {/* Suggested Learning Experiences */}
-                              {subStrand.suggested_learning_experiences &&
-                                subStrand.suggested_learning_experiences
-                                  .length > 0 && (
-                                  <div>
-                                    <h5 className="font-semibold text-gray-900 mb-3 flex items-center">
-                                      <FiBook className="w-5 h-5 mr-2 text-blue-600" />
-                                      Suggested Learning Experiences
-                                    </h5>
-                                    <ul className="space-y-2">
-                                      {subStrand.suggested_learning_experiences.map(
-                                        (experience, idx) => (
-                                          <li
-                                            key={idx}
-                                            className="text-gray-700 pl-4 border-l-2 border-blue-400"
-                                          >
-                                            {experience}
-                                          </li>
-                                        )
-                                      )}
-                                    </ul>
-                                  </div>
-                                )}
-
-                              {/* Key Inquiry Questions */}
-                              {subStrand.key_inquiry_questions && (
-                                <div>
-                                  <h5 className="font-semibold text-gray-900 mb-3 flex items-center">
-                                    <span className="text-purple-600 mr-2">
-                                      ?
-                                    </span>
-                                    Key Inquiry Questions
-                                  </h5>
-                                  <p className="text-gray-700 pl-4 border-l-2 border-purple-400">
-                                    {subStrand.key_inquiry_questions}
+                                <div className="text-left">
+                                  <h4 className="text-md font-medium text-gray-900">
+                                    {subStrand.substrand_code}.{" "}
+                                    {subStrand.substrand_name}
+                                  </h4>
+                                  <p className="text-sm text-gray-600">
+                                    {subStrand.lessons_count} lessons
                                   </p>
                                 </div>
-                              )}
+                              </div>
+                            </button>
 
-                              {/* Core Competencies */}
-                              {subStrand.core_competencies &&
-                                subStrand.core_competencies.length > 0 && (
+                            {/* Sub-Strand Details */}
+                            {expandedSubStrands.has(subStrand.id) && (
+                              <div className="p-6 pl-24 bg-gray-50 space-y-6">
+                                {/* Specific Learning Outcomes */}
+                                {subStrand.specific_learning_outcomes &&
+                                  subStrand.specific_learning_outcomes.length >
+                                    0 && (
+                                    <div>
+                                      <h5 className="font-semibold text-gray-900 mb-3 flex items-center">
+                                        <FiCheckCircle className="w-5 h-5 mr-2 text-green-600" />
+                                        Specific Learning Outcomes
+                                      </h5>
+                                      <ul className="space-y-2">
+                                        {subStrand.specific_learning_outcomes.map(
+                                          (outcome, idx) => (
+                                            <li
+                                              key={idx}
+                                              className="text-gray-700 pl-4 border-l-2 border-green-400"
+                                            >
+                                              {outcome}
+                                            </li>
+                                          )
+                                        )}
+                                      </ul>
+                                    </div>
+                                  )}
+
+                                {/* Suggested Learning Experiences */}
+                                {subStrand.suggested_learning_experiences &&
+                                  subStrand.suggested_learning_experiences
+                                    .length > 0 && (
+                                    <div>
+                                      <h5 className="font-semibold text-gray-900 mb-3 flex items-center">
+                                        <FiBook className="w-5 h-5 mr-2 text-blue-600" />
+                                        Suggested Learning Experiences
+                                      </h5>
+                                      <ul className="space-y-2">
+                                        {subStrand.suggested_learning_experiences.map(
+                                          (experience, idx) => (
+                                            <li
+                                              key={idx}
+                                              className="text-gray-700 pl-4 border-l-2 border-blue-400"
+                                            >
+                                              {experience}
+                                            </li>
+                                          )
+                                        )}
+                                      </ul>
+                                    </div>
+                                  )}
+
+                                {/* Key Inquiry Questions */}
+                                {subStrand.key_inquiry_questions && (
                                   <div>
-                                    <h5 className="font-semibold text-gray-900 mb-3">
-                                      Core Competencies to be Developed
+                                    <h5 className="font-semibold text-gray-900 mb-3 flex items-center">
+                                      <span className="text-purple-600 mr-2">
+                                        ?
+                                      </span>
+                                      Key Inquiry Questions
                                     </h5>
-                                    <ul className="space-y-2">
-                                      {subStrand.core_competencies.map(
-                                        (competency, idx) => (
+                                    <p className="text-gray-700 pl-4 border-l-2 border-purple-400">
+                                      {subStrand.key_inquiry_questions}
+                                    </p>
+                                  </div>
+                                )}
+
+                                {/* Core Competencies */}
+                                {subStrand.core_competencies &&
+                                  subStrand.core_competencies.length > 0 && (
+                                    <div>
+                                      <h5 className="font-semibold text-gray-900 mb-3">
+                                        Core Competencies to be Developed
+                                      </h5>
+                                      <ul className="space-y-2">
+                                        {subStrand.core_competencies.map(
+                                          (competency, idx) => (
+                                            <li
+                                              key={idx}
+                                              className="text-gray-700 pl-4 border-l-2 border-indigo-400"
+                                            >
+                                              {competency}
+                                            </li>
+                                          )
+                                        )}
+                                      </ul>
+                                    </div>
+                                  )}
+
+                                {/* Values */}
+                                {subStrand.values &&
+                                  subStrand.values.length > 0 && (
+                                    <div>
+                                      <h5 className="font-semibold text-gray-900 mb-3">
+                                        Values
+                                      </h5>
+                                      <ul className="space-y-2">
+                                        {subStrand.values.map((value, idx) => (
                                           <li
                                             key={idx}
-                                            className="text-gray-700 pl-4 border-l-2 border-indigo-400"
+                                            className="text-gray-700 pl-4 border-l-2 border-yellow-400"
                                           >
-                                            {competency}
+                                            {value}
                                           </li>
-                                        )
-                                      )}
-                                    </ul>
-                                  </div>
-                                )}
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  )}
 
-                              {/* Values */}
-                              {subStrand.values &&
-                                subStrand.values.length > 0 && (
-                                  <div>
-                                    <h5 className="font-semibold text-gray-900 mb-3">
-                                      Values
-                                    </h5>
-                                    <ul className="space-y-2">
-                                      {subStrand.values.map((value, idx) => (
-                                        <li
-                                          key={idx}
-                                          className="text-gray-700 pl-4 border-l-2 border-yellow-400"
-                                        >
-                                          {value}
-                                        </li>
-                                      ))}
-                                    </ul>
-                                  </div>
-                                )}
-
-                              {/* PCIs */}
-                              {subStrand.pcis && subStrand.pcis.length > 0 && (
-                                <div>
-                                  <h5 className="font-semibold text-gray-900 mb-3">
-                                    Pertinent and Contemporary Issues (PCIs)
-                                  </h5>
-                                  <ul className="space-y-2">
-                                    {subStrand.pcis.map((pci, idx) => (
-                                      <li
-                                        key={idx}
-                                        className="text-gray-700 pl-4 border-l-2 border-red-400"
-                                      >
-                                        {pci}
-                                      </li>
-                                    ))}
-                                  </ul>
-                                </div>
-                              )}
-
-                              {/* Links to Other Subjects */}
-                              {subStrand.links_to_other_subjects &&
-                                subStrand.links_to_other_subjects.length >
-                                  0 && (
-                                  <div>
-                                    <h5 className="font-semibold text-gray-900 mb-3">
-                                      Links to Other Subjects
-                                    </h5>
-                                    <ul className="space-y-2">
-                                      {subStrand.links_to_other_subjects.map(
-                                        (link, idx) => (
+                                {/* PCIs */}
+                                {subStrand.pcis &&
+                                  subStrand.pcis.length > 0 && (
+                                    <div>
+                                      <h5 className="font-semibold text-gray-900 mb-3">
+                                        Pertinent and Contemporary Issues (PCIs)
+                                      </h5>
+                                      <ul className="space-y-2">
+                                        {subStrand.pcis.map((pci, idx) => (
                                           <li
                                             key={idx}
-                                            className="text-gray-700 pl-4 border-l-2 border-teal-400"
+                                            className="text-gray-700 pl-4 border-l-2 border-red-400"
                                           >
-                                            {link}
+                                            {pci}
                                           </li>
-                                        )
-                                      )}
-                                    </ul>
-                                  </div>
-                                )}
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                  </div>
-                )}
-              </div>
-            ))
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  )}
+
+                                {/* Links to Other Subjects */}
+                                {subStrand.links_to_other_subjects &&
+                                  subStrand.links_to_other_subjects.length >
+                                    0 && (
+                                    <div>
+                                      <h5 className="font-semibold text-gray-900 mb-3">
+                                        Links to Other Subjects
+                                      </h5>
+                                      <ul className="space-y-2">
+                                        {subStrand.links_to_other_subjects.map(
+                                          (link, idx) => (
+                                            <li
+                                              key={idx}
+                                              className="text-gray-700 pl-4 border-l-2 border-teal-400"
+                                            >
+                                              {link}
+                                            </li>
+                                          )
+                                        )}
+                                      </ul>
+                                    </div>
+                                  )}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                    </div>
+                  )}
+                </div>
+              ))
           ) : (
             <div className="bg-white rounded-lg shadow-md p-12 text-center">
               <FiBook className="mx-auto h-12 w-12 text-gray-400 mb-4" />

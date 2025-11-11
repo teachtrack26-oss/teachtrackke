@@ -127,6 +127,13 @@ export default function CurriculumPage() {
           </div>
           <div className="flex space-x-3">
             <button
+              onClick={() => router.push("/curriculum/tracking")}
+              className="inline-flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+            >
+              <FiEye className="w-5 h-5" />
+              <span>Track Progress</span>
+            </button>
+            <button
               onClick={() => router.push("/curriculum/select")}
               className="inline-flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
             >
