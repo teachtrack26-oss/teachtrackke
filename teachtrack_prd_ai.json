@@ -1,0 +1,312 @@
+{
+  "product": "TeachTrack CBC",
+  "version": "1.0",
+  "last_updated": "January 2025",
+  "owner": "[Your Name]",
+  "executive_summary": {
+    "overview": "Curriculum tracking and notes management for Kenyan CBC teachers (Grades 1-10).",
+    "features": [
+      "Upload and digitize curriculum PDFs",
+      "Track teaching progress",
+      "Organize and present notes",
+      "Generate progress reports"
+    ],
+    "problem_statement": [
+      "Manual tracking across subjects",
+      "Scattered notes",
+      "Time wasted searching for materials",
+      "No progress visibility",
+      "Limited collaboration"
+    ],
+    "solution": ["AI-powered curriculum tracker", "Centralized notes library"],
+    "success_metrics": {
+      "adoption": "500+ teachers in 6 months",
+      "time_saved": "3+ hours/week",
+      "satisfaction": "4.5+ stars",
+      "retention": "70%+ monthly active users"
+    }
+  },
+  "user_personas": [
+    {
+      "name": "Mary Wanjiku",
+      "role": "Primary School Teacher",
+      "grade": "1-6",
+      "location": "Nairobi",
+      "subjects": 6,
+      "tech_level": "Moderate",
+      "pain_points": [
+        "Handles 30+ lessons/week",
+        "Forgets sub-strand",
+        "Notes scattered"
+      ],
+      "goals": [
+        "Quick access to notes",
+        "Know curriculum position",
+        "Reduce prep time"
+      ]
+    },
+    {
+      "name": "John Kamau",
+      "role": "Junior Secondary Teacher",
+      "grade": "7-9",
+      "location": "Mombasa",
+      "subjects": 2,
+      "tech_level": "High",
+      "pain_points": [
+        "Admin requires reports",
+        "Hard to share notes",
+        "Wants collaboration"
+      ],
+      "goals": [
+        "Automated reporting",
+        "Easy note sharing",
+        "Presentation tools"
+      ]
+    },
+    {
+      "name": "Grace Akinyi",
+      "role": "Rural School Teacher",
+      "grade": "multi",
+      "location": "Kisumu",
+      "subjects": 5,
+      "tech_level": "Basic",
+      "pain_points": ["Poor internet", "Limited computer access"],
+      "goals": ["Mobile-friendly", "Offline access", "Simple design"]
+    }
+  ],
+  "functional_requirements": {
+    "authentication": {
+      "registration": {
+        "priority": "P0",
+        "criteria": [
+          "Register with email/password",
+          "Email verification",
+          "Profile: Name, Phone, School, Grade, Subjects",
+          "Password policy",
+          "Duplicate email detection"
+        ],
+        "tech": ["NextAuth.js", "JWT", "Bcrypt", "Email service"]
+      },
+      "login_logout": {
+        "priority": "P0",
+        "criteria": [
+          "Login with email/password",
+          "Remember Me",
+          "Password reset",
+          "Session timeout",
+          "Logout"
+        ]
+      }
+    },
+    "curriculum_management": {
+      "upload_pdf": {
+        "priority": "P0",
+        "criteria": [
+          "PDF only, max 10MB",
+          "Select grade/subject",
+          "Progress indicator",
+          "Backend parsing",
+          "Error handling"
+        ],
+        "tech": [
+          "React Dropzone",
+          "PyPDF2",
+          "PDF.js",
+          "Qwen QwQ-32B",
+          "OpenRouter API"
+        ]
+      },
+      "ai_parsing": {
+        "priority": "P0",
+        "criteria": [
+          "Extract subject, grade, strands, sub-strands, lessons, outcomes, questions, activities",
+          "Confidence score",
+          "Manual review if low confidence",
+          "Regex fallback"
+        ]
+      },
+      "review_confirm": {
+        "priority": "P0",
+        "criteria": [
+          "Side-by-side PDF/parsed",
+          "Edit strands, sub-strands, lessons, outcomes",
+          "Add/delete entries",
+          "Save/re-parse"
+        ]
+      },
+      "preloaded_library": {
+        "priority": "P1",
+        "criteria": [
+          "Pre-load common curricula",
+          "Browse by grade/subject",
+          "Add to My Subjects",
+          "Upload custom if not found"
+        ]
+      }
+    },
+    "subject_progress_tracking": {
+      "dashboard": {
+        "priority": "P0",
+        "criteria": [
+          "Display all subjects",
+          "Progress bar",
+          "Current strand/sub-strand",
+          "Quick actions",
+          "Sort and color-code"
+        ]
+      },
+      "mark_complete": {
+        "priority": "P0",
+        "criteria": [
+          "Single-click mark complete",
+          "Auto-advance",
+          "Undo/skip",
+          "Timestamps"
+        ]
+      },
+      "detailed_view": {
+        "priority": "P0",
+        "criteria": [
+          "Expandable tree",
+          "Indicators for progress",
+          "Timeline view",
+          "Attach notes"
+        ]
+      },
+      "progress_reports": {
+        "priority": "P1",
+        "criteria": [
+          "Generate by subject/term/date",
+          "Export PDF/Excel",
+          "Share via email"
+        ]
+      }
+    },
+    "notes_management": {
+      "upload_notes": {
+        "priority": "P0",
+        "criteria": [
+          "Upload .docx, .pptx, .pdf (max 50MB)",
+          "Batch upload",
+          "Auto/manual subject assignment",
+          "Add tags",
+          "Progress indicator",
+          "Store in R2"
+        ]
+      },
+      "library": {
+        "priority": "P0",
+        "criteria": [
+          "Hierarchical view",
+          "Grid/list view",
+          "Search/filter/sort"
+        ]
+      },
+      "presentation_mode": {
+        "priority": "P0",
+        "criteria": [
+          "Fullscreen present",
+          "Support pptx/pdf/docx",
+          "Offline support",
+          "Mobile/tablet"
+        ]
+      },
+      "sharing": {
+        "priority": "P2",
+        "criteria": [
+          "Shareable link",
+          "Permissions",
+          "Track access",
+          "Revoke access"
+        ]
+      }
+    },
+    "offline_support": {
+      "offline_functionality": {
+        "priority": "P1",
+        "criteria": [
+          "Dashboard loads offline",
+          "Mark lessons offline",
+          "Notes offline",
+          "Sync on reconnect"
+        ]
+      },
+      "pwa": {
+        "priority": "P1",
+        "criteria": [
+          "Add to home screen",
+          "Standalone app",
+          "Push notifications"
+        ]
+      }
+    },
+    "reports_analytics": {
+      "progress_analytics": {
+        "priority": "P2",
+        "criteria": ["Dashboard widgets", "Visualizations", "Insights"]
+      }
+    }
+  },
+  "non_functional_requirements": {
+    "performance": {
+      "page_load": "<2s",
+      "pdf_parsing": "<30s",
+      "file_upload": "<5s",
+      "api_response": "<500ms",
+      "concurrent_users": "100+"
+    },
+    "security": {
+      "auth": "JWT, bcrypt",
+      "authorization": "Role-based",
+      "encryption": "HTTPS, encrypted storage",
+      "file_validation": "Virus scan, type check",
+      "rate_limiting": "100 req/min/user"
+    },
+    "scalability": {
+      "horizontal_scaling": true,
+      "db": "SQLite → MySQL/PostgreSQL",
+      "cdn": "Cloudflare R2",
+      "caching": "Redis (future)"
+    },
+    "reliability": {
+      "uptime": "99.5% MVP, 99.9% prod",
+      "backup": "Daily, 30-day retention",
+      "error_handling": "Graceful, user-friendly",
+      "monitoring": "Logging, Sentry"
+    },
+    "usability": {
+      "mobile_first": true,
+      "accessibility": "WCAG 2.1 AA",
+      "browser_support": ["Chrome", "Firefox", "Safari", "Edge"],
+      "language": ["English", "Kiswahili (future)"],
+      "onboarding": "Interactive tutorial"
+    },
+    "compatibility": {
+      "devices": ["smartphones", "tablets", "desktops"],
+      "os": ["Android 8+", "iOS 13+", "Windows 10+", "macOS 10.14+"],
+      "internet": "2G/3G/4G/WiFi, offline"
+    }
+  },
+  "technical_specifications": {
+    "stack": {
+      "frontend": "Next.js 14",
+      "styling": "Tailwind CSS",
+      "auth": "NextAuth.js",
+      "state": "React Context + SWR",
+      "backend": "FastAPI (Python)",
+      "database": "SQLite → MySQL",
+      "file_storage": "Cloudflare R2",
+      "ai": "Qwen QwQ-32B (OpenRouter)",
+      "pdf_parsing": "PyPDF2 + PDF.js",
+      "deployment": "Vercel, Railway",
+      "monitoring": "Sentry, Vercel Analytics"
+    },
+    "db_schema": "See original PRD for full SQL",
+    "api_endpoints": "See original PRD for full list"
+  },
+  "user_flows": "See original PRD for detailed flows",
+  "milestones": "See original PRD for timeline",
+  "success_criteria": "See original PRD for metrics",
+  "risks": "See original PRD for risks and mitigation",
+  "future_enhancements": "See original PRD for v2/v3 features"
+}

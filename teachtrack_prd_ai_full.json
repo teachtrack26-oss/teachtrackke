@@ -1,0 +1,193 @@
+{
+  "product": "TeachTrack CBC",
+  "version": "1.0",
+  "last_updated": "January 2025",
+  "product_owner": "[Your Name]",
+  "executive_summary": {
+    "product_overview": "TeachTrack CBC is a comprehensive curriculum tracking and notes management system designed for Kenyan CBC teachers in Grades 1-10. The platform enables teachers to upload and digitize curriculum PDFs, track teaching progress, organize and present notes, and generate progress reports.",
+    "problem_statement": [
+      "Manual tracking across multiple subjects with complex strand structures.",
+      "Teaching materials scattered across books, Word docs, PDFs, and PowerPoints.",
+      "Time wasted searching for notes and remembering lesson positions.",
+      "No visibility into progress or schedule.",
+      "Limited collaboration with colleagues."
+    ],
+    "solution": [
+      "AI-powered PDF parsing and visual progress tracking.",
+      "Centralized notes library with one-click presentation mode."
+    ],
+    "success_metrics": {
+      "adoption": "500+ teachers in 6 months",
+      "time_saved": "3+ hours/week per teacher",
+      "satisfaction": "4.5+ star rating",
+      "retention": "70%+ monthly active users after 3 months"
+    }
+  },
+  "user_personas": [
+    {
+      "name": "Mary Wanjiku",
+      "role": "Primary School Teacher",
+      "grade": "1-6",
+      "location": "Nairobi, Public Primary School",
+      "subjects": [
+        "Math",
+        "English",
+        "Science",
+        "Social Studies",
+        "Creative Arts",
+        "Pre-Technical"
+      ],
+      "tech_level": "Moderate",
+      "pain_points": [
+        "Handles 30+ lessons/week across subjects",
+        "Forgets which sub-strand she's on",
+        "Notes scattered in 3 different folders"
+      ],
+      "goals": [
+        "Quick access to today's lesson notes",
+        "Know exactly where she is in curriculum",
+        "Reduce lesson prep time"
+      ]
+    },
+    {
+      "name": "John Kamau",
+      "role": "Junior Secondary Teacher",
+      "grade": "7-9",
+      "location": "Mombasa, Private School",
+      "subjects": ["Mathematics", "Integrated Science"],
+      "tech_level": "High",
+      "pain_points": [
+        "School admin requires weekly progress reports",
+        "Students ask for notes on WhatsApp - hard to share",
+        "Wants to collaborate with other Math teachers"
+      ],
+      "goals": [
+        "Automated progress reporting",
+        "Easy note sharing",
+        "Professional presentation tools"
+      ]
+    },
+    {
+      "name": "Grace Akinyi",
+      "role": "Rural School Teacher",
+      "grade": "multi-grade",
+      "location": "Kisumu County, Rural School",
+      "subjects": ["5 subjects (multi-grade sometimes)"],
+      "tech_level": "Basic",
+      "pain_points": [
+        "Poor internet connectivity",
+        "Limited computer access (only smartphone)"
+      ],
+      "goals": [
+        "Mobile-friendly interface",
+        "Works offline",
+        "Simple, intuitive design"
+      ]
+    }
+  ],
+  "functional_requirements": {},
+  "non_functional_requirements": {},
+  "technical_specifications": {},
+  "user_flows": {},
+  "milestones": {},
+  "success_criteria": {},
+  "risks": {},
+  "future_enhancements": {},
+  "documentation": {
+    "overview": "TeachTrack CBC is a digital assistant for Kenyan teachers teaching the Competency-Based Curriculum (CBC) from Grade 1 to Grade 10. It acts as a 'Google Maps for your curriculum' and 'Dropbox for your teaching notes.'",
+    "core_problems": [
+      {
+        "problem": "Where Am I in the Curriculum?",
+        "before": [
+          "Teacher manually tracks curriculum position in a PDF.",
+          "Often forgets where they stopped.",
+          "No schedule or progress visibility."
+        ],
+        "after": [
+          "Dashboard shows subject progress and current lesson.",
+          "One-click to mark lesson complete and auto-advance.",
+          "Color-coded alerts for schedule status."
+        ]
+      },
+      {
+        "problem": "Where Are My Notes?",
+        "before": [
+          "Notes scattered across devices and platforms.",
+          "Time wasted searching for files.",
+          "No mobile access in class."
+        ],
+        "after": [
+          "All notes organized by subject, strand, and sub-strand.",
+          "Instant search and fullscreen presentation mode.",
+          "Works offline on any device."
+        ]
+      }
+    ],
+    "step_by_step": [
+      "Teacher signs up and verifies email.",
+      "Adds first subject by uploading a curriculum PDF or choosing from pre-loaded library.",
+      "System parses PDF using AI, extracts strands, sub-strands, lessons, and learning outcomes.",
+      "Teacher reviews and confirms parsed curriculum.",
+      "Dashboard displays all subjects with progress bars and quick actions.",
+      "Teacher marks lessons complete, uploads and organizes notes, and presents notes in class.",
+      "Offline support allows marking lessons and accessing notes without internet.",
+      "Progress reports can be generated and exported for headteachers."
+    ],
+    "ai_parsing": {
+      "challenge": "Curriculum PDFs have complex, inconsistent structures (tables, bullets, etc.)",
+      "solution": [
+        "Extract text from PDF (PDF.js, PyPDF2)",
+        "Send to Qwen AI for structure extraction (strands, sub-strands, lessons, outcomes, questions)",
+        "Return as JSON, validate, and calculate confidence score.",
+        "Fallback to regex parsing if AI fails.",
+        "Teacher reviews and confirms before saving."
+      ],
+      "example_json": {
+        "subject": "Agriculture and Nutrition",
+        "grade": "7",
+        "strands": [
+          {
+            "id": "1.0",
+            "name": "Conservation of Resources",
+            "sub_strands": [
+              {
+                "id": "1.1",
+                "name": "Controlling Soil Pollution",
+                "lessons": 7,
+                "learning_outcomes": [
+                  "Explain causes of soil pollution",
+                  "Control soil pollution in home environment"
+                ],
+                "key_inquiry": "How can household practices cause soil pollution?"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "data_flow": "Frontend (Next.js) uploads PDF → Backend (FastAPI) extracts text and sends to Qwen AI via OpenRouter API → AI returns parsed JSON → Backend validates and saves to database → Frontend displays parsed curriculum for review.",
+    "mobile_experience": {
+      "home_screen": "App icon, tap to open, native-like experience.",
+      "dashboard": "Shows all subjects, progress bars, and quick actions.",
+      "offline_mode": "Banner indicates offline, cached data accessible, syncs when online."
+    },
+    "teacher_journey": [
+      "Monday: Opens app, checks today's lesson, downloads notes for offline use.",
+      "Teaches lesson, presents notes, marks lesson complete.",
+      "Tuesday: Uploads new worksheets, tags and organizes them.",
+      "Friday: Reviews weekly progress and reports.",
+      "Sunday: Prepares for next week, downloads needed notes."
+    ],
+    "value_proposition": [
+      "Saves time by organizing notes and automating progress tracking.",
+      "Provides peace of mind with clear curriculum position and visual progress.",
+      "Professional presentation and reporting tools.",
+      "Accessible anywhere, works offline, no expensive hardware needed.",
+      "Freemium model: free for 2 subjects, affordable premium tier."
+    ],
+    "aha_moment": {
+      "before": "Uncertainty about curriculum position, scattered notes, wasted time.",
+      "after": "Open app, see exact lesson, present notes, mark complete in seconds."
+    }
+  }
+}
