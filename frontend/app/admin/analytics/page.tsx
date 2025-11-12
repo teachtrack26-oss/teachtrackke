@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import axios from 'axios';
-import { toast } from 'react-hot-toast';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 import {
   BarChart,
   Bar,
@@ -18,8 +18,8 @@ import {
   Cell,
   LineChart,
   Line,
-} from 'recharts';
-import { FaUsers, FaBook, FaChartLine, FaGraduationCap } from 'react-icons/fa';
+} from "recharts";
+import { FaUsers, FaBook, FaChartLine, FaGraduationCap } from "react-icons/fa";
 
 interface Analytics {
   overview: {
@@ -57,7 +57,14 @@ interface Analytics {
   };
 }
 
-const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+const COLORS = [
+  "#3b82f6",
+  "#10b981",
+  "#f59e0b",
+  "#ef4444",
+  "#8b5cf6",
+  "#ec4899",
+];
 
 export default function AdminAnalyticsPage() {
   const router = useRouter();
@@ -70,26 +77,26 @@ export default function AdminAnalyticsPage() {
 
   const fetchAnalytics = async () => {
     try {
-      const token = localStorage.getItem('accessToken');
+      const token = localStorage.getItem("accessToken");
       if (!token) {
-        router.push('/login');
+        router.push("/login");
         return;
       }
 
       const response = await axios.get(
-        'http://192.168.0.102:8000/api/v1/admin/analytics',
+        "http://192.168.0.102:8000/api/v1/admin/analytics",
         {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
       setAnalytics(response.data);
     } catch (error: any) {
       if (error.response?.status === 403) {
-        toast.error('Admin access required');
-        router.push('/dashboard');
+        toast.error("Admin access required");
+        router.push("/dashboard");
       } else {
-        toast.error('Failed to load analytics');
+        toast.error("Failed to load analytics");
       }
     } finally {
       setLoading(false);
@@ -361,7 +368,9 @@ export default function AdminAnalyticsPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       <div className="flex items-center">
-                        <span className="mr-2">{teacher.avg_progress.toFixed(1)}%</span>
+                        <span className="mr-2">
+                          {teacher.avg_progress.toFixed(1)}%
+                        </span>
                         <div className="w-24 bg-gray-200 rounded-full h-2">
                           <div
                             className="bg-blue-600 h-2 rounded-full"
@@ -374,11 +383,11 @@ export default function AdminAnalyticsPage() {
                       <span
                         className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                           teacher.subjects > 0
-                            ? 'bg-green-100 text-green-800'
-                            : 'bg-gray-100 text-gray-800'
+                            ? "bg-green-100 text-green-800"
+                            : "bg-gray-100 text-gray-800"
                         }`}
                       >
-                        {teacher.subjects > 0 ? 'Active' : 'Inactive'}
+                        {teacher.subjects > 0 ? "Active" : "Inactive"}
                       </span>
                     </td>
                   </tr>

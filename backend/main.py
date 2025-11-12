@@ -1650,6 +1650,194 @@ def get_admin_analytics(
         "progress_distribution": progress_ranges
     }
 
+# ============================================================================
+# ADMIN - CURRICULUM TEMPLATE EDITOR ENDPOINTS
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/admin/curriculum-templates/{{template_id}}")
+def get_template_for_editing(
+    template_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get curriculum template with all strands and substrands for editing (Admin only)"""
+    
+    # Check if user is admin
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    template = db.query(CurriculumTemplate).filter(CurriculumTemplate.id == template_id).first()
+    
+    if not template:
+        raise HTTPException(status_code=404, detail="Template not found")
+    
+    # Get all strands with substrands
+    strands = db.query(TemplateStrand).filter(
+        TemplateStrand.template_id == template_id
+    ).order_by(TemplateStrand.sequence_order).all()
+    
+    strands_data = []
+    for strand in strands:
+        substrands = db.query(TemplateSubstrand).filter(
+            TemplateSubstrand.strand_id == strand.id
+        ).order_by(TemplateSubstrand.sequence_order).all()
+        
+        strands_data.append({
+            "id": strand.id,
+            "sequence_order": strand.sequence_order,
+            "strand_name": strand.strand_name,
+            "substrands": [
+                {
+                    "id": ss.id,
+                    "sequence_order": ss.sequence_order,
+                    "substrand_name": ss.substrand_name,
+                    "specific_learning_outcomes": ss.specific_learning_outcomes,
+                    "suggested_learning_experiences": ss.suggested_learning_experiences,
+                    "key_inquiry_questions": ss.key_inquiry_questions,
+                    "number_of_lessons": ss.number_of_lessons
+                }
+                for ss in substrands
+            ]
+        })
+    
+    return {
+        "id": template.id,
+        "subject": template.subject,
+        "grade": template.grade,
+        "is_active": template.is_active,
+        "total_strands": template.total_strands,
+        "total_substrands": template.total_substrands,
+        "total_lessons": template.total_lessons,
+        "strands": strands_data
+    }
+
+@app.put(f"{settings.API_V1_PREFIX}/admin/curriculum-templates/{{template_id}}")
+def update_curriculum_template(
+    template_id: int,
+    update_data: dict,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update curriculum template including strands and substrands (Admin only)"""
+    
+    # Check if user is admin
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    template = db.query(CurriculumTemplate).filter(CurriculumTemplate.id == template_id).first()
+    
+    if not template:
+        raise HTTPException(status_code=404, detail="Template not found")
+    
+    try:
+        # Update template info
+        template.subject = update_data.get("subject", template.subject)
+        template.grade = update_data.get("grade", template.grade)
+        template.is_active = update_data.get("is_active", template.is_active)
+        
+        # Get existing strand IDs
+        existing_strand_ids = {strand.id for strand in db.query(TemplateStrand).filter(
+            TemplateStrand.template_id == template_id
+        ).all()}
+        
+        new_strand_ids = set()
+        total_substrands = 0
+        total_lessons = 0
+        
+        # Process strands from update data
+        if "strands" in update_data:
+            for strand_data in update_data["strands"]:
+                strand_id = strand_data.get("id")
+                
+                # Check if it's a new strand (temporary ID from frontend)
+                if strand_id and strand_id > 1000000000:  # Temporary IDs are timestamps
+                    # Create new strand
+                    new_strand = TemplateStrand(
+                        template_id=template_id,
+                        sequence_order=strand_data.get("sequence_order"),
+                        strand_name=strand_data.get("strand_name")
+                    )
+                    db.add(new_strand)
+                    db.flush()  # Get the new ID
+                    strand_id = new_strand.id
+                else:
+                    # Update existing strand
+                    strand = db.query(TemplateStrand).filter(TemplateStrand.id == strand_id).first()
+                    if strand:
+                        strand.sequence_order = strand_data.get("sequence_order")
+                        strand.strand_name = strand_data.get("strand_name")
+                
+                new_strand_ids.add(strand_id)
+                
+                # Get existing substrand IDs for this strand
+                existing_substrand_ids = {ss.id for ss in db.query(TemplateSubstrand).filter(
+                    TemplateSubstrand.strand_id == strand_id
+                ).all()}
+                
+                new_substrand_ids = set()
+                
+                # Process substrands
+                for substrand_data in strand_data.get("substrands", []):
+                    substrand_id = substrand_data.get("id")
+                    
+                    # Check if it's a new substrand
+                    if substrand_id and substrand_id > 1000000000:
+                        # Create new substrand
+                        new_substrand = TemplateSubstrand(
+                            strand_id=strand_id,
+                            sequence_order=substrand_data.get("sequence_order"),
+                            substrand_name=substrand_data.get("substrand_name"),
+                            specific_learning_outcomes=substrand_data.get("specific_learning_outcomes"),
+                            suggested_learning_experiences=substrand_data.get("suggested_learning_experiences"),
+                            key_inquiry_questions=substrand_data.get("key_inquiry_questions"),
+                            number_of_lessons=substrand_data.get("number_of_lessons", 1)
+                        )
+                        db.add(new_substrand)
+                        db.flush()
+                        substrand_id = new_substrand.id
+                    else:
+                        # Update existing substrand
+                        substrand = db.query(TemplateSubstrand).filter(
+                            TemplateSubstrand.id == substrand_id
+                        ).first()
+                        if substrand:
+                            substrand.sequence_order = substrand_data.get("sequence_order")
+                            substrand.substrand_name = substrand_data.get("substrand_name")
+                            substrand.specific_learning_outcomes = substrand_data.get("specific_learning_outcomes")
+                            substrand.suggested_learning_experiences = substrand_data.get("suggested_learning_experiences")
+                            substrand.key_inquiry_questions = substrand_data.get("key_inquiry_questions")
+                            substrand.number_of_lessons = substrand_data.get("number_of_lessons", 1)
+                    
+                    new_substrand_ids.add(substrand_id)
+                    total_substrands += 1
+                    total_lessons += substrand_data.get("number_of_lessons", 1)
+                
+                # Delete removed substrands
+                for old_id in existing_substrand_ids - new_substrand_ids:
+                    db.query(TemplateSubstrand).filter(TemplateSubstrand.id == old_id).delete()
+        
+        # Delete removed strands (and their substrands will cascade)
+        for old_id in existing_strand_ids - new_strand_ids:
+            db.query(TemplateSubstrand).filter(TemplateSubstrand.strand_id == old_id).delete()
+            db.query(TemplateStrand).filter(TemplateStrand.id == old_id).delete()
+        
+        # Update template totals
+        template.total_strands = len(new_strand_ids)
+        template.total_substrands = total_substrands
+        template.total_lessons = total_lessons
+        
+        db.commit()
+        
+        return {
+            "success": True,
+            "message": "Curriculum template updated successfully",
+            "template_id": template_id
+        }
+    
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=f"Failed to update template: {str(e)}")
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

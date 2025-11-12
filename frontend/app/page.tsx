@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -15,7 +15,7 @@ export default function Home() {
     // Check if user is logged in
     const token = localStorage.getItem("accessToken");
     const userData = localStorage.getItem("user");
-    
+
     if (token && userData) {
       setIsLoggedIn(true);
       try {

@@ -123,9 +123,7 @@ export default function AdminDashboard() {
           >
             <FiDatabase className="w-8 h-8 text-green-600 mb-2" />
             <h3 className="font-semibold text-gray-900">Analytics</h3>
-            <p className="text-sm text-gray-600 mt-1">
-              View usage metrics
-            </p>
+            <p className="text-sm text-gray-600 mt-1">View usage metrics</p>
           </button>
 
           <button
@@ -252,9 +250,19 @@ export default function AdminDashboard() {
                           <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <button
                               onClick={() =>
+                                router.push(`/admin/curriculum/edit/${template.id}`)
+                              }
+                              className="text-blue-600 hover:text-blue-900 mr-4"
+                              title="Edit curriculum"
+                            >
+                              <FiEdit className="inline" />
+                            </button>
+                            <button
+                              onClick={() =>
                                 deleteTemplate(template.id, template.subject)
                               }
-                              className="text-red-600 hover:text-red-900 ml-4"
+                              className="text-red-600 hover:text-red-900"
+                              title="Delete curriculum"
                             >
                               <FiTrash2 className="inline" />
                             </button>
