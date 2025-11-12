@@ -26,6 +26,7 @@ class GoogleAuth(BaseModel):
 class UserResponse(UserBase):
     id: int
     email_verified: bool
+    is_admin: bool
     created_at: datetime
     
     class Config:

@@ -111,7 +111,7 @@ export default function DashboardPage() {
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-foreground">My Dashboard</h1>
           <Link
-            href="/curriculum/upload"
+            href="/curriculum"
             className="bg-primary-500 hover:bg-primary-600 text-white font-semibold px-4 py-2 rounded-xl shadow-xl flex items-center gap-2 transition-colors"
           >
             <FiPlus /> Add Subject
@@ -148,20 +148,14 @@ function EmptyState() {
         No subjects yet
       </h3>
       <p className="mt-1 text-sm text-muted">
-        Get started by adding your first subject
+        Get started by importing your first subject from the curriculum library
       </p>
-      <div className="mt-6 flex justify-center gap-4">
+      <div className="mt-6 flex justify-center">
         <Link
-          href="/curriculum/library"
-          className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-xl shadow-xl flex items-center gap-2 transition-colors"
+          href="/curriculum"
+          className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-xl shadow-xl flex items-center gap-2 transition-colors"
         >
-          <FiBook /> Browse Library
-        </Link>
-        <Link
-          href="/curriculum/upload"
-          className="bg-cyan-600 hover:bg-cyan-700 text-white font-semibold px-4 py-2 rounded-xl shadow-xl flex items-center gap-2 transition-colors"
-        >
-          <FiUpload /> Upload Curriculum
+          <FiBook /> Browse Curriculum Library
         </Link>
       </div>
     </div>

@@ -60,12 +60,22 @@ export default function LoginPage() {
             id: user.id,
             email: user.email,
             name: user.full_name,
+            is_admin: user.is_admin,
           })
         );
-      }
 
-      toast.success("Login successful!");
-      router.push("/dashboard");
+        toast.success("Login successful!");
+        
+        // Redirect based on user role
+        if (user.is_admin) {
+          router.push("/admin/dashboard");
+        } else {
+          router.push("/dashboard");
+        }
+      } else {
+        toast.success("Login successful!");
+        router.push("/dashboard");
+      }
     } catch (error: any) {
       console.error("Login error", error);
       toast.error(error?.message || "Something went wrong");
