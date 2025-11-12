@@ -1,25 +1,30 @@
 # Curriculum Tracking System - User Guide
 
 ## Overview
+
 The Curriculum Tracking System helps teachers monitor their teaching progress across all CBC subjects, strands, and lessons. Track completion, visualize progress, and stay on top of curriculum coverage.
 
 ## Features Implemented
 
 ### 1. **Curriculum Tracking Dashboard** (`/curriculum/tracking`)
+
 A comprehensive overview of all your curriculum progress:
 
 - **Overview Statistics**:
+
   - Total subjects being taught
   - Total lessons across all subjects
   - Completed lessons count
   - Average progress percentage
 
 - **Subject-Level Progress**:
+
   - Individual progress bars for each subject
   - Lessons completed vs total lessons
   - Click "View Details" to see full curriculum
 
 - **Strand-Level Progress**:
+
   - Progress breakdown by strand within each subject
   - Visual progress bars for each strand
   - Lesson counts per strand
@@ -32,37 +37,47 @@ A comprehensive overview of all your curriculum progress:
 ### 2. **API Endpoints for Tracking**
 
 #### Mark Lesson as Complete
+
 ```
 POST /api/v1/lessons/{lesson_id}/complete
 ```
+
 - Marks a lesson as completed
 - Updates `completed_at` timestamp
 - Automatically recalculates subject progress percentage
 - Returns updated progress
 
 #### Mark Lesson as Incomplete
+
 ```
 POST /api/v1/lessons/{lesson_id}/uncomplete
 ```
+
 - Unmarks a lesson (undo completion)
 - Clears `completed_at` timestamp
 - Recalculates progress
 
 #### Get Subject Lessons
+
 ```
 GET /api/v1/subjects/{subject_id}/lessons
 ```
+
 Returns all lessons for a subject with:
+
 - Lesson details (title, number)
 - Completion status
 - Completed date
 - Strand and sub-strand information
 
 #### Get Dashboard Data
+
 ```
 GET /api/v1/dashboard/curriculum-progress
 ```
+
 Returns comprehensive tracking data:
+
 - Overall statistics
 - Subject-wise progress with strand breakdowns
 - Recent completions (last 10)
@@ -70,6 +85,7 @@ Returns comprehensive tracking data:
 ### 3. **Automatic Progress Calculation**
 
 The system automatically calculates:
+
 - **Subject Progress** = (Completed Lessons / Total Lessons) × 100
 - **Strand Progress** = (Completed Lessons in Strand / Total Lessons in Strand) × 100
 - **Overall Average** = Sum of all subject progress / Number of subjects
@@ -85,6 +101,7 @@ The system automatically calculates:
 ### Step 2: Mark Lessons as Complete (via API)
 
 **Using cURL:**
+
 ```bash
 # Get your access token from localStorage after login
 TOKEN="your_access_token_here"
@@ -99,6 +116,7 @@ curl -X POST http://localhost:8000/api/v1/lessons/1/uncomplete \
 ```
 
 **Using Python Script:**
+
 ```python
 import requests
 
@@ -118,6 +136,7 @@ print(response.json())
 ### Step 3: View Progress
 
 The dashboard automatically shows:
+
 - ✅ Green progress bars (≥75% complete)
 - 🟡 Yellow progress bars (50-74% complete)
 - 🟠 Orange progress bars (25-49% complete)
@@ -130,12 +149,14 @@ The right sidebar shows your 10 most recently completed lessons with dates.
 ## Future Enhancements (To Be Implemented)
 
 ### Phase 2: Lesson Management UI
+
 - [ ] Add checkboxes in curriculum detail page to mark lessons complete
 - [ ] One-click marking from subject cards
 - [ ] Bulk lesson completion
 - [ ] Lesson notes and resources
 
 ### Phase 3: Advanced Analytics
+
 - [ ] Weekly/monthly completion charts
 - [ ] Teaching pace analysis (lessons per week)
 - [ ] Curriculum coverage heatmap
@@ -143,12 +164,14 @@ The right sidebar shows your 10 most recently completed lessons with dates.
 - [ ] Comparison with recommended pace
 
 ### Phase 4: Timetable Integration
+
 - [ ] Link lessons to timetable slots
 - [ ] Auto-mark lessons after scheduled class
 - [ ] Sync with calendar
 - [ ] Lesson reminders
 
 ### Phase 5: Reporting
+
 - [ ] Generate progress reports (PDF)
 - [ ] Export to Excel/CSV
 - [ ] Share progress with administrators
@@ -159,12 +182,14 @@ The right sidebar shows your 10 most recently completed lessons with dates.
 ### Test Scenario 1: Complete a Few Lessons
 
 1. Get lesson IDs from subject:
+
 ```bash
 curl http://localhost:8000/api/v1/subjects/24/lessons \
   -H "Authorization: Bearer YOUR_TOKEN"
 ```
 
 2. Mark first 5 lessons as complete:
+
 ```bash
 for i in {1..5}; do
   curl -X POST http://localhost:8000/api/v1/lessons/$i/complete \
@@ -191,6 +216,7 @@ done
 ## Database Schema
 
 ### Lessons Table
+
 ```sql
 lessons
 ├── id (PRIMARY KEY)
@@ -207,6 +233,7 @@ lessons
 ```
 
 ### Progress Calculation
+
 - Stored in `subjects` table:
   - `lessons_completed` (INTEGER)
   - `progress_percentage` (DECIMAL)
@@ -215,6 +242,7 @@ lessons
 ## API Response Examples
 
 ### Dashboard Progress Response
+
 ```json
 {
   "overview": {
@@ -257,16 +285,19 @@ lessons
 ## Troubleshooting
 
 ### Progress not updating?
+
 - Check that lesson IDs are correct
 - Verify token is valid (not expired)
 - Check browser console for errors
 - Refresh the dashboard page
 
 ### Lessons showing as null?
+
 - Re-add the subject from template (old subjects don't have lessons)
 - Use `reset_template_subjects.py` to delete and re-import
 
 ### Can't access tracking dashboard?
+
 - Ensure you're logged in
 - Check token in localStorage
 - Verify backend is running on port 8000
@@ -279,5 +310,6 @@ lessons
 4. **Analytics needs** - What reports would be most useful?
 
 The tracking system is now live and functional! Access it at:
+
 - **Dashboard**: http://localhost:3000/curriculum/tracking
 - **API Docs**: http://localhost:8000/docs (FastAPI Swagger UI)

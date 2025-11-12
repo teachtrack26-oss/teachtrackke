@@ -1,0 +1,731 @@
+{
+  "subject": "Social Studies",
+  "grade": "Grade 9",
+  "educationLevel": "Junior Secondary",
+  "strands": [
+    {
+      "strandNumber": "1.0",
+      "strandName": "SOCIAL STUDIES AND CAREER DEVELOPMENT",
+      "subStrands": [
+        {
+          "subStrandNumber": "1.1",
+          "subStrandName": "Pathway Choices",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "identify factors to consider in the selection of a pathway",
+            "examine requirements for Social sciences pathway at senior school",
+            "choose a possible track within a pathway at senior school",
+            "appreciate the need for choosing a pathway in senior school"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm the meaning of a career path",
+            "engage a resource person to discuss factors to consider in the selection of a pathway",
+            "use digital devices/print materials to examine requirements for social science pathway",
+            "create and display charts with pathways and their respective requirements",
+            "create and display posters on pathways and their respective requirements using locally available resources",
+            "choose and journal possible tracks in a given pathway for academic growth",
+            "compose and recite poems on pathway choices"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to learn about career paths?"
+          ],
+          "coreCompetencies": [
+            "Learning to learn: learners engage resource persons to discuss the factors to consider in making pre career choices for selection of pathways"
+          ],
+          "values": [
+            "Responsibility: learners demonstrate responsibility while using digital devices/print materials to examine requirements for social science pathway"
+          ],
+          "pcis": [
+            "Career Guidance as learners create and display charts with pathways and their respective requirements"
+          ],
+          "linkToOtherSubjects": [
+            "English/Kiswahili language: learners will use writing and reading while composing and reciting poems on the pathway choices"
+          ]
+        },
+        {
+          "subStrandNumber": "1.2",
+          "subStrandName": "Pre-career Support systems",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "explore and use support systems for pre-career and other needs",
+            "analyze challenges arising from existing support systems for pre-career and other needs",
+            "design solutions to challenges arising from support systems",
+            "explain the significance of pre-career mapping for individual growth",
+            "appreciate the value of the pre-career support systems"
+          ],
+          "suggestedLearningExperiences": [
+            "using digital or printed materials search for the meaning and examples of support systems in the community",
+            "brainstorm on effective use of different support systems in the community",
+            "engage a resource person to discuss significance of pre-career mapping for individual growth",
+            "brainstorm on challenges arising from involvement in existing pre-career support systems",
+            "search for solutions to challenges arising from existing pre-career support systems",
+            "compose and recite poems highlighting the value of pre-career support system"
+          ],
+          "keyInquiryQuestions": [
+            "Why does a learner need pre-career support?"
+          ],
+          "coreCompetencies": [
+            "Creativity and Imagination: learners compose and recite poems creatively to highlight the value of pre-career support system"
+          ],
+          "values": [
+            "Responsibility: learners explore and use appropriate support system in the community"
+          ],
+          "pcis": [
+            "Career Guidance: Learners engage a resource person to discuss significance of pre-career mapping for individual growth"
+          ],
+          "linkToOtherSubjects": [
+            "All learning Areas: Learners explain the significance of pre-career mapping for individual growth"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "2.0",
+      "strandName": "COMMUNITY SERVICE-LEARNING",
+      "subStrands": [
+        {
+          "subStrandNumber": "2.1",
+          "subStrandName": "Community Service Learning Project",
+          "numberOfLessons": 8,
+          "specificLearningOutcomes": [
+            "identify a problem in the community",
+            "design a solution to the identified problem",
+            "plan to solve the identified problem in the community",
+            "implement the plan to solve the problem",
+            "write a report on the concluded project",
+            "appreciate teamwork in addressing community problems"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm and identify problems/gaps/opportunities (pertinent and contemporary issues) in their class/school/community that need attention",
+            "discuss and adapt one identified (problem/gap) for the class/group project and state the project title",
+            "authenticate the problem/gap and write down the statement of the problem (a small description of the identified problem)",
+            "search, discuss and agree on an appropriate solution/way forward to address the identified problem and note down the recommended/proposed solution",
+            "discuss a plan of implementing the proposed solution and note it down",
+            "implement the plan prudently to address the identified problem",
+            "reflect on the concluded project and submit a summary report/account to the CSL teacher",
+            "reflect on the whole process and the lessons learned in the concluded work"
+          ],
+          "keyInquiryQuestions": [
+            "What does one consider while implementing a project?",
+            "Why is reflection important in a project?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration: Learners discuss, brainstorm and consult on various project/activity processes",
+            "Self-efficacy: Learners develop the skills of self-awareness and leadership as they undertake the CSL project",
+            "Creativity and imagination: Learners come up with creative ways of solving the identified problem in the community",
+            "Critical thinking and problem-solving: Learners identify a community need or gaps and explore plausible solutions to address the gaps",
+            "Digital literacy: Learners use technology as they search for solution to the identified problem in the community",
+            "Learning to learn: Learners gain new knowledge and skills as they discuss work together to address a community problem in the project",
+            "Citizenship: Learners participate in CSL projects to address community challenges thereby enhancing their sense of civic consciousness and belonging"
+          ],
+          "values": [
+            "Social justice: Learners carry out research using digital devices and print media and also use resources in the process of planning to address the community problem",
+            "Unity: Learners engage, discuss, search, plan for the project in the community"
+          ],
+          "pcis": [
+            "Governance: Learners work with community members and the local leadership in providing solutions to the identified issues in society",
+            "Critical thinking skills: Learners brainstorm possible solutions to the identified problem in the community"
+          ],
+          "linkToOtherSubjects": []
+        }
+      ]
+    },
+    {
+      "strandNumber": "3.0",
+      "strandName": "PEOPLE AND RELATIONSHIPS",
+      "subStrands": [
+        {
+          "subStrandNumber": "3.1",
+          "subStrandName": "Socio-Economic Practices of Early Humans",
+          "numberOfLessons": 6,
+          "specificLearningOutcomes": [
+            "describe the socio-economic practices of early humans in Africa during the Stone Age period",
+            "examine different types of tools used by early humans during the Stone Age period",
+            "illustrate the tools used by early humans during the Stone Age period",
+            "recognise socio-economic practices of the early humans"
+          ],
+          "suggestedLearningExperiences": [
+            "interact with digital technology or print media as they research on socio-economic practices of early humans in Africa during the Stone Age period",
+            "brainstorm on socio-economic practices of early humans during the Stone Age period and make notes",
+            "debate on the relevance of socio-economic practices of early humans to the modern society",
+            "undertake group tasks and gain new perspectives as they discuss the various types of tools used by early humans during the Stone Age period",
+            "use appropriate digital resources to view various types of tools used by early humans during the Stone Age period",
+            "draw various types of tools used by early humans during the Stone Age period and share",
+            "engage a resource person to discuss reasons why Africa is regarded as the birth place of human technology"
+          ],
+          "keyInquiryQuestions": [
+            "How do socio-economic practices of early humans impact on the modern society?"
+          ],
+          "coreCompetencies": [
+            "Digital literacy: Learners use digital technology to access relevant learning resources on socio-economic practices of early humans in Africa during the Stone Age period",
+            "Creativity and imagination: Learners undertake tasks and gain new perspectives as they discuss the various types of tools used by early humans during the Stone Age period",
+            "Creativity and imagination: Learners interact with digital technology or print media as they research on socio-economic practices of early humans in Africa during the Stone Age period"
+          ],
+          "values": [
+            "Respect: Learners appreciate opinions of others as they brainstorm on socio-economic practices of early humans during the Stone Age period"
+          ],
+          "pcis": [
+            "Social cohesion: Learners collaborate with others to brainstorm on socio-economic practices of early humans during the Stone Age period",
+            "Effective communication: Learners engage a resource person to discuss reasons why Africa is regarded as the birth place of human technology"
+          ],
+          "linkToOtherSubjects": [
+            "Learners develop language skills in Kenyan Sign Language, Kiswahili and English as they brainstorm on socio-economic practices of early humans during the Stone Age period",
+            "Learners will gain knowledge in Agriculture as they discuss the various types of tools used by early humans during the Stone Age period"
+          ]
+        },
+        {
+          "subStrandNumber": "3.2",
+          "subStrandName": "Indigenous Knowledge systems in African Societies",
+          "numberOfLessons": 8,
+          "specificLearningOutcomes": [
+            "identify types of indigenous knowledge systems in African societies for self-identity",
+            "explain how the indigenous knowledge systems were used for sustainability of life",
+            "use indigenous and modern knowledge systems for effective decision making in life",
+            "appreciate the indigenous knowledge systems in the society"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm in pairs on various types of indigenous knowledge systems in African societies",
+            "use print or digital resources to research on how the indigenous knowledge systems were used in the traditional African society",
+            "in pairs, devise ways of using indigenous and modern knowledge systems for effective decision making and present",
+            "value others' ideas as they debate on how indigenous knowledge systems is applied in various fields in Africa"
+          ],
+          "keyInquiryQuestions": [
+            "How does indigenous knowledge influence on the modern society?"
+          ],
+          "coreCompetencies": [
+            "Self-efficacy: Learners devise ways of using indigenous and modern knowledge systems to manage peer influence in the society make notes and present",
+            "Communication and collaboration: Learners recognize the value of others' ideas as they debate on how indigenous knowledge systems are applied in various fields in Africa"
+          ],
+          "values": [
+            "Patriotism: Learners are aware of their own culture as they debate on application of the indigenous knowledge systems in the traditional African society",
+            "Respect: Learners appreciate diverse opinions as they brainstorm in groups on various forms of knowledge systems in traditional African society"
+          ],
+          "pcis": [
+            "Social cohesion: Learners work together and brainstorm in pairs on various forms of indigenous knowledge systems in African societies such as agriculture, medicine, climate, technology, education, environmental conservation, astronomy religion and arts which is borrowed from Integrated Science"
+          ],
+          "linkToOtherSubjects": [
+            "Learners develop language skills (English, Kiswahili, indigenous Language and Kenyan Sign Language) as they brainstorm in pairs on forms of knowledge systems in traditional African society"
+          ]
+        },
+        {
+          "subStrandNumber": "3.3",
+          "subStrandName": "Poverty Reduction",
+          "numberOfLessons": 6,
+          "specificLearningOutcomes": [
+            "explain causes of poverty in Africa",
+            "examine the effects of overexploitation of natural resources on poverty in Africa",
+            "apply creative thinking skills to reduce poverty in the society",
+            "recognize the contribution of poverty reduction strategies in society"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm on the causes of poverty in Africa and present their findings in class",
+            "discuss on the effects of overexploitation of natural resources on poverty in Africa",
+            "illustrate in pairs problem solving skills to reduce poverty in the community and present in class",
+            "watch documentaries / video clips on solutions to poverty reduction and write a report",
+            "interact with new technology as they use print or digital resources to explore home-grown practical solutions to poverty reduction",
+            "compose and sing songs / recite poems on sustainable use of resources in the community",
+            "create posters on sustainable use of resources in the community"
+          ],
+          "keyInquiryQuestions": [
+            "What are the measures taken by African governments to reduce poverty?",
+            "How does prudent utilization of resources help to reduce poverty in the society?"
+          ],
+          "coreCompetencies": [
+            "Digital literacy: Learners interact with or watch documentaries / video clips on solutions to poverty reduction",
+            "Citizenship: Learners illustrate in pairs problem solving skills to reduce poverty in the community"
+          ],
+          "values": [
+            "Responsibility: Learners engage in assigned roles as they create posters on sustainable use of resources in the community",
+            "Social justice: Learners compose and sing songs / recite poems on contribution of strategies towards reduction in the community"
+          ],
+          "pcis": [
+            "Poverty reduction: Learners illustrate in pairs problem solving skills to reduce poverty in the community",
+            "Environmental education: Learners discuss on the effects of overexploitation of natural resources on poverty in Africa"
+          ],
+          "linkToOtherSubjects": [
+            "Learners engage with a resource person on home-grown practical solutions to poverty reduction making them gain more knowledge in Agriculture & Nutrition",
+            "Learners compose and sing songs / recite poems on sustainable use of resources in the community a knowledge which is utilized in Creative Arts"
+          ]
+        },
+        {
+          "subStrandNumber": "3.4",
+          "subStrandName": "Population Structure",
+          "numberOfLessons": 8,
+          "specificLearningOutcomes": [
+            "identify sources of population data in a country",
+            "explain factors determining population structure in Kenya and Germany",
+            "construct age-sex population pyramids of developed and developing countries",
+            "determine the significance of population structure in distribution of national resources in a society",
+            "appreciate the differences in population structure between developed and developing countries"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm on sources of population data make notes and present",
+            "engage a resource person to discuss factors determining population structure in Kenya and Germany",
+            "use digital or print resources to identify factors determining population structure in Kenya and Germany",
+            "draw age-sex population pyramid of developed and developing countries",
+            "brainstorm and enumerate the significance of population structure in distribution of national resources in a society",
+            "compose and display messages on differences in population structure of developed and developing countries for sustainable development"
+          ],
+          "keyInquiryQuestions": [
+            "Why is population structure of a country important?"
+          ],
+          "coreCompetencies": [
+            "Creativity and imagination: Learners undertake the task of drawing and displaying age-sex population pyramid of developed and developing countries (Germany and Kenya)",
+            "Communication and collaboration: Learners work collaboratively as they discuss the significance of population structure in distribution of national resources in a society"
+          ],
+          "values": [
+            "Unity: Learners collaborate with others as they brainstorm on sources of population data",
+            "Respect: Learners appreciate diverse opinions as they brainstorm on sources of population data"
+          ],
+          "pcis": [
+            "Citizenship: Learners acquire knowledge on population structure of Kenya and Germany together with its influence on distribution of resources in society",
+            "Effective Communication: Learners engage a resource person as they discuss factors determining population structure in Kenya and Germany"
+          ],
+          "linkToOtherSubjects": [
+            "Learners employ mathematics knowledge to draw and display in class population structure of Kenya and Germany",
+            "Learners communicate effectively as they discuss in groups the significance of population structure in distribution of national resources in a society helping them develop language skills in English, Kiswahili, and Kenyan Sign Language"
+          ]
+        },
+        {
+          "subStrandNumber": "3.5",
+          "subStrandName": "Peaceful Conflict Resolution",
+          "numberOfLessons": 8,
+          "specificLearningOutcomes": [
+            "explain types of peace for sustainable social interactions",
+            "identify barriers to conflict resolution in day-to-day lives",
+            "explore ways of managing emotions in promotion of peace in the community",
+            "apply emotional intelligence for peaceful conflict resolutions in the community",
+            "embrace peace initiatives and agreements at the community level for harmonious living"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm on types of peace in the society such as personal, cultural and share",
+            "use digital or print resources to search for barriers to conflict resolution and present",
+            "discuss possible solutions of managing emotions to promote peace in the community",
+            "engage a resource person on how to apply emotional intelligence to maintain peace in the community",
+            "role play community activities on cultivating peace initiatives and agreements at the community level for harmonious living",
+            "search and explore different options as they compose songs or poems on non-violent conflict resolution in the community"
+          ],
+          "keyInquiryQuestions": ["How can we promote peace in the community?"],
+          "coreCompetencies": [
+            "Creativity and imagination: Learners search and explore different options as they compose songs or poems on non-violent conflict resolution in the community",
+            "Critical Thinking and Problem Solving: Learners discuss possible solutions of managing emotions to promote peace in the community"
+          ],
+          "values": [
+            "Peace: Learners display calmness as they discuss ways of managing emotions to promote peace in the community",
+            "Integrity: Learners exhibit fairness as they role play activities on cultivating peace initiatives and agreements at the community level for harmonious living"
+          ],
+          "pcis": [
+            "Social cohesion: Learners work together and discuss resolutions to conflicts in the community",
+            "Self Esteem: Learners compose songs or poems on non-violent conflict resolution in the community"
+          ],
+          "linkToOtherSubjects": [
+            "Learners use Creative Arts skills to compose songs or poems on non-violent conflict resolution in the community",
+            "Learners apply Religious Studies knowledge to role play activities on cultivating peace initiatives and agreements at the community level for harmonious living"
+          ]
+        },
+        {
+          "subStrandNumber": "3.6",
+          "subStrandName": "Healthy relationships",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "explain ways of sustaining healthy relationships in the community",
+            "explore barriers to harmonious relationships",
+            "design strategies to overcome barriers to healthy relationships",
+            "appreciate the need for healthy relationships in the community"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm in pairs ways of sustaining healthy relationships in the community",
+            "speak clearly and effectively as they discuss barriers to harmonious relationships",
+            "watch video clips on barriers to healthy relationships and write a report",
+            "use digital or print resources to research on strategies to overcome barriers to healthy relationships",
+            "undertake tasks as they role play scenarios that depict effective communication, negotiation skills, empathy and assertiveness in overcoming barriers to healthy relationships"
+          ],
+          "keyInquiryQuestions": [
+            "How can we promote healthy relationships in the community?"
+          ],
+          "coreCompetencies": [
+            "Communication and Collaboration: Learners demonstrate speaking clearly and effectively as they discuss barriers to harmonious relationships",
+            "Creativity and imagination: Learners undertake tasks as they role play scenarios that depict effective communication, skills, empathy and assertiveness in overcoming barriers to healthy relationships"
+          ],
+          "values": [
+            "Peace: Learners respect self and others as they role play scenarios that depict effective communication, skills, empathy and assertiveness in overcoming barriers to healthy relationships",
+            "Unity: Learners strive to achieve common goals as they discuss barriers to harmonious relationships"
+          ],
+          "pcis": [
+            "Social cohesion: Learners work together and discuss in groups barriers to harmonious relationships"
+          ],
+          "linkToOtherSubjects": [
+            "Learners apply Creative Arts skills to role play scenarios that depicts effective communication, negotiation skills, empathy, assertiveness in overcoming barriers to healthy relationships",
+            "Learners use English/Kiswahili/KSL knowledge to brainstorm in pairs ways of sustaining healthy relationships in the community"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "4.0",
+      "strandName": "NATURAL AND HISTORIC BUILT ENVIRONMENTS",
+      "subStrands": [
+        {
+          "subStrandNumber": "4.1",
+          "subStrandName": "Topographical maps",
+          "numberOfLessons": 8,
+          "specificLearningOutcomes": [
+            "describe human activities on topographical maps",
+            "use creative thinking skills to enlarge and reduce parts of topographical maps",
+            "illustrate cross-sections from topographical maps",
+            "appreciate representation of human activities on topographical maps"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm human activities that may be represented on a topographical map",
+            "use print or digital resources to find out how human activities are represented in topographical maps",
+            "draw a sketch map to enlarge and reduce part of topographical maps and present to peers",
+            "draw cross-sections from topographical maps showing human activities",
+            "display the cross-sections, take a gallery walk and peer assess"
+          ],
+          "keyInquiryQuestions": ["Why are topographical maps important?"],
+          "coreCompetencies": [
+            "Digital literacy: Learners use digital or print resources to find out how human activities are represented in topographical maps",
+            "Learning to Learn: Learners brainstorm on human activities that may be represented in a topographical map"
+          ],
+          "values": [
+            "Integrity: Learners display honesty while sharing available resources for drawing sketch maps to enlarge and reduce part of a topographical maps and present to peers",
+            "Love: Learners share resources as they draw sketch maps to enlarge and reduce part of a topographical maps and present to peers"
+          ],
+          "pcis": [
+            "Self Esteem: Learners demonstrate capacity to draw cross-sections from topographical maps showing human activities",
+            "Peer education: Learners display the cross-sections and take a gallery walk and peer assess"
+          ],
+          "linkToOtherSubjects": [
+            "Learners apply Creative arts skills to draw sketch maps to enlarge and reduce part of topographical maps and present to peers",
+            "Learners use Mathematics knowledge draw cross-sections from topographical maps showing human activities"
+          ]
+        },
+        {
+          "subStrandNumber": "4.2",
+          "subStrandName": "Internal Land Forming Processes",
+          "numberOfLessons": 8,
+          "specificLearningOutcomes": [
+            "explore the types and causes of earth movements in the environment",
+            "explain the theories of continental drift and plate tectonics in the formation of continents",
+            "illustrate the formation of selected features due to faulting in the environment",
+            "explain the effects of faulting to human activities",
+            "recognise internal land forming processes in shaping the landscape and their influence on human activities"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm the types and causes of earth movements and present in class",
+            "conduct library research on types of faults in the environment and do a presentation in class",
+            "use digital or print resources to research on theories of continental drift and plate tectonics in the environment and make short notes",
+            "discuss and share in class the significance of faulting to human life and activities",
+            "develop posters to create awareness on disasters relating to faulting",
+            "view video clips/documentaries on the processes of faulting in the environment",
+            "draw a sketch illustrating the formation of selected features in the environment and display for peer assessment",
+            "use an atlas to locate features formed as a result of faulting process",
+            "brainstorm and share in class the significance of faulting on human activities"
+          ],
+          "keyInquiryQuestions": [
+            "How do landforms influence human activities?"
+          ],
+          "coreCompetencies": [
+            "Digital literacy: Learners use relevant digital resources as they watch video clips / documentaries on the processes of faulting in the environment",
+            "Learning to Learn: Learners build on their own learning experiences as they conduct library research on types of faults in the environment and do a presentation in class"
+          ],
+          "values": [
+            "Respect: Learners brainstorm in groups on the types and causes of earth movements and present them in class",
+            "Responsibility: Learners take care of own property and those of others as they use digital or print resources to research on theories of continental drift and plate tectonics in the environment and make short notes"
+          ],
+          "pcis": [
+            "Environmental education: Learners discuss and share in class the significance of faulting on human activities",
+            "Disaster risk reduction: Learners address disaster risk reduction as they develop posters to create awareness on disasters relating to faulting"
+          ],
+          "linkToOtherSubjects": [
+            "Learners apply Kenyan Sign Language, English and Kiswahili language skills as they brainstorm the types and causes of earth movements in Africa",
+            "Learners use Agriculture knowledge to discuss and share in class the significance of faulting on human activities"
+          ]
+        },
+        {
+          "subStrandNumber": "4.3",
+          "subStrandName": "Multi-purpose River Projects",
+          "numberOfLessons": 8,
+          "specificLearningOutcomes": [
+            "identify selected multi-purpose river projects on a map of Africa",
+            "outline the conditions that led to the establishment of multi-purpose river projects along river Tana",
+            "examine the economic importance of multi-purpose river projects in Africa",
+            "assess challenges facing multi-purpose river projects in Africa",
+            "design solutions to challenges facing multi-purpose river projects in Africa",
+            "recognise the importance of multi-purpose river projects in the society"
+          ],
+          "suggestedLearningExperiences": [
+            "use internet and print media to identify selected multi-purpose river projects",
+            "discuss the conditions that led to the establishment of multi-purpose river projects along River Tana",
+            "carry out research on the economic importance of multi-purpose river projects in Africa write short notes and share",
+            "brainstorm on challenges facing multi-purpose river projects in Africa",
+            "invite a resource person to share on the solutions to challenges facing multi-purpose river projects"
+          ],
+          "keyInquiryQuestions": [
+            "How useful are multi-purpose river projects in society?"
+          ],
+          "coreCompetencies": [
+            "Digital literacy: Learners use digital resources to identify selected multi-purpose river projects (River Tana Projects in Kenya, Aswan High Dam in Egypt)",
+            "Communication and collaboration: Learners discuss the conditions that led to the establishment of multi-purpose river projects along river Tana"
+          ],
+          "values": [
+            "Responsibility: Learners suggest solutions to challenges facing multipurpose river projects",
+            "Social Justice: Learners foster inclusivity and non-discrimination as they discuss the conditions that led to the establishment of multi-purpose river projects along river Tana"
+          ],
+          "pcis": [
+            "Creative thinking skills: Learners engage with a resource person to share on the solutions to challenges facing multipurpose river projects",
+            "Financial literacy: Learners brainstorm in groups on the economic importance of multi-purpose river projects in Africa and write short notes"
+          ],
+          "linkToOtherSubjects": [
+            "Learners apply Agriculture knowledge to brainstorm on the economic importance of multi-purpose river projects in Africa and write short notes",
+            "Learners use Kenyan Sign Language, English and Kiswahili knowledge to discuss the conditions that led to the establishment of multi-purpose river projects along river Tana"
+          ]
+        },
+        {
+          "subStrandNumber": "4.4",
+          "subStrandName": "Management and Conservation of the Environment",
+          "numberOfLessons": 6,
+          "specificLearningOutcomes": [
+            "explore factors that lead to degradation of the environment in the community",
+            "describe the effects of environmental degradation in society",
+            "design measures to manage and conserve the environment for sustainability",
+            "apply creative thinking skills in managing and conserving the immediate environment",
+            "acknowledge the importance of managing and conserving the environment"
+          ],
+          "suggestedLearningExperiences": [
+            "research on factors that leads to degradation of the environment in the community",
+            "view video clips or documentaries or pictures and write an essay the factors that leads to degradation of the environment",
+            "use print or digital resources to establish effects of degradation of the environment",
+            "brainstorm on the difference between management and conservation of the environment and share",
+            "demonstrate tolerance, express and understand different viewpoints as they participate in environmental conservation in the community",
+            "develop and display posters with messages on how to creatively manage and conserve the environment"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to conserve degraded environment?"
+          ],
+          "coreCompetencies": [
+            "Critical thinking and problem-solving: Learners explore possible solutions and their pro and cons as they develop communication messages on how to creatively manage and conserve the environment",
+            "Citizenship: Learners demonstrate tolerance, express and understand different viewpoints as they participate in environmental conservation in the community"
+          ],
+          "values": [
+            "Responsibility: Learners engage in assigned roles and duties as they participate in environmental conservation activities in the community",
+            "Integrity: Learners are committed to duty as they participate in environmental conservation activities in the community"
+          ],
+          "pcis": [
+            "Environmental education: Learners participate in environmental conservation in the community",
+            "Social cohesion: Learners work together in environmental conservation activities in the community"
+          ],
+          "linkToOtherSubjects": [
+            "Learners use Integrated Science knowledge to research on factors that lead to degradation of the environment in the community",
+            "Agriculture is relevant as learners view video clips or documentaries or pictures and write an essay on the factors that leads degradation of the environment"
+          ]
+        },
+        {
+          "subStrandNumber": "4.5",
+          "subStrandName": "World Heritage Sites in Africa",
+          "numberOfLessons": 6,
+          "specificLearningOutcomes": [
+            "identify the selected world heritage sites in Africa",
+            "examine importance of the selected world sites in promoting cultural heritage",
+            "design measures to conserve the selected world heritage sites",
+            "apply critical thinking skills in conserving heritage sites within the locality",
+            "value heritage sites in the community"
+          ],
+          "suggestedLearningExperiences": [
+            "use digital/print resources to locate the selected world heritage sites",
+            "brainstorm on the importance of the selected world sites in promoting cultural heritage",
+            "demonstrate respect for diversity of cultural expression in Kenya as they compose and sing songs or recite poems on the importance of world heritage sites in Africa",
+            "formulate in pairs measures to conserve heritage sites"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to conserve the world heritage sites?"
+          ],
+          "coreCompetencies": [
+            "Creativity and imagination: Learners look at the problem in a different way as they use digital resources to locate the selected world heritage sites",
+            "Citizenship: Learners demonstrate respect for cultural diversity as they recite poems on the importance of world heritage sites in Africa"
+          ],
+          "values": [
+            "Social justice: Learners are accorded privileges without favor as they compose and sing songs or recite poems on the importance of world heritage sites in Africa",
+            "Love: Learners collaborate as they formulate in pairs measures to conserve heritage sites"
+          ],
+          "pcis": [
+            "Social cohesion: Learners work together as they brainstorm on the world heritage sites in Africa",
+            "Self-esteem: Learners confidently sing songs or recite poems on the importance of world heritage sites in Africa"
+          ],
+          "linkToOtherSubjects": [
+            "Learners use Kenyan Sign Language, English and Kiswahili skills as they brainstorm on the importance of the selected world sites in promoting cultural heritage",
+            "Learners apply Creative Arts skills to compose and sing songs or recite poems on the importance of world heritage sites in Africa"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "5.0",
+      "strandName": "POLITICAL DEVELOPMENTS AND GOVERNANCE",
+      "subStrands": [
+        {
+          "subStrandNumber": "5.1",
+          "subStrandName": "The Constitution of Kenya",
+          "numberOfLessons": 6,
+          "specificLearningOutcomes": [
+            "identify the stages in the constitution-making process in Kenya",
+            "examine the role of parliament in constitution-making process",
+            "explore the role of citizens in constitution-making process",
+            "participate in the constitution-making process in community",
+            "desire to defend and promote the Constitution of Kenya"
+          ],
+          "suggestedLearningExperiences": [
+            "Carry out research on the stages in constitution-making process in Kenya",
+            "create posters on the stages of the constitution-making process and display it in class",
+            "watch video clips on parliamentary debate on the constitution-making process, make notes and share",
+            "engage a resource person to talk about the role of citizens in constitution-making process",
+            "demonstrate interest in interaction with others as they role play citizens participating in constitution-making process",
+            "role play on the values that should be exercised during constitution making process and share in class",
+            "sing patriotic songs on defending and promoting the Constitution of Kenya"
+          ],
+          "keyInquiryQuestions": [
+            "Why is constitution-making process in Kenya important?"
+          ],
+          "coreCompetencies": [
+            "Citizenship: Learners role play citizens participating in constitution-making process (referendum) and sing patriotic songs on defending and promoting the Constitution of Kenya",
+            "Learning to learn: Learners share what they have learned as they role play citizens participating in constitution-making process (referendum)"
+          ],
+          "values": [
+            "Patriotism: Learners share what they have learned through role play on the values that should be exercised during constitution making process and share in class",
+            "Unity: Learners embrace each other as role play participating citizens in constitution-making process (referendum)"
+          ],
+          "pcis": [
+            "Rule of Law: Learners role play participating citizens in constitution-making process (referendum)",
+            "Good governance: Learners acquire knowledge on the role of parliament and citizens in the constitution-making process in Kenya"
+          ],
+          "linkToOtherSubjects": [
+            "Learners use English, Kiswahili and Kenya Sign Language knowledge to create posters and discuss with the resource person on constitution-making in Kenya",
+            "Learners apply Creative Arts skills as they sing patriotic songs on promotion of the Constitution of Kenya"
+          ]
+        },
+        {
+          "subStrandNumber": "5.2",
+          "subStrandName": "Civic Engagement in Governance",
+          "numberOfLessons": 6,
+          "specificLearningOutcomes": [
+            "identify individual and collective civic engagement activities in Kenya",
+            "illustrate the role of political parties in democratic governance",
+            "outline positions vied for in a general election in Kenya",
+            "exhibit values that promote ethical civic engagement in the community"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm on individual and collective civic engagement activities in Kenya",
+            "develop slogans on individual and collective civic engagement in Kenya",
+            "create posters on personal and civic engagement activities, display in class and school notice boards",
+            "discuss the basic constitutional requirements for political parties as stipulated in Article 91 of the Constitution of Kenya",
+            "discuss the role of political parties in democratic governance",
+            "design charts on various elective positions in Kenya, display, take gallery walk and peer assess",
+            "role play scenarios that bring out values that promote ethical civic engagement in the community"
+          ],
+          "keyInquiryQuestions": [
+            "How does engagement promote good governance in the country?",
+            "How can we participate in democratic processes in the society?"
+          ],
+          "coreCompetencies": [
+            "Critical thinking and problem solving: Learners create posters on personal and civic engagement activities, display in class and school notice boards",
+            "Self-Efficacy: Learners develop slogans on individual and collective civic engagement in Kenya"
+          ],
+          "values": [
+            "Respect: Learners appreciate diverse opinions the role of political parties in democratic governance",
+            "Peace: Learners brainstorm on individual and collective civic engagement activities in Kenya"
+          ],
+          "pcis": [
+            "Civic Education: Learners develop slogans on individual and collective civic engagement activities in Kenya",
+            "Assertiveness: Learners create posters on personal and civic engagement activities, display in class and school notice boards"
+          ],
+          "linkToOtherSubjects": [
+            "Learners apply English, Kiswahili and Kenya Sign Language skills as they discuss the basic constitutional requirements for political parties as stipulated in Article 91 of the Constitution of Kenya",
+            "Learners use Creative Arts knowledge as they design charts on various elective positions in Kenya, display, take gallery walk and peer assess"
+          ]
+        },
+        {
+          "subStrandNumber": "5.3",
+          "subStrandName": "Kenya's Bill of Rights",
+          "numberOfLessons": 6,
+          "specificLearningOutcomes": [
+            "explore Kenya's Bill of Rights for mutual social well-being",
+            "examine human rights of special groups for promotion of social justice and inclusivity",
+            "apply the bill of rights for harmonious living",
+            "develop assertiveness necessary in standing up for human rights",
+            "cultivate empathy and solidarity with special groups in society for mutual social responsibility",
+            "embrace respect for human rights in society"
+          ],
+          "suggestedLearningExperiences": [
+            "use digital or print resources to research on Kenya's bill of rights and make notes",
+            "debate on human rights of special groups (Elderly, Refugees, Migrants)",
+            "carry out research to gather information on the rights of special groups",
+            "design posters on human rights laws with regard to special groups",
+            "discuss ways in which the bill of rights are applied to foster harmonious living",
+            "role play situations/scenarios that bring out assertiveness in standing up for individual rights",
+            "brainstorm on human rights laws for protection of special groups",
+            "display a sense of responsibility to the nation as they develop strategies for promoting protection of special groups in the community"
+          ],
+          "keyInquiryQuestions": [
+            "How can we protect the special groups in the community?"
+          ],
+          "coreCompetencies": [
+            "Citizenship: Learners role play situations/scenarios that bring out assertiveness in standing up for individual rights",
+            "Creativity and Imagination: Learners design posters on human rights laws with regard to special groups"
+          ],
+          "values": [
+            "Unity: Learners display team sprit as they brainstorm on human rights laws for protection of special groups",
+            "Patriotism: Learners display a sense of responsibility to the nation as they develop strategies for promoting protection of special groups in the community"
+          ],
+          "pcis": [
+            "Clubs and societies: Learners debate on human rights of special groups",
+            "Human Rights: Learners brainstorm in groups on human rights laws for protection of special groups"
+          ],
+          "linkToOtherSubjects": [
+            "Learners use Religious Education knowledge to develop strategies for promoting protection of special groups in the community",
+            "Learners apply English, Kiswahili and Kenyan Sign Language knowledge as they debate on human laws for special groups"
+          ]
+        },
+        {
+          "subStrandNumber": "5.4",
+          "subStrandName": "Cultural Globalization",
+          "numberOfLessons": 6,
+          "specificLearningOutcomes": [
+            "identify cultural elements and practices that have acquired a global recognition",
+            "explain the role of African cultural practices in promoting a common humanity",
+            "design measures to preserve cultural elements that promote global citizenship",
+            "appreciate factors that promote healthy cultural relationships and global interconnectedness"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm on African cultural practices",
+            "use digital or print media resources to research on cultural elements in Kenya which have acquired a global status: the Kiondo, the Maasai Kikoi, safari",
+            "discuss in groups African cultural practices elements in promoting a common humanity",
+            "carry out research on ways of preserving cultural elements that promotes global citizenship",
+            "invite a resource person to discuss on ways of preserving cultural elements that promotes global citizenship",
+            "design charts/posters depicting factors that promote healthy cultural relationships and global interconnectedness",
+            "plan to involve others as they debate on the role of international cultural exchange in promoting global citizenship"
+          ],
+          "keyInquiryQuestions": [
+            "How can we preserve aspects of cultural globalization in the community?",
+            "What are the merits of cultural globalization?"
+          ],
+          "coreCompetencies": [
+            "Digital literacy: Learners use digital or print media resources to research on cultural elements in Kenya which have acquired a global status (the Kiondo, the Maasai Kikoi, safari)",
+            "Self-efficacy: Learners plan to involve others as they debate on the role of international cultural exchange in promoting global citizenship"
+          ],
+          "values": [
+            "Respect: Learners design charts/posters depicting factors that promote healthy cultural relationships and global interconnectedness",
+            "Patriotism: Learners role play aspects of African Socialism, Ujamaa and Ubuntu elements in promoting a common humanity"
+          ],
+          "pcis": [
+            "Self-awareness: Learners become aware of their creativity skills as they role play African Socialism, Ujamaa and Ubuntu elements in promoting a common humanity",
+            "Social cohesion: Learners design charts/posters depicting factors that promote healthy cultural relationships and global interconnectedness"
+          ],
+          "linkToOtherSubjects": [
+            "Learners use Religious Education knowledge as they brainstorm on African Socialism, Ubuntu and Ujamaa practices as aspects of cultural globalization",
+            "Learners apply English, Kiswahili and Kenyan Sign Language skills as they debate on the role of international cultural exchange in promoting global citizenship"
+          ]
+        }
+      ]
+    }
+  ]
+}

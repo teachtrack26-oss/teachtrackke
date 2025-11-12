@@ -1,0 +1,2892 @@
+{
+  "subject": "English",
+  "grade": "Grade 9",
+  "education_level": "Junior Secondary",
+  "strands": [
+    {
+      "strand_number": "1.0",
+      "strand_name": "CITIZENSHIP",
+      "sub_strands": [
+        {
+          "sub_strand_number": "1.1",
+          "sub_strand_name": "Polite Language",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "outline words and phrases used to express euphemism",
+            "use euphemism to show politeness in communication",
+            "conduct a debate while adhering to conventions of polite language",
+            "acknowledge the importance of politeness in communication"
+          ],
+          "suggested_learning_experiences": [
+            "define the term euphemism",
+            "identify examples of polite words and expressions used in a poem or story",
+            "listen to an audio interview and identify euphemism",
+            "simulate an interview from a text and identify euphemism",
+            "use euphemism in a conversation",
+            "make rules for a debating session in groups",
+            "conduct a debate related to the theme, in small groups",
+            "watch or listen to a recorded clip of a debating session in parliament",
+            "create posters with euphemistic words and phrases",
+            "share the posters through social media or the school notice board"
+          ],
+          "key_inquiry_questions": [
+            "Why should we use polite language?",
+            "Why is it embarrassing to say some words in public?"
+          ],
+          "core_competencies": [
+            "Communication and collaboration - speaking and listening; enhanced as the learner speaks engagingly and listens critically to compare perspectives when participating in debates",
+            "Citizenship - constructive dialogue; nurtured as the learner engages in constructive dialogue when practising the use of polite language"
+          ],
+          "values": [
+            "Respect; inculcated as the learner displays patience with others when adhering to debating conventions and using polite language"
+          ],
+          "pcis": [
+            "Social cohesion; enhanced as the learner practises the use of euphemism in various contexts"
+          ],
+          "link_to_other_subjects": [
+            "The learner is able to relate the concept of polite words and expressions to their learning of living with others in Religious Studies"
+          ]
+        },
+        {
+          "sub_strand_number": "1.2",
+          "sub_strand_name": "Independent Reading - Grade Appropriate Text",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "select reading materials from digital or non-digital sources",
+            "read grade appropriate materials for lifelong learning",
+            "create a reading log for monitoring reading activities",
+            "maintain a reading log",
+            "recommend to peers suitable fiction and non-fiction materials to read"
+          ],
+          "suggested_learning_experiences": [
+            "identify reading materials in a variety of subjects",
+            "search for online fiction and non-fiction texts",
+            "skim through a text to obtain the gist (main idea)",
+            "scan a text to obtain specific details",
+            "read the text",
+            "maintain a reading log showing their reading activities and thoughts about what they read",
+            "engage in follow up activities such as: creating chain stories, forming a book club, keeping vocabulary journals, preparing a reading log for the titles of the fiction and non-fiction texts"
+          ],
+          "key_inquiry_questions": [
+            "Why is it important to read different types of materials?"
+          ],
+          "core_competencies": [
+            "Learning to learn; takes place as the learner builds on their own learning experience when selecting reading materials",
+            "Critical thinking and problem solving; promoted as the learner follows simple instruction to develop a good reading culture",
+            "Self-efficacy; nurtured as the learner shows concerted attention when creating a reading log"
+          ],
+          "values": [
+            "Responsibility; inculcated as the learner engages in assigned roles when searching for reading materials, reads, and keeps a reading log",
+            "Integrity; enhanced as the learner displays transparency in using the internet when searching for online fiction and non-fiction texts"
+          ],
+          "pcis": [
+            "Social cohesion; developed as learner shares reading materials and experiences"
+          ],
+          "link_to_other_subjects": [
+            "The learner is able to relate the concept of intensive and extensive reading to their learning of similar concepts in Kiswahili"
+          ]
+        },
+        {
+          "sub_strand_number": "1.3",
+          "sub_strand_name": "Gender Neutral Language",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify gender biased words and phrases in oral and written texts",
+            "use gender neutral words and phrases in sentences",
+            "acknowledge the importance of gender sensitivity in communication"
+          ],
+          "suggested_learning_experiences": [
+            "listen to common English songs and pick out gender biased words and phrases",
+            "read sections of a poem or story and pick out words with gender bias",
+            "watch a video and identify gender biased and gender neutral terms used by the speakers",
+            "replace the words with gender bias in the poem or story with gender neutral words and phrases",
+            "use the gender neutral words and phrases to make sentences",
+            "rewrite/paraphrase short texts to eliminate gender bias",
+            "collaborate with peers to create posters showing gender neutral words and phrases and share them on the school notice board or through social media",
+            "fill in a crossword puzzle featuring gender neutral words/phrases"
+          ],
+          "key_inquiry_questions": [
+            "How can one avoid gender bias in communication?",
+            "Which words demonstrate gender sensitivity in communication?"
+          ],
+          "core_competencies": [
+            "Self-efficacy; enhanced as the learner shows concerted attention when forming different types of sentences using gender sensitive words",
+            "Critical thinking and problem solving; enhanced as the learner analyses concepts by logical reasoning to fill in a crossword puzzle featuring gender neutral words/phrases"
+          ],
+          "values": [
+            "Unity; enhanced as the learner cooperates with peers when participating in group tasks",
+            "Respect; enhanced as the learner accommodates diverse opinions when reading sections of a poem or story and pick out words with gender bias"
+          ],
+          "pcis": [
+            "Social cohesion; developed as the learner cooperates with peers to practise the use of gender neutral language"
+          ],
+          "link_to_other_subjects": [
+            "The learner is able to relate the concept of gender sensitive language to their learning of equality and fairness in Social studies"
+          ]
+        },
+        {
+          "sub_strand_number": "1.4",
+          "sub_strand_name": "Play: Structure and Setting",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "describe the structure and setting of a play",
+            "analyse the acts and scenes of a play for literary appreciation",
+            "recognise the role of literary appreciation in critical thinking"
+          ],
+          "suggested_learning_experiences": [
+            "outline the order of events in a play",
+            "analyse the acts and scenes in a play",
+            "discuss the action in a play in groups",
+            "describe the time the actions in a play occur",
+            "work jointly with peers to discuss where the events in a play take place",
+            "write a summary of a scene in a play",
+            "collaborate with peers to role play some of the actions and characters in a play",
+            "paraphrase sections of a play"
+          ],
+          "key_inquiry_questions": [
+            "What are the features of a play?",
+            "Why is it necessary to know when and where the action in a play took place?"
+          ],
+          "core_competencies": [
+            "Self efficacy; enhanced as the learner shows defining personal skills when talking about the actions in a play",
+            "Communication and collaboration; promoted as learner contributes to group decision making when working in groups",
+            "Creativity and imagination; nurtured as the learner exchanges new ideas that inspire creative thinking when role-playing actions and characters in a play"
+          ],
+          "values": [
+            "Unity; promoted as the learner collaborates with peers to role play some of the actions and characters in a play",
+            "Responsibility; enhanced as the learners cooperate with peers when working in groups"
+          ],
+          "pcis": [
+            "Nationalism; promoted as the learner analyses and comes up with a play related to the theme on Citizenship"
+          ],
+          "link_to_other_subjects": [
+            "The learner is able to relate the concept of playwriting to their learning of drama and performance in Creative Arts"
+          ]
+        },
+        {
+          "sub_strand_number": "1.5",
+          "sub_strand_name": "Legibility and Neatness",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify sections of a piece of writing that require breaking of words and indentation",
+            "indent paragraphs when writing a composition",
+            "create a neat and legible text",
+            "appreciate the importance of legibility and neatness in written communication"
+          ],
+          "suggested_learning_experiences": [
+            "distinguish between tidy and untidy pieces of writing",
+            "indent paragraphs appropriately",
+            "find out the advantages of a neat and legible handwriting from the internet or non-digital sources",
+            "break words correctly at the end of a line",
+            "assess their own handwriting",
+            "work jointly to review a text written by a peer",
+            "take notes during an oral presentation",
+            "take notes while listening to an audio or watching a video recording",
+            "rewrite portions of a dictated text",
+            "work in partnership with peers to discuss techniques of improving legibility in writing"
+          ],
+          "key_inquiry_questions": [
+            "Why is it important to write legibly?",
+            "Why do we indent paragraphs?"
+          ],
+          "core_competencies": [
+            "Digital literacy; enhanced as the learner interacts with digital content to research on the advantages of a neat and legible handwriting from the internet",
+            "Learning to learn; takes place as the learner is motivated to learn continually by taking notes while listening to a text"
+          ],
+          "values": [
+            "Responsibility; cultivated as the learner exhibits self-driven attitude when working at improving their handwriting and engaging in self and peer assessment",
+            "Respect; enhanced as the learner ensures positive regard for others when reviewing a text written by a peer"
+          ],
+          "pcis": [
+            "Effective communication; enhanced as the learner acquires techniques of improving their handwriting, indenting paragraphs and note taking"
+          ],
+          "link_to_other_subjects": [
+            "The learner is able to relate the concept of neat and legible handwriting to their written work and apply it in all other learning areas"
+          ]
+        }
+      ]
+    },
+    {
+      "strand_number": "2.0",
+      "strand_name": "SCIENCE: FICTION",
+      "sub_strands": [
+        {
+          "sub_strand_number": "2.1",
+          "sub_strand_name": "Oral Literature: Short Forms",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify the characteristics of riddles, tongue twisters and proverbs",
+            "explain the functions of riddles, tongue twisters and proverbs",
+            "perform riddles, tongue twisters and proverbs",
+            "appreciate the importance of short forms in fostering fluency in communication"
+          ],
+          "suggested_learning_experiences": [
+            "collect riddles, proverbs and tongue twisters from books, the internet, and the community",
+            "play riddling games in small groups",
+            "discuss the functions of proverbs, riddles and tongue twisters",
+            "respond to riddles correctly",
+            "fill in crossword puzzles using riddles and proverbs",
+            "suggest alternative responses to given riddles",
+            "create a collection of riddles, proverbs and tongue twisters and display them on charts or school notice board"
+          ],
+          "key_inquiry_questions": [
+            "Why are riddles, proverbs and tongue twisters important?",
+            "How do we perform riddles, proverbs and tongue twisters?"
+          ],
+          "core_competencies": [
+            "Communication and collaboration; developed as the learner uses riddles, tongue twisters and proverbs",
+            "Critical thinking and problem solving; enhanced as the learner connects ideas to solve riddles"
+          ],
+          "values": [
+            "Unity; encouraged as the learner appreciates the effort of peers when participating in riddling games"
+          ],
+          "pcis": [
+            "Ethnic and racial relationships; fostered as the learner familiarises themselves with riddles and proverbs from different communities",
+            "Effective communication; developed as the learner learns to articulate words correctly"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili teaches riddles, proverbs and tongue twisters"
+          ]
+        },
+        {
+          "sub_strand_number": "2.2",
+          "sub_strand_name": "Intensive Reading: Simple Poems",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify basic aspects of style such as repetition and rhyme in a poem",
+            "describe the functions of rhyme and repetition in a poem",
+            "appreciate the role of repetition and rhyme in a poem"
+          ],
+          "suggested_learning_experiences": [
+            "read provided simple poems individually and in groups",
+            "respond to questions based on a poem",
+            "recite simple poems",
+            "identify the parts of a poem in which repetition and rhyme are used",
+            "search the internet or other sources for more examples of poems that use repetition and rhyme",
+            "relate the ideas in a poem to real life",
+            "Compose a simple poem with rhyme and repetition and present in groups"
+          ],
+          "key_inquiry_questions": [
+            "Why do we repeat some sounds, words and lines in a poem?"
+          ],
+          "core_competencies": [
+            "Self-efficacy; nurtured as the learner recites poems",
+            "Learning to learn; encouraged as the learner studies on their own",
+            "Communication and collaboration; enhanced as the learner reads and recites poems"
+          ],
+          "values": [
+            "Unity; cultivated as the learner collaborates with others to recite poems",
+            "Respect; fostered as the learner displays patience when taking turns to read and respond to different lines in a poem"
+          ],
+          "pcis": [
+            "Effective communication; enhanced as the learner learns to articulate words correctly as they read and recite poems"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili, French, German and indigenous languages expose learners to poetry"
+          ]
+        },
+        {
+          "sub_strand_number": "2.3",
+          "sub_strand_name": "Nouns and Quantifiers",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "use quantifiers in sentence",
+            "categorise count and non-count nouns in oral and written texts",
+            "acknowledge the importance of quantifiers in oral and written communication"
+          ],
+          "suggested_learning_experiences": [
+            "read a short passage in which quantifiers are used to describe count and non-count nouns",
+            "listen to a text that uses quantifiers with count and non- count nouns",
+            "identify quantifiers that are used with count, non-count or both categories",
+            "work in small groups to identify count, non-count nouns and quantifiers from a passage",
+            "match count and non-count nouns with the correct quantifiers",
+            "search for more examples of quantifiers from books, newspapers, magazines, and the internet",
+            "form sentences using different quantifiers with count and non-count nouns and read them aloud in groups"
+          ],
+          "key_inquiry_questions": [
+            "How do count nouns differ from the non-count nouns?",
+            "Why is it important to express the quantity of something correctly?"
+          ],
+          "core_competencies": [
+            "Learning to learn; enhanced as the learner searches for more examples of quantifiers from books, newspapers, magazines, and the internet"
+          ],
+          "values": [
+            "Unity; fostered as the learner collaborates with others to identify count and non-count nouns in small groups",
+            "Responsibility; nurtured as the learner offers guidance to others when helping each other in identifying and using quantifiers correctly"
+          ],
+          "pcis": [
+            "Effective communication; enhanced as the learner uses quantifiers correctly in sentences"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili, French, German and indigenous languages expose the learner to quantifiers and count and non-count nouns"
+          ]
+        },
+        {
+          "sub_strand_number": "2.4",
+          "sub_strand_name": "Intensive Reading: Plot",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "describe the sequence of events in a play",
+            "relate the events in a play to real life experiences",
+            "acknowledge the importance of a plot in a literary work"
+          ],
+          "suggested_learning_experiences": [
+            "read a play individually and in small groups",
+            "identify the key events in a play",
+            "role-play a section of a play in groups",
+            "analyse the events in a play",
+            "answer questions based on the plot",
+            "create a summary of the key events",
+            "assess the summary in pairs or small groups",
+            "make connections between events in a play and real life"
+          ],
+          "key_inquiry_questions": [
+            "How do we know the key events in a play?"
+          ],
+          "core_competencies": [
+            "Learning to learn; enhanced as the learner analyses and writes a summary of the events in a play",
+            "Communication and collaboration; developed as the learner interacts with others in groups"
+          ],
+          "values": [
+            "Unity; enhanced as the learner collaborates with peers to complete a task"
+          ],
+          "pcis": [
+            "Social cohesion; enhanced as the learner analyses events in a play and relates the events with real life experiences"
+          ],
+          "link_to_other_subjects": [
+            "Drama and plays are studied in Kiswahili, German and French"
+          ]
+        },
+        {
+          "sub_strand_number": "2.5",
+          "sub_strand_name": "Mechanics of Writing: Punctuation",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify the double quotation marks and the bracket in a text",
+            "use the double quotation marks and the bracket in written texts",
+            "appreciate the role of the double quotation marks and the bracket in written texts"
+          ],
+          "suggested_learning_experiences": [
+            "identify the double quotation marks and the bracket in digital texts, newspapers, books or magazines",
+            "make sentences using the double quotation marks and the bracket",
+            "assess the work of peers",
+            "make posters displaying the correct use of the double quotation marks and the bracket"
+          ],
+          "key_inquiry_questions": [
+            "Why is it important to use punctuation marks correctly?",
+            "How do we use the double quotation marks and the bracket in writing?"
+          ],
+          "core_competencies": [
+            "Self-efficacy; enriched as the learner uses punctuation marks correctly in writing",
+            "Creativity and imagination; enhanced as the learner constructs sentences",
+            "Learning to learn; achieved as the learners assess peers' work"
+          ],
+          "values": [
+            "Love; promoted as the learner portrays a caring attitude when assessing the work of peers for correctness",
+            "Unity; strengthened as the learner shares available resources when working in groups to complete tasks"
+          ],
+          "pcis": [
+            "Effective communication; promoted as the learner uses punctuation marks in writing",
+            "Creative thinking; enhanced as the learner creates sentences"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili, French, indigenous languages and German emphasise the need for correct punctuation in writing"
+          ]
+        }
+      ]
+    },
+    {
+      "strand_number": "3.0",
+      "strand_name": "ENVIRONMENTAL CONSERVATION",
+      "sub_strands": [
+        {
+          "sub_strand_number": "3.1",
+          "sub_strand_name": "Listening Comprehension (Grade Appropriate Texts)",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify the main idea and specific details from an argumentative text",
+            "listen for the main idea and specific information (details) in an argumentative text",
+            "acknowledge the need for comprehension in communication"
+          ],
+          "suggested_learning_experiences": [
+            "listen to a passage read out by the teacher based on the theme",
+            "pick out specific details such as time, places, events and people from a listening passage",
+            "identify the main idea from a listening text in small groups",
+            "listen to a news bulletin and pick out the main idea and specific details",
+            "watch a debate or interview and pick out required information",
+            "watch a video of a presentation of a poem, song or story and identify specific details",
+            "infer the meaning of unfamiliar words in groups",
+            "answer questions based on the passage"
+          ],
+          "key_inquiry_questions": [
+            "Why is it important to listen attentively?",
+            "How do the specific details in a text enhance comprehension?"
+          ],
+          "core_competencies": [
+            "Learning to learn; stimulated as the learner listens for the main idea and specific details",
+            "Digital literacy; advanced as the learner interacts with audio and video texts",
+            "Critical thinking and problem solving; broadened as the learner identifies the main idea and specific details from a text"
+          ],
+          "values": [
+            "Patriotism; promoted as the learner exhibits consciousness of their social duties when acquiring knowledge on how to preserve their environment from the thematic texts",
+            "Responsibility; inculcated as the learner acknowledges their roles and responsibilities when being sensitised on ways of conserving the environment"
+          ],
+          "pcis": [
+            "Social cohesion; enhanced as the learner works with peers"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili, indigenous languages, German and French teach learners the importance of good listening skills"
+          ]
+        },
+        {
+          "sub_strand_number": "3.2",
+          "sub_strand_name": "Reading for Information and Meaning",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "infer the meaning of words, phrases and sentences from the context",
+            "make connections between events in a text and real life situations",
+            "value the need to comprehend the information in written texts"
+          ],
+          "suggested_learning_experiences": [
+            "read a grade appropriate text",
+            "make predictions about a reading text",
+            "infer the meaning of new words, phrases and sentences from the context",
+            "look up the meaning of new words and phrases from the dictionary",
+            "relate the characters, events and places in a text to real life",
+            "answer questions from a text",
+            "make notes as they read a text",
+            "summarise the events in a text",
+            "form sentences using the new words and phrases",
+            "fill in a crossword puzzle in pairs or small groups using the new words"
+          ],
+          "key_inquiry_questions": [
+            "Why is it important find the meaning of new words and phrases?",
+            "How do we derive information from a given text?"
+          ],
+          "core_competencies": [
+            "Communication; enhanced as the learner answers questions from a text"
+          ],
+          "values": [
+            "Respect; developed as the learner understands and appreciates others when working with peers to complete tasks"
+          ],
+          "pcis": [
+            "Environmental education; enhanced as the learner interacts with content on environmental conservation"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili exposes learners to comprehension skills"
+          ]
+        },
+        {
+          "sub_strand_number": "3.3",
+          "sub_strand_name": "Modal Auxiliaries",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify modal auxiliaries in a passage",
+            "use modal auxiliaries to express different moods",
+            "value the importance of using modal auxiliaries in communication"
+          ],
+          "suggested_learning_experiences": [
+            "identify the modal auxiliaries – may, might, will, shall, would, should, can and could – in a print or digital text",
+            "form sentences using the modal auxiliaries",
+            "read a dialogue featuring modal auxiliaries in pairs",
+            "create a dialogue featuring modal auxiliaries in pairs, record the dialogue and share it with peers",
+            "listen to a song or read a poem and identify the modal auxiliaries used",
+            "view pictures and diagrams and ask questions using modal auxiliaries",
+            "use modal auxiliaries correctly to express permission, requests, ability and obligation",
+            "in groups, discuss the functions of modal auxiliaries"
+          ],
+          "key_inquiry_questions": [
+            "Which words do we use to express different moods such as requests, permission, ability and obligation?"
+          ],
+          "core_competencies": [
+            "Self efficacy; enhanced as the learner identifies and uses modal auxiliaries correctly"
+          ],
+          "values": [
+            "Respect; inculcated as learners appreciates diverse opinions when participating in group activities to complete tasks"
+          ],
+          "pcis": [
+            "Effective communication; developed as the learner reads a dialogue featuring modal auxiliaries"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili, French, German and Arabic teach modal auxiliaries"
+          ]
+        },
+        {
+          "sub_strand_number": "3.4",
+          "sub_strand_name": "Poems: Structure",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "describe the structure of a poem",
+            "analyse the use of personification in a poem",
+            "create a poem based on a topic of interest",
+            "appreciate the reading of poetry for enjoyment"
+          ],
+          "suggested_learning_experiences": [
+            "recite a poem",
+            "identify the number of lines in a poem",
+            "pick out the short and long lines in a poem",
+            "in small groups, discuss how personification has been used in the poem",
+            "infer the meaning of new words from the context of a poem",
+            "come up with a class project in which they: identify a topic of interest, carry out research about the topic, compose a poem based on the selected topic, ask a peer to review the poem, make corrections on the poem, share the poem on the school noticeboard or through social media"
+          ],
+          "key_inquiry_questions": [
+            "Why do we read or recite poems?",
+            "Why are non-living things or animals made to behave like human beings in poems or stories?"
+          ],
+          "core_competencies": [
+            "Communication and collaboration; promoted as the learners review their peers' poems"
+          ],
+          "values": [
+            "Respect; developed as learner embraces open-mindedness when working in groups to accomplish tasks"
+          ],
+          "pcis": [
+            "Effective communication; enhanced through recitation of poems and composition of new ones"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili, German, French and indigenous languages use poems to teach communication skills"
+          ]
+        },
+        {
+          "sub_strand_number": "3.5",
+          "sub_strand_name": "Structure of a paragraph",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "outline the four characteristics of a well formed paragraph",
+            "create a paragraph that is well developed, coherent and unified",
+            "acknowledge the need for concise paragraphs in written communication"
+          ],
+          "suggested_learning_experiences": [
+            "read excerpts from newspaper articles, magazines, textbooks or online articles",
+            "identify the: topic sentence, supporting sentences, clincher sentence",
+            "discuss the steps for paragraph writing, namely: Step 1 —write an outline of the paragraph that includes the topic and supporting information, Step 2 — write the topic sentence, Step 3 – write a supporting sentence for each point. Use facts or examples to support your points, Step 4 — write a concluding sentence to sum up, Step 5 — write the final paragraph",
+            "write a paragraph on a topic of interest that is: coherent, unified, contains well-developed thoughts",
+            "assess the paragraphs in groups"
+          ],
+          "key_inquiry_questions": [
+            "Why is it important to organise the ideas in your paragraphs coherently?",
+            "How can you ensure that your paragraphs are well formed?"
+          ],
+          "core_competencies": [
+            "Digital literacy; advanced as the learner reads excerpts from digital sources"
+          ],
+          "values": [
+            "Unity; enhanced as the learner appreciates the efforts of others when assessing their peers' work"
+          ],
+          "pcis": [
+            "Effective communication; developed as the learner writes well-formed paragraphs"
+          ],
+          "link_to_other_subjects": [
+            "The importance of well formed paragraphs is learnt in Kiswahili, French and German"
+          ]
+        }
+      ]
+    },
+    {
+      "strand_number": "4.0",
+      "strand_name": "CONSUMER PROTECTION: CONSUMER LAWS AND POLICIES",
+      "sub_strands": [
+        {
+          "sub_strand_number": "4.1",
+          "sub_strand_name": "Selective Listening",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "select required information from a listening text",
+            "make judgement on the message in the listening text",
+            "advocate the need for selective listening in various contexts"
+          ],
+          "suggested_learning_experiences": [
+            "listen to a news bulletin and select the required information while disregarding irrelevant information",
+            "answer specific questions on dates, time and facts based on the news bulletin",
+            "list the order of events mentioned in the bulletin",
+            "discuss in groups how to become a better listener",
+            "give an opinion on what they like or do not like about the text",
+            "watch a video of a presentation and pick out required information"
+          ],
+          "key_inquiry_questions": [
+            "Why should we listen attentively?",
+            "How can we ensure we pick out relevant details from a text?"
+          ],
+          "core_competencies": [
+            "Critical thinking and problem solving; enhanced as learners selectively pick out relevant information while leaving out irrelevant details"
+          ],
+          "values": [
+            "Social justice; promoted as the learner accords equal opportunities for peers to contribute when discussing in groups how to become a better listener"
+          ],
+          "pcis": [
+            "Social cohesion; enhanced through group tasks"
+          ],
+          "link_to_other_subjects": [
+            "French, German, Kiswahili, Arabic and indigenous languages expose learners to selective listening skills"
+          ]
+        },
+        {
+          "sub_strand_number": "4.2",
+          "sub_strand_name": "Intensive Reading",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "predict events in a reading text",
+            "outline the key events in a text",
+            "answer direct and inferential questions for comprehension",
+            "infer the meaning of new words and phrases using contextual clues",
+            "relate the characters, events and places in the text to real life",
+            "appreciate the importance of comprehension in lifelong learning"
+          ],
+          "suggested_learning_experiences": [
+            "make predictions about the outcome of the story from the title and illustrations",
+            "deduce the meaning of words using contextual clues",
+            "make connections between events in the story and real life",
+            "answer direct and inferential questions from a comprehension passage on consumer laws and policies",
+            "make notes from a passage on consumer laws and policies",
+            "write a summary using the notes"
+          ],
+          "key_inquiry_questions": [
+            "How are characters and events in a text related to real life?",
+            "Why is summary writing an important reading skill?"
+          ],
+          "core_competencies": [
+            "Critical thinking and problem solving; fostered as the learner makes inferences and summarises information from the text"
+          ],
+          "values": [
+            "Unity; enhanced as the learner collaborates with peers to work in groups to complete tasks"
+          ],
+          "pcis": [
+            "Social cohesion; enhanced as the learner participates in group activities",
+            "Consumer protection; addressed as the learner makes notes from a passage on consumer laws and policies"
+          ],
+          "link_to_other_subjects": [
+            "Comprehension strategies such as drawing conclusions and making inferences are learnt in Kiswahili",
+            "Integrated Science and Agriculture and Nutrition expose learners to experiments which require the skill of drawing conclusions"
+          ]
+        },
+        {
+          "sub_strand_number": "4.3",
+          "sub_strand_name": "Present and Past Perfect Aspect",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "distinguish the present and past perfect aspect in sentences",
+            "use present and past perfect aspect in sentences",
+            "appreciate the importance of using tense in sentences"
+          ],
+          "suggested_learning_experiences": [
+            "recognise present and past perfect aspects",
+            "engage in a sentence completion guessing game to practise present and past perfect aspect",
+            "compare present and past perfect aspect forms in sentences",
+            "use has/have + -ed participle form of the verb to form the present perfect tense",
+            "use had + past participle form of the verb to form the past perfect tense",
+            "construct sentences on a variety of issues such as consumer laws and policies using the present and past perfect aspect",
+            "pick out sentences in present and past perfect tense from newspaper articles, magazines and books",
+            "search for examples of sentences in the present and past perfect forms from the internet"
+          ],
+          "key_inquiry_questions": [
+            "How do we show that an action is complete?",
+            "Why should we use tense correctly in sentences?"
+          ],
+          "core_competencies": [
+            "Self-efficacy; achieved as the learner uses present and past perfect aspect in sentences"
+          ],
+          "values": [
+            "Social justice; fostered as the learner appreciates the need for fairness to consumers when forming sentences related to the theme of consumer protection"
+          ],
+          "pcis": [
+            "Consumer protection; enhanced as the learner interacts with content related to consumer laws and policies"
+          ],
+          "link_to_other_subjects": [
+            "Pre-Technical has issues on consumer protection"
+          ]
+        },
+        {
+          "sub_strand_number": "4.4",
+          "sub_strand_name": "Play: Identification of Characters",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify the characters in a play",
+            "use appropriate adjectives to describe the characters",
+            "describe the actions of the characters using appropriate adverbs",
+            "value the need to describe people and situations appropriately"
+          ],
+          "suggested_learning_experiences": [
+            "list the characters and their roles in a play",
+            "assume (hot seat) the personality of a certain character and say why 'they say and do certain things'",
+            "role play various characters",
+            "participate in a reader's theatre as they read sections of a play",
+            "use appropriate adjectives to describe the characters, with illustrations",
+            "describe the actions of the characters using various adverbs",
+            "relate the characters in a play to people in real life",
+            "discuss the behaviour of the characters in small groups",
+            "write an essay on their favourite characters"
+          ],
+          "key_inquiry_questions": [
+            "How can one tell the qualities of a character in a play?",
+            "How does describing actions of characters aid our understanding of a play?"
+          ],
+          "core_competencies": [
+            "Critical thinking; achieved as learners identify the characters and their traits",
+            "Problem solving; fostered as learners brainstorm on the characters' behaviour"
+          ],
+          "values": [
+            "Unity; enhanced as the learner strives to achieve a common goal by engaging others in group tasks"
+          ],
+          "pcis": [
+            "Critical thinking; developed as the learner role-plays or assumes the role of certain characters in a hot seating activity"
+          ],
+          "link_to_other_subjects": [
+            "Characterisation is a concept learnt in Kiswahili, indigenous languages and Performing Arts"
+          ]
+        },
+        {
+          "sub_strand_number": "4.5",
+          "sub_strand_name": "Narrative and Descriptive Paragraphs",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "highlight the qualities of a well formed paragraph",
+            "write narrative and descriptive paragraphs",
+            "use the first person and second person in narrative and descriptive paragraphs",
+            "value the need for well formed paragraphs in written communication"
+          ],
+          "suggested_learning_experiences": [
+            "distinguish between narrative and descriptive paragraphs",
+            "search for examples of narrative and descriptive paragraphs from the internet or print sources",
+            "discuss the qualities of a well formed paragraph in groups",
+            "outline the characteristics of a narrative paragraph",
+            "discuss the features of a descriptive paragraph in groups",
+            "create a descriptive paragraph that appeals to the sense of sight, smell, hearing, taste and touch",
+            "create a narrative paragraph",
+            "recognise the first and second person in various paragraphs",
+            "review a paragraph written by peers",
+            "make corrections to the paragraph as per comments given by peers"
+          ],
+          "key_inquiry_questions": [
+            "How can we make a narrative composition interesting?",
+            "How can we ensure unity in a paragraph?"
+          ],
+          "core_competencies": [
+            "Creative thinking and problem solving; developed as learners review a paragraph written by peers"
+          ],
+          "values": [
+            "Unity and responsibility; developed as the learner respects other's opinions when discussing the qualities of a well formed paragraph in groups"
+          ],
+          "pcis": [
+            "Consumer Protection; enhanced as the learner interacts with materials related to the theme"
+          ],
+          "link_to_other_subjects": [
+            "The importance of well formed paragraphs is emphasised in Kiswahili, indigenous languages and foreign languages"
+          ]
+        }
+      ]
+    },
+    {
+      "strand_number": "5.0",
+      "strand_name": "RELATIONSHIPS: COMMUNITY",
+      "sub_strands": [
+        {
+          "sub_strand_number": "5.1",
+          "sub_strand_name": "Pronunciation",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "pronounce the semivowels /j/ /w/ and the diphthongs /aɪ/ and /eɪ/ words with clarity",
+            "apply stress on content and function words appropriately for speech clarity",
+            "appreciate the importance of correct pronunciation in communication"
+          ],
+          "suggested_learning_experiences": [
+            "identify the semi-vowels /j/ and /w/ as in the words you, yes; woo and way",
+            "pick out the diphthongs /aɪ/ as in buy ; and /eɪ/ as in pain from an audio or oral text",
+            "listen to a passage or sentences from an audio-recording or from the teacher",
+            "write down and read out words with the specified semi-vowels /j/ and /w/ (as in you, yes; woo, way)",
+            "pronounce words with the diphthongs /aɪ/ and /eɪ/ (as in buy, file; pain, gate) accurately",
+            "practise correct pronunciation of the learnt words in pairs",
+            "find out and listen to the correct pronunciation of sounds from the internet",
+            "stress content words",
+            "stress function words when necessary",
+            "bring out varied meanings of words through stress"
+          ],
+          "key_inquiry_questions": [
+            "Why should we pronounce sounds accurately?",
+            "How can the same word express different meanings?"
+          ],
+          "core_competencies": [
+            "Digital literacy; enhanced as the learner listens to a passage or sentences from an audio-recording",
+            "Communication and collaboration; developed as learner practises correct pronunciation in groups",
+            "Learning to learn; developed as the learner listens to the correct pronunciation of sounds from the internet on their own"
+          ],
+          "values": [
+            "Unity; promoted as the learner collaborates with others to work in pairs to practice correct pronunciation"
+          ],
+          "pcis": [
+            "Effective communication; enhanced as the learner improves their articulation of sounds and words"
+          ],
+          "link_to_other_subjects": [
+            "Social Studies and Religious Education address topics on relationships",
+            "All languages teach correct pronunciation"
+          ]
+        },
+        {
+          "sub_strand_number": "5.2",
+          "sub_strand_name": "Reference Materials: Dictionary, Thesaurus, Encyclopaedia",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "outline various types of reference materials and their uses",
+            "use the dictionary, thesaurus and subject specific encyclopaedia to check the meaning and usage of words",
+            "conduct research on a topic of interest using the dictionary, thesaurus and encyclopaedia",
+            "acknowledge the value of reference materials in research"
+          ],
+          "suggested_learning_experiences": [
+            "search the internet for more information about the dictionary, thesaurus, encyclopaedia and the purpose for each",
+            "compare print and digital dictionary, thesaurus, encyclopaedia",
+            "read a passage from a textbook, newspaper, or magazine",
+            "identify unfamiliar words in the passage",
+            "look up the meaning of the words in a dictionary",
+            "conduct research on a given topic using subject specific encyclopaedia",
+            "look up the synonyms of various words using a thesaurus",
+            "make sentences using the synonyms of given words",
+            "utilise the dictionary, thesaurus and the encyclopaedia for reference purposes",
+            "spell words correctly",
+            "classify words into various classes",
+            "conduct research on contemporary issues from a subject specific encyclopaedia"
+          ],
+          "key_inquiry_questions": [
+            "Why do we use reference materials?"
+          ],
+          "core_competencies": [
+            "Digital literacy; promoted as the learner searches for information using the digital dictionary, thesaurus, encyclopaedia",
+            "Learning to learn; enhanced as the learner uses the dictionary, thesaurus and encyclopaedia for research"
+          ],
+          "values": [
+            "Integrity; inculcated as the learner applies laid down procedures when conducting research on various topics using the dictionary, thesaurus and subject specific Encyclopaedia"
+          ],
+          "pcis": [
+            "Effective communication; developed as the learner pronounces and spells words correctly with the help of reference materials",
+            "Critical thinking; improved as the learner makes own sentences using newly acquired words"
+          ],
+          "link_to_other_subjects": [
+            "Language such as Kiswahili teaches use of reference material",
+            "Subject specific encyclopaedias are used in all learning areas"
+          ]
+        },
+        {
+          "sub_strand_number": "5.3",
+          "sub_strand_name": "Order of Adjectives",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify various types of adjectives in texts",
+            "use the correct order of adjectives in oral and written texts",
+            "appreciate the role of ordered adjectives in communication for clarity"
+          ],
+          "suggested_learning_experiences": [
+            "identify opinion, shape, size, age, colour, origin, material, purpose adjectives in texts",
+            "search for examples of various types of adjectives from the internet",
+            "use mind maps to generate different adjectives",
+            "form sentences using adjectives of opinion, shape, size, age, colour, origin, material and purpose",
+            "listen to an audio text or watch a video and pick out different adjectives",
+            "construct sentences orally in pairs from posters, pictures and other visuals",
+            "work in small groups to fill in crossword puzzles featuring different types of adjectives",
+            "participate in a chain story telling game where they describe a character or place using adjectives"
+          ],
+          "key_inquiry_questions": [
+            "How can we use words to create vivid pictures of a person or place?",
+            "Why is it important to order adjectives correctly?"
+          ],
+          "core_competencies": [
+            "Learning to learn; promoted as the learner interracts with the order of different types of adjectives in various texts",
+            "Digital literacy; enhanced as the learner searches for examples of various adjectives from the internet"
+          ],
+          "values": [
+            "Unity and responsibility; enhanced as the learner advocates for fairness when participating in group tasks"
+          ],
+          "pcis": [
+            "Critical thinking; developed as the learner practices how to order adjectives correctly in own sentences"
+          ],
+          "link_to_other_subjects": [
+            "Adjectives are learnt in the language learning areas such as indigenous languages, French, Kiswahili and German"
+          ]
+        },
+        {
+          "sub_strand_number": "5.4",
+          "sub_strand_name": "Play: Style",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify the features of style used in a play with examples",
+            "relate the stylistic features to the message in a play",
+            "value the role of varied style in reinforcing the message in a play"
+          ],
+          "suggested_learning_experiences": [
+            "identify the oral literature features (narration, riddles, songs, proverbs, local words and tongue twisters) used in a play",
+            "pick out the similes and metaphors used in a play",
+            "read about the meaning of the features of style used in a play from digital and non-digital resources",
+            "read excerpts of a play and pick out the stylistic features used",
+            "participate in a readers' theatre as they read sections of a play",
+            "relate the features of style to the message in a play",
+            "role-play the actions of the characters in a play",
+            "use hot seating to bring to life aspects of a play",
+            "write a summary of the features of style used in a play"
+          ],
+          "key_inquiry_questions": [
+            "What makes a play interesting to read?",
+            "How do stylistic features enhance the message in a play?"
+          ],
+          "core_competencies": [
+            "Critical thinking and problem solving; fostered as the learner relates the aspects of style to the message in a play"
+          ],
+          "values": [
+            "Unity; promoted as the learner collaborates with peers when participating in group tasks"
+          ],
+          "pcis": [
+            "Peace education; enhanced as the learner takes part in collaborative group tasks such as the readers' theatre, role plays and hot seating"
+          ],
+          "link_to_other_subjects": [
+            "Stylistic features are studied in Kiswahili and other language learning areas"
+          ]
+        },
+        {
+          "sub_strand_number": "5.5",
+          "sub_strand_name": "Letter of Application",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify the components of a letter of application",
+            "write a letter of application for placement at Senior Secondary School using all the components",
+            "advocate the need to adhere to the format of formal letter writing"
+          ],
+          "suggested_learning_experiences": [
+            "identify the components of a letter of application from a sample letter",
+            "work in groups to brainstorm on the purpose of writing a letter of application",
+            "look for more samples of letters of application from books, magazines, newspapers and the internet",
+            "outline a letter of application",
+            "write a letter of application for placement at Senior Secondary School using the taught components",
+            "exchange the letter with other learners for peer assessment",
+            "edit the letters of application in small groups for correctness",
+            "revise the letter and input corrections suggested by peers",
+            "share the letters of application on the class noticeboard, school noticeboard or online"
+          ],
+          "key_inquiry_questions": [
+            "Why do we write letters of application?",
+            "How can one ensure a letter of application meets the expected standards?"
+          ],
+          "core_competencies": [
+            "Collaboration; enhanced as the learner participates in collaborative letter writing tasks",
+            "Digital literacy; promoted as the learner searchers for samples of letters of application from the internet",
+            "Creativity and imagination; nurtured as the learner composes a letter of application for placement at Senior Secondary School which boosts their level of innovativeness"
+          ],
+          "values": [
+            "Unity; promoted as the learner embraces other's contributions when exchanging the letter of application for peer assessment",
+            "Responsibility; fostered as the learner takes up tasks and duties when participating in collaborative letter writing and editing"
+          ],
+          "pcis": [
+            "Creative thinking; developed as the learner participates in group tasks"
+          ],
+          "link_to_other_subjects": [
+            "Letter writing is learnt in learning areas such as Kiswahili, French and German"
+          ]
+        }
+      ]
+    },
+    {
+      "strand_number": "6.0",
+      "strand_name": "LEISURE TIME",
+      "sub_strands": [
+        {
+          "sub_strand_number": "6.1",
+          "sub_strand_name": "Conversational skills: Negotiation skills",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify words and phrases used during negotiations",
+            "use verbal and non-verbal cues during negotiations",
+            "acknowledge the importance of negotiation skills in communication"
+          ],
+          "suggested_learning_experiences": [
+            "watch a video clip in which people are engaged in a negotiation",
+            "listen to a conversation related to the theme",
+            "pick out words and phrases that facilitate a negotiation",
+            "work in pairs and search for more examples of words and phrases used during negotiations",
+            "use verbal and non-verbal cues in conversations",
+            "role play a negotiation scene",
+            "simulate a negotiation scene",
+            "engage in a hot seat negotiation for the freedom of a prisoner or a favour",
+            "perform a conversational poem in which people are negotiating or bargaining for money, dowry or price of land"
+          ],
+          "key_inquiry_questions": [
+            "Which words or expressions would one use when negotiating?",
+            "How can one enhance their negotiation skills?"
+          ],
+          "core_competencies": [
+            "Problem solving; developed as the learner negotiates or requests for a favour during a hot seating activity",
+            "Collaboration; enhanced as the learner discusses the use of verbal and non-verbal cues in conversations"
+          ],
+          "values": [
+            "Responsibility; enhanced as the learner diligently uses language appropriately to hold negotiations",
+            "Unity; developed as the learner appreciates diverse opinions when working with peers to hold mock negotiations"
+          ],
+          "pcis": [
+            "Effective communication; enhanced as the learner is equipped with negotiation skills"
+          ],
+          "link_to_other_subjects": [
+            "Negotiation skills are also learnt in Social studies and Kiswahili"
+          ]
+        },
+        {
+          "sub_strand_number": "6.2",
+          "sub_strand_name": "Reading Fluency",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "outline ways of enhancing fluency in reading",
+            "read a text at the right speed, accurately and with expression for effective communication",
+            "acknowledge the role of reading fluently in extensive reading"
+          ],
+          "suggested_learning_experiences": [
+            "preview a text",
+            "ignore unknown words",
+            "scan through a text to find a word, a pair of words or a phrase in pairs or groups",
+            "skim through articles or chapters in a book",
+            "read portions of a narrative in turns",
+            "engage in a timed, repeated reading of a portion of a text",
+            "pronounce sounds and words accurately",
+            "read with expression",
+            "find a text, set a reading rate goal, for example, one hundred words per minute, time themselves and read and reread the text until they attain the desired number of words per minute",
+            "read a portion of a text in groups and correct each other",
+            "perform a conversational poem in a reader's theatre",
+            "read a text within a specified time",
+            "read out texts from flash cards"
+          ],
+          "key_inquiry_questions": [
+            "Why is reading a text fluently important?",
+            "How can one read a text fluently?"
+          ],
+          "core_competencies": [
+            "Self-efficacy; enhanced as the learner accurately reads a text at the right speed and with expression",
+            "Learning to learn; achieved as the learner learns how to read fluently"
+          ],
+          "values": [
+            "Love; instilled as the learner nurtures peer's confidence when taking part in group tasks like timing each other's reading"
+          ],
+          "pcis": [
+            "Effective communication; enhanced as the learner effectively communicates ideas by fluently reading texts"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili, German, French and indigenous languages emphasise the acquisition of effective reading skills"
+          ]
+        },
+        {
+          "sub_strand_number": "6.3",
+          "sub_strand_name": "Comparison of Adverbs",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify the degrees of comparison in adverbs",
+            "use positive, comparative and superlative degrees of adverbs in sentences",
+            "appreciate the importance of the correct usage of adverbs"
+          ],
+          "suggested_learning_experiences": [
+            "identify the positive, comparative and superlative degrees of adverbs",
+            "practise using different degrees of adverbs in sentences",
+            "listen to an audio clip or read a passage featuring the comparison of adverbs",
+            "discuss the rules for comparison of adverbs",
+            "in small groups, correct mistakes in sentences that have comparison of adverbs",
+            "use substitution tables to categorise adverbs in pairs",
+            "use various degrees of adverbs during a role play",
+            "use adverbs of various degrees in a dialogue, record a video or audio clip and share it through the internet"
+          ],
+          "key_inquiry_questions": [
+            "How do we compare things?",
+            "Which words are used to make comparison?"
+          ],
+          "core_competencies": [
+            "Digital literacy; promoted as the learner listens to an audio clip on the comparison of adverbs",
+            "Communication and collaboration; enhanced as the learner participates in a dialogue featuring degrees of adverbs"
+          ],
+          "values": [
+            "Integrity; inculcated as the learner commits to using their leisure time to read a passage on comparison of adverbs"
+          ],
+          "pcis": [
+            "Creative thinking; enhanced as the learner appropriately identifies which degrees of adverbs to use"
+          ],
+          "link_to_other_subjects": [
+            "Comparison of adverbs is a concept learnt in Kiswahili, French, German and indigenous languages"
+          ]
+        },
+        {
+          "sub_strand_number": "6.4",
+          "sub_strand_name": "Intensive Reading – Play",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify the themes in a play or a section of a play",
+            "analyse the themes in a play",
+            "relate the themes in a play to real life",
+            "appreciate the role of literary appreciation in the development of critical thinking skills"
+          ],
+          "suggested_learning_experiences": [
+            "read excerpts of a play",
+            "outline and illustrate the themes in a play",
+            "in groups discuss the themes in a play",
+            "engage in a hot seating activity featuring some of the themes",
+            "relate the themes to real life experiences",
+            "role play some of the scenes in a play",
+            "perform readers' theatre in small groups involving sections of a play",
+            "record video clips as they dramatise, sections of a play, share the video clips through the internet"
+          ],
+          "key_inquiry_questions": [
+            "What are some of the issues authors write about?",
+            "How are literary texts different from factual ones?"
+          ],
+          "core_competencies": [
+            "Creativity and imagination; enhanced as the learner participates in hot seats and relates themes to real life experiences",
+            "Digital literacy; developed as the learner makes video recordings and shares them on the internet"
+          ],
+          "values": [
+            "Responsibility; enhanced as the learner offers guidance to others when discussing with peers the best suited illustrations for different themes"
+          ],
+          "pcis": [
+            "Critical thinking; developed as learners respond to questions during a hot seating session"
+          ],
+          "link_to_other_subjects": [
+            "The concept of themes in plays is studied in Kiswahili and Creative Arts"
+          ]
+        },
+        {
+          "sub_strand_number": "6.5",
+          "sub_strand_name": "Mechanics of Writing: Spelling",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "recognise homonyms, homophones, double consonants and double vowels in written texts",
+            "spell commonly misspelt words for writing fluency",
+            "value the importance of correct spelling in written communication"
+          ],
+          "suggested_learning_experiences": [
+            "identify words with double consonants and those with double vowels",
+            "search for the commonly misspelt words such as homonyms and homophones from the internet or print sources",
+            "practise spelling homonyms and homophones in pairs or small groups",
+            "listen to a dictation of words with double consonants and those with double vowels and write them",
+            "engage in spelling games such as spelling bee, scramble, crosswords and word search",
+            "use the target words in sentences of their own",
+            "fill in crossword puzzles and other word games and share them through the internet, magazines or the school noticeboard"
+          ],
+          "key_inquiry_questions": [
+            "Why are some words commonly misspelt?",
+            "Why is it important to spell words correctly?"
+          ],
+          "core_competencies": [
+            "Self-efficacy; developed as the learner appropriately uses the target words in sentences of their own",
+            "Digital literacy; boosted as the learner interacts with technology creating crossword puzzles and other word games and sharing them through social media",
+            "Learning to learn; enhanced as the learner searches for the commonly misspelt words from the internet thus acquiring information on their own"
+          ],
+          "values": [
+            "Peace; promoted as the learner displays tolerance when taking part in group tasks"
+          ],
+          "pcis": [
+            "Effective communication; developed as the learner practises spelling words correctly"
+          ],
+          "link_to_other_subjects": [
+            "Correct spelling is emphasised in subjects such as Integrated Science, Kiswahili, French and German"
+          ]
+        }
+      ]
+    },
+    {
+      "strand_number": "7.0",
+      "strand_name": "NATURAL RESOURCES: MARINE LIFE",
+      "sub_strands": [
+        {
+          "sub_strand_number": "7.1",
+          "sub_strand_name": "Listening Comprehension: Listening for Detail",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "select the main idea from a listening passage",
+            "respond to questions based on the listening passage",
+            "acknowledge the importance of attentive listening"
+          ],
+          "suggested_learning_experiences": [
+            "pick out details from a listening text",
+            "rewrite the passage in their own words",
+            "work in pairs to discuss any new information that they have learnt from the passage",
+            "answer questions based on the passage",
+            "use a digital device to search for more information",
+            "watch a video and pick out specific details in groups",
+            "recall specific details from a listening passage"
+          ],
+          "key_inquiry_questions": [
+            "Why should we distinguish between relevant and irrelevant information during a presentation?",
+            "Why is it important to listen keenly?"
+          ],
+          "core_competencies": [
+            "Digital literacy; enhanced as the learner uses a digital device to search for more information on marine life",
+            "Learning to learn; fostered as the learner practises picking out details from a listening text"
+          ],
+          "values": [
+            "Responsibility; nurtured as the learner exhibits self drive when interacting with texts on how to take care of natural resources"
+          ],
+          "pcis": [
+            "Environmental Conservation; enhanced as the learner listens to passages based on the theme",
+            "Critical thinking; developed as the learner rewrites or paraphrases the listening passage"
+          ],
+          "link_to_other_subjects": [
+            "Social Studies covers aspects of natural resources",
+            "Kiswahili, German, French and indigenous languages teach good listening and speaking skills"
+          ]
+        },
+        {
+          "sub_strand_number": "7.2",
+          "sub_strand_name": "Intensive Reading: Interpretation and Evaluation",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "distinguish between reading for interpretation and reading for evaluation for information",
+            "interpret a reading text for lifelong learning",
+            "summarise information in a reading text",
+            "appreciate the role of correct interpretation and evaluation of a text in learning"
+          ],
+          "suggested_learning_experiences": [
+            "watch video clips on a text and interpret the text",
+            "outline the key issues discussed in the video clip",
+            "summarise the content of the video",
+            "study and identify visuals from texts related to the theme",
+            "brainstorm, in groups differences between reading for interpretation and evaluation",
+            "read a short text related to the theme and interpret it in pairs",
+            "paraphrase portions of the text",
+            "read and summarise digital texts related to the theme",
+            "make detailed notes of digital and print texts they have read"
+          ],
+          "key_inquiry_questions": [
+            "Why should you give the correct interpretation of a text?",
+            "How can you interpret a text correctly?"
+          ],
+          "core_competencies": [
+            "Digital literacy; advanced as the learner reads and summarises digital texts related to the theme"
+          ],
+          "values": [
+            "Respect; fostered as the learner is open minded when forming own judgments on texts read"
+          ],
+          "pcis": [
+            "Effective communication; enhanced as the learner makes notes of digital and print texts they have read"
+          ],
+          "link_to_other_subjects": [
+            "The languages, Mathematics and Integrated Science all emphasise the need for good skills in interpretation and evaluation"
+          ]
+        },
+        {
+          "sub_strand_number": "7.3",
+          "sub_strand_name": "Relative Pronouns Interrogative Pronouns",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "recognise relative and interrogative pronouns in a text",
+            "use relative and interrogative pronouns in sentences",
+            "acknowledge the value of relative and interrogative pronouns in communication"
+          ],
+          "suggested_learning_experiences": [
+            "identify relative and interrogative pronouns from a passage",
+            "differentiate between relative and interrogative pronouns",
+            "construct sentences using interrogative and relative pronouns",
+            "work in small groups and use relative and interrogative pronouns, record the activity on video and share the video with others",
+            "role play a dialogue featuring interrogative and relative pronouns",
+            "use relative and interrogative pronouns as they participate in a hot seating activity on the conservation of marine life/natural resources",
+            "create a crossword puzzle featuring relative and interrogative pronouns",
+            "use interrogative pronouns to ask questions based on visuals"
+          ],
+          "key_inquiry_questions": [
+            "How do you obtain information from people?",
+            "Which words do you use to ask questions and to join simple sentences?"
+          ],
+          "core_competencies": [
+            "Communication; enhanced as learners engage in an activity out of class in small groups where they use relative and interrogative pronouns",
+            "Collaboration; reinforced as the learners look for examples of interrogative and relative pronouns from the internet in pairs",
+            "Digital Literacy; enhanced as the learner searching for examples of interrogative and relative pronouns from the internet in pairs enables the learner to interact with technology"
+          ],
+          "values": [
+            "Social Justice; promoted as the learner constructs and reads sentences related the preservation and conservation of marine life"
+          ],
+          "pcis": [
+            "Critical and creative thinking; developed as the learner works with peers to distinguish between interrogative and relative pronouns",
+            "Learner support programmes; promoted as the learner participates the activities of the wildlife and the environmental clubs in school"
+          ],
+          "link_to_other_subjects": [
+            "Subjects such as Kiswahili and French expose the learner to grammar concepts related to interrogative and relative pronouns"
+          ]
+        },
+        {
+          "sub_strand_number": "7.4",
+          "sub_strand_name": "Intensive Reading: Play",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify the characters in a play for deeper understanding",
+            "analyse the characters in a play and their relationship",
+            "value the role of literary appreciation in developing critical thinking"
+          ],
+          "suggested_learning_experiences": [
+            "watch muted video clips based on a play and discuss what they think the characters are saying to each other",
+            "read excerpts of a play",
+            "answer questions based on a play",
+            "identify the conflicts between characters in a play",
+            "relate the characters in a play to real life",
+            "role play the characters in a play",
+            "simulate the action in sections of the play",
+            "dramatise sections of a play",
+            "make video recordings of the role play and share them with peers"
+          ],
+          "key_inquiry_questions": [
+            "Why should we establish the relationship between the characters in a play?",
+            "How does understanding the relationship between characters help our understanding of the play?"
+          ],
+          "core_competencies": [
+            "Creativity and imagination; sharpened as the learners dramatise sections of a play"
+          ],
+          "values": [
+            "Unity; enhanced as the learner collaborates with others in groups to create and share videos"
+          ],
+          "pcis": [
+            "Creative thinking; developed as the learner participates in role play"
+          ],
+          "link_to_other_subjects": [
+            "Peforming Arts and Kiswahili also develop critical thinking in learners through exposure to characterisation"
+          ]
+        },
+        {
+          "sub_strand_number": "7.5",
+          "sub_strand_name": "The Writing Process",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "outline the stages of the writing process",
+            "create a composition, story or poem following the steps of the writing process",
+            "advocate the need for creativity in life"
+          ],
+          "suggested_learning_experiences": [
+            "in pairs, outline the steps of the writing process",
+            "brainstorm, in groups, on different topics such as natural resources-marine life, respect and life skills for writing a factual composition",
+            "select one topic, in each group, and write a factual composition by following the writing process",
+            "share factual composition pieces among the groups for peer assessment and correction"
+          ],
+          "key_inquiry_questions": [
+            "How does the writing help us improve the quality of our writing?"
+          ],
+          "core_competencies": [
+            "Collaboration; fostered as the learners work in pairs or groups",
+            "Critical thinking and problem solving; fostered as the learners share factual composition pieces among groups"
+          ],
+          "values": [
+            "Respect; fostered as the learner appreciates varied opinions as they brainstorm on topics related to respect and develop factual compositions on the same"
+          ],
+          "pcis": [
+            "Decision making; developed as learners negotiate all the steps of the writing process"
+          ],
+          "link_to_other_subjects": [
+            "The writing process is a concept learnt in German, French, Arabic and Indigenous Languages",
+            "The scripting of plays, songs and poems which require the writing process skills is taught in Performing Arts"
+          ]
+        }
+      ]
+    },
+    {
+      "strand_number": "8.0",
+      "strand_name": "TOURISM: INTERNATIONAL",
+      "sub_strands": [
+        {
+          "sub_strand_number": "8.1",
+          "sub_strand_name": "Oral Poetry",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "interpret oral poems on varied issues",
+            "perform an oral poem using of techniques",
+            "acknowledge the role of oral poetry in the preservation of our cultural heritage"
+          ],
+          "suggested_learning_experiences": [
+            "listen and respond to audio recordings of oral poetry",
+            "listen and respond to an oral poem recited by the teacher",
+            "retell a poem using own words",
+            "infer the meaning of words and phrases in a given oral poem",
+            "listen to different renditions of the same oral poem",
+            "use appropriate performance techniques to perform oral poems",
+            "relate the ideas in an oral poem to real life",
+            "recite oral poems in groups",
+            "participate in a readers' theatre",
+            "compose oral poems in pairs and share with the class"
+          ],
+          "key_inquiry_questions": [
+            "Why should you interpret an oral poem correctly?",
+            "How can you make the performance of an oral poem interesting?"
+          ],
+          "core_competencies": [
+            "Critical thinking; enhanced as the learner relates the ideas in an oral poem to real life"
+          ],
+          "values": [
+            "Patriotism; instilled as the learner develops awareness of own cultures when interacting with poems that raise awareness on tourism in the country"
+          ],
+          "pcis": [
+            "Social cohesion; fostered as learners perform and compose oral poems in groups"
+          ],
+          "link_to_other_subjects": [
+            "Oral poetry is learnt in Kiswahili and Performing Arts"
+          ]
+        },
+        {
+          "sub_strand_number": "8.2",
+          "sub_strand_name": "Reading for Interpretation",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify the point of view in a poem",
+            "analyse the point of view in a poem",
+            "acknowledge the importance of the point of view in the understanding of a poem"
+          ],
+          "suggested_learning_experiences": [
+            "read a given poem and identify the point of view",
+            "search for poems with different points of view from the internet and non-digital sources",
+            "listen to poems read by the teacher",
+            "relate the subjects of different poems to real life",
+            "compose a short poem individually",
+            "discuss the various points of view in the poems in small groups"
+          ],
+          "key_inquiry_questions": [
+            "Why is it important to understand the point of view in a poem?"
+          ],
+          "core_competencies": [
+            "Critical thinking; nurtured as the learner interprets poems"
+          ],
+          "values": [
+            "Love; inculcated as learners patiently listen to each other as they read poems"
+          ],
+          "pcis": [
+            "Effective communication; enhanced as learners work together in groups to interpret poems"
+          ],
+          "link_to_other_subjects": [
+            "Reading for interpretation and evaluation is a concept learnt in Performing Arts, Kiswahili, German and French"
+          ]
+        },
+        {
+          "sub_strand_number": "8.3",
+          "sub_strand_name": "Complex Prepositions",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "recognise complex prepositions in texts",
+            "use complex prepositions in sentences",
+            "appreciate the role of prepositions in oral and written communication"
+          ],
+          "suggested_learning_experiences": [
+            "read a passage from a book, magazine or newspaper article in which complex prepositions are used",
+            "identify complex prepositions from the passage",
+            "listen to a text read by the teacher and note the complex prepositions used",
+            "in pairs, read and underline complex prepositions used in various texts",
+            "form sentences using complex prepositions",
+            "in small groups, correct mistakes in sentences formed by peers",
+            "search for more examples of complex prepositions from the internet and other sources"
+          ],
+          "key_inquiry_questions": [
+            "Which words let you know where someone is going?",
+            "How do you describe where something is located?"
+          ],
+          "core_competencies": [
+            "Communication; enhanced as the learner uses complex prepositions correctly",
+            "Digital literacy; promoted as the learner searches for examples of complex prepositions from the internet"
+          ],
+          "values": [
+            "Responsibility; fostered as learners accomplish tasks in groups"
+          ],
+          "pcis": [
+            "Effective communication; enriched as the learner uses complex prepositions correctly in sentences"
+          ],
+          "link_to_other_subjects": [
+            "Complex prepositions are learnt in the following subjects: Kiswahili, German and French"
+          ]
+        },
+        {
+          "sub_strand_number": "8.4",
+          "sub_strand_name": "Poetry: Characters",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify the persona and other participants in a poem",
+            "analyse the character of the speaker (persona) and the other participants in a poem",
+            "acknowledge the importance of characters in literary appreciation"
+          ],
+          "suggested_learning_experiences": [
+            "read a grade appropriate poem",
+            "use appropriate adjectives to describe the behaviour of characters in poem",
+            "illustrate character traits in varied poems",
+            "relate actions of the persona to real life",
+            "role play different characters in a poem in small groups",
+            "infer information from the poem",
+            "fill and share in groups a table showing character/character's behaviour/character trait",
+            "create a poem, recite it, make a recording",
+            "upload the recording on social media platforms or share it on the school notice board"
+          ],
+          "key_inquiry_questions": [
+            "How do we tell the behaviour of the characters in a poem?",
+            "What are some of the words we use to describe the behaviour of characters?"
+          ],
+          "core_competencies": [
+            "Creativity and Imagination; developed as the learner creates, recites, records and uploads a poem on social media platforms"
+          ],
+          "values": [
+            "Unity; enhanced as the learner works in pairs or groups to describe character traits"
+          ],
+          "pcis": [
+            "Critical thinking; enhanced as the learner writes poems and also identifies the character traits of the persona and other participants in a poem"
+          ],
+          "link_to_other_subjects": [
+            "Languages such as Kiswahili, German and French use adjectives when highlighting character traits"
+          ]
+        },
+        {
+          "sub_strand_number": "8.5",
+          "sub_strand_name": "Assessing Writing",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify the qualities of a well written composition",
+            "write a composition related to the theme",
+            "assess a composition against a predesigned criteria",
+            "value the need for clarity and cohesion in writing communication"
+          ],
+          "suggested_learning_experiences": [
+            "read a passage about the qualities of a good composition",
+            "write down a criterion or checklist for assessing compositions. the criterion should have parameters such as: variety of sentences, relevance and creativity, cohesion, grammar and editorials",
+            "read samples of well written compositions from the coursebook",
+            "write a composition related to the theme",
+            "assess a peer's composition and give comments as guided by the checklist",
+            "make corrections to the composition",
+            "display the compositions on the school noticeboard"
+          ],
+          "key_inquiry_questions": [
+            "What are the qualities of a good composition?",
+            "How can one make a composition interesting?"
+          ],
+          "core_competencies": [
+            "Collaboration; strengthened as learners assess peers' compositions",
+            "Critical thinking and problem solving; promoted as the learner writes good compositions"
+          ],
+          "values": [
+            "Patriotism; imparted as the learner interacts with materials on the theme",
+            "Unity; cultivated as learners work together in group tasks"
+          ],
+          "pcis": [
+            "Effective communication; enhanced as the learner is equipped with good composition writing skills"
+          ],
+          "link_to_other_subjects": [
+            "Languages such as German, Kiswahili and French emphasise the need for good writing skills for effective communication"
+          ]
+        }
+      ]
+    },
+    {
+      "strand_number": "9.0",
+      "strand_name": "HEROES AND HEROINES: WORLD",
+      "sub_strands": [
+        {
+          "sub_strand_number": "9.1",
+          "sub_strand_name": "Diphthongs and sentence stress",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify words with the diphthongs /aʊ/ and /ʊə/ in a text",
+            "use emphatic stress in words to convey meanings",
+            "advocate the need for accurate pronunciation in oral communication"
+          ],
+          "suggested_learning_experiences": [
+            "identify the diphthongs /aʊ/ as in out, house /ʊə/ as in sure, cure",
+            "identify the stressed and unstressed words in a sentence",
+            "read a passage featuring the diphthongs/aʊ/ and /ʊə/",
+            "recite poems featuring the diphthongs/aʊ/ and /ʊə/",
+            "underline words with the diphthongs from texts",
+            "apply stress appropriately when reading a poem",
+            "read the same sentence while placing stress on different words",
+            "in groups, read aloud words with the diphthongs /aʊ/ and /ʊə/ from flashcards",
+            "use the dictionary to find more examples of words with the diphthongs",
+            "recite a poem while distinguishing the stressed and unstressed words, make a recording and upload the video on YouTube, social media platforms or share it through the mobile phone"
+          ],
+          "key_inquiry_questions": [
+            "Why is it important to pronounce words correctly?",
+            "How does stress help us to convey different meanings?"
+          ],
+          "core_competencies": [
+            "Effective communication; developed as the learner acquires proper pronunciation skills"
+          ],
+          "values": [
+            "Respect and love; inculcated during the pronunciation drills as learners give each other feedback"
+          ],
+          "pcis": [
+            "Social cohesion and patriotism; fostered as the learner interacts with material on the theme"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili and other languages such as French emphasise correct pronunciation of words"
+          ]
+        },
+        {
+          "sub_strand_number": "9.2",
+          "sub_strand_name": "Extensive Reading (Grade Appropriate Fiction)",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "select a reading text from a collection of books or the library",
+            "read a text for information and enjoyment",
+            "appreciate the role of extensive reading in lifelong learning"
+          ],
+          "suggested_learning_experiences": [
+            "watch a video clip on how to select a reading text",
+            "read a passage based on how to select a text",
+            "select a reading from a collection",
+            "preview a text to determine its suitability",
+            "skim through a text to obtain the gist",
+            "scan through a text to obtain specific information",
+            "read independently and silently",
+            "interpret what they read in their own way",
+            "infer meanings of unfamiliar vocabulary from the context",
+            "look up the meaning of unfamiliar words in the dictionary",
+            "outline the subjects addressed in the text",
+            "make notes on what has been read",
+            "discuss the topics of the texts with peers",
+            "explain why they find a particular text interesting",
+            "write a book review of their favourite fictional text"
+          ],
+          "key_inquiry_questions": [
+            "How does reading widely help us learn better?",
+            "What should one consider when choosing a reading text?"
+          ],
+          "core_competencies": [
+            "Learning to learn; developed as the learner reads fictional texts of their choice"
+          ],
+          "values": [
+            "Social justice and unity; promoted as learners take part in group activities"
+          ],
+          "pcis": [
+            "Social cohesion; promoted as learners interact with texts about heroes"
+          ],
+          "link_to_other_subjects": [
+            "Social Studies exposes learners to materials about heroic individuals"
+          ]
+        },
+        {
+          "sub_strand_number": "9.3",
+          "sub_strand_name": "Conjunctions: Correlative Conjunctions",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify correlative conjunctions in texts",
+            "use correlative conjunctions in sentences",
+            "appreciate use of correlative conjunctions for effective communication"
+          ],
+          "suggested_learning_experiences": [
+            "identify correlative conjunctions such as - either… or, - neither…nor, - both … and, - not only… but …also",
+            "read passages in which correlative conjunctions are used",
+            "in pairs, search for sentences with correlative conjunctions from the internet, newspapers, books or magazines",
+            "form sentences using correlative conjunctions",
+            "ask and answer questions using correlative conjunctions",
+            "in groups, role play an event and use correlative conjunctions",
+            "match correlative conjunctions in charts",
+            "rewrite sentences using correlative conjunctions"
+          ],
+          "key_inquiry_questions": [
+            "How do we join sentences?"
+          ],
+          "core_competencies": [
+            "Self efficacy; enhanced as the learner practises using conjunctions through role playing",
+            "Effective communication; fostered as the learner uses conjunctions correctly in oral and written communication"
+          ],
+          "values": [
+            "Respect; inculcated as the learner participates in group tasks"
+          ],
+          "pcis": [
+            "Critical thinking; promoted as the learner forms sentences using correlative conjunctions"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili, French and German teach the correct use of conjunctions"
+          ]
+        },
+        {
+          "sub_strand_number": "9.4",
+          "sub_strand_name": "Play: Style",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify features of style used in a play",
+            "relate features of style to the meaning of a play",
+            "acknowledge the importance of stylistic features in literary appreciation"
+          ],
+          "suggested_learning_experiences": [
+            "read aloud excerpts of a play",
+            "answer questions based on the excerpt",
+            "highlight aspects of style such as flashback, flash-forwards and personification in a play",
+            "discuss, in groups, the role of memories, dreams and a story within the story in a flashback",
+            "analyse the features of style in relation to the meaning of a play",
+            "in groups, role play some events in which the flashback, flash forward and personification feature in the play",
+            "dramatise some of the events in a play and make video recordings",
+            "engage in hot seating activities mirroring events and people in the play"
+          ],
+          "key_inquiry_questions": [
+            "Why do authors use flashback, flash forward and personification in plays?"
+          ],
+          "core_competencies": [
+            "Digital literacy; promoted as the learner makes video recordings of peers dramatising some of the events in a play",
+            "Creativity and imagination; stimulated as the learner interacts with stylistic features in plays"
+          ],
+          "values": [
+            "Responsibility and unity; fostered as learners engage in role play and hot seating activities"
+          ],
+          "pcis": [
+            "Critical thinking; enhanced as the learner engages in hot seating activities"
+          ],
+          "link_to_other_subjects": [
+            "The learner is also introduced to style in plays in Kiswahili"
+          ]
+        },
+        {
+          "sub_strand_number": "9.5",
+          "sub_strand_name": "Narrative compositions",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify the elements of a narrative composition",
+            "Uses the elements of a narrative composition in a story",
+            "appreciate the role of background information in the creation of credible stories"
+          ],
+          "suggested_learning_experiences": [
+            "read samples of narrative compositions from text books",
+            "identify the introduction, body and conclusion of a sample composition",
+            "brainstorm possible topics for narrative compositions",
+            "tell a story from their own experiences",
+            "plan a narrative composition",
+            "write a narrative composition",
+            "edit the composition",
+            "revise the narrative composition",
+            "read one another's composition and obtain feedback from peers",
+            "make corrections to the narrative",
+            "display the compositions in a gallery walk, class noticeboard or through social media"
+          ],
+          "key_inquiry_questions": [
+            "How should we organise our compositions?"
+          ],
+          "core_competencies": [
+            "Creativity and imagination; stimulated as the learner writes a narrative composition"
+          ],
+          "values": [
+            "Love; inculcated as learners share their compositions and give each other feedback"
+          ],
+          "pcis": [
+            "Creative thinking; developed as the learner plans and writes a narrative composition"
+          ],
+          "link_to_other_subjects": [
+            "Creative Arts requires good quality narrative composition skills in order to create compelling scripts"
+          ]
+        }
+      ]
+    },
+    {
+      "strand_number": "10.0",
+      "strand_name": "SOCIAL AND MASS MEDIA",
+      "sub_strands": [
+        {
+          "sub_strand_number": "10.1",
+          "sub_strand_name": "Impromptu Speeches",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "outline the procedure for preparing for an impromptu speech",
+            "make an impromptu speech on a selected topic",
+            "acknowledge the importance of excellent presentation skills in speech delivery"
+          ],
+          "suggested_learning_experiences": [
+            "search for the meaning of the term impromptu speech from the dictionary or the internet",
+            "listen to an impromptu speech made by the teacher",
+            "brainstorm on the procedure for preparing for an impromptu speech in small groups",
+            "make an impromptu speech on a topic related to social and mass media",
+            "record the speech, discuss its strengths and weaknesses in a plenary and suggest ways of improvement"
+          ],
+          "key_inquiry_questions": [
+            "In what instances could one be called upon to make a speech without prior notice?",
+            "What makes an impromptu speech effective?"
+          ],
+          "core_competencies": [
+            "Digital literacy; enhanced as the learner makes a recording of the speech",
+            "Self-efficacy; achieved as the learner prepares and delivers impromptu speeches at short notice",
+            "Collaboration; enhanced as the learner uses the plenary discussions to sharpen their communication skills"
+          ],
+          "values": [
+            "Responsibility; enhanced as the learner makes speeches on an issue like responsible use of social and mass media"
+          ],
+          "pcis": [
+            "Self-esteem; developed as the learner listens to and makes impromptu speeches"
+          ],
+          "link_to_other_subjects": [
+            "Social Studies addresses proper use of social and mass media",
+            "Creative Arts tackles impromptu speech making"
+          ]
+        },
+        {
+          "sub_strand_number": "10.2",
+          "sub_strand_name": "Note Making",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify main points or ideas in an argumentative passage",
+            "make notes from an argumentative passage",
+            "value the importance of note making while reading for pleasure or academic purposes"
+          ],
+          "suggested_learning_experiences": [
+            "practise, in groups, the note-making procedures such as sq4r",
+            "read argumentative passages based on the theme of social and mass media as well as health education",
+            "in groups, make notes on different health and media issues presented in any of the passages",
+            "graphically prepare charts using their notes",
+            "exchange the charts for peer review and correction",
+            "use the notes, in groups, to compose a poem or a song and present it in class"
+          ],
+          "key_inquiry_questions": [
+            "In what situations could notes be made?",
+            "Why is it important to make notes?"
+          ],
+          "core_competencies": [
+            "Learning to learn; occurs as the learner reads and makes notes on argumentative passages",
+            "Collaboration; enhanced as the learner works with peers to make notes and prepare charts"
+          ],
+          "values": [
+            "Peace; enhanced as the learners engage in harmonious group and class tasks"
+          ],
+          "pcis": [
+            "Effective communication; enhanced as the learner interacts with material related to argumentative essays"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili, indigenous languages and foreign languages expose learners to argumentative essays and note-making"
+          ]
+        },
+        {
+          "sub_strand_number": "10.3",
+          "sub_strand_name": "Determiners: Numerals and Ordinals",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify numerals and ordinals used as determiners in a text",
+            "use numerals and ordinals as determiners in sentences",
+            "appreciate the need for well -formed sentences in communication"
+          ],
+          "suggested_learning_experiences": [
+            "search for ordinals such as first, second, third and numerals such as one, two, three from digital or non-digital sources",
+            "recite poems with numerals and ordinals as others listen and pick out the target determiners",
+            "in small groups, read short passages and underline numerals and ordinals used as determiners",
+            "mention objects in the school that could be modified using numerals and ordinals",
+            "construct sentences using numerals and ordinals",
+            "rewrite sentences replacing numerals with ordinals and vice versa"
+          ],
+          "key_inquiry_questions": [
+            "How are quantities of nouns expressed?",
+            "Why is it important to quantify nouns?"
+          ],
+          "core_competencies": [
+            "Self-efficacy; promoted as the learner correctly uses numerals and ordinals as determiners in communication",
+            "Communication; improved as the learner constructs sentences using numerals and ordinals as determiners with peers"
+          ],
+          "values": [
+            "Unity; enhanced as the learner works with peers to construct sentences with numerals and ordinals as determiners"
+          ],
+          "pcis": [
+            "Social cohesion; inculcated as the learner works with peers on numerals and ordinals"
+          ],
+          "link_to_other_subjects": [
+            "Numerals and ordinals are the main components of mathematics",
+            "Computer Science, Business Studies, Integrated Science and Agriculture use numerals and ordinals in different concepts"
+          ]
+        },
+        {
+          "sub_strand_number": "10.4",
+          "sub_strand_name": "Play: Project",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify simple props and costumes that create mood and atmosphere",
+            "present dramatised parts of a play to an audience",
+            "acknowledge the effectiveness of the performance in delivering the play's message"
+          ],
+          "suggested_learning_experiences": [
+            "watch video clips on how to dramatise and record a section of a play",
+            "in groups select simple props and costumes that enhance performance",
+            "write the story charts and scripts to follow in the performance",
+            "rehearse with props and costumes",
+            "dramatise simple scenes for classmates while focusing on voice, gestures and movements",
+            "discuss how to use role play and mime in the performance",
+            "give and receive feedback on the performance",
+            "record the performance on a video or audio device"
+          ],
+          "key_inquiry_questions": [
+            "How does an acted play differ from a written one?",
+            "What makes a performance successful?"
+          ],
+          "core_competencies": [
+            "Self efficacy; enhanced as the learner performs in front of an audience",
+            "Digital literacy; promoted as the learner interacts with digital devices to record performances"
+          ],
+          "values": [
+            "Respect; inculcated as learners collaboratively select simple props and costumes for the performance"
+          ],
+          "pcis": [
+            "Critical thinking; advanced as learners relate their performance to real life situations"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili emphasises the role of drama as a vehicle for promoting language proficiency"
+          ]
+        },
+        {
+          "sub_strand_number": "10.5",
+          "sub_strand_name": "Filling Forms: Application Forms",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "recognize bursary and scholarship application forms from a list of forms",
+            "fill in bursary and scholarship application forms while adhering to conventions",
+            "value the importance of giving accurate and sufficient information in forms"
+          ],
+          "suggested_learning_experiences": [
+            "in groups, collect bursary and scholarship application forms from digital and print sources",
+            "note down the common features of each type of the form",
+            "analyse, in groups, the type of data sought by different forms",
+            "fill in different forms that require data on issues such as social and mass media",
+            "share different filled in forms for peer observation and feedback",
+            "discuss as a plenary the importance of providing accurate data in forms",
+            "create a form in small groups"
+          ],
+          "key_inquiry_questions": [
+            "Why is it important to fill in all parts of a form?"
+          ],
+          "core_competencies": [
+            "Self efficacy; promoted as the learner fills forms correctly",
+            "Learning to learn; developed as the learner fills other types of forms"
+          ],
+          "values": [
+            "Integrity; instilled as the learner learns to give correct and accurate information about self in the form filling process"
+          ],
+          "pcis": [
+            "Financial literacy; inculcated as the learner gives amounts, estimates, budgets and justification for bursary and scholarship applied for"
+          ],
+          "link_to_other_subjects": [
+            "Computer Science involves formulation of forms for various purposes"
+          ]
+        }
+      ]
+    },
+    {
+      "strand_number": "11.0",
+      "strand_name": "INCOME GENERATING ACTIVITIES",
+      "sub_strands": [
+        {
+          "sub_strand_number": "11.1",
+          "sub_strand_name": "Conversation Skills: Job Interviews",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "outline preparations undertaken by an interviewer and interviewee before a job interview",
+            "ask and answer appropriate questions in mock job interviews",
+            "recognise excellent interview skills as a positive step towards getting a job"
+          ],
+          "suggested_learning_experiences": [
+            "watch an interview on a relevant topic like income generating activities",
+            "brainstorm on the preparations undertaken by an interviewer and interviewee before a job interview",
+            "in groups, search online and offline for possible questions that are commonly asked in a job interview and write them down",
+            "in pairs, role-play asking and answering questions in a mock job interview, and record the session electronically or as a written dialogue",
+            "share the recorded interviews for peer review",
+            "discuss how success in a job interview is a step towards generating income for the individual and the community"
+          ],
+          "key_inquiry_questions": [
+            "How can you succeed in a job interview?",
+            "Why is it important to prepare for a job interview?"
+          ],
+          "core_competencies": [
+            "Self-efficacy; enhanced as the learner communicates effectively by asking and answering questions in a mock interview",
+            "Collaboration; cultivated as the learners work together to review an interview and role play an interview session"
+          ],
+          "values": [
+            "Integrity; inculcated as learners appreciate that getting a job depends on preparedness for an interview, excellent interview skills and providing truthful information"
+          ],
+          "pcis": [
+            "Financial literacy; enhanced as the learner links success in a job interview to income generation"
+          ],
+          "link_to_other_subjects": [
+            "Business Studies and Pre-Technical and Pre-Career Education address issues of job interviews"
+          ]
+        },
+        {
+          "sub_strand_number": "11.2",
+          "sub_strand_name": "Extensive Reading: Fiction",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "distinguish between fiction and non-fiction reading materials",
+            "select and read grade appropriate fiction materials",
+            "keep a portfolio of the subject matter",
+            "appreciate the importance of reading fiction for exposure"
+          ],
+          "suggested_learning_experiences": [
+            "research on the differences between fiction and non-fiction materials and give examples of each",
+            "read self-selected fiction materials and use a graphic organizer to write short summaries of the subject",
+            "in groups, make a readers' gallery by displaying the material read with a caption indicating its subject matter",
+            "take photos of their display and keep a soft and hard copy of the photo in their portfolio or, write a card with the title and the subject matter of the material read and keep it in their portfolio",
+            "discuss why reading fiction materials is important"
+          ],
+          "key_inquiry_questions": [
+            "Which storybooks or plays have you read?",
+            "What makes a book interesting?"
+          ],
+          "core_competencies": [
+            "Critical thinking and problem solving; cultivated as the learner researches from different sources the difference between fiction and non-fiction materials",
+            "Digital Literacy; advanced as learners capture images of the readers galleries and keep them in their digital portfolio"
+          ],
+          "values": [
+            "Respect; upheld as learners recognise the value of each other's contribution in building the readers' gallery"
+          ],
+          "pcis": [
+            "Critical thinking; nurtured as learners distinguish between fiction and non-fiction materials, and generate points to convince others to read the materials they themselves have read"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili and foreign languages emphasise the importance of a reading culture and discipline required in reading fiction materials in other languages",
+            "Creative Arts is promoted as learners read plays that could also be performed live on stage"
+          ]
+        },
+        {
+          "sub_strand_number": "11.3",
+          "sub_strand_name": "Word Classes: Nouns",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify nouns formed from verbs and other nouns from a text",
+            "use nouns formed from verbs and other nouns in sentences",
+            "acknowledge the necessity of forming words from other word classes in the process of communication"
+          ],
+          "suggested_learning_experiences": [
+            "read a print or non-print text and underline nouns formed from verbs and other nouns",
+            "separate the root word from the suffixes, for example, employment – employ and ment",
+            "search online or offline and compile a list of suffixes for forming nouns from verbs and other nouns",
+            "play a language game involving one learner showing a flash card with a verb and the other forming a noun from it and vice versa",
+            "in groups, use the suffixes to form nouns from verbs and other nouns and present them in print or digital tables",
+            "construct sentences about income generating activities and environmental preservation using nouns formed from verbs and from other nouns",
+            "explain why the knowledge of changing other words into nouns is helpful in communication"
+          ],
+          "key_inquiry_questions": [
+            "Which words can be formed from others?",
+            "What changes when a word is formed from another?"
+          ],
+          "core_competencies": [
+            "Learning to learn; stimulated as the learner conducts online and offline search and compiles a list of suffixes for forming nouns from verbs and other nouns",
+            "Collaboration; fostered as the learner contributes meaningfully in group activities on word formation and sentence construction"
+          ],
+          "values": [
+            "Love; cultivated as learners correct each other's words or sentences as they work in pairs and groups"
+          ],
+          "pcis": [
+            "Environmental education; addressed as learners use nouns formed to create sentences that promote environmental conservation"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili and Foreign Languages have noun derivations in their content"
+          ]
+        },
+        {
+          "sub_strand_number": "11.4",
+          "sub_strand_name": "Grade -appropriate Play: Lessons learnt",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify and illustrate the lessons learnt from a play",
+            "relate the lessons learnt to real life experiences",
+            "perceive plays as sources of life lessons and entertainment"
+          ],
+          "suggested_learning_experiences": [
+            "search from online and offline sources for information on how to derive lessons from words and actions of characters",
+            "read different excerpts of a play",
+            "discuss lessons learnt and provide illustrations for each lesson identified. in pairs",
+            "analyse the lessons elicited by pairs and relate them to real life experiences",
+            "use graphic organisers to summarise the lessons learnt and present them in charts displayed on the wall for peer review",
+            "discuss the sections of a play that entertain and bring out lessons"
+          ],
+          "key_inquiry_questions": [
+            "What lessons can one learn from a play?",
+            "Which issues are addressed in the play?"
+          ],
+          "core_competencies": [
+            "Critical thinking; stimulated as learners read different excerpts of a play and elicit lessons learnt",
+            "Collaboration; fostered as learners analyse the lessons elicited by pairs and relate them to real life experiences"
+          ],
+          "values": [
+            "Responsibility; inculcated as each learner looks for lessons from a play"
+          ],
+          "pcis": [
+            "Critical thinking; nurtured as learners analyse lessons identified in pairs and compile them",
+            "Social Cohesion; enhanced as learners relate lessons learnt to experiences in the society"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili explores various issues in the play genre",
+            "Religious Education addresses application of lessons from texts"
+          ]
+        },
+        {
+          "sub_strand_number": "11.5",
+          "sub_strand_name": "Mechanics of Writing – Spelling",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "spell words for effective communication",
+            "write common abbreviations in full",
+            "appreciate the importance of abbreviations in writing"
+          ],
+          "suggested_learning_experiences": [
+            "watch demonstration clips and note the rules of abbreviation especially for the following: - titles, for example, Mrs Juma, - time references, for example, 7a.m., - organisations, technical words and company names, for example, IEBC, ICU, KBC",
+            "discuss the rules of abbreviation and present them in charts in groups",
+            "copy the lists of abbreviations from electronic or print sources respectively in pairs",
+            "write a paragraph on how to make savings from income generating activities containing words to be abbreviated",
+            "assess the correctness of the paragraph in groups"
+          ],
+          "key_inquiry_questions": [
+            "What should you consider when splitting words at the end of a line?",
+            "Which words do we normally abbreviate?"
+          ],
+          "core_competencies": [
+            "Learning to learn; fostered as the learner writes abbreviations correctly",
+            "Collaboration; enhanced as the learner interacts with peers to undertake different activities in groups"
+          ],
+          "values": [
+            "Unity; enhanced as the learner collaborates in pairs and groups to present rules on abbreviation and splitting of words",
+            "Responsibility; nurtured as learners write passages on how to make savings from income generating activities"
+          ],
+          "pcis": [
+            "Financial literacy; enhanced as the learner writes paragraphs on savings"
+          ],
+          "link_to_other_subjects": [
+            "All other languages where abbreviations and spelling form a key point of learning"
+          ]
+        }
+      ]
+    },
+    {
+      "strand_number": "12.0",
+      "strand_name": "PERSONAL GROOMING",
+      "sub_strands": [
+        {
+          "sub_strand_number": "12.1",
+          "sub_strand_name": "Listening to Respond: Expressing Feelings",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify words and expressions used to describe their feelings towards a poem",
+            "express their feelings towards the subject matter of a poem",
+            "value the importance of poem recitation for effective communication"
+          ],
+          "suggested_learning_experiences": [
+            "search digital and print sources for words and expressions used to describe feelings towards a poem",
+            "recite and record a poem emphasising words and expressions that reveal their feelings towards the poem",
+            "watch a live or recorded poem on personal grooming and, in small groups, describe their feelings towards the subject matter of the poem",
+            "in groups, recite selected poems and present their varied feelings towards each poem's subject matter in detail",
+            "discuss, in plenary, the importance of reciting poems in with feeling"
+          ],
+          "key_inquiry_questions": [
+            "How can one express their feelings while reciting a poem?",
+            "Why is it important to recite poems with feeling?"
+          ],
+          "core_competencies": [
+            "Learning to learn; occurs as the learner uses different words and expressions learnt to describe own feelings",
+            "Digital literacy; promoted as the learner uses technology to search for information and record recitations"
+          ],
+          "values": [
+            "Unity; developed as learners recite and record poems emphasizing words and expressions that reveal their feelings towards the poem"
+          ],
+          "pcis": [
+            "Personal hygiene; advanced as the learner watches or listens to recitations of poems on personal grooming",
+            "Responsibility; developed as the learner recites the poems assigned and expresses their feelings towards them"
+          ],
+          "link_to_other_subjects": [
+            "Listening to respond is addressed as a skill in Kiswahili, French, German and indigenous languages",
+            "Health Education and Home Science address personal grooming"
+          ]
+        },
+        {
+          "sub_strand_number": "12.2",
+          "sub_strand_name": "Intensive Reading: Comprehension Strategies",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify clues in the passage from which conclusions can be drawn",
+            "infer information and meaning of words and expressions from a passage",
+            "summarise ideas in a passage",
+            "apply the skills of making inferences and drawing conclusions in independent reading"
+          ],
+          "suggested_learning_experiences": [
+            "search for and read print and non-print passages on varied subjects like personal grooming",
+            "underline words, phrases or sentences that can serve as clues for making inferences or drawing conclusions as they read",
+            "in groups, use the clues to make inferences for information or meaning of vocabulary",
+            "read a passage on good grooming and summarise the ideas in the passage",
+            "present their summaries on charts and post them on the classroom noticeboard",
+            "participate in a gallery walk and review peers' summaries"
+          ],
+          "key_inquiry_questions": [
+            "Why is it important to summarise information from a text?",
+            "How can one draw conclusions from a text?"
+          ],
+          "core_competencies": [
+            "Critical thinking; enhanced as the learner draws conclusions, make inferences and writes a summary",
+            "Learning to learn; happens as the learners take part in the gallery walk and review each other's work"
+          ],
+          "values": [
+            "Unity; enhanced as learners work in groups to summarise, display and review each other's work"
+          ],
+          "pcis": [
+            "Human sexuality; addressed as learners summarise passages on personal grooming"
+          ],
+          "link_to_other_subjects": [
+            "Comprehension strategies are learnt in Kiswahili, French, German and indigenous languages",
+            "Integrated Science, Health Science and Agriculture handle experiments which require the skills of drawing conclusions"
+          ]
+        },
+        {
+          "sub_strand_number": "12.3",
+          "sub_strand_name": "Phrasal Verbs",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify phrasal verbs formed from break, hang, run and turn in texts",
+            "use the given phrasal verbs in sentences of their own",
+            "value the importance of using phrasal verbs in spoken and written communication"
+          ],
+          "suggested_learning_experiences": [
+            "search from digital and print sources for phrasal verbs formed from break, hang, run and turn and compile them in a word list",
+            "in small groups, search for the meanings of the phrasal verbs identified from print or non-print dictionaries",
+            "form phrasal verbs from the given verbs and use them to fill in tables and broken passages",
+            "using phrasal verbs, construct sentences based on personal grooming and health education and display the sentences in charts",
+            "post the charts in class and take a gallery walk assessing and reviewing the sentences",
+            "suggest examples of writing and speaking situations in which the given phrasal verbs could be used",
+            "sing songs with phrasal verbs on health education"
+          ],
+          "key_inquiry_questions": [
+            "How are phrasal verbs different from other verbs?",
+            "Why is it important to learn meanings of phrasal verbs?"
+          ],
+          "core_competencies": [
+            "Self-efficacy; developed as learners gain competence in using phrasal verbs"
+          ],
+          "values": [
+            "Respect; emphasised as learners conduct a gallery walk assessing and correcting peers' sentences"
+          ],
+          "pcis": [
+            "Effective communication; promoted as learners construct sentences on health matters using phrasal verbs"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili, German, French indigenous languages teach phrasal verbs"
+          ]
+        },
+        {
+          "sub_strand_number": "12.4",
+          "sub_strand_name": "Play: Characterisation",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "outline the clues for identifying traits of different characters in a play",
+            "use the clues to describe the characters in a play",
+            "appreciate the role of characterisation in determining virtues and vices in the society"
+          ],
+          "suggested_learning_experiences": [
+            "search from digital and print sources for clues in a play that one can use to identify a character trait, for example; what the character does or says; or what is said about a character",
+            "brainstorm on the words and phrases used to describe characters and make a phrase book",
+            "in groups, watch video clips or read sections of a play and identify the clues used to describe the traits of a character",
+            "in groups, use the clues to assign character traits and display them in a gallery in form of character maps, webbing tools or clusters for peer review",
+            "play characterisation games that help to summarise traits of all characters",
+            "dramatise a section of a play to highlight traits of some characters",
+            "role play different characters in hot seating"
+          ],
+          "key_inquiry_questions": [
+            "Which words or expressions can you use to describe one's character?",
+            "Why is characterisation important?"
+          ],
+          "core_competencies": [
+            "Digital literacy; promoted as the learner manipulates digital tools while watching videos on the sections of a play"
+          ],
+          "values": [
+            "Responsibility; enhanced as learners do their part in role playing the characters in a play"
+          ],
+          "pcis": [
+            "Critical thinking; advanced as learners use clues to assign traits to different characters",
+            "Problem solving; developed as learners help make improvements as they review peers' descriptions of characters"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili and Performing Arts feature dramatization"
+          ]
+        },
+        {
+          "sub_strand_number": "12.5",
+          "sub_strand_name": "The Writing Process",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "outline the different stages of the writing process",
+            "apply the writing process in creating a dialogue on a relevant theme",
+            "emphasise the importance of each of the stages in the writing process in crafting flawless dialogues"
+          ],
+          "suggested_learning_experiences": [
+            "read on the following steps of the writing process: pre-writing, drafting, editing, revising and publishing",
+            "in groups, discuss the different tasks involved in each stage of the writing process",
+            "brainstorm on different topics related to personal grooming, respect and life skills",
+            "individually, select one topic and write a dialogue adhering to the writing process",
+            "share the dialogues and assess and correct each other's work",
+            "in pairs, dramatise selected dialogues as the others watch and record or note the strengths and weaknesses",
+            "suggest ways of improving dialogues written by peers"
+          ],
+          "key_inquiry_questions": [
+            "Why should you plan your writing?",
+            "Why is it important to learn dialogue writing?"
+          ],
+          "core_competencies": [
+            "Problem solving; enhanced as learners identify and correct weaknesses in their peers' dialogues"
+          ],
+          "values": [
+            "Respect; addressed as learners brainstorm on topics related to respect and develop dialogues on the same"
+          ],
+          "pcis": [
+            "Health education; enhanced as learners generate topics on personal grooming for dialogue writing"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili, Arabic, French, Mandarin, German and indigenous languages teach the writing process",
+            "The writing process is also addressed in Performance Arts during the scripting of plays, poems and songs"
+          ]
+        }
+      ]
+    },
+    {
+      "strand_number": "13.0",
+      "strand_name": "SEA TRAVEL",
+      "sub_strands": [
+        {
+          "sub_strand_number": "13.1",
+          "sub_strand_name": "Extensive Listening: Speeches",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify the issue addressed by the different speeches listened to",
+            "take notes on the points made by the different speakers on the issue",
+            "acknowledge the importance of getting information from varied sources"
+          ],
+          "suggested_learning_experiences": [
+            "search online and offline for varied speeches on an issue of interest and listen to them for enjoyment and general information",
+            "listen to selected speeches on a specific issue such as sea travel played out or read out and identify the issue addressed by the different speeches",
+            "in plenary, share the common theme identified to gain consensus",
+            "listen to the speeches again and, in pairs, take notes on the points from each of the speeches",
+            "in groups, compare the notes taken by different pairs and compile the recurrent points",
+            "use the points noted from the speeches to write and make a speech on the same theme",
+            "record and share their speeches on the class vlog or other social media",
+            "discuss the benefits of listening to different speeches on the same subject"
+          ],
+          "key_inquiry_questions": [
+            "How can you ensure that you remember what you hear from a speech?"
+          ],
+          "core_competencies": [
+            "Citizenship; promoted as the learner listens to and makes a speech on sea travel",
+            "Digital literacy; enhanced as the learner searches for speeches online"
+          ],
+          "values": [
+            "Respect; inculcated as the learners respectfully assess each other's points as they compile them"
+          ],
+          "pcis": [
+            "Citizenship education; fostered as the learner listens to and makes notes on speeches on sea travel"
+          ],
+          "link_to_other_subjects": [
+            "Listening to different speeches enhances mastery of all languages"
+          ]
+        },
+        {
+          "sub_strand_number": "13.2",
+          "sub_strand_name": "Intensive Reading: Visualising and Summarising",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify mental images created from a read passage",
+            "summarise what a paragraph and the passage are about",
+            "appreciate the role of visualising and summarising in enhancing understanding of a text"
+          ],
+          "suggested_learning_experiences": [
+            "search from print and electronic sources and list down the sensory words and expressions used to create mental images in a text",
+            "read a passage on an interesting issue like sea travel and, in pairs, pick out the sensory words or expressions and the mental images they create in a reader",
+            "in groups fill in templates requiring key ideas from the text or parts of the text and display the templates on the wall",
+            "read a text on current issues such as responsible sea travel and identify the main ideas in a paragraph or a passage",
+            "summarise the ideas in own words in charts and share for peer review",
+            "brainstorm on how visualising and summarising aid in comprehension of a passage"
+          ],
+          "key_inquiry_questions": [
+            "Which words or expressions appeal to the five senses?",
+            "Why is it important to make a relevant summary of a text?"
+          ],
+          "core_competencies": [
+            "Self-efficacy; achieved as learners write summaries of passages related to sea travel"
+          ],
+          "values": [
+            "Responsibility; fostered as leaners read passages on responsible sea travel"
+          ],
+          "pcis": [
+            "Critical thinking; stimulated as learners evaluate the importance of visualising in enhancing comprehension of a passage"
+          ],
+          "link_to_other_subjects": [
+            "Visualising is a comprehension strategy that enables the learners to generate pictorials from a passage"
+          ]
+        },
+        {
+          "sub_strand_number": "13.3",
+          "sub_strand_name": "Sentences: Complex Sentences",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify subordinating conjunctions in sentences",
+            "construct complex sentences using subordinating conjunctions learnt",
+            "correct disjointed sentences using the rule of subordinating conjunctions"
+          ],
+          "suggested_learning_experiences": [
+            "pick out subordinating conjunctions from a passage",
+            "in groups, use the subordinating conjunctions to make sentences and display them on a chart",
+            "in pairs, underline and label main and subordinate clauses in the sentences on the chart",
+            "join pairs of sentences using subordinating conjunctions presented in completion and substitution tables",
+            "practise punctuating complex sentences on current issues such as global sea travel",
+            "review each other's sentences by changing them into well-formed complex sentences"
+          ],
+          "key_inquiry_questions": [
+            "What is the role of conjunctions in sentences?",
+            "How can one differentiate between a simple sentence and a complex sentence?"
+          ],
+          "core_competencies": [
+            "Collaboration; enhanced as the learners work in groups make sentences using subordinating conjunctions then display them on a chart"
+          ],
+          "values": [
+            "Unity; enhanced as the learners make and label sentences in groups"
+          ],
+          "pcis": [
+            "Effective communication; enhanced as learners improve sentence construction skills"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili, German, French and indigenous languages expose learners to complex sentences"
+          ]
+        },
+        {
+          "sub_strand_number": "13.4",
+          "sub_strand_name": "Grade-appropriate Play: Style",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify the styles of humour and monologue in a play",
+            "dramatise instances of humour and monologue in a play",
+            "acknowledge the role of humour and monologue in enriching a literary work"
+          ],
+          "suggested_learning_experiences": [
+            "search for examples of humour and monologue from print and non print sources and read them aloud or re-enact them in pairs",
+            "in groups, identify and illustrate humour and monologue in the grade-appropriate play and display them in a graphic organiser",
+            "watch or read episodes of the grade-appropriate play containing humour and monologue",
+            "dramatise the episodes in groups and record themselves",
+            "use humour and monologue in created contexts",
+            "discuss how humour and monologue make a play interesting and pass its message effectively"
+          ],
+          "key_inquiry_questions": [
+            "What is the role of humour in a play?",
+            "Which programmes on radio or television do you find amusing?"
+          ],
+          "core_competencies": [
+            "Digital literacy; enhanced as learners use digital tools to record dramatised sections of the text",
+            "Creativity and imagination; enhanced as learners identify and illustrate instances of monologue and humour"
+          ],
+          "values": [
+            "Love; fostered as learners work together as they dramatise examples of humour and monologue found from print and non-print sources"
+          ],
+          "pcis": [
+            "Effective Communication; enhanced as learners discuss how monologue and humour help in delivering messages"
+          ],
+          "link_to_other_subjects": [
+            "Humour and monologue are common stylistic techniques in drama",
+            "Literary texts in different languages use humor and monologue"
+          ]
+        },
+        {
+          "sub_strand_number": "13.5",
+          "sub_strand_name": "Creative Writing: Idioms",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "explain the meaning of given idioms in different contexts",
+            "use a variety of idioms in writing narrative compositions",
+            "encourage peers to use idioms appropriately in speech and writing"
+          ],
+          "suggested_learning_experiences": [
+            "use the print and digital dictionaries to find the meaning of the following idioms and present them in a graphic organizer: - peace of mind, - bury the hatchet, - sit on the fence, - with open arms, - burning bridges, - follow in someone's footsteps, monkey business, - adding insult to injury",
+            "in groups, fill sentence gaps with the most appropriate idioms",
+            "play language games where one shows an idiom on a flash card and the other makes a sentence with it",
+            "read short narrative essays on sea travel containing most of the given idioms",
+            "write a narrative composition using the given idioms",
+            "in groups scan through compositions of each member and create a checklist of idioms used tallying them to find out the most popular",
+            "discuss the importance of using idioms in written and spoken language"
+          ],
+          "key_inquiry_questions": [
+            "What are idioms?",
+            "Which idioms are you familiar with?"
+          ],
+          "core_competencies": [
+            "Imagination; enhanced as the learners write a narrative composition using the given idioms",
+            "Digital literacy; enhanced as the learners use digital tools to check meanings of idioms from digital dictionaries"
+          ],
+          "values": [
+            "Respect; cultivated as the learners sensitively scan each other's compositions for idioms",
+            "Responsibility; inculcated as learners undertake tasks assigned on searching for idioms and presenting them in sentences"
+          ],
+          "pcis": [
+            "Creativity; cultivated as learners create narratives and use idioms in them"
+          ],
+          "link_to_other_subjects": [
+            "Kiswahili and indigenous languages are rich in idiomatic expressions"
+          ]
+        }
+      ]
+    },
+    {
+      "strand_number": "14.0",
+      "strand_name": "SPORTS – WORLD CUP (FOOTBALL)",
+      "sub_strands": [
+        {
+          "sub_strand_number": "14.1",
+          "sub_strand_name": "Intonation in sentences-Question tags",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "write the correct form of question tags in sentences",
+            "apply question tags appropriately in communication",
+            "compose sentences using question tags correctly",
+            "appreciate the importance of question tags and correct intonation in communication"
+          ],
+          "suggested_learning_experiences": [
+            "listen to a recording or watch a video on the world cup in which the speakers use question tags and correct sentence intonation",
+            "in pairs, practice reading out sentences with question tags using the correct intonation",
+            "match affirmative and negative sentences to question tags provided in a list",
+            "complete fill-in exercises with the correct question tags",
+            "work in small groups to compose and write down sentences that end in question tags",
+            "write the sentences generated on large papers and post them on the class notice board"
+          ],
+          "key_inquiry_questions": [
+            "How can we improve our speaking skills?",
+            "Why do we use question tags in speech?"
+          ],
+          "core_competencies": [
+            "Digital literacy; enhanced as learners use digital devices to listen to a recording or watch a video on the world cup on question tags and intonations",
+            "Self-efficacy; promoted as learners gain confidence to use question tags correctly in speech practice",
+            "Communication and collaboration; enhanced as learners work in pairs to compose and write down sentences that end in question tags"
+          ],
+          "values": [
+            "Unity; enhanced as learners work together to compose sentences in small groups",
+            "Peace; promoted as learners learn about the place of sports in promoting peace in the world"
+          ],
+          "pcis": [
+            "Effective communication; enhanced as learners improve their knowledge of the correct use of question tags",
+            "Creative thinking; promoted as learners compose sentences and question tags",
+            "Safety and security; promoted as learners interact with materials on safety and security in sporting activities"
+          ],
+          "link_to_other_subjects": [
+            "All languages emphasise on good sentence intonation",
+            "Physical Education and Sports covers topics related to football and the world cup"
+          ]
+        },
+        {
+          "sub_strand_number": "14.2",
+          "sub_strand_name": "Summarising: argumentative texts (grade appropriate text)",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "pick out the main points discussed in a text",
+            "organise an outline of points into a coherent whole",
+            "summarise a text correctly in their own words",
+            "realise the importance of good summary writing skills in writing"
+          ],
+          "suggested_learning_experiences": [
+            "read argumentative texts based on the world cup from a book or using a digital device",
+            "select the main idea",
+            "outline the supporting points from the text",
+            "write an initial summary of this information",
+            "revise the written text for clarity",
+            "in groups, search the internet for more examples of reading passages and practice summarising them",
+            "search for facts, dates, and important personalities related to football-world cup and share the information on the school noticeboard"
+          ],
+          "key_inquiry_questions": [
+            "How do we write summaries?",
+            "Why should we learn good summary writing skills?"
+          ],
+          "core_competencies": [
+            "Digital literacy; promoted as learners use digital devices to search for reading material online",
+            "Communication and collaboration; promoted as learners improve their writing skills by writing summaries",
+            "Critical thinking and problem solving; enhanced as learners interact with material for good summary writing skills"
+          ],
+          "values": [
+            "Unity; promoted as learners work together to compose sentences",
+            "Peace; enhanced as learners get learn about the ability of sports to promote peace in the world"
+          ],
+          "pcis": [
+            "Effective communication; enhanced as learners improve summarising skills",
+            "Creative thinking; enhanced as learners summarise texts",
+            "Safety and security; promoted as learners interact with material on safety and security in sporting activities"
+          ],
+          "link_to_other_subjects": [
+            "All subjects require good summary writing skills"
+          ]
+        },
+        {
+          "sub_strand_number": "14.3",
+          "sub_strand_name": "Sentences-Direct and Indirect Speech",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "differentiate between direct and indirect speech",
+            "convert direct speech into indirect speech",
+            "use the correct punctuation marks in direct speech",
+            "apply direct and indirect speech correctly in communication"
+          ],
+          "suggested_learning_experiences": [
+            "read provided sentences or paragraphs to learn how direct and indirect speech appear in writing",
+            "convert sentences written in direct speech into indirect speech and vice versa",
+            "insert the correct punctuation marks in sentences to mark direct speech",
+            "work in pairs to rewrite reported questions",
+            "work in pairs to compose sentences in direct and indirect speech"
+          ],
+          "key_inquiry_questions": [
+            "How do we report what others have said?"
+          ],
+          "core_competencies": [
+            "Communication and collaboration; enhanced as learners work together to complete exercises",
+            "Self-efficacy; enhanced as learners gain confidence to write direct and indirect speech correctly in communication"
+          ],
+          "values": [
+            "Responsibility; promoted as learners work in pairs to compose sentences in direct and indirect speech"
+          ],
+          "pcis": [
+            "Problem solving; enhanced as learners work together to covert sentences from direct to indirect speech and vice versa"
+          ],
+          "link_to_other_subjects": [
+            "All languages teach the use of correct punctuation to mark direct or indirect speech"
+          ]
+        },
+        {
+          "sub_strand_number": "14.4",
+          "sub_strand_name": "Intensive Reading: Play-Relating to real life",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify the characters in a play",
+            "discuss the various themes in a play",
+            "relate the characters and themes to real life",
+            "participate in a stage performance of a play",
+            "appreciate the beauty of performance of a literary text"
+          ],
+          "suggested_learning_experiences": [
+            "read a prescribed play",
+            "identify the characters in a play in pairs",
+            "share out the roles of the various characters in a play",
+            "discuss the themes that are evident in the play",
+            "watch short videos of plays to learn how actors present themselves on stage",
+            "memorise the words of the assigned characters",
+            "work in groups to rehearse the words and actions of the characters",
+            "discuss the appropriate costume for each character",
+            "use a digital device to search the internet for information on the qualities of a good actor",
+            "perform a play for the school audience",
+            "use a digital device to record the performance"
+          ],
+          "key_inquiry_questions": [
+            "What makes plays interesting?",
+            "Why is it important for an actor to pronounce words correctly and speak audibly in a performance?"
+          ],
+          "core_competencies": [
+            "Communication and collaboration; enhanced as learners work together to rehearse and stage a play",
+            "Self-efficacy; enhanced as learners gain confidence to perform in a play",
+            "Learning to learn; enhanced as learners seek knowledge on the qualities of a good performer"
+          ],
+          "values": [
+            "Unity; promoted as learners work together to stage a play",
+            "Responsibility; promoted as learners ensure that they rehearse adequately for their roles in a play"
+          ],
+          "pcis": [
+            "Effective communication; enhanced as learners pronounce words correctly for communication",
+            "Problem solving; enhanced as learners work together to share out roles and stage a play"
+          ],
+          "link_to_other_subjects": [
+            "Performing arts teaches the qualities of a good performance"
+          ]
+        },
+        {
+          "sub_strand_number": "14.5",
+          "sub_strand_name": "Descriptive writing (280 – 320 words)",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "use the correct writing process to write a composition",
+            "spell words correctly in composition writing",
+            "apply the five senses in writing descriptive compositions",
+            "display creativity and imagination in composition writing",
+            "recognise the importance of creativity in writing"
+          ],
+          "suggested_learning_experiences": [
+            "write sentences that describe things in the classroom using the five senses",
+            "write a composition on a topic related to the world cup",
+            "in small groups, engage in relay writing and share the final product with the rest of the class",
+            "read a short excerpt of writing on the world cup from a selected writer or a writer they admire and try to write a composition, in their own words, but using the style or words learnt from the writer",
+            "look at a set of pictures or items on the world cup provided by the teacher and write a descriptive composition based on these items",
+            "rewrite a famous story in their own words",
+            "in pairs, write short paragraphs describing an item and have the other person guess what the item is",
+            "share the best creative compositions on the school noticeboard or the school website"
+          ],
+          "key_inquiry_questions": [
+            "What makes a story creative?",
+            "Which words do we use to describe our different senses?"
+          ],
+          "core_competencies": [
+            "Creativity and imagination; enhanced as learners write creative compositions",
+            "Digital literacy; enhanced as learners share their compositions on the school website",
+            "Communication and collaboration; achieved as learners engage in relay writing"
+          ],
+          "values": [
+            "Unity; promoted as learners work together to write group compositions",
+            "Responsibility; enhanced as learners ensure that their part in the relay composition is well written"
+          ],
+          "pcis": [
+            "Creative thinking; promoted as learners compose descriptive compositions"
+          ],
+          "link_to_other_subjects": [
+            "All languages emphasise on good composition writing skills"
+          ]
+        }
+      ]
+    },
+    {
+      "strand_number": "15.0",
+      "strand_name": "TOURIST ATTRACTION SITES- WORLD",
+      "sub_strands": [
+        {
+          "sub_strand_number": "15.1",
+          "sub_strand_name": "Oral Reports-News (role play)",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "read a short report within a specified number of minutes",
+            "analyse a recorded grade appropriate oral news report",
+            "apply the features of oral presentations for effective communication",
+            "appreciate the importance of fluency in News report"
+          ],
+          "suggested_learning_experiences": [
+            "watch a recorded grade appropriate news report on tourist attraction sites in the world",
+            "brainstorm in groups on importance of body language in reading an oral report",
+            "dramatize reading news reports on world tourist attraction sites",
+            "practice timed reading in pairs and small groups",
+            "practice reciting famous speeches",
+            "in pairs or small groups prepare and present (role play) short news reports on tourist attraction sites in the world",
+            "listen and critic others as they orally present reports"
+          ],
+          "key_inquiry_questions": [
+            "Who is your favourite News presenter and why?",
+            "What is an oral report?",
+            "When are you required to present an oral report?"
+          ],
+          "core_competencies": [
+            "Digital Literacy; enhanced as they watch and listen to audio visual recordings of News oral reports",
+            "Communication and collaboration; enhanced as they work in pairs and groups"
+          ],
+          "values": [
+            "Respect; enhanced as learners listen and critic others as the orally present reports",
+            "Love; promoted as learners listen and record others speeches"
+          ],
+          "pcis": [
+            "Effective communication; promoted as learners orally present news reports"
+          ],
+          "link_to_other_subjects": [
+            "Other subjects also require oral presentation of reports"
+          ]
+        },
+        {
+          "sub_strand_number": "15.2",
+          "sub_strand_name": "Reading Fluency",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "preview a text while ignoring unknown words",
+            "make predictions about the characters, events and the message in a given text",
+            "skim a text to get the gist",
+            "scan a text to obtain specific information",
+            "advocate the role of reading fluency in communication"
+          ],
+          "suggested_learning_experiences": [
+            "watch videos of a text being read",
+            "read the title, blurb of a text in pairs",
+            "read the first line of a paragraph or chapter to establish the subject",
+            "look for specific details from a text such as title, a word, a phrase in pairs",
+            "practise ignoring unknown words while reading",
+            "practise timed reading in groups with fluency",
+            "read a text on tourist attraction sites in the world at the right speed",
+            "pronounce words and sounds accurately",
+            "display the right emotions and feelings when reading a text",
+            "record a text such as a poem, a story or newspaper article and save the recording in a digital device"
+          ],
+          "key_inquiry_questions": [
+            "How can you tell if a text is appropriate for reading?",
+            "Why should one read a text fluently?"
+          ],
+          "core_competencies": [
+            "Communication and collaboration; fostered as the learner develops reading fluency"
+          ],
+          "values": [
+            "Responsibility; nurtured as the learner makes a recording of text being read in pairs or groups"
+          ],
+          "pcis": [
+            "Effective communication; promoted as the learner develops reading fluency",
+            "Citizenship; enhanced as the learner reads texts on various tourist attraction sites around the world"
+          ],
+          "link_to_other_subjects": [
+            "Social Studies, Kiswahili, Arabic and Chinese encourage reading fluency"
+          ]
+        },
+        {
+          "sub_strand_number": "15.3",
+          "sub_strand_name": "Sentences-Imperative– commands, requests; Exclamatory",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify instances where the two types of sentences are used correctly in printed handouts or online texts",
+            "punctuate given texts by use of the appropriate punctuation marks",
+            "appreciate the use of exclamatory and imperative sentences in spoken language"
+          ],
+          "suggested_learning_experiences": [
+            "orally list the kinds of rules that they would want implemented in their school",
+            "identify and label sentence types in a given text",
+            "construct imperative sentences as they respond to teacher's questions",
+            "in pairs, construct exclamatory sentences based on one of the characters in a text"
+          ],
+          "key_inquiry_questions": [
+            "When do you use an exclamatory or an imperative sentence in school?",
+            "How do you decide whether to use an exclamation mark or a period at the end of a sentence"
+          ],
+          "core_competencies": [
+            "Digital literacy; promoted as learners identify target sentences from recorded texts",
+            "Learning to learn; enhanced as learners appreciate the comparison captured in different texts"
+          ],
+          "values": [
+            "Social justice; enhanced as learners compare societal issues through discussing rules in school"
+          ],
+          "pcis": [
+            "Problem solving; as learners work in pairs/groups to construct exclamatory sentences"
+          ],
+          "link_to_other_subjects": [
+            "Other languages like Kiswahili and foreign languages as they all require the use of variety of sentence types in communication"
+          ]
+        },
+        {
+          "sub_strand_number": "15.4",
+          "sub_strand_name": "Intensive reading: Poems",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "explain why it is important to relate ideas learnt in poems to real life",
+            "relate ideas in poems on tourist attraction sites to real life",
+            "acknowledge the need to relate ideas in poems to real life"
+          ],
+          "suggested_learning_experiences": [
+            "read given grade appropriate poems about tourist attraction sites (world) for enjoyment",
+            "discuss the meaning of the poems in groups",
+            "pick out the key ideas in the poems",
+            "in groups, relate the ideas in the poem with real life experiences",
+            "discuss the importance of relating ideas in poems to real life experiences"
+          ],
+          "key_inquiry_questions": [
+            "Why is it important to relate ideas read in works of art to real life?",
+            "What is the role of poems in the society?"
+          ],
+          "core_competencies": [
+            "Critical thinking and problem solving; as learners read poems and relate the ideas in the poem to real life"
+          ],
+          "values": [
+            "Patriotism; enhanced as learners read poems on tourist attraction sites"
+          ],
+          "pcis": [
+            "Life Skills (Effective communication); as learners discuss the meaning of the selected poems in groups",
+            "Education for Sustainable Development; as learners read given grade appropriate poems on tourist attraction sites (world)"
+          ],
+          "link_to_other_subjects": [
+            "Poetry is a genre in the creative arts"
+          ]
+        },
+        {
+          "sub_strand_number": "15.5",
+          "sub_strand_name": "Emails",
+          "number_of_lessons": 2,
+          "specific_learning_outcomes": [
+            "identify the key elements of an email",
+            "apply the elements in writing an email",
+            "appreciate the importance of writing emails"
+          ],
+          "suggested_learning_experiences": [
+            "write emails based on tourist attraction sites to peers",
+            "in pairs, exchange emails written to their friends",
+            "identify the parts of an email in their partner's work by underlining the elements",
+            "learners to rework their emails to include any elements that were missing",
+            "display some of the emails on the talking walls"
+          ],
+          "key_inquiry_questions": [
+            "Why do we write emails?",
+            "What is the difference between emails and letters?"
+          ],
+          "core_competencies": [
+            "Communication and collaboration; enhanced as they share and critique each other's emails",
+            "Digital Literacy; enhanced as learners exchange emails to their friends"
+          ],
+          "values": [
+            "Love; enhanced as the learner reads and critiques others reports",
+            "Unity; enhanced as the learner works in pairs to accomplish tasks"
+          ],
+          "pcis": [
+            "Safety and security; promoted as the learner uses the internet responsibly when composing and sharing emails"
+          ],
+          "link_to_other_subjects": [
+            "The learner is able to relate the concept of E-mails to contexts of learning experiences in other subjects like computer studies"
+          ]
+        }
+      ]
+    }
+  ]
+}

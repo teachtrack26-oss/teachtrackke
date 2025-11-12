@@ -1,35 +1,35 @@
 {
   "subject": "Mathematics",
   "grade": "Grade 9",
-  "educationLevel": "Junior Secondary",
+  "education_level": "Junior Secondary",
   "strands": [
     {
-      "strandNumber": "1.0",
-      "strandName": "NUMBERS",
-      "subStrands": [
+      "strand_number": "1.0",
+      "strand_name": "NUMBERS",
+      "sub_strands": [
         {
-          "subStrandNumber": "1.1",
-          "subStrandName": "INTEGERS",
-          "numberOfLessons": 5,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "1.1",
+          "sub_strand_name": "INTEGERS",
+          "number_of_lessons": 5,
+          "specific_learning_outcomes": [
             "perform basic operations on Integers in different situations",
             "work out combined Operations on Integers in different situations",
             "apply Integers to real life situations",
             "use IT or other resources to learn more on integers",
             "appreciate use of integers in real life situations"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "discuss and work out basic operations on integers using number cards and charts. Play games involving numbers and operations. Pick integers and perform all basic operations.",
             "work out combined operations of integers in the correct order",
             "carry out activities such as reading temperature changes in a thermometer and discuss how to record it. Consider temperatures below zero points. They should consider cases of use of integers in real life.",
             "use IT and other resources such as print to carry out operations on integers.",
             "play creative games that involve integers."
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "How do we carry out operations of integers in real life situations?",
             "How do we apply integers in daily activities?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Critical thinking and problem solving- interpretation and inference: as learners work out combined operations of integers in the correct order",
             "Learning to learn- organizing own learning; as learners carry out activities such as reading temperature changes in a thermometer and discuss how to record it.",
             "Digital literacy- interacting with technologies; as learners use IT devices to determine temperature."
@@ -41,15 +41,15 @@
           "pcis": [
             "Environmental education; as learners read temperature changes in a thermometer that tell about the climate"
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Learners discuss in groups using language skills on how to work out combined operations of integers in the correct order."
           ]
         },
         {
-          "subStrandNumber": "1.2",
-          "subStrandName": "CUBES AND CUBE ROOTS",
-          "numberOfLessons": 5,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "1.2",
+          "sub_strand_name": "CUBES AND CUBE ROOTS",
+          "number_of_lessons": 5,
+          "specific_learning_outcomes": [
             "Work out cubes of numbers by multiplication in real life situations",
             "Determine cubes of numbers from mathematical tables in different situations",
             "Determine cube roots of numbers by factor method in different situations",
@@ -57,19 +57,19 @@
             "Apply cubes and cube roots in real life situations",
             "Work out cubes and cube roots using IT devices"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "use stacks of cubes to demonstrate the concept of cube and cube roots.",
             "demonstrate stacking of cubes.",
             "discuss the volume of a cube and determine both the cube and cube root and relate the two.",
             "read the cube of numbers from mathematical tables and relate to cube roots",
             "use IT devices to determine cube and cube roots of numbers."
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "How do we work out the cubes of numbers?",
             "How do we work out the cube roots of numbers?",
             "Where do we apply cubes and cube roots in real life situations?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Communication and collaboration- speaking and listening; as learners work in groups to use stacks of cubes to demonstrate the concept of cube and cube roots.",
             "Imagination and creativity- open mindedness and creativity; as learners determine both the cube and cube root and relate the two."
           ],
@@ -77,16 +77,16 @@
             "Respect; as learners appreciate each other's contribution in pairs/groups discussion."
           ],
           "pcis": [],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Learners use stacks of cubes to demonstrate the concept of cube and cube roots, relate to objects in the environment.",
             "Learners use new terms in reading measurements of length in cubes as learnt in Languages."
           ]
         },
         {
-          "subStrandNumber": "1.3",
-          "subStrandName": "INDICES AND LOGARITHMS",
-          "numberOfLessons": 6,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "1.3",
+          "sub_strand_name": "INDICES AND LOGARITHMS",
+          "number_of_lessons": 6,
+          "specific_learning_outcomes": [
             "Express numbers in index form in different situations",
             "Generate the laws of Indices in different situations",
             "Apply the laws of indices in different situations",
@@ -94,17 +94,17 @@
             "Use IT to learn more on indices and common logarithms",
             "Appreciate use of indices and logarithms in real life situations"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "discuss indices and identify the base.",
             "show the laws of indices using multiplication and division.",
             "use the laws of indices to work out indices",
             "discuss and relate powers of 10 to common logarithms",
             "use IT to work out common logarithms or use mathematical tables"
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "How do we express numbers in powers?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Critical thinking and problem solving; as learners show the laws of indices using multiplication and division.",
             "Self-efficacy; as learners discuss and relate powers of 10 to common logarithms"
           ],
@@ -115,15 +115,15 @@
           "pcis": [
             "Learners relate self-awareness to their own ides as they discuss concept of Indices."
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Learners express numbers as indices and powers as used in Integrated Science."
           ]
         },
         {
-          "subStrandNumber": "1.4",
-          "subStrandName": "COMPOUND PROPORTIONS AND RATES OF WORK",
-          "numberOfLessons": 12,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "1.4",
+          "sub_strand_name": "COMPOUND PROPORTIONS AND RATES OF WORK",
+          "number_of_lessons": 12,
+          "specific_learning_outcomes": [
             "divide quantities into proportional parts in real life situations",
             "relate different ratios in real life situations",
             "work out compound proportions using ratio method in different situations",
@@ -131,18 +131,18 @@
             "use IT devices to learn more on Compound proportions and rates of work",
             "appreciate use of Compound proportions and rates of work in real life situations"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "discuss and divide quantities into proportional parts and express as a fraction",
             "compare and write different ratios",
             "determine compound proportions using ratios",
             "work out rates of work.",
             "play games on rates of work using IT devices."
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "What are proportions?",
             "Why do we work fast?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Citizenship- active community life skills; as learners work in pairs/groups to discuss and divide quantities into proportional parts and express as a fraction.",
             "Critical thinking and problem solving- interpretation and inference; as learners work out rates of work."
           ],
@@ -153,21 +153,21 @@
           "pcis": [
             "Self-esteem; as learners device personal strategies to estimate products in multiplication."
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Agriculture and nutrition helps learners to estimate harvests, seeds or fertilizer required for sowing or application as part of rates of work."
           ]
         }
       ]
     },
     {
-      "strandNumber": "2.0",
-      "strandName": "ALGEBRA",
-      "subStrands": [
+      "strand_number": "2.0",
+      "strand_name": "ALGEBRA",
+      "sub_strands": [
         {
-          "subStrandNumber": "2.1",
-          "subStrandName": "MATRICES",
-          "numberOfLessons": 8,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "2.1",
+          "sub_strand_name": "MATRICES",
+          "number_of_lessons": 8,
+          "specific_learning_outcomes": [
             "identify a matrix in different situations",
             "determine the order of a matrix in different situations",
             "determine the position of items in a matrix in different situations",
@@ -175,7 +175,7 @@
             "carry out addition and subtraction of matrices in real life situations",
             "reflect on the use of matrices in real life situations"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "discuss the use of tables such as football league tables, travel schedules, shopping lists and any other. Count the number of rows and columns in the table, which is a matrix.",
             "arrange items in rows and columns and discuss how to represent a matrix.",
             "organize objects in rows and columns and give the order of the matrix in terms of row and columns (row x column).",
@@ -183,10 +183,10 @@
             "discuss and identify matrices that have equal number of rows and equal number of columns (same order) for compatibility in addition and subtraction.",
             "discuss and note what is represented by the rows and what is represented by the columns from two or more matrices to carry out addition or subtraction."
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "How do we use matrices in real life situations?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Communication and collaboration - as learners discuss use of tables to represent matrices.",
             "Learning to learn - as learners arrange items or elements in rows and columns to form matrices."
           ],
@@ -197,15 +197,15 @@
             "Social and economic issues - as learners discuss the use of tables such as football league tables and shopping lists.",
             "Citizenship - as learners discuss how to use travel schedules to different places."
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Learners generate tables of results in sports and refer to league schedules and relate this to sporting activities in creative Arts and Sports."
           ]
         },
         {
-          "subStrandNumber": "2.2",
-          "subStrandName": "EQUATIONS OF A STRAIGHT LINE",
-          "numberOfLessons": 15,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "2.2",
+          "sub_strand_name": "EQUATIONS OF A STRAIGHT LINE",
+          "number_of_lessons": 15,
+          "specific_learning_outcomes": [
             "identify the gradient in real life situations",
             "determine the gradient of a line from two known points",
             "determine the equation of a straight line given two points",
@@ -215,7 +215,7 @@
             "determine the x and y intercepts of a straight line",
             "recognize the use of equations of straight lines in real life"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "discuss steepness in relation to gradient from the immediate environment.",
             "incline a ladder at different positions on the wall to demonstrate change in steepness of gradient. Discuss and compare the positions that the ladder is steeper.",
             "observe and climb up and down places such as the stairs or hills and relate to gradients.",
@@ -224,11 +224,11 @@
             "work out the value of x when y is zero and the value of y when is zero.",
             "use IT or other resources to show different hills and mountains and discuss steepness."
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "How do we use gradient or steepness in our daily activities?",
             "How do we interpret graphs of straight lines?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Digital literacy - as learners IT or others resources to explore steepness or gradient of places.",
             "Learning to learn - as learners place the ladder at different points on the ground as they discuss and compare steepness."
           ],
@@ -239,23 +239,23 @@
             "Safety - as learners climb up and down places such as the stairs or hills and relate to gradients.",
             "Education for Sustainable Development (ESD) - as learners participate and choose careers in games and sporting activities."
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Integrated science helps learners relate use the ladder to make work easier by using different gradients.",
             "Pre-technical Studies as learners discuss and compare the gradients of parallel and perpendicular lines as it is done in technical drawing."
           ]
         },
         {
-          "subStrandNumber": "2.3",
-          "subStrandName": "LINEAR INEQUALITIES",
-          "numberOfLessons": 6,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "2.3",
+          "sub_strand_name": "LINEAR INEQUALITIES",
+          "number_of_lessons": 6,
+          "specific_learning_outcomes": [
             "solve linear inequalities in one unknown",
             "represent linear inequalities in one unknown graphically",
             "represent linear inequality in two unknowns graphically",
             "apply linear inequalities to real life situations",
             "reflect on the use of linear inequalities in real life"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "discuss why sometimes resources are shared unequally.",
             "discuss simple inequality statements, form and work out the inequalities in one unknown.",
             "discuss and generate a table of values and draw linear inequalities in one unknown. Indicate and discuss the region that satisfies the inequalities.",
@@ -263,11 +263,11 @@
             "discuss and work out linear inequalities that involve real life cases",
             "use IT or other graphing tools to present linear inequalities"
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "How do we represent linear inequalities in graphs?",
             "How do we use linear inequalities in real life situations?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Digital literacy - as learners use IT resources to present linear inequalities.",
             "Communication and collaboration - as learners discuss and generate table of values and draw linear inequalities."
           ],
@@ -277,21 +277,21 @@
           "pcis": [
             "Citizenship - as learners discuss and indicate the regions that satisfy inequalities."
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Social studies - as learners discuss inequality statements that may involve distribution of resources."
           ]
         }
       ]
     },
     {
-      "strandNumber": "3.0",
-      "strandName": "MEASUREMENTS",
-      "subStrands": [
+      "strand_number": "3.0",
+      "strand_name": "MEASUREMENTS",
+      "sub_strands": [
         {
-          "subStrandNumber": "3.1",
-          "subStrandName": "AREA",
-          "numberOfLessons": 8,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "3.1",
+          "sub_strand_name": "AREA",
+          "number_of_lessons": 8,
+          "specific_learning_outcomes": [
             "calculate the area of a pentagon and a hexagon in different situations",
             "work out the surface area of triangular and rectangular based prisms",
             "work out the surface area of triangular, rectangular and square based pyramids",
@@ -300,7 +300,7 @@
             "calculate the surface area of a sphere in real life situations",
             "recognize the use of area in real life situations"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "discuss the properties of regular polygons and use cut outs to work out the area of pentagons and hexagons.",
             "collect from the environment objects that are spheres, cones/funnels, pyramids, prisms and frustums.",
             "discuss and sketch the nets of the solids.",
@@ -311,10 +311,10 @@
             "use relevant formulas to work out the surface area of different sizes of spherical balls.",
             "use IT or other resources to sketch different models and nets."
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "How do we determine the area of different surfaces?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Communication and collaboration - as learners work in groups to discuss the properties of regular polygons and use cutouts to work out the area of pentagon and hexagon.",
             "Creativity and imagination - as learners open nets of different models and work out surface area."
           ],
@@ -324,15 +324,15 @@
           "pcis": [
             "Patriotism - as learners collect objects from the environment, use and dispose of them safely."
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Pre-Technical Studies as learners use models and open nets of different objects."
           ]
         },
         {
-          "subStrandNumber": "3.2",
-          "subStrandName": "VOLUME OF SOLIDS",
-          "numberOfLessons": 8,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "3.2",
+          "sub_strand_name": "VOLUME OF SOLIDS",
+          "number_of_lessons": 8,
+          "specific_learning_outcomes": [
             "work out the volume of a triangular and rectangular based prisms",
             "calculate the volume of a triangular, rectangular and squares based pyramids",
             "work out the volume of a cone in real life situations",
@@ -340,7 +340,7 @@
             "calculate the volume of a sphere in real life situations",
             "promote use of volume and capacity of different containers in real life situations"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "collect different containers and objects. This may include prisms, pyramids, cones, funnels and balls.",
             "identify and discuss the model of a prism. Using the relevant formulas, determine the volume of a prism.",
             "use relevant formulae to work out the volume of pyramids and cones.",
@@ -348,11 +348,11 @@
             "Play any games involving different sizes of balls and work out volume of a sphere.",
             "use IT or other resources to determine the volumes of solids."
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "How do we determine the volume of different solids?",
             "How do we use the volume of solids in real life situations?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Critical thinking and problem solving - as learners identify and work out the volume of a frustum from a pyramid",
             "Creativity and Imagination - as learners identify, discuss and work out volume of solids."
           ],
@@ -364,22 +364,22 @@
             "Environmental Education - as learners take care of the environment while collecting the containers and objects.",
             "Safety - as learners collect containers and objects cautiously."
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Creative Arts and sports - as learners make models of pyramids, cones/funnels and spheres/balls from available materials."
           ]
         },
         {
-          "subStrandNumber": "3.3",
-          "subStrandName": "MASS, VOLUME, WEIGHT AND DENSITY",
-          "numberOfLessons": 8,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "3.3",
+          "sub_strand_name": "MASS, VOLUME, WEIGHT AND DENSITY",
+          "number_of_lessons": 8,
+          "specific_learning_outcomes": [
             "convert units of mass from one form to another in different situations",
             "relate mass and weight in real life situations",
             "determine mass, volume and density in different situations",
             "apply density to real life situations",
             "recognize the use of density in daily life"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "discuss different instruments and tools used in weighing materials or objects and relate to consumer awareness and protection.",
             "Collect and weigh different materials or objects and change one unit of mass to another.",
             "discuss the relationship between mass and weight.",
@@ -387,10 +387,10 @@
             "discuss and find the density of different materials or objects.",
             "work out mass, volume and density using IT or other resources."
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "How do you weigh materials and objects?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Communication and collaboration - as learners discuss the relationship between mass and weight.",
             "Creativity and imagination - as learners determine the density of different materials or objects.",
             "Digital literacy - as learners use IT devices to determine the mass, volume and density of different objects."
@@ -403,16 +403,16 @@
             "Education for Sustainable Development (ESD) - Careers in business such as shop keeping.",
             "Self-awareness - as learners weigh themselves for health purposes."
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Home Science - as learners weigh different quantities for a variety of recipes.",
             "Integrated science - as learners use machines and tools which involve weighing and balancing."
           ]
         },
         {
-          "subStrandNumber": "3.4",
-          "subStrandName": "TIME, DISTANCE AND SPEED",
-          "numberOfLessons": 10,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "3.4",
+          "sub_strand_name": "TIME, DISTANCE AND SPEED",
+          "number_of_lessons": 10,
+          "specific_learning_outcomes": [
             "work out speed in km/h and m/s in real life situations",
             "work out average speed in real life situations",
             "determine velocity in real life situations",
@@ -422,7 +422,7 @@
             "determine local time of places on the earth along different longitudes",
             "appreciate use of time and distance in real life situations"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "engage in activities that will involve measuring distances and time, for example running track events to determine speed.",
             "discuss and relate distance and time.",
             "discuss the difference between velocity and speed.",
@@ -431,11 +431,11 @@
             "use IT devices to watch videos on the globe, longitudes and time zones in different parts of the earth.",
             "use other resources such as maps to locate different places (cities) on the earth and discuss time differences."
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "How do we observe speed in daily activities?",
             "Why does time vary in different places of the world?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Self-efficacy - as learners participate in track events to measure speed.",
             "Digital literacy -as learners use IT devices to determine time in different zones in the world.",
             "Citizenship- global citizenship as learners determine local time in different parts of the world."
@@ -449,15 +449,15 @@
             "Education for Sustainable Development (ESD) - as learners participate and choose careers in games and sporting activities.",
             "Self-awareness - as learners participate and time themselves in games."
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Integrated science - as learners use digital devices to tell time in different zones of the world."
           ]
         },
         {
-          "subStrandNumber": "3.5",
-          "subStrandName": "MONEY",
-          "numberOfLessons": 7,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "3.5",
+          "sub_strand_name": "MONEY",
+          "number_of_lessons": 7,
+          "specific_learning_outcomes": [
             "identify currencies that are used in different countries",
             "convert currency from one form to another in real life situations",
             "work out import and export duties charged on goods and services",
@@ -465,7 +465,7 @@
             "determine value added tax charged on goods and services",
             "appreciate use of money in day to day activities"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "use IT or other resources to obtain and compile a collage of currencies from different countries. For example, currencies of East African Countries, US dollars, Euro, Yen and Sterling pound.",
             "work out currency exchange from Kenya Shillings to any other currency and vice versa.",
             "discuss and determine the export and import duty charges on different goods.",
@@ -473,11 +473,11 @@
             "use receipts from shopping to discuss and work out VAT on goods and services.",
             "identify currency exchange rates from different sources including daily papers, IT devices, financial institutions and relate this to consumer awareness and protection."
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "Why do we change currencies from one form to another?",
             "What are the types of taxes the government levy on its citizens?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Global Citizenship - as learners of different currencies of the world.",
             "Digital Literacy - as learners use digital devices to learn on exchange rates for foreign currency."
           ],
@@ -489,30 +489,30 @@
             "Financial Literacy - as learners learn the currencies used in different countries",
             "Education for Sustainable Development (ESD) - as learners choose careers in business, imports and exports."
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Pre-technical studies - as learners work out VAT and currency exchange."
           ]
         },
         {
-          "subStrandNumber": "3.6",
-          "subStrandName": "APPROXIMATIONS AND ERRORS",
-          "numberOfLessons": 5,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "3.6",
+          "sub_strand_name": "APPROXIMATIONS AND ERRORS",
+          "number_of_lessons": 5,
+          "specific_learning_outcomes": [
             "approximate quantities in measurements in different situations",
             "determine errors using estimations and actual measurements of quantities",
             "determine percentage errors using actual measurements of quantities",
             "appreciate approximations and errors in real life situations"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "carryout activities of measurements of different quantities such as length, area, volume, capacity and mass using arbitrary units.",
             "Estimate and measure different quantities using appropriate instruments. compare the estimates and the actual measurements and determine the error.",
             "work out the percentage error from the estimated and the actual measurements",
             "work out errors using IT devices or other resources and relate this to consumer awareness."
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "How do we estimate measurements of different quantities?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Creativity and imagination - as learners carry out measurements of different quantities and discuss error.",
             "Digital literacy - as learners use IT devices as they compute errors."
           ],
@@ -523,21 +523,21 @@
           "pcis": [
             "Safety - as learners handle measuring tools with care."
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Integrated science - as learners measure different quantities that may involve errors as they carry out experiments."
           ]
         }
       ]
     },
     {
-      "strandNumber": "4.0",
-      "strandName": "GEOMETRY",
-      "subStrands": [
+      "strand_number": "4.0",
+      "strand_name": "GEOMETRY",
+      "sub_strands": [
         {
-          "subStrandNumber": "4.1",
-          "subStrandName": "COORDINATES AND GRAPHS",
-          "numberOfLessons": 6,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "4.1",
+          "sub_strand_name": "COORDINATES AND GRAPHS",
+          "number_of_lessons": 6,
+          "specific_learning_outcomes": [
             "plot out points on a Cartesian plane",
             "draw a straight line graph given an equation",
             "draw parallel lines on the Cartesian plane",
@@ -546,7 +546,7 @@
             "relate the gradients of perpendicular lines",
             "apply graphs of straight line in real life situation"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "work in groups and locate the point of intersection of the x coordinate and the y- coordinates on a Cartesian plane.",
             "generate a table of values from equation a of a straight line, plot and join the points to form a straight line.",
             "Generate table of values for each of the given equations, plot and join them to form straight lines on the Cartesian plane",
@@ -554,11 +554,11 @@
             "Generate table of values for each of the given equations of perpendicular lines, plot and join them to form straight lines on the Cartesian plane",
             "work out the gradients of each of the lines and compare them to establish the relationship of perpendicular lines."
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "How do we draw graphs of straight lines?",
             "How do we interpret graphs of straight lines?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Communication and collaboration",
             "Critical thinking and problem solving - as learners generate a table of values."
           ],
@@ -569,15 +569,15 @@
             "Education for Sustainable Development (ESD) - as learners generate tables of values and draw graphs of straight lines.",
             "Safety - as learners handle graphing instruments with sharp ends."
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Integrated Science - as learners plot graphs of straight lines in different quantities."
           ]
         },
         {
-          "subStrandNumber": "4.2",
-          "subStrandName": "SCALE DRAWING",
-          "numberOfLessons": 14,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "4.2",
+          "sub_strand_name": "SCALE DRAWING",
+          "number_of_lessons": 14,
+          "specific_learning_outcomes": [
             "identify compass and true bearings in real life situations",
             "determine the bearing of one point from another in real life situations",
             "locate a point using bearing and distance in real life situations",
@@ -588,7 +588,7 @@
             "apply scale drawing in simple surveying",
             "appreciate the use of scale drawing in real life situations"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "draw and discuss the compass directions and relate to the compass and true North bearings.",
             "discuss and locate places from different points using bearings.",
             "discuss and locate a place using bearing and distance. Sketch and use scale drawing to show the position of places from given points.",
@@ -598,10 +598,10 @@
             "discuss and use scale drawing in simple surveying.",
             "observe maps or watch videos on bearings and simple surveying."
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "How do we use scale drawing in real life?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Creativity and imagination - as learners sketch and determine angles of elevation and depression",
             "Citizenship - as learners use scale drawing in simple surveying"
           ],
@@ -612,15 +612,15 @@
           "pcis": [
             "Learners discuss possible Careers in scale drawing and surveying."
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Social studies helps learners work in groups to observe maps in surveying in locating bearing."
           ]
         },
         {
-          "subStrandNumber": "4.3",
-          "subStrandName": "SIMILARITY AND ENLARGEMENT",
-          "numberOfLessons": 10,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "4.3",
+          "sub_strand_name": "SIMILARITY AND ENLARGEMENT",
+          "number_of_lessons": 10,
+          "specific_learning_outcomes": [
             "identify similar figures and their properties",
             "draw similar figures in different situations",
             "determine properties of enlargement of different figures",
@@ -628,7 +628,7 @@
             "determine the linear scale factor of similar figures",
             "promote use of similarity and enlargement in real life situations"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "collect objects and sort according to similarity. Discuss and note down properties of similar objects.",
             "use properties of similar objects to scale-draw similar figures.",
             "discuss and identify properties of enlargement.",
@@ -636,11 +636,11 @@
             "determine the linear relationship of similar figures and objects.",
             "enlarge objects and figures using IT devices"
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "What are similar objects?",
             "How do we use enlargement in real life situations?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Critical thinking and problem solving - as learners draw similar and enlarged objects and figures.",
             "Digital literacy - as learners learn, use digital devices to enlarge objects and figures."
           ],
@@ -651,15 +651,15 @@
           "pcis": [
             "Environmental Education -as learners collect similar objects from the environment."
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Pre-Technical Studies contribute to learners scale-drawing similar figures and objects."
           ]
         },
         {
-          "subStrandNumber": "4.4",
-          "subStrandName": "TRIGONOMETRY",
-          "numberOfLessons": 8,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "4.4",
+          "sub_strand_name": "TRIGONOMETRY",
+          "number_of_lessons": 8,
+          "specific_learning_outcomes": [
             "identify angles and sides of right angled triangles in different situations",
             "identify Sine, Cosine and Tangent ratios from a right angled triangle in different situations",
             "read tables of trigonometric ratios for acute angles",
@@ -667,16 +667,16 @@
             "apply trigonometric ratios to calculate lengths and angles of right angled triangles in different situations",
             "appreciate use of trigonometric ratios in real life situations"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "draw right angled triangles and recognize angles and sides. Discuss the relationship between angles and sides.",
             "discuss and relate the trigonometric ratios to angles in a right angled triangle.",
             "use trigonometric ratios to determine lengths and angles of right angled triangles",
             "use Mathematical tables or IT devices to find trigonometric ratios of given angles."
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "What is the relationship between angles and sides in a right angled triangle?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Critical thinking and problem solving - as learners relate the trigonometric ratios to angles in a right angled triangle.",
             "Digital literacy - as learners use tables or calculators to find trigonometric ratios of given angles."
           ],
@@ -686,21 +686,21 @@
           "pcis": [
             "Safety - As learners plug and use digital devices"
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Pre-Technical Studies as learners draw right angled triangles and recognize angles and sides."
           ]
         }
       ]
     },
     {
-      "strandNumber": "5.0",
-      "strandName": "DATA HANDLING AND PROBABILITY",
-      "subStrands": [
+      "strand_number": "5.0",
+      "strand_name": "DATA HANDLING AND PROBABILITY",
+      "sub_strands": [
         {
-          "subStrandNumber": "5.1",
-          "subStrandName": "DATA INTERPRETATION (GROUPED DATA)",
-          "numberOfLessons": 8,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "5.1",
+          "sub_strand_name": "DATA INTERPRETATION (GROUPED DATA)",
+          "number_of_lessons": 8,
+          "specific_learning_outcomes": [
             "determine appropriate class width for grouping data",
             "draw frequency distribution tables of grouped data",
             "identify the modal class of grouped data",
@@ -708,7 +708,7 @@
             "determine the median of a grouped data from real life situations",
             "appreciate data interpretation in real life situations"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "collect data and work out an appropriate class width.",
             "tally the data and represent it in a frequency distribution table.",
             "recognize the modal class from a set of grouped data.",
@@ -717,11 +717,11 @@
             "work out the median from different sets of grouped data.",
             "use IT or other materials to determine the mean and median of grouped data."
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "How do we interpret data?",
             "How do we interpret data?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Learning to learn - as learners collect, organize and interpret data.",
             "Critical thinking and problem solving - as learners discuss and determine the modal class, mean and median of grouped data.",
             "Digital literacy - as learners use IT or other materials to determine the mean and median of grouped data."
@@ -732,16 +732,16 @@
           "pcis": [
             "Citizenship - as learners collect data that may relate to the population."
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Integrated science - as the learners interpret data related to different organisms and materials.",
             "Learners relate analyzing and interpreting data in different social aspects in Social Studies."
           ]
         },
         {
-          "subStrandNumber": "5.2",
-          "subStrandName": "PROBABILITY",
-          "numberOfLessons": 6,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "5.2",
+          "sub_strand_name": "PROBABILITY",
+          "number_of_lessons": 6,
+          "specific_learning_outcomes": [
             "perform experiments involving equally and likely outcomes in different situations",
             "determine the range of probability of an event",
             "identify mutually exclusive events in real life situations",
@@ -750,7 +750,7 @@
             "draw a tree diagram for a single outcome",
             "appreciate the probability of events occurring in real life situations"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "discuss and carry out experiments of events involving equally and likely outcomes.",
             "work out the range of probability of different events.",
             "discuss and carry out experiments involving mutually inclusive events.",
@@ -758,10 +758,10 @@
             "practice representing probability occurrences in a tree diagram.",
             "use IT or other resources to explore more on probability."
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "Why is probability important in real life situations?"
           ],
-          "coreCompetencies": [
+          "core_competencies": [
             "Communication and collaboration - as learners discuss and carry out experiments of events involving equally likely outcomes.",
             "Critical thinking and problem solving - as learners carry out experiments involving mutually inclusive events.",
             "Self- efficacy -as learners carry out experiments involving independent events and avoid harmful practices of gambling."
@@ -773,7 +773,7 @@
           "pcis": [
             "Financial Literacy - as learners carry out experiments involving independent events and avoid harmful practices of gambling using money"
           ],
-          "linkToOtherSubjects": [
+          "link_to_other_subjects": [
             "Learners work in groups to explore the weather patterns as they have learnt how it affects Agriculture."
           ]
         }

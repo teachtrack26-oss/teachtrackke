@@ -1,13 +1,15 @@
-from fastapi import FastAPI, Depends, HTTPException, status, Response
+from fastapi import FastAPI, Depends, HTTPException, status, Response, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session, joinedload
 from typing import List
+from datetime import datetime
 import uvicorn
+import json
 
 from database import get_db, engine
 from models import (
-    User, Subject, Strand, SubStrand, Lesson, ProgressLog, Note,
+    User, Subject, Strand, SubStrand, Lesson, ProgressLog, Note, Term,
     CurriculumTemplate, TemplateStrand, TemplateSubstrand
 )
 from sqlalchemy import text
@@ -22,6 +24,7 @@ from schemas import (
 )
 from auth import verify_password, get_password_hash, create_access_token, verify_token
 from config import settings
+from curriculum_importer import import_curriculum_from_json, get_imported_curricula
 
 # Create tables (DISABLED - using SQL migrations instead)
 # Base.metadata.create_all(bind=engine)
@@ -711,7 +714,7 @@ def mark_lesson_complete(
     
     # Mark lesson as complete
     lesson.is_completed = True
-    lesson.completed_at = func.now()
+    lesson.completed_at = datetime.now()
     
     # Get the subject to update progress
     subject = db.query(Subject).join(Strand).join(SubStrand).join(Lesson).filter(
@@ -809,7 +812,10 @@ def get_subject_lessons(
         SubStrand.substrand_code,
         Strand.strand_name,
         Strand.strand_code
-    ).join(SubStrand).join(Strand).filter(
+    ).select_from(Lesson
+    ).join(SubStrand, Lesson.substrand_id == SubStrand.id
+    ).join(Strand, SubStrand.strand_id == Strand.id
+    ).filter(
         Strand.subject_id == subject_id
     ).order_by(Strand.sequence_order, SubStrand.sequence_order, Lesson.sequence_order).all()
     
@@ -865,7 +871,7 @@ def get_curriculum_progress(
     # Subject-wise progress
     subject_progress = []
     for subject in subjects:
-        # Get strand-level progress
+        # Get strand-level progress with substrand details
         strands = db.query(Strand).filter(Strand.subject_id == subject.id).all()
         strand_data = []
         
@@ -879,12 +885,37 @@ def get_curriculum_progress(
                 Lesson.is_completed == True
             ).count()
             
+            # Get substrand-level progress
+            substrands = db.query(SubStrand).filter(SubStrand.strand_id == strand.id).all()
+            substrand_data = []
+            
+            for substrand in substrands:
+                total_in_substrand = db.query(Lesson).filter(
+                    Lesson.substrand_id == substrand.id
+                ).count()
+                
+                completed_in_substrand = db.query(Lesson).filter(
+                    Lesson.substrand_id == substrand.id,
+                    Lesson.is_completed == True
+                ).count()
+                
+                # Only include substrands with completed lessons
+                if completed_in_substrand > 0:
+                    substrand_data.append({
+                        "substrand_code": substrand.substrand_code,
+                        "substrand_name": substrand.substrand_name,
+                        "total_lessons": total_in_substrand,
+                        "completed_lessons": completed_in_substrand,
+                        "progress": (completed_in_substrand / total_in_substrand * 100) if total_in_substrand > 0 else 0
+                    })
+            
             strand_data.append({
                 "strand_code": strand.strand_code,
                 "strand_name": strand.strand_name,
                 "total_lessons": total_in_strand,
                 "completed_lessons": completed_in_strand,
-                "progress": (completed_in_strand / total_in_strand * 100) if total_in_strand > 0 else 0
+                "progress": (completed_in_strand / total_in_strand * 100) if total_in_strand > 0 else 0,
+                "substrands": substrand_data
             })
         
         subject_progress.append({
@@ -915,6 +946,329 @@ def get_curriculum_progress(
             }
             for rc in recent_completions
         ]
+    }
+
+# ============================================================================
+# TERM MANAGEMENT ENDPOINTS
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/terms")
+def get_terms(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all terms for the current user"""
+    terms = db.query(Term).filter(Term.user_id == current_user.id).order_by(Term.term_number).all()
+    
+    return {
+        "terms": [
+            {
+                "id": t.id,
+                "term_number": t.term_number,
+                "term_name": t.term_name,
+                "academic_year": t.academic_year,
+                "start_date": t.start_date.isoformat() if t.start_date else None,
+                "end_date": t.end_date.isoformat() if t.end_date else None,
+                "teaching_weeks": t.teaching_weeks,
+                "is_current": t.is_current
+            }
+            for t in terms
+        ]
+    }
+
+@app.post(f"{settings.API_V1_PREFIX}/terms")
+def create_term(
+    term_data: dict,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new term"""
+    term = Term(
+        user_id=current_user.id,
+        term_number=term_data["term_number"],
+        term_name=term_data["term_name"],
+        academic_year=term_data["academic_year"],
+        start_date=datetime.fromisoformat(term_data["start_date"]),
+        end_date=datetime.fromisoformat(term_data["end_date"]),
+        teaching_weeks=term_data["teaching_weeks"],
+        is_current=term_data.get("is_current", False)
+    )
+    
+    # If marking as current, unmark all other terms
+    if term.is_current:
+        db.query(Term).filter(Term.user_id == current_user.id).update({"is_current": False})
+    
+    db.add(term)
+    db.commit()
+    db.refresh(term)
+    
+    return {
+        "message": "Term created successfully",
+        "term": {
+            "id": term.id,
+            "term_number": term.term_number,
+            "term_name": term.term_name,
+            "academic_year": term.academic_year,
+            "start_date": term.start_date.isoformat(),
+            "end_date": term.end_date.isoformat(),
+            "teaching_weeks": term.teaching_weeks,
+            "is_current": term.is_current
+        }
+    }
+
+@app.put(f"{settings.API_V1_PREFIX}/terms/{{term_id}}")
+def update_term(
+    term_id: int,
+    term_data: dict,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update a term"""
+    term = db.query(Term).filter(Term.id == term_id, Term.user_id == current_user.id).first()
+    
+    if not term:
+        raise HTTPException(status_code=404, detail="Term not found")
+    
+    # Update fields
+    if "term_name" in term_data:
+        term.term_name = term_data["term_name"]
+    if "start_date" in term_data:
+        term.start_date = datetime.fromisoformat(term_data["start_date"])
+    if "end_date" in term_data:
+        term.end_date = datetime.fromisoformat(term_data["end_date"])
+    if "teaching_weeks" in term_data:
+        term.teaching_weeks = term_data["teaching_weeks"]
+    if "is_current" in term_data:
+        if term_data["is_current"]:
+            # Unmark all other terms
+            db.query(Term).filter(Term.user_id == current_user.id).update({"is_current": False})
+        term.is_current = term_data["is_current"]
+    
+    db.commit()
+    db.refresh(term)
+    
+    return {
+        "message": "Term updated successfully",
+        "term": {
+            "id": term.id,
+            "term_number": term.term_number,
+            "term_name": term.term_name,
+            "academic_year": term.academic_year,
+            "start_date": term.start_date.isoformat(),
+            "end_date": term.end_date.isoformat(),
+            "teaching_weeks": term.teaching_weeks,
+            "is_current": term.is_current
+        }
+    }
+
+@app.get(f"{settings.API_V1_PREFIX}/terms/current")
+def get_current_term(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get the currently active term"""
+    term = db.query(Term).filter(
+        Term.user_id == current_user.id,
+        Term.is_current == True
+    ).first()
+    
+    if not term:
+        return {"current_term": None}
+    
+    return {
+        "current_term": {
+            "id": term.id,
+            "term_number": term.term_number,
+            "term_name": term.term_name,
+            "academic_year": term.academic_year,
+            "start_date": term.start_date.isoformat(),
+            "end_date": term.end_date.isoformat(),
+            "teaching_weeks": term.teaching_weeks,
+            "is_current": term.is_current
+        }
+    }
+
+# ============================================================================
+# SUBJECT SCHEDULING ENDPOINTS
+# ============================================================================
+
+@app.put(f"{settings.API_V1_PREFIX}/subjects/{{subject_id}}/scheduling")
+def update_subject_scheduling(
+    subject_id: int,
+    scheduling_data: dict,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update scheduling configuration for a subject"""
+    subject = db.query(Subject).filter(
+        Subject.id == subject_id,
+        Subject.user_id == current_user.id
+    ).first()
+    
+    if not subject:
+        raise HTTPException(status_code=404, detail="Subject not found")
+    
+    # Update scheduling fields
+    if "lessons_per_week" in scheduling_data:
+        subject.lessons_per_week = scheduling_data["lessons_per_week"]
+    if "single_lesson_duration" in scheduling_data:
+        subject.single_lesson_duration = scheduling_data["single_lesson_duration"]
+    if "double_lesson_duration" in scheduling_data:
+        subject.double_lesson_duration = scheduling_data["double_lesson_duration"]
+    if "double_lessons_per_week" in scheduling_data:
+        subject.double_lessons_per_week = scheduling_data["double_lessons_per_week"]
+    
+    db.commit()
+    db.refresh(subject)
+    
+    return {
+        "message": "Scheduling updated successfully",
+        "scheduling": {
+            "lessons_per_week": subject.lessons_per_week,
+            "single_lesson_duration": subject.single_lesson_duration,
+            "double_lesson_duration": subject.double_lesson_duration,
+            "double_lessons_per_week": subject.double_lessons_per_week
+        }
+    }
+
+@app.get(f"{settings.API_V1_PREFIX}/subjects/{{subject_id}}/scheduling")
+def get_subject_scheduling(
+    subject_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get scheduling configuration for a subject"""
+    subject = db.query(Subject).filter(
+        Subject.id == subject_id,
+        Subject.user_id == current_user.id
+    ).first()
+    
+    if not subject:
+        raise HTTPException(status_code=404, detail="Subject not found")
+    
+    return {
+        "subject_id": subject.id,
+        "subject_name": subject.subject_name,
+        "scheduling": {
+            "lessons_per_week": subject.lessons_per_week,
+            "single_lesson_duration": subject.single_lesson_duration,
+            "double_lesson_duration": subject.double_lesson_duration,
+            "double_lessons_per_week": subject.double_lessons_per_week
+        }
+    }
+
+@app.put(f"{settings.API_V1_PREFIX}/user/settings")
+def update_user_settings(
+    settings_data: dict,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update user's default settings"""
+    user = db.query(User).filter(User.id == current_user.id).first()
+    
+    if "default_lesson_duration" in settings_data:
+        user.default_lesson_duration = settings_data["default_lesson_duration"]
+    if "default_double_lesson_duration" in settings_data:
+        user.default_double_lesson_duration = settings_data["default_double_lesson_duration"]
+    
+    db.commit()
+    db.refresh(user)
+    
+    return {
+        "message": "Settings updated successfully",
+        "settings": {
+            "default_lesson_duration": user.default_lesson_duration,
+            "default_double_lesson_duration": user.default_double_lesson_duration
+        }
+    }
+
+# ============================================================================
+# CURRICULUM IMPORT ENDPOINTS (Admin)
+# ============================================================================
+
+@app.post(f"{settings.API_V1_PREFIX}/admin/import-curriculum")
+async def import_curriculum(
+    file: UploadFile = File(...),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Import curriculum from JSON file
+    Upload a JSON file with curriculum structure
+    """
+    
+    # Optional: Add admin check here
+    # if not current_user.is_admin:
+    #     raise HTTPException(status_code=403, detail="Admin access required")
+    
+    try:
+        # Read uploaded file
+        contents = await file.read()
+        json_data = json.loads(contents.decode('utf-8'))
+        
+        # Import curriculum
+        result = import_curriculum_from_json(json_data, db)
+        
+        if result["success"]:
+            return {
+                "success": True,
+                "message": result["message"],
+                "curriculum_id": result["curriculum_id"],
+                "stats": result.get("stats", {}),
+                "filename": file.filename
+            }
+        else:
+            raise HTTPException(status_code=400, detail=result["message"])
+            
+    except json.JSONDecodeError as e:
+        raise HTTPException(status_code=400, detail=f"Invalid JSON file: {str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Import failed: {str(e)}")
+
+@app.get(f"{settings.API_V1_PREFIX}/admin/curricula")
+def list_imported_curricula(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get list of all imported curriculum templates"""
+    curricula = get_imported_curricula(db)
+    return {
+        "curricula": curricula,
+        "total": len(curricula)
+    }
+
+@app.delete(f"{settings.API_V1_PREFIX}/admin/curricula/{{curriculum_id}}")
+def delete_curriculum(
+    curriculum_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete a curriculum template (admin only)"""
+    
+    # Optional: Add admin check
+    # if not current_user.is_admin:
+    #     raise HTTPException(status_code=403, detail="Admin access required")
+    
+    curriculum = db.query(CurriculumTemplate).filter(CurriculumTemplate.id == curriculum_id).first()
+    
+    if not curriculum:
+        raise HTTPException(status_code=404, detail="Curriculum not found")
+    
+    # Check if any users are using this curriculum
+    users_count = db.query(Subject).filter(Subject.template_id == curriculum_id).count()
+    
+    if users_count > 0:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"Cannot delete. {users_count} users are using this curriculum."
+        )
+    
+    db.delete(curriculum)
+    db.commit()
+    
+    return {
+        "success": True,
+        "message": f"Deleted {curriculum.subject} {curriculum.grade}"
     }
 
 

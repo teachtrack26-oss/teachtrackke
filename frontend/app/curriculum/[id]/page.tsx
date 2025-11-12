@@ -12,6 +12,18 @@ import {
 import axios from "axios";
 import toast from "react-hot-toast";
 
+interface Lesson {
+  id: number;
+  lesson_number: number;
+  lesson_title: string;
+  is_completed: boolean;
+  completed_at: string | null;
+  substrand_name: string;
+  substrand_code: string;
+  strand_name: string;
+  strand_code: string;
+}
+
 interface SubStrand {
   id: number;
   substrand_code: string;
@@ -52,6 +64,7 @@ export default function CurriculumDetailPage() {
   const subjectId = params?.id;
 
   const [subject, setSubject] = useState<Subject | null>(null);
+  const [lessons, setLessons] = useState<Lesson[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedStrands, setExpandedStrands] = useState<Set<number>>(
     new Set()
@@ -59,6 +72,7 @@ export default function CurriculumDetailPage() {
   const [expandedSubStrands, setExpandedSubStrands] = useState<Set<number>>(
     new Set()
   );
+  const [completingLesson, setCompletingLesson] = useState<number | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -68,6 +82,7 @@ export default function CurriculumDetailPage() {
       return;
     }
     fetchSubjectDetails();
+    fetchLessons();
   }, [subjectId, router]);
 
   const fetchSubjectDetails = async () => {
@@ -109,6 +124,75 @@ export default function CurriculumDetailPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const fetchLessons = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get(
+        `/api/v1/subjects/${subjectId}/lessons`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setLessons(response.data.lessons || []);
+    } catch (error) {
+      console.error("Failed to fetch lessons:", error);
+    }
+  };
+
+  const toggleLessonCompletion = async (
+    lessonId: number,
+    isCompleted: boolean
+  ) => {
+    setCompletingLesson(lessonId);
+    try {
+      const token = localStorage.getItem("accessToken");
+      const endpoint = isCompleted ? "uncomplete" : "complete";
+
+      await axios.post(
+        `/api/v1/lessons/${lessonId}/${endpoint}`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      // Update local state
+      setLessons((prev) =>
+        prev.map((lesson) =>
+          lesson.id === lessonId
+            ? {
+                ...lesson,
+                is_completed: !isCompleted,
+                completed_at: isCompleted ? null : new Date().toISOString(),
+              }
+            : lesson
+        )
+      );
+
+      // Refresh subject to update progress
+      fetchSubjectDetails();
+
+      toast.success(
+        isCompleted ? "Lesson marked as incomplete" : "Lesson completed! ✓"
+      );
+    } catch (error) {
+      console.error("Failed to toggle lesson:", error);
+      toast.error("Failed to update lesson status");
+    } finally {
+      setCompletingLesson(null);
+    }
+  };
+
+  const getLessonsForSubstrand = (substrandId: number) => {
+    return lessons.filter(
+      (lesson) =>
+        lesson.substrand_code ===
+        subject?.strands
+          .flatMap((s) => s.sub_strands)
+          .find((ss) => ss.id === substrandId)?.substrand_code
+    );
   };
 
   const toggleStrand = (strandId: number) => {
@@ -416,6 +500,109 @@ export default function CurriculumDetailPage() {
                                       </ul>
                                     </div>
                                   )}
+
+                                {/* Lessons Checklist */}
+                                {(() => {
+                                  const substrandLessons = lessons.filter(
+                                    (lesson) =>
+                                      lesson.substrand_code ===
+                                      subStrand.substrand_code
+                                  );
+
+                                  if (substrandLessons.length === 0)
+                                    return null;
+
+                                  const completedCount =
+                                    substrandLessons.filter(
+                                      (l) => l.is_completed
+                                    ).length;
+
+                                  return (
+                                    <div className="border-t border-gray-200 pt-6 mt-6">
+                                      <div className="flex items-center justify-between mb-4">
+                                        <h5 className="font-semibold text-gray-900 flex items-center">
+                                          <FiCheckCircle className="w-5 h-5 mr-2 text-indigo-600" />
+                                          Lessons ({completedCount} /{" "}
+                                          {substrandLessons.length} completed)
+                                        </h5>
+                                        <div className="text-sm text-gray-600">
+                                          {Math.round(
+                                            (completedCount /
+                                              substrandLessons.length) *
+                                              100
+                                          )}
+                                          % complete
+                                        </div>
+                                      </div>
+
+                                      <div className="space-y-2">
+                                        {substrandLessons
+                                          .sort(
+                                            (a, b) =>
+                                              a.lesson_number - b.lesson_number
+                                          )
+                                          .map((lesson) => (
+                                            <div
+                                              key={lesson.id}
+                                              className={`flex items-start space-x-3 p-3 rounded-lg transition-colors ${
+                                                lesson.is_completed
+                                                  ? "bg-green-50"
+                                                  : "bg-white hover:bg-gray-50"
+                                              }`}
+                                            >
+                                              <input
+                                                type="checkbox"
+                                                checked={lesson.is_completed}
+                                                disabled={
+                                                  completingLesson === lesson.id
+                                                }
+                                                onChange={() =>
+                                                  toggleLessonCompletion(
+                                                    lesson.id,
+                                                    lesson.is_completed
+                                                  )
+                                                }
+                                                className="mt-1 h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 cursor-pointer disabled:cursor-wait"
+                                              />
+                                              <div className="flex-1 min-w-0">
+                                                <label
+                                                  htmlFor={`lesson-${lesson.id}`}
+                                                  className={`text-sm font-medium cursor-pointer ${
+                                                    lesson.is_completed
+                                                      ? "text-gray-500 line-through"
+                                                      : "text-gray-900"
+                                                  }`}
+                                                >
+                                                  Lesson {lesson.lesson_number}:{" "}
+                                                  {lesson.lesson_title}
+                                                </label>
+                                                {lesson.is_completed &&
+                                                  lesson.completed_at && (
+                                                    <p className="text-xs text-gray-500 mt-1">
+                                                      Completed on{" "}
+                                                      {new Date(
+                                                        lesson.completed_at
+                                                      ).toLocaleDateString(
+                                                        "en-US",
+                                                        {
+                                                          year: "numeric",
+                                                          month: "short",
+                                                          day: "numeric",
+                                                        }
+                                                      )}
+                                                    </p>
+                                                  )}
+                                              </div>
+                                              {completingLesson ===
+                                                lesson.id && (
+                                                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-indigo-600"></div>
+                                              )}
+                                            </div>
+                                          ))}
+                                      </div>
+                                    </div>
+                                  );
+                                })()}
                               </div>
                             )}
                           </div>

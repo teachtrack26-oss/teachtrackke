@@ -12,12 +12,21 @@ import {
 import axios from "axios";
 import toast from "react-hot-toast";
 
+interface SubStrandProgress {
+  substrand_code: string;
+  substrand_name: string;
+  total_lessons: number;
+  completed_lessons: number;
+  progress: number;
+}
+
 interface StrandProgress {
   strand_code: string;
   strand_name: string;
   total_lessons: number;
   completed_lessons: number;
   progress: number;
+  substrands: SubStrandProgress[];
 }
 
 interface SubjectProgress {
@@ -203,13 +212,18 @@ export default function CurriculumTrackingPage() {
             </h2>
 
             {data.subjects.map((subject) => (
-              <div key={subject.id} className="bg-white rounded-lg shadow-md p-6">
+              <div
+                key={subject.id}
+                className="bg-white rounded-lg shadow-md p-6"
+              >
                 <div className="flex justify-between items-start mb-4">
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">
                       {subject.subject_name}
                     </h3>
-                    <p className="text-sm text-gray-600">Grade {subject.grade}</p>
+                    <p className="text-sm text-gray-600">
+                      Grade {subject.grade}
+                    </p>
                   </div>
                   <button
                     onClick={() => router.push(`/curriculum/${subject.id}`)}
@@ -234,8 +248,8 @@ export default function CurriculumTrackingPage() {
                     />
                   </div>
                   <div className="text-xs text-gray-500 mt-1">
-                    {subject.completed_lessons} / {subject.total_lessons} lessons
-                    completed
+                    {subject.completed_lessons} / {subject.total_lessons}{" "}
+                    lessons completed
                   </div>
                 </div>
 
@@ -245,7 +259,7 @@ export default function CurriculumTrackingPage() {
                     Strand Progress
                   </h4>
                   {subject.strands.map((strand) => (
-                    <div key={strand.strand_code}>
+                    <div key={strand.strand_code} className="mb-4">
                       <div className="flex justify-between text-xs text-gray-600 mb-1">
                         <span className="font-medium">
                           {strand.strand_code}. {strand.strand_name}
@@ -264,6 +278,35 @@ export default function CurriculumTrackingPage() {
                         {strand.completed_lessons} / {strand.total_lessons}{" "}
                         lessons
                       </div>
+
+                      {/* Substrand Progress - Only show if there are completed lessons */}
+                      {strand.substrands && strand.substrands.length > 0 && (
+                        <div className="mt-2 ml-4 space-y-2 border-l-2 border-gray-200 pl-3">
+                          {strand.substrands.map((substrand) => (
+                            <div key={substrand.substrand_code}>
+                              <div className="flex justify-between text-xs text-gray-500 mb-1">
+                                <span className="flex items-center">
+                                  <span className="inline-block w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2"></span>
+                                  {substrand.substrand_code}.{" "}
+                                  {substrand.substrand_name}
+                                </span>
+                                <span className="text-green-600 font-medium">
+                                  {substrand.completed_lessons}/
+                                  {substrand.total_lessons}
+                                </span>
+                              </div>
+                              <div className="w-full bg-gray-100 rounded-full h-1.5">
+                                <div
+                                  className="bg-green-500 h-1.5 rounded-full transition-all duration-300"
+                                  style={{
+                                    width: `${substrand.progress}%`,
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>

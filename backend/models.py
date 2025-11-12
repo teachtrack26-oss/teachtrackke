@@ -71,6 +71,11 @@ class User(Base):
     verification_token = Column(String(255), index=True)
     google_id = Column(String(255), unique=True, nullable=True, index=True)  # For Google OAuth
     auth_provider = Column(String(50), default="local")  # local, google, etc.
+    
+    # School settings
+    default_lesson_duration = Column(Integer, default=40)  # Default lesson duration in minutes
+    default_double_lesson_duration = Column(Integer, default=80)  # Default double lesson duration
+    
     created_at = Column(TIMESTAMP, server_default=func.now())
     updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
     
@@ -78,6 +83,7 @@ class User(Base):
     subjects = relationship("Subject", back_populates="user", cascade="all, delete-orphan")
     notes = relationship("Note", back_populates="user", cascade="all, delete-orphan")
     progress_logs = relationship("ProgressLog", back_populates="user", cascade="all, delete-orphan")
+    terms = relationship("Term", back_populates="user", cascade="all, delete-orphan")
 
 class Subject(Base):
     __tablename__ = "subjects"
@@ -93,6 +99,13 @@ class Subject(Base):
     total_lessons = Column(Integer, default=0)
     lessons_completed = Column(Integer, default=0)
     progress_percentage = Column(DECIMAL(5, 2), default=0.00)
+    
+    # Scheduling configuration
+    lessons_per_week = Column(Integer, default=5)  # Number of lessons per week
+    single_lesson_duration = Column(Integer, default=40)  # Duration in minutes
+    double_lesson_duration = Column(Integer, default=80)  # Duration for double lessons
+    double_lessons_per_week = Column(Integer, default=0)  # Number of double lessons per week
+    
     created_at = Column(TIMESTAMP, server_default=func.now())
     updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
     
@@ -183,6 +196,24 @@ class ProgressLog(Base):
     user = relationship("User", back_populates="progress_logs")
     subject = relationship("Subject", back_populates="progress_logs")
     lesson = relationship("Lesson", back_populates="progress_logs")
+
+class Term(Base):
+    __tablename__ = "terms"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    term_number = Column(Integer, nullable=False)  # 1, 2, or 3
+    term_name = Column(String(100), nullable=False)  # e.g., "Term 1", "Term 2", "Term 3"
+    academic_year = Column(String(20), nullable=False)  # e.g., "2024/2025"
+    start_date = Column(TIMESTAMP, nullable=False)
+    end_date = Column(TIMESTAMP, nullable=False)
+    teaching_weeks = Column(Integer, nullable=False)  # Number of teaching weeks in this term
+    is_current = Column(Boolean, default=False)  # Mark which term is currently active
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    user = relationship("User", back_populates="terms")
 
 class Note(Base):
     __tablename__ = "notes"

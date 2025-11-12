@@ -1,0 +1,373 @@
+{
+  "subject": "Integrated Science",
+  "grade": "Grade 9",
+  "educationLevel": "Junior Secondary",
+  "strands": [
+    {
+      "strandNumber": "1.0",
+      "strandName": "MIXTURES, ELEMENTS AND COMPOUNDS",
+      "subStrands": [
+        {
+          "subStrandNumber": "1.1",
+          "subStrandName": "Structure of the atom",
+          "numberOfLessons": 14,
+          "specificLearningOutcomes": [
+            "describe the structure of the atom",
+            "determine the mass number of elements",
+            "draw the electron arrangement in atoms using dot or cross diagrams",
+            "classify elements into metals and non-metals",
+            "show interest in classifying elements into metals and non-metals"
+          ],
+          "suggestedLearningExperiences": [
+            "discuss the meaning of the atom and illustrate its structure",
+            "work out the mass number of an element with peers",
+            "write the electron arrangements of elements",
+            "illustrate the electron arrangement in atoms using dot or cross diagrams collaboratively",
+            "use electron arrangement to classify elements into metals and non-metals",
+            "where possible use digital media to observe animations or videos on the structure of an atom and electron arrangement",
+            "Project: model the atomic structure of selected elements of the periodic table using locally available materials"
+          ],
+          "keyInquiryQuestions": [
+            "How is the structure of the atom important?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration: The learner speaks clearly and effectively as they discuss with peers the meaning of the atom and illustrate its structure",
+            "Creativity and imagination: The learner experiments and comes up with models of atoms of selected elements from locally available materials"
+          ],
+          "values": [
+            "Unity: The learner respects others opinions while having group discussions",
+            "Integrity: The learner displays honesty while using digital devices to search for information on the structure of an atom, electron arrangement, atomic number and mass number of elements"
+          ],
+          "pcis": [
+            "Socio-economic issues (cyber security): The learner observes cyber security measures when using digital media to observe animations or videos on the structure of an atom and electron arrangement"
+          ],
+          "linkToOtherSubjects": [
+            "Mathematics: The learner works out the mass number of elements"
+          ]
+        },
+        {
+          "subStrandNumber": "1.2",
+          "subStrandName": "Metals and Alloys",
+          "numberOfLessons": 16,
+          "specificLearningOutcomes": [
+            "describe the physical properties of metals",
+            "describe the composition of alloys",
+            "identify the uses of metals and alloys in day to day life",
+            "explain the effects of rusting of metals",
+            "appreciate the importance of common alloys in day to day life"
+          ],
+          "suggestedLearningExperiences": [
+            "identify metals and non-metals in their environment",
+            "carry out experiments to demonstrate the physical properties of metals",
+            "discuss the composition of common alloys with peers",
+            "identify some items from the locality that have been made from alloys with peers",
+            "discuss the uses of common metals and alloys",
+            "discuss causes, effects and ways of controlling rusting of metals",
+            "where possible, use digital or print media to search for information on the physical properties of metals and common alloys"
+          ],
+          "keyInquiryQuestions": [
+            "How are alloys important in day-day life?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration: The learner works with peers to discuss the composition of common alloys",
+            "Digital literacy: The learner interacts with digital technology as they search for information using digital devices on physical and chemical properties of metals and common alloys"
+          ],
+          "values": [
+            "Respect: The learner accommodates others' opinions during group discussions on uses of metals and common alloys",
+            "Peace: The learner avoids harming others when carrying out experiments to demonstrate the physical properties of metals"
+          ],
+          "pcis": [
+            "Financial Literacy: The learner appreciates the importance of metals and common alloys in day to day life as they discuss the uses of common metals and alloys"
+          ],
+          "linkToOtherSubjects": [
+            "Pre- Technical Studies: The learner learns about common metals and alloys used in workshops",
+            "Agriculture and Nutrition: The learner uses utensils made from metals and their alloys"
+          ]
+        },
+        {
+          "subStrandNumber": "1.3",
+          "subStrandName": "Water hardness",
+          "numberOfLessons": 14,
+          "specificLearningOutcomes": [
+            "describe the physical properties of water",
+            "distinguish between hard and soft water in nature",
+            "apply methods of softening hard water in day to day life",
+            "outline advantages and disadvantages of hard and soft water",
+            "appreciate the applications of soft and hard water in day to day life"
+          ],
+          "suggestedLearningExperiences": [
+            "Collect and observe water from different sources, compare them in terms of appearance, odour, taste and boiling point (taste water from safe sources)",
+            "carry out activities to compare the lathering abilities of various samples of unboiled water with soap collaboratively",
+            "group the samples into hard and soft water",
+            "explain the meaning of hard and soft water",
+            "discuss the advantages and disadvantages of soft and hard water",
+            "perform various activities for softening hard water",
+            "where possible, use digital or print media to search for information, on the methods of softening hard water"
+          ],
+          "keyInquiryQuestions": [
+            "What is the importance of different types of water?",
+            "Why is hard water preferred for drinking?"
+          ],
+          "coreCompetencies": [
+            "Learning to learn: The learner reflects on their experiences as they apply methods of softening hard water in day to day life",
+            "Critical thinking and problem solving: The learner develops interpretation skills as they relate the lathering ability of water to hardness and softness of water"
+          ],
+          "values": [
+            "Responsibility: The learner plays a role when carrying out experiments on softening hard water",
+            "Respect: The learner gives each other an opportunity to air their views as they discuss in a group the differences between hard and soft water"
+          ],
+          "pcis": [
+            "Financial literacy: The learner practises how to save on soap by using soft water for laundry"
+          ],
+          "linkToOtherSubjects": [
+            "Agriculture and Nutrition: The learner uses soft water in laundry work"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "2.0",
+      "strandName": "LIVING THINGS AND THEIR ENVIRONMENT",
+      "subStrands": [
+        {
+          "subStrandNumber": "2.1",
+          "subStrandName": "Nutrition in plants",
+          "numberOfLessons": 18,
+          "specificLearningOutcomes": [
+            "identify external and internal parts of a leaf",
+            "explain adaptations of the leaf to photosynthesis",
+            "describe the process of photosynthesis",
+            "investigate the conditions necessary for photosynthesis",
+            "appreciate the process of photosynthesis in nature"
+          ],
+          "suggestedLearningExperiences": [
+            "use a hand lens to observe fresh leaves of plants, draw and label the external parts",
+            "use print or non-print media to search for information on the internal structure of the leaf in relation to their roles in photosynthesis, discuss and share with peers",
+            "discuss the adaptations of a leaf in relation to their roles in photosynthesis",
+            "observe the structure of the chloroplast on charts/photomicrographs, discuss its role in photosynthesis, share with peers",
+            "use print or non-print media to search for information on the process and products of photosynthesis, discuss and share with peers",
+            "use print or non-print media to search for information on conditions necessary for photosynthesis, discuss and share with peers",
+            "set-up experiments to show that light, carbon (IV) oxide and chlorophyll are necessary for photosynthesis and share their findings with peers, (use the starch test)"
+          ],
+          "keyInquiryQuestions": [
+            "What is the importance of photosynthesis in nature?"
+          ],
+          "coreCompetencies": [
+            "Learning to learn: The learner searches for information on photosynthesis, discusses and shares with peers",
+            "Self-efficacy: The learner successfully carries out experiments on conditions necessary for photosynthesis and shares the findings"
+          ],
+          "values": [
+            "Social justice: The learner shares resources equitably while carrying out experiments to show that light, carbon (IV) oxide and chlorophyll are necessary for photosynthesis",
+            "Integrity: The learner displays honesty while carrying out experiments to show that light, carbon (IV) oxide and chlorophyll are necessary for photosynthesis and presenting their own results"
+          ],
+          "pcis": [
+            "Environmental conservation: The learner collects only the required number of leaves to observe the external structure",
+            "Safety: The learner observes safety precautions while carrying out experiments on photosynthesis"
+          ],
+          "linkToOtherSubjects": [
+            "The information on photosynthesis is linked to food production Agriculture and Nutrition"
+          ]
+        },
+        {
+          "subStrandNumber": "2.2",
+          "subStrandName": "Nutrition in animals",
+          "numberOfLessons": 16,
+          "specificLearningOutcomes": [
+            "outline modes of nutrition in animals",
+            "describe the structure and functions of different types of teeth",
+            "classify animals based on their dentition",
+            "describe the process of digestion in human beings",
+            "appreciate that animals have varied modes of nutrition"
+          ],
+          "suggestedLearningExperiences": [
+            "use print or non-print media to search for information on modes of nutrition in animals, discuss with peers",
+            "use specimens/charts/models/ digital media to identify and draw different types of teeth",
+            "collaboratively discuss the functions of different types of teeth",
+            "use specimens/charts/models/digital media to study dentition in different animals and share with peers",
+            "use print or non-print media to search for information on the process of digestion in human beings, discuss and share with peers"
+          ],
+          "keyInquiryQuestions": [
+            "How do different animals feed?",
+            "How is food digested in the human body?"
+          ],
+          "coreCompetencies": [
+            "Communication and Collaboration: The learner listens to others as they discuss the process of digestion in human beings"
+          ],
+          "values": [
+            "Unity: The learner collaborates with others as they study dentition in different animals",
+            "Respect: The learner appreciates others' opinions while discussing different modes of nutrition in animals"
+          ],
+          "pcis": [
+            "Animal welfare: The learner cares for animals as they study different types of dentition"
+          ],
+          "linkToOtherSubjects": [
+            "The information on nutrition in animals is linked to feeding of animals in Agriculture and Nutrition"
+          ]
+        },
+        {
+          "subStrandNumber": "2.3",
+          "subStrandName": "Reproduction in plants",
+          "numberOfLessons": 20,
+          "specificLearningOutcomes": [
+            "outline functions of parts of a flower",
+            "describe pollination in plants",
+            "outline the adaptations of flowers to wind and insect pollination",
+            "explain fertilisation and fruit formation in flowering plants",
+            "categorise fruits and seeds based on their mode of dispersal",
+            "recognize the role of flowers in nature"
+          ],
+          "suggestedLearningExperiences": [
+            "collaboratively discuss the functions of parts of a flower",
+            "use print or non-print media to search for information on meaning and types of pollination, discuss and share with peers",
+            "use print or non-print media to search for information on adaptations of flowers to wind and insect pollination, discuss and share with peers",
+            "study samples of flowers to discuss their adaptations to agents of pollination, draw, label and share with peers",
+            "watch animations or take an excursion in the school compound or neighbourhood to observe pollinating agents in action, record and discuss",
+            "use print and non-print media to search for information on the effect of agrochemicals on pollinating agents and their effects on reproduction in plants",
+            "use print and print media to search for information on fertilisation and fruit formation in flowering plants, discuss and share with peers",
+            "collaboratively study illustrations/ animations on fertilisation, seed and fruit formation, share with peers",
+            "use print and non-print media to search for information on seeds and fruits dispersal in plants, discuss the findings with peers",
+            "observe different fruits and seeds from their locality, discuss and categorise them based on their mode of dispersal"
+          ],
+          "keyInquiryQuestions": [
+            "How does reproduction in plants occur?"
+          ],
+          "coreCompetencies": [
+            "Learning to learn: The learner searches for information on fertilisation and fruit formation in flowering plants",
+            "Digital literacy: The learner uses digital devices to search for information on the effect of agrochemicals on pollinating agents and its effect on reproduction in plants"
+          ],
+          "values": [
+            "Social Justice: The learner collaboratively studies illustrations/ animations on fertilisation, seed and fruit formation"
+          ],
+          "pcis": [
+            "Biodiversity: The learner searches for information on the effect of agrochemicals on pollinating agents and their effects on reproduction in plants",
+            "Safety and Security: The learner takes precautions while collecting various flowers, fruits and seeds from the immediate environment"
+          ],
+          "linkToOtherSubjects": [
+            "The information on fertilisation and fruit formation is linked to crop production in Agriculture and Nutrition"
+          ]
+        },
+        {
+          "subStrandNumber": "2.4",
+          "subStrandName": "The interdependence of life",
+          "numberOfLessons": 18,
+          "specificLearningOutcomes": [
+            "explain the biotic and abiotic factors of the environment",
+            "construct food chains and food webs in the environment",
+            "describe the effect of human activities on the environment",
+            "appreciate the interdependence between living and non-living factors of the environment"
+          ],
+          "suggestedLearningExperiences": [
+            "use print and non-print material to search for information biotic interrelationships, share findings with peers",
+            "investigate the interrelationships between biotic factors of the environment in their locality and discuss the findings with peers",
+            "where possible observe videos or animations/ showing the interrelationships between biotic factors of the environment",
+            "use print and non-print media to search for information on interrelationships between organisms in Kenya national parks and game reserves",
+            "discuss the effect of abiotic factors on living organisms",
+            "search for information on the effect of human activities on the environment and discuss",
+            "carry out activities to identify living organisms and what they feed on and construct food chains and food webs",
+            "discuss the role of decomposers in an ecosystem and their importance in recycling nutrients with peers"
+          ],
+          "keyInquiryQuestions": [
+            "What is the role of living and non-living factors in environments?"
+          ],
+          "coreCompetencies": [
+            "Citizenship: The learner develops a sense of responsibility to the nation while searching for information on interrelationships between organisms in Kenya national parks and game reserves",
+            "Critical thinking and problem solving: The learner shows open-mindedness while investigating the interrelationships between living factors of the environment in their locality and discussing the findings"
+          ],
+          "values": [
+            "Patriotism: The learner develops love for the country as they search for information on interrelationships between organisms in Kenya national parks and game reserves",
+            "Peace: The learner shows respect for diversity and heritage as they study the interdependence between living and non-living components of the environment"
+          ],
+          "pcis": [
+            "Environmental conservation: The learner discusses the role of decomposers in an ecosystem and their importance in recycling nutrients"
+          ],
+          "linkToOtherSubjects": [
+            "The information on the role of decomposers in an ecosystem is linked to production of manure in Agriculture and Nutrition"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "3.0",
+      "strandName": "FORCE AND ENERGY",
+      "subStrands": [
+        {
+          "subStrandNumber": "3.1",
+          "subStrandName": "Curved mirrors",
+          "numberOfLessons": 18,
+          "specificLearningOutcomes": [
+            "describe types of curved mirrors",
+            "draw ray diagrams to locate images formed by concave and convex mirrors",
+            "describe the characteristics of images formed by concave and convex mirrors",
+            "explain the uses of concave and convex mirrors in day to day life",
+            "appreciate the applications of curved mirrors in day to day life"
+          ],
+          "suggestedLearningExperiences": [
+            "discuss the types of curved mirrors (concave, convex and parabolic surfaces)",
+            "discuss with peers the terms used in curved mirrors (aperture, pole, centre of curvature, principal axis, radius of curvature, principal focus, focal length and focal plane)",
+            "carry out activities to locate position of images formed by concave and convex mirrors",
+            "illustrate image positions for various object positions in concave and convex mirrors",
+            "discuss the characteristics of images formed by curved mirrors (object at infinity, beyond C, at C, between C & F, at F and between F and P)",
+            "discuss the applications of concave and convex mirrors in day to day life (solar concentrators, car headlamps, shaving mirrors, dentists' mirrors, projector lamps, telescopes, mirrors used in supermarkets, driving mirrors)",
+            "use digital or print media to explore more information on applications of curved mirrors"
+          ],
+          "keyInquiryQuestions": [
+            "How are curved mirrors used in day today life?"
+          ],
+          "coreCompetencies": [
+            "Self-efficacy: The learner exercises leadership skills as they discuss with peers the characteristics of images formed by curved mirrors",
+            "Communication and Collaboration: The learner develops listening and writing skills while discussing with peers the terms used in curved mirrors"
+          ],
+          "values": [
+            "Social justice: The learner exercises equity and accord equal opportunity to group members as they discuss the characteristics of images formed by curved mirrors",
+            "Responsibility: The learner exercises excellence as they illustrate image positions for various object positions in concave and convex mirrors"
+          ],
+          "pcis": [
+            "Socio-economic issues: The learner relates concepts of reflection at curved mirrors to safety and security as they discuss the applications of concave and convex mirrors in day to day life (transport and surveillance)"
+          ],
+          "linkToOtherSubjects": [
+            "Pre-technical studies: The learner relates concepts in curved mirrors to hairdressing and beauty therapy"
+          ]
+        },
+        {
+          "subStrandNumber": "3.2",
+          "subStrandName": "Waves",
+          "numberOfLessons": 16,
+          "specificLearningOutcomes": [
+            "describe generation of waves in nature",
+            "classify waves as longitudinal and transverse",
+            "describe basic characteristic of waves in nature",
+            "describe remote sensing in relation to waves",
+            "describe applications of waves in day today life",
+            "appreciate the applications of waves in day to day life"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm on the meaning of wave as used in science",
+            "carry out activities to demonstrate generation of waves in nature and classify them into longitudinal and transverse (use a slinky spring, skipping rope, water in a basin, a source of sound/speaker, animations on wave)",
+            "Carry out activities to demonstrate the parts of a wave (amplitude, wavelength, frequency, period, wave speed, phase; include wave equations; velocity=wavelength x frequency)",
+            "carry out activities in groups to demonstrate characteristics of waves (straight line motion, reflection, bending of waves, movement around objects)",
+            "discuss remote sensing in relation to waves, (reflection, absorption, and transmission of electromagnetic radiation at different wavelengths)",
+            "use digital or print media to search for more information on the relationship between remote sensing and waves",
+            "discuss the applications of waves in real life situations"
+          ],
+          "keyInquiryQuestions": [
+            "How are waves applied in our day today life?"
+          ],
+          "coreCompetencies": [
+            "Learning to learn: The learner does investigations as they use digital or print media to search for more information on the relationship between remote sensing and waves",
+            "Creativity and Imagination: The learner experiments with various activities as they carry out activities to demonstrate generation of waves in nature and classify them into longitudinal and transverse"
+          ],
+          "values": [
+            "Respect: The learner exercises open mindedness as they embrace discussions on different ideas on applications of waves in day to day life",
+            "Peace: The learner cares for others as they carry out activities in groups to demonstrate characteristics of waves"
+          ],
+          "pcis": [
+            "Learner support programs: The learner is exposed to career guidance services on various opportunities in the field of remote sensing as a career"
+          ],
+          "linkToOtherSubjects": [
+            "Creative Arts and Sports: The learner relates concepts of waves to transmission of sound from musical instruments"
+          ]
+        }
+      ]
+    }
+  ]
+}
