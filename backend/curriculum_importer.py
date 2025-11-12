@@ -68,39 +68,73 @@ def import_curriculum_from_json(json_data: dict, db: Session):
             db.add(strand)
             db.flush()
             
-            # Import substrands (accept both 'substrands' and 'sub_strands')
-            substrands_list = strand_data.get("substrands") or strand_data.get("sub_strands", [])
+            # Import substrands (accept multiple naming conventions)
+            substrands_list = strand_data.get("substrands") or strand_data.get("sub_strands") or strand_data.get("subStrands", [])
             for substrand_order, substrand_data in enumerate(substrands_list, start=1):
-                # Handle both snake_case and with underscores
-                substrand = TemplateSubstrand(
-                    strand_id=strand.id,
-                    substrand_number=substrand_data.get("substrand_number") or substrand_data.get("sub_strand_number", f"{strand_order}.{substrand_order}"),
-                    substrand_name=substrand_data.get("substrand_name") or substrand_data.get("sub_strand_name"),
-                    number_of_lessons=substrand_data.get("number_of_lessons", 1),
-                    specific_learning_outcomes=substrand_data.get("specific_learning_outcomes", []),
-                    suggested_learning_experiences=substrand_data.get("suggested_learning_experiences", []),
-                    key_inquiry_questions=substrand_data.get("key_inquiry_questions", []),
-                    core_competencies=substrand_data.get("core_competencies", []),
-                    values=substrand_data.get("values", []),
-                    pcis=substrand_data.get("pcis", []),
-                    links_to_other_subjects=substrand_data.get("links_to_other_subjects", []),
-                    sequence_order=substrand_order
-                )
-                db.add(substrand)
+                # Check if this substrand has sub-sub-strands (Kiswahili structure)
+                # Handle both camelCase and snake_case
+                sub_sub_strands_list = substrand_data.get("subSubStrands") or substrand_data.get("sub_sub_strands", [])
+                
+                if sub_sub_strands_list:
+                    # For each sub-sub-strand, create a separate substrand entry
+                    # This flattens the 3-level structure into 2 levels for database
+                    for sub_sub_order, sub_sub_data in enumerate(sub_sub_strands_list, start=1):
+                        substrand = TemplateSubstrand(
+                            strand_id=strand.id,
+                            substrand_number=sub_sub_data.get("sub_sub_strand_number") or sub_sub_data.get("subSubStrandNumber", f"{strand_order}.{substrand_order}.{sub_sub_order}"),
+                            substrand_name=sub_sub_data.get("sub_sub_strand_name") or sub_sub_data.get("subSubStrandName", ""),
+                            number_of_lessons=sub_sub_data.get("number_of_lessons") or sub_sub_data.get("numberOfLessons", 1),
+                            specific_learning_outcomes=sub_sub_data.get("specific_learning_outcomes") or sub_sub_data.get("specificLearningOutcomes", []),
+                            suggested_learning_experiences=sub_sub_data.get("suggested_learning_experiences") or sub_sub_data.get("suggestedLearningExperiences", []),
+                            key_inquiry_questions=sub_sub_data.get("key_inquiry_questions") or sub_sub_data.get("keyInquiryQuestions", []),
+                            core_competencies=sub_sub_data.get("core_competencies") or sub_sub_data.get("coreCompetencies", []),
+                            values=sub_sub_data.get("values", []),
+                            pcis=sub_sub_data.get("pcis", []),
+                            links_to_other_subjects=sub_sub_data.get("links_to_other_subjects") or sub_sub_data.get("linkToOtherSubjects", []),
+                            sequence_order=substrand_order * 100 + sub_sub_order  # Maintain order
+                        )
+                        db.add(substrand)
+                else:
+                    # Regular 2-level structure (like Mathematics, Science, etc.)
+                    substrand = TemplateSubstrand(
+                        strand_id=strand.id,
+                        substrand_number=substrand_data.get("substrand_number") or substrand_data.get("sub_strand_number", f"{strand_order}.{substrand_order}"),
+                        substrand_name=substrand_data.get("substrand_name") or substrand_data.get("sub_strand_name"),
+                        number_of_lessons=substrand_data.get("number_of_lessons", 1),
+                        specific_learning_outcomes=substrand_data.get("specific_learning_outcomes", []),
+                        suggested_learning_experiences=substrand_data.get("suggested_learning_experiences", []),
+                        key_inquiry_questions=substrand_data.get("key_inquiry_questions", []),
+                        core_competencies=substrand_data.get("core_competencies", []),
+                        values=substrand_data.get("values", []),
+                        pcis=substrand_data.get("pcis", []),
+                        links_to_other_subjects=substrand_data.get("links_to_other_subjects", []),
+                        sequence_order=substrand_order
+                    )
+                    db.add(substrand)
         
         db.commit()
         
-        # Count totals (handle both formats)
+        # Count totals (handle both 2-level and 3-level formats)
         total_strands = len(json_data.get("strands", []))
-        total_substrands = sum(
-            len(s.get("substrands") or s.get("sub_strands", [])) 
-            for s in json_data.get("strands", [])
-        )
-        total_lessons = sum(
-            ss.get("number_of_lessons", 1) 
-            for s in json_data.get("strands", []) 
-            for ss in (s.get("substrands") or s.get("sub_strands", []))
-        )
+        total_substrands = 0
+        total_lessons = 0
+        
+        for strand in json_data.get("strands", []):
+            substrands_list = strand.get("substrands") or strand.get("sub_strands", [])
+            for substrand in substrands_list:
+                # Handle both camelCase and snake_case
+                sub_sub_strands = substrand.get("sub_sub_strands") or substrand.get("subSubStrands", [])
+                if sub_sub_strands:
+                    # 3-level structure: count sub-sub-strands
+                    total_substrands += len(sub_sub_strands)
+                    total_lessons += sum(
+                        sss.get("number_of_lessons") or sss.get("numberOfLessons", 1) 
+                        for sss in sub_sub_strands
+                    )
+                else:
+                    # 2-level structure: count regular substrands
+                    total_substrands += 1
+                    total_lessons += substrand.get("number_of_lessons", 1)
         
         return {
             "success": True,
