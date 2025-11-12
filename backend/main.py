@@ -1308,6 +1308,191 @@ def delete_curriculum(
         "message": f"Deleted {curriculum.subject} {curriculum.grade}"
     }
 
+# ============================================================================
+# ADMIN - USER MANAGEMENT ENDPOINTS
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/admin/users")
+def get_all_users(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all users with their subjects and progress (Admin only)"""
+    
+    # Check if user is admin
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    users = db.query(User).all()
+    
+    result = []
+    for user in users:
+        # Get user's subjects with progress
+        subjects = db.query(Subject).filter(Subject.user_id == user.id).all()
+        
+        subject_data = []
+        for subject in subjects:
+            subject_data.append({
+                "id": subject.id,
+                "subject_name": subject.subject_name,
+                "grade": subject.grade,
+                "total_lessons": subject.total_lessons,
+                "lessons_completed": subject.lessons_completed,
+                "progress_percentage": float(subject.progress_percentage)
+            })
+        
+        result.append({
+            "id": user.id,
+            "email": user.email,
+            "full_name": user.full_name,
+            "school": user.school,
+            "grade_level": user.grade_level,
+            "is_admin": user.is_admin,
+            "auth_provider": user.auth_provider,
+            "created_at": user.created_at.isoformat() if user.created_at else None,
+            "subjects_count": len(subjects),
+            "subjects": subject_data
+        })
+    
+    return {
+        "users": result,
+        "total": len(result)
+    }
+
+@app.patch(f"{settings.API_V1_PREFIX}/admin/users/{{user_id}}/role")
+def update_user_role(
+    user_id: int,
+    is_admin: bool,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Toggle user admin role (Admin only)"""
+    
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    user = db.query(User).filter(User.id == user_id).first()
+    
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Prevent removing admin role from yourself
+    if user.id == current_user.id and not is_admin:
+        raise HTTPException(status_code=400, detail="Cannot remove admin role from yourself")
+    
+    user.is_admin = is_admin
+    db.commit()
+    
+    return {
+        "success": True,
+        "message": f"User {'promoted to' if is_admin else 'demoted from'} admin",
+        "user_id": user_id,
+        "is_admin": is_admin
+    }
+
+@app.delete(f"{settings.API_V1_PREFIX}/admin/users/{{user_id}}")
+def delete_user(
+    user_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete a user account (Admin only)"""
+    
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    user = db.query(User).filter(User.id == user_id).first()
+    
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Prevent deleting yourself
+    if user.id == current_user.id:
+        raise HTTPException(status_code=400, detail="Cannot delete your own account")
+    
+    email = user.email
+    db.delete(user)
+    db.commit()
+    
+    return {
+        "success": True,
+        "message": f"Deleted user {email}"
+    }
+
+@app.post(f"{settings.API_V1_PREFIX}/admin/users/{{user_id}}/reset-progress")
+def reset_user_progress(
+    user_id: int,
+    subject_id: int = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Reset user's progress for a subject or all subjects (Admin only)"""
+    
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    user = db.query(User).filter(User.id == user_id).first()
+    
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    try:
+        if subject_id:
+            # Reset specific subject
+            subject = db.query(Subject).filter(
+                Subject.id == subject_id,
+                Subject.user_id == user_id
+            ).first()
+            
+            if not subject:
+                raise HTTPException(status_code=404, detail="Subject not found")
+            
+            # Reset all lessons in this subject
+            lessons = db.query(Lesson).join(SubStrand).join(Strand).filter(
+                Strand.subject_id == subject_id
+            ).all()
+            
+            for lesson in lessons:
+                lesson.is_completed = False
+                lesson.completed_at = None
+            
+            subject.lessons_completed = 0
+            subject.progress_percentage = 0.0
+            
+            db.commit()
+            
+            return {
+                "success": True,
+                "message": f"Reset progress for {subject.subject_name}",
+                "subject_id": subject_id
+            }
+        else:
+            # Reset all subjects for this user
+            subjects = db.query(Subject).filter(Subject.user_id == user_id).all()
+            
+            for subject in subjects:
+                lessons = db.query(Lesson).join(SubStrand).join(Strand).filter(
+                    Strand.subject_id == subject.id
+                ).all()
+                
+                for lesson in lessons:
+                    lesson.is_completed = False
+                    lesson.completed_at = None
+                
+                subject.lessons_completed = 0
+                subject.progress_percentage = 0.0
+            
+            db.commit()
+            
+            return {
+                "success": True,
+                "message": f"Reset all progress for {user.email}",
+                "subjects_reset": len(subjects)
+            }
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=f"Failed to reset progress: {str(e)}")
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

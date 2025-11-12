@@ -71,6 +71,7 @@ class User(Base):
     verification_token = Column(String(255), index=True)
     google_id = Column(String(255), unique=True, nullable=True, index=True)  # For Google OAuth
     auth_provider = Column(String(50), default="local")  # local, google, etc.
+    is_admin = Column(Boolean, default=False)  # Admin role flag
     
     # School settings
     default_lesson_duration = Column(Integer, default=40)  # Default lesson duration in minutes

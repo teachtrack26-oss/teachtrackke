@@ -101,6 +101,15 @@ export default function AdminDashboard() {
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <button
+            onClick={() => router.push("/admin/users")}
+            className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow"
+          >
+            <FiUsers className="w-8 h-8 text-blue-600 mb-2" />
+            <h3 className="font-semibold text-gray-900">User Management</h3>
+            <p className="text-sm text-gray-600 mt-1">Manage teachers & roles</p>
+          </button>
+          
+          <button
             onClick={() => router.push("/admin/import-curriculum")}
             className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow"
           >
