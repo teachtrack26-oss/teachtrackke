@@ -1,8 +1,45 @@
+'use client';
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FiCheckCircle, FiUpload, FiBarChart, FiBook } from "react-icons/fi";
 import { FeatureCard, Step } from "@/components/ui/card";
 
 export default function Home() {
+  const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    // Check if user is logged in
+    const token = localStorage.getItem("accessToken");
+    const userData = localStorage.getItem("user");
+    
+    if (token && userData) {
+      setIsLoggedIn(true);
+      try {
+        const user = JSON.parse(userData);
+        setIsAdmin(user.is_admin || false);
+      } catch (e) {
+        console.error("Error parsing user data", e);
+      }
+    }
+  }, []);
+
+  const handleGetStarted = () => {
+    if (isLoggedIn) {
+      // Redirect to appropriate dashboard
+      if (isAdmin) {
+        router.push("/admin/dashboard");
+      } else {
+        router.push("/dashboard");
+      }
+    } else {
+      router.push("/register");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
@@ -21,15 +58,17 @@ export default function Home() {
             The smart way for Kenyan teachers to track progress, organize notes,
             and save hours every week. Built specifically for CBC Grades 1-10.
           </p>
-          <Link
-            href="/register"
+          <button
+            onClick={handleGetStarted}
             className="bg-cyan-500 text-white px-8 py-4 rounded-2xl text-lg font-semibold shadow-2xl hover:bg-cyan-600 inline-block transition-colors"
           >
-            Get Started Free
-          </Link>
-          <p className="mt-4 text-sm text-white drop-shadow">
-            No credit card required • Free for 2 subjects
-          </p>
+            {isLoggedIn ? "Go to Dashboard" : "Get Started Free"}
+          </button>
+          {!isLoggedIn && (
+            <p className="mt-4 text-sm text-white drop-shadow">
+              No credit card required • Free for 2 subjects
+            </p>
+          )}
         </div>
       </header>
 
@@ -110,12 +149,12 @@ export default function Home() {
           <p className="text-xl mb-8 text-white drop-shadow-lg">
             Join hundreds of Kenyan teachers already using TeachTrack CBC
           </p>
-          <Link
-            href="/register"
+          <button
+            onClick={handleGetStarted}
             className="bg-cyan-500 text-white px-8 py-4 rounded-2xl text-lg font-semibold shadow-2xl hover:bg-cyan-600 inline-block transition-colors"
           >
-            Start Free Trial
-          </Link>
+            {isLoggedIn ? "Go to Dashboard" : "Start Free Trial"}
+          </button>
         </div>
       </section>
 
