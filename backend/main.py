@@ -12,7 +12,7 @@ from models import (
     User, Subject, Strand, SubStrand, Lesson, ProgressLog, Note, Term,
     CurriculumTemplate, TemplateStrand, TemplateSubstrand
 )
-from sqlalchemy import text
+from sqlalchemy import text, func, and_
 from schemas import (
     UserCreate, UserLogin, UserResponse, Token, GoogleAuth,
     SubjectCreate, SubjectResponse,
