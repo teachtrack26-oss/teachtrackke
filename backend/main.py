@@ -1493,6 +1493,163 @@ def reset_user_progress(
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Failed to reset progress: {str(e)}")
 
+# ============================================================================
+# ADMIN - ANALYTICS ENDPOINTS
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/admin/analytics")
+def get_admin_analytics(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get comprehensive analytics for admin dashboard"""
+    
+    # Check if user is admin
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    # Get total counts
+    total_users = db.query(User).count()
+    total_templates = db.query(CurriculumTemplate).count()
+    total_subjects = db.query(Subject).count()
+    
+    # Most used curricula
+    curriculum_usage = db.query(
+        CurriculumTemplate.subject,
+        CurriculumTemplate.grade,
+        func.count(Subject.id).label('usage_count')
+    ).outerjoin(
+        Subject, 
+        and_(
+            Subject.subject_name == CurriculumTemplate.subject,
+            Subject.grade == CurriculumTemplate.grade
+        )
+    ).group_by(
+        CurriculumTemplate.subject,
+        CurriculumTemplate.grade
+    ).order_by(
+        func.count(Subject.id).desc()
+    ).limit(10).all()
+    
+    most_used = [
+        {
+            "subject": row.subject,
+            "grade": row.grade,
+            "usage_count": row.usage_count
+        }
+        for row in curriculum_usage
+    ]
+    
+    # Average completion rates per subject
+    subject_stats = db.query(
+        Subject.subject_name,
+        func.avg(Subject.progress_percentage).label('avg_completion'),
+        func.count(Subject.id).label('subject_count')
+    ).group_by(
+        Subject.subject_name
+    ).all()
+    
+    completion_rates = [
+        {
+            "subject": row.subject_name,
+            "avg_completion": round(float(row.avg_completion or 0), 2),
+            "count": row.subject_count
+        }
+        for row in subject_stats
+    ]
+    
+    # Teacher engagement metrics
+    active_teachers = db.query(User).join(Subject).group_by(User.id).having(func.count(Subject.id) > 0).count()
+    
+    users_with_subjects = db.query(
+        User.id,
+        User.email,
+        func.count(Subject.id).label('subject_count'),
+        func.avg(Subject.progress_percentage).label('avg_progress')
+    ).outerjoin(Subject).group_by(User.id, User.email).all()
+    
+    engagement_data = [
+        {
+            "user_id": row.id,
+            "email": row.email,
+            "subjects": row.subject_count,
+            "avg_progress": round(float(row.avg_progress or 0), 2)
+        }
+        for row in users_with_subjects
+    ]
+    
+    # Subject popularity (by grade)
+    grade_distribution = db.query(
+        Subject.grade,
+        func.count(Subject.id).label('count')
+    ).group_by(Subject.grade).order_by(Subject.grade).all()
+    
+    popularity = [
+        {
+            "grade": row.grade,
+            "count": row.count
+        }
+        for row in grade_distribution
+    ]
+    
+    # Activity timeline (subjects created in last 30 days)
+    from datetime import datetime, timedelta
+    thirty_days_ago = datetime.now() - timedelta(days=30)
+    
+    recent_activity = db.query(
+        func.date(Subject.created_at).label('date'),
+        func.count(Subject.id).label('count')
+    ).filter(
+        Subject.created_at >= thirty_days_ago
+    ).group_by(
+        func.date(Subject.created_at)
+    ).order_by(
+        func.date(Subject.created_at)
+    ).all()
+    
+    activity_timeline = [
+        {
+            "date": row.date.isoformat() if row.date else None,
+            "count": row.count
+        }
+        for row in recent_activity
+    ]
+    
+    # Overall progress statistics
+    all_subjects = db.query(Subject).all()
+    progress_ranges = {
+        "0-25": 0,
+        "26-50": 0,
+        "51-75": 0,
+        "76-100": 0
+    }
+    
+    for subject in all_subjects:
+        progress = subject.progress_percentage
+        if progress <= 25:
+            progress_ranges["0-25"] += 1
+        elif progress <= 50:
+            progress_ranges["26-50"] += 1
+        elif progress <= 75:
+            progress_ranges["51-75"] += 1
+        else:
+            progress_ranges["76-100"] += 1
+    
+    return {
+        "overview": {
+            "total_users": total_users,
+            "active_teachers": active_teachers,
+            "total_templates": total_templates,
+            "total_subjects": total_subjects
+        },
+        "most_used_curricula": most_used,
+        "completion_rates": completion_rates,
+        "teacher_engagement": engagement_data,
+        "subject_popularity": popularity,
+        "activity_timeline": activity_timeline,
+        "progress_distribution": progress_ranges
+    }
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

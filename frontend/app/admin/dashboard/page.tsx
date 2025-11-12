@@ -118,6 +118,17 @@ export default function AdminDashboard() {
           </button>
 
           <button
+            onClick={() => router.push("/admin/analytics")}
+            className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow"
+          >
+            <FiDatabase className="w-8 h-8 text-green-600 mb-2" />
+            <h3 className="font-semibold text-gray-900">Analytics</h3>
+            <p className="text-sm text-gray-600 mt-1">
+              View usage metrics
+            </p>
+          </button>
+
+          <button
             onClick={() => router.push("/admin/import-curriculum")}
             className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow"
           >
