@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter, useParams } from 'next/navigation';
-import axios from 'axios';
-import { toast } from 'react-hot-toast';
+import { useState, useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 import {
   FaSave,
   FaPlus,
@@ -12,7 +12,7 @@ import {
   FaChevronDown,
   FaChevronUp,
   FaArrowLeft,
-} from 'react-icons/fa';
+} from "react-icons/fa";
 
 interface Substrand {
   id: number;
@@ -50,7 +50,9 @@ export default function EditCurriculumPage() {
   const [template, setTemplate] = useState<Template | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [expandedStrands, setExpandedStrands] = useState<Set<number>>(new Set());
+  const [expandedStrands, setExpandedStrands] = useState<Set<number>>(
+    new Set()
+  );
   const [editingStrand, setEditingStrand] = useState<number | null>(null);
   const [editingSubstrand, setEditingSubstrand] = useState<number | null>(null);
 
@@ -60,9 +62,9 @@ export default function EditCurriculumPage() {
 
   const fetchTemplate = async () => {
     try {
-      const token = localStorage.getItem('accessToken');
+      const token = localStorage.getItem("accessToken");
       if (!token) {
-        router.push('/login');
+        router.push("/login");
         return;
       }
 
@@ -75,13 +77,15 @@ export default function EditCurriculumPage() {
 
       setTemplate(response.data);
       // Expand all strands by default
-      setExpandedStrands(new Set(response.data.strands.map((s: Strand) => s.id)));
+      setExpandedStrands(
+        new Set(response.data.strands.map((s: Strand) => s.id))
+      );
     } catch (error: any) {
       if (error.response?.status === 403) {
-        toast.error('Admin access required');
-        router.push('/dashboard');
+        toast.error("Admin access required");
+        router.push("/dashboard");
       } else {
-        toast.error('Failed to load curriculum');
+        toast.error("Failed to load curriculum");
       }
     } finally {
       setLoading(false);
@@ -93,7 +97,7 @@ export default function EditCurriculumPage() {
 
     setSaving(true);
     try {
-      const token = localStorage.getItem('accessToken');
+      const token = localStorage.getItem("accessToken");
 
       await axios.put(
         `http://192.168.0.102:8000/api/v1/admin/curriculum-templates/${templateId}`,
@@ -108,9 +112,9 @@ export default function EditCurriculumPage() {
         }
       );
 
-      toast.success('Curriculum updated successfully');
+      toast.success("Curriculum updated successfully");
     } catch (error) {
-      toast.error('Failed to update curriculum');
+      toast.error("Failed to update curriculum");
     } finally {
       setSaving(false);
     }
@@ -149,7 +153,9 @@ export default function EditCurriculumPage() {
     const updatedStrands = template.strands.map((strand) => {
       if (strand.id === strandId) {
         const updatedSubstrands = strand.substrands.map((substrand) =>
-          substrand.id === substrandId ? { ...substrand, [field]: value } : substrand
+          substrand.id === substrandId
+            ? { ...substrand, [field]: value }
+            : substrand
         );
         return { ...strand, substrands: updatedSubstrands };
       }
@@ -163,7 +169,7 @@ export default function EditCurriculumPage() {
     const newStrand: Strand = {
       id: Date.now(), // Temporary ID
       sequence_order: template.strands.length + 1,
-      strand_name: 'New Strand',
+      strand_name: "New Strand",
       substrands: [],
     };
     setTemplate({
@@ -176,7 +182,7 @@ export default function EditCurriculumPage() {
 
   const deleteStrand = (strandId: number) => {
     if (!template) return;
-    if (!confirm('Are you sure you want to delete this strand?')) return;
+    if (!confirm("Are you sure you want to delete this strand?")) return;
 
     const updatedStrands = template.strands.filter((s) => s.id !== strandId);
     setTemplate({
@@ -194,10 +200,10 @@ export default function EditCurriculumPage() {
     const newSubstrand: Substrand = {
       id: Date.now(), // Temporary ID
       sequence_order: strand.substrands.length + 1,
-      substrand_name: 'New Sub-Strand',
-      specific_learning_outcomes: '',
-      suggested_learning_experiences: '',
-      key_inquiry_questions: '',
+      substrand_name: "New Sub-Strand",
+      specific_learning_outcomes: "",
+      suggested_learning_experiences: "",
+      key_inquiry_questions: "",
       number_of_lessons: 1,
     };
 
@@ -220,7 +226,7 @@ export default function EditCurriculumPage() {
 
   const deleteSubstrand = (strandId: number, substrandId: number) => {
     if (!template) return;
-    if (!confirm('Are you sure you want to delete this sub-strand?')) return;
+    if (!confirm("Are you sure you want to delete this sub-strand?")) return;
 
     const updatedStrands = template.strands.map((strand) => {
       if (strand.id === strandId) {
@@ -265,13 +271,15 @@ export default function EditCurriculumPage() {
         <div className="mb-8 flex items-center justify-between">
           <div>
             <button
-              onClick={() => router.push('/admin/dashboard')}
+              onClick={() => router.push("/admin/dashboard")}
               className="flex items-center text-blue-600 hover:text-blue-800 mb-4"
             >
               <FaArrowLeft className="mr-2" />
               Back to Dashboard
             </button>
-            <h1 className="text-3xl font-bold text-gray-900">Edit Curriculum</h1>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Edit Curriculum
+            </h1>
             <p className="text-gray-600">
               Modify curriculum structure and content
             </p>
@@ -282,7 +290,7 @@ export default function EditCurriculumPage() {
             className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 flex items-center disabled:bg-gray-400"
           >
             <FaSave className="mr-2" />
-            {saving ? 'Saving...' : 'Save Changes'}
+            {saving ? "Saving..." : "Save Changes"}
           </button>
         </div>
 
@@ -299,7 +307,7 @@ export default function EditCurriculumPage() {
               <input
                 type="text"
                 value={template.subject}
-                onChange={(e) => updateTemplateInfo('subject', e.target.value)}
+                onChange={(e) => updateTemplateInfo("subject", e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -310,7 +318,7 @@ export default function EditCurriculumPage() {
               <input
                 type="text"
                 value={template.grade}
-                onChange={(e) => updateTemplateInfo('grade', e.target.value)}
+                onChange={(e) => updateTemplateInfo("grade", e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -319,9 +327,9 @@ export default function EditCurriculumPage() {
                 Status
               </label>
               <select
-                value={template.is_active ? 'active' : 'inactive'}
+                value={template.is_active ? "active" : "inactive"}
                 onChange={(e) =>
-                  updateTemplateInfo('is_active', e.target.value === 'active')
+                  updateTemplateInfo("is_active", e.target.value === "active")
                 }
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
@@ -353,7 +361,10 @@ export default function EditCurriculumPage() {
                 {template.strands.reduce(
                   (sum, s) =>
                     sum +
-                    s.substrands.reduce((ss, sub) => ss + sub.number_of_lessons, 0),
+                    s.substrands.reduce(
+                      (ss, sub) => ss + sub.number_of_lessons,
+                      0
+                    ),
                   0
                 )}
               </p>
@@ -376,7 +387,10 @@ export default function EditCurriculumPage() {
 
           <div className="space-y-4">
             {template.strands.map((strand, strandIndex) => (
-              <div key={strand.id} className="border border-gray-200 rounded-lg">
+              <div
+                key={strand.id}
+                className="border border-gray-200 rounded-lg"
+              >
                 {/* Strand Header */}
                 <div className="bg-gray-50 p-4 flex items-center justify-between">
                   <div className="flex items-center flex-1">
@@ -395,7 +409,7 @@ export default function EditCurriculumPage() {
                         type="text"
                         value={strand.strand_name}
                         onChange={(e) =>
-                          updateStrand(strand.id, 'strand_name', e.target.value)
+                          updateStrand(strand.id, "strand_name", e.target.value)
                         }
                         onBlur={() => setEditingStrand(null)}
                         className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -432,7 +446,9 @@ export default function EditCurriculumPage() {
                 {expandedStrands.has(strand.id) && (
                   <div className="p-4">
                     <div className="flex items-center justify-between mb-4">
-                      <h4 className="font-semibold text-gray-900">Sub-Strands</h4>
+                      <h4 className="font-semibold text-gray-900">
+                        Sub-Strands
+                      </h4>
                       <button
                         onClick={() => addSubstrand(strand.id)}
                         className="bg-green-600 text-white px-3 py-1 rounded-lg hover:bg-green-700 flex items-center text-sm"
@@ -458,7 +474,7 @@ export default function EditCurriculumPage() {
                                     updateSubstrand(
                                       strand.id,
                                       substrand.id,
-                                      'substrand_name',
+                                      "substrand_name",
                                       e.target.value
                                     )
                                   }
@@ -468,14 +484,16 @@ export default function EditCurriculumPage() {
                                 />
                               ) : (
                                 <h5 className="font-medium text-gray-900">
-                                  {strandIndex + 1}.{subIndex + 1}{' '}
+                                  {strandIndex + 1}.{subIndex + 1}{" "}
                                   {substrand.substrand_name}
                                 </h5>
                               )}
                             </div>
                             <div className="flex items-center space-x-2 ml-4">
                               <button
-                                onClick={() => setEditingSubstrand(substrand.id)}
+                                onClick={() =>
+                                  setEditingSubstrand(substrand.id)
+                                }
                                 className="text-blue-600 hover:text-blue-800 p-1"
                               >
                                 <FaEdit />
@@ -497,12 +515,14 @@ export default function EditCurriculumPage() {
                                 Specific Learning Outcomes
                               </label>
                               <textarea
-                                value={substrand.specific_learning_outcomes || ''}
+                                value={
+                                  substrand.specific_learning_outcomes || ""
+                                }
                                 onChange={(e) =>
                                   updateSubstrand(
                                     strand.id,
                                     substrand.id,
-                                    'specific_learning_outcomes',
+                                    "specific_learning_outcomes",
                                     e.target.value
                                   )
                                 }
@@ -517,13 +537,13 @@ export default function EditCurriculumPage() {
                               </label>
                               <textarea
                                 value={
-                                  substrand.suggested_learning_experiences || ''
+                                  substrand.suggested_learning_experiences || ""
                                 }
                                 onChange={(e) =>
                                   updateSubstrand(
                                     strand.id,
                                     substrand.id,
-                                    'suggested_learning_experiences',
+                                    "suggested_learning_experiences",
                                     e.target.value
                                   )
                                 }
@@ -537,12 +557,12 @@ export default function EditCurriculumPage() {
                                 Key Inquiry Questions
                               </label>
                               <textarea
-                                value={substrand.key_inquiry_questions || ''}
+                                value={substrand.key_inquiry_questions || ""}
                                 onChange={(e) =>
                                   updateSubstrand(
                                     strand.id,
                                     substrand.id,
-                                    'key_inquiry_questions',
+                                    "key_inquiry_questions",
                                     e.target.value
                                   )
                                 }
@@ -563,7 +583,7 @@ export default function EditCurriculumPage() {
                                   updateSubstrand(
                                     strand.id,
                                     substrand.id,
-                                    'number_of_lessons',
+                                    "number_of_lessons",
                                     parseInt(e.target.value) || 1
                                   )
                                 }
@@ -576,7 +596,8 @@ export default function EditCurriculumPage() {
 
                       {strand.substrands.length === 0 && (
                         <p className="text-gray-500 text-center py-4">
-                          No sub-strands yet. Click "Add Sub-Strand" to create one.
+                          No sub-strands yet. Click "Add Sub-Strand" to create
+                          one.
                         </p>
                       )}
                     </div>
@@ -601,7 +622,7 @@ export default function EditCurriculumPage() {
             className="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 flex items-center disabled:bg-gray-400 text-lg"
           >
             <FaSave className="mr-2" />
-            {saving ? 'Saving...' : 'Save All Changes'}
+            {saving ? "Saving..." : "Save All Changes"}
           </button>
         </div>
       </div>

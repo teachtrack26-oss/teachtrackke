@@ -1673,7 +1673,7 @@ def get_template_for_editing(
     
     # Get all strands with substrands
     strands = db.query(TemplateStrand).filter(
-        TemplateStrand.template_id == template_id
+        TemplateStrand.curriculum_template_id == template_id
     ).order_by(TemplateStrand.sequence_order).all()
     
     strands_data = []
@@ -1700,14 +1700,22 @@ def get_template_for_editing(
             ]
         })
     
+    # Calculate totals from the data
+    total_substrands = sum(len(strand["substrands"]) for strand in strands_data)
+    total_lessons = sum(
+        ss["number_of_lessons"] 
+        for strand in strands_data 
+        for ss in strand["substrands"]
+    )
+    
     return {
         "id": template.id,
         "subject": template.subject,
         "grade": template.grade,
         "is_active": template.is_active,
-        "total_strands": template.total_strands,
-        "total_substrands": template.total_substrands,
-        "total_lessons": template.total_lessons,
+        "total_strands": len(strands_data),
+        "total_substrands": total_substrands,
+        "total_lessons": total_lessons,
         "strands": strands_data
     }
 
@@ -1753,7 +1761,8 @@ def update_curriculum_template(
                 if strand_id and strand_id > 1000000000:  # Temporary IDs are timestamps
                     # Create new strand
                     new_strand = TemplateStrand(
-                        template_id=template_id,
+                        curriculum_template_id=template_id,
+                        strand_number=str(strand_data.get("sequence_order", 0)),  # Use sequence as strand number
                         sequence_order=strand_data.get("sequence_order"),
                         strand_name=strand_data.get("strand_name")
                     )
@@ -1785,6 +1794,7 @@ def update_curriculum_template(
                         # Create new substrand
                         new_substrand = TemplateSubstrand(
                             strand_id=strand_id,
+                            substrand_number=str(substrand_data.get("sequence_order", 0)),  # Use sequence as substrand number
                             sequence_order=substrand_data.get("sequence_order"),
                             substrand_name=substrand_data.get("substrand_name"),
                             specific_learning_outcomes=substrand_data.get("specific_learning_outcomes"),
@@ -1820,11 +1830,6 @@ def update_curriculum_template(
         for old_id in existing_strand_ids - new_strand_ids:
             db.query(TemplateSubstrand).filter(TemplateSubstrand.strand_id == old_id).delete()
             db.query(TemplateStrand).filter(TemplateStrand.id == old_id).delete()
-        
-        # Update template totals
-        template.total_strands = len(new_strand_ids)
-        template.total_substrands = total_substrands
-        template.total_lessons = total_lessons
         
         db.commit()
         

@@ -250,7 +250,9 @@ export default function AdminDashboard() {
                           <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <button
                               onClick={() =>
-                                router.push(`/admin/curriculum/edit/${template.id}`)
+                                router.push(
+                                  `/admin/curriculum/edit/${template.id}`
+                                )
                               }
                               className="text-blue-600 hover:text-blue-900 mr-4"
                               title="Edit curriculum"
