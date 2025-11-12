@@ -559,6 +559,43 @@ async def list_curriculum_templates(
     return {"templates": templates, "count": len(templates)}
 
 
+@app.delete(f"{settings.API_V1_PREFIX}/curriculum-templates/{{template_id}}")
+async def delete_curriculum_template(
+    template_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Delete a curriculum template (Admin only)
+    This will CASCADE delete all associated strands and substrands
+    """
+    template = db.query(CurriculumTemplate).filter(
+        CurriculumTemplate.id == template_id
+    ).first()
+    
+    if not template:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Curriculum template not found"
+        )
+    
+    try:
+        subject_name = template.subject
+        grade = template.grade
+        db.delete(template)
+        db.commit()
+        return {
+            "message": f"Successfully deleted {subject_name} {grade}",
+            "deleted_id": template_id
+        }
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to delete template: {str(e)}"
+        )
+
+
 @app.post(f"{settings.API_V1_PREFIX}/curriculum-templates/{{template_id}}/use")
 async def use_curriculum_template(
     template_id: int,
