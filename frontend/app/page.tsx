@@ -13,26 +13,6 @@ export default function Home() {
             "linear-gradient(to bottom right, #4f46e5, #4338ca, #312e81)",
         }}
       >
-        <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold text-white drop-shadow-lg">
-            TeachTrack CBC
-          </div>
-          <div className="space-x-4">
-            <Link
-              href="/login"
-              className="text-white font-semibold hover:underline"
-            >
-              Login
-            </Link>
-            <Link
-              href="/register"
-              className="bg-white text-indigo-700 px-5 py-2.5 rounded-xl font-semibold shadow-xl hover:bg-gray-50 transition-colors"
-            >
-              Sign Up Free
-            </Link>
-          </div>
-        </nav>
-
         <div className="container mx-auto px-6 py-20 text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-2xl">
             Track Your CBC Curriculum Like Never Before
@@ -62,9 +42,9 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <FeatureCard
-              icon={<FiUpload className="w-12 h-12 text-indigo-600" />}
-              title="Upload & Parse Curricula"
-              description="Upload any CBC curriculum PDF and our AI automatically extracts all strands, sub-strands, and learning outcomes."
+              icon={<FiBook className="w-12 h-12 text-indigo-600" />}
+              title="Ready-to-Use Curricula"
+              description="Access pre-loaded CBC curricula for all grades and subjects. All strands, sub-strands, and learning outcomes already organized."
             />
 
             <FeatureCard
@@ -74,7 +54,7 @@ export default function Home() {
             />
 
             <FeatureCard
-              icon={<FiBook className="w-12 h-12 text-indigo-600" />}
+              icon={<FiUpload className="w-12 h-12 text-purple-600" />}
               title="Organize Notes"
               description="Upload PowerPoints, PDFs, and Word docs. Auto-organized by subject and strand."
             />
@@ -98,8 +78,8 @@ export default function Home() {
           <div className="max-w-3xl mx-auto space-y-8">
             <Step
               number="1"
-              title="Upload Your Curriculum"
-              description="Select your grade and subject, then upload the curriculum PDF. Our AI parses it in seconds."
+              title="Select Your Curriculum"
+              description="Browse the curriculum library, select your grade and subject from pre-loaded CBC curricula. Import instantly with one click."
             />
             <Step
               number="2"
@@ -108,7 +88,7 @@ export default function Home() {
             />
             <Step
               number="3"
-              title="Upload & Present Notes"
+              title="Organize & Present Notes"
               description="Add your teaching notes and present them directly from the app - even offline."
             />
           </div>
