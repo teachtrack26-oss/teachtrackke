@@ -1,16 +1,21 @@
-from fastapi import FastAPI, Depends, HTTPException, status, Response, UploadFile, File
+from fastapi import FastAPI, Depends, HTTPException, status, Response, UploadFile, File, Form, Request
+from fastapi.responses import StreamingResponse, RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session, joinedload
-from typing import List
+from typing import List, Optional
 from datetime import datetime
 import uvicorn
 import json
+import os
+import mimetypes
 
 from database import get_db, engine
 from models import (
     User, Subject, Strand, SubStrand, Lesson, ProgressLog, Note, Term,
-    CurriculumTemplate, TemplateStrand, TemplateSubstrand
+    CurriculumTemplate, TemplateStrand, TemplateSubstrand,
+    NoteAnnotation, PresentationSession, SpeakerNote, SharedPresentation,
+    SchoolSchedule, TimeSlot, TimetableEntry
 )
 from sqlalchemy import text, func, and_
 from schemas import (
@@ -20,7 +25,14 @@ from schemas import (
     SubStrandCreate, SubStrandResponse,
     LessonCreate, LessonResponse,
     ProgressLogCreate, ProgressLogResponse,
-    NoteCreate, NoteResponse
+    NoteCreate, NoteResponse,
+    CurriculumTemplateCreate, CurriculumTemplateUpdate, CurriculumTemplateResponse,
+    NoteAnnotationCreate, NoteAnnotationUpdate, NoteAnnotationResponse,
+    PresentationSessionCreate, PresentationSessionUpdate, PresentationSessionResponse,
+    SpeakerNoteCreate, SpeakerNoteUpdate, SpeakerNoteResponse,
+    SharedPresentationCreate, SharedPresentationResponse,
+    SchoolScheduleCreate, SchoolScheduleUpdate, SchoolScheduleResponse,
+    TimeSlotResponse, TimetableEntryCreate, TimetableEntryUpdate, TimetableEntryResponse
 )
 from auth import verify_password, get_password_hash, create_access_token, verify_token
 from config import settings
@@ -46,15 +58,53 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Debug middleware to log incoming preflight requests (remove in production)
+# Debug / CORS middleware to properly handle preflight requests (remove or simplify in production)
 @app.middleware("http")
 async def log_requests(request, call_next):
+    # Handle CORS preflight explicitly
     if request.method == "OPTIONS":
         origin = request.headers.get("origin")
         acr_method = request.headers.get("access-control-request-method")
         acr_headers = request.headers.get("access-control-request-headers")
         print(f"[CORS PRELIGHT] path={request.url.path} origin={origin} req-method={acr_method} req-headers={acr_headers}")
+
+        # Return a successful preflight response instead of 400
+        allow_origin = origin or "*"
+        allow_methods = "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+
+        # If browser specified requested headers, echo them back; otherwise allow common ones
+        allow_headers = acr_headers or "Authorization, Content-Type, Accept, Range"
+
+        return Response(
+            status_code=200,
+            headers={
+                "Access-Control-Allow-Origin": allow_origin,
+                "Access-Control-Allow-Methods": allow_methods,
+                "Access-Control-Allow-Headers": allow_headers,
+                "Access-Control-Expose-Headers": "Content-Range, Content-Length, Accept-Ranges",
+            },
+        )
+
+    # Non-OPTIONS requests go through as normal
     response = await call_next(request)
+
+    # Ensure CORS headers are present on normal responses as well (mainly for dev convenience)
+    origin = request.headers.get("origin")
+    if origin:
+        response.headers.setdefault("Access-Control-Allow-Origin", origin)
+        response.headers.setdefault(
+            "Access-Control-Allow-Methods",
+            "GET, POST, PUT, PATCH, DELETE, OPTIONS",
+        )
+        response.headers.setdefault(
+            "Access-Control-Allow-Headers",
+            "Authorization, Content-Type, Accept, Range",
+        )
+        response.headers.setdefault(
+            "Access-Control-Expose-Headers",
+            "Content-Range, Content-Length, Accept-Ranges",
+        )
+
     return response
 
 security = HTTPBearer()
@@ -79,6 +129,17 @@ def get_current_user(
             detail="User not found"
         )
     return user
+
+def get_current_admin_user(
+    current_user: User = Depends(get_current_user)
+):
+    """Dependency to check if current user is an admin"""
+    if not current_user.is_admin:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied. Admin privileges required."
+        )
+    return current_user
 
 # Health check
 @app.get("/")
@@ -393,9 +454,264 @@ def create_note(
     
     return new_note
 
+# ============================================================================
+# FILE UPLOAD ENDPOINTS (Cloudinary Storage)
+# ============================================================================
+
+import cloudinary_storage
+import secrets
+
+@app.post(f"{settings.API_V1_PREFIX}/notes/upload")
+async def upload_note_file(
+    file: UploadFile = File(...),
+    title: str = Form(...),
+    subject_id: int = Form(None),
+    strand_id: int = Form(None),
+    substrand_id: int = Form(None),
+    lesson_id: int = Form(None),
+    description: str = Form(None),
+    tags: str = Form(None),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Upload teaching note/resource file to Cloudinary
+    Supports: PDF, DOCX, PPTX, Images, Videos
+    """
+    
+    # Check if Cloudinary is configured
+    if not cloudinary_storage.IS_CONFIGURED:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="File storage service is not available"
+        )
+    
+    # Validate subject belongs to user (if provided)
+    if subject_id:
+        subject = db.query(Subject).filter(
+            Subject.id == subject_id,
+            Subject.user_id == current_user.id
+        ).first()
+        
+        if not subject:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Subject not found"
+            )
+    
+    # Get file size
+    file.file.seek(0, 2)
+    file_size = file.file.tell()
+    file.file.seek(0)
+    
+    # Validate file size
+    if file_size > settings.MAX_FILE_SIZE_BYTES:
+        raise HTTPException(
+            status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+            detail=f"File size ({file_size / 1024 / 1024:.2f}MB) exceeds maximum allowed ({settings.MAX_FILE_SIZE_MB}MB)"
+        )
+    
+    # Validate file type
+    file_extension = os.path.splitext(file.filename)[1].lower().replace('.', '')
+    if file_extension not in settings.ALLOWED_FILE_TYPES_LIST:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"File type .{file_extension} not allowed. Allowed types: {', '.join(settings.ALLOWED_FILE_TYPES_LIST)}"
+        )
+    
+    try:
+        # Read file bytes for upload
+        file_content = await file.read()
+
+        # Create a unique public_id for Cloudinary
+        timestamp = int(datetime.now().timestamp())
+        safe_filename = "".join(c for c in os.path.splitext(file.filename)[0] if c.isalnum() or c in (' ', '_')).rstrip()
+        # Keep folder separate to avoid double 'notes' nesting; include extension for proper resource_type
+        public_id = f"{current_user.id}/{timestamp}_{safe_filename}.{file_extension}"
+
+        # Upload to Cloudinary
+        upload_result = cloudinary_storage.upload_file(
+            file_content=file_content,
+            public_id=public_id,
+            folder="notes"
+        )
+
+        if not upload_result or "secure_url" not in upload_result:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Upload failed: {upload_result.get('error', {}).get('message', 'Unknown error')}"
+            )
+        
+        file_url = upload_result["secure_url"]
+        
+        # Generate thumbnail URL
+        thumbnail_url = cloudinary_storage.get_thumbnail_url(
+            public_id=upload_result["public_id"],
+            file_type=file_extension
+        )
+        
+        # Save to database
+        new_note = Note(
+            user_id=current_user.id,
+            subject_id=subject_id,
+            strand_id=strand_id,
+            substrand_id=substrand_id,
+            lesson_id=lesson_id,
+            title=title,
+            file_type=file_extension,
+            file_url=file_url,
+            file_size_bytes=file_size,
+            thumbnail_url=thumbnail_url,
+            description=description,
+            tags=tags,
+            is_favorite=False,
+            view_count=0
+        )
+        
+        db.add(new_note)
+        db.commit()
+        db.refresh(new_note)
+        
+        return {
+            "success": True,
+            "message": "File uploaded successfully",
+            "note": {
+                "id": new_note.id,
+                "title": new_note.title,
+                "file_url": new_note.file_url,
+                "file_type": new_note.file_type,
+                "file_size_bytes": file_size,
+                "file_size_mb": round(file_size / 1024 / 1024, 2),
+                "thumbnail_url": thumbnail_url,
+                "subject_id": subject_id,
+                "created_at": new_note.created_at.isoformat() if new_note.created_at else None
+            }
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Upload error: {str(e)}"
+        )
+
+@app.delete(f"{settings.API_V1_PREFIX}/notes/{{note_id}}")
+def delete_note(
+    note_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete note and remove files from Cloudinary"""
+    
+    # Find note
+    note = db.query(Note).filter(
+        Note.id == note_id,
+        Note.user_id == current_user.id
+    ).first()
+    
+    if not note:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Note not found"
+        )
+    
+    # Delete from Cloudinary if file exists
+    if note.file_url and cloudinary_storage.IS_CONFIGURED:
+        try:
+            public_id = cloudinary_storage.extract_public_id_from_url(note.file_url)
+            if public_id:
+                resource_type = "raw" if note.file_type in ['pdf', 'docx', 'pptx', 'xlsx'] else "auto"
+                cloudinary_storage.delete_file(public_id, resource_type=resource_type)
+                
+        except Exception as e:
+            print(f"Error deleting file from Cloudinary: {str(e)}")
+            # Continue with database deletion even if Cloudinary deletion fails
+    
+    # Delete from database
+    db.delete(note)
+    db.commit()
+    
+    return {
+        "success": True,
+        "message": "Note deleted successfully"
+    }
+
+@app.get(f"{settings.API_V1_PREFIX}/notes/{{note_id}}")
+def get_note_detail(
+    note_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get note details and increment view count"""
+    
+    note = db.query(Note).filter(
+        Note.id == note_id,
+        Note.user_id == current_user.id
+    ).first()
+    
+    if not note:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Note not found"
+        )
+    
+    # Increment view count
+    note.view_count += 1
+    note.last_viewed_at = datetime.now()
+    db.commit()
+    db.refresh(note)
+    
+    return {
+        "id": note.id,
+        "title": note.title,
+        "description": note.description,
+        "file_url": note.file_url,
+        "file_type": note.file_type,
+        "file_size_bytes": note.file_size_bytes,
+        "file_size_mb": round(note.file_size_bytes / 1024 / 1024, 2) if note.file_size_bytes else 0,
+        "thumbnail_url": note.thumbnail_url,
+        "tags": note.tags,
+        "is_favorite": note.is_favorite,
+        "view_count": note.view_count,
+        "last_viewed_at": note.last_viewed_at.isoformat() if note.last_viewed_at else None,
+        "created_at": note.created_at.isoformat() if note.created_at else None,
+        "subject_id": note.subject_id,
+        "strand_id": note.strand_id,
+        "substrand_id": note.substrand_id,
+        "lesson_id": note.lesson_id
+    }
+
+@app.patch(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/favorite")
+def toggle_note_favorite(
+    note_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Toggle note favorite status"""
+    
+    note = db.query(Note).filter(
+        Note.id == note_id,
+        Note.user_id == current_user.id
+    ).first()
+    
+    if not note:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Note not found"
+        )
+    
+    note.is_favorite = not note.is_favorite
+    db.commit()
+    db.refresh(note)
+    
+    return {
+        "success": True,
+        "is_favorite": note.is_favorite,
+        "message": f"Note {'added to' if note.is_favorite else 'removed from'} favorites"
+    }
+
 # Curriculum upload endpoint
-from fastapi import UploadFile, File, Form
-import os
 import shutil
 from curriculum_parser import CurriculumParser
 
@@ -489,12 +805,16 @@ async def upload_curriculum(
             db.refresh(strand)
             
             for substrand_index, substrand_data in enumerate(strand_data.get("subStrands", [])):
+                # Get SLOs and determine actual lesson count
+                slos = substrand_data.get("specificLearningOutcomes", [])
+                actual_lesson_count = len(slos) if slos else substrand_data.get("numberOfLessons", 1)
+                
                 substrand = SubStrand(
                     strand_id=strand.id,
                     substrand_code=substrand_data.get("subStrandNumber", f"{strand_index + 1}.{substrand_index + 1}"),
                     substrand_name=substrand_data["subStrandName"],
-                    lessons_count=substrand_data.get("numberOfLessons", 1),
-                    learning_outcomes=", ".join(substrand_data.get("specificLearningOutcomes", [])[:5]),
+                    lessons_count=actual_lesson_count,
+                    learning_outcomes=", ".join(slos[:5]),
                     key_inquiry_questions=", ".join(substrand_data.get("keyInquiryQuestions", [])[:3]),
                     sequence_order=substrand_index + 1
                 )
@@ -502,16 +822,29 @@ async def upload_curriculum(
                 db.commit()
                 db.refresh(substrand)
                 
-                # Create lessons for this sub-strand
-                for lesson_num in range(substrand_data.get("numberOfLessons", 1)):
-                    lesson = Lesson(
-                        substrand_id=substrand.id,
-                        lesson_number=lesson_num + 1,
-                        lesson_title=f"{substrand_data['subStrandName']} - Lesson {lesson_num + 1}",
-                        learning_outcomes=", ".join(substrand_data.get("specificLearningOutcomes", [])[:3]),
-                        sequence_order=lesson_num + 1
-                    )
-                    db.add(lesson)
+                # Create lessons - one per SLO or generic if no SLOs
+                if slos and len(slos) > 0:
+                    # Create one lesson per SLO
+                    for slo_idx, slo_text in enumerate(slos, start=1):
+                        lesson = Lesson(
+                            substrand_id=substrand.id,
+                            lesson_number=slo_idx,
+                            lesson_title=slo_text.strip(),
+                            learning_outcomes=slo_text.strip(),
+                            sequence_order=slo_idx
+                        )
+                        db.add(lesson)
+                else:
+                    # Fallback: create generic lessons
+                    for lesson_num in range(substrand_data.get("numberOfLessons", 1)):
+                        lesson = Lesson(
+                            substrand_id=substrand.id,
+                            lesson_number=lesson_num + 1,
+                            lesson_title=f"{substrand_data['subStrandName']} - Lesson {lesson_num + 1}",
+                            learning_outcomes=", ".join(slos[:3]),
+                            sequence_order=lesson_num + 1
+                        )
+                        db.add(lesson)
                 
                 db.commit()
         
@@ -636,10 +969,15 @@ async def use_curriculum_template(
     
     try:
         # Get total lessons from template
+        # Count based on SLOs (one lesson per SLO) or fall back to number_of_lessons
         total_lessons = 0
         for t_strand in template.strands:
             for t_substrand in t_strand.substrands:
-                total_lessons += t_substrand.number_of_lessons
+                slo_list = t_substrand.specific_learning_outcomes or []
+                if slo_list and len(slo_list) > 0:
+                    total_lessons += len(slo_list)
+                else:
+                    total_lessons += t_substrand.number_of_lessons
 
         # Create Subject
         new_subject = Subject(
@@ -674,12 +1012,15 @@ async def use_curriculum_template(
                 outcomes = t_substrand.specific_learning_outcomes or []
                 questions = t_substrand.key_inquiry_questions or []
                 
+                # Determine actual lesson count based on SLOs
+                actual_lesson_count = len(outcomes) if outcomes else t_substrand.number_of_lessons
+                
                 # Create SubStrand with all curriculum details
                 new_substrand = SubStrand(
                     strand_id=new_strand.id,
                     substrand_code=t_substrand.substrand_number,
                     substrand_name=t_substrand.substrand_name,
-                    lessons_count=t_substrand.number_of_lessons,
+                    lessons_count=actual_lesson_count,
                     learning_outcomes=", ".join(outcomes[:5]),  # Top 5 for display
                     key_inquiry_questions=", ".join(questions[:3]),  # Top 3 for display
                     
@@ -697,16 +1038,32 @@ async def use_curriculum_template(
                 db.commit()
                 db.refresh(new_substrand)
                 
-                # Create Lessons
-                for lesson_num in range(t_substrand.number_of_lessons):
-                    lesson = Lesson(
-                        substrand_id=new_substrand.id,
-                        lesson_number=lesson_num + 1,
-                        lesson_title=f"{t_substrand.substrand_name} - Lesson {lesson_num + 1}",
-                        learning_outcomes=", ".join(outcomes[:3]),
-                        sequence_order=lesson_num + 1
-                    )
-                    db.add(lesson)
+                # Create Lessons - one per SLO (Specific Learning Outcome)
+                # If no SLOs, fall back to number_of_lessons
+                slo_list = t_substrand.specific_learning_outcomes or []
+                
+                if slo_list and len(slo_list) > 0:
+                    # Create one lesson per SLO
+                    for slo_idx, slo_text in enumerate(slo_list, start=1):
+                        lesson = Lesson(
+                            substrand_id=new_substrand.id,
+                            lesson_number=slo_idx,
+                            lesson_title=slo_text.strip(),
+                            learning_outcomes=slo_text.strip(),
+                            sequence_order=slo_idx
+                        )
+                        db.add(lesson)
+                else:
+                    # Fallback: create generic lessons if no SLOs
+                    for lesson_num in range(t_substrand.number_of_lessons):
+                        lesson = Lesson(
+                            substrand_id=new_substrand.id,
+                            lesson_number=lesson_num + 1,
+                            lesson_title=f"{t_substrand.substrand_name} - Lesson {lesson_num + 1}",
+                            learning_outcomes=", ".join(outcomes[:3]),
+                            sequence_order=lesson_num + 1
+                        )
+                        db.add(lesson)
                 
                 db.commit()
         
@@ -724,6 +1081,233 @@ async def use_curriculum_template(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error copying curriculum: {str(e)}"
         )
+
+# ============================================================================
+# CASCADING DROPDOWN ENDPOINTS (Education Level -> Grade -> Subject)
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/education-levels")
+async def get_education_levels(db: Session = Depends(get_db)):
+    """
+    Get all available education levels
+    Returns distinct education levels ordered logically
+    """
+    education_levels = db.query(CurriculumTemplate.education_level).distinct().all()
+    
+    # Define proper order
+    level_order = ['Pre-Primary', 'Lower Primary', 'Upper Primary', 'Junior Secondary', 'Senior Secondary']
+    
+    # Extract and sort education levels
+    levels = [level[0] for level in education_levels if level[0]]
+    sorted_levels = sorted(levels, key=lambda x: level_order.index(x) if x in level_order else 999)
+    
+    return {
+        "education_levels": sorted_levels,
+        "count": len(sorted_levels)
+    }
+
+@app.get(f"{settings.API_V1_PREFIX}/grades")
+async def get_grades_by_education_level(
+    education_level: str = None,
+    db: Session = Depends(get_db)
+):
+    """
+    Get all grades, optionally filtered by education level
+    """
+    query = db.query(CurriculumTemplate.grade).distinct()
+    
+    if education_level:
+        query = query.filter(CurriculumTemplate.education_level == education_level)
+    
+    grades = query.all()
+    
+    # Extract grade names and sort them logically
+    grade_list = [grade[0] for grade in grades if grade[0]]
+    
+    # Define sorting order
+    grade_order = ['PP1', 'PP2', 'Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5', 
+                   'Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12']
+    
+    sorted_grades = sorted(grade_list, key=lambda x: grade_order.index(x) if x in grade_order else 999)
+    
+    return {
+        "grades": sorted_grades,
+        "education_level": education_level,
+        "count": len(sorted_grades)
+    }
+
+@app.get(f"{settings.API_V1_PREFIX}/subjects-by-grade")
+async def get_subjects_by_grade(
+    grade: str = None,
+    education_level: str = None,
+    db: Session = Depends(get_db)
+):
+    """
+    Get all subjects filtered by grade and/or education level
+    Returns subjects available in curriculum templates
+    """
+    query = db.query(CurriculumTemplate.subject).filter(CurriculumTemplate.is_active == True).distinct()
+    
+    if grade:
+        query = query.filter(CurriculumTemplate.grade == grade)
+    
+    if education_level:
+        query = query.filter(CurriculumTemplate.education_level == education_level)
+    
+    subjects = query.order_by(CurriculumTemplate.subject).all()
+    subject_list = [subject[0] for subject in subjects if subject[0]]
+    
+    return {
+        "subjects": subject_list,
+        "grade": grade,
+        "education_level": education_level,
+        "count": len(subject_list)
+    }
+
+# ============================================================================
+# CURRICULUM TEMPLATE MANAGEMENT ENDPOINTS (Admin Only)
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/admin/curriculum-templates", response_model=List[CurriculumTemplateResponse])
+async def get_all_curriculum_templates(
+    education_level: str = None,
+    grade: str = None,
+    is_active: bool = None,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Get all curriculum templates with optional filters (Admin only)
+    """
+    query = db.query(CurriculumTemplate)
+    
+    if education_level:
+        query = query.filter(CurriculumTemplate.education_level == education_level)
+    
+    if grade:
+        query = query.filter(CurriculumTemplate.grade == grade)
+    
+    if is_active is not None:
+        query = query.filter(CurriculumTemplate.is_active == is_active)
+    
+    # Order by education level, grade, and subject name
+    level_order = ['Pre-Primary', 'Lower Primary', 'Upper Primary', 'Junior Secondary', 'Senior Secondary']
+    grade_order = ['PP1', 'PP2', 'Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5', 
+                   'Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12']
+    
+    templates = query.all()
+    
+    # Sort in Python for better control
+    sorted_templates = sorted(templates, key=lambda t: (
+        level_order.index(t.education_level) if t.education_level in level_order else 999,
+        grade_order.index(t.grade) if t.grade in grade_order else 999,
+        t.subject
+    ))
+    
+    return sorted_templates
+
+@app.post(f"{settings.API_V1_PREFIX}/admin/curriculum-templates", response_model=CurriculumTemplateResponse)
+async def create_curriculum_template(
+    template: CurriculumTemplateCreate,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Create a new curriculum template (Admin only)
+    """
+    # Check if template already exists
+    existing = db.query(CurriculumTemplate).filter(
+        CurriculumTemplate.education_level == template.education_level,
+        CurriculumTemplate.grade == template.grade,
+        CurriculumTemplate.subject == template.subject
+    ).first()
+    
+    if existing:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Curriculum template already exists for this education level, grade, and subject"
+        )
+    
+    db_template = CurriculumTemplate(**template.dict())
+    db.add(db_template)
+    db.commit()
+    db.refresh(db_template)
+    
+    return db_template
+
+@app.put(f"{settings.API_V1_PREFIX}/admin/curriculum-templates/{{template_id}}", response_model=CurriculumTemplateResponse)
+async def update_curriculum_template(
+    template_id: int,
+    template_update: CurriculumTemplateUpdate,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Update a curriculum template (Admin only)
+    """
+    db_template = db.query(CurriculumTemplate).filter(CurriculumTemplate.id == template_id).first()
+    
+    if not db_template:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Curriculum template not found"
+        )
+    
+    # Update only provided fields
+    update_data = template_update.dict(exclude_unset=True)
+    
+    # Check for duplicate if education_level, grade, or subject is being updated
+    if any(key in update_data for key in ['education_level', 'grade', 'subject']):
+        new_education_level = update_data.get('education_level', db_template.education_level)
+        new_grade = update_data.get('grade', db_template.grade)
+        new_subject = update_data.get('subject', db_template.subject)
+        
+        existing = db.query(CurriculumTemplate).filter(
+            CurriculumTemplate.id != template_id,
+            CurriculumTemplate.education_level == new_education_level,
+            CurriculumTemplate.grade == new_grade,
+            CurriculumTemplate.subject == new_subject
+        ).first()
+        
+        if existing:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Another curriculum template already exists with these values"
+            )
+    
+    for key, value in update_data.items():
+        setattr(db_template, key, value)
+    
+    db_template.updated_at = datetime.utcnow()
+    db.commit()
+    db.refresh(db_template)
+    
+    return db_template
+
+@app.delete(f"{settings.API_V1_PREFIX}/admin/curriculum-templates/{{template_id}}")
+async def delete_curriculum_template(
+    template_id: int,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Delete a curriculum template (Admin only)
+    Soft delete by setting is_active to False
+    """
+    db_template = db.query(CurriculumTemplate).filter(CurriculumTemplate.id == template_id).first()
+    
+    if not db_template:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Curriculum template not found"
+        )
+    
+    # Soft delete
+    db_template.is_active = False
+    db_template.updated_at = datetime.utcnow()
+    db.commit()
+    
+    return {"message": "Curriculum template deactivated successfully", "id": template_id}
 
 # ============================================================================
 # LESSON TRACKING ENDPOINTS
@@ -1842,6 +2426,1207 @@ def update_curriculum_template(
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Failed to update template: {str(e)}")
+
+# ============================================================================
+# PRESENTATION FEATURES API ENDPOINTS
+# ============================================================================
+
+# Annotation Endpoints
+@app.post(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/annotations", response_model=NoteAnnotationResponse)
+async def create_annotation(
+    note_id: int,
+    annotation: NoteAnnotationCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Save drawing/annotation for a note page"""
+    # Verify note belongs to user
+    note = db.query(Note).filter(Note.id == note_id, Note.user_id == current_user.id).first()
+    if not note:
+        raise HTTPException(status_code=404, detail="Note not found")
+    
+    db_annotation = NoteAnnotation(
+        note_id=note_id,
+        user_id=current_user.id,
+        page_number=annotation.page_number,
+        drawing_data=annotation.drawing_data
+    )
+    db.add(db_annotation)
+    db.commit()
+    db.refresh(db_annotation)
+    return db_annotation
+
+@app.get(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/annotations", response_model=List[NoteAnnotationResponse])
+async def get_annotations(
+    note_id: int,
+    page_number: Optional[int] = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all annotations for a note, optionally filtered by page"""
+    query = db.query(NoteAnnotation).filter(
+        NoteAnnotation.note_id == note_id,
+        NoteAnnotation.user_id == current_user.id
+    )
+    
+    if page_number is not None:
+        query = query.filter(NoteAnnotation.page_number == page_number)
+    
+    return query.order_by(NoteAnnotation.page_number).all()
+
+@app.put(f"{settings.API_V1_PREFIX}/annotations/{{annotation_id}}", response_model=NoteAnnotationResponse)
+async def update_annotation(
+    annotation_id: int,
+    annotation_update: NoteAnnotationUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update an existing annotation"""
+    db_annotation = db.query(NoteAnnotation).filter(
+        NoteAnnotation.id == annotation_id,
+        NoteAnnotation.user_id == current_user.id
+    ).first()
+    
+    if not db_annotation:
+        raise HTTPException(status_code=404, detail="Annotation not found")
+    
+    db_annotation.drawing_data = annotation_update.drawing_data
+    db.commit()
+    db.refresh(db_annotation)
+    return db_annotation
+
+@app.delete(f"{settings.API_V1_PREFIX}/annotations/{{annotation_id}}")
+async def delete_annotation(
+    annotation_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete an annotation"""
+    db_annotation = db.query(NoteAnnotation).filter(
+        NoteAnnotation.id == annotation_id,
+        NoteAnnotation.user_id == current_user.id
+    ).first()
+    
+    if not db_annotation:
+        raise HTTPException(status_code=404, detail="Annotation not found")
+    
+    db.delete(db_annotation)
+    db.commit()
+    return {"message": "Annotation deleted successfully"}
+
+# Presentation Session (Timer) Endpoints
+@app.post(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/sessions", response_model=PresentationSessionResponse)
+async def start_presentation_session(
+    note_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Start a new presentation session"""
+    note = db.query(Note).filter(Note.id == note_id, Note.user_id == current_user.id).first()
+    if not note:
+        raise HTTPException(status_code=404, detail="Note not found")
+    
+    session = PresentationSession(
+        note_id=note_id,
+        user_id=current_user.id
+    )
+    db.add(session)
+    db.commit()
+    db.refresh(session)
+    return session
+
+@app.put(f"{settings.API_V1_PREFIX}/sessions/{{session_id}}", response_model=PresentationSessionResponse)
+async def update_presentation_session(
+    session_id: int,
+    session_update: PresentationSessionUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update presentation session duration"""
+    session = db.query(PresentationSession).filter(
+        PresentationSession.id == session_id,
+        PresentationSession.user_id == current_user.id
+    ).first()
+    
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
+    
+    session.duration_seconds = session_update.duration_seconds
+    if session_update.ended_at:
+        session.ended_at = session_update.ended_at
+    db.commit()
+    db.refresh(session)
+    return session
+
+@app.get(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/sessions", response_model=List[PresentationSessionResponse])
+async def get_presentation_sessions(
+    note_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all presentation sessions for a note"""
+    return db.query(PresentationSession).filter(
+        PresentationSession.note_id == note_id,
+        PresentationSession.user_id == current_user.id
+    ).order_by(PresentationSession.started_at.desc()).all()
+
+# Speaker Notes Endpoints
+@app.post(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/speaker-notes", response_model=SpeakerNoteResponse)
+async def create_or_update_speaker_note(
+    note_id: int,
+    speaker_note: SpeakerNoteCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Create or update speaker notes for a page"""
+    note = db.query(Note).filter(Note.id == note_id, Note.user_id == current_user.id).first()
+    if not note:
+        raise HTTPException(status_code=404, detail="Note not found")
+    
+    # Check if speaker note exists for this page
+    existing = db.query(SpeakerNote).filter(
+        SpeakerNote.note_id == note_id,
+        SpeakerNote.user_id == current_user.id,
+        SpeakerNote.page_number == speaker_note.page_number
+    ).first()
+    
+    if existing:
+        existing.notes = speaker_note.notes
+        db.commit()
+        db.refresh(existing)
+        return existing
+    else:
+        db_note = SpeakerNote(
+            note_id=note_id,
+            user_id=current_user.id,
+            page_number=speaker_note.page_number,
+            notes=speaker_note.notes
+        )
+        db.add(db_note)
+        db.commit()
+        db.refresh(db_note)
+        return db_note
+
+@app.get(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/speaker-notes", response_model=List[SpeakerNoteResponse])
+async def get_speaker_notes(
+    note_id: int,
+    page_number: Optional[int] = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get speaker notes for a note"""
+    query = db.query(SpeakerNote).filter(
+        SpeakerNote.note_id == note_id,
+        SpeakerNote.user_id == current_user.id
+    )
+    
+    if page_number is not None:
+        query = query.filter(SpeakerNote.page_number == page_number)
+    
+    return query.order_by(SpeakerNote.page_number).all()
+
+# Shared Presentation Endpoints
+@app.post(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/share", response_model=SharedPresentationResponse)
+async def create_share_link(
+    note_id: int,
+    share_request: SharedPresentationCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Generate a shareable link for a presentation"""
+    import secrets
+    from datetime import timedelta
+    
+    note = db.query(Note).filter(Note.id == note_id, Note.user_id == current_user.id).first()
+    if not note:
+        raise HTTPException(status_code=404, detail="Note not found")
+    
+    # Generate unique token
+    share_token = secrets.token_urlsafe(32)
+    
+    # Calculate expiry
+    expires_at = None
+    if share_request.expires_in_days:
+        expires_at = datetime.utcnow() + timedelta(days=share_request.expires_in_days)
+    
+    shared_pres = SharedPresentation(
+        note_id=note_id,
+        user_id=current_user.id,
+        share_token=share_token,
+        expires_at=expires_at,
+        allow_download=share_request.allow_download
+    )
+    db.add(shared_pres)
+    db.commit()
+    db.refresh(shared_pres)
+    
+    # Build share URL
+    share_url = f"{settings.FRONTEND_URL}/shared/{share_token}"
+    
+    response = SharedPresentationResponse(
+        id=shared_pres.id,
+        note_id=shared_pres.note_id,
+        user_id=shared_pres.user_id,
+        share_token=shared_pres.share_token,
+        share_url=share_url,
+        expires_at=shared_pres.expires_at,
+        is_active=shared_pres.is_active,
+        view_count=shared_pres.view_count,
+        allow_download=shared_pres.allow_download,
+        created_at=shared_pres.created_at
+    )
+    return response
+
+@app.get(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/shares", response_model=List[SharedPresentationResponse])
+async def get_share_links(
+    note_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all share links for a note"""
+    shares = db.query(SharedPresentation).filter(
+        SharedPresentation.note_id == note_id,
+        SharedPresentation.user_id == current_user.id
+    ).all()
+    
+    result = []
+    for share in shares:
+        share_url = f"{settings.FRONTEND_URL}/shared/{share.share_token}"
+        result.append(SharedPresentationResponse(
+            id=share.id,
+            note_id=share.note_id,
+            user_id=share.user_id,
+            share_token=share.share_token,
+            share_url=share_url,
+            expires_at=share.expires_at,
+            is_active=share.is_active,
+            view_count=share.view_count,
+            allow_download=share.allow_download,
+            created_at=share.created_at
+        ))
+    return result
+
+@app.delete(f"{settings.API_V1_PREFIX}/shares/{{share_id}}")
+async def delete_share_link(
+    share_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete/deactivate a share link"""
+    share = db.query(SharedPresentation).filter(
+        SharedPresentation.id == share_id,
+        SharedPresentation.user_id == current_user.id
+    ).first()
+    
+    if not share:
+        raise HTTPException(status_code=404, detail="Share link not found")
+    
+    share.is_active = False
+    db.commit()
+    return {"message": "Share link deactivated"}
+
+@app.get(f"{settings.API_V1_PREFIX}/shared/{{share_token}}")
+async def get_shared_presentation(
+    share_token: str,
+    db: Session = Depends(get_db)
+):
+    """Public endpoint to view shared presentation"""
+    share = db.query(SharedPresentation).filter(
+        SharedPresentation.share_token == share_token,
+        SharedPresentation.is_active == True
+    ).first()
+    
+    if not share:
+        raise HTTPException(status_code=404, detail="Shared presentation not found or expired")
+    
+    # Check expiry
+    if share.expires_at and share.expires_at < datetime.utcnow():
+        raise HTTPException(status_code=410, detail="This share link has expired")
+    
+    # Increment view count
+    share.view_count += 1
+    db.commit()
+    
+    # Get note
+    note = db.query(Note).filter(Note.id == share.note_id).first()
+    if not note:
+        raise HTTPException(status_code=404, detail="Note not found")
+    
+    return {
+        "note": {
+            "id": note.id,
+            "title": note.title,
+            "file_url": note.file_url,
+            "file_type": note.file_type,
+            "thumbnail_url": note.thumbnail_url
+        },
+        "allow_download": share.allow_download,
+        "view_count": share.view_count
+    }
+
+# ============================================================================
+# FILE DOWNLOAD ENDPOINT
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/download")
+async def download_note_file(
+    note_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Stream file download from Cloudinary with correct file type and name."""
+    import httpx
+    
+    # Get note and verify ownership
+    note = db.query(Note).filter(
+        Note.id == note_id,
+        Note.user_id == current_user.id
+    ).first()
+    
+    if not note or not note.file_url:
+        raise HTTPException(status_code=404, detail="Note or file not found")
+    
+    # DEBUG: Log what we're working with
+    print(f"\n{'='*80}")
+    print(f"DOWNLOAD REQUEST - Note ID: {note_id}")
+    print(f"  Title: {note.title}")
+    print(f"  Stored file_type: '{note.file_type}'")
+    print(f"  Cloudinary URL: {note.file_url}")
+    print(f"{'='*80}\n")
+    
+    # Extract public_id from URL and generate authenticated download URL
+    try:
+        print(f"Extracting public_id from URL...")
+        public_id = cloudinary_storage.extract_public_id_from_url(note.file_url)
+        
+        if not public_id:
+            print(f"ERROR: Could not extract public_id from URL")
+            raise HTTPException(
+                status_code=500,
+                detail="Invalid file URL format"
+            )
+        
+        print(f"  Public ID: {public_id}")
+        
+        # Determine resource type based on file extension
+        resource_type = "raw" if note.file_type in ['pdf', 'docx', 'pptx', 'xlsx', 'doc', 'ppt', 'xls'] else "image"
+        print(f"  Resource Type: {resource_type}")
+        
+        # Generate a fresh authenticated URL using Cloudinary SDK
+        import cloudinary.utils
+        
+        # For raw files, we need to use the 'raw' resource type and specify delivery type
+        if resource_type == "raw":
+            # Build URL with authentication - Cloudinary handles signing automatically
+            download_url = cloudinary.utils.cloudinary_url(
+                public_id,
+                resource_type="raw",
+                secure=True,
+                sign_url=True,  # Important: Sign the URL
+                type="upload"
+            )[0]
+        else:
+            # For images/videos, use standard URL
+            download_url = cloudinary.utils.cloudinary_url(
+                public_id,
+                resource_type=resource_type,
+                secure=True,
+                sign_url=True
+            )[0]
+        
+        print(f"  Generated authenticated URL: {download_url[:80]}...")
+        
+        # Fetch file from Cloudinary with the authenticated URL
+        async with httpx.AsyncClient(timeout=60.0) as client:
+            print(f"Fetching file from Cloudinary...")
+            response = await client.get(download_url)
+            
+            if response.status_code != 200:
+                print(f"ERROR: Cloudinary returned status {response.status_code}")
+                print(f"  Response: {response.text[:200]}")
+                raise HTTPException(
+                    status_code=500, 
+                    detail=f"Failed to fetch file from storage (status: {response.status_code})"
+                )
+            
+            # Log what Cloudinary returned
+            cloudinary_content_type = response.headers.get('content-type', 'unknown')
+            print(f"Cloudinary Response:")
+            print(f"  Content-Type: {cloudinary_content_type}")
+            print(f"  Content-Length: {len(response.content)} bytes")
+            
+    except httpx.TimeoutException as e:
+        print(f"ERROR: Timeout fetching file from Cloudinary: {str(e)}")
+        raise HTTPException(
+            status_code=504,
+            detail="Timeout fetching file from cloud storage"
+        )
+    except httpx.HTTPError as e:
+        print(f"ERROR: HTTP error fetching file: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to fetch file: {str(e)}"
+        )
+    except Exception as e:
+        print(f"ERROR: Unexpected error fetching file: {type(e).__name__}: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Unexpected error: {str(e)}"
+        )
+    
+    # Clean filename and ensure it has the correct extension
+    # Use the stored file_type to ensure correct extension
+    filename = note.title.strip()
+    file_ext = note.file_type.lower().strip() if note.file_type else ''
+    
+    # Remove any existing extension from title
+    if '.' in filename:
+        name_parts = filename.rsplit('.', 1)
+        filename = name_parts[0]
+    
+    # Add the correct extension from database
+    if file_ext:
+        filename = f"{filename}.{file_ext}"
+    else:
+        # Fallback: try to get extension from URL
+        print(f"WARNING: No file_type in database, trying to extract from URL")
+        url_parts = note.file_url.split('.')
+        if len(url_parts) > 1:
+            file_ext = url_parts[-1].lower()
+            filename = f"{filename}.{file_ext}"
+    
+    # Comprehensive MIME type mapping based on stored file_type
+    mime_type_map = {
+            'pdf': 'application/pdf',
+            'doc': 'application/msword',
+            'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'ppt': 'application/vnd.ms-powerpoint',
+            'pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+            'xls': 'application/vnd.ms-excel',
+            'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'jpg': 'image/jpeg',
+            'jpeg': 'image/jpeg',
+            'png': 'image/png',
+            'gif': 'image/gif',
+            'webp': 'image/webp',
+            'mp4': 'video/mp4',
+            'mov': 'video/quicktime',
+            'avi': 'video/x-msvideo',
+            'mkv': 'video/x-matroska',
+            'mp3': 'audio/mpeg',
+            'wav': 'audio/wav',
+            'txt': 'text/plain',
+            'csv': 'text/csv',
+            'zip': 'application/zip',
+            'rar': 'application/x-rar-compressed',
+    }
+    
+    # Use the file type from database, not from Cloudinary response
+    media_type = mime_type_map.get(file_ext, 'application/octet-stream')
+    
+    print(f"\nDownload Response:")
+    print(f"  Filename: {filename}")
+    print(f"  Extension: {file_ext}")
+    print(f"  MIME Type: {media_type}")
+    print(f"{'='*80}\n")
+    
+    # Return streaming response with proper headers
+    # CRITICAL: Use the stored file_type to ensure correct download
+    return StreamingResponse(
+        iter([response.content]),
+        media_type=media_type,
+        headers={
+            "Content-Disposition": f'attachment; filename="{filename}"',
+            "Content-Type": media_type,
+            "Content-Length": str(len(response.content)),
+            "Cache-Control": "no-cache"
+        }
+    )
+
+
+# ============================================================================
+# TIMETABLE MANAGEMENT ENDPOINTS
+# ============================================================================
+
+@app.post(f"{settings.API_V1_PREFIX}/timetable/schedules", response_model=SchoolScheduleResponse)
+async def create_school_schedule(
+    schedule: SchoolScheduleCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new school schedule configuration and auto-generate time slots"""
+    
+    # Check if user already has an active schedule
+    existing = db.query(SchoolSchedule).filter(
+        SchoolSchedule.user_id == current_user.id,
+        SchoolSchedule.is_active == True
+    ).first()
+    
+    if existing:
+        raise HTTPException(
+            status_code=400,
+            detail="You already have an active schedule. Deactivate it first or update it."
+        )
+    
+    # Create schedule
+    db_schedule = SchoolSchedule(
+        user_id=current_user.id,
+        **schedule.dict()
+    )
+    db.add(db_schedule)
+    db.commit()
+    db.refresh(db_schedule)
+    
+    # Auto-generate time slots
+    generate_time_slots(db_schedule, db)
+    
+    return db_schedule
+
+
+def generate_time_slots(schedule: SchoolSchedule, db: Session):
+    """Generate time slots based on schedule configuration"""
+    from datetime import datetime, timedelta
+    
+    # Parse times
+    def parse_time(time_str: str) -> datetime:
+        return datetime.strptime(time_str, "%H:%M")
+    
+    current_time = parse_time(schedule.school_start_time)
+    slot_number = 1
+    sequence = 1
+    
+    # Session 1 (Before first break)
+    for i in range(schedule.lessons_before_first_break):
+        duration = schedule.single_lesson_duration if i % 2 == 0 else schedule.double_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    # First Break
+    if schedule.first_break_duration > 0:
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=0,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=schedule.first_break_duration)).strftime("%H:%M"),
+            slot_type="break",
+            label="First Break",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        current_time += timedelta(minutes=schedule.first_break_duration)
+        sequence += 1
+    
+    # Session 2 (Before second break)
+    for i in range(schedule.lessons_before_second_break):
+        duration = schedule.single_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    # Second Break (Tea Break)
+    if schedule.second_break_duration > 0:
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=0,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=schedule.second_break_duration)).strftime("%H:%M"),
+            slot_type="break",
+            label="Second Break",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        current_time += timedelta(minutes=schedule.second_break_duration)
+        sequence += 1
+    
+    # Session 3 (Before lunch)
+    for i in range(schedule.lessons_before_lunch):
+        duration = schedule.single_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    # Lunch Break
+    if schedule.lunch_break_duration > 0:
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=0,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=schedule.lunch_break_duration)).strftime("%H:%M"),
+            slot_type="lunch",
+            label="Lunch Break",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        current_time += timedelta(minutes=schedule.lunch_break_duration)
+        sequence += 1
+    
+    # Session 4 (After lunch)
+    for i in range(schedule.lessons_after_lunch):
+        duration = schedule.single_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    db.commit()
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/schedules", response_model=List[SchoolScheduleResponse])
+async def get_school_schedules(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all school schedules for current user"""
+    schedules = db.query(SchoolSchedule).filter(
+        SchoolSchedule.user_id == current_user.id
+    ).order_by(SchoolSchedule.is_active.desc(), SchoolSchedule.created_at.desc()).all()
+    
+    return schedules
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/schedules/active", response_model=SchoolScheduleResponse)
+async def get_active_schedule(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get the currently active school schedule"""
+    schedule = db.query(SchoolSchedule).filter(
+        SchoolSchedule.user_id == current_user.id,
+        SchoolSchedule.is_active == True
+    ).first()
+    
+    if not schedule:
+        raise HTTPException(status_code=404, detail="No active schedule found. Please create one.")
+    
+    return schedule
+
+
+@app.put(f"{settings.API_V1_PREFIX}/timetable/schedules/{{schedule_id}}", response_model=SchoolScheduleResponse)
+async def update_school_schedule(
+    schedule_id: int,
+    schedule_update: SchoolScheduleUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update a school schedule and regenerate time slots"""
+    schedule = db.query(SchoolSchedule).filter(
+        SchoolSchedule.id == schedule_id,
+        SchoolSchedule.user_id == current_user.id
+    ).first()
+    
+    if not schedule:
+        raise HTTPException(status_code=404, detail="Schedule not found")
+    
+    # Update fields
+    update_data = schedule_update.dict(exclude_unset=True)
+    for key, value in update_data.items():
+        setattr(schedule, key, value)
+    
+    db.commit()
+    db.refresh(schedule)
+    
+    # Regenerate time slots if timing changed
+    if any(key in update_data for key in ['school_start_time', 'single_lesson_duration', 
+                                            'double_lesson_duration', 'lessons_before_first_break',
+                                            'lessons_before_tea_break', 'lessons_before_lunch',
+                                            'lessons_after_lunch', 'first_break_duration',
+                                            'tea_break_duration', 'lunch_break_duration']):
+        # Delete old time slots
+        db.query(TimeSlot).filter(TimeSlot.schedule_id == schedule_id).delete()
+        db.commit()
+        
+        # Generate new ones
+        generate_time_slots(schedule, db)
+    
+    return schedule
+
+
+@app.delete(f"{settings.API_V1_PREFIX}/timetable/schedules/{{schedule_id}}")
+async def delete_school_schedule(
+    schedule_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete a school schedule (soft delete by deactivating)"""
+    schedule = db.query(SchoolSchedule).filter(
+        SchoolSchedule.id == schedule_id,
+        SchoolSchedule.user_id == current_user.id
+    ).first()
+    
+    if not schedule:
+        raise HTTPException(status_code=404, detail="Schedule not found")
+    
+    # Soft delete
+    schedule.is_active = False
+    db.commit()
+    
+    return {"message": "Schedule deactivated successfully"}
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/time-slots", response_model=List[TimeSlotResponse])
+async def get_time_slots(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all time slots for active schedule"""
+    # Get active schedule
+    schedule = db.query(SchoolSchedule).filter(
+        SchoolSchedule.user_id == current_user.id,
+        SchoolSchedule.is_active == True
+    ).first()
+    
+    if not schedule:
+        raise HTTPException(status_code=404, detail="No active schedule found")
+    
+    time_slots = db.query(TimeSlot).filter(
+        TimeSlot.schedule_id == schedule.id
+    ).order_by(TimeSlot.sequence_order).all()
+    
+    return time_slots
+
+
+@app.post(f"{settings.API_V1_PREFIX}/timetable/entries", response_model=TimetableEntryResponse)
+async def create_timetable_entry(
+    entry: TimetableEntryCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new timetable entry (assign subject to time slot on specific day)"""
+    
+    # Get active schedule
+    schedule = db.query(SchoolSchedule).filter(
+        SchoolSchedule.user_id == current_user.id,
+        SchoolSchedule.is_active == True
+    ).first()
+    
+    if not schedule:
+        raise HTTPException(status_code=404, detail="No active schedule. Please create one first.")
+    
+    # Try to find subject in user's subjects, or check if it's a curriculum template
+    subject = db.query(Subject).filter(
+        Subject.id == entry.subject_id,
+        Subject.user_id == current_user.id
+    ).first()
+    
+    # If not found in user's subjects, check if it's a curriculum template
+    if not subject:
+        curriculum_template = db.query(CurriculumTemplate).filter(
+            CurriculumTemplate.id == entry.subject_id,
+            CurriculumTemplate.is_active == True
+        ).first()
+        
+        if not curriculum_template:
+            raise HTTPException(status_code=404, detail="Subject or curriculum template not found")
+        
+        # Check if user already has this subject
+        existing_subject = db.query(Subject).filter(
+            Subject.user_id == current_user.id,
+            Subject.subject_name == curriculum_template.subject,
+            Subject.grade == curriculum_template.grade
+        ).first()
+        
+        if existing_subject:
+            # Use the existing subject
+            subject = existing_subject
+            entry.subject_id = subject.id
+        else:
+            # Create a new subject from the template for this user
+            new_subject = Subject(
+                user_id=current_user.id,
+                template_id=curriculum_template.id,
+                subject_name=curriculum_template.subject,
+                grade=curriculum_template.grade,
+                total_lessons=0,
+                lessons_completed=0,
+                progress_percentage=0.00
+            )
+            db.add(new_subject)
+            db.flush()  # Get the ID without committing
+            subject = new_subject
+            entry.subject_id = subject.id
+    
+    # Verify time slot exists and is a lesson slot
+    time_slot = db.query(TimeSlot).filter(
+        TimeSlot.id == entry.time_slot_id,
+        TimeSlot.schedule_id == schedule.id
+    ).first()
+    
+    if not time_slot:
+        raise HTTPException(status_code=404, detail="Time slot not found")
+    
+    if time_slot.slot_type != "lesson":
+        raise HTTPException(status_code=400, detail="Cannot assign subject to break/lunch slot")
+    
+    # Check for duplicate entry (same user, time slot, and day)
+    existing = db.query(TimetableEntry).filter(
+        TimetableEntry.user_id == current_user.id,
+        TimetableEntry.time_slot_id == entry.time_slot_id,
+        TimetableEntry.day_of_week == entry.day_of_week
+    ).first()
+    
+    if existing:
+        raise HTTPException(
+            status_code=400,
+            detail="This time slot is already occupied on this day"
+        )
+    
+    # Create entry
+    db_entry = TimetableEntry(
+        user_id=current_user.id,
+        schedule_id=schedule.id,
+        **entry.dict()
+    )
+    db.add(db_entry)
+    db.commit()
+    db.refresh(db_entry)
+    
+    return db_entry
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/entries", response_model=List[TimetableEntryResponse])
+async def get_timetable_entries(
+    day_of_week: int = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all timetable entries, optionally filtered by day"""
+    
+    # Get active schedule
+    schedule = db.query(SchoolSchedule).filter(
+        SchoolSchedule.user_id == current_user.id,
+        SchoolSchedule.is_active == True
+    ).first()
+    
+    if not schedule:
+        return []
+    
+    query = db.query(TimetableEntry).filter(
+        TimetableEntry.user_id == current_user.id,
+        TimetableEntry.schedule_id == schedule.id
+    )
+    
+    if day_of_week:
+        query = query.filter(TimetableEntry.day_of_week == day_of_week)
+    
+    entries = query.order_by(TimetableEntry.day_of_week, TimetableEntry.time_slot_id).all()
+    
+    return entries
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/entries/today")
+async def get_today_entries(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get today's timetable with curriculum content"""
+    from datetime import datetime
+    
+    # Get current day (1=Monday, 5=Friday)
+    today = datetime.now().isoweekday()
+    
+    if today > 5:  # Weekend
+        return {
+            "day": today,
+            "day_name": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][today - 1],
+            "is_weekend": True,
+            "entries": []
+        }
+    
+    # Get active schedule
+    schedule = db.query(SchoolSchedule).filter(
+        SchoolSchedule.user_id == current_user.id,
+        SchoolSchedule.is_active == True
+    ).first()
+    
+    if not schedule:
+        raise HTTPException(status_code=404, detail="No active schedule found")
+    
+    # Get today's entries with subject and curriculum info
+    entries = db.query(
+        TimetableEntry,
+        TimeSlot,
+        Subject,
+        Lesson
+    ).join(
+        TimeSlot, TimetableEntry.time_slot_id == TimeSlot.id
+    ).join(
+        Subject, TimetableEntry.subject_id == Subject.id
+    ).outerjoin(
+        Lesson, TimetableEntry.lesson_id == Lesson.id
+    ).filter(
+        TimetableEntry.user_id == current_user.id,
+        TimetableEntry.day_of_week == today
+    ).order_by(TimeSlot.sequence_order).all()
+    
+    result = []
+    for entry, slot, subject, lesson in entries:
+        entry_data = {
+            "id": entry.id,
+            "time_slot": {
+                "id": slot.id,
+                "start_time": slot.start_time,
+                "end_time": slot.end_time,
+                "label": slot.label
+            },
+            "subject": {
+                "id": subject.id,
+                "subject_name": subject.subject_name,
+                "grade": subject.grade
+            },
+            "room_number": entry.room_number,
+            "grade_section": entry.grade_section,
+            "notes": entry.notes,
+            "is_double_lesson": entry.is_double_lesson
+        }
+        
+        # Add curriculum content if linked
+        if lesson:
+            entry_data["lesson"] = {
+                "id": lesson.id,
+                "lesson_title": lesson.lesson_title,
+                "learning_outcomes": lesson.learning_outcomes,
+                "is_completed": lesson.is_completed
+            }
+        
+        result.append(entry_data)
+    
+    day_names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    
+    return {
+        "day": today,
+        "day_name": day_names[today - 1],
+        "is_weekend": False,
+        "entries": result
+    }
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/entries/next")
+async def get_next_lesson(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get the next upcoming lesson"""
+    from datetime import datetime
+    
+    current_time = datetime.now()
+    current_day = current_time.isoweekday()
+    current_time_str = current_time.strftime("%H:%M")
+    
+    if current_day > 5:  # Weekend
+        return {
+            "has_next_lesson": False,
+            "message": "No lessons on weekends"
+        }
+    
+    # Get active schedule
+    schedule = db.query(SchoolSchedule).filter(
+        SchoolSchedule.user_id == current_user.id,
+        SchoolSchedule.is_active == True
+    ).first()
+    
+    if not schedule:
+        return {
+            "has_next_lesson": False,
+            "message": "No active schedule"
+        }
+    
+    # Find next lesson today or on following days
+    for day_offset in range(6):  # Check today + next 5 days
+        check_day = current_day + day_offset
+        if check_day > 5:
+            check_day = check_day - 5  # Wrap to next week
+        
+        if check_day > 5:  # Skip weekends
+            continue
+        
+        # Get entries for this day
+        entries = db.query(
+            TimetableEntry,
+            TimeSlot,
+            Subject,
+            Lesson
+        ).join(
+            TimeSlot, TimetableEntry.time_slot_id == TimeSlot.id
+        ).join(
+            Subject, TimetableEntry.subject_id == Subject.id
+        ).outerjoin(
+            Lesson, TimetableEntry.lesson_id == Lesson.id
+        ).filter(
+            TimetableEntry.user_id == current_user.id,
+            TimetableEntry.day_of_week == check_day,
+            TimeSlot.slot_type == "lesson"
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        for entry, slot, subject, lesson in entries:
+            # If checking today, only consider future time slots
+            if day_offset == 0 and slot.start_time <= current_time_str:
+                continue
+            
+            # Found next lesson!
+            result = {
+                "has_next_lesson": True,
+                "is_today": day_offset == 0,
+                "day_of_week": check_day,
+                "day_name": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"][check_day - 1],
+                "entry": {
+                    "id": entry.id,
+                    "time_slot": {
+                        "id": slot.id,
+                        "start_time": slot.start_time,
+                        "end_time": slot.end_time,
+                        "label": slot.label
+                    },
+                    "subject": {
+                        "id": subject.id,
+                        "subject_name": subject.subject_name,
+                        "grade": subject.grade
+                    },
+                    "room_number": entry.room_number,
+                    "grade_section": entry.grade_section,
+                    "is_double_lesson": entry.is_double_lesson
+                }
+            }
+            
+            if lesson:
+                result["entry"]["lesson"] = {
+                    "id": lesson.id,
+                    "lesson_title": lesson.lesson_title,
+                    "learning_outcomes": lesson.learning_outcomes,
+                    "is_completed": lesson.is_completed
+                }
+            
+            return result
+    
+    return {
+        "has_next_lesson": False,
+        "message": "No upcoming lessons in the next week"
+    }
+
+
+@app.put(f"{settings.API_V1_PREFIX}/timetable/entries/{{entry_id}}", response_model=TimetableEntryResponse)
+async def update_timetable_entry(
+    entry_id: int,
+    entry_update: TimetableEntryUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update a timetable entry"""
+    entry = db.query(TimetableEntry).filter(
+        TimetableEntry.id == entry_id,
+        TimetableEntry.user_id == current_user.id
+    ).first()
+    
+    if not entry:
+        raise HTTPException(status_code=404, detail="Timetable entry not found")
+    
+    # Update fields
+    update_data = entry_update.dict(exclude_unset=True)
+    
+    # Validate subject if being updated
+    if "subject_id" in update_data:
+        subject = db.query(Subject).filter(
+            Subject.id == update_data["subject_id"],
+            Subject.user_id == current_user.id
+        ).first()
+        
+        if not subject:
+            raise HTTPException(status_code=404, detail="Subject not found")
+    
+    for key, value in update_data.items():
+        setattr(entry, key, value)
+    
+    db.commit()
+    db.refresh(entry)
+    
+    return entry
+
+
+@app.delete(f"{settings.API_V1_PREFIX}/timetable/entries/{{entry_id}}")
+async def delete_timetable_entry(
+    entry_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete a timetable entry"""
+    entry = db.query(TimetableEntry).filter(
+        TimetableEntry.id == entry_id,
+        TimetableEntry.user_id == current_user.id
+    ).first()
+    
+    if not entry:
+        raise HTTPException(status_code=404, detail="Timetable entry not found")
+    
+    db.delete(entry)
+    db.commit()
+    
+    return {"message": "Timetable entry deleted successfully"}
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/dashboard")
+async def get_timetable_dashboard(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get comprehensive timetable dashboard data (today's lessons + next lesson)"""
+    
+    # Get today's schedule
+    today_data = await get_today_entries(current_user, db)
+    
+    # Get next lesson
+    next_lesson = await get_next_lesson(current_user, db)
+    
+    return {
+        "today": today_data,
+        "next_lesson": next_lesson
+    }
 
 
 if __name__ == "__main__":

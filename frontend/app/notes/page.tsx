@@ -9,27 +9,59 @@ import {
   FiTrash2,
   FiBook,
   FiCalendar,
+  FiFile,
+  FiDownload,
+  FiStar,
+  FiPlay,
 } from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
+import FileUpload from "@/components/FileUpload";
+import NoteViewer from "@/components/NoteViewer";
 
 interface Note {
   id: number;
   title: string;
-  content: string;
-  subject_name?: string;
+  description?: string;
+  file_url: string;
+  file_type: string;
+  file_size_bytes: number;
+  thumbnail_url?: string;
+  subject_id?: number;
+  tags?: string;
+  is_favorite: boolean;
+  view_count: number;
   created_at: string;
   updated_at: string;
+}
+
+interface Subject {
+  id: number;
+  subject_name: string;
+  grade: string;
 }
 
 export default function NotesPage() {
   const router = useRouter();
   const [notes, setNotes] = useState<Note[]>([]);
+  const [subjects, setSubjects] = useState<Subject[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [selectedSubject, setSelectedSubject] = useState<number | null>(null);
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showViewer, setShowViewer] = useState(false);
+  const [viewerNoteIndex, setViewerNoteIndex] = useState(0);
+
+  // Cascading dropdown states
+  const [educationLevels, setEducationLevels] = useState<string[]>([]);
+  const [grades, setGrades] = useState<string[]>([]);
+  const [availableSubjects, setAvailableSubjects] = useState<string[]>([]);
+  const [selectedEducationLevel, setSelectedEducationLevel] =
+    useState<string>("");
+  const [selectedGrade, setSelectedGrade] = useState<string>("");
+  const [selectedSubjectName, setSelectedSubjectName] = useState<string>("");
 
   useEffect(() => {
     // Check authentication
@@ -40,34 +72,240 @@ export default function NotesPage() {
       return;
     }
     setIsAuthenticated(true);
-    fetchNotes();
+    fetchData();
   }, [router]);
 
-  const fetchNotes = async () => {
+  const fetchData = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
-      const response = await axios.get(`/api/v1/notes`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setNotes(response.data);
-    } catch (error) {
-      console.error("Failed to fetch notes:", error);
-      if (axios.isAxiosError(error) && error.response?.status === 401) {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("user");
+      setLoading(true);
+
+      // Get token from localStorage
+      let token = localStorage.getItem("accessToken");
+
+      // Check if token exists
+      if (!token) {
+        console.error("No access token found");
+        toast.error("Please login to continue");
         router.push("/login");
+        return;
       }
+
+      // First, try to make the request
+      try {
+        const [notesResponse, subjectsResponse, educationLevelsResponse] =
+          await Promise.all([
+            axios.get(`/api/v1/notes`, {
+              headers: { Authorization: `Bearer ${token}` },
+            }),
+            axios.get(`/api/v1/subjects`, {
+              headers: { Authorization: `Bearer ${token}` },
+            }),
+            axios.get("/api/v1/education-levels", {
+              headers: { Authorization: `Bearer ${token}` },
+            }),
+          ]);
+
+        setNotes(notesResponse.data);
+        setSubjects(subjectsResponse.data);
+        setEducationLevels(educationLevelsResponse.data.education_levels || []);
+      } catch (error: any) {
+        // If 401, try to refresh token
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+          console.log("Token expired, attempting refresh...");
+
+          // Try to refresh the token
+          const refreshToken = localStorage.getItem("refreshToken");
+          if (refreshToken) {
+            try {
+              const refreshResponse = await axios.post(
+                "/api/v1/token/refresh",
+                {
+                  refresh_token: refreshToken,
+                }
+              );
+
+              // Save new token
+              const newToken = refreshResponse.data.access_token;
+              localStorage.setItem("accessToken", newToken);
+
+              console.log("Token refreshed successfully, retrying requests...");
+
+              // Retry the requests with new token
+              const [notesResponse, subjectsResponse, educationLevelsResponse] =
+                await Promise.all([
+                  axios.get(`/api/v1/notes`, {
+                    headers: { Authorization: `Bearer ${newToken}` },
+                  }),
+                  axios.get(`/api/v1/subjects`, {
+                    headers: { Authorization: `Bearer ${newToken}` },
+                  }),
+                  axios.get("/api/v1/education-levels", {
+                    headers: { Authorization: `Bearer ${newToken}` },
+                  }),
+                ]);
+
+              setNotes(notesResponse.data);
+              setSubjects(subjectsResponse.data);
+              setEducationLevels(
+                educationLevelsResponse.data.education_levels || []
+              );
+
+              toast.success("Session refreshed");
+            } catch (refreshError) {
+              console.error("Token refresh failed:", refreshError);
+              localStorage.removeItem("accessToken");
+              localStorage.removeItem("refreshToken");
+              localStorage.removeItem("user");
+              toast.error("Session expired. Please login again");
+              router.push("/login");
+            }
+          } else {
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("user");
+            toast.error("Session expired. Please login again");
+            router.push("/login");
+          }
+        } else {
+          throw error;
+        }
+      }
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+      toast.error("Failed to load notes. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
+  // Fetch grades when education level changes
+  const fetchGrades = async (educationLevel: string) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get(
+        `/api/v1/grades?education_level=${educationLevel}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setGrades(response.data.grades || []);
+      setSelectedGrade(""); // Reset grade selection
+      setAvailableSubjects([]); // Reset subjects
+      setSelectedSubjectName(""); // Reset subject selection
+    } catch (error) {
+      console.error("Failed to fetch grades:", error);
+      toast.error("Failed to load grades");
+    }
+  };
+
+  // Fetch subjects when grade changes
+  const fetchSubjectsByGrade = async (
+    grade: string,
+    educationLevel: string
+  ) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get(
+        `/api/v1/subjects-by-grade?grade=${grade}&education_level=${educationLevel}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setAvailableSubjects(response.data.subjects || []);
+      setSelectedSubjectName(""); // Reset subject selection
+    } catch (error) {
+      console.error("Failed to fetch subjects:", error);
+      toast.error("Failed to load subjects");
+    }
+  };
+
+  // Handle education level change
+  const handleEducationLevelChange = (level: string) => {
+    setSelectedEducationLevel(level);
+    if (level) {
+      fetchGrades(level);
+    } else {
+      setGrades([]);
+      setAvailableSubjects([]);
+      setSelectedGrade("");
+      setSelectedSubjectName("");
+    }
+  };
+
+  // Handle grade change
+  const handleGradeChange = (grade: string) => {
+    setSelectedGrade(grade);
+    if (grade && selectedEducationLevel) {
+      fetchSubjectsByGrade(grade, selectedEducationLevel);
+    } else {
+      setAvailableSubjects([]);
+      setSelectedSubjectName("");
+    }
+  };
+
+  const handleDeleteNote = async (noteId: number) => {
+    if (!confirm("Are you sure you want to delete this note?")) return;
+
+    try {
+      const token = localStorage.getItem("accessToken");
+      await axios.delete(`/api/v1/notes/${noteId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      toast.success("Note deleted successfully");
+      fetchData(); // Refresh notes list
+    } catch (error) {
+      console.error("Failed to delete note:", error);
+      toast.error("Failed to delete note");
+    }
+  };
+
+  const handleToggleFavorite = async (noteId: number) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      await axios.patch(
+        `/api/v1/notes/${noteId}/favorite`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      // Update local state
+      setNotes(
+        notes.map((note) =>
+          note.id === noteId
+            ? { ...note, is_favorite: !note.is_favorite }
+            : note
+        )
+      );
+
+      toast.success("Updated favorite status");
+    } catch (error) {
+      console.error("Failed to toggle favorite:", error);
+      toast.error("Failed to update favorite");
+    }
+  };
+
+  const formatFileSize = (bytes: number): string => {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + " " + sizes[i];
+  };
+
+  const getFileIcon = (fileType: string) => {
+    const type = fileType.toLowerCase();
+    if (["jpg", "jpeg", "png", "gif", "bmp", "svg"].includes(type)) return "🖼️";
+    if (["pdf"].includes(type)) return "📄";
+    if (["docx", "doc"].includes(type)) return "📝";
+    if (["pptx", "ppt"].includes(type)) return "📊";
+    if (["mp4", "mov", "avi", "mkv", "webm"].includes(type)) return "🎥";
+    return "📎";
+  };
+
   const filteredNotes = notes.filter(
     (note) =>
       note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      note.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (note.subject_name &&
-        note.subject_name.toLowerCase().includes(searchTerm.toLowerCase()))
+      (note.description &&
+        note.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (note.tags && note.tags.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   if (!isAuthenticated) {
@@ -117,11 +355,11 @@ export default function NotesPage() {
             />
           </div>
           <button
-            onClick={() => setShowCreateModal(true)}
+            onClick={() => setShowUploadModal(true)}
             className="inline-flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
           >
             <FiPlus className="w-5 h-5" />
-            <span>New Note</span>
+            <span>Upload Note</span>
           </button>
         </div>
 
@@ -139,21 +377,20 @@ export default function NotesPage() {
             </p>
             {!searchTerm && (
               <button
-                onClick={() => setShowCreateModal(true)}
+                onClick={() => setShowUploadModal(true)}
                 className="inline-flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
               >
                 <FiPlus className="w-5 h-5" />
-                <span>Create Your First Note</span>
+                <span>Upload Your First Note</span>
               </button>
             )}
           </div>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {filteredNotes.map((note) => (
+            {filteredNotes.map((note, index) => (
               <div
                 key={note.id}
-                className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 cursor-pointer"
-                onClick={() => setSelectedNote(note)}
+                className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6"
               >
                 <div className="flex justify-between items-start mb-3">
                   <h3 className="text-lg font-semibold text-gray-900 line-clamp-2">
@@ -161,36 +398,79 @@ export default function NotesPage() {
                   </h3>
                   <div className="flex space-x-1 ml-2">
                     <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedNote(note);
-                        setShowCreateModal(true);
+                      onClick={() => {
+                        setViewerNoteIndex(index);
+                        setShowViewer(true);
                       }}
                       className="p-1 text-gray-400 hover:text-indigo-600 transition-colors"
+                      title="Present"
                     >
-                      <FiEdit3 className="w-4 h-4" />
+                      <FiPlay className="w-4 h-4" />
                     </button>
+                    <a
+                      href={note.file_url}
+                      download
+                      onClick={(e) => e.stopPropagation()}
+                      className="p-1 text-gray-400 hover:text-green-600 transition-colors"
+                      title="Download"
+                    >
+                      <FiDownload className="w-4 h-4" />
+                    </a>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        // Handle delete
-                        if (
-                          confirm("Are you sure you want to delete this note?")
-                        ) {
-                          // TODO: Implement delete functionality
-                          toast.success("Note deleted");
-                        }
+                        handleDeleteNote(note.id);
                       }}
                       className="p-1 text-gray-400 hover:text-red-600 transition-colors"
+                      title="Delete"
                     >
                       <FiTrash2 className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
 
-                <p className="text-gray-600 text-sm mb-3 line-clamp-3">
-                  {note.content}
-                </p>
+                {/* Thumbnail or file icon */}
+                {note.thumbnail_url ? (
+                  <img
+                    src={note.thumbnail_url}
+                    alt={note.title}
+                    className="w-full h-32 object-cover rounded mb-3"
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-32 bg-gray-100 rounded mb-3">
+                    <span className="text-4xl">
+                      {getFileIcon(note.file_type)}
+                    </span>
+                  </div>
+                )}
+
+                {note.description && (
+                  <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                    {note.description}
+                  </p>
+                )}
+
+                <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
+                  <span className="flex items-center space-x-1">
+                    <FiFile className="w-3 h-3" />
+                    <span>{note.file_type.toUpperCase()}</span>
+                    <span>•</span>
+                    <span>{formatFileSize(note.file_size_bytes)}</span>
+                  </span>
+                  <span className="flex items-center space-x-2">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleToggleFavorite(note.id);
+                      }}
+                      className={`${
+                        note.is_favorite ? "text-yellow-500" : "text-gray-400"
+                      }`}
+                    >
+                      <FiStar className="w-4 h-4" />
+                    </button>
+                  </span>
+                </div>
 
                 <div className="flex items-center justify-between text-xs text-gray-500">
                   <div className="flex items-center space-x-2">
@@ -199,11 +479,7 @@ export default function NotesPage() {
                       {new Date(note.created_at).toLocaleDateString()}
                     </span>
                   </div>
-                  {note.subject_name && (
-                    <span className="bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">
-                      {note.subject_name}
-                    </span>
-                  )}
+                  <span>{note.view_count} views</span>
                 </div>
               </div>
             ))}
@@ -212,7 +488,7 @@ export default function NotesPage() {
       </div>
 
       {/* Note Detail Modal */}
-      {selectedNote && !showCreateModal && (
+      {selectedNote && !showUploadModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-200 flex justify-between items-center">
@@ -220,13 +496,22 @@ export default function NotesPage() {
                 {selectedNote.title}
               </h2>
               <div className="flex space-x-2">
-                <button
-                  onClick={() => {
-                    setShowCreateModal(true);
-                  }}
-                  className="p-2 text-gray-400 hover:text-indigo-600 transition-colors"
+                <a
+                  href={selectedNote.file_url}
+                  download
+                  className="p-2 text-gray-400 hover:text-green-600 transition-colors"
                 >
-                  <FiEdit3 className="w-5 h-5" />
+                  <FiDownload className="w-5 h-5" />
+                </a>
+                <button
+                  onClick={() => handleToggleFavorite(selectedNote.id)}
+                  className={`p-2 ${
+                    selectedNote.is_favorite
+                      ? "text-yellow-500"
+                      : "text-gray-400"
+                  } hover:text-yellow-600 transition-colors`}
+                >
+                  <FiStar className="w-5 h-5" />
                 </button>
                 <button
                   onClick={() => setSelectedNote(null)}
@@ -237,64 +522,199 @@ export default function NotesPage() {
               </div>
             </div>
             <div className="p-6">
-              <div className="whitespace-pre-wrap text-gray-700">
-                {selectedNote.content}
+              {/* File preview */}
+              <div className="mb-4">
+                {selectedNote.thumbnail_url ? (
+                  <img
+                    src={selectedNote.thumbnail_url}
+                    alt={selectedNote.title}
+                    className="max-w-full h-auto rounded"
+                  />
+                ) : selectedNote.file_type.match(
+                    /^(jpg|jpeg|png|gif|bmp|svg)$/i
+                  ) ? (
+                  <img
+                    src={selectedNote.file_url}
+                    alt={selectedNote.title}
+                    className="max-w-full h-auto rounded"
+                  />
+                ) : selectedNote.file_type === "pdf" ? (
+                  <iframe
+                    src={selectedNote.file_url}
+                    className="w-full h-96 border rounded"
+                  />
+                ) : (
+                  <div className="flex flex-col items-center justify-center h-48 bg-gray-100 rounded">
+                    <span className="text-6xl mb-4">
+                      {getFileIcon(selectedNote.file_type)}
+                    </span>
+                    <span className="text-gray-600">
+                      {selectedNote.file_type.toUpperCase()} File
+                    </span>
+                    <span className="text-sm text-gray-500 mt-2">
+                      {formatFileSize(selectedNote.file_size_bytes)}
+                    </span>
+                  </div>
+                )}
               </div>
+
+              {selectedNote.description && (
+                <div className="mb-4">
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    Description
+                  </h3>
+                  <p className="text-gray-700 whitespace-pre-wrap">
+                    {selectedNote.description}
+                  </p>
+                </div>
+              )}
+
+              {selectedNote.tags && (
+                <div className="mb-4">
+                  <h3 className="font-semibold text-gray-900 mb-2">Tags</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedNote.tags.split(",").map((tag, idx) => (
+                      <span
+                        key={idx}
+                        className="bg-gray-200 text-gray-700 px-2 py-1 rounded text-sm"
+                      >
+                        {tag.trim()}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div className="mt-6 pt-4 border-t border-gray-200 flex justify-between text-sm text-gray-500">
                 <span>
                   Created:{" "}
                   {new Date(selectedNote.created_at).toLocaleDateString()}
                 </span>
-                <span>
-                  Updated:{" "}
-                  {new Date(selectedNote.updated_at).toLocaleDateString()}
-                </span>
+                <span>Views: {selectedNote.view_count}</span>
               </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Create/Edit Modal */}
-      {showCreateModal && (
+      {/* Upload Modal */}
+      {showUploadModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-2xl w-full">
-            <div className="p-6 border-b border-gray-200">
+          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-200 flex justify-between items-center">
               <h2 className="text-xl font-semibold text-gray-900">
-                {selectedNote ? "Edit Note" : "Create New Note"}
+                Upload New Note
               </h2>
+              <button
+                onClick={() => {
+                  setShowUploadModal(false);
+                  setSelectedSubject(null);
+                }}
+                className="text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                ✕
+              </button>
             </div>
             <div className="p-6">
-              <p className="text-gray-600 mb-4">
-                Note creation and editing functionality will be implemented with
-                the backend API integration.
-              </p>
-              <div className="flex justify-end space-x-3">
-                <button
-                  onClick={() => {
-                    setShowCreateModal(false);
-                    setSelectedNote(null);
-                  }}
-                  className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={() => {
-                    toast.success(
-                      selectedNote ? "Note updated!" : "Note created!"
-                    );
-                    setShowCreateModal(false);
-                    setSelectedNote(null);
-                  }}
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
-                >
-                  {selectedNote ? "Update" : "Create"}
-                </button>
+              {/* Cascading Dropdowns */}
+              <div className="mb-6 space-y-4">
+                {/* Education Level */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Education Level (Optional)
+                  </label>
+                  <select
+                    value={selectedEducationLevel}
+                    onChange={(e) => handleEducationLevelChange(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  >
+                    <option value="">-- Select Education Level --</option>
+                    {educationLevels.map((level) => (
+                      <option key={level} value={level}>
+                        {level}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Grade */}
+                {selectedEducationLevel && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Grade
+                    </label>
+                    <select
+                      value={selectedGrade}
+                      onChange={(e) => handleGradeChange(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      disabled={!selectedEducationLevel}
+                    >
+                      <option value="">-- Select Grade --</option>
+                      {grades.map((grade) => (
+                        <option key={grade} value={grade}>
+                          {grade}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+
+                {/* Subject */}
+                {selectedGrade && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Subject
+                    </label>
+                    <select
+                      value={selectedSubjectName}
+                      onChange={(e) => setSelectedSubjectName(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      disabled={!selectedGrade}
+                    >
+                      <option value="">-- Select Subject --</option>
+                      {availableSubjects.map((subject) => (
+                        <option key={subject} value={subject}>
+                          {subject}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
               </div>
+
+              {/* File Upload Component */}
+              <FileUpload
+                subjectId={selectedSubject}
+                onSuccess={() => {
+                  toast.success("File uploaded successfully!");
+                  setShowUploadModal(false);
+                  setSelectedSubject(null);
+                  setSelectedEducationLevel("");
+                  setSelectedGrade("");
+                  setSelectedSubjectName("");
+                  fetchData(); // Refresh the notes list
+                }}
+                onClose={() => {
+                  setShowUploadModal(false);
+                  setSelectedSubject(null);
+                  setSelectedEducationLevel("");
+                  setSelectedGrade("");
+                  setSelectedSubjectName("");
+                }}
+              />
             </div>
           </div>
         </div>
+      )}
+
+      {/* Note Viewer/Presentation Mode */}
+      {showViewer && filteredNotes.length > 0 && (
+        <NoteViewer
+          note={filteredNotes[viewerNoteIndex]}
+          notes={filteredNotes}
+          currentIndex={viewerNoteIndex}
+          onClose={() => setShowViewer(false)}
+        />
       )}
     </div>
   );

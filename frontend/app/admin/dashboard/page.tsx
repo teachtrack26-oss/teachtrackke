@@ -118,6 +118,17 @@ export default function AdminDashboard() {
           </button>
 
           <button
+            onClick={() => router.push("/admin/curriculum")}
+            className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow"
+          >
+            <FiBook className="w-8 h-8 text-purple-600 mb-2" />
+            <h3 className="font-semibold text-gray-900">
+              Curriculum Management
+            </h3>
+            <p className="text-sm text-gray-600 mt-1">Manage learning areas</p>
+          </button>
+
+          <button
             onClick={() => router.push("/admin/analytics")}
             className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow"
           >

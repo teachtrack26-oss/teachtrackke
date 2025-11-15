@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     
     # API
     API_V1_PREFIX: str = "/api/v1"
+    FRONTEND_URL: str = "http://192.168.0.102:3000"
     
     # CORS
     CORS_ORIGINS: list = [
@@ -28,6 +29,25 @@ class Settings(BaseSettings):
     # OpenRouter AI (for intelligent document parsing)
     OPENROUTER_API_KEY: str = ""  # Get free API key from https://openrouter.ai/keys
     OPENROUTER_MODEL: str = "google/gemini-2.0-flash-exp:free"  # Free vision model
+    
+    # Cloudinary Storage
+    # You can set either the three fields below OR a single CLOUDINARY_URL.
+    CLOUDINARY_URL: str = ""
+    CLOUDINARY_CLOUD_NAME: str = ""
+    CLOUDINARY_API_KEY: str = ""
+    CLOUDINARY_API_SECRET: str = ""
+    
+    # File Upload
+    MAX_FILE_SIZE_MB: int = 50
+    ALLOWED_FILE_TYPES: str = "pdf,docx,doc,pptx,ppt,xlsx,xls,txt,jpg,jpeg,png,gif,bmp,svg,mp4,mov,avi,mkv,webm"
+    
+    @property
+    def MAX_FILE_SIZE_BYTES(self) -> int:
+        return self.MAX_FILE_SIZE_MB * 1024 * 1024
+    
+    @property
+    def ALLOWED_FILE_TYPES_LIST(self) -> list:
+        return [ext.strip() for ext in self.ALLOWED_FILE_TYPES.split(",")]
     
     @property
     def DATABASE_URL(self) -> str:

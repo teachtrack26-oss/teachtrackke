@@ -221,7 +221,7 @@ class Note(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-    subject_id = Column(Integer, ForeignKey("subjects.id", ondelete="CASCADE"), nullable=False)
+    subject_id = Column(Integer, ForeignKey("subjects.id", ondelete="SET NULL"), nullable=True)
     strand_id = Column(Integer, ForeignKey("strands.id", ondelete="SET NULL"))
     substrand_id = Column(Integer, ForeignKey("sub_strands.id", ondelete="SET NULL"))
     lesson_id = Column(Integer, ForeignKey("lessons.id", ondelete="SET NULL"))
@@ -244,3 +244,168 @@ class Note(Base):
     strand = relationship("Strand", back_populates="notes")
     substrand = relationship("SubStrand", back_populates="notes")
     lesson = relationship("Lesson", back_populates="notes")
+    annotations = relationship("NoteAnnotation", back_populates="note", cascade="all, delete-orphan")
+    speaker_notes = relationship("SpeakerNote", back_populates="note", cascade="all, delete-orphan")
+    presentation_sessions = relationship("PresentationSession", back_populates="note", cascade="all, delete-orphan")
+    shared_presentations = relationship("SharedPresentation", back_populates="note", cascade="all, delete-orphan")
+
+# ============================================================================
+# PRESENTATION FEATURE MODELS
+# ============================================================================
+
+class NoteAnnotation(Base):
+    __tablename__ = "note_annotations"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    note_id = Column(Integer, ForeignKey("notes.id", ondelete="CASCADE"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    page_number = Column(Integer, default=1)
+    drawing_data = Column(JSON, nullable=False)  # Stores array of drawing paths
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    note = relationship("Note", back_populates="annotations")
+    user = relationship("User")
+
+class PresentationSession(Base):
+    __tablename__ = "presentation_sessions"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    note_id = Column(Integer, ForeignKey("notes.id", ondelete="CASCADE"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    duration_seconds = Column(Integer, default=0)
+    started_at = Column(TIMESTAMP, server_default=func.now())
+    ended_at = Column(TIMESTAMP, nullable=True)
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    
+    # Relationships
+    note = relationship("Note", back_populates="presentation_sessions")
+    user = relationship("User")
+
+class SpeakerNote(Base):
+    __tablename__ = "speaker_notes"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    note_id = Column(Integer, ForeignKey("notes.id", ondelete="CASCADE"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    page_number = Column(Integer, default=1)
+    notes = Column(Text)
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    note = relationship("Note", back_populates="speaker_notes")
+    user = relationship("User")
+
+class SharedPresentation(Base):
+    __tablename__ = "shared_presentations"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    note_id = Column(Integer, ForeignKey("notes.id", ondelete="CASCADE"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    share_token = Column(String(64), unique=True, nullable=False, index=True)
+    expires_at = Column(TIMESTAMP, nullable=True)
+    is_active = Column(Boolean, default=True)
+    view_count = Column(Integer, default=0)
+    allow_download = Column(Boolean, default=False)
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    note = relationship("Note", back_populates="shared_presentations")
+    user = relationship("User")
+
+# ============================================================================
+# TIMETABLE MODELS
+# ============================================================================
+
+class SchoolSchedule(Base):
+    """Stores school-wide schedule settings (start time, lesson duration, breaks)"""
+    __tablename__ = "school_schedules"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    schedule_name = Column(String(100), nullable=False)  # e.g., "Default Schedule", "Monday-Thursday"
+    
+    # Timing configuration
+    school_start_time = Column(String(10), nullable=False)  # e.g., "08:00", "07:50", "08:10", "08:20"
+    single_lesson_duration = Column(Integer, nullable=False, default=40)  # in minutes (30, 35, 40)
+    double_lesson_duration = Column(Integer, nullable=False, default=80)  # typically 2x single lesson
+    
+    # Break configuration (all in minutes)
+    first_break_duration = Column(Integer, default=10)  # After first 2 lessons (10-15 min)
+    second_break_duration = Column(Integer, default=30)  # Tea/snack break (20-40 min)
+    lunch_break_duration = Column(Integer, default=60)  # Lunch break (40-120 min)
+    
+    # Session configuration
+    lessons_before_first_break = Column(Integer, default=2)  # Usually 2
+    lessons_before_second_break = Column(Integer, default=2)  # Usually 2
+    lessons_before_lunch = Column(Integer, default=2)  # Usually 2
+    lessons_after_lunch = Column(Integer, default=2)  # Usually 2-3
+    
+    school_end_time = Column(String(10), nullable=False, default="16:00")  # e.g., "16:00" or "17:00"
+    is_active = Column(Boolean, default=True)
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    user = relationship("User")
+    time_slots = relationship("TimeSlot", back_populates="schedule", cascade="all, delete-orphan")
+    timetable_entries = relationship("TimetableEntry", back_populates="schedule", cascade="all, delete-orphan")
+
+
+class TimeSlot(Base):
+    """Represents automatically calculated time slots based on schedule"""
+    __tablename__ = "time_slots"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    schedule_id = Column(Integer, ForeignKey("school_schedules.id", ondelete="CASCADE"), nullable=False)
+    slot_number = Column(Integer, nullable=False)  # 1, 2, 3, 4, etc.
+    start_time = Column(String(10), nullable=False)  # e.g., "08:00"
+    end_time = Column(String(10), nullable=False)  # e.g., "08:40"
+    slot_type = Column(String(20), nullable=False, default="lesson")  # lesson, break, lunch
+    label = Column(String(100))  # e.g., "Period 1", "Break", "Lunch"
+    sequence_order = Column(Integer, nullable=False)
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    
+    # Relationships
+    schedule = relationship("SchoolSchedule", back_populates="time_slots")
+    timetable_entries = relationship("TimetableEntry", back_populates="time_slot", cascade="all, delete-orphan")
+
+
+class TimetableEntry(Base):
+    """Teacher's actual timetable - which subject/lesson at which time on which day"""
+    __tablename__ = "timetable_entries"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    schedule_id = Column(Integer, ForeignKey("school_schedules.id", ondelete="CASCADE"), nullable=False)
+    time_slot_id = Column(Integer, ForeignKey("time_slots.id", ondelete="CASCADE"), nullable=False)
+    
+    # Subject and class information
+    subject_id = Column(Integer, ForeignKey("subjects.id", ondelete="CASCADE"), nullable=False)
+    day_of_week = Column(Integer, nullable=False)  # 1=Monday, 2=Tuesday, ..., 5=Friday
+    
+    # Optional: Link to specific lesson/strand/substrand if tracking curriculum progress
+    strand_id = Column(Integer, ForeignKey("strands.id", ondelete="SET NULL"), nullable=True)
+    substrand_id = Column(Integer, ForeignKey("sub_strands.id", ondelete="SET NULL"), nullable=True)
+    lesson_id = Column(Integer, ForeignKey("lessons.id", ondelete="SET NULL"), nullable=True)
+    
+    # Additional info
+    room_number = Column(String(50))  # Optional: classroom/lab
+    grade_section = Column(String(50))  # e.g., "Grade 9A", "Grade 9B"
+    notes = Column(Text)  # Teacher notes for this period
+    
+    is_double_lesson = Column(Boolean, default=False)  # If this is a double lesson
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    user = relationship("User")
+    schedule = relationship("SchoolSchedule", back_populates="timetable_entries")
+    time_slot = relationship("TimeSlot", back_populates="timetable_entries")
+    subject = relationship("Subject")
+    strand = relationship("Strand")
+    substrand = relationship("SubStrand")
+    lesson = relationship("Lesson")

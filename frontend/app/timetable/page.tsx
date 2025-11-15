@@ -1,546 +1,775 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import {
-  FiCalendar,
   FiClock,
   FiBook,
-  FiUser,
-  FiMapPin,
   FiPlus,
-  FiEdit,
   FiTrash2,
-  FiFilter,
-  FiSearch,
-  FiChevronLeft,
-  FiChevronRight,
-  FiMoreVertical,
+  FiSettings,
+  FiInfo,
+  FiEdit,
 } from "react-icons/fi";
 
-interface TimetableEntry {
-  id: string;
-  subject: string;
-  teacher: string;
-  classroom: string;
-  day: string;
-  startTime: string;
-  endTime: string;
-  color: string;
-  type: "lecture" | "practical" | "tutorial" | "exam";
-}
-
-const DAYS = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-const TIME_SLOTS = [
-  "08:00",
-  "09:00",
-  "10:00",
-  "11:00",
-  "12:00",
-  "13:00",
-  "14:00",
-  "15:00",
-  "16:00",
-  "17:00",
-  "18:00",
-];
-
-const COLORS = [
-  "bg-blue-100 border-blue-500 text-blue-800",
-  "bg-green-100 border-green-500 text-green-800",
-  "bg-purple-100 border-purple-500 text-purple-800",
-  "bg-orange-100 border-orange-500 text-orange-800",
-  "bg-red-100 border-red-500 text-red-800",
-  "bg-indigo-100 border-indigo-500 text-indigo-800",
-];
+const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
 const TimetablePage = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const [currentWeek, setCurrentWeek] = useState(0);
-  const [viewMode, setViewMode] = useState<"week" | "day">("week");
-  const [selectedDay, setSelectedDay] = useState("Monday");
+  const [schedule, setSchedule] = useState<any>(null);
+  const [timeSlots, setTimeSlots] = useState<any[]>([]);
+  const [entries, setEntries] = useState<any[]>([]);
+  const [subjects, setSubjects] = useState<any[]>([]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [editingEntry, setEditingEntry] = useState<TimetableEntry | null>(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filterType, setFilterType] = useState<string>("all");
-  const [timetableEntries, setTimetableEntries] = useState<TimetableEntry[]>([
-    {
-      id: "1",
-      subject: "Mathematics",
-      teacher: "Dr. Smith",
-      classroom: "Room 101",
-      day: "Monday",
-      startTime: "09:00",
-      endTime: "10:30",
-      color: COLORS[0],
-      type: "lecture",
-    },
-    {
-      id: "2",
-      subject: "Physics",
-      teacher: "Prof. Johnson",
-      classroom: "Lab 1",
-      day: "Tuesday",
-      startTime: "11:00",
-      endTime: "12:30",
-      color: COLORS[1],
-      type: "practical",
-    },
-    {
-      id: "3",
-      subject: "Chemistry",
-      teacher: "Dr. Williams",
-      classroom: "Room 203",
-      day: "Wednesday",
-      startTime: "14:00",
-      endTime: "15:30",
-      color: COLORS[2],
-      type: "tutorial",
-    },
+  const [isBulkModalOpen, setIsBulkModalOpen] = useState(false);
+  const [editingEntry, setEditingEntry] = useState<any>(null);
+  const [selectedSubject, setSelectedSubject] = useState<any>(null);
+  const [selectedEducationLevel, setSelectedEducationLevel] = useState("");
+  const [selectedGrade, setSelectedGrade] = useState("");
+  const [filteredSubjects, setFilteredSubjects] = useState<any[]>([]);
+  const [formData, setFormData] = useState({
+    time_slot_id: 0,
+    subject_id: 0,
+    day_of_week: 1,
+    room_number: "",
+    grade_section: "",
+    notes: "",
+    is_double_lesson: false,
+  });
+  const [bulkLessons, setBulkLessons] = useState<any[]>([
+    { day_of_week: 1, time_slot_id: 0 },
   ]);
+
+  // Education levels and their grades
+  const educationLevels = {
+    "Pre-Primary": ["PP1", "PP2"],
+    "Lower Primary": ["Grade 1", "Grade 2", "Grade 3"],
+    "Upper Primary": ["Grade 4", "Grade 5", "Grade 6"],
+    "Junior Secondary": ["Grade 7", "Grade 8", "Grade 9"],
+    "Senior Secondary": ["Grade 10", "Grade 11", "Grade 12"],
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    const user = localStorage.getItem("user");
-
-    if (!token || !user) {
-      toast.error("Please login to access the timetable");
+    if (!token) {
+      toast.error("Please login");
       router.push("/login");
       return;
     }
+    loadData();
+  }, []);
 
-    // Simulate loading
-    setTimeout(() => {
+  const loadData = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const headers = { Authorization: `Bearer ${token}` };
+
+      const scheduleRes = await fetch(
+        "http://localhost:8000/api/v1/timetable/schedules/active",
+        { headers }
+      );
+      if (!scheduleRes.ok) {
+        toast.error("No schedule. Please set up first.");
+        router.push("/timetable/setup");
+        return;
+      }
+      const scheduleData = await scheduleRes.json();
+      setSchedule(scheduleData);
+
+      const slotsRes = await fetch(
+        "http://localhost:8000/api/v1/timetable/time-slots",
+        { headers }
+      );
+      const slotsData = await slotsRes.json();
+      console.log("Raw time slots from API:", slotsData);
+
+      // Filter lesson slots and add labels
+      const lessonSlots = slotsData
+        .filter((s: any) => s.slot_type === "lesson")
+        .map((s: any, index: number) => ({
+          ...s,
+          label: `Lesson ${index + 1}`,
+        }));
+
+      console.log("Filtered lesson slots:", lessonSlots);
+      console.log("Number of lesson slots:", lessonSlots.length);
+
+      setTimeSlots(lessonSlots);
+      console.log("Time slots set to state:", lessonSlots);
+
+      const entriesRes = await fetch(
+        "http://localhost:8000/api/v1/timetable/entries",
+        { headers }
+      );
+      setEntries(await entriesRes.json());
+
+      // Fetch all curriculum templates (learning areas) - any teacher can use any template
+      let curriculumData = [];
+      try {
+        // Try admin endpoint first (works if user has admin access)
+        const adminRes = await fetch(
+          "http://localhost:8000/api/v1/admin/curriculum-templates?is_active=true",
+          {
+            headers,
+          }
+        );
+        if (adminRes.ok) {
+          curriculumData = await adminRes.json();
+        } else {
+          // Fall back to public endpoint
+          const publicRes = await fetch(
+            "http://localhost:8000/api/v1/curriculum-templates",
+            {
+              headers,
+            }
+          );
+          const publicData = await publicRes.json();
+          curriculumData = publicData.templates || [];
+        }
+      } catch (error) {
+        console.error("Failed to fetch curriculum templates:", error);
+        toast.error("Failed to load learning areas");
+      }
+
+      // Transform curriculum templates to match expected format
+      const transformedSubjects = curriculumData.map((template: any) => ({
+        id: template.id,
+        subject_name: template.subject,
+        grade: template.grade,
+        education_level: template.education_level,
+        is_template: true, // Flag to indicate this is a template, not a user subject
+      }));
+
+      setSubjects(transformedSubjects);
+      console.log("Loaded curriculum templates:", transformedSubjects);
+
       setIsLoading(false);
-    }, 1000);
-  }, [router]);
+    } catch (error) {
+      toast.error("Failed to load");
+      setIsLoading(false);
+    }
+  };
 
-  const handleAddEntry = () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem("accessToken");
+      const url = editingEntry
+        ? `http://localhost:8000/api/v1/timetable/entries/${editingEntry.id}`
+        : "http://localhost:8000/api/v1/timetable/entries";
+      const response = await fetch(url, {
+        method: editingEntry ? "PUT" : "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        toast.success("Lesson saved successfully!");
+        setIsAddModalOpen(false);
+        setEditingEntry(null);
+        setSelectedSubject(null);
+        loadData();
+      } else {
+        const error = await response.json();
+        toast.error(error.detail || "Failed to save lesson");
+      }
+    } catch (error) {
+      toast.error("Failed to save lesson");
+    }
+  };
+
+  const handleDelete = async (entryId: number) => {
+    if (!confirm("Are you sure you want to delete this lesson?")) return;
+
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await fetch(
+        `http://localhost:8000/api/v1/timetable/entries/${entryId}`,
+        {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (response.ok) {
+        toast.success("Lesson deleted");
+        loadData();
+      } else {
+        toast.error("Failed to delete lesson");
+      }
+    } catch (error) {
+      toast.error("Failed to delete lesson");
+    }
+  };
+
+  const openAddModal = (timeSlotId?: number, dayOfWeek?: number) => {
     setEditingEntry(null);
+    setSelectedSubject(null);
+    setSelectedEducationLevel("");
+    setSelectedGrade("");
+    setFilteredSubjects([]);
+    setFormData({
+      time_slot_id: timeSlotId || 0,
+      subject_id: 0,
+      day_of_week: dayOfWeek || 1,
+      room_number: "",
+      grade_section: "",
+      notes: "",
+      is_double_lesson: false,
+    });
     setIsAddModalOpen(true);
   };
 
-  const handleEditEntry = (entry: TimetableEntry) => {
+  const openEditModal = (entry: any) => {
+    const subject = subjects.find((s) => s.id === entry.subject_id);
     setEditingEntry(entry);
+    setSelectedSubject(subject);
+    setFormData({
+      time_slot_id: entry.time_slot_id,
+      subject_id: entry.subject_id,
+      day_of_week: entry.day_of_week,
+      room_number: entry.room_number || "",
+      grade_section: entry.grade_section || "",
+      notes: entry.notes || "",
+      is_double_lesson: entry.is_double_lesson,
+    });
     setIsAddModalOpen(true);
   };
 
-  const handleDeleteEntry = (id: string) => {
-    setTimetableEntries((prev) => prev.filter((entry) => entry.id !== id));
-    toast.success("Class deleted successfully");
+  const handleEducationLevelChange = (level: string) => {
+    setSelectedEducationLevel(level);
+    setSelectedGrade("");
+    setFilteredSubjects([]);
+    setFormData({ ...formData, subject_id: 0, grade_section: "" });
   };
 
-  const getEntriesForDay = (day: string) => {
-    return timetableEntries.filter(
-      (entry) =>
-        entry.day === day &&
-        (filterType === "all" || entry.type === filterType) &&
-        (searchTerm === "" ||
-          entry.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          entry.teacher.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          entry.classroom.toLowerCase().includes(searchTerm.toLowerCase()))
+  const handleGradeChange = (grade: string) => {
+    setSelectedGrade(grade);
+
+    // Log for debugging
+    console.log("Selected education level:", selectedEducationLevel);
+    console.log("Selected grade:", grade);
+    console.log(
+      "Available subjects:",
+      subjects.map((s) => ({
+        name: s.subject_name,
+        grade: s.grade,
+        level: s.education_level,
+      }))
     );
+
+    // Filter subjects by BOTH education level AND grade
+    const filtered = subjects.filter((s) => {
+      // First check education level match
+      if (
+        s.education_level &&
+        selectedEducationLevel &&
+        s.education_level !== selectedEducationLevel
+      ) {
+        return false;
+      }
+
+      if (!s.grade) return false;
+
+      // Normalize both strings for comparison
+      const subjectGrade = s.grade.toLowerCase().trim();
+      const selectedGradeLower = grade.toLowerCase().trim();
+
+      // Direct match
+      if (subjectGrade === selectedGradeLower) return true;
+
+      // Match "Grade 1" with "1" or "grade1"
+      if (
+        subjectGrade.replace(/\s+/g, "") ===
+        selectedGradeLower.replace(/\s+/g, "")
+      )
+        return true;
+
+      // Match grade number (e.g., "Grade 1" matches if subject has "1")
+      const gradeNumber = grade.match(/\d+/)?.[0];
+      if (gradeNumber && subjectGrade.includes(gradeNumber)) return true;
+
+      // Match PP1/PP2 format
+      if (grade.includes("PP") && subjectGrade.includes(grade.toLowerCase()))
+        return true;
+
+      return false;
+    });
+
+    console.log(
+      "Filtered subjects:",
+      filtered.map((s) => ({
+        name: s.subject_name,
+        grade: s.grade,
+        level: s.education_level,
+      }))
+    );
+
+    // Set filtered subjects
+    if (filtered.length === 0) {
+      console.warn(
+        `No learning areas found for ${selectedEducationLevel} - ${grade}`
+      );
+      toast.error(
+        `No learning areas found for ${selectedEducationLevel} - ${grade}. Please add subjects in curriculum management.`
+      );
+      setFilteredSubjects([]);
+    } else {
+      setFilteredSubjects(filtered);
+      toast.success(`Found ${filtered.length} learning area(s) for ${grade}`, {
+        duration: 2000,
+      });
+    }
+
+    setFormData({ ...formData, subject_id: 0, grade_section: grade });
   };
 
-  const getTimeSlotEntries = (day: string, time: string) => {
-    const entries = getEntriesForDay(day);
-    return entries.filter((entry) => {
-      const entryStart = parseInt(entry.startTime.split(":")[0]);
-      const entryEnd = parseInt(entry.endTime.split(":")[0]);
-      const slotTime = parseInt(time.split(":")[0]);
-      return slotTime >= entryStart && slotTime < entryEnd;
+  const handleSubjectChange = (subjectId: number) => {
+    const subject = filteredSubjects.find((s) => s.id === subjectId);
+    setSelectedSubject(subject);
+    setFormData({
+      ...formData,
+      subject_id: subjectId,
+      grade_section: subject?.grade || selectedGrade,
     });
   };
 
-  const getCurrentWeekDates = () => {
-    const today = new Date();
-    const currentDay = today.getDay();
-    const mondayOffset = currentDay === 0 ? -6 : 1 - currentDay;
-    const monday = new Date(today);
-    monday.setDate(today.getDate() + mondayOffset + currentWeek * 7);
+  const handleBulkSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-    return DAYS.map((_, index) => {
-      const date = new Date(monday);
-      date.setDate(monday.getDate() + index);
-      return date;
-    });
+    if (!formData.subject_id) {
+      toast.error("Please select a subject");
+      return;
+    }
+
+    if (bulkLessons.length === 0) {
+      toast.error("Please add at least one lesson slot");
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("accessToken");
+      let successCount = 0;
+      let failCount = 0;
+
+      // Submit each lesson
+      for (const lesson of bulkLessons) {
+        if (!lesson.time_slot_id || !lesson.day_of_week) continue;
+
+        const lessonData = {
+          subject_id: formData.subject_id,
+          time_slot_id: lesson.time_slot_id,
+          day_of_week: lesson.day_of_week,
+          room_number: formData.room_number,
+          grade_section: formData.grade_section,
+          notes: formData.notes,
+          is_double_lesson: formData.is_double_lesson,
+        };
+
+        const response = await fetch(
+          "http://localhost:8000/api/v1/timetable/entries",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(lessonData),
+          }
+        );
+
+        if (response.ok) {
+          successCount++;
+        } else {
+          failCount++;
+        }
+      }
+
+      if (successCount > 0) {
+        toast.success(`${successCount} lesson(s) added successfully!`);
+        setIsBulkModalOpen(false);
+        setBulkLessons([{ day_of_week: 1, time_slot_id: 0 }]);
+        setFormData({
+          time_slot_id: 0,
+          subject_id: 0,
+          day_of_week: 1,
+          room_number: "",
+          grade_section: "",
+          notes: "",
+          is_double_lesson: false,
+        });
+        loadData();
+      }
+
+      if (failCount > 0) {
+        toast.error(`${failCount} lesson(s) failed (may already exist)`);
+      }
+    } catch (error) {
+      toast.error("Failed to add lessons");
+    }
   };
 
-  if (isLoading) {
+  const addBulkLessonRow = () => {
+    setBulkLessons([...bulkLessons, { day_of_week: 1, time_slot_id: 0 }]);
+  };
+
+  const removeBulkLessonRow = (index: number) => {
+    if (bulkLessons.length > 1) {
+      setBulkLessons(bulkLessons.filter((_, i) => i !== index));
+    }
+  };
+
+  const updateBulkLesson = (index: number, field: string, value: any) => {
+    const updated = [...bulkLessons];
+    updated[index] = { ...updated[index], [field]: value };
+    setBulkLessons(updated);
+  };
+
+  if (isLoading)
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your timetable...</p>
-        </div>
+        <div className="w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
       </div>
     );
-  }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-6">
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        {/* Header with Schedule Info */}
+        <div className="mb-6">
+          <div className="flex justify-between items-start mb-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                Timetable
+              <h1 className="text-3xl font-bold text-gray-900">
+                Weekly Timetable
               </h1>
-              <p className="text-gray-600">
-                Manage your class schedule and timetable
+              <p className="text-gray-600 mt-1">
+                Manage your teaching schedule
               </p>
             </div>
-            <button
-              onClick={handleAddEntry}
-              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors flex items-center"
-            >
-              <FiPlus className="w-4 h-4 mr-2" />
-              Add Class
-            </button>
-          </div>
-
-          {/* Controls */}
-          <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
-            {/* Week Navigation */}
-            <div className="flex items-center space-x-4">
+            <div className="flex space-x-3">
               <button
-                onClick={() => setCurrentWeek(currentWeek - 1)}
-                className="p-2 text-gray-600 hover:text-indigo-600 transition-colors"
+                onClick={() => router.push("/timetable/setup")}
+                className="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg flex items-center text-gray-700"
               >
-                <FiChevronLeft className="w-5 h-5" />
+                <FiSettings className="mr-2" />
+                Setup
               </button>
-
-              <div className="text-center">
-                <h3 className="font-medium text-gray-900">
-                  Week{" "}
-                  {currentWeek === 0
-                    ? "(Current)"
-                    : currentWeek > 0
-                    ? `+${currentWeek}`
-                    : currentWeek}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {getCurrentWeekDates()[0].toLocaleDateString()} -{" "}
-                  {getCurrentWeekDates()[5].toLocaleDateString()}
-                </p>
-              </div>
-
               <button
-                onClick={() => setCurrentWeek(currentWeek + 1)}
-                className="p-2 text-gray-600 hover:text-indigo-600 transition-colors"
+                onClick={() => {
+                  setSelectedEducationLevel("");
+                  setSelectedGrade("");
+                  setFilteredSubjects([]);
+                  setFormData({
+                    time_slot_id: 0,
+                    subject_id: 0,
+                    day_of_week: 1,
+                    room_number: "",
+                    grade_section: "",
+                    notes: "",
+                    is_double_lesson: false,
+                  });
+                  setBulkLessons([{ day_of_week: 1, time_slot_id: 0 }]);
+                  setIsBulkModalOpen(true);
+                }}
+                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center"
               >
-                <FiChevronRight className="w-5 h-5" />
+                <FiBook className="mr-2" />
+                Bulk Add
+              </button>
+              <button
+                onClick={() => openAddModal()}
+                className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center"
+              >
+                <FiPlus className="mr-2" />
+                Add Lesson
               </button>
             </div>
+          </div>
 
-            {/* View Mode Toggle */}
-            <div className="flex items-center space-x-4">
-              <div className="flex bg-white rounded-lg p-1 shadow-sm border">
-                <button
-                  onClick={() => setViewMode("week")}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    viewMode === "week"
-                      ? "bg-indigo-600 text-white"
-                      : "text-gray-600 hover:text-gray-900"
-                  }`}
-                >
-                  Week View
-                </button>
-                <button
-                  onClick={() => setViewMode("day")}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    viewMode === "day"
-                      ? "bg-indigo-600 text-white"
-                      : "text-gray-600 hover:text-gray-900"
-                  }`}
-                >
-                  Day View
-                </button>
+          {/* Schedule Information Card */}
+          {schedule && (
+            <div className="bg-white rounded-lg shadow-sm border p-4 mb-6">
+              <div className="flex items-start">
+                <FiInfo className="w-5 h-5 text-indigo-600 mr-3 mt-1" />
+                <div className="flex-1">
+                  <h3 className="font-medium text-gray-900 mb-2">
+                    {schedule.schedule_name}
+                  </h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div>
+                      <span className="text-gray-600">School Hours:</span>
+                      <p className="font-medium">
+                        {schedule.school_start_time} -{" "}
+                        {schedule.school_end_time}
+                      </p>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">Lesson Duration:</span>
+                      <p className="font-medium">
+                        {schedule.single_lesson_duration} min /{" "}
+                        {schedule.double_lesson_duration} min
+                      </p>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">Total Lessons:</span>
+                      <p className="font-medium">{timeSlots.length} per day</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">Breaks:</span>
+                      <p className="font-medium">
+                        {schedule.first_break_duration +
+                          schedule.second_break_duration +
+                          schedule.lunch_break_duration}{" "}
+                        min total
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-
-          {/* Filters */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-6">
-            <div className="relative flex-1">
-              <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-              <input
-                type="text"
-                placeholder="Search by subject, teacher, or classroom..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
-              />
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <FiFilter className="text-gray-400 w-4 h-4" />
-              <select
-                value={filterType}
-                onChange={(e) => setFilterType(e.target.value)}
-                className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500"
-              >
-                <option value="all">All Types</option>
-                <option value="lecture">Lectures</option>
-                <option value="practical">Practicals</option>
-                <option value="tutorial">Tutorials</option>
-                <option value="exam">Exams</option>
-              </select>
-            </div>
-          </div>
+          )}
         </div>
 
         {/* Timetable Grid */}
-        {viewMode === "week" ? (
-          <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
-            <div className="grid grid-cols-8 border-b border-gray-200">
-              <div className="p-4 font-medium text-gray-900 bg-gray-50">
-                Time
-              </div>
-              {DAYS.map((day, index) => {
-                const date = getCurrentWeekDates()[index];
-                return (
-                  <div
+        <div className="bg-white rounded-lg shadow border overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="bg-gray-50 border-b">
+                <th className="p-4 text-left font-semibold text-gray-700 sticky left-0 bg-gray-50 z-10">
+                  Time
+                </th>
+                {DAYS.map((day) => (
+                  <th
                     key={day}
-                    className="p-4 font-medium text-gray-900 bg-gray-50 text-center"
+                    className="p-4 min-w-[200px] font-semibold text-gray-700"
                   >
-                    <div>{day}</div>
-                    <div className="text-sm text-gray-600 font-normal">
-                      {date.getDate()}/{date.getMonth() + 1}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {TIME_SLOTS.map((time) => (
-              <div
-                key={time}
-                className="grid grid-cols-8 border-b border-gray-100 min-h-[80px]"
-              >
-                <div className="p-4 font-medium text-gray-900 bg-gray-50 border-r border-gray-200">
-                  {time}
-                </div>
-                {DAYS.map((day) => {
-                  const entries = getTimeSlotEntries(day, time);
-                  return (
-                    <div
-                      key={`${day}-${time}`}
-                      className="p-2 border-r border-gray-100 relative"
-                    >
-                      {entries.map((entry) => (
-                        <div
-                          key={entry.id}
-                          className={`p-2 rounded-md border-l-4 mb-1 ${entry.color} relative group cursor-pointer`}
-                          onClick={() => handleEditEntry(entry)}
-                        >
-                          <div className="text-sm font-medium">
-                            {entry.subject}
-                          </div>
-                          <div className="text-xs">{entry.teacher}</div>
-                          <div className="text-xs">{entry.classroom}</div>
-                          <div className="text-xs">
-                            {entry.startTime} - {entry.endTime}
-                          </div>
-
-                          <div className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleDeleteEntry(entry.id);
-                              }}
-                              className="p-1 text-red-500 hover:bg-red-100 rounded"
-                            >
-                              <FiTrash2 className="w-3 h-3" />
-                            </button>
-                          </div>
+                    {day}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {timeSlots.map((slot) => (
+                <tr key={slot.id} className="border-b hover:bg-gray-50">
+                  <td className="p-4 bg-gray-50 sticky left-0 z-10 border-r">
+                    <div className="flex items-center">
+                      <FiClock className="w-4 h-4 text-gray-500 mr-2" />
+                      <div>
+                        <div className="font-medium text-sm text-gray-900">
+                          {slot.label}
                         </div>
-                      ))}
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
-        ) : (
-          /* Day View */
-          <div className="bg-white rounded-lg shadow-sm border">
-            {/* Day Selector */}
-            <div className="border-b border-gray-200 p-4">
-              <div className="flex space-x-2 overflow-x-auto">
-                {DAYS.map((day, index) => {
-                  const date = getCurrentWeekDates()[index];
-                  return (
-                    <button
-                      key={day}
-                      onClick={() => setSelectedDay(day)}
-                      className={`px-4 py-2 rounded-lg whitespace-nowrap transition-colors ${
-                        selectedDay === day
-                          ? "bg-indigo-600 text-white"
-                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                      }`}
-                    >
-                      <div className="font-medium">{day}</div>
-                      <div className="text-xs">
-                        {date.getDate()}/{date.getMonth() + 1}
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Day Schedule */}
-            <div className="p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
-                {selectedDay} Schedule
-              </h3>
-
-              <div className="space-y-3">
-                {getEntriesForDay(selectedDay).length > 0 ? (
-                  getEntriesForDay(selectedDay)
-                    .sort((a, b) => a.startTime.localeCompare(b.startTime))
-                    .map((entry) => (
-                      <div
-                        key={entry.id}
-                        className={`p-4 rounded-lg border-l-4 ${entry.color} group cursor-pointer hover:shadow-md transition-shadow`}
-                        onClick={() => handleEditEntry(entry)}
-                      >
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <div className="flex items-center space-x-4 mb-2">
-                              <h4 className="font-medium text-lg">
-                                {entry.subject}
-                              </h4>
-                              <span className="px-2 py-1 text-xs bg-gray-100 rounded-full capitalize">
-                                {entry.type}
-                              </span>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm">
-                              <div className="flex items-center">
-                                <FiClock className="w-4 h-4 mr-2" />
-                                {entry.startTime} - {entry.endTime}
-                              </div>
-                              <div className="flex items-center">
-                                <FiUser className="w-4 h-4 mr-2" />
-                                {entry.teacher}
-                              </div>
-                              <div className="flex items-center">
-                                <FiMapPin className="w-4 h-4 mr-2" />
-                                {entry.classroom}
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleEditEntry(entry);
-                              }}
-                              className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg"
-                            >
-                              <FiEdit className="w-4 h-4" />
-                            </button>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleDeleteEntry(entry.id);
-                              }}
-                              className="p-2 text-red-600 hover:bg-red-100 rounded-lg"
-                            >
-                              <FiTrash2 className="w-4 h-4" />
-                            </button>
-                          </div>
+                        <div className="text-xs text-gray-600">
+                          {slot.start_time} - {slot.end_time}
                         </div>
                       </div>
-                    ))
-                ) : (
-                  <div className="text-center py-12 text-gray-500">
-                    <FiCalendar className="w-12 h-12 mx-auto mb-4" />
-                    <p>No classes scheduled for {selectedDay}</p>
-                    <button
-                      onClick={handleAddEntry}
-                      className="mt-4 text-indigo-600 hover:text-indigo-700"
-                    >
-                      Add a class
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
+                    </div>
+                  </td>
+                  {DAYS.map((day, dayIndex) => {
+                    const dayEntries = entries.filter(
+                      (e) =>
+                        e.time_slot_id === slot.id &&
+                        e.day_of_week === dayIndex + 1
+                    );
+                    return (
+                      <td key={dayIndex} className="p-2 align-top">
+                        {dayEntries.length > 0 ? (
+                          dayEntries.map((entry) => {
+                            const subject = subjects.find(
+                              (s) => s.id === entry.subject_id
+                            );
+                            return (
+                              <div
+                                key={entry.id}
+                                className="p-3 rounded-lg bg-indigo-50 border-l-4 border-indigo-500 group hover:shadow-md transition-shadow cursor-pointer mb-2"
+                                onClick={() => openEditModal(entry)}
+                              >
+                                <div className="flex justify-between items-start">
+                                  <div className="flex-1">
+                                    <div className="font-semibold text-sm text-gray-900">
+                                      {subject?.subject_name}
+                                    </div>
+                                    <div className="text-xs text-gray-600 mt-1 space-y-1">
+                                      {entry.grade_section && (
+                                        <div>
+                                          <strong>Grade:</strong>{" "}
+                                          {entry.grade_section}
+                                        </div>
+                                      )}
+                                      {entry.room_number && (
+                                        <div className="flex items-center">
+                                          <FiBook className="w-3 h-3 mr-1" />
+                                          Room {entry.room_number}
+                                        </div>
+                                      )}
+                                      {entry.is_double_lesson && (
+                                        <div className="text-indigo-600 font-medium">
+                                          Double Lesson
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
+                                  <div className="flex space-x-1 opacity-0 group-hover:opacity-100">
+                                    <button
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        openEditModal(entry);
+                                      }}
+                                      className="text-blue-600 hover:text-blue-800 p-1"
+                                    >
+                                      <FiEdit className="w-4 h-4" />
+                                    </button>
+                                    <button
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDelete(entry.id);
+                                      }}
+                                      className="text-red-600 hover:text-red-800 p-1"
+                                    >
+                                      <FiTrash2 className="w-4 h-4" />
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })
+                        ) : (
+                          <button
+                            onClick={() => openAddModal(slot.id, dayIndex + 1)}
+                            className="w-full min-h-[80px] text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg border-2 border-dashed border-gray-200 hover:border-indigo-300 transition-colors flex items-center justify-center"
+                          >
+                            <FiPlus className="w-5 h-5" />
+                          </button>
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-        {/* Add/Edit Modal */}
+        {/* Add/Edit Lesson Modal */}
         {isAddModalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-md w-full p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-medium">
-                  {editingEntry ? "Edit Class" : "Add New Class"}
+            <div className="bg-white rounded-lg max-w-lg w-full p-6 max-h-[90vh] overflow-y-auto">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-xl font-semibold text-gray-900">
+                  {editingEntry ? "Edit Lesson" : "Add New Lesson"}
                 </h3>
                 <button
-                  onClick={() => setIsAddModalOpen(false)}
-                  className="text-gray-400 hover:text-gray-600"
+                  onClick={() => {
+                    setIsAddModalOpen(false);
+                    setEditingEntry(null);
+                    setSelectedSubject(null);
+                    setSelectedEducationLevel("");
+                    setSelectedGrade("");
+                    setFilteredSubjects([]);
+                  }}
+                  className="text-gray-400 hover:text-gray-600 text-3xl leading-none"
                 >
                   ×
                 </button>
               </div>
 
-              <div className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Education Level Selection */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Subject
+                    Education Level <span className="text-red-500">*</span>
                   </label>
-                  <input
-                    type="text"
-                    placeholder="Enter subject name"
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500"
-                  />
+                  <select
+                    value={selectedEducationLevel}
+                    onChange={(e) => handleEducationLevelChange(e.target.value)}
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    required
+                  >
+                    <option value="">Select education level</option>
+                    {Object.keys(educationLevels).map((level) => (
+                      <option key={level} value={level}>
+                        {level}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Teacher
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter teacher name"
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500"
-                  />
-                </div>
+                {/* Grade Selection */}
+                {selectedEducationLevel && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Grade <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      value={selectedGrade}
+                      onChange={(e) => handleGradeChange(e.target.value)}
+                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      required
+                    >
+                      <option value="">Select grade</option>
+                      {educationLevels[
+                        selectedEducationLevel as keyof typeof educationLevels
+                      ]?.map((grade) => (
+                        <option key={grade} value={grade}>
+                          {grade}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Classroom
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter classroom/location"
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500"
-                  />
-                </div>
+                {/* Subject Selection (only show when grade is selected) */}
+                {selectedGrade && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Learning Area / Subject{" "}
+                      <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      value={formData.subject_id}
+                      onChange={(e) =>
+                        handleSubjectChange(parseInt(e.target.value))
+                      }
+                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      required
+                    >
+                      <option value="">Select learning area</option>
+                      {filteredSubjects.map((subject) => (
+                        <option key={subject.id} value={subject.id}>
+                          {subject.subject_name}
+                        </option>
+                      ))}
+                    </select>
+                    {filteredSubjects.length === 0 && (
+                      <p className="text-xs text-amber-600 mt-1">
+                        No learning areas found for {selectedGrade}. Please add
+                        subjects first.
+                      </p>
+                    )}
+                  </div>
+                )}
 
+                {/* Day and Time Selection */}
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Day
+                      Day <span className="text-red-500">*</span>
                     </label>
-                    <select className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500">
-                      {DAYS.map((day) => (
-                        <option key={day} value={day}>
+                    <select
+                      value={formData.day_of_week}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          day_of_week: parseInt(e.target.value),
+                        })
+                      }
+                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                      required
+                    >
+                      {DAYS.map((day, index) => (
+                        <option key={day} value={index + 1}>
                           {day}
                         </option>
                       ))}
@@ -549,61 +778,489 @@ const TimetablePage = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Type
+                      Time Slot <span className="text-red-500">*</span>{" "}
+                      {timeSlots.length === 0 && (
+                        <span className="text-red-500 text-xs">
+                          (No slots available)
+                        </span>
+                      )}
                     </label>
-                    <select className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500">
-                      <option value="lecture">Lecture</option>
-                      <option value="practical">Practical</option>
-                      <option value="tutorial">Tutorial</option>
-                      <option value="exam">Exam</option>
+                    <select
+                      value={formData.time_slot_id}
+                      onChange={(e) => {
+                        console.log(
+                          "Add modal - Time slot selected:",
+                          e.target.value
+                        );
+                        console.log(
+                          "Add modal - Available time slots:",
+                          timeSlots
+                        );
+                        setFormData({
+                          ...formData,
+                          time_slot_id: parseInt(e.target.value),
+                        });
+                      }}
+                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                      required
+                    >
+                      <option value="0">Select time</option>
+                      {timeSlots.length === 0 ? (
+                        <option value="" disabled>
+                          No time slots available - please set up schedule first
+                        </option>
+                      ) : (
+                        timeSlots.map((slot) => (
+                          <option key={slot.id} value={slot.id}>
+                            {slot.label || `Lesson ${slot.id}`}:{" "}
+                            {slot.start_time} - {slot.end_time}
+                          </option>
+                        ))
+                      )}
                     </select>
                   </div>
                 </div>
 
+                {/* Grade/Stream and Room */}
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Start Time
+                      Stream/Section <span className="text-red-500">*</span>
                     </label>
                     <input
-                      type="time"
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      type="text"
+                      value={formData.grade_section}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          grade_section: e.target.value,
+                        })
+                      }
+                      placeholder={
+                        selectedGrade
+                          ? `e.g., ${selectedGrade} A, ${selectedGrade} East`
+                          : "e.g., Grade 5A, Form 2 East"
+                      }
+                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                      required
                     />
+                    <p className="mt-1 text-xs text-gray-500">
+                      Add stream/section (e.g., A, B, East, West)
+                    </p>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      End Time
+                      Room Number
                     </label>
                     <input
-                      type="time"
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      type="text"
+                      value={formData.room_number}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          room_number: e.target.value,
+                        })
+                      }
+                      placeholder="e.g., Lab 1, Room 204"
+                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
                     />
                   </div>
                 </div>
 
-                <div className="flex space-x-3 pt-4">
+                {/* Lesson Type */}
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="double"
+                    checked={formData.is_double_lesson}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        is_double_lesson: e.target.checked,
+                      })
+                    }
+                    className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                  />
+                  <label
+                    htmlFor="double"
+                    className="ml-2 text-sm font-medium text-gray-700"
+                  >
+                    This is a double lesson (80 minutes)
+                  </label>
+                </div>
+
+                {/* Notes */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Notes (Optional)
+                  </label>
+                  <textarea
+                    value={formData.notes}
+                    onChange={(e) =>
+                      setFormData({ ...formData, notes: e.target.value })
+                    }
+                    rows={3}
+                    placeholder="Additional information about this lesson..."
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex space-x-3 pt-4 border-t">
                   <button
-                    onClick={() => setIsAddModalOpen(false)}
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+                    type="button"
+                    onClick={() => {
+                      setIsAddModalOpen(false);
+                      setEditingEntry(null);
+                      setSelectedSubject(null);
+                    }}
+                    className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
                   >
                     Cancel
                   </button>
                   <button
-                    onClick={() => {
-                      toast.success(
-                        editingEntry
-                          ? "Class updated successfully!"
-                          : "Class added successfully!"
-                      );
-                      setIsAddModalOpen(false);
-                    }}
-                    className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                    type="submit"
+                    className="flex-1 px-4 py-2.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium"
                   >
-                    {editingEntry ? "Update" : "Add Class"}
+                    {editingEntry ? "Update Lesson" : "Add Lesson"}
                   </button>
                 </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* Bulk Add Modal */}
+        {isBulkModalOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-lg max-w-3xl w-full p-6 max-h-[90vh] overflow-y-auto">
+              <div className="flex justify-between items-center mb-6">
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    Bulk Add Lessons
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Add the same subject at different times throughout the week
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setIsBulkModalOpen(false);
+                    setBulkLessons([{ day_of_week: 1, time_slot_id: 0 }]);
+                    setSelectedEducationLevel("");
+                    setSelectedGrade("");
+                    setFilteredSubjects([]);
+                  }}
+                  className="text-gray-400 hover:text-gray-600 text-3xl leading-none"
+                >
+                  ×
+                </button>
               </div>
+
+              <form onSubmit={handleBulkSubmit} className="space-y-6">
+                {/* Common Subject Information */}
+                <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+                  <h4 className="font-medium text-gray-900 mb-4">
+                    Common Information (applies to all lessons)
+                  </h4>
+
+                  <div className="space-y-4">
+                    {/* Education Level Selection */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Education Level <span className="text-red-500">*</span>
+                      </label>
+                      <select
+                        value={selectedEducationLevel}
+                        onChange={(e) =>
+                          handleEducationLevelChange(e.target.value)
+                        }
+                        className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                        required
+                      >
+                        <option value="">Select education level</option>
+                        {Object.keys(educationLevels).map((level) => (
+                          <option key={level} value={level}>
+                            {level}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* Grade Selection */}
+                    {selectedEducationLevel && (
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Grade <span className="text-red-500">*</span>
+                        </label>
+                        <select
+                          value={selectedGrade}
+                          onChange={(e) => handleGradeChange(e.target.value)}
+                          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                          required
+                        >
+                          <option value="">Select grade</option>
+                          {educationLevels[
+                            selectedEducationLevel as keyof typeof educationLevels
+                          ]?.map((grade) => (
+                            <option key={grade} value={grade}>
+                              {grade}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
+
+                    {/* Subject Selection (only show when grade is selected) */}
+                    {selectedGrade && (
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Learning Area / Subject{" "}
+                          <span className="text-red-500">*</span>
+                        </label>
+                        <select
+                          value={formData.subject_id}
+                          onChange={(e) =>
+                            handleSubjectChange(parseInt(e.target.value))
+                          }
+                          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                          required
+                        >
+                          <option value="">Select learning area</option>
+                          {filteredSubjects.map((subject) => (
+                            <option key={subject.id} value={subject.id}>
+                              {subject.subject_name}
+                            </option>
+                          ))}
+                        </select>
+                        {filteredSubjects.length === 0 && (
+                          <p className="text-xs text-amber-600 mt-1">
+                            No learning areas found for {selectedGrade}. Please
+                            add subjects first.
+                          </p>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Grade/Stream and Room */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Stream/Section <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.grade_section}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              grade_section: e.target.value,
+                            })
+                          }
+                          placeholder={
+                            selectedGrade
+                              ? `e.g., ${selectedGrade} A, ${selectedGrade} East`
+                              : "e.g., Grade 5A"
+                          }
+                          className="w-full border border-gray-300 rounded-lg px-4 py-2.5"
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Room Number
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.room_number}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              room_number: e.target.value,
+                            })
+                          }
+                          placeholder="e.g., Lab 1, Room 204"
+                          className="w-full border border-gray-300 rounded-lg px-4 py-2.5"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Lesson Type */}
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        id="bulk-double"
+                        checked={formData.is_double_lesson}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            is_double_lesson: e.target.checked,
+                          })
+                        }
+                        className="w-4 h-4 text-indigo-600 border-gray-300 rounded"
+                      />
+                      <label
+                        htmlFor="bulk-double"
+                        className="ml-2 text-sm font-medium text-gray-700"
+                      >
+                        All are double lessons (80 minutes)
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Lesson Schedule (Day & Time Combinations) */}
+                <div>
+                  <div className="flex justify-between items-center mb-3">
+                    <h4 className="font-medium text-gray-900">
+                      Lesson Schedule <span className="text-red-500">*</span>
+                    </h4>
+                    <button
+                      type="button"
+                      onClick={addBulkLessonRow}
+                      className="text-sm text-indigo-600 hover:text-indigo-700 font-medium flex items-center"
+                    >
+                      <FiPlus className="w-4 h-4 mr-1" />
+                      Add Another Time Slot
+                    </button>
+                  </div>
+
+                  <div className="space-y-3">
+                    {bulkLessons.map((lesson, index) => (
+                      <div
+                        key={index}
+                        className="flex gap-3 items-start p-3 bg-gray-50 rounded-lg border"
+                      >
+                        <div className="flex-1 grid grid-cols-2 gap-3">
+                          <div>
+                            <label className="block text-xs font-medium text-gray-600 mb-1">
+                              Day
+                            </label>
+                            <select
+                              value={lesson.day_of_week}
+                              onChange={(e) =>
+                                updateBulkLesson(
+                                  index,
+                                  "day_of_week",
+                                  parseInt(e.target.value)
+                                )
+                              }
+                              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                              required
+                            >
+                              {DAYS.map((day, dayIndex) => (
+                                <option key={day} value={dayIndex + 1}>
+                                  {day}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+
+                          <div>
+                            <label className="block text-xs font-medium text-gray-600 mb-1">
+                              Time Slot{" "}
+                              {timeSlots.length === 0 && (
+                                <span className="text-red-500">
+                                  (No slots available)
+                                </span>
+                              )}
+                            </label>
+                            <select
+                              value={lesson.time_slot_id}
+                              onChange={(e) => {
+                                console.log(
+                                  "Time slot selected:",
+                                  e.target.value
+                                );
+                                console.log("Available time slots:", timeSlots);
+                                updateBulkLesson(
+                                  index,
+                                  "time_slot_id",
+                                  parseInt(e.target.value)
+                                );
+                              }}
+                              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                              required
+                            >
+                              <option value="0">Select time</option>
+                              {timeSlots.length === 0 ? (
+                                <option value="" disabled>
+                                  No time slots available
+                                </option>
+                              ) : (
+                                timeSlots.map((slot) => (
+                                  <option key={slot.id} value={slot.id}>
+                                    {slot.label || `Lesson ${slot.id}`}:{" "}
+                                    {slot.start_time} - {slot.end_time}
+                                  </option>
+                                ))
+                              )}
+                            </select>
+                          </div>
+                        </div>
+
+                        {bulkLessons.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeBulkLessonRow(index)}
+                            className="text-red-600 hover:text-red-800 p-2 mt-5"
+                          >
+                            <FiTrash2 className="w-4 h-4" />
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  <p className="text-xs text-gray-500 mt-2">
+                    💡 Example: Math on Monday 8:00-8:40, Tuesday 10:00-10:40,
+                    Wednesday 9:00-9:40, etc.
+                  </p>
+                </div>
+
+                {/* Notes */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Notes (Optional)
+                  </label>
+                  <textarea
+                    value={formData.notes}
+                    onChange={(e) =>
+                      setFormData({ ...formData, notes: e.target.value })
+                    }
+                    rows={2}
+                    placeholder="Additional information for all these lessons..."
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5"
+                  />
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex space-x-3 pt-4 border-t">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsBulkModalOpen(false);
+                      setBulkLessons([{ day_of_week: 1, time_slot_id: 0 }]);
+                    }}
+                    className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 px-4 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
+                  >
+                    Add{" "}
+                    {
+                      bulkLessons.filter((l) => l.time_slot_id && l.day_of_week)
+                        .length
+                    }{" "}
+                    Lesson(s)
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}

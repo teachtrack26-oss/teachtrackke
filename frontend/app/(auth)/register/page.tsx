@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
@@ -19,6 +19,32 @@ export default function RegisterPage() {
     gradeLevel: "",
   });
   const [loading, setLoading] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
+  // Check if user is already logged in
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    const userData = localStorage.getItem("user");
+
+    if (token && userData) {
+      // User is already logged in, redirect to dashboard
+      try {
+        const user = JSON.parse(userData);
+        if (user.is_admin) {
+          router.replace("/admin/dashboard");
+        } else {
+          router.replace("/dashboard");
+        }
+      } catch (error) {
+        // If parsing fails, clear invalid data
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("user");
+        setCheckingAuth(false);
+      }
+    } else {
+      setCheckingAuth(false);
+    }
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,6 +96,18 @@ export default function RegisterPage() {
       [e.target.name]: e.target.value,
     });
   };
+
+  // Show loading state while checking authentication
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-cyan-50 to-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-cyan-50 to-gray-50 py-12 px-4 sm:px-6 lg:px-8">

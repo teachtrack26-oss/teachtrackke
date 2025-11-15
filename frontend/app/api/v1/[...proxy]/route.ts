@@ -65,37 +65,35 @@ async function proxyRequest(
       }
     });
 
-    // Get request body if present
-    let body = null;
-    if (["POST", "PUT", "PATCH"].includes(method)) {
-      try {
-        body = await request.text();
-      } catch (e) {
-        // No body or body already consumed
-      }
-    }
+    // Forward the original request body stream without reading it to avoid
+    // corrupting binary payloads (e.g., file uploads). Reading as text breaks
+    // multipart/form-data and other binary formats.
+    const body = ["POST", "PUT", "PATCH"].includes(method)
+      ? (request.body as ReadableStream | null)
+      : null;
 
     console.log(`[API Proxy] ${method} ${fullUrl}`);
 
-    // Make request to backend
+    // Make request to backend; pass through body stream. The `duplex` hint is
+    // required in some Node runtimes when streaming request bodies.
     const response = await fetch(fullUrl, {
       method,
       headers,
+      // @ts-expect-error - duplex is needed for streamed bodies in Node fetch
+      duplex: body ? "half" : undefined,
       body: body || undefined,
     });
 
-    // Get response body
-    const responseText = await response.text();
-
     console.log(`[API Proxy] ${response.status} ${response.statusText}`);
 
-    // Forward response with all headers
+    // Forward response as a stream without converting to text to preserve
+    // binary content (PDFs, images, etc.). Also forward all headers.
     const responseHeaders = new Headers();
     response.headers.forEach((value, key) => {
       responseHeaders.set(key, value);
     });
 
-    return new NextResponse(responseText, {
+    return new NextResponse(response.body, {
       status: response.status,
       statusText: response.statusText,
       headers: responseHeaders,
