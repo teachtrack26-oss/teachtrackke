@@ -409,3 +409,64 @@ class TimetableEntry(Base):
     strand = relationship("Strand")
     substrand = relationship("SubStrand")
     lesson = relationship("Lesson")
+
+# ============================================================================
+# SCHOOL SETTINGS MODELS
+# ============================================================================
+
+class SchoolSettings(Base):
+    __tablename__ = 'school_settings'
+    id = Column(Integer, primary_key=True, index=True)
+    school_name = Column(String(255), nullable=False)
+    school_email = Column(String(255), nullable=False)
+    school_phone = Column(String(50))
+    school_address = Column(Text)
+    school_type = Column(String(50))  # Public, Private, Government, Faith-Based, County
+    school_motto = Column(String(500))
+    school_logo_url = Column(String(500))
+    principal_name = Column(String(255))
+    deputy_principal_name = Column(String(255))
+    county = Column(String(100))
+    sub_county = Column(String(100))
+    established_year = Column(Integer)
+    grades_offered = Column(JSON)  # Array of grade strings
+    streams_per_grade = Column(JSON)  # Object mapping grade to array of stream names
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    terms = relationship("SchoolTerm", back_populates="school_settings", cascade="all, delete-orphan")
+    activities = relationship("CalendarActivity", back_populates="school_settings", cascade="all, delete-orphan")
+
+class SchoolTerm(Base):
+    __tablename__ = 'school_terms'
+    id = Column(Integer, primary_key=True, index=True)
+    school_settings_id = Column(Integer, ForeignKey('school_settings.id', ondelete="CASCADE"), nullable=True)
+    term_number = Column(Integer, nullable=False)  # 1, 2, or 3
+    year = Column(Integer, nullable=False)
+    start_date = Column(String(50), nullable=False)  # YYYY-MM-DD
+    end_date = Column(String(50), nullable=False)  # YYYY-MM-DD
+    mid_term_break_start = Column(String(50))  # Optional
+    mid_term_break_end = Column(String(50))  # Optional
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    school_settings = relationship("SchoolSettings", back_populates="terms")
+    activities = relationship("CalendarActivity", back_populates="term", cascade="all, delete-orphan")
+
+class CalendarActivity(Base):
+    __tablename__ = 'calendar_activities'
+    id = Column(Integer, primary_key=True, index=True)
+    school_settings_id = Column(Integer, ForeignKey('school_settings.id', ondelete="CASCADE"), nullable=True)
+    term_id = Column(Integer, ForeignKey('school_terms.id', ondelete="CASCADE"), nullable=False)
+    activity_name = Column(String(255), nullable=False)
+    activity_date = Column(String(50), nullable=False)  # YYYY-MM-DD
+    activity_type = Column(String(100), nullable=False)  # Opening Day, Closing Day, Exam Week, etc.
+    description = Column(Text)
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    school_settings = relationship("SchoolSettings", back_populates="activities")
+    term = relationship("SchoolTerm", back_populates="activities")

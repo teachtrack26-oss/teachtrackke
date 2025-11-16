@@ -4,7 +4,23 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { FiPlus, FiBook, FiUpload } from "react-icons/fi";
+import {
+  FiPlus,
+  FiBook,
+  FiUpload,
+  FiClock,
+  FiCalendar,
+  FiMapPin,
+  FiTarget,
+  FiLayers,
+  FiCheckCircle,
+  FiLink,
+  FiHeart,
+  FiZap,
+  FiUsers,
+  FiChevronDown,
+  FiChevronUp,
+} from "react-icons/fi";
 import axios from "axios";
 
 interface Subject {
@@ -18,12 +34,56 @@ interface Subject {
   progress_percentage: number;
 }
 
+interface TimetableEntry {
+  id: number;
+  subject_id: number;
+  time_slot_id: number;
+  day_of_week: number;
+  room_number: string;
+  grade_section: string;
+  notes: string;
+  is_double_lesson: boolean;
+}
+
+interface TimeSlot {
+  id: number;
+  start_time: string;
+  end_time: string;
+  slot_type: string;
+  label?: string;
+}
+
+interface CurriculumDetails {
+  strand: {
+    strand_number: string;
+    strand_name: string;
+  };
+  substrand: {
+    substrand_number: string;
+    substrand_name: string;
+    specific_learning_outcomes: string[];
+    key_inquiry_questions: string[];
+    learning_experiences: string[];
+    core_competencies: string[];
+    values: string[];
+    pertinent_issues: string[];
+    links_to_other_subjects: string[];
+  };
+}
+
 export default function DashboardPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<any>(null);
+  const [todayLessons, setTodayLessons] = useState<TimetableEntry[]>([]);
+  const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
+  const [curriculumDetails, setCurriculumDetails] = useState<{
+    [key: number]: CurriculumDetails;
+  }>({});
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [expandedLesson, setExpandedLesson] = useState<number | null>(null);
 
   useEffect(() => {
     // Check authentication - NextAuth or localStorage
@@ -32,7 +92,9 @@ export default function DashboardPage() {
     if (status === "authenticated" && session) {
       // User authenticated via NextAuth (Google OAuth)
       setUser(session.user);
-      fetchSubjects((session as any).accessToken);
+      const token = (session as any).accessToken;
+      fetchSubjects(token);
+      fetchTodayLessons(token);
     } else {
       // Check localStorage for direct login
       const token = localStorage.getItem("accessToken");
@@ -45,8 +107,17 @@ export default function DashboardPage() {
 
       setUser(JSON.parse(userData));
       fetchSubjects(token);
+      fetchTodayLessons(token);
     }
   }, [session, status, router]);
+
+  // Update current time every minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   const fetchSubjects = async (token: string) => {
     try {
@@ -67,6 +138,82 @@ export default function DashboardPage() {
       }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchTodayLessons = async (token: string) => {
+    try {
+      // Fetch time slots
+      const slotsRes = await axios.get(`/api/v1/timetable/time-slots`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const allSlots = slotsRes.data.filter(
+        (s: TimeSlot) => s.slot_type === "lesson"
+      );
+      setTimeSlots(allSlots);
+
+      // Fetch timetable entries
+      const entriesRes = await axios.get(`/api/v1/timetable/entries`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      // Get today's day of week (1 = Monday, 5 = Friday)
+      const today = new Date().getDay();
+      const todayEntries = entriesRes.data.filter(
+        (entry: TimetableEntry) => entry.day_of_week === today
+      );
+
+      setTodayLessons(todayEntries);
+
+      // Fetch curriculum details for each lesson
+      for (const entry of todayEntries) {
+        fetchCurriculumDetails(token, entry.subject_id);
+      }
+    } catch (error) {
+      console.error("Failed to fetch today's lessons:", error);
+    }
+  };
+
+  const fetchCurriculumDetails = async (token: string, subjectId: number) => {
+    try {
+      const subject = subjects.find((s) => s.id === subjectId);
+      if (!subject) return;
+
+      // Fetch the curriculum template and current progress
+      const response = await axios.get(`/api/v1/subjects/${subjectId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const subjectData = response.data;
+
+      // Get current strand and substrand details
+      // This assumes the API returns strand/substrand information
+      setCurriculumDetails((prev) => ({
+        ...prev,
+        [subjectId]: {
+          strand: {
+            strand_number: subjectData.current_strand_number || "",
+            strand_name: subjectData.current_strand_name || "",
+          },
+          substrand: {
+            substrand_number: subjectData.current_substrand_number || "",
+            substrand_name: subjectData.current_substrand_name || "",
+            specific_learning_outcomes:
+              subjectData.specific_learning_outcomes || [],
+            key_inquiry_questions: subjectData.key_inquiry_questions || [],
+            learning_experiences: subjectData.learning_experiences || [],
+            core_competencies: subjectData.core_competencies || [],
+            values: subjectData.values || [],
+            pertinent_issues: subjectData.pertinent_issues || [],
+            links_to_other_subjects: subjectData.links_to_other_subjects || [],
+          },
+        },
+      }));
+    } catch (error) {
+      console.error(
+        `Failed to fetch curriculum details for subject ${subjectId}:`,
+        error
+      );
     }
   };
 
@@ -96,6 +243,58 @@ export default function DashboardPage() {
     }
   };
 
+  const getSubjectTheme = (subjectName: string) => {
+    const name = subjectName?.toLowerCase() || "";
+    if (name.includes("math"))
+      return {
+        gradient: "from-blue-500 to-cyan-500",
+        icon: "🔢",
+        color: "blue",
+      };
+    if (name.includes("english"))
+      return {
+        gradient: "from-rose-500 to-pink-500",
+        icon: "📖",
+        color: "rose",
+      };
+    if (name.includes("kiswahili"))
+      return {
+        gradient: "from-amber-500 to-orange-500",
+        icon: "🗣️",
+        color: "amber",
+      };
+    if (name.includes("science"))
+      return {
+        gradient: "from-emerald-500 to-teal-500",
+        icon: "🌿",
+        color: "emerald",
+      };
+    if (name.includes("social"))
+      return {
+        gradient: "from-teal-500 to-cyan-500",
+        icon: "🌍",
+        color: "teal",
+      };
+    return {
+      gradient: "from-gray-500 to-slate-500",
+      icon: "📚",
+      color: "gray",
+    };
+  };
+
+  const getLessonStatus = (timeSlot: TimeSlot) => {
+    const now = currentTime;
+    const currentTimeStr = now.toTimeString().slice(0, 5);
+
+    if (currentTimeStr < timeSlot.start_time) return "upcoming";
+    if (
+      currentTimeStr >= timeSlot.start_time &&
+      currentTimeStr < timeSlot.end_time
+    )
+      return "current";
+    return "completed";
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -105,25 +304,99 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100 relative overflow-hidden">
+      {/* Animated background */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-20 left-20 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
+        <div className="absolute top-40 right-20 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+      </div>
+
       {/* Header */}
-      <header className="bg-surface shadow-2xl">
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-foreground">My Dashboard</h1>
-          <Link
-            href="/curriculum"
-            className="bg-primary-500 hover:bg-primary-600 text-white font-semibold px-4 py-2 rounded-xl shadow-xl flex items-center gap-2 transition-colors"
-          >
-            <FiPlus /> Add Subject
-          </Link>
+      <header className="glass-card bg-white/40 backdrop-blur-xl shadow-xl border-b border-white/60 relative z-10">
+        <div className="container mx-auto px-6 py-6 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 bg-clip-text text-transparent">
+              Today's Teaching Schedule
+            </h1>
+            <p className="text-gray-700 mt-1 flex items-center gap-2">
+              <FiCalendar className="w-4 h-4" />
+              {currentTime.toLocaleDateString("en-US", {
+                weekday: "long",
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })}
+            </p>
+          </div>
+          <div className="flex gap-3">
+            <Link
+              href="/timetable"
+              className="glass-button bg-white/60 backdrop-blur-lg border border-white/60 hover:bg-white/80 px-5 py-2.5 rounded-xl flex items-center gap-2 text-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
+            >
+              <FiClock /> View Timetable
+            </Link>
+            <Link
+              href="/curriculum"
+              className="glass-button bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-5 py-2.5 rounded-xl shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 font-medium"
+            >
+              <FiPlus /> Add Subject
+            </Link>
+          </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-6 py-8">
-        {subjects.length === 0 ? (
-          <EmptyState />
+      <main className="container mx-auto px-6 py-8 relative z-10">
+        {todayLessons.length === 0 ? (
+          <EmptySchedule />
         ) : (
-          <div className="grid gap-6">
+          <div className="space-y-6">
+            {todayLessons
+              .sort((a, b) => {
+                const slotA = timeSlots.find((s) => s.id === a.time_slot_id);
+                const slotB = timeSlots.find((s) => s.id === b.time_slot_id);
+                return (slotA?.start_time || "").localeCompare(
+                  slotB?.start_time || ""
+                );
+              })
+              .map((lesson) => {
+                const subject = subjects.find(
+                  (s) => s.id === lesson.subject_id
+                );
+                const timeSlot = timeSlots.find(
+                  (s) => s.id === lesson.time_slot_id
+                );
+                const curriculum = curriculumDetails[lesson.subject_id];
+                const theme = getSubjectTheme(subject?.subject_name || "");
+                const status = timeSlot
+                  ? getLessonStatus(timeSlot)
+                  : "upcoming";
+                const isExpanded = expandedLesson === lesson.id;
+
+                return (
+                  <LessonCard
+                    key={lesson.id}
+                    lesson={lesson}
+                    subject={subject}
+                    timeSlot={timeSlot}
+                    curriculum={curriculum}
+                    theme={theme}
+                    status={status}
+                    isExpanded={isExpanded}
+                    onToggleExpand={() =>
+                      setExpandedLesson(isExpanded ? null : lesson.id)
+                    }
+                  />
+                );
+              })}
+          </div>
+        )}
+
+        {/* My Subjects Overview */}
+        {subjects.length > 0 && (
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              My Subjects Overview
+            </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {subjects.map((subject) => (
                 <SubjectCard
@@ -136,6 +409,307 @@ export default function DashboardPage() {
           </div>
         )}
       </main>
+    </div>
+  );
+}
+
+function EmptySchedule() {
+  return (
+    <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-12 text-center">
+      <div className="text-6xl mb-4">☕</div>
+      <h3 className="text-2xl font-bold text-gray-900 mb-2">
+        No Lessons Today!
+      </h3>
+      <p className="text-gray-600 mb-6">
+        You have a free day. Enjoy your break or set up your timetable.
+      </p>
+      <Link
+        href="/timetable"
+        className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+      >
+        <FiClock /> Setup Timetable
+      </Link>
+    </div>
+  );
+}
+
+function LessonCard({
+  lesson,
+  subject,
+  timeSlot,
+  curriculum,
+  theme,
+  status,
+  isExpanded,
+  onToggleExpand,
+}: {
+  lesson: TimetableEntry;
+  subject?: Subject;
+  timeSlot?: TimeSlot;
+  curriculum?: CurriculumDetails;
+  theme: any;
+  status: string;
+  isExpanded: boolean;
+  onToggleExpand: () => void;
+}) {
+  const statusConfig = {
+    upcoming: {
+      bg: "from-blue-400/30 to-cyan-400/30",
+      badge: "bg-blue-500",
+      text: "Upcoming",
+    },
+    current: {
+      bg: "from-green-400/30 to-emerald-400/30",
+      badge: "bg-green-500 animate-pulse",
+      text: "In Progress",
+    },
+    completed: {
+      bg: "from-gray-400/30 to-slate-400/30",
+      badge: "bg-gray-500",
+      text: "Completed",
+    },
+  };
+
+  const config =
+    statusConfig[status as keyof typeof statusConfig] || statusConfig.upcoming;
+
+  return (
+    <div
+      className={`glass-card bg-gradient-to-r ${config.bg} backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 overflow-hidden transition-all duration-300 hover:shadow-2xl`}
+    >
+      {/* Lesson Header */}
+      <div
+        className={`p-6 bg-gradient-to-r ${theme.gradient} relative overflow-hidden`}
+      >
+        <div className="absolute inset-0 pattern-dots opacity-20"></div>
+        <div className="relative z-10 flex justify-between items-start">
+          <div className="flex items-start gap-4 flex-1">
+            <div
+              className={`w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg`}
+            >
+              <span className="text-4xl">{theme.icon}</span>
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-2">
+                <h3 className="text-2xl font-bold text-white drop-shadow-md">
+                  {subject?.subject_name || "Unknown Subject"}
+                </h3>
+                <span
+                  className={`${config.badge} text-white px-3 py-1 rounded-full text-xs font-bold shadow-md`}
+                >
+                  {config.text}
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-4 text-white/90 text-sm">
+                <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-lg">
+                  <FiClock className="w-4 h-4" />
+                  <span className="font-medium">
+                    {timeSlot?.start_time} - {timeSlot?.end_time}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-lg">
+                  <FiUsers className="w-4 h-4" />
+                  <span className="font-medium">{lesson.grade_section}</span>
+                </div>
+                {lesson.room_number && (
+                  <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-lg">
+                    <FiMapPin className="w-4 h-4" />
+                    <span className="font-medium">
+                      Room {lesson.room_number}
+                    </span>
+                  </div>
+                )}
+                {lesson.is_double_lesson && (
+                  <div className="bg-white/30 backdrop-blur-sm px-3 py-1 rounded-lg font-bold text-xs">
+                    Double Lesson
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+          <button
+            onClick={onToggleExpand}
+            className="bg-white/20 hover:bg-white/30 backdrop-blur-sm p-2 rounded-lg transition-all duration-200"
+          >
+            {isExpanded ? (
+              <FiChevronUp className="w-6 h-6 text-white" />
+            ) : (
+              <FiChevronDown className="w-6 h-6 text-white" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Curriculum Details - Expandable */}
+      {isExpanded && curriculum && (
+        <div className="p-6 bg-white/60 backdrop-blur-sm space-y-6">
+          {/* Current Topic */}
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="bg-gradient-to-br from-indigo-50 to-purple-50 p-4 rounded-xl border-2 border-indigo-200">
+              <div className="flex items-center gap-2 mb-2">
+                <FiLayers className="w-5 h-5 text-indigo-600" />
+                <h4 className="font-bold text-gray-900">Current Strand</h4>
+              </div>
+              <p className="text-sm text-gray-700">
+                <span className="font-semibold">
+                  {curriculum.strand.strand_number}:
+                </span>{" "}
+                {curriculum.strand.strand_name}
+              </p>
+            </div>
+            <div className="bg-gradient-to-br from-violet-50 to-purple-50 p-4 rounded-xl border-2 border-violet-200">
+              <div className="flex items-center gap-2 mb-2">
+                <FiTarget className="w-5 h-5 text-violet-600" />
+                <h4 className="font-bold text-gray-900">Current Sub-Strand</h4>
+              </div>
+              <p className="text-sm text-gray-700">
+                <span className="font-semibold">
+                  {curriculum.substrand.substrand_number}:
+                </span>{" "}
+                {curriculum.substrand.substrand_name}
+              </p>
+            </div>
+          </div>
+
+          {/* Specific Learning Outcomes */}
+          {curriculum.substrand.specific_learning_outcomes?.length > 0 && (
+            <div className="bg-green-50/80 p-5 rounded-xl border-2 border-green-200">
+              <div className="flex items-center gap-2 mb-3">
+                <FiCheckCircle className="w-5 h-5 text-green-600" />
+                <h4 className="font-bold text-gray-900 text-lg">
+                  Specific Learning Outcomes (SLOs)
+                </h4>
+              </div>
+              <ul className="space-y-2">
+                {curriculum.substrand.specific_learning_outcomes.map(
+                  (slo, idx) => (
+                    <li
+                      key={idx}
+                      className="flex items-start gap-2 text-sm text-gray-800"
+                    >
+                      <span className="text-green-600 font-bold mt-0.5">✓</span>
+                      <span>{slo}</span>
+                    </li>
+                  )
+                )}
+              </ul>
+            </div>
+          )}
+
+          {/* Key Inquiry Questions */}
+          {curriculum.substrand.key_inquiry_questions?.length > 0 && (
+            <div className="bg-blue-50/80 p-5 rounded-xl border-2 border-blue-200">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-2xl">❓</span>
+                <h4 className="font-bold text-gray-900 text-lg">
+                  Key Inquiry Questions (KIQs)
+                </h4>
+              </div>
+              <ul className="space-y-2">
+                {curriculum.substrand.key_inquiry_questions.map((kiq, idx) => (
+                  <li
+                    key={idx}
+                    className="flex items-start gap-2 text-sm text-gray-800"
+                  >
+                    <span className="text-blue-600 font-bold mt-0.5">
+                      Q{idx + 1}.
+                    </span>
+                    <span>{kiq}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Core Competencies */}
+          {curriculum.substrand.core_competencies?.length > 0 && (
+            <div className="bg-purple-50/80 p-5 rounded-xl border-2 border-purple-200">
+              <div className="flex items-center gap-2 mb-3">
+                <FiZap className="w-5 h-5 text-purple-600" />
+                <h4 className="font-bold text-gray-900 text-lg">
+                  Core Competencies
+                </h4>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {curriculum.substrand.core_competencies.map((comp, idx) => (
+                  <span
+                    key={idx}
+                    className="bg-purple-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium shadow-md"
+                  >
+                    {comp}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Values */}
+          {curriculum.substrand.values?.length > 0 && (
+            <div className="bg-rose-50/80 p-5 rounded-xl border-2 border-rose-200">
+              <div className="flex items-center gap-2 mb-3">
+                <FiHeart className="w-5 h-5 text-rose-600" />
+                <h4 className="font-bold text-gray-900 text-lg">Values</h4>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {curriculum.substrand.values.map((value, idx) => (
+                  <span
+                    key={idx}
+                    className="bg-rose-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium shadow-md"
+                  >
+                    {value}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* PCIs (Pertinent and Contemporary Issues) */}
+          {curriculum.substrand.pertinent_issues?.length > 0 && (
+            <div className="bg-amber-50/80 p-5 rounded-xl border-2 border-amber-200">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-2xl">⚠️</span>
+                <h4 className="font-bold text-gray-900 text-lg">
+                  PCIs (Pertinent & Contemporary Issues)
+                </h4>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {curriculum.substrand.pertinent_issues.map((pci, idx) => (
+                  <span
+                    key={idx}
+                    className="bg-amber-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium shadow-md"
+                  >
+                    {pci}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Links to Other Subjects */}
+          {curriculum.substrand.links_to_other_subjects?.length > 0 && (
+            <div className="bg-teal-50/80 p-5 rounded-xl border-2 border-teal-200">
+              <div className="flex items-center gap-2 mb-3">
+                <FiLink className="w-5 h-5 text-teal-600" />
+                <h4 className="font-bold text-gray-900 text-lg">
+                  Links to Other Learning Areas
+                </h4>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {curriculum.substrand.links_to_other_subjects.map(
+                  (link, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-teal-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium shadow-md"
+                    >
+                      {link}
+                    </span>
+                  )
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

@@ -15,7 +15,8 @@ from models import (
     User, Subject, Strand, SubStrand, Lesson, ProgressLog, Note, Term,
     CurriculumTemplate, TemplateStrand, TemplateSubstrand,
     NoteAnnotation, PresentationSession, SpeakerNote, SharedPresentation,
-    SchoolSchedule, TimeSlot, TimetableEntry
+    SchoolSchedule, TimeSlot, TimetableEntry,
+    SchoolSettings, SchoolTerm, CalendarActivity
 )
 from sqlalchemy import text, func, and_
 from schemas import (
@@ -1308,6 +1309,258 @@ async def delete_curriculum_template(
     db.commit()
     
     return {"message": "Curriculum template deactivated successfully", "id": template_id}
+
+# ============================================================================
+# SCHOOL SETTINGS ENDPOINTS (Admin)
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/admin/school-settings")
+def get_school_settings(
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Get school settings (Admin only)"""
+    from models import SchoolSettings
+    
+    settings_obj = db.query(SchoolSettings).first()
+    if not settings_obj:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="School settings not found"
+        )
+    
+    return settings_obj
+
+@app.post(f"{settings.API_V1_PREFIX}/admin/school-settings")
+def create_school_settings(
+    settings_data: dict,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Create school settings (Admin only)"""
+    from models import SchoolSettings
+    
+    # Check if settings already exist
+    existing = db.query(SchoolSettings).first()
+    if existing:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="School settings already exist. Use PUT to update."
+        )
+    
+    new_settings = SchoolSettings(**settings_data)
+    db.add(new_settings)
+    db.commit()
+    db.refresh(new_settings)
+    
+    return new_settings
+
+@app.put(f"{settings.API_V1_PREFIX}/admin/school-settings/{{settings_id}}")
+def update_school_settings(
+    settings_id: int,
+    settings_data: dict,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Update school settings (Admin only)"""
+    from models import SchoolSettings
+    
+    db_settings = db.query(SchoolSettings).filter(SchoolSettings.id == settings_id).first()
+    if not db_settings:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="School settings not found"
+        )
+    
+    # Update fields
+    for key, value in settings_data.items():
+        if hasattr(db_settings, key):
+            setattr(db_settings, key, value)
+    
+    db.commit()
+    db.refresh(db_settings)
+    
+    return db_settings
+
+@app.post(f"{settings.API_V1_PREFIX}/admin/upload-logo")
+async def upload_school_logo(
+    logo: UploadFile = File(...),
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Upload school logo (Admin only)"""
+    # Create uploads directory if it doesn't exist
+    upload_dir = "uploads/logos"
+    os.makedirs(upload_dir, exist_ok=True)
+    
+    # Generate unique filename
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    file_extension = os.path.splitext(logo.filename)[1]
+    filename = f"school_logo_{timestamp}{file_extension}"
+    file_path = os.path.join(upload_dir, filename)
+    
+    # Save file
+    with open(file_path, "wb") as buffer:
+        content = await logo.read()
+        buffer.write(content)
+    
+    # Return URL
+    url = f"/uploads/logos/{filename}"
+    return {"url": url}
+
+# School Terms Endpoints
+
+@app.get(f"{settings.API_V1_PREFIX}/admin/school-terms")
+def get_school_terms(
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Get all school terms (Admin only)"""
+    from models import SchoolTerm
+    
+    terms = db.query(SchoolTerm).order_by(SchoolTerm.year.desc(), SchoolTerm.term_number).all()
+    return terms
+
+@app.post(f"{settings.API_V1_PREFIX}/admin/school-terms")
+def create_school_term(
+    term_data: dict,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Create a school term (Admin only)"""
+    from models import SchoolTerm
+    
+    new_term = SchoolTerm(**term_data)
+    db.add(new_term)
+    db.commit()
+    db.refresh(new_term)
+    
+    return new_term
+
+@app.put(f"{settings.API_V1_PREFIX}/admin/school-terms/{{term_id}}")
+def update_school_term(
+    term_id: int,
+    term_data: dict,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Update a school term (Admin only)"""
+    from models import SchoolTerm
+    
+    db_term = db.query(SchoolTerm).filter(SchoolTerm.id == term_id).first()
+    if not db_term:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Term not found"
+        )
+    
+    # Update fields
+    for key, value in term_data.items():
+        if hasattr(db_term, key):
+            setattr(db_term, key, value)
+    
+    db.commit()
+    db.refresh(db_term)
+    
+    return db_term
+
+@app.delete(f"{settings.API_V1_PREFIX}/admin/school-terms/{{term_id}}")
+def delete_school_term(
+    term_id: int,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Delete a school term (Admin only)"""
+    from models import SchoolTerm
+    
+    db_term = db.query(SchoolTerm).filter(SchoolTerm.id == term_id).first()
+    if not db_term:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Term not found"
+        )
+    
+    db.delete(db_term)
+    db.commit()
+    
+    return {"message": "Term deleted successfully"}
+
+# Calendar Activities Endpoints
+
+@app.get(f"{settings.API_V1_PREFIX}/admin/calendar-activities")
+def get_calendar_activities(
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Get all calendar activities (Admin only)"""
+    from models import CalendarActivity
+    
+    activities = db.query(CalendarActivity).order_by(CalendarActivity.activity_date).all()
+    return activities
+
+@app.post(f"{settings.API_V1_PREFIX}/admin/calendar-activities")
+def create_calendar_activity(
+    activity_data: dict,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Create a calendar activity (Admin only)"""
+    from models import CalendarActivity
+    
+    new_activity = CalendarActivity(**activity_data)
+    db.add(new_activity)
+    db.commit()
+    db.refresh(new_activity)
+    
+    return new_activity
+
+@app.put(f"{settings.API_V1_PREFIX}/admin/calendar-activities/{{activity_id}}")
+def update_calendar_activity(
+    activity_id: int,
+    activity_data: dict,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Update a calendar activity (Admin only)"""
+    from models import CalendarActivity
+    
+    db_activity = db.query(CalendarActivity).filter(CalendarActivity.id == activity_id).first()
+    if not db_activity:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Activity not found"
+        )
+    
+    # Update fields
+    for key, value in activity_data.items():
+        if hasattr(db_activity, key):
+            setattr(db_activity, key, value)
+    
+    db.commit()
+    db.refresh(db_activity)
+    
+    return db_activity
+
+@app.delete(f"{settings.API_V1_PREFIX}/admin/calendar-activities/{{activity_id}}")
+def delete_calendar_activity(
+    activity_id: int,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Delete a calendar activity (Admin only)"""
+    from models import CalendarActivity
+    
+    db_activity = db.query(CalendarActivity).filter(CalendarActivity.id == activity_id).first()
+    if not db_activity:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Activity not found"
+        )
+    
+    db.delete(db_activity)
+    db.commit()
+    
+    return {"message": "Activity deleted successfully"}
 
 # ============================================================================
 # LESSON TRACKING ENDPOINTS

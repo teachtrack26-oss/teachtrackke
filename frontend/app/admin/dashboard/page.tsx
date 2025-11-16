@@ -107,6 +107,17 @@ export default function AdminDashboard() {
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <button
+            onClick={() => router.push("/admin/school-settings")}
+            className="bg-gradient-to-br from-indigo-500 to-purple-600 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-white"
+          >
+            <FiSettings className="w-8 h-8 mb-2" />
+            <h3 className="font-semibold">School Settings</h3>
+            <p className="text-sm text-indigo-100 mt-1">
+              Configure school details
+            </p>
+          </button>
+
+          <button
             onClick={() => router.push("/admin/users")}
             className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow"
           >

@@ -140,6 +140,7 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", href: "/", public: true },
     { name: "About", href: "/about", public: true },
+    { name: "Dashboard", href: "/dashboard", public: false },
     // { name: "Notes", href: "/notes", public: false }, // Temporarily hidden
     { name: "Curriculum", href: "/curriculum", public: false },
     { name: "Timetable", href: "/timetable", public: false },
