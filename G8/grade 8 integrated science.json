@@ -1,0 +1,259 @@
+{
+  "subject": "Integrated Science",
+  "grade": "Grade 8",
+  "education_level": "Junior Secondary",
+  "strands": [
+    {
+      "strandNumber": "1.0",
+      "strandName": "Mixtures, Elements and Compounds",
+      "subStrands": [
+        {
+          "subStrandNumber": "1.1",
+          "subStrandName": "Elements and Compounds",
+          "numberOfLessons": 18,
+          "specificLearningOutcomes": [
+            "explain the relationship between an atom, an element, a molecule and a compound",
+            "assign symbols to selected elements",
+            "write word equations to represent reactions of selected elements to form compounds",
+            "outline the applications of common elements",
+            "appreciate the information on packaging labels of commonly consumed substances"
+          ],
+          "suggestedLearningExperiences": [
+            "discuss the meaning of atoms, elements, molecules and compounds",
+            "collaboratively sample labelled containers of different substances, identify and record the elements or compounds on the containers",
+            "collaboratively represent selected elements using symbols",
+            "use word equations to represent reactions of elements to form compounds",
+            "identify elements in selected compounds (compounds with only two elements)",
+            "explore the importance and value of common elements and compounds in day-to-day life",
+            "use digital or print media to search for information on atoms, elements, molecules and compounds or observe simulations of atoms, elements, molecules and compounds"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to use symbols for representing elements in day to day life?"
+          ],
+          "coreCompetencies": [
+            "Learning to learn",
+            "Communication and collaboration"
+          ],
+          "values": ["Unity"],
+          "pcis": ["Financial literacy"],
+          "linkToOtherSubjects": ["Agriculture"]
+        },
+        {
+          "subStrandNumber": "1.2",
+          "subStrandName": "Physical and chemical changes",
+          "numberOfLessons": 22,
+          "specificLearningOutcomes": [
+            "describe the characteristics of particles in the three states of matter",
+            "explain the effects of impurities on boiling point and melting point of a substance",
+            "distinguish between physical and chemical changes in substances",
+            "outline applications of change of state of matter in day-to-day life",
+            "appreciate the applications of change of state of matter in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "carry out activities to demonstrate the characteristics of particles in the three states of matter",
+            "perform experiments to demonstrate diffusion in liquids and gases, for example use of water and ink to illustrate kinetic theory of matter",
+            "carry out experiments to determine the boiling and melting points of pure and impure substances",
+            "draw the heating curve and discuss the trends",
+            "discuss the effects of impurities on boiling point and melting point of a substance",
+            "carry out experiments to demonstrate physical and chemical changes in substances",
+            "discuss the applications of physical and chemical changes in day-to-day life",
+            "use digital or print media to search for the information on movement of particles in the different states of matter"
+          ],
+          "keyInquiryQuestions": [
+            "How does the movement of particles in matter affect its properties?"
+          ],
+          "coreCompetencies": [
+            "Critical thinking and Problem Solving",
+            "Digital literacy"
+          ],
+          "values": ["Unity"],
+          "pcis": ["Safety and security"],
+          "linkToOtherSubjects": ["Agriculture"]
+        },
+        {
+          "subStrandNumber": "1.3",
+          "subStrandName": "Classes of fire",
+          "numberOfLessons": 20,
+          "specificLearningOutcomes": [
+            "identify causes of fire in nature",
+            "explain the role of the components of fire triangle in the spread of fire",
+            "describe ways of controlling different classes of fires",
+            "acknowledge the dangers of fires in nature"
+          ],
+          "suggestedLearningExperiences": [
+            "discuss the possible causes of fire in nature",
+            "discuss the role of the components of fire triangle in the spread of fire",
+            "brainstorm on the different classes of fire",
+            "discuss the dangers of fires in the environment",
+            "collaboratively practice fire control measures",
+            "discuss rights to safety information on flammable substances",
+            "use digital devices or print media to search for information on fire control measures",
+            "prepare posters on classes of fires and their control measures and hang them in places where they can be seen"
+          ],
+          "keyInquiryQuestions": ["What are the dangers of fire in nature?"],
+          "coreCompetencies": [
+            "Citizenship",
+            "Communication and collaboration"
+          ],
+          "values": ["Respect", "Responsibility"],
+          "pcis": ["Safety and security"],
+          "linkToOtherSubjects": ["Social studies"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "2.0",
+      "strandName": "Living Things and the Environment",
+      "subStrands": [
+        {
+          "subStrandNumber": "2.1",
+          "subStrandName": "The Cell",
+          "numberOfLessons": 20,
+          "specificLearningOutcomes": [
+            "describe the structure of plant and animal cells as observed under a light microscope",
+            "describe the functions of components of cells seen under the light microscope",
+            "compare plant and animal cells as observed under a light microscope",
+            "determine the magnification of cells under the light microscope",
+            "appreciate the role of cells in living things"
+          ],
+          "suggestedLearningExperiences": [
+            "collaboratively prepare, mount, observe and draw plant cells as seen under a light microscope (include a reminder on how to use and care for a light microscope)",
+            "observe, draw and label the parts of an animal cells seen from permanent slides under the light microscope",
+            "use print and non-print material to search for information on functions of components of plant and animal cells as seen under the light microscope",
+            "discuss the similarities and differences between plant and animal cells as seen under a light microscope",
+            "calculate magnification of specimens at various objective lenses of the light microscope"
+          ],
+          "keyInquiryQuestions": ["What makes up plant and animal cells?"],
+          "coreCompetencies": ["Learning to learn", "Self-efficacy"],
+          "values": ["Unity", "Responsibility"],
+          "pcis": ["Environmental conservation"],
+          "linkToOtherSubjects": ["Mathematics"]
+        },
+        {
+          "subStrandNumber": "2.2",
+          "subStrandName": "Movement of Materials in and out of the cell",
+          "numberOfLessons": 16,
+          "specificLearningOutcomes": [
+            "outline the process of diffusion and osmosis in cells",
+            "demonstrate diffusion and osmosis in living things",
+            "explain the role of diffusion and osmosis in living things",
+            "appreciate the importance of diffusion and osmosis in living things"
+          ],
+          "suggestedLearningExperiences": [
+            "use print and non-print material to search for information on the processes involved in movement of materials in and out of a cell, discuss with peers (cover diffusion and osmosis)",
+            "carry out experiments to demonstrate diffusion of materials in plant materials and share the findings with peers",
+            "carry out experiments to demonstrate osmosis using visking tubing and plant materials and share their findings with peers",
+            "search for information from print and non-print media on the roles of diffusion and osmosis in living things and discuss with peers"
+          ],
+          "keyInquiryQuestions": [
+            "How do materials move in and out of a cell?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Self-efficacy"
+          ],
+          "values": ["Respect", "Responsibility"],
+          "pcis": ["Environmental Conservation"],
+          "linkToOtherSubjects": ["Agriculture"]
+        },
+        {
+          "subStrandNumber": "2.3",
+          "subStrandName": "Reproduction in human beings",
+          "numberOfLessons": 18,
+          "specificLearningOutcomes": [
+            "outline the menstrual cycle and its related challenges in human beings",
+            "develop a plan to manage challenges related to menstrual cycle in human beings",
+            "describe fertilisation and implantation in human beings",
+            "outline symptoms STIs of in human beings",
+            "Explain prevention measures for common STIs in human beings",
+            "appreciate the need for a healthy reproductive system"
+          ],
+          "suggestedLearningExperiences": [
+            "search for information from print or non-print media on the menstrual cycle",
+            "search for information from print or non-print media on challenges related to the menstrual cycle",
+            "discuss management of challenges related to the menstrual cycle",
+            "study illustrations/charts on the process of fertilisation and implantation",
+            "search for information from print and non-print materials on symptoms of common STIs and their prevention, discuss"
+          ],
+          "keyInquiryQuestions": [
+            "How best can challenges related to the menstrual cycle be managed?"
+          ],
+          "coreCompetencies": ["Learning to learn", "Self-efficacy"],
+          "values": ["Love", "Respect"],
+          "pcis": ["Health promotion issues"],
+          "linkToOtherSubjects": ["Agriculture"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "3.0",
+      "strandName": "Force and Energy",
+      "subStrands": [
+        {
+          "subStrandNumber": "3.1",
+          "subStrandName": "Transformation of Energy",
+          "numberOfLessons": 20,
+          "specificLearningOutcomes": [
+            "identify forms of energy in nature",
+            "classify energy sources into renewable or non-renewable",
+            "demonstrate simple energy transformations in nature",
+            "describe safety measures associated with energy transformation",
+            "appreciate the applications of energy transformation in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "discuss and identify forms of energy found in nature (light, heat, potential, kinetic, gravitational, electrical, sound energy, chemical, nuclear or atomic energy)",
+            "discuss and classify energy sources in nature (renewable and non-renewable sources)",
+            "use digital or print media to search for information on classification of energy sources in nature",
+            "carry out activities to show energy transformation in day-to-day life (electrical to heat, chemical to electrical, mechanical to electrical, electrical to light, electrical to sound and potential to kinetic)",
+            "discuss the applications of energy transformations in day to day life (use of a falling object, rubbing both hands, burning of wood, electric bulbs, Light Emitting Diodes (LED), electric heater, steam engine, piezoelectricity, microphone, windmills, electric generator/dynamo, hydroelectric dams, thermocouple, geothermal power plant, solar panel, electric motor)",
+            "use digital or print media to search for information on the applications of energy transformations in day to day life",
+            "discuss safety measures on energy transformation and mitigation strategies, (relate to road accidents; K.E to P.E; action and reaction, accidents caused by fire, electricity, health hazard from bright light, loud sound)",
+            "relate safety measures during energy transformations to road accidents; K.E to P.E; action and reaction, accidents caused by fire, electricity, health hazard from bright light, loud sound",
+            "use digital or print media to search for information on safety measures on energy transformation and mitigation strategies"
+          ],
+          "keyInquiryQuestions": [
+            "What are the sources of energy in the environment?",
+            "How is energy transformation applied in day-to-day life?"
+          ],
+          "coreCompetencies": [
+            "Critical thinking and problem solving",
+            "Creativity and imagination"
+          ],
+          "values": ["Social justice", "Love"],
+          "pcis": ["Safety"],
+          "linkToOtherSubjects": ["Agriculture"]
+        },
+        {
+          "subStrandNumber": "3.2",
+          "subStrandName": "Pressure",
+          "numberOfLessons": 16,
+          "specificLearningOutcomes": [
+            "demonstrate pressure in solids and liquids",
+            "identify applications of pressure in solids and liquids",
+            "appreciate the applications of pressure in solids and liquids"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm on the meaning of pressure as used in science",
+            "carry out activities to demonstrate pressure exerted by solids",
+            "carry out activities to demonstrate pressure in liquids",
+            "discuss the relationship between pressure, area of contact and weight of solids",
+            "describe the relationship between pressure and height of liquids (qualitative treatment only)",
+            "discuss the applications of pressure in solids and liquids (syringe, high heeled shoes, cutting tools, car brakes, siphons, bicycle pumps, drinking straw)",
+            "use digital or print media to search for information on the applications of pressure in solids and liquids"
+          ],
+          "keyInquiryQuestions": [
+            "What are the applications of pressure in solids and liquids?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Learning to Learn"
+          ],
+          "values": ["Unity"],
+          "pcis": ["Socio-economic issues"],
+          "linkToOtherSubjects": ["Pre-technical Studies"]
+        }
+      ]
+    }
+  ],
+  "totalNumberOfLessons": 150
+}

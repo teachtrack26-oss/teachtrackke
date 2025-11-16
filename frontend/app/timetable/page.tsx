@@ -104,6 +104,14 @@ const TimetablePage = () => {
       );
       setEntries(await entriesRes.json());
 
+      // Fetch USER'S SUBJECTS (for displaying in timetable)
+      const userSubjectsRes = await fetch(
+        "http://localhost:8000/api/v1/subjects",
+        { headers }
+      );
+      const userSubjects = await userSubjectsRes.json();
+      console.log("Loaded user subjects:", userSubjects);
+
       // Fetch all curriculum templates (learning areas) - any teacher can use any template
       let curriculumData = [];
       try {
@@ -133,7 +141,7 @@ const TimetablePage = () => {
       }
 
       // Transform curriculum templates to match expected format
-      const transformedSubjects = curriculumData.map((template: any) => ({
+      const transformedTemplates = curriculumData.map((template: any) => ({
         id: template.id,
         subject_name: template.subject,
         grade: template.grade,
@@ -141,8 +149,11 @@ const TimetablePage = () => {
         is_template: true, // Flag to indicate this is a template, not a user subject
       }));
 
-      setSubjects(transformedSubjects);
-      console.log("Loaded curriculum templates:", transformedSubjects);
+      // COMBINE user subjects and templates
+      // User subjects take precedence (they have actual IDs used in timetable entries)
+      const allSubjects = [...userSubjects, ...transformedTemplates];
+      setSubjects(allSubjects);
+      console.log("Combined subjects (user + templates):", allSubjects);
 
       setIsLoading(false);
     } catch (error) {
@@ -153,6 +164,16 @@ const TimetablePage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("=== SUBMITTING FORM ===");
+    console.log("Form data being sent:", formData);
+    console.log("Time slot:", formData.time_slot_id);
+    console.log(
+      "Day of week:",
+      formData.day_of_week,
+      "=>",
+      DAYS[formData.day_of_week - 1]
+    );
+
     try {
       const token = localStorage.getItem("accessToken");
       const url = editingEntry
@@ -167,6 +188,8 @@ const TimetablePage = () => {
         body: JSON.stringify(formData),
       });
       if (response.ok) {
+        const data = await response.json();
+        console.log("Response from server:", data);
         toast.success("Lesson saved successfully!");
         setIsAddModalOpen(false);
         setEditingEntry(null);
@@ -174,9 +197,11 @@ const TimetablePage = () => {
         loadData();
       } else {
         const error = await response.json();
+        console.error("Server error:", error);
         toast.error(error.detail || "Failed to save lesson");
       }
     } catch (error) {
+      console.error("Submit error:", error);
       toast.error("Failed to save lesson");
     }
   };
@@ -206,6 +231,11 @@ const TimetablePage = () => {
   };
 
   const openAddModal = (timeSlotId?: number, dayOfWeek?: number) => {
+    console.log("=== OPEN ADD MODAL ===");
+    console.log("Time Slot ID passed:", timeSlotId);
+    console.log("Day of Week passed:", dayOfWeek);
+    console.log("Day name:", dayOfWeek ? DAYS[dayOfWeek - 1] : "Not specified");
+
     setEditingEntry(null);
     setSelectedSubject(null);
     setSelectedEducationLevel("");
@@ -328,9 +358,19 @@ const TimetablePage = () => {
   };
 
   const handleSubjectChange = (subjectId: number) => {
+    console.log("=== HANDLE SUBJECT CHANGE ===");
+    console.log("Selected subject ID:", subjectId);
     const subject = filteredSubjects.find((s) => s.id === subjectId);
+    console.log("Found subject:", subject);
+    console.log("Subject name:", subject?.subject_name);
+    console.log("Subject grade:", subject?.grade);
     setSelectedSubject(subject);
     setFormData({
+      ...formData,
+      subject_id: subjectId,
+      grade_section: subject?.grade || selectedGrade,
+    });
+    console.log("Form data after update:", {
       ...formData,
       subject_id: subjectId,
       grade_section: subject?.grade || selectedGrade,
@@ -454,8 +494,17 @@ const TimetablePage = () => {
                 onClick={() => router.push("/timetable/setup")}
                 className="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg flex items-center text-gray-700"
               >
-                <FiSettings className="mr-2" />
-                Setup
+                {schedule ? (
+                  <>
+                    <FiEdit className="mr-2" />
+                    Edit Schedule
+                  </>
+                ) : (
+                  <>
+                    <FiSettings className="mr-2" />
+                    Setup
+                  </>
+                )}
               </button>
               <button
                 onClick={() => {
@@ -583,7 +632,11 @@ const TimetablePage = () => {
                             return (
                               <div
                                 key={entry.id}
-                                className="p-3 rounded-lg bg-indigo-50 border-l-4 border-indigo-500 group hover:shadow-md transition-shadow cursor-pointer mb-2"
+                                className={`p-3 rounded-lg ${
+                                  entry.is_double_lesson
+                                    ? "bg-purple-50 border-l-4 border-purple-600"
+                                    : "bg-indigo-50 border-l-4 border-indigo-500"
+                                } group hover:shadow-md transition-shadow cursor-pointer mb-2`}
                                 onClick={() => openEditModal(entry)}
                               >
                                 <div className="flex justify-between items-start">
@@ -602,11 +655,6 @@ const TimetablePage = () => {
                                         <div className="flex items-center">
                                           <FiBook className="w-3 h-3 mr-1" />
                                           Room {entry.room_number}
-                                        </div>
-                                      )}
-                                      {entry.is_double_lesson && (
-                                        <div className="text-indigo-600 font-medium">
-                                          Double Lesson
                                         </div>
                                       )}
                                     </div>
@@ -637,7 +685,15 @@ const TimetablePage = () => {
                           })
                         ) : (
                           <button
-                            onClick={() => openAddModal(slot.id, dayIndex + 1)}
+                            onClick={() => {
+                              console.log(
+                                "Grid cell clicked - Slot:",
+                                slot,
+                                "Day:",
+                                DAYS[dayIndex]
+                              );
+                              openAddModal(slot.id, dayIndex + 1);
+                            }}
                             className="w-full min-h-[80px] text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg border-2 border-dashed border-gray-200 hover:border-indigo-300 transition-colors flex items-center justify-center"
                           >
                             <FiPlus className="w-5 h-5" />

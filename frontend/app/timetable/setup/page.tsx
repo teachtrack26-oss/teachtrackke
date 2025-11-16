@@ -24,6 +24,8 @@ const TimetableSetupPage = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [hasActiveSchedule, setHasActiveSchedule] = useState(false);
+  const [scheduleId, setScheduleId] = useState<number | null>(null);
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const [config, setConfig] = useState<ScheduleConfig>({
     schedule_name: "My School Schedule",
@@ -84,11 +86,14 @@ const TimetableSetupPage = () => {
       if (response.ok) {
         const data = await response.json();
         setConfig(data);
+        setScheduleId(data.id);
         setHasActiveSchedule(true);
+        setIsEditMode(true);
       }
     } catch (error) {
       // No active schedule yet
       setHasActiveSchedule(false);
+      setIsEditMode(false);
     }
   };
 
@@ -105,17 +110,22 @@ const TimetableSetupPage = () => {
         return;
       }
 
-      const response = await fetch(
-        "http://localhost:8000/api/v1/timetable/schedules",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(config),
-        }
-      );
+      // Determine if we're creating or updating
+      const url =
+        isEditMode && scheduleId
+          ? `http://localhost:8000/api/v1/timetable/schedules/${scheduleId}`
+          : "http://localhost:8000/api/v1/timetable/schedules";
+
+      const method = isEditMode && scheduleId ? "PUT" : "POST";
+
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(config),
+      });
 
       if (response.status === 401) {
         toast.error("Session expired. Please login again");
@@ -124,15 +134,24 @@ const TimetableSetupPage = () => {
       }
 
       if (response.ok) {
-        toast.success("Schedule created successfully! Time slots generated.");
+        const successMessage = isEditMode
+          ? "Schedule updated successfully! Time slots regenerated."
+          : "Schedule created successfully! Time slots generated.";
+        toast.success(successMessage);
         router.push("/timetable");
       } else {
         const error = await response.json();
-        toast.error(error.detail || "Failed to create schedule");
+        const errorMessage = isEditMode
+          ? "Failed to update schedule"
+          : "Failed to create schedule";
+        toast.error(error.detail || errorMessage);
       }
     } catch (error) {
       console.error("Submit error:", error);
-      toast.error("Failed to create schedule");
+      const errorMessage = isEditMode
+        ? "Failed to update schedule"
+        : "Failed to create schedule";
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -179,13 +198,12 @@ const TimetableSetupPage = () => {
         <div className="bg-white rounded-lg shadow-sm border p-6">
           <div className="mb-6">
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
-              {hasActiveSchedule
-                ? "Update School Schedule"
-                : "Setup School Schedule"}
+              {isEditMode ? "Edit School Schedule" : "Setup School Schedule"}
             </h1>
             <p className="text-gray-600">
-              Configure your school timing structure. Time slots will be
-              automatically generated.
+              {isEditMode
+                ? "Update your school timing structure. Time slots will be automatically regenerated."
+                : "Configure your school timing structure. Time slots will be automatically generated."}
             </p>
           </div>
 
@@ -399,11 +417,11 @@ const TimetableSetupPage = () => {
                     type="number"
                     min="0"
                     max="5"
-                    value={config.lessons_after_lunch || 0}
+                    value={config.lessons_before_lunch || 0}
                     onChange={(e) =>
                       setConfig({
                         ...config,
-                        lessons_after_lunch: toNumber(e.target.value),
+                        lessons_before_lunch: toNumber(e.target.value),
                       })
                     }
                     className="w-full border border-gray-300 rounded-lg px-3 py-2"
@@ -514,12 +532,12 @@ const TimetableSetupPage = () => {
                 {isLoading ? (
                   <>
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                    Creating...
+                    {isEditMode ? "Updating..." : "Creating..."}
                   </>
                 ) : (
                   <>
                     <FiSave className="w-4 h-4 mr-2" />
-                    Create Schedule
+                    {isEditMode ? "Update Schedule" : "Create Schedule"}
                   </>
                 )}
               </button>

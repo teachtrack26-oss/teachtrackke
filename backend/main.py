@@ -3176,15 +3176,67 @@ async def update_school_schedule(
     # Regenerate time slots if timing changed
     if any(key in update_data for key in ['school_start_time', 'single_lesson_duration', 
                                             'double_lesson_duration', 'lessons_before_first_break',
-                                            'lessons_before_tea_break', 'lessons_before_lunch',
+                                            'lessons_before_second_break', 'lessons_before_lunch',
                                             'lessons_after_lunch', 'first_break_duration',
-                                            'tea_break_duration', 'lunch_break_duration']):
-        # Delete old time slots
+                                            'second_break_duration', 'lunch_break_duration']):
+        # Get existing time slots to preserve lesson mappings
+        existing_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule_id
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        # Get existing entries to remap later
+        existing_entries = db.query(TimetableEntry).filter(
+            TimetableEntry.schedule_id == schedule_id
+        ).all()
+        
+        # Create mapping of old slot details (sequence_order, slot_type) to entry details
+        entry_mappings = {}
+        for entry in existing_entries:
+            old_slot = next((s for s in existing_slots if s.id == entry.time_slot_id), None)
+            if old_slot:
+                # Map by sequence order and slot type to preserve lesson positions
+                key = (old_slot.sequence_order, old_slot.slot_type)
+                if key not in entry_mappings:
+                    entry_mappings[key] = []
+                entry_mappings[key].append({
+                    'subject_id': entry.subject_id,
+                    'day_of_week': entry.day_of_week,
+                    'room_number': entry.room_number,
+                    'grade_section': entry.grade_section,
+                    'notes': entry.notes,
+                    'is_double_lesson': entry.is_double_lesson,
+                    'strand_id': entry.strand_id,
+                    'substrand_id': entry.substrand_id,
+                    'lesson_id': entry.lesson_id
+                })
+        
+        # Delete old entries and slots
+        db.query(TimetableEntry).filter(TimetableEntry.schedule_id == schedule_id).delete()
         db.query(TimeSlot).filter(TimeSlot.schedule_id == schedule_id).delete()
         db.commit()
         
-        # Generate new ones
+        # Generate new time slots
         generate_time_slots(schedule, db)
+        
+        # Get newly created time slots
+        new_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule_id
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        # Recreate entries with new time slot IDs
+        for new_slot in new_slots:
+            key = (new_slot.sequence_order, new_slot.slot_type)
+            if key in entry_mappings:
+                for entry_data in entry_mappings[key]:
+                    new_entry = TimetableEntry(
+                        user_id=current_user.id,
+                        schedule_id=schedule_id,
+                        time_slot_id=new_slot.id,
+                        **entry_data
+                    )
+                    db.add(new_entry)
+        
+        db.commit()
     
     return schedule
 
@@ -3250,11 +3302,19 @@ async def create_timetable_entry(
     if not schedule:
         raise HTTPException(status_code=404, detail="No active schedule. Please create one first.")
     
+    # Log what we received
+    print(f"\n=== CREATE TIMETABLE ENTRY ===")
+    print(f"Received subject_id: {entry.subject_id}")
+    print(f"Time slot: {entry.time_slot_id}")
+    print(f"Day: {entry.day_of_week}")
+    
     # Try to find subject in user's subjects, or check if it's a curriculum template
     subject = db.query(Subject).filter(
         Subject.id == entry.subject_id,
         Subject.user_id == current_user.id
     ).first()
+    
+    print(f"Found in user's subjects: {subject.subject_name if subject else 'No'}")
     
     # If not found in user's subjects, check if it's a curriculum template
     if not subject:
@@ -3266,12 +3326,15 @@ async def create_timetable_entry(
         if not curriculum_template:
             raise HTTPException(status_code=404, detail="Subject or curriculum template not found")
         
-        # Check if user already has this subject
+        print(f"Found curriculum template: {curriculum_template.subject} - {curriculum_template.grade}")
+        
+        # Check if user already has this subject with EXACT template match
         existing_subject = db.query(Subject).filter(
             Subject.user_id == current_user.id,
-            Subject.subject_name == curriculum_template.subject,
-            Subject.grade == curriculum_template.grade
+            Subject.template_id == curriculum_template.id
         ).first()
+        
+        print(f"Found existing subject from template: {existing_subject.subject_name if existing_subject else 'No'}")
         
         if existing_subject:
             # Use the existing subject
@@ -3292,6 +3355,7 @@ async def create_timetable_entry(
             db.flush()  # Get the ID without committing
             subject = new_subject
             entry.subject_id = subject.id
+            print(f"Created new subject: {subject.subject_name} - {subject.grade} (ID: {subject.id})")
     
     # Verify time slot exists and is a lesson slot
     time_slot = db.query(TimeSlot).filter(
@@ -3318,17 +3382,85 @@ async def create_timetable_entry(
             detail="This time slot is already occupied on this day"
         )
     
-    # Create entry
-    db_entry = TimetableEntry(
-        user_id=current_user.id,
-        schedule_id=schedule.id,
-        **entry.dict()
-    )
-    db.add(db_entry)
-    db.commit()
-    db.refresh(db_entry)
-    
-    return db_entry
+    # Handle double lesson - need to occupy TWO consecutive slots
+    if entry.is_double_lesson:
+        # Find all lesson slots for this schedule, ordered by sequence
+        all_lesson_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule.id,
+            TimeSlot.slot_type == "lesson"
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        # Find current slot's position
+        current_slot_index = next((i for i, slot in enumerate(all_lesson_slots) if slot.id == entry.time_slot_id), None)
+        
+        if current_slot_index is None:
+            raise HTTPException(status_code=400, detail="Invalid time slot")
+        
+        # Check if there's a next consecutive lesson slot
+        if current_slot_index >= len(all_lesson_slots) - 1:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot create double lesson: no consecutive slot available (this is the last lesson slot)"
+            )
+        
+        next_slot = all_lesson_slots[current_slot_index + 1]
+        
+        # Check if next slot is already occupied
+        next_slot_occupied = db.query(TimetableEntry).filter(
+            TimetableEntry.user_id == current_user.id,
+            TimetableEntry.time_slot_id == next_slot.id,
+            TimetableEntry.day_of_week == entry.day_of_week
+        ).first()
+        
+        if next_slot_occupied:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Cannot create double lesson: next time slot is already occupied"
+            )
+        
+        print(f"Creating double lesson: slot {entry.time_slot_id} + {next_slot.id}")
+        
+        # Create entry for FIRST slot
+        db_entry = TimetableEntry(
+            user_id=current_user.id,
+            schedule_id=schedule.id,
+            **entry.dict()
+        )
+        db.add(db_entry)
+        db.flush()  # Get the ID
+        
+        # Create entry for SECOND slot (consecutive)
+        db_entry_2 = TimetableEntry(
+            user_id=current_user.id,
+            schedule_id=schedule.id,
+            subject_id=entry.subject_id,
+            time_slot_id=next_slot.id,
+            day_of_week=entry.day_of_week,
+            strand_id=entry.strand_id,
+            substrand_id=entry.substrand_id,
+            lesson_id=entry.lesson_id,
+            room_number=entry.room_number,
+            grade_section=entry.grade_section,
+            notes=f"(Part 2 of double lesson)",
+            is_double_lesson=True
+        )
+        db.add(db_entry_2)
+        db.commit()
+        db.refresh(db_entry)
+        
+        return db_entry
+    else:
+        # Single lesson - create only one entry
+        db_entry = TimetableEntry(
+            user_id=current_user.id,
+            schedule_id=schedule.id,
+            **entry.dict()
+        )
+        db.add(db_entry)
+        db.commit()
+        db.refresh(db_entry)
+        
+        return db_entry
 
 
 @app.get(f"{settings.API_V1_PREFIX}/timetable/entries", response_model=List[TimetableEntryResponse])
@@ -3580,6 +3712,89 @@ async def update_timetable_entry(
         if not subject:
             raise HTTPException(status_code=404, detail="Subject not found")
     
+    # Handle double lesson changes
+    was_double = entry.is_double_lesson
+    becoming_double = update_data.get("is_double_lesson", was_double)
+    
+    if becoming_double and not was_double:
+        # Converting to double lesson - need to occupy next slot
+        schedule = db.query(SchoolSchedule).filter(
+            SchoolSchedule.user_id == current_user.id,
+            SchoolSchedule.is_active == True
+        ).first()
+        
+        all_lesson_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule.id,
+            TimeSlot.slot_type == "lesson"
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        current_slot_index = next((i for i, slot in enumerate(all_lesson_slots) if slot.id == entry.time_slot_id), None)
+        
+        if current_slot_index is None or current_slot_index >= len(all_lesson_slots) - 1:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot convert to double lesson: no consecutive slot available"
+            )
+        
+        next_slot = all_lesson_slots[current_slot_index + 1]
+        
+        # Check if next slot is occupied
+        next_slot_occupied = db.query(TimetableEntry).filter(
+            TimetableEntry.user_id == current_user.id,
+            TimetableEntry.time_slot_id == next_slot.id,
+            TimetableEntry.day_of_week == entry.day_of_week
+        ).first()
+        
+        if next_slot_occupied:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot convert to double lesson: next time slot is already occupied"
+            )
+        
+        # Create second slot entry
+        db_entry_2 = TimetableEntry(
+            user_id=current_user.id,
+            schedule_id=entry.schedule_id,
+            subject_id=update_data.get("subject_id", entry.subject_id),
+            time_slot_id=next_slot.id,
+            day_of_week=entry.day_of_week,
+            room_number=update_data.get("room_number", entry.room_number),
+            grade_section=update_data.get("grade_section", entry.grade_section),
+            notes=f"(Part 2 of double lesson)",
+            is_double_lesson=True
+        )
+        db.add(db_entry_2)
+    
+    elif not becoming_double and was_double:
+        # Converting from double to single - need to remove next slot entry
+        schedule = db.query(SchoolSchedule).filter(
+            SchoolSchedule.user_id == current_user.id,
+            SchoolSchedule.is_active == True
+        ).first()
+        
+        all_lesson_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule.id,
+            TimeSlot.slot_type == "lesson"
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        current_slot_index = next((i for i, slot in enumerate(all_lesson_slots) if slot.id == entry.time_slot_id), None)
+        
+        if current_slot_index is not None and current_slot_index < len(all_lesson_slots) - 1:
+            next_slot = all_lesson_slots[current_slot_index + 1]
+            
+            # Find and delete the second part of double lesson
+            second_entry = db.query(TimetableEntry).filter(
+                TimetableEntry.user_id == current_user.id,
+                TimetableEntry.time_slot_id == next_slot.id,
+                TimetableEntry.day_of_week == entry.day_of_week,
+                TimetableEntry.subject_id == entry.subject_id,
+                TimetableEntry.is_double_lesson == True
+            ).first()
+            
+            if second_entry:
+                db.delete(second_entry)
+    
+    # Apply updates
     for key, value in update_data.items():
         setattr(entry, key, value)
     
@@ -3595,7 +3810,7 @@ async def delete_timetable_entry(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Delete a timetable entry"""
+    """Delete a timetable entry (and its paired slot if it's a double lesson)"""
     entry = db.query(TimetableEntry).filter(
         TimetableEntry.id == entry_id,
         TimetableEntry.user_id == current_user.id
@@ -3603,6 +3818,36 @@ async def delete_timetable_entry(
     
     if not entry:
         raise HTTPException(status_code=404, detail="Timetable entry not found")
+    
+    # If this is a double lesson, delete the paired entry too
+    if entry.is_double_lesson:
+        schedule = db.query(SchoolSchedule).filter(
+            SchoolSchedule.user_id == current_user.id,
+            SchoolSchedule.is_active == True
+        ).first()
+        
+        all_lesson_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule.id,
+            TimeSlot.slot_type == "lesson"
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        current_slot_index = next((i for i, slot in enumerate(all_lesson_slots) if slot.id == entry.time_slot_id), None)
+        
+        if current_slot_index is not None and current_slot_index < len(all_lesson_slots) - 1:
+            next_slot = all_lesson_slots[current_slot_index + 1]
+            
+            # Find and delete the second part
+            second_entry = db.query(TimetableEntry).filter(
+                TimetableEntry.user_id == current_user.id,
+                TimetableEntry.time_slot_id == next_slot.id,
+                TimetableEntry.day_of_week == entry.day_of_week,
+                TimetableEntry.subject_id == entry.subject_id,
+                TimetableEntry.is_double_lesson == True
+            ).first()
+            
+            if second_entry:
+                print(f"Deleting paired double lesson entry: {second_entry.id}")
+                db.delete(second_entry)
     
     db.delete(entry)
     db.commit()

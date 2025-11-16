@@ -1,0 +1,501 @@
+{
+  "subject": "English",
+  "grade": "Grade 8",
+  "education_level": "Junior Secondary",
+  "strands": [
+    {
+      "strandNumber": "1.0",
+      "strandName": "Listening and Speaking",
+      "subStrands": [
+        {
+          "subStrandNumber": "1.1.1",
+          "subStrandName": "Polite Language: Telephone Etiquette",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "identify polite words and phrases in telephone conversations",
+            "conduct a telephone conversation using polite words and expressions",
+            "acknowledge the significance of etiquette in telephone conversations"
+          ],
+          "suggestedLearningExperiences": [
+            "listen and identify words and phrases that indicate polite language in a telephone conversation from a digital device",
+            "role-play a telephone dialogue on human rights using polite language",
+            "match polite telephone conversation expressions with appropriate responses from cards",
+            "practise leaving and taking telephone messages using polite language on a caller card"
+          ],
+          "keyInquiryQuestions": [
+            "Why should one be polite when speaking over telephone?",
+            "How do we ensure politeness in a telephone conversation?"
+          ],
+          "coreCompetencies": ["Communication", "Digital literacy"],
+          "values": ["Respect"],
+          "pcis": ["Social cohesion"],
+          "linkToOtherSubjects": ["Kiswahili", "Religious Education"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "2.0",
+      "strandName": "Reading",
+      "subStrands": [
+        {
+          "subStrandNumber": "2.1.1",
+          "subStrandName": "Oral Presentations: Songs",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "identify features of songs in the locality",
+            "use performance techniques when singing",
+            "write songs on a scientific innovation",
+            "appreciate the role of songs in the society"
+          ],
+          "suggestedLearningExperiences": [
+            "watch recordings of songs from the Kenya drama and music festivals",
+            "discuss the performance techniques that make the presentations appealing and make notes",
+            "identify songs of their choice and present them to the rest of the class",
+            "write songs on scientific innovations",
+            "collaborate to recite and record the songs or poems",
+            "watch the recordings and discuss the non-verbal aspects of the performance"
+          ],
+          "keyInquiryQuestions": [
+            "How can one improve the presentation of a song to make it interesting?"
+          ],
+          "coreCompetencies": [
+            "Creativity and imagination",
+            "Digital literacy"
+          ],
+          "values": ["Patriotism"],
+          "pcis": ["Citizenship"],
+          "linkToOtherSubjects": ["Creative arts and sports"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "3.0",
+      "strandName": "Grammar in Use",
+      "subStrands": [
+        {
+          "subStrandNumber": "3.1.1",
+          "subStrandName": "Listening Comprehension",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "identify the main idea from a cause and effect text",
+            "pinpoint specific information from a cause and effect text",
+            "infer the meanings of unfamiliar words using context clues",
+            "acknowledge the importance of listening for detail"
+          ],
+          "suggestedLearningExperiences": [
+            "listen to a cause and effect text on pollution being read by the teacher or from a digital device",
+            "pick out the main idea from that cause and effect text",
+            "respond to oral questions based on the text correctly",
+            "identify and write down the ideas presented in the text",
+            "orally answer questions based on the text",
+            "make a list of unfamiliar words and practise pronouncing them",
+            "give the meaning of specific words using context clues",
+            "look up the meanings of unfamiliar words from an online or offline dictionary",
+            "use given words to construct sentences"
+          ],
+          "keyInquiryQuestions": [
+            "What should one look for when listening to a text?"
+          ],
+          "coreCompetencies": ["Digital Literacy", "Self-efficacy"],
+          "values": ["Responsibility"],
+          "pcis": ["Environmental education awareness"],
+          "linkToOtherSubjects": ["Kiswahili"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "4.0",
+      "strandName": "Writing",
+      "subStrands": [
+        {
+          "subStrandNumber": "4.1.1",
+          "subStrandName": "Listening Comprehension: Selective Listening",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "distinguish between specific and general information from a listening text",
+            "select specific information from a text",
+            "listen and respond to texts appropriately",
+            "emphasise the value of listening skills in communication"
+          ],
+          "suggestedLearningExperiences": [
+            "listen to an audio text on consumer roles and responsibilities and decide whether the information presented is specific or general",
+            "search online for audio recordings and attentively listen for specific information",
+            "role play a scene on roles and responsibilities of consumers to emphasise listening skills during communication",
+            "listen to a passage on consumer roles and responsibilities and answer questions posed by the speaker"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to get the main points from an oral text?",
+            "How can you ensure you capture the relevant information from a speaker?"
+          ],
+          "coreCompetencies": ["Critical thinking"],
+          "values": ["Responsibility"],
+          "pcis": [
+            "Consumer literacy skills",
+            "Effective communication skills"
+          ],
+          "linkToOtherSubjects": ["Creative arts and sports"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "5.0",
+      "strandName": "Listening and Speaking",
+      "subStrands": [
+        {
+          "subStrandNumber": "5.1.1",
+          "subStrandName": "Pronunciation",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "identify words with sounds /ɒ/, /ͻ:/, /θ/ and /ð/ in a given text",
+            "pronounce words that have target sounds correctly",
+            "apply emphatic stress correctly in varied contexts",
+            "acknowledge the role of correct pronunciation in communication"
+          ],
+          "suggestedLearningExperiences": [
+            "interact with an audio or video recording featuring vowel sounds/ɒ/ /ͻ:/ and consonant sounds/θ/ /ð/ from a digital device",
+            "list words that contain the mentioned sounds from print or digital texts",
+            "pronounce the identified words correctly, with peers",
+            "play word games involving the target sounds",
+            "with peers, search online and offline for the meaning of emphatic stress",
+            "listen to a series of sentences and identify the stressed words",
+            "collaborate to recite a poem and emphasise given words to bring out various meanings",
+            "read sentences and stress given words appropriately"
+          ],
+          "keyInquiryQuestions": ["How can one improve their pronunciation?"],
+          "coreCompetencies": ["Communication", "Collaboration"],
+          "values": ["Responsibility"],
+          "pcis": ["Effective communication"],
+          "linkToOtherSubjects": ["Kiswahili"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "6.0",
+      "strandName": "Reading",
+      "subStrands": [
+        {
+          "subStrandNumber": "6.1.1",
+          "subStrandName": "Conversational Skills: Disagreeing politely",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "list ways of disagreeing politely",
+            "use conversational strategies to disagree appropriately",
+            "apply non-verbal cues to express varied moods and feelings",
+            "advocate for the need to speak politely during communication"
+          ],
+          "suggestedLearningExperiences": [
+            "watch a short video or read an excerpt in which speakers disagree appropriately and identify polite expressions used",
+            "role play the events depicted in the video or excerpt",
+            "practise disagreeing politely while incorporating non-verbal cues",
+            "listen to a dialogue where characters agree or disagree politely",
+            "work with peers to write a short dialogue depicting disagreeing politely and present it to the rest of the class"
+          ],
+          "keyInquiryQuestions": [
+            "Which words or phrases are used to show politeness?",
+            "How do you use non-verbal cues to express different moods and feelings?"
+          ],
+          "coreCompetencies": ["Collaboration"],
+          "values": ["Respect"],
+          "pcis": ["Effective communication"],
+          "linkToOtherSubjects": ["Mathematics", "Integrated Science"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "7.0",
+      "strandName": "Grammar in Use",
+      "subStrands": [
+        {
+          "subStrandNumber": "7.1.1",
+          "subStrandName": "Listening for Detail",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "identify main ideas in a listening text",
+            "respond appropriately to questions based on the listening text",
+            "acknowledge the importance of listening for details in life"
+          ],
+          "suggestedLearningExperiences": [
+            "listen to a recorded text on wild life and answer questions from the text, and discuss the main ideas",
+            "listen to a passage read by peers or the teacher and outline the main ideas from the text individually",
+            "discuss with peers answers based on a given text"
+          ],
+          "keyInquiryQuestions": ["How should one listen for detail?"],
+          "coreCompetencies": ["Communication", "Digital literacy"],
+          "values": ["Patriotism", "Responsibility"],
+          "pcis": ["Wildlife conservation"],
+          "linkToOtherSubjects": ["Kiswahili"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "8.0",
+      "strandName": "Writing",
+      "subStrands": [
+        {
+          "subStrandNumber": "8.1.1",
+          "subStrandName": "Listening and Responding: Oral Narratives - Myths",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "identify the characters in a given myth",
+            "narrate the key events in a given myth",
+            "explain the moral lesson in a set myth",
+            "relate the characters in a myth to real life",
+            "acknowledge the role/importance of oral literature in lifelong learning"
+          ],
+          "suggestedLearningExperiences": [
+            "predict events in a myth from the title or pictures in the story",
+            "listen to a narration of a myth from your community then retell the myth to their peers",
+            "watch a video recording of a myth",
+            "identify the characters in the myth",
+            "collaborate answer questions from the story",
+            "discuss the lessons learnt from a myth",
+            "discuss the relevance of the story to real life"
+          ],
+          "keyInquiryQuestions": [
+            "How can you tell what is going to happen in a story?",
+            "How are the characters or events in the story related to the people or happenings around us?"
+          ],
+          "coreCompetencies": ["Digital literacy", "Collaboration"],
+          "values": ["Respect"],
+          "pcis": ["Social cohesion"],
+          "linkToOtherSubjects": ["Religious Education"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "9.0",
+      "strandName": "Listening and Speaking",
+      "subStrands": [
+        {
+          "subStrandNumber": "9.1.1",
+          "subStrandName": "Pronunciation: Sounds and Stress",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "identify words with vowels /ɑː/; /зː/ and the consonant /tʃ/; /dʒ/ from a sample text",
+            "pronounce the vowels /ɑː/; /зː/ and the consonants /tʃ/; /dʒ/ correctly",
+            "apply stress on content words while leaving the function words unstressed",
+            "acknowledge the importance of emphatic stress in communication"
+          ],
+          "suggestedLearningExperiences": [
+            "listen to a recording and identify the sounds /ɑː/ /зː/ /tʃ/ and/dʒ/",
+            "practise saying the sounds /ɑː/ /зː/ /tʃ/ and/dʒ/",
+            "identify the stressed and unstressed words in a sample text",
+            "work with peers to practise saying words with the sounds /ɑː/ /зː/ /tʃ/ and/dʒ/ and make a recording",
+            "listen to sentences as they are read out",
+            "pick out words that are either stressed and unstressed",
+            "collaborate to recite a poem and identify the stressed words"
+          ],
+          "keyInquiryQuestions": [
+            "Why are some words said with greater force than others?",
+            "Why do we pronounce some words differently from others in a sentence?"
+          ],
+          "coreCompetencies": [
+            "Self-efficacy",
+            "Communication and collaboration"
+          ],
+          "values": ["Peace"],
+          "pcis": ["Citizenship"],
+          "linkToOtherSubjects": ["Creative arts and sports"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "10.0",
+      "strandName": "Reading",
+      "subStrands": [
+        {
+          "subStrandNumber": "10.1.1",
+          "subStrandName": "Oral Presentations",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "identify the items in the format of a speech",
+            "present a written speech using effective speaking skills",
+            "prepare a short speech on a given topic",
+            "acknowledge the importance of good speaking skills for effective communication"
+          ],
+          "suggestedLearningExperiences": [
+            "search online and offline for the format of a speech",
+            "listen to or watch a recorded speech from a digital device",
+            "identify the introduction, body and conclusion of the speech they have listened to or watched",
+            "work with peers write down points on how they can appreciate their heritage through art",
+            "collaborate to prepare a speech using the points generated above and present it in class",
+            "present the speech to the whole class as other learners provide feedback on the non-verbal cues used",
+            "identify the speaking strategies that made each speech interesting"
+          ],
+          "keyInquiryQuestions": [
+            "How can you make a speech presentation interesting?",
+            "What are some of the techniques for introducing or concluding a speech?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Learning to learn"
+          ],
+          "values": ["Respect", "Unity"],
+          "pcis": ["Social cohesion"],
+          "linkToOtherSubjects": ["Creative arts and sports"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "11.0",
+      "strandName": "Grammar in Use",
+      "subStrands": [
+        {
+          "subStrandNumber": "11.1.1",
+          "subStrandName": "Conversational Skills: interviews",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "identify polite words and expressions in a radio or television interview",
+            "use polite words and expressions when conducting an interview",
+            "appreciate the role of interviews in presenting reality"
+          ],
+          "suggestedLearningExperiences": [
+            "listen to a recorded or a role played interview and identify polite expressions used. For example, 'I am sorry but...'; 'your point is valid, but...'",
+            "watch a video in which the speakers are engaged in a radio or television interview",
+            "make a list of the verbal and non- verbal cues used by the speakers to express politeness",
+            "brainstorm and conduct an interview on choosing a career in traffic law enforcement agencies using polite expressions",
+            "search online and offline for typical questions and answers in a radio or television interview",
+            "conduct a hot seating episode that relates to experiences people go through in their various careers"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to use polite language during an interview?",
+            "How do we show respect for other people’s opinion?"
+          ],
+          "coreCompetencies": ["Collaboration", "Digital literacy"],
+          "values": ["Respect", "Unity"],
+          "pcis": ["Effective communication"],
+          "linkToOtherSubjects": ["Religious Education", "Social Studies"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "12.0",
+      "strandName": "Writing",
+      "subStrands": [
+        {
+          "subStrandNumber": "12.1.1",
+          "subStrandName": "Listening to Respond: Attitude",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "explain the message in a given song",
+            "use appropriate words and expressions to express their attitude towards a given song",
+            "appreciate how choice of words affects the reader"
+          ],
+          "suggestedLearningExperiences": [
+            "listen to different songs from a digital device or non-electronic sources and describe the messages in them",
+            "collaborate with peers to perform the songs and bring out relevant emotions",
+            "discuss issues highlighted in the songs with those of their peers",
+            "use words and expressions to describe their feelings about various issues in the songs including modern fashion"
+          ],
+          "keyInquiryQuestions": [
+            "What messages are found in songs?",
+            "What makes one like or dislike a song?"
+          ],
+          "coreCompetencies": ["Self-efficacy", "Digital literacy"],
+          "values": ["Respect"],
+          "pcis": ["Effective communication skills"],
+          "linkToOtherSubjects": ["Creative arts and sports"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "13.0",
+      "strandName": "Listening and Speaking",
+      "subStrands": [
+        {
+          "subStrandNumber": "13.1.1",
+          "subStrandName": "Extensive Listening: Poems",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "identify messages in poems",
+            "perform poems using appropriate techniques",
+            "acknowledge the role of poems in society"
+          ],
+          "suggestedLearningExperiences": [
+            "watch recordings or performances of poems on the need for consumer protection and patriotism for enjoyment",
+            "with peers, discuss the different messages in the poems",
+            "discuss in groups the performance techniques that make the presentations appealing",
+            "identify poems on the need for consumer protection and perform them while recording themselves",
+            "discuss what stands out in presentation"
+          ],
+          "keyInquiryQuestions": [
+            "How can you improve the presentation of a poem?",
+            "What messages are conveyed in poem?"
+          ],
+          "coreCompetencies": ["Collaboration", "Self-efficacy"],
+          "values": ["Patriotism"],
+          "pcis": ["Consumer literacy skills"],
+          "linkToOtherSubjects": ["Pre-Technical Studies"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "14.0",
+      "strandName": "Reading",
+      "subStrands": [
+        {
+          "subStrandNumber": "14.1.1",
+          "subStrandName": "Pronunciation and Intonation",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "identify silent consonant letters in words",
+            "pronounce words with silent consonant letters in sentences",
+            "use the correct intonation in declarative and exclamatory sentences",
+            "acknowledge the importance of correct pronunciation and intonation in communication"
+          ],
+          "suggestedLearningExperiences": [
+            "search online and offline for words with the following silent consonant letters /r//h//k//g//p//t/and /b/ and practise the pronunciation of the given words",
+            "listen from the online dictionaries and tutorials for the correct articulation of the specified sounds",
+            "listen to the teacher or a recording of some sentences on sports and indicate whether a falling or rising intonation has been used",
+            "use correct intonation when reading declarative and exclamatory sentences",
+            "practise reading words with silent letters in pairs and give feedback",
+            "underline silent letters in words"
+          ],
+          "keyInquiryQuestions": [
+            "Why should we use the right intonation when speaking?",
+            "What are some of the words with silent letters?"
+          ],
+          "coreCompetencies": ["Self-efficacy", "Digital literacy"],
+          "values": ["Social justice"],
+          "pcis": ["Effective communication"],
+          "linkToOtherSubjects": ["All subjects"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "15.0",
+      "strandName": "Grammar in Use",
+      "subStrands": [
+        {
+          "subStrandNumber": "15.1.1",
+          "subStrandName": "Oral Reports: Events",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "recount events that take place outside the classroom",
+            "present a report on occurences taking place out of the classsroom using verbal and non-verbal cues",
+            "acknowledge the role of oral reports in communication"
+          ],
+          "suggestedLearningExperiences": [
+            "scan through pictures or videos taken in a tourist attraction site and discuss the activities involved and how the roads are used to ensure safety",
+            "search online or offline for oral reports and note the steps taken during the presentations",
+            "review an out of class activity and order the sequence of events of the activity",
+            "rehearse an oral report paying attention to verbal and non-verbal cues",
+            "present oral reports on the activities as they took place using verbal and non-verbal cues",
+            "provide feedback on reports presented by peers and suggest improvements"
+          ],
+          "keyInquiryQuestions": [
+            "How can you make your presentation convincing?",
+            "Why do we give oral reports?"
+          ],
+          "coreCompetencies": [
+            "Creativity and imagination",
+            "Digital literacy"
+          ],
+          "values": ["Patriotism"],
+          "pcis": ["Environmental education awareness"],
+          "linkToOtherSubjects": ["Religious Education"]
+        }
+      ]
+    }
+  ]
+}

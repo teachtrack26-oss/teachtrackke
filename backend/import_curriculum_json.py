@@ -63,7 +63,7 @@ def validate_json_structure(data):
     if len(strand['subStrands']) > 0:
         substrand = strand['subStrands'][0]
         required_substrand_fields = [
-            'subStrandNumber', 'subStrandName', 'numberOfLessons',
+            'subStrandNumber', 'subStrandName', 'number_of_lessons',
             'specificLearningOutcomes', 'suggestedLearningExperiences',
             'keyInquiryQuestions', 'coreCompetencies', 'values',
             'pcis', 'linkToOtherSubjects'
@@ -178,7 +178,7 @@ def import_curriculum(json_file_path):
                         "strand_id": strand_id,
                         "substrand_number": substrand['subStrandNumber'],
                         "substrand_name": substrand['subStrandName'],
-                        "number_of_lessons": substrand['numberOfLessons'],
+                        "number_of_lessons": substrand['number_of_lessons'],
                         "specific_learning_outcomes": json.dumps(substrand.get('specificLearningOutcomes', [])),
                         "suggested_learning_experiences": json.dumps(substrand.get('suggestedLearningExperiences', [])),
                         "key_inquiry_questions": json.dumps(substrand.get('keyInquiryQuestions', [])),

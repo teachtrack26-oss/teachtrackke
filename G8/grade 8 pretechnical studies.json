@@ -1,0 +1,442 @@
+{
+  "subject": "Pre-Technical Studies",
+  "grade": "Grade 8",
+  "education_level": "Junior Secondary",
+  "strands": [
+    {
+      "strandNumber": "1.0",
+      "strandName": "Foundations of Pre-Technical studies",
+      "subStrands": [
+        {
+          "subStrandNumber": "1.1",
+          "subStrandName": "Fire and Data Safety",
+          "numberOfLessons": 7,
+          "specificLearningOutcomes": [
+            "explain the possible causes of fire in a work environment",
+            "describe ways of preventing fire in the environment",
+            "use firefighting techniques to stop fire in an environment",
+            "analyse threats to data in an electronic device",
+            "secure data in an electronic device",
+            "acknowledge the need for fire and data safety in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm on the possible causes of fire in a work environment (flammable substances, electrical faults, combustible materials)",
+            "share experiences on ways of preventing fire in the environment",
+            "discuss firefighting techniques in the work environment (cooling, smothering, starving, interrupting)",
+            "role play firefighting techniques in work environment",
+            "demonstrate firefighting techniques to stop fire in an environment",
+            "search for information using available resources on the threats of data in an electronic device and share their findings",
+            "discuss ways of securing data stored in an electronic device (use of passwords, backup, anti-viruses)",
+            "secure data in an electronic device against possible threats (use passwords; and scan electronic devices using antivirus)"
+          ],
+          "keyInquiryQuestions": [
+            "Why is fire safety important?",
+            "How is data secured in an electronic device?"
+          ],
+          "coreCompetencies": [
+            "Critical Thinking and Problem Solving",
+            "Digital Literacy"
+          ],
+          "values": ["Responsibility", "Respect"],
+          "pcis": ["Cyber Security"],
+          "linkToOtherSubjects": ["Integrated Science"]
+        },
+        {
+          "subStrandNumber": "1.2",
+          "subStrandName": "Computer Hardware",
+          "numberOfLessons": 11,
+          "specificLearningOutcomes": [
+            "classify computer hardware devices in a user environment",
+            "use computer hardware devices to carry out a given task",
+            "value the importance of computer hardware devices in a user environment"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm and present on the meaning of the term 'computer hardware'",
+            "use available resources to search for information on categories of computer hardware: input devices (keying devices, pointing devices, scanning devices, voice input devices, touch screen, digitizer, digital cameras), output devices (hardcopy and softcopy), storage devices (fixed and removable devices)",
+            "discuss the categories of computer hardware devices in a user environment",
+            "match available devices to their respective categories",
+            "perform tasks using computer input, output and storage devices"
+          ],
+          "keyInquiryQuestions": ["How are computer hardware used?"],
+          "coreCompetencies": ["Critical Thinking and Problem Solving"],
+          "values": ["Peace"],
+          "pcis": ["Peer Education and Mentorship"],
+          "linkToOtherSubjects": ["All learning areas"]
+        },
+        {
+          "subStrandNumber": "1.3",
+          "subStrandName": "Consumer and Investor Protection",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "explain the importance of consumer and investor protection in Kenya",
+            "analyse ways in which consumers and investors are protected in Kenya",
+            "explore the Government financial regulators in Kenya",
+            "protect oneself from exploitation"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm and present on the meaning and importance of consumer and investor protection in Kenya",
+            "use available resources to search for information on the importance of consumer and investor protection in Kenya",
+            "share experiences on ways in which consumers and investors protect themselves",
+            "discuss and present on ways in which the Government protects consumers and investors",
+            "use print or digital media to search for information on ways in which non-Governmental organisations protect consumers' and investors' concerns in Kenya",
+            "engage a resource person to discuss ways in which non-Governmental organisations protect consumers' and investors' concerns in Kenya",
+            "read and analyse a case study on Government financial regulators in Kenya"
+          ],
+          "keyInquiryQuestions": [
+            "Why does the Government protect consumers and investors?",
+            "How do consumers protect themselves from exploitation by traders?"
+          ],
+          "coreCompetencies": [
+            "Learning to Learn",
+            "Communication and Collaboration"
+          ],
+          "values": ["Respect", "Responsibility", "Unity"],
+          "pcis": ["Consumer Rights"],
+          "linkToOtherSubjects": ["Social Studies"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "2.0",
+      "strandName": "Communication",
+      "subStrands": [
+        {
+          "subStrandNumber": "2.1",
+          "subStrandName": "Business Communication",
+          "numberOfLessons": 7,
+          "specificLearningOutcomes": [
+            "identify forms of communication in a work environment",
+            "explore the factors considered when selecting channels of communication",
+            "analyse ethical and unethical practices in business communication",
+            "recognize suitable channels of communication in a work environment"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm on forms and channels of communication in the work environment",
+            "use available resources to explore the channels of communication under each form",
+            "discuss and present the factors considered when selecting channels of communication",
+            "read and analyse a case study on ethical and unethical practices in communication",
+            "debate on ethical practices in communication"
+          ],
+          "keyInquiryQuestions": [
+            "Why is business communication important?",
+            "How do people communicate in a business environment?"
+          ],
+          "coreCompetencies": [
+            "Communication and Collaboration",
+            "Learning to Learn",
+            "Self Efficacy"
+          ],
+          "values": ["Respect", "Unity"],
+          "pcis": ["Social Cohesion"],
+          "linkToOtherSubjects": ["English"]
+        },
+        {
+          "subStrandNumber": "2.2",
+          "subStrandName": "Plain Scale Drawing",
+          "numberOfLessons": 6,
+          "specificLearningOutcomes": [
+            "describe the features of a plain scale used in drawing",
+            "interpret a plain scale used in drawing",
+            "draw plane figures to a given scale",
+            "appreciate the use of plain scale drawing in the work environment"
+          ],
+          "suggestedLearningExperiences": [
+            "use print or digital media to search for information on plain scales",
+            "discuss the features of a plain scale",
+            "use drawing instruments to construct a plain scale",
+            "discuss how to read plain scales",
+            "use visual aids to identify drawings drawn to different scales",
+            "practice drawing plane figures to a given plain scale"
+          ],
+          "keyInquiryQuestions": [
+            "What is the importance of drawing figures to scale?",
+            "Why are plane figures drawn to scale?"
+          ],
+          "coreCompetencies": ["Learning to Learn", "Self-Efficacy"],
+          "values": ["Unity", "Responsibility"],
+          "pcis": ["Peer education and mentorship"],
+          "linkToOtherSubjects": ["Mathematics"]
+        },
+        {
+          "subStrandNumber": "2.3",
+          "subStrandName": "Visual Programming",
+          "numberOfLessons": 14,
+          "specificLearningOutcomes": [
+            "identify types of visual programming applications used to solve problems in day-to-day life",
+            "explore the features of visual programming applications used in the work environment",
+            "create instructions to solve problems using visual programming application",
+            "value the importance of visual programming to solve problems in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm on the meaning of the terms 'visual programming' and 'visual programming application'",
+            "use available resources to search for information on types of visual programming applications (Educational, Multimedia, Video games)",
+            "brainstorm on examples of visual programming applications (Microsoft MakeCode, Scratch, Sprite box)",
+            "launch and discuss the different features of visual programming applications (input, processing, output, effects such as sound, animations and background)",
+            "search for information on terminologies used in visual programming (syntax, variables, input output statements, coding, coding blocks, sequence statement, repeating statement, selection statement, variable declarations) and discuss with peers",
+            "use visual programming software to create instructions in the work environment"
+          ],
+          "keyInquiryQuestions": [
+            "How are computer programs used in daily life?"
+          ],
+          "coreCompetencies": [
+            "Communication and Collaboration",
+            "Critical Thinking and Problem Solving"
+          ],
+          "values": ["Responsibility"],
+          "pcis": ["Peer Education"],
+          "linkToOtherSubjects": ["Mathematics"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "3.0",
+      "strandName": "Materials for production",
+      "subStrands": [
+        {
+          "subStrandNumber": "3.1",
+          "subStrandName": "Composite Materials",
+          "numberOfLessons": 7,
+          "specificLearningOutcomes": [
+            "identify composite materials in the locality",
+            "describe the composition of composite materials in the locality",
+            "relate composite materials to their use in a work environment",
+            "acknowledge the importance of composite materials used in the locality"
+          ],
+          "suggestedLearningExperiences": [
+            "use visual aids and realia to identify materials made of composites (concrete, bricks, manufactured boards, stone, paper-mâché and plastic-coated paper) and share with the peers",
+            "use print or digital media to search for information on the composition of composite materials and share with peers",
+            "discuss the constituent materials of composites",
+            "visit workplaces in the locality to explore the uses of composite materials",
+            "match composite materials to their uses in the work environment"
+          ],
+          "keyInquiryQuestions": [
+            "How can composite materials be identified?",
+            "Why are composite materials used in day-to-day life?"
+          ],
+          "coreCompetencies": [
+            "Communication and Collaboration",
+            "Digital Literacy"
+          ],
+          "values": ["Peace"],
+          "pcis": ["Online Safety"],
+          "linkToOtherSubjects": ["Integrated Science"]
+        },
+        {
+          "subStrandNumber": "3.2",
+          "subStrandName": "Ceramic Materials",
+          "numberOfLessons": 7,
+          "specificLearningOutcomes": [
+            "identify common ceramic materials in the locality",
+            "describe the physical properties of ceramic materials in the locality",
+            "relate ceramic materials to their use in a work environment",
+            "acknowledge the importance of ceramic materials used in the locality"
+          ],
+          "suggestedLearningExperiences": [
+            "use visual aids and realia to identify items made of ceramic materials (pottery, ceramic utensils, glass, shells)",
+            "collect items made of ceramic materials in the locality",
+            "investigate the physical properties of ceramic materials (brittleness, fire resistance, heat resistance, water resistance, corrosion resistance)",
+            "visit workplaces in the locality to explore the uses of ceramic materials",
+            "use a chart to match ceramic materials to their uses in the work environment"
+          ],
+          "keyInquiryQuestions": [
+            "How are ceramic materials used in day-to-day life?"
+          ],
+          "coreCompetencies": [
+            "Critical Thinking and Problem Solving",
+            "Citizenship"
+          ],
+          "values": ["Responsibility", "Unity"],
+          "pcis": ["Safety"],
+          "linkToOtherSubjects": ["Creative Arts"]
+        }
+      ]
+    },
+    {
+      "strandNumber": "4.0",
+      "strandName": "Tools and Production",
+      "subStrands": [
+        {
+          "subStrandNumber": "4.1",
+          "subStrandName": "Cutting Tools",
+          "numberOfLessons": 15,
+          "specificLearningOutcomes": [
+            "identify cutting tools used in the work environment",
+            "select cutting tools for given tasks in a workplace",
+            "use cutting tools to perform a given task",
+            "care for cutting tools in the work environment",
+            "recognise the importance of cutting tools in the work environment"
+          ],
+          "suggestedLearningExperiences": [
+            "use available resources to identify cutting tools in the work environment (snips, chisels, handsaws, planes, hacksaws, scrappers, knives, strippers, cutters)",
+            "discuss the use of cutting tools in the work environment",
+            "use audio visual aids to observe the use of cutting tools in the work environment",
+            "demonstrate safe use of cutting tools to perform specific tasks",
+            "carry out given tasks using cutting tools",
+            "maintain and store cutting tools in the work environment"
+          ],
+          "keyInquiryQuestions": ["Why are cutting tools cared for?"],
+          "coreCompetencies": [
+            "Learning to Learn",
+            "Critical Thinking and Problem Solving"
+          ],
+          "values": ["Responsibility", "Unity"],
+          "pcis": ["Safety"],
+          "linkToOtherSubjects": ["Agriculture and Nutrition"]
+        },
+        {
+          "subStrandNumber": "4.2",
+          "subStrandName": "Production Unit",
+          "numberOfLessons": 6,
+          "specificLearningOutcomes": [
+            "explain the factors considered when locating a production unit",
+            "analyse the factors determining the size of a production unit",
+            "locate a production unit in a suitable area"
+          ],
+          "suggestedLearningExperiences": [
+            "discuss the meaning of the term 'production unit' and present to peers",
+            "brainstorm and present the factors considered when choosing the location of a production unit",
+            "visit the local community to assess the factors that influenced the location of a particular production unit (Posho mill, salon, barber shop, welding, cybercafé)",
+            "use print or digital media to search for information on the factors that determine its size and share with peers"
+          ],
+          "keyInquiryQuestions": [
+            "How is the size of a production unit determined?"
+          ],
+          "coreCompetencies": [],
+          "values": [],
+          "pcis": [],
+          "linkToOtherSubjects": []
+        }
+      ]
+    },
+    {
+      "strandNumber": "5.0",
+      "strandName": "Entrepreneurship",
+      "subStrands": [
+        {
+          "subStrandNumber": "5.1",
+          "subStrandName": "Bookkeeping",
+          "numberOfLessons": 12,
+          "specificLearningOutcomes": [
+            "explain the importance of bookkeeping in entrepreneurship",
+            "classify business transactions in bookkeeping",
+            "prepare simple financial statements for a business",
+            "keep financial records for effective decision making"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm and present the meaning of basic terms used in bookkeeping",
+            "discuss the importance of bookkeeping for a business",
+            "calculate assets, liabilities and capital using the bookkeeping equation",
+            "read and analyse a case study on cash and credit transactions",
+            "determine the cost and price of a given product to calculate profit and loss",
+            "discuss the components of a statement of financial position, cash flow and income statement",
+            "draw and present simple statements of financial position, cash flow and income statement for a business"
+          ],
+          "keyInquiryQuestions": [
+            "Why is bookkeeping important to a business?",
+            "How are the statements of financial position, cash flow and income statement prepared?"
+          ],
+          "coreCompetencies": [
+            "Critical Thinking and Problem-Solving",
+            "Self-Efficacy"
+          ],
+          "values": ["Peace", "Responsibility", "Respect"],
+          "pcis": ["Financial Literacy"],
+          "linkToOtherSubjects": ["Mathematics"]
+        },
+        {
+          "subStrandNumber": "5.2",
+          "subStrandName": "Income and Budgeting",
+          "numberOfLessons": 9,
+          "specificLearningOutcomes": [
+            "identify sources of income for an individual",
+            "explain the importance of budgeting in day-to-day life",
+            "prepare a simple budget for personal finance management",
+            "explore ethical and unethical practices in budgeting",
+            "practice financial planning in income management"
+          ],
+          "suggestedLearningExperiences": [
+            "share experiences on the meaning and sources of income for an individual",
+            "brainstorm and present on the importance of budgeting",
+            "discuss and present on ways of spending money wisely",
+            "prepare a simple personal budget",
+            "brainstorm on and present the ethical and unethical practices on income and budgeting"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to prepare a personal budget?",
+            "What are the ethical issues in income and budgeting?"
+          ],
+          "coreCompetencies": [
+            "Communication and Collaboration",
+            "Critical Thinking and Problem Solving"
+          ],
+          "values": ["Integrity", "Responsibility", "Respect"],
+          "pcis": ["Financial Literacy"],
+          "linkToOtherSubjects": ["Mathematics"]
+        },
+        {
+          "subStrandNumber": "5.3",
+          "subStrandName": "Marketing of Goods and Services",
+          "numberOfLessons": 8,
+          "specificLearningOutcomes": [
+            "explain the importance of marketing to a business",
+            "analyse the sources of information about the market for its potential customers",
+            "explore factors considered when selecting a suitable market for goods and services",
+            "select tools to market goods and services",
+            "recognise suitable markets for goods and services"
+          ],
+          "suggestedLearningExperiences": [
+            "discuss and present the meaning and importance of marketing",
+            "interact with available resources on sources of information about the market and its potential customers",
+            "read and analyse a case study on factors considered when selecting a suitable market for goods and services",
+            "use print or digital media search and present information on ICT tools used in marketing of goods and services"
+          ],
+          "keyInquiryQuestions": [
+            "How is the market of goods and services selected?",
+            "Where can information about the market and its potential customers be sourced from?"
+          ],
+          "coreCompetencies": [
+            "Communication and Collaboration",
+            "Digital Literacy",
+            "Critical Thinking and Problem Solving"
+          ],
+          "values": ["Respect", "Responsibility"],
+          "pcis": ["Safety"],
+          "linkToOtherSubjects": ["Social Studies"]
+        },
+        {
+          "subStrandNumber": "5.4",
+          "subStrandName": "Saving and Investment",
+          "numberOfLessons": 7,
+          "specificLearningOutcomes": [
+            "explain the reasons for saving and investment in financial management",
+            "explore the methods of saving and investment for effective financial management",
+            "prepare a simple saving and investment plan for personal financial management",
+            "analyse ethical and unethical practices in saving and investing money",
+            "practice saving and investing for individual financial growth"
+          ],
+          "suggestedLearningExperiences": [
+            "discuss and present on the meaning and reasons for saving and investment in financial management",
+            "brainstorm and present on methods of saving and investment for effective financial management",
+            "prepare a simple saving and investment plan",
+            "make money boxes for personal savings using locally available materials",
+            "share experiences on ethical and unethical practices on saving and investment",
+            "search for information on ethical and unethical practices on saving and investment from available resources and share with peers"
+          ],
+          "keyInquiryQuestions": [
+            "Why is saving and investing important?",
+            "What are the ethical and unethical practices in saving and investing?"
+          ],
+          "coreCompetencies": [
+            "Learning to Learn",
+            "Critical Thinking and Problem Solving",
+            "Imagination and Creativity",
+            "Self-Efficacy"
+          ],
+          "values": ["Respect", "Unity"],
+          "pcis": ["Financial Literacy"],
+          "linkToOtherSubjects": ["Mathematics"]
+        }
+      ]
+    }
+  ]
+}

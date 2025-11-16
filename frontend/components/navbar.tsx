@@ -1,17 +1,28 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { FiMenu, FiX, FiUser, FiLogOut } from "react-icons/fi";
+import {
+  FiMenu,
+  FiX,
+  FiUser,
+  FiLogOut,
+  FiSettings,
+  FiChevronDown,
+} from "react-icons/fi";
 import toast from "react-hot-toast";
 
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [nextLesson, setNextLesson] = useState<any>(null);
+  const [countdown, setCountdown] = useState<string>("");
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Check authentication status on every route change
@@ -31,7 +42,78 @@ export default function Navbar() {
     checkAuth();
   }, [pathname]); // Re-check when route changes
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsAccountDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    async function fetchNextLesson() {
+      if (!isLoggedIn) return;
+      try {
+        const token = localStorage.getItem("accessToken");
+        const res = await fetch(
+          "http://localhost:8000/api/v1/timetable/entries/next",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        const data = await res.json();
+        if (data.has_next_lesson && data.entry) {
+          setNextLesson(data.entry);
+          updateCountdown(data.entry.time_slot.start_time);
+          timer = setInterval(
+            () => updateCountdown(data.entry.time_slot.start_time),
+            1000
+          );
+        } else {
+          setNextLesson(null);
+          setCountdown("");
+        }
+      } catch {
+        setNextLesson(null);
+        setCountdown("");
+      }
+    }
+    function updateCountdown(startTime: string) {
+      const now = new Date();
+      const [h, m] = startTime.split(":").map(Number);
+      const lessonTime = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate(),
+        h,
+        m,
+        0
+      );
+      const diff = lessonTime.getTime() - now.getTime();
+      if (diff <= 0) {
+        setCountdown("Starting now");
+        clearInterval(timer);
+        return;
+      }
+      const hours = Math.floor(diff / 1000 / 60 / 60);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      setCountdown(`${hours > 0 ? hours + "h " : ""}${minutes}m ${seconds}s`);
+    }
+    fetchNextLesson();
+    return () => clearInterval(timer);
+  }, [isLoggedIn]);
+
   const handleLogout = async () => {
+    setIsAccountDropdownOpen(false);
     // Clear localStorage
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
@@ -122,21 +204,88 @@ export default function Navbar() {
             {/* Auth Section */}
             <div className="flex items-center space-x-4 ml-6 border-l border-gray-300 pl-6">
               {isLoggedIn ? (
-                <div className="flex items-center space-x-3">
-                  <Link
-                    href="/dashboard"
-                    className="flex items-center space-x-2 text-sm text-gray-700 hover:text-indigo-600"
-                  >
-                    <FiUser className="w-4 h-4" />
-                    <span>{user?.name || "Dashboard"}</span>
-                  </Link>
+                <div className="relative" ref={dropdownRef}>
                   <button
-                    onClick={handleLogout}
-                    className="flex items-center space-x-1 px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                    onClick={() =>
+                      setIsAccountDropdownOpen(!isAccountDropdownOpen)
+                    }
+                    className="flex items-center space-x-2 px-3 py-2 text-sm text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md transition-colors"
                   >
-                    <FiLogOut className="w-4 h-4" />
-                    <span>Logout</span>
+                    <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-semibold">
+                      {user?.name?.charAt(0).toUpperCase() || "U"}
+                    </div>
+                    <span className="font-medium">
+                      {user?.name || "Account"}
+                    </span>
+                    <FiChevronDown
+                      className={`w-4 h-4 transition-transform ${
+                        isAccountDropdownOpen ? "rotate-180" : ""
+                      }`}
+                    />
                   </button>
+
+                  {/* Dropdown Menu */}
+                  {isAccountDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
+                      {/* User Info */}
+                      <div className="px-4 py-3 border-b border-gray-200">
+                        <p className="text-sm font-semibold text-gray-900">
+                          {user?.name}
+                        </p>
+                        <p className="text-xs text-gray-500 truncate">
+                          {user?.email}
+                        </p>
+                      </div>
+
+                      {/* Next Lesson Info */}
+                      {nextLesson && (
+                        <div className="px-4 py-2 border-b border-gray-100 bg-indigo-50 rounded-t">
+                          <div className="text-xs text-gray-700 mb-1">
+                            Next lesson:
+                          </div>
+                          <div className="font-semibold text-sm text-indigo-700">
+                            {nextLesson.subject.subject_name} (
+                            {nextLesson.time_slot.label})
+                          </div>
+                          <div className="text-xs text-gray-600">
+                            Starts at {nextLesson.time_slot.start_time}
+                          </div>
+                          <div className="text-xs text-indigo-600 font-bold">
+                            Countdown: {countdown}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Menu Items */}
+                      <Link
+                        href="/dashboard"
+                        className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        onClick={() => setIsAccountDropdownOpen(false)}
+                      >
+                        <FiUser className="w-4 h-4" />
+                        <span>Dashboard</span>
+                      </Link>
+
+                      <Link
+                        href="/settings"
+                        className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        onClick={() => setIsAccountDropdownOpen(false)}
+                      >
+                        <FiSettings className="w-4 h-4" />
+                        <span>Settings</span>
+                      </Link>
+
+                      <div className="border-t border-gray-200 mt-1 pt-1">
+                        <button
+                          onClick={handleLogout}
+                          className="flex items-center space-x-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                        >
+                          <FiLogOut className="w-4 h-4" />
+                          <span>Logout</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div className="flex items-center space-x-3">
