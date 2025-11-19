@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scheme of Work - {{subject}} Grade {{grade}}</title>
+    <style>
+      @page {
+        size: A4 landscape;
+        margin: 8mm 6mm;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", "Helvetica", sans-serif;
+        font-size: 9pt;
+        line-height: 1.2;
+        color: #000;
+        background: white;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 4px;
+        padding-bottom: 3px;
+        border-bottom: 2px solid #4a5568;
+      }
+
+      .school-name {
+        font-size: 13pt;
+        font-weight: bold;
+        color: #2d3748;
+        margin-bottom: 1px;
+      }
+
+      .document-title {
+        font-size: 11pt;
+        font-weight: bold;
+        color: #2d3748;
+        margin-top: 1px;
+      }
+
+      .scheme-info {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 3px 8px;
+        margin: 4px 0;
+        padding: 4px 8px;
+        background: #f7fafc;
+        border: 1px solid #cbd5e0;
+        font-size: 8pt;
+      }
+
+      .info-group {
+        display: flex;
+        align-items: baseline;
+      }
+
+      .info-label {
+        font-weight: bold;
+        margin-right: 4px;
+        white-space: nowrap;
+      }
+
+      .info-value {
+        color: #2d3748;
+      }
+
+      .scheme-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 4px 0;
+        table-layout: fixed;
+      }
+
+      .scheme-table th {
+        background: #4a5568;
+        color: white;
+        padding: 4px 3px;
+        text-align: left;
+        font-weight: bold;
+        font-size: 8pt;
+        border: 1px solid #2d3748;
+        vertical-align: middle;
+        line-height: 1.1;
+      }
+
+      .scheme-table td {
+        padding: 2px 1px;
+        border: 1px solid #cbd5e0;
+        vertical-align: top;
+        font-size: 9pt;
+        line-height: 1.2;
+        word-wrap: break-word;
+      }
+
+      .scheme-table tr:nth-child(even) {
+        background: #f7fafc;
+      }
+
+      /* Optimized column widths to reduce space wastage */
+      .col-week {
+        width: 2%;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .col-lesson {
+        width: 2%;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .col-strand {
+        width: 8%;
+      }
+
+      .col-substrand {
+        width: 10%;
+      }
+
+      .col-outcomes {
+        width: 20%;
+      }
+
+      .col-questions {
+        width: 14%;
+      }
+
+      .col-experiences {
+        width: 22%;
+      }
+
+      .col-resources {
+        width: 8%;
+      }
+
+      .col-assessment {
+        width: 8%;
+      }
+
+      .col-reflection {
+        width: 6%;
+      }
+
+      .text-content {
+        margin: 0;
+        padding: 0;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        line-height: 1.2;
+      }
+
+      .bullet-list {
+        margin: 1px 0;
+        padding-left: 10px;
+      }
+
+      .bullet-list li {
+        margin: 0;
+        line-height: 1.2;
+      }
+
+      .signature-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 25px;
+        margin-top: 12px;
+        page-break-inside: avoid;
+      }
+
+      .signature-box {
+        border-bottom: 1px solid #2d3748;
+        padding-bottom: 2px;
+        margin-bottom: 2px;
+        height: 25px;
+      }
+
+      .signature-label {
+        font-size: 8pt;
+        font-weight: bold;
+        color: #4a5568;
+      }
+
+      .footer {
+        margin-top: 8px;
+        text-align: center;
+        font-size: 7pt;
+        color: #718096;
+        border-top: 1px solid #e2e8f0;
+        padding-top: 4px;
+      }
+
+      @media print {
+        body {
+          margin: 0;
+          padding: 0;
+        }
+
+        .scheme-table {
+          page-break-inside: auto;
+        }
+
+        .scheme-table tr {
+          page-break-inside: avoid;
+          page-break-after: auto;
+        }
+
+        .scheme-table thead {
+          display: table-header-group;
+        }
+
+        .scheme-table tfoot {
+          display: table-footer-group;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Section -->
+    <div class="header">
+      <div class="school-name">{{schoolName}}</div>
+      <div class="document-title">SCHEME OF WORK</div>
+    </div>
+
+    <!-- Scheme Information -->
+    <div class="scheme-info">
+      <div class="info-group">
+        <span class="info-label">Subject:</span>
+        <span class="info-value">{{subject}}</span>
+      </div>
+      <div class="info-group">
+        <span class="info-label">Grade:</span>
+        <span class="info-value">{{grade}}</span>
+      </div>
+      <div class="info-group">
+        <span class="info-label">Teacher:</span>
+        <span class="info-value">{{teacherName}}</span>
+      </div>
+      <div class="info-group">
+        <span class="info-label">Term:</span>
+        <span class="info-value">Term {{termNumber}}, {{termYear}}</span>
+      </div>
+      <div class="info-group">
+        <span class="info-label">Weeks:</span>
+        <span class="info-value">{{totalWeeks}}</span>
+      </div>
+      <div class="info-group">
+        <span class="info-label">Lessons:</span>
+        <span class="info-value">{{totalLessons}}</span>
+      </div>
+    </div>
+
+    <!-- Scheme Table -->
+    <table class="scheme-table">
+      <thead>
+        <tr>
+          <th class="col-week">Week</th>
+          <th class="col-lesson">Lesson</th>
+          <th class="col-strand">Strand/Theme</th>
+          <th class="col-substrand">Sub-strand</th>
+          <th class="col-outcomes">Specific-Learning outcomes</th>
+          <th class="col-questions">Key Inquiry Question(S)</th>
+          <th class="col-experiences">Learning/Teaching Experience</th>
+          <th class="col-resources">Learning Resources</th>
+          <th class="col-assessment">Assessment Methods</th>
+          <th class="col-reflection">Reflection</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each weeks}} {{#each lessons}}
+        <tr>
+          {{#if @first}}
+          <td class="col-week" rowspan="{{../lessons.length}}">
+            {{../week_number}}
+          </td>
+          {{/if}}
+          <td class="col-lesson">{{lesson_number}}</td>
+          <td class="col-strand">
+            <div class="text-content">{{strand}}</div>
+          </td>
+          <td class="col-substrand">
+            <div class="text-content">{{sub_strand}}</div>
+          </td>
+          <td class="col-outcomes">
+            <div class="text-content">{{specific_learning_outcomes}}</div>
+          </td>
+          <td class="col-questions">
+            <div class="text-content">{{key_inquiry_questions}}</div>
+          </td>
+          <td class="col-experiences">
+            <div class="text-content">{{learning_experiences}}</div>
+          </td>
+          <td class="col-resources">
+            <div class="text-content">{{learning_resources}}</div>
+          </td>
+          <td class="col-assessment">
+            <div class="text-content">{{assessment_methods}}</div>
+          </td>
+          <td class="col-reflection">
+            <div class="text-content">{{reflection}}</div>
+          </td>
+        </tr>
+        {{/each}} {{/each}}
+      </tbody>
+    </table>
+
+    <!-- Signatures -->
+    <div class="signature-section">
+      <div>
+        <div class="signature-box"></div>
+        <div class="signature-label">Teacher's Signature & Date</div>
+      </div>
+      <div>
+        <div class="signature-box"></div>
+        <div class="signature-label">HOD's Signature & Date</div>
+      </div>
+      <div>
+        <div class="signature-box"></div>
+        <div class="signature-label">Principal's Signature & Date</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>
+        Generated by TeachTrack - CBC Curriculum Management System |
+        {{schoolName}}
+      </p>
+    </div>
+  </body>
+</html>

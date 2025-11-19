@@ -105,7 +105,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <button
             onClick={() => router.push("/admin/school-settings")}
             className="bg-gradient-to-br from-indigo-500 to-purple-600 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-white"
@@ -155,6 +155,17 @@ export default function AdminDashboard() {
             <FiUpload className="w-8 h-8 text-indigo-600 mb-2" />
             <h3 className="font-semibold text-gray-900">Import Curriculum</h3>
             <p className="text-sm text-gray-600 mt-1">Upload JSON files</p>
+          </button>
+
+          <button
+            onClick={() => router.push("/admin/lessons-config")}
+            className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow"
+          >
+            <FiSettings className="w-8 h-8 text-orange-600 mb-2" />
+            <h3 className="font-semibold text-gray-900">Lessons Per Week</h3>
+            <p className="text-sm text-gray-600 mt-1">
+              Configure lesson frequency
+            </p>
           </button>
 
           <div className="bg-white p-6 rounded-lg shadow">

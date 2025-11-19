@@ -14,6 +14,7 @@ import {
   FiEdit2,
   FiChevronDown,
   FiChevronUp,
+  FiClock,
 } from "react-icons/fi";
 import Image from "next/image";
 
@@ -32,7 +33,7 @@ interface SchoolSettings {
   sub_county: string;
   established_year: number;
   grades_offered: string[];
-  streams_per_grade: { [key: string]: string[] };
+  streams_per_grade: { [key: string]: { name: string; pupils: number }[] };
 }
 
 interface Term {
@@ -59,8 +60,52 @@ export default function SchoolSettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [activeSection, setActiveSection] = useState<
-    "basic" | "terms" | "calendar"
+    "basic" | "terms" | "calendar" | "timetable"
   >("basic");
+
+  // Timetable State
+  interface ScheduleConfig {
+    id?: number;
+    schedule_name: string;
+    education_level: string;
+    school_start_time: string;
+    single_lesson_duration: number;
+    double_lesson_duration: number;
+    lessons_before_first_break: number;
+    first_break_duration: number;
+    lessons_before_second_break: number;
+    second_break_duration: number;
+    lessons_before_lunch: number;
+    lunch_break_duration: number;
+    lessons_after_lunch: number;
+    school_end_time: string;
+  }
+
+  const EDUCATION_LEVELS = [
+    { id: "Pre-Primary", label: "Pre-Primary (PP1-PP2)" },
+    { id: "Lower Primary", label: "Lower Primary (Grade 1-3)" },
+    { id: "Upper Primary", label: "Upper Primary (Grade 4-6)" },
+    { id: "Junior Secondary", label: "Junior Secondary (Grade 7-9)" },
+    { id: "Senior Secondary", label: "Senior Secondary (Grade 10-12)" },
+  ];
+
+  const [selectedLevel, setSelectedLevel] = useState("Junior Secondary");
+  const [scheduleConfig, setScheduleConfig] = useState<ScheduleConfig>({
+    schedule_name: "Junior Secondary Schedule",
+    education_level: "Junior Secondary",
+    school_start_time: "08:00",
+    single_lesson_duration: 40,
+    double_lesson_duration: 80,
+    lessons_before_first_break: 2,
+    first_break_duration: 15,
+    lessons_before_second_break: 2,
+    second_break_duration: 30,
+    lessons_before_lunch: 2,
+    lunch_break_duration: 60,
+    lessons_after_lunch: 2,
+    school_end_time: "16:00",
+  });
+  const [scheduleLoading, setScheduleLoading] = useState(false);
 
   // School Settings State
   const [settings, setSettings] = useState<SchoolSettings>({
@@ -136,6 +181,98 @@ export default function SchoolSettingsPage() {
     fetchCalendarActivities();
   }, []);
 
+  useEffect(() => {
+    if (activeSection === "timetable") {
+      fetchSchedule(selectedLevel);
+    }
+  }, [activeSection, selectedLevel]);
+
+  const fetchSchedule = async (level: string) => {
+    setScheduleLoading(true);
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get(
+        `/api/v1/timetable/schedules/active?education_level=${encodeURIComponent(
+          level
+        )}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setScheduleConfig(response.data);
+    } catch (error) {
+      // Reset to defaults if no schedule found
+      setScheduleConfig({
+        schedule_name: `${level} Schedule`,
+        education_level: level,
+        school_start_time: "08:00",
+        single_lesson_duration: 40,
+        double_lesson_duration: 80,
+        lessons_before_first_break: 2,
+        first_break_duration: 15,
+        lessons_before_second_break: 2,
+        second_break_duration: 30,
+        lessons_before_lunch: 2,
+        lunch_break_duration: 60,
+        lessons_after_lunch: 2,
+        school_end_time: "16:00",
+      });
+    } finally {
+      setScheduleLoading(false);
+    }
+  };
+
+  const handleSaveSchedule = async () => {
+    setSaving(true);
+    try {
+      const token = localStorage.getItem("accessToken");
+      const payload = { ...scheduleConfig, education_level: selectedLevel };
+
+      if (scheduleConfig.id) {
+        await axios.put(
+          `/api/v1/timetable/schedules/${scheduleConfig.id}`,
+          payload,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+      } else {
+        await axios.post("/api/v1/timetable/schedules", payload, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+      }
+
+      toast.success("Schedule saved successfully!");
+      fetchSchedule(selectedLevel);
+    } catch (error: any) {
+      console.error("Failed to save schedule:", error);
+      toast.error(error.response?.data?.detail || "Failed to save schedule");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const calculateEndTime = () => {
+    const startHour = parseInt(scheduleConfig.school_start_time.split(":")[0]);
+    const totalMinutes =
+      scheduleConfig.single_lesson_duration *
+        (scheduleConfig.lessons_before_first_break +
+          scheduleConfig.lessons_before_second_break +
+          scheduleConfig.lessons_before_lunch +
+          scheduleConfig.lessons_after_lunch) +
+      scheduleConfig.first_break_duration +
+      scheduleConfig.second_break_duration +
+      scheduleConfig.lunch_break_duration;
+
+    const endHour = startHour + Math.floor(totalMinutes / 60);
+    const endMinute = totalMinutes % 60;
+
+    return `${String(endHour).padStart(2, "0")}:${String(endMinute).padStart(
+      2,
+      "0"
+    )}`;
+  };
+
   const fetchSchoolSettings = async () => {
     try {
       const token = localStorage.getItem("accessToken");
@@ -143,7 +280,27 @@ export default function SchoolSettingsPage() {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (response.data) {
-        setSettings(response.data);
+        // Normalize streams_per_grade to ensure it's an array of objects
+        const normalizedSettings = { ...response.data };
+        if (normalizedSettings.streams_per_grade) {
+          Object.keys(normalizedSettings.streams_per_grade).forEach((grade) => {
+            const streams = normalizedSettings.streams_per_grade[grade];
+            if (
+              Array.isArray(streams) &&
+              streams.length > 0 &&
+              typeof streams[0] === "string"
+            ) {
+              // Convert string array to object array
+              normalizedSettings.streams_per_grade[grade] = streams.map(
+                (s: string) => ({
+                  name: s,
+                  pupils: 0,
+                })
+              );
+            }
+          });
+        }
+        setSettings(normalizedSettings);
         if (response.data.school_logo_url) {
           setLogoPreview(response.data.school_logo_url);
         }
@@ -258,26 +415,84 @@ export default function SchoolSettingsPage() {
       `Enter stream name for ${grade} (e.g., A, East, Red):`
     );
     if (streamName) {
+      const pupilsStr = prompt(
+        `Enter number of pupils in ${grade} ${streamName}:`,
+        "0"
+      );
+      const pupils = parseInt(pupilsStr || "0") || 0;
+
       setSettings({
         ...settings,
         streams_per_grade: {
           ...settings.streams_per_grade,
-          [grade]: [...(settings.streams_per_grade[grade] || []), streamName],
+          [grade]: [
+            ...(settings.streams_per_grade[grade] || []),
+            { name: streamName, pupils },
+          ],
         },
       });
     }
   };
 
-  const handleRemoveStream = (grade: string, stream: string) => {
+  const handleAddSingleClass = (grade: string) => {
+    const existingStreams = settings.streams_per_grade[grade] || [];
+    if (existingStreams.some((s) => s.name === "")) {
+      toast.error(
+        "A single class already exists for this grade. Edit its pupils instead."
+      );
+      return;
+    }
+
+    const pupilsStr = prompt(`Enter number of pupils in ${grade}:`, "0");
+    if (pupilsStr !== null) {
+      const pupils = parseInt(pupilsStr || "0") || 0;
+
+      setSettings({
+        ...settings,
+        streams_per_grade: {
+          ...settings.streams_per_grade,
+          [grade]: [
+            ...(settings.streams_per_grade[grade] || []),
+            { name: "", pupils },
+          ],
+        },
+      });
+    }
+  };
+
+  const handleRemoveStream = (grade: string, streamName: string) => {
     setSettings({
       ...settings,
       streams_per_grade: {
         ...settings.streams_per_grade,
         [grade]: (settings.streams_per_grade[grade] || []).filter(
-          (s) => s !== stream
+          (s) => s.name !== streamName
         ),
       },
     });
+  };
+
+  const handleEditStreamPupils = (
+    grade: string,
+    streamName: string,
+    currentPupils: number
+  ) => {
+    const pupilsStr = prompt(
+      `Enter new number of pupils for ${grade} ${streamName}:`,
+      currentPupils.toString()
+    );
+    if (pupilsStr !== null) {
+      const pupils = parseInt(pupilsStr || "0") || 0;
+      setSettings({
+        ...settings,
+        streams_per_grade: {
+          ...settings.streams_per_grade,
+          [grade]: (settings.streams_per_grade[grade] || []).map((s) =>
+            s.name === streamName ? { ...s, pupils } : s
+          ),
+        },
+      });
+    }
   };
 
   const handleSaveTerm = async () => {
@@ -438,6 +653,16 @@ export default function SchoolSettingsPage() {
               }`}
             >
               Calendar of Activities
+            </button>
+            <button
+              onClick={() => setActiveSection("timetable")}
+              className={`flex-1 px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
+                activeSection === "timetable"
+                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                  : "text-gray-700 hover:bg-white/60"
+              }`}
+            >
+              Timetable Config
             </button>
           </div>
         </div>
@@ -706,28 +931,54 @@ export default function SchoolSettingsPage() {
                       >
                         <div className="flex justify-between items-center mb-2">
                           <h4 className="font-bold text-gray-900">{grade}</h4>
-                          <button
-                            type="button"
-                            onClick={() => handleAddStream(grade)}
-                            className="text-sm bg-indigo-600 text-white px-3 py-1 rounded-lg hover:bg-indigo-700 flex items-center gap-1"
-                          >
-                            <FiPlus className="w-4 h-4" /> Add Stream
-                          </button>
+                          <div className="flex gap-2">
+                            <button
+                              type="button"
+                              onClick={() => handleAddSingleClass(grade)}
+                              className="text-sm bg-purple-600 text-white px-3 py-1 rounded-lg hover:bg-purple-700 flex items-center gap-1"
+                              title="Add a single class without a stream name"
+                            >
+                              <FiPlus className="w-4 h-4" /> Single Class
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleAddStream(grade)}
+                              className="text-sm bg-indigo-600 text-white px-3 py-1 rounded-lg hover:bg-indigo-700 flex items-center gap-1"
+                            >
+                              <FiPlus className="w-4 h-4" /> Add Stream
+                            </button>
+                          </div>
                         </div>
                         <div className="flex flex-wrap gap-2">
                           {(settings.streams_per_grade[grade] || []).map(
-                            (stream) => (
+                            (stream, idx) => (
                               <span
-                                key={stream}
+                                key={`${stream.name}-${idx}`}
                                 className="inline-flex items-center gap-2 bg-white px-3 py-1 rounded-lg text-sm font-medium text-gray-800 border border-indigo-200"
                               >
-                                {grade} {stream}
+                                {grade}
+                                {stream.name ? ` ${stream.name}` : ""}
                                 <button
                                   type="button"
                                   onClick={() =>
-                                    handleRemoveStream(grade, stream)
+                                    handleEditStreamPupils(
+                                      grade,
+                                      stream.name,
+                                      stream.pupils
+                                    )
                                   }
-                                  className="text-red-600 hover:text-red-800"
+                                  className="text-xs text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded-md hover:bg-gray-200 flex items-center gap-1"
+                                  title="Click to edit number of pupils"
+                                >
+                                  {stream.pupils} pupils{" "}
+                                  <FiEdit2 className="w-3 h-3" />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    handleRemoveStream(grade, stream.name)
+                                  }
+                                  className="text-red-600 hover:text-red-800 ml-1"
                                 >
                                   <FiTrash2 className="w-3 h-3" />
                                 </button>
@@ -977,6 +1228,317 @@ export default function SchoolSettingsPage() {
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* Timetable Configuration Section */}
+        {activeSection === "timetable" && (
+          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Timetable Configuration
+              </h2>
+              <p className="text-gray-600">
+                Configure the daily schedule structure for each education level.
+              </p>
+            </div>
+
+            {/* Level Selector */}
+            <div className="mb-8">
+              <label className="block text-sm font-bold text-gray-900 mb-2">
+                Select Education Level to Configure
+              </label>
+              <div className="relative">
+                <select
+                  value={selectedLevel}
+                  onChange={(e) => setSelectedLevel(e.target.value)}
+                  className="w-full appearance-none bg-white px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all font-medium text-lg"
+                >
+                  {EDUCATION_LEVELS.map((level) => (
+                    <option key={level.id} value={level.id}>
+                      {level.label}
+                    </option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700">
+                  <FiChevronDown className="w-5 h-5" />
+                </div>
+              </div>
+            </div>
+
+            {scheduleLoading ? (
+              <div className="flex justify-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+              </div>
+            ) : (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSaveSchedule();
+                }}
+                className="space-y-8"
+              >
+                {/* Basic Timing */}
+                <div className="bg-gradient-to-br from-indigo-50 to-purple-50 p-6 rounded-xl border-2 border-indigo-200">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <FiClock className="text-indigo-600" /> Basic Timing
+                  </h3>
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <div>
+                      <label className="block text-sm font-bold text-gray-700 mb-2">
+                        School Start Time
+                      </label>
+                      <input
+                        type="time"
+                        value={scheduleConfig.school_start_time}
+                        onChange={(e) =>
+                          setScheduleConfig({
+                            ...scheduleConfig,
+                            school_start_time: e.target.value,
+                          })
+                        }
+                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-bold text-gray-700 mb-2">
+                        Single Lesson (min)
+                      </label>
+                      <input
+                        type="number"
+                        min="30"
+                        max="60"
+                        step="5"
+                        value={scheduleConfig.single_lesson_duration}
+                        onChange={(e) =>
+                          setScheduleConfig({
+                            ...scheduleConfig,
+                            single_lesson_duration: parseInt(e.target.value),
+                          })
+                        }
+                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-bold text-gray-700 mb-2">
+                        Double Lesson (min)
+                      </label>
+                      <input
+                        type="number"
+                        min="60"
+                        max="120"
+                        step="5"
+                        value={scheduleConfig.double_lesson_duration}
+                        onChange={(e) =>
+                          setScheduleConfig({
+                            ...scheduleConfig,
+                            double_lesson_duration: parseInt(e.target.value),
+                          })
+                        }
+                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Sessions Grid */}
+                <div className="grid md:grid-cols-2 gap-6">
+                  {/* Session 1 */}
+                  <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h4 className="font-bold text-gray-900 mb-4">
+                      Session 1 (Morning)
+                    </h4>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Lessons Before First Break
+                        </label>
+                        <input
+                          type="number"
+                          min="0"
+                          max="5"
+                          value={scheduleConfig.lessons_before_first_break}
+                          onChange={(e) =>
+                            setScheduleConfig({
+                              ...scheduleConfig,
+                              lessons_before_first_break: parseInt(
+                                e.target.value
+                              ),
+                            })
+                          }
+                          className="w-full px-4 py-2 rounded-lg border border-gray-300"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          First Break Duration (min)
+                        </label>
+                        <input
+                          type="number"
+                          min="0"
+                          max="60"
+                          step="5"
+                          value={scheduleConfig.first_break_duration}
+                          onChange={(e) =>
+                            setScheduleConfig({
+                              ...scheduleConfig,
+                              first_break_duration: parseInt(e.target.value),
+                            })
+                          }
+                          className="w-full px-4 py-2 rounded-lg border border-gray-300"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Session 2 */}
+                  <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h4 className="font-bold text-gray-900 mb-4">
+                      Session 2 (Mid-Morning)
+                    </h4>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Lessons Before Second Break
+                        </label>
+                        <input
+                          type="number"
+                          min="0"
+                          max="5"
+                          value={scheduleConfig.lessons_before_second_break}
+                          onChange={(e) =>
+                            setScheduleConfig({
+                              ...scheduleConfig,
+                              lessons_before_second_break: parseInt(
+                                e.target.value
+                              ),
+                            })
+                          }
+                          className="w-full px-4 py-2 rounded-lg border border-gray-300"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Second Break Duration (min)
+                        </label>
+                        <input
+                          type="number"
+                          min="0"
+                          max="60"
+                          step="5"
+                          value={scheduleConfig.second_break_duration}
+                          onChange={(e) =>
+                            setScheduleConfig({
+                              ...scheduleConfig,
+                              second_break_duration: parseInt(e.target.value),
+                            })
+                          }
+                          className="w-full px-4 py-2 rounded-lg border border-gray-300"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Session 3 */}
+                  <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h4 className="font-bold text-gray-900 mb-4">
+                      Session 3 (Before Lunch)
+                    </h4>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Lessons Before Lunch
+                        </label>
+                        <input
+                          type="number"
+                          min="0"
+                          max="5"
+                          value={scheduleConfig.lessons_before_lunch}
+                          onChange={(e) =>
+                            setScheduleConfig({
+                              ...scheduleConfig,
+                              lessons_before_lunch: parseInt(e.target.value),
+                            })
+                          }
+                          className="w-full px-4 py-2 rounded-lg border border-gray-300"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Lunch Break Duration (min)
+                        </label>
+                        <input
+                          type="number"
+                          min="0"
+                          max="120"
+                          step="5"
+                          value={scheduleConfig.lunch_break_duration}
+                          onChange={(e) =>
+                            setScheduleConfig({
+                              ...scheduleConfig,
+                              lunch_break_duration: parseInt(e.target.value),
+                            })
+                          }
+                          className="w-full px-4 py-2 rounded-lg border border-gray-300"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Session 4 */}
+                  <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h4 className="font-bold text-gray-900 mb-4">
+                      Session 4 (Afternoon)
+                    </h4>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          Lessons After Lunch
+                        </label>
+                        <input
+                          type="number"
+                          min="0"
+                          max="5"
+                          value={scheduleConfig.lessons_after_lunch}
+                          onChange={(e) =>
+                            setScheduleConfig({
+                              ...scheduleConfig,
+                              lessons_after_lunch: parseInt(e.target.value),
+                            })
+                          }
+                          className="w-full px-4 py-2 rounded-lg border border-gray-300"
+                        />
+                      </div>
+                      <div className="pt-8">
+                        <div className="bg-indigo-50 p-4 rounded-lg">
+                          <p className="text-sm text-gray-600">
+                            Estimated End Time
+                          </p>
+                          <p className="text-2xl font-bold text-indigo-600">
+                            {calculateEndTime()}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Save Button */}
+                <div className="flex justify-end pt-4">
+                  <button
+                    type="submit"
+                    disabled={saving}
+                    className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 disabled:opacity-50"
+                  >
+                    <FiSave className="w-5 h-5" />
+                    {saving ? "Saving..." : "Save Timetable Configuration"}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         )}
       </div>

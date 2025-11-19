@@ -16,7 +16,8 @@ from models import (
     CurriculumTemplate, TemplateStrand, TemplateSubstrand,
     NoteAnnotation, PresentationSession, SpeakerNote, SharedPresentation,
     SchoolSchedule, TimeSlot, TimetableEntry,
-    SchoolSettings, SchoolTerm, CalendarActivity
+    SchoolSettings, SchoolTerm, CalendarActivity,
+    SchemeOfWork, SchemeWeek, SchemeLesson, LessonPlan
 )
 from sqlalchemy import text, func, and_
 from schemas import (
@@ -33,7 +34,10 @@ from schemas import (
     SpeakerNoteCreate, SpeakerNoteUpdate, SpeakerNoteResponse,
     SharedPresentationCreate, SharedPresentationResponse,
     SchoolScheduleCreate, SchoolScheduleUpdate, SchoolScheduleResponse,
-    TimeSlotResponse, TimetableEntryCreate, TimetableEntryUpdate, TimetableEntryResponse
+    TimeSlotResponse, TimetableEntryCreate, TimetableEntryUpdate, TimetableEntryResponse,
+    SchemeOfWorkCreate, SchemeOfWorkUpdate, SchemeOfWorkResponse, SchemeOfWorkSummary,
+    SchemeWeekCreate, SchemeWeekResponse, SchemeLessonCreate, SchemeLessonResponse,
+    LessonPlanCreate, LessonPlanUpdate, LessonPlanResponse, LessonPlanSummary
 )
 from auth import verify_password, get_password_hash, create_access_token, verify_token
 from config import settings
@@ -3209,16 +3213,26 @@ async def create_school_schedule(
 ):
     """Create a new school schedule configuration and auto-generate time slots"""
     
-    # Check if user already has an active schedule
-    existing = db.query(SchoolSchedule).filter(
+    # Check if user already has an active schedule for this level
+    query = db.query(SchoolSchedule).filter(
         SchoolSchedule.user_id == current_user.id,
         SchoolSchedule.is_active == True
-    ).first()
+    )
+    
+    if schedule.education_level:
+        query = query.filter(SchoolSchedule.education_level == schedule.education_level)
+    else:
+        # If no level specified, check if any schedule exists without level (legacy)
+        # or just check if ANY active schedule exists if we want to enforce one per user when no level
+        pass 
+        
+    existing = query.first()
     
     if existing:
+        level_msg = f" for {schedule.education_level}" if schedule.education_level else ""
         raise HTTPException(
             status_code=400,
-            detail="You already have an active schedule. Deactivate it first or update it."
+            detail=f"You already have an active schedule{level_msg}. Deactivate it first or update it."
         )
     
     # Create schedule
@@ -3387,17 +3401,27 @@ async def get_school_schedules(
 
 @app.get(f"{settings.API_V1_PREFIX}/timetable/schedules/active", response_model=SchoolScheduleResponse)
 async def get_active_schedule(
+    education_level: Optional[str] = None,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """Get the currently active school schedule"""
-    schedule = db.query(SchoolSchedule).filter(
+    query = db.query(SchoolSchedule).filter(
         SchoolSchedule.user_id == current_user.id,
         SchoolSchedule.is_active == True
-    ).first()
+    )
+    
+    if education_level:
+        query = query.filter(SchoolSchedule.education_level == education_level)
+        
+    schedule = query.first()
     
     if not schedule:
-        raise HTTPException(status_code=404, detail="No active schedule found. Please create one.")
+        # If looking for specific level and not found, try to find a generic one?
+        # Or just return 404.
+        # For now, strict matching.
+        detail = f"No active schedule found for {education_level}" if education_level else "No active schedule found"
+        raise HTTPException(status_code=404, detail=f"{detail}. Please create one.")
     
     return schedule
 
@@ -3518,15 +3542,21 @@ async def delete_school_schedule(
 
 @app.get(f"{settings.API_V1_PREFIX}/timetable/time-slots", response_model=List[TimeSlotResponse])
 async def get_time_slots(
+    education_level: Optional[str] = None,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """Get all time slots for active schedule"""
     # Get active schedule
-    schedule = db.query(SchoolSchedule).filter(
+    query = db.query(SchoolSchedule).filter(
         SchoolSchedule.user_id == current_user.id,
         SchoolSchedule.is_active == True
-    ).first()
+    )
+    
+    if education_level:
+        query = query.filter(SchoolSchedule.education_level == education_level)
+        
+    schedule = query.first()
     
     if not schedule:
         raise HTTPException(status_code=404, detail="No active schedule found")
@@ -3546,14 +3576,19 @@ async def create_timetable_entry(
 ):
     """Create a new timetable entry (assign subject to time slot on specific day)"""
     
-    # Get active schedule
-    schedule = db.query(SchoolSchedule).filter(
-        SchoolSchedule.user_id == current_user.id,
-        SchoolSchedule.is_active == True
+    # Verify time slot exists and belongs to a schedule owned by the user
+    time_slot = db.query(TimeSlot).join(SchoolSchedule).filter(
+        TimeSlot.id == entry.time_slot_id,
+        SchoolSchedule.user_id == current_user.id
     ).first()
     
-    if not schedule:
-        raise HTTPException(status_code=404, detail="No active schedule. Please create one first.")
+    if not time_slot:
+        raise HTTPException(status_code=404, detail="Time slot not found or access denied")
+        
+    schedule = time_slot.schedule
+    
+    if time_slot.slot_type != "lesson":
+        raise HTTPException(status_code=400, detail="Cannot assign subject to break/lunch slot")
     
     # Log what we received
     print(f"\n=== CREATE TIMETABLE ENTRY ===")
@@ -3610,17 +3645,9 @@ async def create_timetable_entry(
             entry.subject_id = subject.id
             print(f"Created new subject: {subject.subject_name} - {subject.grade} (ID: {subject.id})")
     
+    # Time slot verification moved to start of function
     # Verify time slot exists and is a lesson slot
-    time_slot = db.query(TimeSlot).filter(
-        TimeSlot.id == entry.time_slot_id,
-        TimeSlot.schedule_id == schedule.id
-    ).first()
-    
-    if not time_slot:
-        raise HTTPException(status_code=404, detail="Time slot not found")
-    
-    if time_slot.slot_type != "lesson":
-        raise HTTPException(status_code=400, detail="Cannot assign subject to break/lunch slot")
+    # (Already verified above)
     
     # Check for duplicate entry (same user, time slot, and day)
     existing = db.query(TimetableEntry).filter(
@@ -4126,6 +4153,492 @@ async def get_timetable_dashboard(
         "next_lesson": next_lesson
     }
 
+
+"""SCHEME OF WORK ENDPOINTS"""
+
+from pydantic import BaseModel
+from io import BytesIO
+# Defer WeasyPrint import to inside PDF endpoint to avoid startup crash if system libs missing
+
+class SchemeLessonUpdate(BaseModel):
+    strand: Optional[str] = None
+    sub_strand: Optional[str] = None
+    specific_learning_outcomes: Optional[str] = None
+    key_inquiry_questions: Optional[str] = None
+    learning_experiences: Optional[str] = None
+    learning_resources: Optional[str] = None
+    assessment_methods: Optional[str] = None
+    reflection: Optional[str] = None
+
+@app.get(f"{settings.API_V1_PREFIX}/schemes", response_model=List[SchemeOfWorkSummary])
+async def list_schemes(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    schemes = db.query(SchemeOfWork).filter(SchemeOfWork.user_id == current_user.id).order_by(SchemeOfWork.created_at.desc()).all()
+    return schemes
+
+@app.get(f"{settings.API_V1_PREFIX}/schemes/stats")
+async def scheme_stats(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    q = db.query(SchemeOfWork).filter(SchemeOfWork.user_id == current_user.id)
+    total = q.count()
+    active = q.filter(SchemeOfWork.status == "active").count()
+    completed = q.filter(SchemeOfWork.status == "completed").count()
+    completion_rate = (completed / total * 100) if total else 0
+    return {
+        "total_schemes": total,
+        "active_schemes": active,
+        "completed_schemes": completed,
+        "completion_rate": round(completion_rate, 2)
+    }
+
+@app.get(f"{settings.API_V1_PREFIX}/schemes/{{scheme_id}}", response_model=SchemeOfWorkResponse)
+async def get_scheme(
+    scheme_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    scheme = db.query(SchemeOfWork).options(joinedload(SchemeOfWork.weeks).joinedload(SchemeWeek.lessons)).filter(
+        SchemeOfWork.id == scheme_id,
+        SchemeOfWork.user_id == current_user.id
+    ).first()
+    if not scheme:
+        raise HTTPException(status_code=404, detail="Scheme of work not found")
+    return scheme
+
+@app.post(f"{settings.API_V1_PREFIX}/schemes", response_model=SchemeOfWorkResponse, status_code=201)
+async def create_scheme(
+    data: SchemeOfWorkCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    scheme = SchemeOfWork(
+        user_id=current_user.id,
+        subject_id=data.subject_id,
+        teacher_name=data.teacher_name,
+        school=data.school,
+        term=data.term,
+        year=data.year,
+        subject=data.subject,
+        grade=data.grade,
+        total_weeks=data.total_weeks,
+        total_lessons=data.total_lessons,
+        status=data.status or "draft"
+    )
+    db.add(scheme)
+    db.flush()  # Get scheme.id
+
+    for week_payload in data.weeks:
+        week = SchemeWeek(scheme_id=scheme.id, week_number=week_payload.week_number)
+        db.add(week)
+        db.flush()
+        for idx, lesson_payload in enumerate(week_payload.lessons):
+            lesson = SchemeLesson(
+                week_id=week.id,
+                lesson_number=idx + 1,
+                strand=lesson_payload.strand,
+                sub_strand=lesson_payload.sub_strand,
+                specific_learning_outcomes=lesson_payload.specific_learning_outcomes,
+                key_inquiry_questions=lesson_payload.key_inquiry_questions,
+                learning_experiences=lesson_payload.learning_experiences,
+                learning_resources=lesson_payload.learning_resources,
+                assessment_methods=lesson_payload.assessment_methods,
+                reflection=lesson_payload.reflection or ""
+            )
+            db.add(lesson)
+
+    db.commit()
+    db.refresh(scheme)
+    return scheme
+
+@app.put(f"{settings.API_V1_PREFIX}/schemes/{{scheme_id}}", response_model=SchemeOfWorkResponse)
+async def update_scheme(
+    scheme_id: int,
+    data: SchemeOfWorkUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    scheme = db.query(SchemeOfWork).filter(
+        SchemeOfWork.id == scheme_id,
+        SchemeOfWork.user_id == current_user.id
+    ).first()
+    if not scheme:
+        raise HTTPException(status_code=404, detail="Scheme of work not found")
+
+    for field, value in data.model_dump(exclude_none=True).items():
+        setattr(scheme, field, value)
+    db.commit(); db.refresh(scheme)
+    return scheme
+
+@app.delete(f"{settings.API_V1_PREFIX}/schemes/{{scheme_id}}")
+async def delete_scheme(
+    scheme_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    scheme = db.query(SchemeOfWork).filter(
+        SchemeOfWork.id == scheme_id,
+        SchemeOfWork.user_id == current_user.id
+    ).first()
+    if not scheme:
+        raise HTTPException(status_code=404, detail="Scheme of work not found")
+    db.delete(scheme); db.commit()
+    return {"message": "Scheme of work deleted"}
+
+@app.put(f"{settings.API_V1_PREFIX}/schemes/{{scheme_id}}/lessons/{{lesson_id}}", response_model=SchemeLessonCreate)
+async def update_scheme_lesson(
+    scheme_id: int,
+    lesson_id: int,
+    payload: SchemeLessonUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    scheme = db.query(SchemeOfWork).filter(
+        SchemeOfWork.id == scheme_id,
+        SchemeOfWork.user_id == current_user.id
+    ).first()
+    if not scheme:
+        raise HTTPException(status_code=404, detail="Scheme of work not found")
+    lesson = db.query(SchemeLesson).join(SchemeWeek).filter(
+        SchemeLesson.id == lesson_id,
+        SchemeWeek.scheme_id == scheme_id
+    ).first()
+    if not lesson:
+        raise HTTPException(status_code=404, detail="Lesson not found")
+    for field, value in payload.model_dump(exclude_none=True).items():
+        setattr(lesson, field, value)
+    db.commit(); db.refresh(lesson)
+    return SchemeLessonCreate(
+        strand=lesson.strand,
+        sub_strand=lesson.sub_strand,
+        specific_learning_outcomes=lesson.specific_learning_outcomes,
+        key_inquiry_questions=lesson.key_inquiry_questions,
+        learning_experiences=lesson.learning_experiences,
+        learning_resources=lesson.learning_resources,
+        assessment_methods=lesson.assessment_methods,
+        reflection=lesson.reflection
+    )
+
+@app.get(f"{settings.API_V1_PREFIX}/schemes/{{scheme_id}}/pdf")
+async def scheme_pdf(
+    scheme_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    scheme = db.query(SchemeOfWork).options(joinedload(SchemeOfWork.weeks).joinedload(SchemeWeek.lessons)).filter(
+        SchemeOfWork.id == scheme_id,
+        SchemeOfWork.user_id == current_user.id
+    ).first()
+    if not scheme:
+        raise HTTPException(status_code=404, detail="Scheme of work not found")
+
+    # Use ReportLab for PDF generation (pure Python, no native deps)
+    from reportlab.lib import colors
+    from reportlab.lib.pagesizes import A4, landscape
+    from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.units import cm
+    from reportlab.lib.enums import TA_CENTER
+    
+    pdf_io = BytesIO()
+    # Reduced margins for more content space
+    doc = SimpleDocTemplate(pdf_io, pagesize=landscape(A4), leftMargin=0.25*cm, rightMargin=0.25*cm, topMargin=0.25*cm, bottomMargin=0.25*cm)
+    elements = []
+    styles = getSampleStyleSheet()
+    
+    # Compact Title
+    title_style = ParagraphStyle('CustomTitle', parent=styles['Heading1'], fontSize=16, textColor=colors.HexColor('#4F46E5'), alignment=TA_CENTER, spaceAfter=0)
+    elements.append(Paragraph("SCHEME OF WORK", title_style))
+    elements.append(Spacer(1, 0.2*cm))
+    
+    # Compact Header info table
+    header_style_small = ParagraphStyle('SmallHeader', parent=styles['Normal'], fontSize=9, leading=11)
+    header_data = [
+        [Paragraph(f"<b>Teacher:</b> {scheme.teacher_name}", header_style_small), 
+         Paragraph(f"<b>School:</b> {scheme.school}", header_style_small), 
+         Paragraph(f"<b>Subject:</b> {scheme.subject}", header_style_small), 
+         Paragraph(f"<b>Grade:</b> {scheme.grade}", header_style_small)],
+        [Paragraph(f"<b>Term:</b> {scheme.term}", header_style_small), 
+         Paragraph(f"<b>Year:</b> {scheme.year}", header_style_small), 
+         Paragraph(f"<b>Total Weeks:</b> {scheme.total_weeks}", header_style_small), 
+         Paragraph(f"<b>Total Lessons:</b> {scheme.total_lessons}", header_style_small)]
+    ]
+    header_table = Table(header_data, colWidths=[6.5*cm, 6.5*cm, 6.5*cm, 6.5*cm])
+    header_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#fafafa')),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#ddd')),
+        ('FONTSIZE', (0, 0), (-1, -1), 9),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('LEFTPADDING', (0, 0), (-1, -1), 3),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 3),
+        ('TOPPADDING', (0, 0), (-1, -1), 3),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+    ]))
+    elements.append(header_table)
+    elements.append(Spacer(1, 0.2*cm))
+    
+    # Helper function to format learning experiences with bullets
+    def format_learning_experiences(text):
+        if not text:
+            return ""
+        # Split by common delimiters and add bullets
+        sentences = [s.strip() for s in text.replace('.', '.|').split('|') if s.strip()]
+        if len(sentences) > 1:
+            # Capitalize first letter of each sentence
+            formatted = []
+            for s in sentences:
+                capitalized = s[0].upper() + s[1:] if s else s
+                formatted.append(f"• {capitalized}")
+            return "<br/>" + "<br/>".join(formatted)
+        return text
+    
+    # Main table - use Paragraphs for text wrapping with optimized spacing
+    cell_style = ParagraphStyle('CellStyle', parent=styles['Normal'], fontSize=9, leading=10, spaceBefore=0, spaceAfter=0)
+    header_style = ParagraphStyle('HeaderStyle', parent=styles['Normal'], fontSize=10, textColor=colors.white, fontName='Helvetica-Bold', leading=11)
+    
+    table_data = [[
+        Paragraph('Week', header_style),
+        Paragraph('Lesson', header_style),
+        Paragraph('Strand/Theme', header_style),
+        Paragraph('Sub-strand', header_style),
+        Paragraph('Specific-Learning outcomes', header_style),
+        Paragraph('Key Inquiry Question(s)', header_style),
+        Paragraph('Learning/ Teaching Experience', header_style),
+        Paragraph('Learning Resources', header_style),
+        Paragraph('Assessment Methods', header_style),
+        Paragraph('Reflection', header_style)
+    ]]
+    
+    for week in sorted(scheme.weeks, key=lambda w: w.week_number):
+        for lesson in sorted(week.lessons, key=lambda l: l.lesson_number):
+            outcomes = lesson.specific_learning_outcomes or ""
+            if outcomes and not outcomes.startswith("By the end of the sub-strand"):
+                outcomes = f"By the end of the sub-strand, the learner should be able to: {outcomes}"
+            
+            table_data.append([
+                Paragraph(str(week.week_number), cell_style),
+                Paragraph(str(lesson.lesson_number), cell_style),
+                Paragraph(lesson.strand or "", cell_style),
+                Paragraph(lesson.sub_strand or "", cell_style),
+                Paragraph(outcomes, cell_style),
+                Paragraph(lesson.key_inquiry_questions or "", cell_style),
+                Paragraph(format_learning_experiences(lesson.learning_experiences or ""), cell_style),
+                Paragraph(lesson.learning_resources or "", cell_style),
+                Paragraph(lesson.assessment_methods or "", cell_style),
+                Paragraph(lesson.reflection or "", cell_style)
+            ])
+    
+    # Optimized column widths to reduce space wastage
+    # Week, Lesson, Strand, Sub-strand, Outcomes, Questions, Experiences, Resources, Assessment, Reflection
+    main_table = Table(table_data, colWidths=[0.6*cm, 0.6*cm, 2.2*cm, 2.5*cm, 4.0*cm, 3.0*cm, 4.8*cm, 2.8*cm, 2.3*cm, 1.0*cm], repeatRows=1, splitByRow=1)
+    main_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#4F46E5')),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#666')),
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+        # Minimal padding to reduce space wastage
+        ('LEFTPADDING', (0, 0), (-1, -1), 1),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 1),
+        ('TOPPADDING', (0, 0), (-1, -1), 1),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 1),
+        ('ALIGN', (0, 1), (1, -1), 'CENTER'),
+        ('FONTSIZE', (0, 0), (-1, -1), 9),
+    ]))
+    main_table.hAlign = 'LEFT'
+    elements.append(main_table)
+    
+    doc.build(elements)
+    pdf_io.seek(0)
+    filename = f"scheme_{scheme.id}_{scheme.subject}_{scheme.grade}_{scheme.term}_{scheme.year}.pdf".replace(" ", "_")
+    return StreamingResponse(pdf_io, media_type="application/pdf", headers={"Content-Disposition": f"attachment; filename={filename}"})
+
+# ============================================================================
+# LESSON PLAN ENDPOINTS
+# ============================================================================
+
+@app.post(f"{settings.API_V1_PREFIX}/lesson-plans", response_model=LessonPlanResponse)
+async def create_lesson_plan(
+    lesson_plan: LessonPlanCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new lesson plan"""
+    # Convert empty strings to None for date field
+    plan_data = lesson_plan.dict()
+    if plan_data.get("date") == "":
+        plan_data["date"] = None
+        
+    db_lesson_plan = LessonPlan(
+        user_id=current_user.id,
+        **plan_data
+    )
+    db.add(db_lesson_plan)
+    db.commit()
+    db.refresh(db_lesson_plan)
+    return db_lesson_plan
+
+@app.get(f"{settings.API_V1_PREFIX}/lesson-plans", response_model=List[LessonPlanSummary])
+async def get_lesson_plans(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all lesson plans for the current user"""
+    lesson_plans = db.query(LessonPlan).filter(LessonPlan.user_id == current_user.id).all()
+    return lesson_plans
+
+@app.get(f"{settings.API_V1_PREFIX}/lesson-plans/{{lesson_plan_id}}", response_model=LessonPlanResponse)
+async def get_lesson_plan(
+    lesson_plan_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get a specific lesson plan by ID"""
+    lesson_plan = db.query(LessonPlan).filter(
+        LessonPlan.id == lesson_plan_id,
+        LessonPlan.user_id == current_user.id
+    ).first()
+    if not lesson_plan:
+        raise HTTPException(status_code=404, detail="Lesson plan not found")
+    return lesson_plan
+
+@app.put(f"{settings.API_V1_PREFIX}/lesson-plans/{{lesson_plan_id}}", response_model=LessonPlanResponse)
+async def update_lesson_plan(
+    lesson_plan_id: int,
+    lesson_plan_update: LessonPlanUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update a lesson plan"""
+    lesson_plan = db.query(LessonPlan).filter(
+        LessonPlan.id == lesson_plan_id,
+        LessonPlan.user_id == current_user.id
+    ).first()
+    if not lesson_plan:
+        raise HTTPException(status_code=404, detail="Lesson plan not found")
+    
+    update_data = lesson_plan_update.dict(exclude_unset=True)
+    
+    # Convert empty strings to None for date field
+    if "date" in update_data and update_data["date"] == "":
+        update_data["date"] = None
+        
+    for field, value in update_data.items():
+        setattr(lesson_plan, field, value)
+    
+    db.commit()
+    db.refresh(lesson_plan)
+    return lesson_plan
+
+@app.delete(f"{settings.API_V1_PREFIX}/lesson-plans/{{lesson_plan_id}}")
+async def delete_lesson_plan(
+    lesson_plan_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete a lesson plan"""
+    lesson_plan = db.query(LessonPlan).filter(
+        LessonPlan.id == lesson_plan_id,
+        LessonPlan.user_id == current_user.id
+    ).first()
+    if not lesson_plan:
+        raise HTTPException(status_code=404, detail="Lesson plan not found")
+    
+    db.delete(lesson_plan)
+    db.commit()
+    return {"message": "Lesson plan deleted successfully"}
+
+@app.post(f"{settings.API_V1_PREFIX}/schemes/{{scheme_id}}/generate-lesson-plans")
+async def generate_lesson_plans_from_scheme(
+    scheme_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Generate individual lesson plans from a scheme of work"""
+    # Get the scheme with all its weeks and lessons
+    scheme = db.query(SchemeOfWork).options(
+        joinedload(SchemeOfWork.weeks).joinedload(SchemeWeek.lessons)
+    ).filter(
+        SchemeOfWork.id == scheme_id,
+        SchemeOfWork.user_id == current_user.id
+    ).first()
+    
+    if not scheme:
+        raise HTTPException(status_code=404, detail="Scheme of work not found")
+    
+    # Check if lesson plans already exist for this scheme
+    existing_plans = db.query(LessonPlan).join(SchemeLesson).join(SchemeWeek).filter(
+        SchemeWeek.scheme_id == scheme_id
+    ).count()
+    
+    if existing_plans > 0:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"Lesson plans already exist for this scheme ({existing_plans} plans found). Delete existing plans first if you want to regenerate."
+        )
+    
+    created_plans = []
+    lesson_counter = 1
+    
+    # Generate lesson plans for each lesson in each week
+    for week in scheme.weeks:
+        for lesson in week.lessons:
+            # Create lesson plan from scheme lesson
+            lesson_plan = LessonPlan(
+                user_id=current_user.id,
+                subject_id=scheme.subject_id,
+                scheme_lesson_id=lesson.id,
+                
+                # Header Information
+                learning_area=scheme.subject,
+                grade=scheme.grade,
+                date=None,  # To be filled by teacher
+                time="",  # To be filled by teacher
+                roll="",  # To be filled by teacher
+                
+                # Lesson Details from scheme
+                strand_theme_topic=lesson.strand,
+                sub_strand_sub_theme_sub_topic=lesson.sub_strand,
+                specific_learning_outcomes=lesson.specific_learning_outcomes,
+                key_inquiry_questions=lesson.key_inquiry_questions or "",
+                core_competences="",  # To be filled by teacher
+                values_to_be_developed="",  # To be filled by teacher
+                pcis_to_be_addressed="",  # To be filled by teacher
+                learning_resources=lesson.learning_resources or "",
+                
+                # Organization of Learning - populate from learning experiences
+                introduction=f"Introduce the topic: {lesson.strand} - {lesson.sub_strand}",
+                development=lesson.learning_experiences or "Detailed lesson development activities to be planned",
+                conclusion="Summarize key points and assess learning outcomes",
+                summary=f"Lesson {lesson_counter}: {lesson.strand} - {lesson.sub_strand}",
+                
+                # Reflection (empty - to be filled after teaching)
+                reflection_self_evaluation="",
+                
+                # Status
+                status="pending"
+            )
+            
+            db.add(lesson_plan)
+            created_plans.append({
+                "lesson_number": lesson_counter,
+                "week": week.week_number,
+                "lesson_in_week": lesson.lesson_number,
+                "strand": lesson.strand,
+                "sub_strand": lesson.sub_strand
+            })
+            lesson_counter += 1
+    
+    db.commit()
+    
+    return {
+        "message": f"Successfully generated {len(created_plans)} lesson plans from scheme of work",
+        "scheme_id": scheme_id,
+        "scheme_title": f"{scheme.subject} - {scheme.grade} - {scheme.term} {scheme.year}",
+        "total_plans": len(created_plans),
+        "lesson_plans": created_plans
+    }
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

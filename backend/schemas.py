@@ -285,6 +285,7 @@ class SharedPresentationResponse(BaseModel):
 
 class SchoolScheduleBase(BaseModel):
     schedule_name: str
+    education_level: Optional[str] = None
     school_start_time: str  # e.g., "08:00", "07:50"
     single_lesson_duration: int = 40  # minutes
     double_lesson_duration: int = 80  # minutes
@@ -302,6 +303,7 @@ class SchoolScheduleCreate(SchoolScheduleBase):
 
 class SchoolScheduleUpdate(BaseModel):
     schedule_name: Optional[str] = None
+    education_level: Optional[str] = None
     school_start_time: Optional[str] = None
     single_lesson_duration: Optional[int] = None
     double_lesson_duration: Optional[int] = None
@@ -371,6 +373,168 @@ class TimetableEntryResponse(TimetableEntryBase):
     schedule_id: int
     created_at: datetime
     updated_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+# ============================================================================
+# PROFESSIONAL RECORDS SCHEMAS
+# ============================================================================
+
+# Scheme of Work Schemas
+class SchemeLessonBase(BaseModel):
+    lesson_number: int
+    strand: str
+    sub_strand: str
+    specific_learning_outcomes: str
+    key_inquiry_questions: Optional[str] = None
+    learning_experiences: str
+    learning_resources: Optional[str] = None
+    assessment_methods: Optional[str] = None
+    reflection: Optional[str] = None
+
+class SchemeLessonCreate(SchemeLessonBase):
+    pass
+
+class SchemeLessonResponse(SchemeLessonBase):
+    id: int
+    week_id: int
+    created_at: datetime
+    updated_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+class SchemeWeekBase(BaseModel):
+    week_number: int
+
+class SchemeWeekCreate(SchemeWeekBase):
+    lessons: List[SchemeLessonCreate]
+
+class SchemeWeekResponse(SchemeWeekBase):
+    id: int
+    scheme_id: int
+    lessons: List[SchemeLessonResponse]
+    created_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+class SchemeOfWorkBase(BaseModel):
+    subject_id: int
+    teacher_name: str
+    school: str
+    term: str
+    year: int
+    subject: str
+    grade: str
+    total_weeks: int
+    total_lessons: int
+    status: Optional[str] = "draft"
+
+class SchemeOfWorkCreate(SchemeOfWorkBase):
+    weeks: List[SchemeWeekCreate]
+
+class SchemeOfWorkUpdate(BaseModel):
+    teacher_name: Optional[str] = None
+    school: Optional[str] = None
+    term: Optional[str] = None
+    year: Optional[int] = None
+    status: Optional[str] = None
+
+class SchemeOfWorkResponse(SchemeOfWorkBase):
+    id: int
+    user_id: int
+    weeks: List[SchemeWeekResponse]
+    created_at: datetime
+    updated_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+class SchemeOfWorkSummary(BaseModel):
+    id: int
+    subject: str
+    grade: str
+    term: str
+    year: int
+    total_weeks: int
+    total_lessons: int
+    status: str
+    created_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+# ============================================================================
+# LESSON PLAN SCHEMAS
+# ============================================================================
+
+class LessonPlanBase(BaseModel):
+    subject_id: int
+    learning_area: str
+    grade: str
+    date: Optional[str] = None
+    time: Optional[str] = None
+    roll: Optional[str] = None
+    strand_theme_topic: str
+    sub_strand_sub_theme_sub_topic: str
+    specific_learning_outcomes: str
+    key_inquiry_questions: Optional[str] = None
+    core_competences: Optional[str] = None
+    values_to_be_developed: Optional[str] = None
+    pcis_to_be_addressed: Optional[str] = None
+    learning_resources: Optional[str] = None
+    introduction: Optional[str] = None
+    development: Optional[str] = None
+    conclusion: Optional[str] = None
+    summary: Optional[str] = None
+    reflection_self_evaluation: Optional[str] = None
+    status: Optional[str] = "pending"
+
+class LessonPlanCreate(LessonPlanBase):
+    scheme_lesson_id: Optional[int] = None
+
+class LessonPlanUpdate(BaseModel):
+    learning_area: Optional[str] = None
+    grade: Optional[str] = None
+    date: Optional[str] = None
+    time: Optional[str] = None
+    roll: Optional[str] = None
+    strand_theme_topic: Optional[str] = None
+    sub_strand_sub_theme_sub_topic: Optional[str] = None
+    specific_learning_outcomes: Optional[str] = None
+    key_inquiry_questions: Optional[str] = None
+    core_competences: Optional[str] = None
+    values_to_be_developed: Optional[str] = None
+    pcis_to_be_addressed: Optional[str] = None
+    learning_resources: Optional[str] = None
+    introduction: Optional[str] = None
+    development: Optional[str] = None
+    conclusion: Optional[str] = None
+    summary: Optional[str] = None
+    reflection_self_evaluation: Optional[str] = None
+    status: Optional[str] = None
+
+class LessonPlanResponse(LessonPlanBase):
+    id: int
+    user_id: int
+    scheme_lesson_id: Optional[int] = None
+    created_at: datetime
+    updated_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+class LessonPlanSummary(BaseModel):
+    id: int
+    learning_area: str
+    grade: str
+    strand_theme_topic: str
+    sub_strand_sub_theme_sub_topic: str
+    date: Optional[str] = None
+    status: str
+    created_at: datetime
     
     class Config:
         from_attributes = True

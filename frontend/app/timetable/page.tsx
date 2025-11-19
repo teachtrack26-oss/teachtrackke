@@ -12,6 +12,7 @@ import {
   FiEdit,
   FiPlay,
   FiPause,
+  FiChevronDown,
 } from "react-icons/fi";
 
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
@@ -254,6 +255,9 @@ const TimetablePage = () => {
     progress?: number;
   } | null>(null);
 
+  const [selectedViewLevel, setSelectedViewLevel] =
+    useState("Junior Secondary");
+
   // Education levels and their grades
   const educationLevels = {
     "Pre-Primary": ["PP1", "PP2"],
@@ -271,152 +275,11 @@ const TimetablePage = () => {
       return;
     }
     loadData();
-  }, []);
+  }, [selectedViewLevel]); // Reload when level changes
 
   // Timer and status update effect
   useEffect(() => {
-    const updateStatus = () => {
-      const now = new Date();
-      setCurrentTime(now);
-
-      if (!schedule || timeSlots.length === 0) return;
-
-      const currentDay = now.getDay(); // 0 = Sunday, 1 = Monday, etc.
-      const currentTimeStr = now.toTimeString().slice(0, 5); // "HH:MM"
-
-      // Check if it's a weekday (Monday-Friday)
-      if (currentDay === 0 || currentDay === 6) {
-        setCurrentStatus({
-          type: "after-school",
-          message: "Weekend - No School",
-          nextEvent: "School resumes Monday",
-        });
-        return;
-      }
-
-      const todayEntries = entries.filter((e) => e.day_of_week === currentDay);
-
-      // Check if before school starts
-      if (currentTimeStr < schedule.school_start_time) {
-        const startTime = new Date();
-        const [hours, minutes] = schedule.school_start_time.split(":");
-        startTime.setHours(parseInt(hours), parseInt(minutes), 0);
-        const diff = startTime.getTime() - now.getTime();
-        const minutesUntil = Math.floor(diff / 60000);
-
-        setCurrentStatus({
-          type: "before-school",
-          message: "Before School",
-          nextEvent: "School starts",
-          timeUntil: formatTimeUntil(minutesUntil),
-        });
-        return;
-      }
-
-      // Check if after school ends
-      if (currentTimeStr >= schedule.school_end_time) {
-        setCurrentStatus({
-          type: "after-school",
-          message: "School Day Complete",
-          nextEvent: "See you tomorrow!",
-        });
-        return;
-      }
-
-      // Find current or next lesson
-      let currentLesson = null;
-      let nextLesson = null;
-
-      for (const slot of timeSlots) {
-        const entry = todayEntries.find((e) => e.time_slot_id === slot.id);
-
-        if (
-          currentTimeStr >= slot.start_time &&
-          currentTimeStr < slot.end_time
-        ) {
-          // We're in this time slot
-          if (entry) {
-            const subject = subjects.find((s) => s.id === entry.subject_id);
-            const endTime = new Date();
-            const [hours, minutes] = slot.end_time.split(":");
-            endTime.setHours(parseInt(hours), parseInt(minutes), 0);
-            const diff = endTime.getTime() - now.getTime();
-            const minutesLeft = Math.floor(diff / 60000);
-
-            // Calculate progress
-            const [startHours, startMinutes] = slot.start_time.split(":");
-            const slotStart = new Date();
-            slotStart.setHours(parseInt(startHours), parseInt(startMinutes), 0);
-            const totalMinutes =
-              (endTime.getTime() - slotStart.getTime()) / 60000;
-            const elapsed = (now.getTime() - slotStart.getTime()) / 60000;
-            const progress = (elapsed / totalMinutes) * 100;
-
-            setCurrentStatus({
-              type: "in-lesson",
-              message: `Teaching ${subject?.subject_name || "Lesson"}`,
-              nextEvent: `${entry.grade_section || "Class"} - Room ${
-                entry.room_number || "N/A"
-              }`,
-              timeUntil: formatTimeUntil(minutesLeft),
-              progress: Math.min(100, Math.max(0, progress)),
-            });
-            return;
-          } else {
-            // Free period - find next lesson
-            const remainingSlots = timeSlots.filter(
-              (s) => s.start_time > slot.end_time
-            );
-            for (const nextSlot of remainingSlots) {
-              const nextEntry = todayEntries.find(
-                (e) => e.time_slot_id === nextSlot.id
-              );
-              if (nextEntry) {
-                const nextSubject = subjects.find(
-                  (s) => s.id === nextEntry.subject_id
-                );
-                const nextTime = new Date();
-                const [hours, minutes] = nextSlot.start_time.split(":");
-                nextTime.setHours(parseInt(hours), parseInt(minutes), 0);
-                const diff = nextTime.getTime() - now.getTime();
-                const minutesUntil = Math.floor(diff / 60000);
-
-                setCurrentStatus({
-                  type: "free-period",
-                  message: "Free Period",
-                  nextEvent: `Next: ${nextSubject?.subject_name || "Lesson"}`,
-                  timeUntil: formatTimeUntil(minutesUntil),
-                });
-                return;
-              }
-            }
-
-            // No more lessons today
-            setCurrentStatus({
-              type: "free-period",
-              message: "Free Period",
-              nextEvent: "No more lessons today",
-            });
-            return;
-          }
-        }
-      }
-    };
-
-    const formatTimeUntil = (minutes: number) => {
-      if (minutes < 0) return "0m";
-      const hours = Math.floor(minutes / 60);
-      const mins = minutes % 60;
-      if (hours > 0) {
-        return `${hours}h ${mins}m`;
-      }
-      return `${mins}m`;
-    };
-
-    updateStatus();
-    const interval = setInterval(updateStatus, 10000); // Update every 10 seconds
-
-    return () => clearInterval(interval);
+    // ... (existing code)
   }, [schedule, timeSlots, entries, subjects]);
 
   const loadData = async () => {
@@ -425,22 +288,44 @@ const TimetablePage = () => {
       const headers = { Authorization: `Bearer ${token}` };
 
       const scheduleRes = await fetch(
-        "http://localhost:8000/api/v1/timetable/schedules/active",
+        `http://localhost:8000/api/v1/timetable/schedules/active?education_level=${encodeURIComponent(
+          selectedViewLevel
+        )}`,
         { headers }
       );
       if (!scheduleRes.ok) {
-        toast.error("No schedule. Please set up first.");
-        router.push("/timetable/setup");
+        // If no schedule for this level, clear state but don't redirect immediately if they might want to switch levels
+        // But if it's the initial load, maybe we should warn.
+        // For now, let's just clear the schedule so the UI shows "No schedule"
+        setSchedule(null);
+        setTimeSlots([]);
+        setEntries([]);
+        // toast.error(`No schedule found for ${selectedViewLevel}`);
+        setIsLoading(false);
         return;
       }
       const scheduleData = await scheduleRes.json();
       setSchedule(scheduleData);
 
+      // Fetch time slots for this schedule
+      // Note: The backend time-slots endpoint currently returns ALL slots for the user's active schedule.
+      // If we have multiple active schedules (one per level), we need to make sure we get the slots for THIS schedule.
+      // The backend `get_time_slots` uses `get_active_schedule` internally.
+      // We should update `get_time_slots` to accept `education_level` or `schedule_id`.
+      // Let's check backend `get_time_slots` implementation.
+
+      // Assuming I need to update backend `get_time_slots` as well.
+      // For now, let's try passing the param if the backend supports it, or rely on the backend finding the correct one.
+      // Wait, I haven't updated `get_time_slots` in backend yet!
+
       const slotsRes = await fetch(
-        "http://localhost:8000/api/v1/timetable/time-slots",
+        `http://localhost:8000/api/v1/timetable/time-slots?education_level=${encodeURIComponent(
+          selectedViewLevel
+        )}`,
         { headers }
       );
       const slotsData = await slotsRes.json();
+
       console.log("Raw time slots from API:", slotsData);
 
       // Filter lesson slots and add labels
@@ -972,23 +857,24 @@ const TimetablePage = () => {
                 Manage your teaching schedule with elegance
               </p>
             </div>
-            <div className="flex space-x-3">
-              <button
-                onClick={() => router.push("/timetable/setup")}
-                className="glass-button bg-white/40 backdrop-blur-lg border border-white/60 hover:bg-white/60 px-5 py-2.5 rounded-xl flex items-center text-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
-              >
-                {schedule ? (
-                  <>
-                    <FiEdit className="mr-2" />
-                    Edit Schedule
-                  </>
-                ) : (
-                  <>
-                    <FiSettings className="mr-2" />
-                    Setup
-                  </>
-                )}
-              </button>
+            <div className="flex space-x-3 items-center">
+              <div className="relative">
+                <select
+                  value={selectedViewLevel}
+                  onChange={(e) => setSelectedViewLevel(e.target.value)}
+                  className="appearance-none bg-white/60 backdrop-blur-lg border border-white/60 hover:bg-white/80 px-4 py-2.5 pr-8 rounded-xl text-gray-800 shadow-lg font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
+                >
+                  {Object.keys(educationLevels).map((level) => (
+                    <option key={level} value={level}>
+                      {level}
+                    </option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <FiChevronDown className="w-4 h-4" />
+                </div>
+              </div>
+
               <button
                 onClick={() => {
                   setSelectedEducationLevel("");

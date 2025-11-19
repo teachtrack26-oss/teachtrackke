@@ -144,6 +144,11 @@ export default function Navbar() {
     // { name: "Notes", href: "/notes", public: false }, // Temporarily hidden
     { name: "Curriculum", href: "/curriculum", public: false },
     { name: "Timetable", href: "/timetable", public: false },
+    {
+      name: "Professional Records",
+      href: "/professional-records",
+      public: false,
+    },
   ];
 
   const isActiveLink = (href: string) => {

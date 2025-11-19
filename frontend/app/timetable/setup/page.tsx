@@ -7,6 +7,7 @@ import { FiClock, FiSave, FiArrowLeft } from "react-icons/fi";
 
 interface ScheduleConfig {
   schedule_name: string;
+  education_level: string;
   school_start_time: string;
   single_lesson_duration: number;
   double_lesson_duration: number;
@@ -20,15 +21,25 @@ interface ScheduleConfig {
   school_end_time: string;
 }
 
+const EDUCATION_LEVELS = [
+  { id: "Pre-Primary", label: "Pre-Primary (PP1-PP2)" },
+  { id: "Lower Primary", label: "Lower Primary (Grade 1-3)" },
+  { id: "Upper Primary", label: "Upper Primary (Grade 4-6)" },
+  { id: "Junior Secondary", label: "Junior Secondary (Grade 7-9)" },
+  { id: "Senior Secondary", label: "Senior Secondary (Grade 10-12)" },
+];
+
 const TimetableSetupPage = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [hasActiveSchedule, setHasActiveSchedule] = useState(false);
   const [scheduleId, setScheduleId] = useState<number | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [selectedLevel, setSelectedLevel] = useState("Junior Secondary");
 
   const [config, setConfig] = useState<ScheduleConfig>({
     schedule_name: "My School Schedule",
+    education_level: "Junior Secondary",
     school_start_time: "08:00",
     single_lesson_duration: 40,
     double_lesson_duration: 80,
@@ -56,20 +67,20 @@ const TimetableSetupPage = () => {
       router.push("/login");
       return;
     }
-    checkActiveSchedule();
-  }, []);
+    checkActiveSchedule(selectedLevel);
+  }, [selectedLevel]);
 
-  const checkActiveSchedule = async () => {
+  const checkActiveSchedule = async (level: string) => {
     try {
       const token = localStorage.getItem("accessToken");
       if (!token) {
-        toast.error("Please login first");
-        router.push("/login");
         return;
       }
 
       const response = await fetch(
-        "http://localhost:8000/api/v1/timetable/schedules/active",
+        `http://localhost:8000/api/v1/timetable/schedules/active?education_level=${encodeURIComponent(
+          level
+        )}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -89,11 +100,23 @@ const TimetableSetupPage = () => {
         setScheduleId(data.id);
         setHasActiveSchedule(true);
         setIsEditMode(true);
+      } else {
+        // Reset to defaults if no schedule found for this level
+        setHasActiveSchedule(false);
+        setIsEditMode(false);
+        setScheduleId(null);
+        setConfig((prev) => ({
+          ...prev,
+          schedule_name: `${level} Schedule`,
+          education_level: level,
+          // Keep other defaults or reset them if needed
+        }));
       }
     } catch (error) {
       // No active schedule yet
       setHasActiveSchedule(false);
       setIsEditMode(false);
+      setScheduleId(null);
     }
   };
 
@@ -208,6 +231,36 @@ const TimetableSetupPage = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Education Level Selection */}
+            <div className="border-b pb-6">
+              <h3 className="text-lg font-medium text-gray-900 mb-4">
+                Education Level
+              </h3>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Select Level to Configure
+                </label>
+                <select
+                  value={selectedLevel}
+                  onChange={(e) => {
+                    setSelectedLevel(e.target.value);
+                    // Config update happens in useEffect -> checkActiveSchedule
+                  }}
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 bg-white"
+                >
+                  {EDUCATION_LEVELS.map((level) => (
+                    <option key={level.id} value={level.id}>
+                      {level.label}
+                    </option>
+                  ))}
+                </select>
+                <p className="mt-2 text-sm text-gray-500">
+                  Each education level can have its own unique schedule
+                  settings.
+                </p>
+              </div>
+            </div>
+
             {/* Schedule Name */}
             <div className="border-b pb-6">
               <h3 className="text-lg font-medium text-gray-900 mb-4">

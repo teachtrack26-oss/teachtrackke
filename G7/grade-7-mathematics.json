@@ -1,0 +1,449 @@
+{
+  "subject": "Mathematics",
+  "grade": "Grade 7",
+  "educationLevel": "Junior Secondary",
+  "strands": [
+    {
+      "strandNumber": "1.0",
+      "strandName": "NUMBERS",
+      "subStrands": [
+        {
+          "subStrandNumber": "1.1",
+          "subStrandName": "Whole Numbers",
+          "numberOfLessons": 20,
+          "specificLearningOutcomes": [
+            "use place value and total value of digits up to hundreds of millions in real life",
+            "read and write numbers in symbols up to hundreds of millions in real life situations",
+            "read and write numbers in words up to millions for fluency",
+            "round off numbers up to the nearest hundreds of millions in real life situations",
+            "classify natural numbers as even, odd and prime in different situations",
+            "apply operations of whole numbers in real life situations",
+            "identify number sequence in different situations",
+            "create number sequence for playing number games",
+            "appreciate use of whole numbers in real life situations"
+          ],
+          "suggestedLearningExperiences": [
+            "identify and write place value and total value of digits using place value apparatus",
+            "read and write numbers in symbols on number cards or charts",
+            "read and write numbers in words on number cards or charts and practice writing dummy cheques for different sums of money",
+            "prepare and use place value charts to round off numbers",
+            "play a number game, make number cards, sort and classify numbers according to those that are even, odd or prime",
+            "work out or perform 2, 3 or more combined operations in the correct order using digital devices",
+            "identify the number patterns to work out number sequences",
+            "play games of creating number puzzles that involve number sequences using IT devices or other materials"
+          ],
+          "keyInquiryQuestions": [
+            "Why do we write numbers in words and/or symbols?",
+            "Where do we write numbers in words or symbols?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration: Speaking, listening and team work as learners work in pairs or groups to prepare and use place value charts to round off numbers",
+            "Critical thinking and problem solving: Interpretation and inference as learners work together to identify number patterns",
+            "Creativity and Imagination: Making observations as learners play games of creating number puzzles that involve number sequences"
+          ],
+          "values": [
+            "Unity: as learners work together to identify number patterns",
+            "Responsibility: taking care of digital devices when working out operations",
+            "Patriotism: appreciating the use of whole numbers in real life situations in Kenya"
+          ],
+          "pcis": [
+            "Financial Literacy: when learners practice writing dummy cheques for different sums of money",
+            "Education for Sustainable Development: when learners appreciate the use of whole numbers in real life situations"
+          ],
+          "linkToOtherSubjects": [
+            "Science and Technology: when learners use digital devices to work out operations",
+            "Social Studies: when learners appreciate the use of whole numbers in real life situations in Kenya"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "2.0",
+      "strandName": "ALGEBRA",
+      "subStrands": [
+        {
+          "subStrandNumber": "2.1",
+          "subStrandName": "Algebraic Expressions",
+          "numberOfLessons": 8,
+          "specificLearningOutcomes": [
+            "Placeholder learning outcome for Algebraic Expressions"
+          ],
+          "suggestedLearningExperiences": [
+            "Placeholder learning experience for Algebraic Expressions"
+          ],
+          "keyInquiryQuestions": [
+            "What are the key concepts in Algebraic Expressions?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Critical thinking and problem solving"
+          ],
+          "values": [
+            "Unity",
+            "Responsibility"
+          ],
+          "pcis": [
+            "Education for Sustainable Development"
+          ],
+          "linkToOtherSubjects": [
+            "Science and Technology"
+          ]
+        },
+        {
+          "subStrandNumber": "2.2",
+          "subStrandName": "Linear Equations",
+          "numberOfLessons": 10,
+          "specificLearningOutcomes": [
+            "Placeholder learning outcome for Linear Equations"
+          ],
+          "suggestedLearningExperiences": [
+            "Placeholder learning experience for Linear Equations"
+          ],
+          "keyInquiryQuestions": [
+            "What are the key concepts in Linear Equations?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Critical thinking and problem solving"
+          ],
+          "values": [
+            "Unity",
+            "Responsibility"
+          ],
+          "pcis": [
+            "Education for Sustainable Development"
+          ],
+          "linkToOtherSubjects": [
+            "Science and Technology"
+          ]
+        },
+        {
+          "subStrandNumber": "2.3",
+          "subStrandName": "Linear Inequalities",
+          "numberOfLessons": 6,
+          "specificLearningOutcomes": [
+            "Placeholder learning outcome for Linear Inequalities"
+          ],
+          "suggestedLearningExperiences": [
+            "Placeholder learning experience for Linear Inequalities"
+          ],
+          "keyInquiryQuestions": [
+            "What are the key concepts in Linear Inequalities?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Critical thinking and problem solving"
+          ],
+          "values": [
+            "Unity",
+            "Responsibility"
+          ],
+          "pcis": [
+            "Education for Sustainable Development"
+          ],
+          "linkToOtherSubjects": [
+            "Science and Technology"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "3.0",
+      "strandName": "MEASUREMENTS",
+      "subStrands": [
+        {
+          "subStrandNumber": "3.1",
+          "subStrandName": "Pythagorean Relationship",
+          "numberOfLessons": 6,
+          "specificLearningOutcomes": [
+            "Placeholder learning outcome for Pythagorean Relationship"
+          ],
+          "suggestedLearningExperiences": [
+            "Placeholder learning experience for Pythagorean Relationship"
+          ],
+          "keyInquiryQuestions": [
+            "What are the key concepts in Pythagorean Relationship?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Critical thinking and problem solving"
+          ],
+          "values": [
+            "Unity",
+            "Responsibility"
+          ],
+          "pcis": [
+            "Education for Sustainable Development"
+          ],
+          "linkToOtherSubjects": [
+            "Science and Technology"
+          ]
+        },
+        {
+          "subStrandNumber": "3.2",
+          "subStrandName": "Length",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Placeholder learning outcome for Length"
+          ],
+          "suggestedLearningExperiences": [
+            "Placeholder learning experience for Length"
+          ],
+          "keyInquiryQuestions": [
+            "What are the key concepts in Length?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Critical thinking and problem solving"
+          ],
+          "values": [
+            "Unity",
+            "Responsibility"
+          ],
+          "pcis": [
+            "Education for Sustainable Development"
+          ],
+          "linkToOtherSubjects": [
+            "Science and Technology"
+          ]
+        },
+        {
+          "subStrandNumber": "3.3",
+          "subStrandName": "Area",
+          "numberOfLessons": 8,
+          "specificLearningOutcomes": [
+            "Placeholder learning outcome for Area"
+          ],
+          "suggestedLearningExperiences": [
+            "Placeholder learning experience for Area"
+          ],
+          "keyInquiryQuestions": [
+            "What are the key concepts in Area?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Critical thinking and problem solving"
+          ],
+          "values": [
+            "Unity",
+            "Responsibility"
+          ],
+          "pcis": [
+            "Education for Sustainable Development"
+          ],
+          "linkToOtherSubjects": [
+            "Science and Technology"
+          ]
+        },
+        {
+          "subStrandNumber": "3.4",
+          "subStrandName": "Volume and Capacity",
+          "numberOfLessons": 8,
+          "specificLearningOutcomes": [
+            "Placeholder learning outcome for Volume and Capacity"
+          ],
+          "suggestedLearningExperiences": [
+            "Placeholder learning experience for Volume and Capacity"
+          ],
+          "keyInquiryQuestions": [
+            "What are the key concepts in Volume and Capacity?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Critical thinking and problem solving"
+          ],
+          "values": [
+            "Unity",
+            "Responsibility"
+          ],
+          "pcis": [
+            "Education for Sustainable Development"
+          ],
+          "linkToOtherSubjects": [
+            "Science and Technology"
+          ]
+        },
+        {
+          "subStrandNumber": "3.5",
+          "subStrandName": "Time, Distance and Speed",
+          "numberOfLessons": 6,
+          "specificLearningOutcomes": [
+            "Placeholder learning outcome for Time, Distance and Speed"
+          ],
+          "suggestedLearningExperiences": [
+            "Placeholder learning experience for Time, Distance and Speed"
+          ],
+          "keyInquiryQuestions": [
+            "What are the key concepts in Time, Distance and Speed?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Critical thinking and problem solving"
+          ],
+          "values": [
+            "Unity",
+            "Responsibility"
+          ],
+          "pcis": [
+            "Education for Sustainable Development"
+          ],
+          "linkToOtherSubjects": [
+            "Science and Technology"
+          ]
+        },
+        {
+          "subStrandNumber": "3.6",
+          "subStrandName": "Temperature",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Placeholder learning outcome for Temperature"
+          ],
+          "suggestedLearningExperiences": [
+            "Placeholder learning experience for Temperature"
+          ],
+          "keyInquiryQuestions": [
+            "What are the key concepts in Temperature?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Critical thinking and problem solving"
+          ],
+          "values": [
+            "Unity",
+            "Responsibility"
+          ],
+          "pcis": [
+            "Education for Sustainable Development"
+          ],
+          "linkToOtherSubjects": [
+            "Science and Technology"
+          ]
+        },
+        {
+          "subStrandNumber": "3.7",
+          "subStrandName": "Money",
+          "numberOfLessons": 6,
+          "specificLearningOutcomes": [
+            "Placeholder learning outcome for Money"
+          ],
+          "suggestedLearningExperiences": [
+            "Placeholder learning experience for Money"
+          ],
+          "keyInquiryQuestions": [
+            "What are the key concepts in Money?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Critical thinking and problem solving"
+          ],
+          "values": [
+            "Unity",
+            "Responsibility"
+          ],
+          "pcis": [
+            "Education for Sustainable Development"
+          ],
+          "linkToOtherSubjects": [
+            "Science and Technology"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "4.0",
+      "strandName": "GEOMETRY",
+      "subStrands": [
+        {
+          "subStrandNumber": "4.1",
+          "subStrandName": "Angles",
+          "numberOfLessons": 8,
+          "specificLearningOutcomes": [
+            "Placeholder learning outcome for Angles"
+          ],
+          "suggestedLearningExperiences": [
+            "Placeholder learning experience for Angles"
+          ],
+          "keyInquiryQuestions": [
+            "What are the key concepts in Angles?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Critical thinking and problem solving"
+          ],
+          "values": [
+            "Unity",
+            "Responsibility"
+          ],
+          "pcis": [
+            "Education for Sustainable Development"
+          ],
+          "linkToOtherSubjects": [
+            "Science and Technology"
+          ]
+        },
+        {
+          "subStrandNumber": "4.2",
+          "subStrandName": "Geometrical Constructions",
+          "numberOfLessons": 8,
+          "specificLearningOutcomes": [
+            "Placeholder learning outcome for Geometrical Constructions"
+          ],
+          "suggestedLearningExperiences": [
+            "Placeholder learning experience for Geometrical Constructions"
+          ],
+          "keyInquiryQuestions": [
+            "What are the key concepts in Geometrical Constructions?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Critical thinking and problem solving"
+          ],
+          "values": [
+            "Unity",
+            "Responsibility"
+          ],
+          "pcis": [
+            "Education for Sustainable Development"
+          ],
+          "linkToOtherSubjects": [
+            "Science and Technology"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "5.0",
+      "strandName": "DATA HANDLING AND PROBABILITY",
+      "subStrands": [
+        {
+          "subStrandNumber": "5.1",
+          "subStrandName": "Data handling",
+          "numberOfLessons": 10,
+          "specificLearningOutcomes": [
+            "Placeholder learning outcome for Data handling"
+          ],
+          "suggestedLearningExperiences": [
+            "Placeholder learning experience for Data handling"
+          ],
+          "keyInquiryQuestions": [
+            "What are the key concepts in Data handling?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Critical thinking and problem solving"
+          ],
+          "values": [
+            "Unity",
+            "Responsibility"
+          ],
+          "pcis": [
+            "Education for Sustainable Development"
+          ],
+          "linkToOtherSubjects": [
+            "Science and Technology"
+          ]
+        }
+      ]
+    }
+  ]
+}
