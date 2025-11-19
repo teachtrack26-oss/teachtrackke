@@ -29,6 +29,33 @@ interface LessonPlanData {
   reflection_self_evaluation: string;
 }
 
+interface TimetableEntry {
+  id: number;
+  day_of_week: number;
+  time_slot_id: number;
+  subject_id: number;
+  grade_section: string;
+  room_number: string;
+}
+
+interface TimeSlot {
+  id: number;
+  start_time: string;
+  end_time: string;
+  label: string;
+}
+
+interface SchoolSettings {
+  grades_offered: string[];
+  streams_per_grade: { [key: string]: { name: string; pupils: number }[] };
+}
+
+interface Subject {
+  id: number;
+  subject_name: string;
+  grade: string;
+}
+
 export default function EditLessonPlanPage() {
   const router = useRouter();
   const params = useParams();
@@ -58,11 +85,43 @@ export default function EditLessonPlanPage() {
     reflection_self_evaluation: "",
   });
 
+  // New state for automation
+  const [timetableEntries, setTimetableEntries] = useState<TimetableEntry[]>([]);
+  const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
+  const [schoolSettings, setSchoolSettings] = useState<SchoolSettings | null>(null);
+  const [subjects, setSubjects] = useState<Subject[]>([]);
+  const [selectedStream, setSelectedStream] = useState<string>("");
+  const [presentLearners, setPresentLearners] = useState<string>("");
+  const [totalLearners, setTotalLearners] = useState<number>(0);
+
   useEffect(() => {
     if (planId) {
       fetchLessonPlan();
+      fetchAutomationData();
     }
   }, [planId]);
+
+  const fetchAutomationData = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const headers = { Authorization: `Bearer ${token}` };
+
+      const [entriesRes, slotsRes, settingsRes, subjectsRes] = await Promise.all([
+        axios.get("/api/v1/timetable/entries", { headers }),
+        axios.get("/api/v1/timetable/time-slots", { headers }),
+        axios.get("/api/v1/admin/school-settings", { headers }),
+        axios.get("/api/v1/subjects", { headers }),
+      ]);
+
+      setTimetableEntries(entriesRes.data);
+      setTimeSlots(slotsRes.data);
+      setSchoolSettings(settingsRes.data);
+      setSubjects(subjectsRes.data);
+    } catch (error) {
+      console.error("Failed to fetch automation data:", error);
+      // Don't block the main UI if this fails, just log it
+    }
+  };
 
   const fetchLessonPlan = async () => {
     try {
@@ -80,6 +139,16 @@ export default function EditLessonPlanPage() {
       }, {} as any);
 
       setLessonPlan(sanitizedData);
+
+      // Parse existing roll data if available
+      if (sanitizedData.roll && sanitizedData.roll.includes("/")) {
+        const [present, total] = sanitizedData.roll.split("/");
+        setPresentLearners(present.trim());
+        setTotalLearners(parseInt(total.trim()) || 0);
+      } else if (sanitizedData.roll) {
+        setPresentLearners(sanitizedData.roll);
+      }
+
     } catch (error) {
       console.error("Failed to fetch lesson plan:", error);
       toast.error("Failed to load lesson plan");
@@ -97,6 +166,105 @@ export default function EditLessonPlanPage() {
     const { name, value } = e.target;
     setLessonPlan((prev) => ({ ...prev, [name]: value }));
   };
+
+  const handleTimetableSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const entryId = parseInt(e.target.value);
+    const entry = timetableEntries.find((en) => en.id === entryId);
+    
+    if (entry) {
+      const slot = timeSlots.find((s) => s.id === entry.time_slot_id);
+      const subject = subjects.find((s) => s.id === entry.subject_id);
+      
+      if (slot && subject) {
+        // Calculate next occurrence of this day
+        const today = new Date();
+        const currentDay = today.getDay(); // 0=Sun, 1=Mon, etc.
+        // entry.day_of_week is 1=Mon, 5=Fri
+        // Adjust for Sunday being 0 in JS
+        const targetDay = entry.day_of_week; 
+        
+        let daysUntil = targetDay - currentDay;
+        if (daysUntil <= 0) {
+          daysUntil += 7;
+        }
+        
+        const nextDate = new Date(today);
+        nextDate.setDate(today.getDate() + daysUntil);
+        const dateString = nextDate.toISOString().split('T')[0]; // YYYY-MM-DD
+
+        setLessonPlan((prev) => ({
+          ...prev,
+          time: `${slot.start_time} - ${slot.end_time}`,
+          grade: entry.grade_section || subject.grade, // Use timetable grade or subject grade
+          learning_area: subject.subject_name,
+          subject_id: subject.id,
+          date: dateString,
+        }));
+        
+        // Trigger grade change logic to update streams
+        handleGradeChange(entry.grade_section || subject.grade);
+      }
+    }
+  };
+
+  const handleGradeChange = (grade: string) => {
+    // Extract just the grade part (e.g., "Grade 7" from "Grade 7A")
+    // This is a simple heuristic, might need refinement based on exact data format
+    let gradeKey = grade;
+    if (schoolSettings?.grades_offered) {
+        // Try to find exact match first
+        if (!schoolSettings.grades_offered.includes(grade)) {
+            // Try to find partial match
+            const match = schoolSettings.grades_offered.find(g => grade.startsWith(g));
+            if (match) gradeKey = match;
+        }
+    }
+
+    if (schoolSettings?.streams_per_grade && schoolSettings.streams_per_grade[gradeKey]) {
+      const streams = schoolSettings.streams_per_grade[gradeKey];
+      if (streams.length === 1) {
+        // Only one stream (or single class), auto-select
+        setSelectedStream(streams[0].name);
+        setTotalLearners(streams[0].pupils);
+      } else {
+        // Multiple streams, reset selection
+        setSelectedStream("");
+        setTotalLearners(0);
+      }
+    }
+  };
+
+  const handleStreamChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const streamName = e.target.value;
+    setSelectedStream(streamName);
+    
+    // Find pupils count
+    // Need to extract grade again from current lessonPlan state or use a ref
+    // For simplicity, we'll iterate all grades to find the stream if unique, or rely on lessonPlan.grade
+    if (schoolSettings && lessonPlan.grade) {
+        let gradeKey = lessonPlan.grade;
+        const match = schoolSettings.grades_offered.find(g => lessonPlan.grade.startsWith(g));
+        if (match) gradeKey = match;
+
+        const streams = schoolSettings.streams_per_grade[gradeKey];
+        if (streams) {
+            const stream = streams.find(s => s.name === streamName);
+            if (stream) {
+                setTotalLearners(stream.pupils);
+            }
+        }
+    }
+  };
+
+  const handleRollChange = (present: string) => {
+    setPresentLearners(present);
+    if (totalLearners > 0) {
+        setLessonPlan(prev => ({ ...prev, roll: `${present}/${totalLearners}` }));
+    } else {
+        setLessonPlan(prev => ({ ...prev, roll: present }));
+    }
+  };
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -199,6 +367,33 @@ export default function EditLessonPlanPage() {
               </h2>
 
               <div className="grid md:grid-cols-5 gap-4 mb-6 p-4 bg-gray-50 border border-gray-300">
+                {/* Timetable Selection - Spans 2 columns */}
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    SELECT FROM TIMETABLE
+                  </label>
+                  <select
+                    onChange={handleTimetableSelect}
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+                  >
+                    <option value="">-- Select a slot to auto-fill --</option>
+                    {timetableEntries.map((entry) => {
+                      const slot = timeSlots.find((s) => s.id === entry.time_slot_id);
+                      const subject = subjects.find((s) => s.id === entry.subject_id);
+                      const dayName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][entry.day_of_week % 7]; // Adjust if day_of_week is 1-5
+                      // Assuming day_of_week 1=Mon
+                      const days = ["", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+                      const dayStr = days[entry.day_of_week] || `Day ${entry.day_of_week}`;
+
+                      return (
+                        <option key={entry.id} value={entry.id}>
+                          {dayStr} {slot?.start_time} - {subject?.subject_name} ({entry.grade_section})
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-2">
                     LEARNING AREA *
@@ -220,7 +415,10 @@ export default function EditLessonPlanPage() {
                     type="text"
                     name="grade"
                     value={lessonPlan.grade}
-                    onChange={handleInputChange}
+                    onChange={(e) => {
+                        handleInputChange(e);
+                        handleGradeChange(e.target.value);
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     required
                   />
@@ -230,7 +428,7 @@ export default function EditLessonPlanPage() {
                     DATE
                   </label>
                   <input
-                    type="text"
+                    type="date"
                     name="date"
                     value={lessonPlan.date}
                     onChange={handleInputChange}
@@ -249,17 +447,45 @@ export default function EditLessonPlanPage() {
                     className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   />
                 </div>
-                <div>
+                <div className="md:col-span-2">
                   <label className="block text-sm font-bold text-gray-700 mb-2">
-                    ROLL
+                    ROLL (Present / Total)
                   </label>
-                  <input
-                    type="text"
-                    name="roll"
-                    value={lessonPlan.roll}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                  />
+                  <div className="flex gap-2">
+                    {schoolSettings && lessonPlan.grade && (
+                        <select 
+                            value={selectedStream}
+                            onChange={handleStreamChange}
+                            className="w-1/3 px-2 py-2 border border-gray-300 rounded text-sm"
+                        >
+                            <option value="">Stream</option>
+                            {(() => {
+                                let gradeKey = lessonPlan.grade;
+                                const match = schoolSettings.grades_offered.find(g => lessonPlan.grade.startsWith(g));
+                                if (match) gradeKey = match;
+                                return schoolSettings.streams_per_grade[gradeKey]?.map(s => (
+                                    <option key={s.name} value={s.name}>{s.name || "Class"}</option>
+                                ));
+                            })()}
+                        </select>
+                    )}
+                    <div className="flex items-center gap-1 w-full">
+                        <input
+                            type="number"
+                            placeholder="Present"
+                            value={presentLearners}
+                            onChange={(e) => handleRollChange(e.target.value)}
+                            className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                        />
+                        <span className="text-gray-500 font-bold">/</span>
+                        <input
+                            type="number"
+                            value={totalLearners}
+                            readOnly
+                            className="w-20 px-3 py-2 bg-gray-100 border border-gray-300 rounded text-gray-500"
+                        />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -14,10 +14,70 @@ interface WeekLesson {
   specific_learning_outcomes: string;
   key_inquiry_questions: string;
   learning_experiences: string;
+  
+  // Textbook references
+  textbook_name?: string;
+  textbook_teacher_guide_pages?: string;
+  textbook_learner_book_pages?: string;
+  
+  // Learning resources (multi-select)
   learning_resources: string;
+  selected_resources?: string[];
+  
+  // Assessment methods (multi-select)
   assessment_methods: string;
+  selected_assessment_methods?: string[];
+  
   reflection: string;
 }
+
+// Predefined resource options
+const LEARNING_RESOURCES_OPTIONS = [
+  "Teacher's Guide",
+  "Learner's Book",
+  "Textbooks",
+  "Charts and posters",
+  "Models and realia",
+  "Digital devices (tablets/computers)",
+  "Projector/smartboard",
+  "Internet/online resources",
+  "Videos/audio clips",
+  "Flashcards",
+  "Worksheets",
+  "Manipulatives (blocks, counters, etc.)",
+  "Science lab equipment",
+  "Art supplies",
+  "Sports equipment",
+  "Musical instruments",
+  "Maps and globes",
+  "Reference books/dictionaries",
+  "Community resources/guest speakers",
+  "Field trip locations"
+];
+
+// Predefined assessment options
+const ASSESSMENT_METHODS_OPTIONS = [
+  "Oral questions",
+  "Written questions",
+  "Observation",
+  "Practical demonstration",
+  "Project work",
+  "Portfolio assessment",
+  "Peer assessment",
+  "Self-assessment",
+  "Quizzes",
+  "Tests",
+  "Presentations",
+  "Group work assessment",
+  "Homework review",
+  "Class participation",
+  "Role play evaluation",
+  "Problem-solving tasks",
+  "Creative work (art, essays, models)",
+  "Performance tasks",
+  "Rubrics",
+  "Checklists"
+];
 
 interface Week {
   week_number: number;
@@ -128,6 +188,53 @@ export default function EditSchemePage() {
       total_lessons: scheme.total_lessons - 1,
     });
   };
+
+  const toggleResource = (weekIndex: number, lessonIndex: number, resource: string) => {
+    if (!scheme) return;
+    
+    const lesson = scheme.weeks[weekIndex].lessons[lessonIndex];
+    const currentResources = lesson.selected_resources || [];
+    
+    let updatedResources: string[];
+    if (currentResources.includes(resource)) {
+      updatedResources = currentResources.filter(r => r !== resource);
+    } else {
+      updatedResources = [...currentResources, resource];
+    }
+    
+    const updatedWeeks = [...scheme.weeks];
+    updatedWeeks[weekIndex].lessons[lessonIndex] = {
+      ...lesson,
+      selected_resources: updatedResources,
+      learning_resources: updatedResources.join(", ")
+    };
+    
+    setScheme({ ...scheme, weeks: updatedWeeks });
+  };
+
+  const toggleAssessment = (weekIndex: number, lessonIndex: number, method: string) => {
+    if (! scheme) return;
+    
+    const lesson = scheme.weeks[weekIndex].lessons[lessonIndex];
+    const currentMethods = lesson.selected_assessment_methods || [];
+    
+    let updatedMethods: string[];
+    if (currentMethods.includes(method)) {
+      updatedMethods = currentMethods.filter(m => m !== method);
+    } else {
+      updatedMethods = [...currentMethods, method];
+    }
+    
+    const updatedWeeks = [...scheme.weeks];
+    updatedWeeks[weekIndex].lessons[lessonIndex] = {
+      ...lesson,
+      selected_assessment_methods: updatedMethods,
+      assessment_methods: updatedMethods.join(", ")
+    };
+    
+    setScheme({ ...scheme, weeks: updatedWeeks });
+  };
+
 
   const handleSave = async () => {
     if (!scheme) return;
@@ -342,42 +449,133 @@ export default function EditSchemePage() {
                         />
                       </div>
 
-                      <div className="md:col-span-2">
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">
-                          Learning Resources
-                        </label>
-                        <textarea
-                          value={lesson.learning_resources}
-                          onChange={(e) =>
-                            updateLesson(
-                              weekIndex,
-                              lessonIndex,
-                              "learning_resources",
-                              e.target.value
-                            )
-                          }
-                          rows={3}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                        />
+                      {/* Textbook References */}
+                      <div className="md:col-span-2 bg-blue-50 rounded-lg p-4 border border-blue-200">
+                        <h4 className="font-semibold text-blue-900 mb-3">📚 Textbook References</h4>
+                        
+                        <div className="grid md:grid-cols-3 gap-3">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                              Textbook Name
+                            </label>
+                            <input
+                              type="text"
+                              value={lesson.textbook_name || ""}
+                              onChange={(e) =>
+                                updateLesson(
+                                  weekIndex,
+                                  lessonIndex,
+                                  "textbook_name",
+                                  e.target.value
+                                )
+                              }
+                              placeholder="e.g., CBC Pre-Technical Studies Grade 9"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
+                            />
+                          </div>
+                          
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                              Teacher's Guide Pages
+                            </label>
+                            <input
+                              type="text"
+                              value={lesson.textbook_teacher_guide_pages || ""}
+                              onChange={(e) =>
+                                updateLesson(
+                                  weekIndex,
+                                  lessonIndex,
+                                  "textbook_teacher_guide_pages",
+                                  e.target.value
+                                )
+                              }
+                              placeholder="e.g., pp. 45-48"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
+                            />
+                          </div>
+                          
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                              Learner's Book Pages
+                            </label>
+                            <input
+                              type="text"
+                              value={lesson.textbook_learner_book_pages || ""}
+                              onChange={(e) =>
+                                updateLesson(
+                                  weekIndex,
+                                  lessonIndex,
+                                  "textbook_learner_book_pages",
+                                  e.target.value
+                                )
+                              }
+                              placeholder="e.g., pp. 32-35"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
+                            />
+                          </div>
+                        </div>
                       </div>
 
+                      {/* Learning Resources */}
                       <div className="md:col-span-2">
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
-                          Assessment Methods
+                          Learning Resources (Select all that apply)
                         </label>
-                        <textarea
-                          value={lesson.assessment_methods}
-                          onChange={(e) =>
-                            updateLesson(
-                              weekIndex,
-                              lessonIndex,
-                              "assessment_methods",
-                              e.target.value
-                            )
-                          }
-                          rows={3}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                        />
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-4 bg-gray-50 rounded-lg border border-gray-200 max-h-64 overflow-y-auto">
+                          {LEARNING_RESOURCES_OPTIONS.map((resource) => {
+                            const isSelected = (lesson.selected_resources || []).includes(resource);
+                            return (
+                              <label
+                                key={resource}
+                                className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 transition-colors ${
+                                  isSelected ? "bg-indigo-50 border border-indigo-300" : ""
+                                }`}
+                              >
+                                <input
+                                  type="checkbox"
+                                  checked={isSelected}
+                                  onChange={() => toggleResource(weekIndex, lessonIndex, resource)}
+                                  className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500"
+                                />
+                                <span className="text-sm text-gray-700">{resource}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                        <p className="text-xs text-gray-500 mt-1">
+                          Selected: {lesson.learning_resources || "None"}
+                        </p>
+                      </div>
+
+                      {/* Assessment Methods */}
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                          Assessment Methods (Select all that apply)
+                        </label>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-4 bg-gray-50 rounded-lg border border-gray-200 max-h-64 overflow-y-auto">
+                          {ASSESSMENT_METHODS_OPTIONS.map((method) => {
+                            const isSelected = (lesson.selected_assessment_methods || []).includes(method);
+                            return (
+                              <label
+                                key={method}
+                                className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 transition-colors ${
+                                  isSelected ? "bg-indigo-50 border border-indigo-300" : ""
+                                }`}
+                              >
+                                <input
+                                  type="checkbox"
+                                  checked={isSelected}
+                                  onChange={() => toggleAssessment(weekIndex, lessonIndex, method)}
+                                  className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500"
+                                />
+                                <span className="text-sm text-gray-700">{method}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                        <p className="text-xs text-gray-500 mt-1">
+                          Selected: {lesson.assessment_methods || "None"}
+                        </p>
                       </div>
 
                       <div className="md:col-span-2">

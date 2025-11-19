@@ -390,6 +390,12 @@ class SchemeLessonBase(BaseModel):
     key_inquiry_questions: Optional[str] = None
     learning_experiences: str
     learning_resources: Optional[str] = None
+    
+    # Textbook References
+    textbook_name: Optional[str] = None
+    textbook_teacher_guide_pages: Optional[str] = None
+    textbook_learner_book_pages: Optional[str] = None
+    
     assessment_methods: Optional[str] = None
     reflection: Optional[str] = None
 
@@ -522,6 +528,7 @@ class LessonPlanResponse(LessonPlanBase):
     scheme_lesson_id: Optional[int] = None
     created_at: datetime
     updated_at: datetime
+    lesson_duration_minutes: Optional[int] = None
     
     class Config:
         from_attributes = True

@@ -684,11 +684,10 @@ export default function SchoolSettingsPage() {
                 <div className="flex flex-col items-center">
                   {logoPreview ? (
                     <div className="relative w-32 h-32 mb-4">
-                      <Image
+                      <img
                         src={logoPreview}
                         alt="School Logo"
-                        fill
-                        className="rounded-full object-cover border-4 border-indigo-200"
+                        className="w-full h-full rounded-full object-cover border-4 border-indigo-200"
                       />
                     </div>
                   ) : (
@@ -1314,7 +1313,7 @@ export default function SchoolSettingsPage() {
                         onChange={(e) =>
                           setScheduleConfig({
                             ...scheduleConfig,
-                            single_lesson_duration: parseInt(e.target.value),
+                            single_lesson_duration: e.target.value ? parseInt(e.target.value) : 0,
                           })
                         }
                         className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
@@ -1334,7 +1333,7 @@ export default function SchoolSettingsPage() {
                         onChange={(e) =>
                           setScheduleConfig({
                             ...scheduleConfig,
-                            double_lesson_duration: parseInt(e.target.value),
+                            double_lesson_duration: e.target.value ? parseInt(e.target.value) : 0,
                           })
                         }
                         className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
@@ -1364,9 +1363,7 @@ export default function SchoolSettingsPage() {
                           onChange={(e) =>
                             setScheduleConfig({
                               ...scheduleConfig,
-                              lessons_before_first_break: parseInt(
-                                e.target.value
-                              ),
+                              lessons_before_first_break: e.target.value ? parseInt(e.target.value) : 0,
                             })
                           }
                           className="w-full px-4 py-2 rounded-lg border border-gray-300"
@@ -1385,7 +1382,7 @@ export default function SchoolSettingsPage() {
                           onChange={(e) =>
                             setScheduleConfig({
                               ...scheduleConfig,
-                              first_break_duration: parseInt(e.target.value),
+                              first_break_duration: e.target.value ? parseInt(e.target.value) : 0,
                             })
                           }
                           className="w-full px-4 py-2 rounded-lg border border-gray-300"
@@ -1412,9 +1409,7 @@ export default function SchoolSettingsPage() {
                           onChange={(e) =>
                             setScheduleConfig({
                               ...scheduleConfig,
-                              lessons_before_second_break: parseInt(
-                                e.target.value
-                              ),
+                              lessons_before_second_break: e.target.value ? parseInt(e.target.value) : 0,
                             })
                           }
                           className="w-full px-4 py-2 rounded-lg border border-gray-300"
@@ -1433,7 +1428,7 @@ export default function SchoolSettingsPage() {
                           onChange={(e) =>
                             setScheduleConfig({
                               ...scheduleConfig,
-                              second_break_duration: parseInt(e.target.value),
+                              second_break_duration: e.target.value ? parseInt(e.target.value) : 0,
                             })
                           }
                           className="w-full px-4 py-2 rounded-lg border border-gray-300"
@@ -1460,7 +1455,7 @@ export default function SchoolSettingsPage() {
                           onChange={(e) =>
                             setScheduleConfig({
                               ...scheduleConfig,
-                              lessons_before_lunch: parseInt(e.target.value),
+                              lessons_before_lunch: e.target.value ? parseInt(e.target.value) : 0,
                             })
                           }
                           className="w-full px-4 py-2 rounded-lg border border-gray-300"
@@ -1479,7 +1474,7 @@ export default function SchoolSettingsPage() {
                           onChange={(e) =>
                             setScheduleConfig({
                               ...scheduleConfig,
-                              lunch_break_duration: parseInt(e.target.value),
+                              lunch_break_duration: e.target.value ? parseInt(e.target.value) : 0,
                             })
                           }
                           className="w-full px-4 py-2 rounded-lg border border-gray-300"
@@ -1506,7 +1501,7 @@ export default function SchoolSettingsPage() {
                           onChange={(e) =>
                             setScheduleConfig({
                               ...scheduleConfig,
-                              lessons_after_lunch: parseInt(e.target.value),
+                              lessons_after_lunch: e.target.value ? parseInt(e.target.value) : 0,
                             })
                           }
                           className="w-full px-4 py-2 rounded-lg border border-gray-300"

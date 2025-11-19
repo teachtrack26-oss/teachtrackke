@@ -528,6 +528,12 @@ class SchemeLesson(Base):
     key_inquiry_questions = Column(Text)
     learning_experiences = Column(Text, nullable=False)
     learning_resources = Column(Text)
+    
+    # Textbook References
+    textbook_name = Column(String(500))
+    textbook_teacher_guide_pages = Column(String(100))
+    textbook_learner_book_pages = Column(String(100))
+    
     assessment_methods = Column(Text)
     reflection = Column(Text)  # Filled after teaching
     

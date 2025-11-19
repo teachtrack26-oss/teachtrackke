@@ -14,6 +14,116 @@ import {
   FiPause,
   FiChevronDown,
 } from "react-icons/fi";
+import { DndContext, useDraggable, useDroppable, DragEndEvent } from "@dnd-kit/core";
+
+const DraggableLesson = ({ entry, theme, subjectName, onEdit, onDelete }: any) => {
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id: `lesson-${entry.id}`,
+    data: entry,
+  });
+  
+  const style = transform ? {
+    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+    zIndex: 999,
+  } : undefined;
+
+  if (isDragging) {
+    return (
+      <div ref={setNodeRef} style={style} className="opacity-50">
+        <div className={`p-4 rounded-xl bg-gradient-to-br ${theme.gradient} border-l-4 ${theme.border} shadow-lg`}>
+           <div className="font-bold text-sm text-white">{subjectName}</div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      {...attributes}
+      className={`glass-lesson relative overflow-hidden p-4 rounded-xl bg-gradient-to-br ${theme.gradient} border-l-4 ${theme.border} ${theme.shadow} backdrop-blur-sm border border-white/60 group hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-grab active:cursor-grabbing mb-3`}
+      onClick={onEdit}
+    >
+      {/* Pattern overlay */}
+      <div className={`absolute inset-0 ${theme.pattern} opacity-20 pointer-events-none`}></div>
+
+      {/* Double lesson badge */}
+      {entry.is_double_lesson && (
+        <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-bold text-gray-700 shadow-md">
+          Double
+        </div>
+      )}
+
+      <div className="relative z-10 flex justify-between items-start">
+        <div className="flex-1">
+          <div className="flex items-center gap-3 mb-2">
+            <div className={`w-10 h-10 ${theme.iconBg} rounded-lg flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-200`}>
+              <span className="text-2xl">{theme.icon}</span>
+            </div>
+            <div className="font-bold text-sm text-white drop-shadow-md">
+              {subjectName}
+            </div>
+          </div>
+          <div className="text-xs text-white/90 space-y-1.5">
+            {entry.grade_section && (
+              <div className="inline-flex items-center bg-white/30 backdrop-blur-sm px-2 py-1 rounded-lg font-medium">
+                <strong className="mr-1">📚</strong>
+                {entry.grade_section}
+              </div>
+            )}
+            {entry.room_number && (
+              <div className="inline-flex items-center bg-white/30 backdrop-blur-sm px-2 py-1 rounded-lg ml-1 font-medium">
+                <FiBook className="w-3 h-3 mr-1" />
+                Room {entry.room_number}
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="flex flex-col space-y-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          <button
+            onPointerDown={(e) => e.stopPropagation()} 
+            onClick={onEdit}
+            className="p-2 bg-white/90 backdrop-blur-sm text-blue-600 rounded-lg hover:bg-white shadow-md transition-all duration-200 hover:scale-110"
+            title="Edit"
+          >
+            <FiEdit className="w-4 h-4" />
+          </button>
+          <button
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={onDelete}
+            className="p-2 bg-white/90 backdrop-blur-sm text-red-600 rounded-lg hover:bg-white shadow-md transition-all duration-200 hover:scale-110"
+            title="Delete"
+          >
+            <FiTrash2 className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const DroppableCell = ({ id, dayIndex, slotId, children, onClick }: any) => {
+  const { isOver, setNodeRef } = useDroppable({
+    id: id,
+    data: { dayIndex, slotId },
+  });
+
+  return (
+    <td 
+      ref={setNodeRef} 
+      className={`p-3 align-top transition-colors duration-200 ${isOver ? 'bg-indigo-100/50 ring-2 ring-indigo-400 ring-inset rounded-lg' : ''}`}
+    >
+      <div 
+        onClick={onClick}
+        className={`w-full min-h-[110px] rounded-xl border-2 border-dashed ${isOver ? 'border-indigo-400 bg-indigo-50/30' : 'border-gray-300 bg-gradient-to-br from-gray-100/80 to-slate-100/80 hover:from-indigo-100/60 hover:to-purple-100/60 hover:border-indigo-400'} backdrop-blur-sm transition-all duration-300 flex flex-col items-center justify-center group cursor-pointer`}
+      >
+        {children}
+      </div>
+    </td>
+  );
+};
 
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
@@ -471,6 +581,75 @@ const TimetablePage = () => {
       }
     } catch (error) {
       toast.error("Failed to delete lesson");
+    }
+  };
+
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (!over) return;
+
+    const entryId = parseInt(active.id.toString().replace("lesson-", ""));
+    // over.id format: cell-{dayIndex+1}-{slotId}
+    const overIdParts = over.id.toString().split("-");
+    const newDayOfWeek = parseInt(overIdParts[1]);
+    const newTimeSlotId = parseInt(overIdParts[2]);
+
+    const entry = entries.find((e) => e.id === entryId);
+    if (!entry) return;
+
+    // If position hasn't changed, do nothing
+    if (entry.day_of_week === newDayOfWeek && entry.time_slot_id === newTimeSlotId) {
+      return;
+    }
+
+    // Optimistic update
+    const originalEntries = [...entries];
+    const updatedEntries = entries.map((e) => {
+      if (e.id === entryId) {
+        return { ...e, day_of_week: newDayOfWeek, time_slot_id: newTimeSlotId };
+      }
+      return e;
+    });
+    setEntries(updatedEntries);
+
+    try {
+      const token = localStorage.getItem("accessToken");
+      // We need to send the full payload required by the API
+      // We'll fetch the current entry data first or just construct it from what we have
+      // The API expects: subject_id, time_slot_id, day_of_week, etc.
+      
+      const payload = {
+        subject_id: entry.subject_id,
+        time_slot_id: newTimeSlotId,
+        day_of_week: newDayOfWeek,
+        room_number: entry.room_number,
+        grade_section: entry.grade_section,
+        notes: entry.notes,
+        is_double_lesson: entry.is_double_lesson
+      };
+
+      const response = await fetch(
+        `http://localhost:8000/api/v1/timetable/entries/${entryId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to update lesson position");
+      }
+      
+      toast.success("Lesson moved", { duration: 1500, icon: '👌' });
+    } catch (error) {
+      console.error("Drag update failed:", error);
+      toast.error("Failed to move lesson");
+      setEntries(originalEntries); // Revert on failure
     }
   };
 
@@ -964,195 +1143,128 @@ const TimetablePage = () => {
         </div>
 
         {/* Timetable Grid */}
-        <div className="glass-card bg-white/40 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/60 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-violet-500/10 border-b border-white/40">
-                  <th className="p-5 text-left font-bold text-gray-800 sticky left-0 bg-gradient-to-r from-indigo-50/80 via-purple-50/80 to-violet-50/80 backdrop-blur-xl z-10 border-r border-white/40">
-                    <div className="flex items-center space-x-2">
-                      <FiClock className="w-5 h-5 text-indigo-600" />
-                      <span>Time</span>
-                    </div>
-                  </th>
-                  {DAYS.map((day, idx) => (
-                    <th
-                      key={day}
-                      className={`p-5 min-w-[220px] font-bold text-gray-800 ${
-                        idx === 0
-                          ? "text-blue-700"
-                          : idx === 1
-                          ? "text-indigo-700"
-                          : idx === 2
-                          ? "text-purple-700"
-                          : idx === 3
-                          ? "text-violet-700"
-                          : "text-pink-700"
-                      }`}
-                    >
-                      {day}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {timeSlots.map((slot, slotIdx) => (
-                  <tr
-                    key={slot.id}
-                    className="border-b border-white/30 hover:bg-white/20 transition-colors duration-200"
-                  >
-                    <td className="p-5 bg-gradient-to-r from-indigo-50/80 via-purple-50/80 to-violet-50/80 backdrop-blur-xl sticky left-0 z-10 border-r border-white/40">
-                      <div className="flex items-center space-x-3">
-                        <div
-                          className={`w-10 h-10 rounded-lg flex items-center justify-center shadow-md ${
-                            slotIdx % 3 === 0
-                              ? "bg-gradient-to-br from-blue-500 to-indigo-600"
-                              : slotIdx % 3 === 1
-                              ? "bg-gradient-to-br from-purple-500 to-violet-600"
-                              : "bg-gradient-to-br from-pink-500 to-rose-600"
-                          }`}
-                        >
-                          <FiClock className="w-5 h-5 text-white" />
-                        </div>
-                        <div>
-                          <div className="font-bold text-sm text-gray-900">
-                            {slot.label}
-                          </div>
-                          <div className="text-xs text-gray-600 font-medium">
-                            {slot.start_time} - {slot.end_time}
-                          </div>
-                        </div>
+        <DndContext onDragEnd={handleDragEnd}>
+          <div className="glass-card bg-white/40 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/60 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-violet-500/10 border-b border-white/40">
+                    <th className="p-5 text-left font-bold text-gray-800 sticky left-0 bg-gradient-to-r from-indigo-50/80 via-purple-50/80 to-violet-50/80 backdrop-blur-xl z-10 border-r border-white/40">
+                      <div className="flex items-center space-x-2">
+                        <FiClock className="w-5 h-5 text-indigo-600" />
+                        <span>Time</span>
                       </div>
-                    </td>
-                    {DAYS.map((day, dayIndex) => {
-                      const dayEntries = entries.filter(
-                        (e) =>
-                          e.time_slot_id === slot.id &&
-                          e.day_of_week === dayIndex + 1
-                      );
-                      return (
-                        <td key={dayIndex} className="p-3 align-top">
-                          {dayEntries.length > 0 ? (
-                            dayEntries.map((entry) => {
-                              const subject = subjects.find(
-                                (s) => s.id === entry.subject_id
-                              );
-                              const theme = getSubjectTheme(
-                                subject?.subject_name || ""
-                              );
-
-                              return (
-                                <div
-                                  key={entry.id}
-                                  className={`glass-lesson relative overflow-hidden p-4 rounded-xl bg-gradient-to-br ${theme.gradient} border-l-4 ${theme.border} ${theme.shadow} backdrop-blur-sm border border-white/60 group hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer mb-3`}
-                                  onClick={() => openEditModal(entry)}
-                                >
-                                  {/* Pattern overlay */}
-                                  <div
-                                    className={`absolute inset-0 ${theme.pattern} opacity-20 pointer-events-none`}
-                                  ></div>
-
-                                  {/* Double lesson badge */}
-                                  {entry.is_double_lesson && (
-                                    <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-bold text-gray-700 shadow-md">
-                                      Double
-                                    </div>
-                                  )}
-
-                                  <div className="relative z-10 flex justify-between items-start">
-                                    <div className="flex-1">
-                                      <div className="flex items-center gap-3 mb-2">
-                                        <div
-                                          className={`w-10 h-10 ${theme.iconBg} rounded-lg flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-200`}
-                                        >
-                                          <span className="text-2xl">
-                                            {theme.icon}
-                                          </span>
-                                        </div>
-                                        <div className="font-bold text-sm text-white drop-shadow-md">
-                                          {subject?.subject_name}
-                                        </div>
-                                      </div>
-                                      <div className="text-xs text-white/90 space-y-1.5">
-                                        {entry.grade_section && (
-                                          <div className="inline-flex items-center bg-white/30 backdrop-blur-sm px-2 py-1 rounded-lg font-medium">
-                                            <strong className="mr-1">📚</strong>
-                                            {entry.grade_section}
-                                          </div>
-                                        )}
-                                        {entry.room_number && (
-                                          <div className="inline-flex items-center bg-white/30 backdrop-blur-sm px-2 py-1 rounded-lg ml-1 font-medium">
-                                            <FiBook className="w-3 h-3 mr-1" />
-                                            Room {entry.room_number}
-                                          </div>
-                                        )}
-                                      </div>
-                                    </div>
-                                    <div className="flex flex-col space-y-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                      <button
-                                        onClick={(e) => {
-                                          e.stopPropagation();
-                                          openEditModal(entry);
-                                        }}
-                                        className="p-2 bg-white/90 backdrop-blur-sm text-blue-600 rounded-lg hover:bg-white shadow-md transition-all duration-200 hover:scale-110"
-                                        title="Edit"
-                                      >
-                                        <FiEdit className="w-4 h-4" />
-                                      </button>
-                                      <button
-                                        onClick={(e) => {
-                                          e.stopPropagation();
-                                          handleDelete(entry.id);
-                                        }}
-                                        className="p-2 bg-white/90 backdrop-blur-sm text-red-600 rounded-lg hover:bg-white shadow-md transition-all duration-200 hover:scale-110"
-                                        title="Delete"
-                                      >
-                                        <FiTrash2 className="w-4 h-4" />
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                              );
-                            })
-                          ) : (
-                            <div
-                              onClick={() => {
-                                console.log(
-                                  "Grid cell clicked - Slot:",
-                                  slot,
-                                  "Day:",
-                                  DAYS[dayIndex]
-                                );
-                                openAddModal(slot.id, dayIndex + 1);
-                              }}
-                              className="free-period relative overflow-hidden w-full min-h-[110px] bg-gradient-to-br from-gray-100/80 to-slate-100/80 hover:from-indigo-100/60 hover:to-purple-100/60 rounded-xl border-2 border-dashed border-gray-300 hover:border-indigo-400 backdrop-blur-sm transition-all duration-300 flex flex-col items-center justify-center group cursor-pointer hover:shadow-xl"
-                            >
-                              {/* Subtle pattern */}
-                              <div className="absolute inset-0 pattern-dots opacity-10"></div>
-
-                              <div className="relative z-10 flex flex-col items-center">
-                                <div className="text-4xl mb-2 group-hover:scale-110 transition-transform duration-300">
-                                  ☕
-                                </div>
-                                <div className="font-bold text-gray-500 group-hover:text-indigo-600 text-sm transition-colors duration-200">
-                                  Free Period
-                                </div>
-                                <div className="text-xs text-gray-400 group-hover:text-indigo-500 mt-1 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                                  <FiPlus className="w-3 h-3" />
-                                  <span>Click to add lesson</span>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                        </td>
-                      );
-                    })}
+                    </th>
+                    {DAYS.map((day, idx) => (
+                      <th
+                        key={day}
+                        className={`p-5 min-w-[220px] font-bold text-gray-800 ${
+                          idx === 0
+                            ? "text-blue-700"
+                            : idx === 1
+                            ? "text-indigo-700"
+                            : idx === 2
+                            ? "text-purple-700"
+                            : idx === 3
+                            ? "text-violet-700"
+                            : "text-pink-700"
+                        }`}
+                      >
+                        {day}
+                      </th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {timeSlots.map((slot, slotIdx) => (
+                    <tr
+                      key={slot.id}
+                      className="border-b border-white/30 hover:bg-white/20 transition-colors duration-200"
+                    >
+                      <td className="p-5 bg-gradient-to-r from-indigo-50/80 via-purple-50/80 to-violet-50/80 backdrop-blur-xl sticky left-0 z-10 border-r border-white/40">
+                        <div className="flex items-center space-x-3">
+                          <div
+                            className={`w-10 h-10 rounded-lg flex items-center justify-center shadow-md ${
+                              slotIdx % 3 === 0
+                                ? "bg-gradient-to-br from-blue-500 to-indigo-600"
+                                : slotIdx % 3 === 1
+                                ? "bg-gradient-to-br from-purple-500 to-violet-600"
+                                : "bg-gradient-to-br from-pink-500 to-rose-600"
+                            }`}
+                          >
+                            <FiClock className="w-5 h-5 text-white" />
+                          </div>
+                          <div>
+                            <div className="font-bold text-sm text-gray-900">
+                              {slot.label}
+                            </div>
+                            <div className="text-xs text-gray-600 font-medium">
+                              {slot.start_time} - {slot.end_time}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      {DAYS.map((day, dayIndex) => {
+                        const dayEntries = entries.filter(
+                          (e) =>
+                            e.time_slot_id === slot.id &&
+                            e.day_of_week === dayIndex + 1
+                        );
+                        
+                        return (
+                          <DroppableCell 
+                            key={`${dayIndex}-${slot.id}`} 
+                            id={`cell-${dayIndex + 1}-${slot.id}`}
+                            dayIndex={dayIndex}
+                            slotId={slot.id}
+                            onClick={() => {
+                              if (dayEntries.length === 0) {
+                                openAddModal(slot.id, dayIndex + 1);
+                              }
+                            }}
+                          >
+                            {dayEntries.length > 0 ? (
+                              dayEntries.map((entry) => {
+                                const subject = subjects.find(
+                                  (s) => s.id === entry.subject_id
+                                );
+                                const theme = getSubjectTheme(
+                                  subject?.subject_name || ""
+                                );
+
+                                return (
+                                  <DraggableLesson 
+                                    key={entry.id} 
+                                    entry={entry} 
+                                    theme={theme} 
+                                    subjectName={subject?.subject_name}
+                                    onEdit={(e) => {
+                                      e.stopPropagation();
+                                      openEditModal(entry);
+                                    }}
+                                    onDelete={(e) => {
+                                      e.stopPropagation();
+                                      handleDelete(entry.id);
+                                    }}
+                                  />
+                                );
+                              })
+                            ) : (
+                              <div className="h-full w-full flex flex-col items-center justify-center opacity-60 hover:opacity-100 transition-opacity">
+                                <div className="text-2xl mb-1">☕</div>
+                                <div className="text-xs font-medium text-gray-500">Free</div>
+                              </div>
+                            )}
+                          </DroppableCell>
+                        );
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+        </DndContext>
 
         {/* Add/Edit Lesson Modal */}
         {isAddModalOpen && (

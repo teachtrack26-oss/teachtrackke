@@ -46,6 +46,7 @@ interface LessonPlan {
   status: "pending" | "taught" | "postponed";
   created_at: string;
   updated_at: string;
+  lesson_duration_minutes?: number;
 }
 
 export default function ViewLessonPlanPage() {
@@ -206,7 +207,7 @@ export default function ViewLessonPlanPage() {
             <div className="flex items-center gap-3">
               <span className="font-bold text-gray-700 w-32">Date:</span>
               <span className="text-gray-900 font-medium">
-                {plan.date || "Not set"}
+                {plan.date ? new Date(plan.date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : "Not set"}
               </span>
             </div>
             <div className="flex items-center gap-3">
@@ -316,24 +317,33 @@ export default function ViewLessonPlanPage() {
               </div>
               <div className="divide-y divide-gray-300">
                 <div className="p-4">
-                  <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase">
-                    Introduction
+                  <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
+                    <span>Introduction</span>
+                    <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
+                      {5} min
+                    </span>
                   </h4>
                   <div className="text-gray-900 whitespace-pre-wrap">
                     {plan.introduction}
                   </div>
                 </div>
                 <div className="p-4">
-                  <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase">
-                    Lesson Development
+                  <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
+                    <span>Lesson Development</span>
+                    <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
+                      {(plan.lesson_duration_minutes || 40) - 10} min
+                    </span>
                   </h4>
                   <div className="text-gray-900 whitespace-pre-wrap">
                     {plan.development}
                   </div>
                 </div>
                 <div className="p-4">
-                  <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase">
-                    Conclusion
+                  <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
+                    <span>Conclusion</span>
+                    <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
+                      {5} min
+                    </span>
                   </h4>
                   <div className="text-gray-900 whitespace-pre-wrap">
                     {plan.conclusion}

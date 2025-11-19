@@ -54,6 +54,8 @@ app = FastAPI(
     version="1.0.0"
 )
 
+from fastapi.staticfiles import StaticFiles
+
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
@@ -62,6 +64,10 @@ app.add_middleware(
     allow_methods=["*"],  # Allow all methods including preflight variations
     allow_headers=["*"],
 )
+
+# Mount uploads directory
+os.makedirs("uploads", exist_ok=True)
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 # Debug / CORS middleware to properly handle preflight requests (remove or simplify in production)
 @app.middleware("http")
@@ -344,18 +350,50 @@ def get_subject_strands(
             "strand_name": strand.strand_name,
             "strand_code": strand.strand_code,
             "description": strand.description,
+            "sequence_order": strand.sequence_order,
             "sub_strands": [
                 {
                     "id": ss.id,
                     "substrand_name": ss.substrand_name,
                     "substrand_code": ss.substrand_code,
-                    "lessons_count": ss.lessons_count
+                    "lessons_count": ss.lessons_count,
+                    "key_inquiry_questions": ss.key_inquiry_questions,
+                    "specific_learning_outcomes": ss.specific_learning_outcomes,
+                    "suggested_learning_experiences": ss.suggested_learning_experiences,
+                    "core_competencies": ss.core_competencies,
+                    "values": ss.values,
+                    "pcis": ss.pcis,
+                    "links_to_other_subjects": ss.links_to_other_subjects,
+                    "sequence_order": ss.sequence_order
                 }
                 for ss in sub_strands
             ]
         })
     
     return result
+
+@app.get(f"{settings.API_V1_PREFIX}/subjects/{{subject_id}}/lessons")
+def get_subject_lessons(
+    subject_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all lessons for a subject flattened"""
+    # Verify subject belongs to user
+    subject = db.query(Subject).filter(
+        Subject.id == subject_id,
+        Subject.user_id == current_user.id
+    ).first()
+    
+    if not subject:
+        raise HTTPException(status_code=404, detail="Subject not found")
+    
+    # Get all lessons for this subject
+    lessons = db.query(Lesson).join(SubStrand).join(Strand).filter(
+        Strand.subject_id == subject_id
+    ).order_by(Lesson.sequence_order).all()
+    
+    return {"lessons": lessons, "count": len(lessons)}
 
 @app.post(f"{settings.API_V1_PREFIX}/subjects", response_model=SubjectResponse)
 def create_subject(
@@ -1335,6 +1373,29 @@ def get_school_settings(
     
     return settings_obj
 
+# Non-admin endpoint for teachers to read school settings
+@app.get(f"{settings.API_V1_PREFIX}/school-settings")
+def get_school_settings_public(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get school settings (Read-only for all users)"""
+    from models import SchoolSettings
+    
+    settings_obj = db.query(SchoolSettings).first()
+    if not settings_obj:
+        # Return empty/default response instead of 404 for better UX
+        return {
+            "school_name": "",
+            "school_motto": "",
+            "school_logo": None,
+            "grades_offered": [],
+            "streams_per_grade": {}
+        }
+    
+    return settings_obj
+
+
 @app.post(f"{settings.API_V1_PREFIX}/admin/school-settings")
 def create_school_settings(
     settings_data: dict,
@@ -1424,6 +1485,35 @@ def get_school_terms(
     
     terms = db.query(SchoolTerm).order_by(SchoolTerm.year.desc(), SchoolTerm.term_number).all()
     return terms
+
+# Non-admin endpoint for teachers to read school terms
+@app.get(f"{settings.API_V1_PREFIX}/school-terms")
+def get_school_terms_public(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all school terms (Read-only for all users)"""
+    from models import SchoolTerm
+    
+    terms = db.query(SchoolTerm).order_by(SchoolTerm.year.desc(), SchoolTerm.term_number).all()
+    
+    # Transform to include term_name
+    result = []
+    for term in terms:
+        result.append({
+            "id": term.id,
+            "term_number": term.term_number,
+            "term_name": f"Term {term.term_number}",
+            "year": term.year,
+            "start_date": term.start_date,
+            "end_date": term.end_date,
+            "mid_term_break_start": term.mid_term_break_start,
+            "mid_term_break_end": term.mid_term_break_end
+        })
+    
+    return result
+
+
 
 @app.post(f"{settings.API_V1_PREFIX}/admin/school-terms")
 def create_school_term(
@@ -4501,6 +4591,14 @@ async def get_lesson_plan(
     ).first()
     if not lesson_plan:
         raise HTTPException(status_code=404, detail="Lesson plan not found")
+    
+    # Get lesson duration from subject
+    subject = db.query(Subject).filter(Subject.id == lesson_plan.subject_id).first()
+    if subject:
+        lesson_plan.lesson_duration_minutes = subject.single_lesson_duration
+    else:
+        lesson_plan.lesson_duration_minutes = 40 # Default
+        
     return lesson_plan
 
 @app.put(f"{settings.API_V1_PREFIX}/lesson-plans/{{lesson_plan_id}}", response_model=LessonPlanResponse)
@@ -4584,6 +4682,37 @@ async def generate_lesson_plans_from_scheme(
     # Generate lesson plans for each lesson in each week
     for week in scheme.weeks:
         for lesson in week.lessons:
+            # Try to find matching SubStrand to get curriculum details
+            # We match by subject_id (via Strand) and substrand_name
+            substrand_details = db.query(SubStrand).join(Strand).filter(
+                Strand.subject_id == scheme.subject_id,
+                SubStrand.substrand_name == lesson.sub_strand
+            ).first()
+            
+            core_competencies_text = ""
+            values_text = ""
+            pcis_text = ""
+            
+            if substrand_details:
+                # Extract and format JSON fields
+                if substrand_details.core_competencies:
+                    if isinstance(substrand_details.core_competencies, list):
+                        core_competencies_text = ", ".join(substrand_details.core_competencies)
+                    else:
+                        core_competencies_text = str(substrand_details.core_competencies)
+                        
+                if substrand_details.values:
+                    if isinstance(substrand_details.values, list):
+                        values_text = ", ".join(substrand_details.values)
+                    else:
+                        values_text = str(substrand_details.values)
+                        
+                if substrand_details.pcis:
+                    if isinstance(substrand_details.pcis, list):
+                        pcis_text = ", ".join(substrand_details.pcis)
+                    else:
+                        pcis_text = str(substrand_details.pcis)
+
             # Create lesson plan from scheme lesson
             lesson_plan = LessonPlan(
                 user_id=current_user.id,
@@ -4602,9 +4731,9 @@ async def generate_lesson_plans_from_scheme(
                 sub_strand_sub_theme_sub_topic=lesson.sub_strand,
                 specific_learning_outcomes=lesson.specific_learning_outcomes,
                 key_inquiry_questions=lesson.key_inquiry_questions or "",
-                core_competences="",  # To be filled by teacher
-                values_to_be_developed="",  # To be filled by teacher
-                pcis_to_be_addressed="",  # To be filled by teacher
+                core_competences=core_competencies_text,
+                values_to_be_developed=values_text,
+                pcis_to_be_addressed=pcis_text,
                 learning_resources=lesson.learning_resources or "",
                 
                 # Organization of Learning - populate from learning experiences

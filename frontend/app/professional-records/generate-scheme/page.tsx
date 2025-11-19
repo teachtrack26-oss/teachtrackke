@@ -40,8 +40,13 @@ interface Substrand {
   specific_learning_outcomes?: string[];
   suggested_learning_experiences?: string[];
   key_inquiry_questions?: string;
+  core_competencies?: string[];
+  values?: string[];
+  pcis?: string[];
+  links_to_other_subjects?: string[];
   sequence_order: number;
 }
+
 
 interface Lesson {
   id: number;
@@ -69,10 +74,68 @@ interface WeekLesson {
   specific_learning_outcomes: string;
   key_inquiry_questions: string;
   learning_experiences: string;
+  
+  // Textbook references
+  textbook_name?: string;
+  textbook_teacher_guide_pages?: string;
+  textbook_learner_book_pages?: string;
+  
   learning_resources: string;
+  selected_resources?: string[];
+  
   assessment_methods: string;
+  selected_assessment_methods?: string[];
+  
   reflection: string;
 }
+
+// Predefined resource options (same as edit page)
+const LEARNING_RESOURCES_OPTIONS = [
+  "Teacher's Guide",
+  "Learner's Book",
+  "Textbooks",
+  "Charts and posters",
+  "Models and realia",
+  "Digital devices (tablets/computers)",
+  "Projector/smartboard",
+  "Internet/online resources",
+  "Videos/audio clips",
+  "Flashcards",
+  "Worksheets",
+  "Manipulatives (blocks, counters, etc.)",
+  "Science lab equipment",
+  "Art supplies",
+  "Sports equipment",
+  "Musical instruments",
+  "Maps and globes",
+  "Reference books/dictionaries",
+  "Community resources/guest speakers",
+  "Field trip locations"
+];
+
+// Predefined assessment options (same as edit page)
+const ASSESSMENT_METHODS_OPTIONS = [
+  "Oral questions",
+  "Written questions",
+  "Observation",
+  "Practical demonstration",
+  "Project work",
+  "Portfolio assessment",
+  "Peer assessment",
+  "Self-assessment",
+  "Quizzes",
+  "Tests",
+  "Presentations",
+  "Group work assessment",
+  "Homework review",
+  "Class participation",
+  "Role play evaluation",
+  "Problem-solving tasks",
+  "Creative work (art, essays, models)",
+  "Performance tasks",
+  "Rubrics",
+  "Checklists"
+];
 
 interface Week {
   week_number: number;
@@ -84,6 +147,7 @@ export default function SchemeGeneratorPage() {
   const [loading, setLoading] = useState(true);
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [strands, setStrands] = useState<StrandWithSubstrands[]>([]);
+  const [schoolTerms, setSchoolTerms] = useState<any[]>([]);
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [currentStep, setCurrentStep] = useState(1);
   const [saving, setSaving] = useState(false);
@@ -104,7 +168,7 @@ export default function SchemeGeneratorPage() {
     subject_id: 0,
     teacher_name: "",
     school: "",
-    term: "Term 1",
+    term: "",
     year: new Date().getFullYear(),
     subject: "",
     grade: "",
@@ -124,6 +188,12 @@ export default function SchemeGeneratorPage() {
     try {
       const token = localStorage.getItem("accessToken");
 
+      if (!token) {
+        toast.error("Please log in to continue");
+        router.push("/auth/login");
+        return;
+      }
+
       // Fetch subjects
       const subjectsRes = await axios.get("/api/v1/subjects", {
         headers: { Authorization: `Bearer ${token}` },
@@ -131,7 +201,7 @@ export default function SchemeGeneratorPage() {
       setSubjects(subjectsRes.data);
 
       // Get user info for teacher name
-      const userRes = await axios.get("/api/v1/users/me", {
+      const userRes = await axios.get("/api/v1/auth/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFormData((prev) => ({
@@ -139,27 +209,87 @@ export default function SchemeGeneratorPage() {
         teacher_name: userRes.data.full_name,
       }));
 
-      // Get school settings
+      // Get school settings and terms
       try {
         const settingsRes = await axios.get("/api/v1/school-settings", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        if (settingsRes.data.length > 0) {
+        
+        // Handle both object and array responses
+        const settingsData = Array.isArray(settingsRes.data) 
+          ? settingsRes.data[0] 
+          : settingsRes.data;
+          
+        if (settingsData && settingsData.school_name) {
           setFormData((prev) => ({
             ...prev,
-            school: settingsRes.data[0].school_name,
+            school: settingsData.school_name,
+          }));
+        }
+
+        // Fetch school terms
+        const termsRes = await axios.get("/api/v1/school-terms", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log("School terms response:", termsRes.data);
+        setSchoolTerms(termsRes.data || []);
+
+        // Auto-select the current active term if available
+        const currentTerm = termsRes.data.find((t: any) => {
+          const now = new Date();
+          const start = new Date(t.start_date);
+          const end = new Date(t.end_date);
+          return now >= start && now <= end;
+        });
+
+        if (currentTerm) {
+          const weeksDiff = calculateWeeks(currentTerm.start_date, currentTerm.end_date);
+          setFormData((prev) => ({
+            ...prev,
+            term: currentTerm.term_name,
+            year: currentTerm.year,
+            total_weeks: weeksDiff,
           }));
         }
       } catch (err) {
         console.log("No school settings found");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to fetch initial data:", error);
-      toast.error("Failed to load data");
+      if (error.response?.status === 401) {
+        toast.error("Session expired. Please log in again.");
+        router.push("/auth/login");
+      } else {
+        toast.error("Failed to load data");
+      }
     } finally {
       setLoading(false);
     }
   };
+
+  const calculateWeeks = (startDate: string, endDate: string): number => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const diffTime = Math.abs(end.getTime() - start.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return Math.ceil(diffDays / 7);
+  };
+
+  const handleTermChange = (termName: string) => {
+    const selectedTerm = schoolTerms.find((t) => t.term_name === termName);
+    if (selectedTerm) {
+      const weeksDiff = calculateWeeks(selectedTerm.start_date, selectedTerm.end_date);
+      setFormData((prev) => ({
+        ...prev,
+        term: termName,
+        year: selectedTerm.year,
+        total_weeks: weeksDiff,
+      }));
+    } else {
+      setFormData((prev) => ({ ...prev, term: termName }));
+    }
+  };
+
 
   const handleSubjectChange = async (subjectId: number) => {
     const subject = subjects.find((s) => s.id === subjectId);
@@ -299,6 +429,14 @@ export default function SchemeGeneratorPage() {
           }
         }
 
+        if (substrandInfo) {
+          console.log("Substrand info for lesson:", {
+            name: substrandInfo.substrand_name,
+            key_inquiry_questions: substrandInfo.key_inquiry_questions,
+            suggested_learning_experiences: substrandInfo.suggested_learning_experiences
+          });
+        }
+
         weekLessons.push({
           lesson_id: currentLesson.id,
           lesson_number: lessonInWeek,
@@ -340,17 +478,54 @@ export default function SchemeGeneratorPage() {
   const updateLesson = (
     weekIndex: number,
     lessonIndex: number,
-    field: string,
+    field: keyof WeekLesson,
     value: string
   ) => {
-    setWeeks((prev) => {
-      const updated = [...prev];
-      updated[weekIndex].lessons[lessonIndex] = {
-        ...updated[weekIndex].lessons[lessonIndex],
-        [field]: value,
-      };
-      return updated;
-    });
+    const updatedWeeks = [...weeks];
+    updatedWeeks[weekIndex].lessons[lessonIndex][field] = value as never;
+    setWeeks(updatedWeeks);
+  };
+
+  const toggleResourceInReview = (weekIndex: number, lessonIndex: number, resource: string) => {
+    const lesson = weeks[weekIndex].lessons[lessonIndex];
+    const currentResources = lesson.selected_resources || [];
+    
+    let updatedResources: string[];
+    if (currentResources.includes(resource)) {
+      updatedResources = currentResources.filter(r => r !== resource);
+    } else {
+      updatedResources = [...currentResources, resource];
+    }
+    
+    const updatedWeeks = [...weeks];
+    updatedWeeks[weekIndex].lessons[lessonIndex] = {
+      ...lesson,
+      selected_resources: updatedResources,
+      learning_resources: updatedResources.join(", ")
+    };
+    
+    setWeeks(updatedWeeks);
+  };
+
+  const toggleAssessmentInReview = (weekIndex: number, lessonIndex: number, method: string) => {
+    const lesson = weeks[weekIndex].lessons[lessonIndex];
+    const currentMethods = lesson.selected_assessment_methods || [];
+    
+    let updatedMethods: string[];
+    if (currentMethods.includes(method)) {
+      updatedMethods = currentMethods.filter(m => m !== method);
+    } else {
+      updatedMethods = [...currentMethods, method];
+    }
+    
+    const updatedWeeks = [...weeks];
+    updatedWeeks[weekIndex].lessons[lessonIndex] = {
+      ...lesson,
+      selected_assessment_methods: updatedMethods,
+      assessment_methods: updatedMethods.join(", ")
+    };
+    
+    setWeeks(updatedWeeks);
   };
 
   const saveScheme = async () => {
@@ -540,8 +715,9 @@ export default function SchemeGeneratorPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, school: e.target.value })
                   }
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50"
                   required
+                  readOnly
                 />
               </div>
 
@@ -552,14 +728,26 @@ export default function SchemeGeneratorPage() {
                 </label>
                 <select
                   value={formData.term}
-                  onChange={(e) =>
-                    setFormData({ ...formData, term: e.target.value })
-                  }
+                  onChange={(e) => handleTermChange(e.target.value)}
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                 >
-                  <option value="Term 1">Term 1</option>
-                  <option value="Term 2">Term 2</option>
-                  <option value="Term 3">Term 3</option>
+                  {!schoolTerms || schoolTerms.length === 0 ? (
+                    <>
+                      <option value="">Select a term</option>
+                      <option value="Term 1">Term 1</option>
+                      <option value="Term 2">Term 2</option>
+                      <option value="Term 3">Term 3</option>
+                    </>
+                  ) : (
+                    <>
+                      <option value="">Select a term</option>
+                      {schoolTerms.map((term) => (
+                        <option key={term.id} value={term.term_name}>
+                          {term.term_name} ({term.year})
+                        </option>
+                      ))}
+                    </>
+                  )}
                 </select>
               </div>
 
@@ -574,16 +762,22 @@ export default function SchemeGeneratorPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, year: Number(e.target.value) })
                   }
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50"
                   min={2020}
                   max={2030}
                   required
+                  readOnly
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Total Weeks *
+                  {formData.total_weeks && (
+                    <span className="ml-2 text-xs text-indigo-600 font-normal">
+                      (Auto-calculated from term dates)
+                    </span>
+                  )}
                 </label>
                 <input
                   type="number"
@@ -594,10 +788,11 @@ export default function SchemeGeneratorPage() {
                       total_weeks: Number(e.target.value),
                     })
                   }
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50"
                   min={1}
                   max={20}
                   required
+                  readOnly
                 />
               </div>
             </div>
@@ -942,44 +1137,133 @@ export default function SchemeGeneratorPage() {
                             />
                           </div>
 
-                          <div className="grid md:grid-cols-2 gap-4">
-                            <div>
-                              <label className="text-xs font-medium text-gray-600 mb-1 block">
-                                Learning Resources
-                              </label>
-                              <input
-                                type="text"
-                                value={lesson.learning_resources}
-                                onChange={(e) =>
-                                  updateLesson(
-                                    weekIndex,
-                                    lessonIndex,
-                                    "learning_resources",
-                                    e.target.value
-                                  )
-                                }
-                                className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
-                              />
+                          {/* Textbook References */}
+                          <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                            <h4 className="font-semibold text-blue-900 mb-3 text-sm">📚 Textbook References</h4>
+                            
+                            <div className="grid md:grid-cols-3 gap-3">
+                              <div>
+                                <label className="block text-xs font-medium text-gray-700 mb-1">
+                                  Textbook Name
+                                </label>
+                                <input
+                                  type="text"
+                                  value={lesson.textbook_name || ""}
+                                  onChange={(e) =>
+                                    updateLesson(
+                                      weekIndex,
+                                      lessonIndex,
+                                      "textbook_name",
+                                      e.target.value
+                                    )
+                                  }
+                                  placeholder="e.g., CBC Pre-Technical Studies Grade 9"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
+                                />
+                              </div>
+                              
+                              <div>
+                                <label className="block text-xs font-medium text-gray-700 mb-1">
+                                  Teacher's Guide Pages
+                                </label>
+                                <input
+                                  type="text"
+                                  value={lesson.textbook_teacher_guide_pages || ""}
+                                  onChange={(e) =>
+                                    updateLesson(
+                                      weekIndex,
+                                      lessonIndex,
+                                      "textbook_teacher_guide_pages",
+                                      e.target.value
+                                    )
+                                  }
+                                  placeholder="e.g., pp. 45-48"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
+                                />
+                              </div>
+                              
+                              <div>
+                                <label className="block text-xs font-medium text-gray-700 mb-1">
+                                  Learner's Book Pages
+                                </label>
+                                <input
+                                  type="text"
+                                  value={lesson.textbook_learner_book_pages || ""}
+                                  onChange={(e) =>
+                                    updateLesson(
+                                      weekIndex,
+                                      lessonIndex,
+                                      "textbook_learner_book_pages",
+                                      e.target.value
+                                    )
+                                  }
+                                  placeholder="e.g., pp. 32-35"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
+                                />
+                              </div>
                             </div>
+                          </div>
 
-                            <div>
-                              <label className="text-xs font-medium text-gray-600 mb-1 block">
-                                Assessment Methods
-                              </label>
-                              <input
-                                type="text"
-                                value={lesson.assessment_methods}
-                                onChange={(e) =>
-                                  updateLesson(
-                                    weekIndex,
-                                    lessonIndex,
-                                    "assessment_methods",
-                                    e.target.value
-                                  )
-                                }
-                                className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
-                              />
+                          {/* Learning Resources Multi-select */}
+                          <div>
+                            <label className="text-xs font-medium text-gray-600 mb-2 block">
+                              Learning Resources (Select all that apply)
+                            </label>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-3 bg-gray-50 rounded-lg border border-gray-200 max-h-48 overflow-y-auto">
+                              {LEARNING_RESOURCES_OPTIONS.map((resource) => {
+                                const isSelected = (lesson.selected_resources || []).includes(resource);
+                                return (
+                                  <label
+                                    key={resource}
+                                    className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 transition-colors text-xs ${
+                                      isSelected ? "bg-indigo-50 border border-indigo-300" : ""
+                                    }`}
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      checked={isSelected}
+                                      onChange={() => toggleResourceInReview(weekIndex, lessonIndex, resource)}
+                                      className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500"
+                                    />
+                                    <span className="text-gray-700">{resource}</span>
+                                  </label>
+                                );
+                              })}
                             </div>
+                            <p className="text-xs text-gray-500 mt-1">
+                              Selected: {lesson.learning_resources || "None"}
+                            </p>
+                          </div>
+
+                          {/* Assessment Methods Multi-select */}
+                          <div>
+                            <label className="text-xs font-medium text-gray-600 mb-2 block">
+                              Assessment Methods (Select all that apply)
+                            </label>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-3 bg-gray-50 rounded-lg border border-gray-200 max-h-48 overflow-y-auto">
+                              {ASSESSMENT_METHODS_OPTIONS.map((method) => {
+                                const isSelected = (lesson.selected_assessment_methods || []).includes(method);
+                                return (
+                                  <label
+                                    key={method}
+                                    className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 transition-colors text-xs ${
+                                      isSelected ? "bg-indigo-50 border border-indigo-300" : ""
+                                    }`}
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      checked={isSelected}
+                                      onChange={() => toggleAssessmentInReview(weekIndex, lessonIndex, method)}
+                                      className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500"
+                                    />
+                                    <span className="text-gray-700">{method}</span>
+                                  </label>
+                                );
+                              })}
+                            </div>
+                            <p className="text-xs text-gray-500 mt-1">
+                              Selected: {lesson.assessment_methods || "None"}
+                            </p>
                           </div>
                         </div>
                       ))}
