@@ -1,0 +1,152 @@
+Total subjects in database: 15
+
+Subject: Mathematics (ID: 25)
+  Grade: Grade 9
+  User ID: 2
+  Strands: 5
+  SubStrands: 19
+  Lessons: 119
+  Total Lessons (field): 119
+  Lessons Completed: 0
+  Progress: 0.00%
+
+Subject: English (ID: 26)
+  Grade: Grade 9
+  User ID: 2
+  Strands: 15
+  SubStrands: 75
+  Lessons: 252
+  Total Lessons (field): 252
+  Lessons Completed: 0
+  Progress: 0.00%
+
+Subject: Integrated Science (ID: 27)
+  Grade: Grade 9
+  User ID: 2
+  Strands: 3
+  SubStrands: 9
+  Lessons: 46
+  Total Lessons (field): 46
+  Lessons Completed: 0
+  Progress: 0.00%
+
+Subject: Agriculture and Nutrition (ID: 28)
+  Grade: Grade 9
+  User ID: 2
+  Strands: 4
+  SubStrands: 10
+  Lessons: 33
+  Total Lessons (field): 33
+  Lessons Completed: 0
+  Progress: 0.00%
+
+Subject: Social Studies (ID: 29)
+  Grade: Grade 9
+  User ID: 2
+  Strands: 5
+  SubStrands: 18
+  Lessons: 85
+  Total Lessons (field): 85
+  Lessons Completed: 0
+  Progress: 0.00%
+
+Subject: Pre-Technical Studies (ID: 31)
+  Grade: Grade 9
+  User ID: 2
+  Strands: 5
+  SubStrands: 14
+  Lessons: 58
+  Total Lessons (field): 58
+  Lessons Completed: 0
+  Progress: 0.00%
+
+Subject: Creative Arts and Sports (ID: 32)
+  Grade: Grade 9
+  User ID: 2
+  Strands: 3
+  SubStrands: 15
+  Lessons: 67
+  Total Lessons (field): 67
+  Lessons Completed: 0
+  Progress: 0.00%
+
+Subject: Christian Religious Education (ID: 33)
+  Grade: Grade 9
+  User ID: 2
+  Strands: 5
+  SubStrands: 16
+  Lessons: 67
+  Total Lessons (field): 67
+  Lessons Completed: 0
+  Progress: 0.00%
+
+Subject: Kiswahili (ID: 34)
+  Grade: Grade 9
+  User ID: 2
+  Strands: 15
+  SubStrands: 60
+  Lessons: 256
+  Total Lessons (field): 256
+  Lessons Completed: 0
+  Progress: 0.00%
+
+Subject: Mathematics (ID: 43)
+  Grade: Grade 8
+  User ID: 2
+  Strands: 5
+  SubStrands: 16
+  Lessons: 146
+  Total Lessons (field): 146
+  Lessons Completed: 0
+  Progress: 0.00%
+
+Subject: English (ID: 44)
+  Grade: Grade 8
+  User ID: 2
+  Strands: 0
+  SubStrands: 0
+  Lessons: 0
+  Total Lessons (field): 0
+  Lessons Completed: 0
+  Progress: 0.00%
+
+Subject: Mathematics (ID: 57)
+  Grade: Grade 7
+  User ID: 4
+  Strands: 0
+  SubStrands: 0
+  Lessons: 0
+  Total Lessons (field): 0
+  Lessons Completed: 0
+  Progress: 0.00%
+
+Subject: Pre-Technical Studies (ID: 61)
+  Grade: Grade 7
+  User ID: 3
+  Strands: 5
+  SubStrands: 14
+  Lessons: 64
+  Total Lessons (field): 64
+  Lessons Completed: 0
+  Progress: 0.00%
+
+Subject: English (ID: 62)
+  Grade: Grade 7
+  User ID: 3
+  Strands: 15
+  SubStrands: 74
+  Lessons: 251
+  Total Lessons (field): 251
+  Lessons Completed: 0
+  Progress: 0.00%
+
+Subject: Pre-Technical Studies (ID: 63)
+  Grade: Grade 8
+  User ID: 3
+  Strands: 5
+  SubStrands: 14
+  Lessons: 60
+  Total Lessons (field): 60
+  Lessons Completed: 0
+  Progress: 0.00%
+

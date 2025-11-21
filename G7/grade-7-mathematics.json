@@ -1,17 +1,17 @@
 {
   "subject": "Mathematics",
   "grade": "Grade 7",
-  "educationLevel": "Junior Secondary",
+  "education_level": "Junior Secondary",
   "strands": [
     {
-      "strandNumber": "1.0",
-      "strandName": "NUMBERS",
-      "subStrands": [
+      "strand_number": "1.0",
+      "strand_name": "NUMBERS",
+      "sub_strands": [
         {
-          "subStrandNumber": "1.1",
-          "subStrandName": "Whole Numbers",
-          "numberOfLessons": 20,
-          "specificLearningOutcomes": [
+          "sub_strand_number": "1.1",
+          "sub_strand_name": "Whole Numbers",
+          "number_of_lessons": 20,
+          "specific_learning_outcomes": [
             "use place value and total value of digits up to hundreds of millions in real life",
             "read and write numbers in symbols up to hundreds of millions in real life situations",
             "read and write numbers in words up to millions for fluency",
@@ -22,7 +22,7 @@
             "create number sequence for playing number games",
             "appreciate use of whole numbers in real life situations"
           ],
-          "suggestedLearningExperiences": [
+          "suggested_learning_experiences": [
             "identify and write place value and total value of digits using place value apparatus",
             "read and write numbers in symbols on number cards or charts",
             "read and write numbers in words on number cards or charts and practice writing dummy cheques for different sums of money",
@@ -32,415 +32,754 @@
             "identify the number patterns to work out number sequences",
             "play games of creating number puzzles that involve number sequences using IT devices or other materials"
           ],
-          "keyInquiryQuestions": [
+          "key_inquiry_questions": [
             "Why do we write numbers in words and/or symbols?",
             "Where do we write numbers in words or symbols?"
           ],
-          "coreCompetencies": [
-            "Communication and collaboration: Speaking, listening and team work as learners work in pairs or groups to prepare and use place value charts to round off numbers",
-            "Critical thinking and problem solving: Interpretation and inference as learners work together to identify number patterns",
-            "Creativity and Imagination: Making observations as learners play games of creating number puzzles that involve number sequences"
+          "core_competencies": [
+            "Communication and collaboration: Speaking, listening and team work as learners work in pairs or groups to prepare and use place value charts to round off numbers.",
+            "Critical thinking and problem solving: Interpretation and inference as learners work together to identify number patterns.",
+            "Creativity and Imagination: Making observations as learners play games of creating number puzzles that involve number sequences."
           ],
           "values": [
-            "Unity: as learners work together to identify number patterns",
-            "Responsibility: taking care of digital devices when working out operations",
-            "Patriotism: appreciating the use of whole numbers in real life situations in Kenya"
+            "Respect as learners work in pairs/groups and play number games.",
+            "Unity as learners work towards achieving set goals of making number puzzles.",
+            "Peace as learners work in groups and share different roles in playing games."
           ],
           "pcis": [
-            "Financial Literacy: when learners practice writing dummy cheques for different sums of money",
-            "Education for Sustainable Development: when learners appreciate the use of whole numbers in real life situations"
+            "Financial literacy as learners practice writing dummy cheques for different sums of money.",
+            "Self–esteem: as learners create number puzzles that involve number sequences."
           ],
-          "linkToOtherSubjects": [
-            "Science and Technology: when learners use digital devices to work out operations",
-            "Social Studies: when learners appreciate the use of whole numbers in real life situations in Kenya"
+          "link_to_other_subjects": [
+            "Languages: writing numbers in words."
+          ]
+        },
+        {
+          "sub_strand_number": "1.2",
+          "sub_strand_name": "Factors",
+          "number_of_lessons": 7,
+          "specific_learning_outcomes": [
+            "test divisibility of numbers by 2, 3, 4, 5, 6, 8, 9,10 and 11 in different situations",
+            "express composite numbers as a product of prime factors in different situations",
+            "work out the Greatest Common Divisor (GCD) and the Least Common Multiples (LCM) of numbers by factor method in different situations",
+            "apply the Greatest Common Divisor (GCD) and the Least Common Multiples (LCM) in real life situations",
+            "reflect on use of factors in real life situations"
+          ],
+          "suggested_learning_experiences": [
+            "determine divisibility of numbers using regrouping and divisibility rule work sheets",
+            "write factors of composite numbers by factorization, factor tree, factor rainbow in charts, colour charts or cards using locally available materials",
+            "use factors to determine the LCM and the GCD using number cards or charts",
+            "use IT to access factors of numbers including songs/poems or games on divisibility tests",
+            "work out application questions and solve problems relating to the GCD and the LCM in real life situations",
+            "determine the GCD and LCM of numbers using IT to perform exercises on factors such as matching activities or games"
+          ],
+          "key_inquiry_questions": [
+            "Where do we use factors in day to day activities?",
+            "How do we use factors in day to day activities?",
+            "How do we apply the GCD and the LCM in day to day activities?"
+          ],
+          "core_competencies": [
+            "Creativity and imagination: Making connections as learners work in groups to create songs and poems on divisibility tests.",
+            "Critical thinking and problem solving: Interpretation and inference as learners apply the GCD and the LCM in solving real life problems."
+          ],
+          "values": [
+            "Unity as learners sing together or solve puzzles on factors.",
+            "Respect for self and others as learners work in groups to write factors of composite numbers using factor tree."
+          ],
+          "pcis": [
+            "Self-awareness as learners work in groups to create songs and poems on divisibility tests",
+            "Education for Sustainable Development (ESD) as learners use locally available materials for making number cards and charts"
+          ],
+          "link_to_other_subjects": [
+            "Agriculture and nutrition; as learners apply LCM or GCD as they plan for smallest or largest containers for measuring different substances."
+          ]
+        },
+        {
+          "sub_strand_number": "1.3",
+          "sub_strand_name": "Fractions",
+          "number_of_lessons": 9,
+          "specific_learning_outcomes": [
+            "compare fractions in different situations",
+            "add fractions in different situations",
+            "subtract fractions in different situations",
+            "multiply fractions by a whole number, fraction and a mixed number in real life situations",
+            "identify the reciprocals of fractions in different situations",
+            "divide fractions by a whole number, fraction and a mixed fraction in real life situations",
+            "divide a whole number by fractions in different situations",
+            "identify number sequence involving fractions in different situations",
+            "create number sequence involving fractions for playing number games",
+            "recognise use of fractions in real life situations"
+          ],
+          "suggested_learning_experiences": [
+            "discuss and arrange fractions in increasing and decreasing order using different strategies",
+            "arrange fractions in ascending or descending order using fraction cards",
+            "add and subtract fractions in cut outs, cards, charts and concrete objects",
+            "multiply and divide fractions in cut outs, cards, charts and models",
+            "use flip cards to discuss reciprocals",
+            "play games of creating number puzzles that involve fractions number sequences using IT devices or other materials",
+            "create a fraction sequence game that can be used for play and learning",
+            "use IT devices to work out operations of fractions"
+          ],
+          "key_inquiry_questions": [
+            "How do we use fractions in daily activities?",
+            "Where do we use fractions in daily activities?"
+          ],
+          "core_competencies": [
+            "Creativity and imagination: Observed as learners create puzzles involving fractions.",
+            "Critical thinking and problem solving: Evaluation and decision making as learners apply fractions using cut outs, cards, charts and models from local resources."
+          ],
+          "values": [
+            "Social justice: as learners share things fairly",
+            "Responsibility: as learners perform multiplication and division of fractions when sharing or allocating resources."
+          ],
+          "pcis": [
+            "Citizenship as learners carry out division of fractions which implies sharing",
+            "Social cohesion as learners share items at home and outside school using fractions"
+          ],
+          "link_to_other_subjects": [
+            "Agriculture and nutrition; as learners give fractional portions of animal feeds."
+          ]
+        },
+        {
+          "sub_strand_number": "1.4",
+          "sub_strand_name": "Decimals",
+          "number_of_lessons": 6,
+          "specific_learning_outcomes": [
+            "identify the place value and the total value of digits in decimals in real life",
+            "multiply decimals by a whole number and by a decimal in real life situations",
+            "divide decimals by a whole number and by a decimal in real life situations",
+            "recognise use of decimals in real life situations"
+          ],
+          "suggested_learning_experiences": [
+            "discuss, state and use the place value and total the value of decimals using place value apparatus and worksheets",
+            "multiply and divide decimals using cut outs, cards, charts and models",
+            "use calculators and other IT devices to work out operations of decimals",
+            "play games involving multiplication and division of decimals"
+          ],
+          "key_inquiry_questions": [
+            "Where are decimals applicable in real life?",
+            "How do you use decimals in daily activities?"
+          ],
+          "core_competencies": [
+            "Critical thinking and problem solving: Open mindedness and creativity as learners identify and use the place value and the total value of decimals using place value apparatus and worksheets.",
+            "Digital literacy: Interacting with technology; as learners use IT gadgets to learn more on decimals."
+          ],
+          "values": [
+            "Unity as learners work in groups to multiply and divide decimals using cut outs, cards, charts and models.",
+            "Responsibility as learners perform multiplication and division of decimals."
+          ],
+          "pcis": [
+            "Safety as learners make paper cut outs or other materials and models."
+          ],
+          "link_to_other_subjects": [
+            "Learners relate quantities expressed in decimal forms in measurement as learnt from Integrated Science"
+          ]
+        },
+        {
+          "sub_strand_number": "1.5",
+          "sub_strand_name": "Squares and Square Roots",
+          "number_of_lessons": 5,
+          "specific_learning_outcomes": [
+            "determine the squares of whole numbers, fractions and decimals by multiplication in different situations",
+            "determine the square roots of whole numbers, fractions and decimals of perfect squares in different situations",
+            "appreciate use of squares and square roots in real life situations"
+          ],
+          "suggested_learning_experiences": [
+            "work out squares of numbers using: grids and charts, long multiplication method, using calculators",
+            "work out square roots of number using: factors method, division method, calculators",
+            "use IT devices to play games involving squares and square roots"
+          ],
+          "key_inquiry_questions": [
+            "Where do we apply squares and square roots in daily activities?",
+            "How do we apply squares and square roots in daily activities?"
+          ],
+          "core_competencies": [
+            "Critical thinking and problem solving: Reflection as learners use grid squares and charts to find squares and square roots.",
+            "Digital literacy: Interacting with technologies as learners use IT devices to work out squares and square roots of numbers."
+          ],
+          "values": [
+            "Respect as learners appreciate each other’s contribution in groups in using grids and charts",
+            "Unity as learners work in groups and work out the factors of numbers to get the square roots."
+          ],
+          "pcis": [
+            "Environmental education as learners consider shapes of different objects in the school compound especially the ones that are squares."
+          ],
+          "link_to_other_subjects": [
+            "Pre-technical studies: in areas such as carpentry and technical drawing contribute to squares and roots of numbers.",
+            "Agriculture and nutrition; as learners determine the number of seedlings that would fit in a square portion of land."
           ]
         }
       ]
     },
     {
-      "strandNumber": "2.0",
-      "strandName": "ALGEBRA",
-      "subStrands": [
+      "strand_number": "2.0",
+      "strand_name": "ALGEBRA",
+      "sub_strands": [
         {
-          "subStrandNumber": "2.1",
-          "subStrandName": "Algebraic Expressions",
-          "numberOfLessons": 8,
-          "specificLearningOutcomes": [
-            "Placeholder learning outcome for Algebraic Expressions"
+          "sub_strand_number": "2.1",
+          "sub_strand_name": "Algebraic Expressions",
+          "number_of_lessons": 5,
+          "specific_learning_outcomes": [
+            "form algebraic expressions from real life situations",
+            "form algebraic expressions from simple algebraic statements in real life situations",
+            "simplify algebraic expressions in real life situations",
+            "appreciate use of algebraic expressions in real life"
           ],
-          "suggestedLearningExperiences": [
-            "Placeholder learning experience for Algebraic Expressions"
+          "suggested_learning_experiences": [
+            "discuss and classify objects in their immediate environment according to given attributes such as similarities or differences",
+            "discuss how to form algebraic expressions from the classified objects",
+            "read and interpret algebraic statements to form algebraic expressions",
+            "discuss how to simplify algebraic expressions from the classified objects",
+            "use IT to work out exercises and activities in algebra or drag and drop activities to group similar objects"
           ],
-          "keyInquiryQuestions": [
-            "What are the key concepts in Algebraic Expressions?"
+          "key_inquiry_questions": [
+            "How do we use algebraic expressions in daily activities?"
           ],
-          "coreCompetencies": [
-            "Communication and collaboration",
-            "Critical thinking and problem solving"
+          "core_competencies": [
+            "Communication and collaboration: Speaking, listening and team work; as learners discuss in groups on formation of algebraic expressions.",
+            "Critical thinking and problem solving: Interpretation and inference; as learners factorize algebraic expressions"
           ],
           "values": [
-            "Unity",
-            "Responsibility"
+            "Unity as learners classify/group similar objects in groups.",
+            "Respect as learners appreciate each other’s contribution while discussing and forming algebraic expressions."
           ],
           "pcis": [
-            "Education for Sustainable Development"
+            "Environmental education as learners classify objects from the environment.",
+            "Friendship formation as learners work and discuss in groups on formation of algebraic expressions."
           ],
-          "linkToOtherSubjects": [
-            "Science and Technology"
+          "link_to_other_subjects": [
+            "Languages as learners interpret statements to form algebraic expressions."
           ]
         },
         {
-          "subStrandNumber": "2.2",
-          "subStrandName": "Linear Equations",
-          "numberOfLessons": 10,
-          "specificLearningOutcomes": [
-            "Placeholder learning outcome for Linear Equations"
+          "sub_strand_number": "2.2",
+          "sub_strand_name": "Linear Equations",
+          "number_of_lessons": 6,
+          "specific_learning_outcomes": [
+            "form linear equations in one unknown in different situations",
+            "solve linear equations in one unknown in different situations",
+            "apply linear equations in one unknown to real life situations",
+            "reflect on use of linear equations in real life situations"
           ],
-          "suggestedLearningExperiences": [
-            "Placeholder learning experience for Linear Equations"
+          "suggested_learning_experiences": [
+            "role play activities involving equations with one unknown for example weighing using beam balance and shopping activities",
+            "discuss how to form and solve linear equations generated from role play activities",
+            "use IT to form and solve linear equations"
           ],
-          "keyInquiryQuestions": [
-            "What are the key concepts in Linear Equations?"
+          "key_inquiry_questions": [
+            "How do we use linear equations in real life?",
+            "Why do we use linear equations in real life?"
           ],
-          "coreCompetencies": [
-            "Communication and collaboration",
-            "Critical thinking and problem solving"
+          "core_competencies": [
+            "Communication and collaboration: Speaking, listening and team work as learners’ role play activities involving equations in one unknown.",
+            "Self-efficacy: Self-awareness skills as learners carry out weighing using beam balance and role play.",
+            "Learning to learn: Organizing own learning as learners apply linear equations in real life."
           ],
           "values": [
-            "Unity",
-            "Responsibility"
+            "Integrity as learners share resources as per the given equation (conditions).",
+            "Responsibility: as learners use a given letter in the equation to represent an item."
           ],
           "pcis": [
-            "Education for Sustainable Development"
+            "Social cohesion as learners work in groups to role play in shopping activities.",
+            "Self – esteem as learners participate in role play activities like weighing and shopping that will lead to equations in one unknown."
           ],
-          "linkToOtherSubjects": [
-            "Science and Technology"
+          "link_to_other_subjects": [
+            "Pre-technical studies; as learners use IT devices in forming and solving equations."
           ]
         },
         {
-          "subStrandNumber": "2.3",
-          "subStrandName": "Linear Inequalities",
-          "numberOfLessons": 6,
-          "specificLearningOutcomes": [
-            "Placeholder learning outcome for Linear Inequalities"
+          "sub_strand_number": "2.3",
+          "sub_strand_name": "Linear Inequalities",
+          "number_of_lessons": 8,
+          "specific_learning_outcomes": [
+            "apply inequality symbols to inequality statements in learning situations",
+            "form simple linear inequalities in one unknown in different situations",
+            "illustrate simple inequalities on a number line",
+            "form compound inequality statements in one unknown in different situations",
+            "illustrate compound inequalities in one unknown on a number line",
+            "appreciate use of linear inequalities in real life"
           ],
-          "suggestedLearningExperiences": [
-            "Placeholder learning experience for Linear Inequalities"
+          "suggested_learning_experiences": [
+            "use inequality cards to complete simple inequality statements",
+            "use inequality cards/objects to form simple linear inequalities with one unknown",
+            "draw and represent simple inequality statements on a number line",
+            "use inequality cards to complete compound inequality statements",
+            "draw and represent compound inequality statements on a number line",
+            "use IT graphing tools to present solutions to inequalities"
           ],
-          "keyInquiryQuestions": [
-            "What are the key concepts in Linear Inequalities?"
+          "key_inquiry_questions": [
+            "How do we use linear inequalities in real life?",
+            "Why do we use linear inequalities in real life?"
           ],
-          "coreCompetencies": [
-            "Communication and collaboration",
-            "Critical thinking and problem solving"
+          "core_competencies": [
+            "Communication and collaboration: Speaking and listening as learners discuss on how to form the linear inequalities.",
+            "Creativity and Imagination: Open mindedness and creativity as learners draw and represent inequality statements on a number line."
           ],
           "values": [
-            "Unity",
-            "Responsibility"
+            "Social justice as learners apply linear inequalities",
+            "Integrity as learners observe the conditions of the given inequalities."
           ],
           "pcis": [
-            "Education for Sustainable Development"
+            "Health education: observing the correct dosage in drugs / limits on drug consumption.",
+            "Gender equality: gender representation for inclusivity."
           ],
-          "linkToOtherSubjects": [
-            "Science and Technology"
+          "link_to_other_subjects": [
+            "Language as learners form linear inequalities from different situation in statement form."
           ]
         }
       ]
     },
     {
-      "strandNumber": "3.0",
-      "strandName": "MEASUREMENTS",
-      "subStrands": [
+      "strand_number": "3.0",
+      "strand_name": "MEASUREMENTS",
+      "sub_strands": [
         {
-          "subStrandNumber": "3.1",
-          "subStrandName": "Pythagorean Relationship",
-          "numberOfLessons": 6,
-          "specificLearningOutcomes": [
-            "Placeholder learning outcome for Pythagorean Relationship"
+          "sub_strand_number": "3.1",
+          "sub_strand_name": "Pythagorean Relationship",
+          "number_of_lessons": 4,
+          "specific_learning_outcomes": [
+            "recognize the sides of a right-angled triangle in different situations",
+            "identify Pythagorean relationship in different situations",
+            "apply Pythagorean relationship to real life situations",
+            "promote use of Pythagoras Theorem in real life situations"
           ],
-          "suggestedLearningExperiences": [
-            "Placeholder learning experience for Pythagorean Relationship"
+          "suggested_learning_experiences": [
+            "draw and represent practical cases of right-angled triangle of an object leaning on a wall at different positions and recognize the sides as the hypotenuse the height and the base. For example, a ladder leaning on a wall.",
+            "do a variety of activities for example, counting squares on different sides of a 3, 4, 5 right angled-triangle, establish the Pythagorean relationship and practice using other right angled- triangles",
+            "work out exercises related to Pythagorean relationship",
+            "create Pythagorean relationship puzzles",
+            "use IT devices to explore the use of Pythagorean relationship in daily life"
           ],
-          "keyInquiryQuestions": [
-            "What are the key concepts in Pythagorean Relationship?"
+          "key_inquiry_questions": [
+            "How do we use Pythagorean relationship in real life situations?"
           ],
-          "coreCompetencies": [
-            "Communication and collaboration",
-            "Critical thinking and problem solving"
+          "core_competencies": [
+            "Critical thinking and problem solving: Interpretation and inference as learners identify Pythagorean relationship in different situations.",
+            "Creativity and imagination: Open mindedness and creativity as learners create Pythagorean relationship puzzles.",
+            "Learning to learn: Sharing learnt knowledge as learners apply Pythagorean relationship in real life situations."
           ],
           "values": [
-            "Unity",
-            "Responsibility"
+            "Unity as learners carry out various activities together, such as creating Pythagorean relationship puzzles.",
+            "Respect as learners appreciate each other’s opinions when identifying and applying Pythagorean relationship in real life situations."
           ],
           "pcis": [
-            "Education for Sustainable Development"
+            "Peer education as learners work in groups to establish the Pythagorean relationship.",
+            "Safety as learners take care when using the ladder to do various activities on Pythagorean relationship."
           ],
-          "linkToOtherSubjects": [
-            "Science and Technology"
+          "link_to_other_subjects": [
+            "Pre-technical studies: technical drawing, building construction, surveying."
           ]
         },
         {
-          "subStrandNumber": "3.2",
-          "subStrandName": "Length",
-          "numberOfLessons": 4,
-          "specificLearningOutcomes": [
-            "Placeholder learning outcome for Length"
+          "sub_strand_number": "3.2",
+          "sub_strand_name": "Length",
+          "number_of_lessons": 6,
+          "specific_learning_outcomes": [
+            "convert units of length from one form to another involving cm, dm, m, Dm, Hm in learning situations",
+            "perform operations involving units of length in different situations",
+            "work out the perimeter of plane figures in different situations",
+            "work out the circumference of circles in different situations",
+            "promote use of length in real life situations"
           ],
-          "suggestedLearningExperiences": [
-            "Placeholder learning experience for Length"
+          "suggested_learning_experiences": [
+            "generate conversion tables involving cm, dm, m, Dm, Hm",
+            "practice different operations involving length",
+            "watch videos on correct procedures of measuring length and working out perimeter",
+            "use appropriate measuring tools to measure the length of various objects",
+            "measure and work out perimeter of different plane figures including combined shapes",
+            "measure the circumference and diameter of different circular objects and establish the relationship between circumference and diameter which is Pi",
+            "use Pi to practice working out circumference of circles and can use IT devices for calculations"
           ],
-          "keyInquiryQuestions": [
-            "What are the key concepts in Length?"
+          "key_inquiry_questions": [
+            "Why do we use different units of measuring length?",
+            "How do we measure the perimeter of different objects?"
           ],
-          "coreCompetencies": [
-            "Communication and collaboration",
-            "Critical thinking and problem solving"
+          "core_competencies": [
+            "Communication and collaboration: Speaking, listening and team work; as learners work in pairs/groups when measuring lengths of various objects and also as they discuss the relationship between circumference and diameter.",
+            "Self-efficacy: Personal skills as the learners practice different operations using length.",
+            "Critical thinking and problem solving: interpretation and inference as learners relate circumference to diameter."
           ],
           "values": [
-            "Unity",
-            "Responsibility"
+            "Integrity as learners carry out the activities and give the correct measurement.",
+            "Unity as learners work in groups measuring lengths of various objects."
           ],
           "pcis": [
-            "Education for Sustainable Development"
+            "Social cohesion as learners work in pairs and groups in measuring lengths of various objects.",
+            "Safety as learners handle different instruments of measuring length.",
+            "Global citizenship as they appreciate units of measurements especially the SI units of length."
           ],
-          "linkToOtherSubjects": [
-            "Science and Technology"
+          "link_to_other_subjects": [
+            "Integrated science: as learners use units of measuring length",
+            "Pre- technical studies: as learners do tailoring, constructions, engineering works that contributes to measurement of length."
           ]
         },
         {
-          "subStrandNumber": "3.3",
-          "subStrandName": "Area",
-          "numberOfLessons": 8,
-          "specificLearningOutcomes": [
-            "Placeholder learning outcome for Area"
+          "sub_strand_number": "3.3",
+          "sub_strand_name": "Area",
+          "number_of_lessons": 8,
+          "specific_learning_outcomes": [
+            "identify square metre (m2), acres and hectares as units of measuring area",
+            "work out the area of rectangle, parallelogram, rhombus and trapezium in different situations",
+            "work out the area of circles in different situations",
+            "calculate the area of borders and combined shapes in real life situations",
+            "recognise use of area in real life situations"
           ],
-          "suggestedLearningExperiences": [
-            "Placeholder learning experience for Area"
+          "suggested_learning_experiences": [
+            "generate conversion tables involving acres and hectares as units of measuring area",
+            "use cut outs to find the area of the plane figures",
+            "watch videos on how to cut out a circle to small sectors to demonstrate how to derive the formula for the area of a circle",
+            "cut out a circle into small sectors and rearrange to form a rectangle to derive the formula for the area of a circle",
+            "practice cutting out the plane figures of combined shapes into different shapes to work out the area"
           ],
-          "keyInquiryQuestions": [
-            "What are the key concepts in Area?"
+          "key_inquiry_questions": [
+            "What are plane figures?",
+            "How do we work out the areas of plane figures?"
           ],
-          "coreCompetencies": [
-            "Communication and collaboration",
-            "Critical thinking and problem solving"
+          "core_competencies": [
+            "Critical thinking and problem solving: Reflection as learners cut out the circle into small sectors, joining them to create a rectangle and generate formula of getting the area of a circle.",
+            "Creativity and imaginations: Open mindedness and creativity as learners combine different shapes to make patterns.",
+            "Self-efficacy: Personal skills as learners demonstrate how to derive the formula for the area of a circle."
           ],
           "values": [
-            "Unity",
-            "Responsibility"
+            "Responsibility as the learner cuts out the small sectors of the circle and joins them up to form a rectangle.",
+            "Integrity as learners work out exact areas of different shapes.",
+            "Unity as learners work in groups and share tasks in measuring the area."
           ],
           "pcis": [
-            "Education for Sustainable Development"
+            "Safety; as learners handle different instruments/tools to make cut outs of different materials.",
+            "Environmental education; as learners use locally available materials in measuring the area."
           ],
-          "linkToOtherSubjects": [
-            "Science and Technology"
+          "link_to_other_subjects": [
+            "Creative arts - as learners combine different shapes to make patterns.",
+            "Integrated science - relating area to friction and pressure."
           ]
         },
         {
-          "subStrandNumber": "3.4",
-          "subStrandName": "Volume and Capacity",
-          "numberOfLessons": 8,
-          "specificLearningOutcomes": [
-            "Placeholder learning outcome for Volume and Capacity"
+          "sub_strand_number": "3.4",
+          "sub_strand_name": "Volume and Capacity",
+          "number_of_lessons": 8,
+          "specific_learning_outcomes": [
+            "identify metre cube (m3 ) as a unit of volume in measurements",
+            "convert metre cube (m3) into centimeter cube (cm3) and vice versa in different situations",
+            "work out the volume of cubes, cuboids and cylinder in different situations",
+            "identify the relationship between cm3, m3 and litres in real life situations",
+            "relate volume to capacity in real life situations",
+            "work out the capacity of containers in real life situations",
+            "promote use of volume and capacity in real life situations"
           ],
-          "suggestedLearningExperiences": [
-            "Placeholder learning experience for Volume and Capacity"
+          "suggested_learning_experiences": [
+            "make a cube of sides 1 metre using locally available materials",
+            "discuss and work out the conversions of cm cube (cm3) and m cube (m3)",
+            "collect labeled containers of different volume and capacity from the environment",
+            "generate conversion tables of volume and capacity",
+            "create models of cubes, cuboids, and cylinders which they will use to work out volume",
+            "watch videos on volume and capacity"
           ],
-          "keyInquiryQuestions": [
-            "What are the key concepts in Volume and Capacity?"
+          "key_inquiry_questions": [
+            "Where do we use volume and capacity in daily activities?",
+            "Why do we measure volume?"
           ],
-          "coreCompetencies": [
-            "Communication and collaboration",
-            "Critical thinking and problem solving"
+          "core_competencies": [
+            "Critical thinking and problem solving: Interpretation and inference as learners create a conversion table of units of volume.",
+            "Creativity and Imagination: Open mindedness and creativity as learners create models of cubes and cuboids."
           ],
           "values": [
-            "Unity",
-            "Responsibility"
+            "Responsibility as learners work in groups and share different tasks in making models.",
+            "Peace as learners discuss to make the models for different volumes and capacities."
           ],
           "pcis": [
-            "Education for Sustainable Development"
+            "Environmental education as learners use big and small containers of different volume from locally available resources.",
+            "Safety as learners make models of cubes and cuboids.",
+            "ESD water conservation using containers of different capacities."
           ],
-          "linkToOtherSubjects": [
-            "Science and Technology"
+          "link_to_other_subjects": [
+            "Pre- technical studies as learners create models of cubes and cuboids.",
+            "Integrated Science as learners work out volume of different substances."
           ]
         },
         {
-          "subStrandNumber": "3.5",
-          "subStrandName": "Time, Distance and Speed",
-          "numberOfLessons": 6,
-          "specificLearningOutcomes": [
-            "Placeholder learning outcome for Time, Distance and Speed"
+          "sub_strand_number": "3.5",
+          "sub_strand_name": "Time, Distance and Speed",
+          "number_of_lessons": 8,
+          "specific_learning_outcomes": [
+            "identify units of measuring time in real life situations",
+            "convert units of time from one form to another in learning situations",
+            "convert units of measuring distance in learning situations",
+            "identify speed as distance covered per unit time in different situations",
+            "work out speed in km/h and m/s in real life situations",
+            "convert units of speed from kilometers per hour (Km/h) to meters per second (m/s) and vice versa in real life situations",
+            "reflect on use of time, distance and speed in real life situations"
           ],
-          "suggestedLearningExperiences": [
-            "Placeholder learning experience for Time, Distance and Speed"
+          "suggested_learning_experiences": [
+            "use analog or digital clock to tell time in hours, minutes and seconds and discuss the units of time",
+            "create conversion table on units of time",
+            "discuss and estimate distances between two or more points and convert from Km to meters and vice versa",
+            "engage in activities that involve distance and time such as track events to relate time, distance and speed",
+            "discuss how long they take to travel from home to school, discuss the aspects of distance, and time taken to get to school",
+            "practice calculating speeds in km/h or m/s",
+            "play digital games involving racing or watch marathon"
           ],
-          "keyInquiryQuestions": [
-            "What are the key concepts in Time, Distance and Speed?"
+          "key_inquiry_questions": [
+            "Why do we relate distance, time and speed?",
+            "What is the importance of speed in daily activities?"
           ],
-          "coreCompetencies": [
-            "Communication and collaboration",
-            "Critical thinking and problem solving"
+          "core_competencies": [
+            "Critical thinking and problem solving- interpretation and inference as learners create conversion tables relate and determine distance, time and speed.",
+            "Self-efficacy - Personality skills as learners observe punctuality in attending to different activities."
           ],
           "values": [
-            "Unity",
-            "Responsibility"
+            "Patriotism as learners observe road safety rules including speed limits.",
+            "Integrity as learners observe punctuality and work out correct distances."
           ],
           "pcis": [
-            "Education for Sustainable Development"
+            "Disaster Risk Reduction (DRR) and Safety as learners observe safety in road and machines in relation to speed."
           ],
-          "linkToOtherSubjects": [
-            "Science and Technology"
+          "link_to_other_subjects": [
+            "Integrated science as learners observe time as they carry out different experiments."
           ]
         },
         {
-          "subStrandNumber": "3.6",
-          "subStrandName": "Temperature",
-          "numberOfLessons": 4,
-          "specificLearningOutcomes": [
-            "Placeholder learning outcome for Temperature"
+          "sub_strand_number": "3.6",
+          "sub_strand_name": "Temperature",
+          "number_of_lessons": 6,
+          "specific_learning_outcomes": [
+            "describe the temperature conditions of the immediate environment as either warm, hot or cold",
+            "compare temperature using hotter, warmer, colder and same as in different situations",
+            "identify units of measuring temperature as degree Celsius and Kelvin in different situations",
+            "convert units of measuring temperature from degree Celsius to Kelvin and vice- versa",
+            "work out temperature in degree Celsius and Kelvin in real life situations",
+            "use IT devices or other resources to read temperature conditions of different places",
+            "recognise temperature changes in the environment"
           ],
-          "suggestedLearningExperiences": [
-            "Placeholder learning experience for Temperature"
+          "suggested_learning_experiences": [
+            "move to the field, observe the temperature in the environment and discuss the temperature conditions as either warm, hot or cold",
+            "discuss and test temperature of different substances using arbitrary methods like touching, for example cold, warm or hot water (exercise caution when dealing with hot substances)",
+            "identify and use tools of measuring temperature, for example, thermometers that are in degrees Celsius",
+            "work out conversions of temperature from degrees Celsius to Kelvin and vice versa",
+            "practice using IT devices or other resources to determine temperature of different places in degree Celsius and Kelvin"
           ],
-          "keyInquiryQuestions": [
-            "What are the key concepts in Temperature?"
+          "key_inquiry_questions": [
+            "How does temperature affect our everyday lives?",
+            "How do we measure temperature?"
           ],
-          "coreCompetencies": [
-            "Communication and collaboration",
-            "Critical thinking and problem solving"
+          "core_competencies": [
+            "Communication and collaboration: Team work as learners work in groups and use tools of measuring temperature.",
+            "Digital literacy: Interacting with technology as learners determine temperature of different places using digital devices."
           ],
           "values": [
-            "Unity",
-            "Responsibility"
+            "Responsibility as learners carefully handle tools of measuring temperature.",
+            "Integrity as learners give correct measurements of temperature."
           ],
           "pcis": [
-            "Education for Sustainable Development"
+            "Self-awareness as learners take their body temperatures.",
+            "Safety as learners work in groups and exercise caution when dealing with hot substances."
           ],
-          "linkToOtherSubjects": [
-            "Science and Technology"
+          "link_to_other_subjects": [
+            "Integrated Science; as learners consider their body temperatures to establish their health status and dressing appropriately.",
+            "Social studies as learners consider climatic temperature changes."
           ]
         },
         {
-          "subStrandNumber": "3.7",
-          "subStrandName": "Money",
-          "numberOfLessons": 6,
-          "specificLearningOutcomes": [
-            "Placeholder learning outcome for Money"
+          "sub_strand_number": "3.7",
+          "sub_strand_name": "Money",
+          "number_of_lessons": 12,
+          "specific_learning_outcomes": [
+            "work out profit and loss in real life situations",
+            "calculate the percentage profit and loss in different situations",
+            "calculate discount and percentage discount of different goods and services",
+            "calculate commission and percentage commission in real life situations",
+            "interpret bills at home",
+            "prepare bills in real life situations",
+            "work out postal charges in real life situations",
+            "identify mobile money services for different transactions",
+            "work out mobile money transactions in real life situations",
+            "use IT devices to learn more on money transactions",
+            "recognise use of money in day to day activities"
           ],
-          "suggestedLearningExperiences": [
-            "Placeholder learning experience for Money"
+          "suggested_learning_experiences": [
+            "role play shopping and selling activities involving profit, loss, discount and commission",
+            "work out profit and loss involving different activities and settings",
+            "work out percentage profit/loss from the role play activities",
+            "work out discount and percentage discount from model shopping activities",
+            "work out commission and percentage commission from the role play activities",
+            "identify different types of bills and read the components of bills",
+            "prepare bills of different items and expenses",
+            "visit post office to gather information on postal services and charges",
+            "work out postal charges in different situations",
+            "discuss and identify mobile money services",
+            "work out mobile money transactions, for example, in sending or receiving money, credit and savings",
+            "generate bills, pay for goods and services, and other online transactions using IT devices"
           ],
-          "keyInquiryQuestions": [
-            "What are the key concepts in Money?"
+          "key_inquiry_questions": [
+            "Why do we use money in daily activities?",
+            "What considerations would we make when buying or selling?",
+            "What is involved in mobile money transactions?"
           ],
-          "coreCompetencies": [
-            "Communication and collaboration",
-            "Critical thinking and problem solving"
+          "core_competencies": [
+            "Critical thinking and problem solving: Evaluation and decision making as learners work out discounts, commissions and mobile money as well as postal charges and bills.",
+            "Communication and collaboration: Speaking and listening as learners’ role play on negotiating for discounts and commissions.",
+            "Citizenship Active social skills as learners work out discounts, commissions and mobile money in Kenyan currency.",
+            "Self-efficacy - Negotiation skills as learners role play on negotiating for discounts and commissions."
           ],
           "values": [
-            "Unity",
-            "Responsibility"
+            "Patriotism as learners work out and pay bills in Kenyan currency.",
+            "Integrity as learners pay bills and appreciate use of money"
           ],
           "pcis": [
-            "Education for Sustainable Development"
+            "Financial literacy as learners work out any discounts, commissions and mobile money as well as postal charges and bills.",
+            "Decision making as learners use money in paying bills and postal charges."
           ],
-          "linkToOtherSubjects": [
-            "Science and Technology"
+          "link_to_other_subjects": [
+            "Pre-technical studies as learners work out bills, discounts, commissions and postal charges.",
+            "Languages as learners gather information on postal services and charges."
           ]
         }
       ]
     },
     {
-      "strandNumber": "4.0",
-      "strandName": "GEOMETRY",
-      "subStrands": [
+      "strand_number": "4.0",
+      "strand_name": "GEOMETRY",
+      "sub_strands": [
         {
-          "subStrandNumber": "4.1",
-          "subStrandName": "Angles",
-          "numberOfLessons": 8,
-          "specificLearningOutcomes": [
-            "Placeholder learning outcome for Angles"
+          "sub_strand_number": "4.1",
+          "sub_strand_name": "Angles",
+          "number_of_lessons": 10,
+          "specific_learning_outcomes": [
+            "relate different types of angles on a straight line in real life situations",
+            "solve angles at a point in learning situations",
+            "relate angles on a transversal in different situations",
+            "solve angles in a parallelogram in different situation",
+            "identify angle properties of polygons up to hexagon in different situations",
+            "relate interior angles, exterior angles and the number of sides of a polygon up to hexagon in different situations",
+            "solve angles and sides of polygons up to hexagon in learning situations",
+            "reflect on use of angles in objects within the environment"
           ],
-          "suggestedLearningExperiences": [
-            "Placeholder learning experience for Angles"
+          "suggested_learning_experiences": [
+            "discuss positions of objects in the immediate environment in relation to angles",
+            "draw straight lines with different angles, measure and relate them",
+            "draw different angles at a point, measure, relate and work out angles at point",
+            "draw transversals, measure and relate angles",
+            "draw parallelograms, measure and relate various angles",
+            "use cut outs or drawings of different polygons up to hexagon, measure the interior angles and relate to the number of right angles",
+            "use cut outs or drawings of different polygons up to hexagon, measure interior and exterior angles and relate to the number of sides",
+            "work out angles and sides in different polygons up to hexagon",
+            "draw angles at a point and in parallelograms using IT devices"
           ],
-          "keyInquiryQuestions": [
-            "What are the key concepts in Angles?"
+          "key_inquiry_questions": [
+            "What are angles?",
+            "Where do we use angles in real life situations?"
           ],
-          "coreCompetencies": [
-            "Communication and collaboration",
-            "Critical thinking and problem solving"
+          "core_competencies": [
+            "Communication and collaboration: Team work as learners discuss in groups positions of objects in the immediate environment in relation to angles.",
+            "Critical thinking and problem solving: Interpretation and inference as learners draw, measure and relate angles.",
+            "Digital literacy: Interacting with technology as learners learn use digital devices to learn more on algebraic inequalities and play digital games."
           ],
           "values": [
-            "Unity",
-            "Responsibility"
+            "Responsibility as learners explore positions of objects in the immediate environment in relation to angles.",
+            "Unity as learners work in groups to use cut outs or drawings of different polygons up to hexagon."
           ],
           "pcis": [
-            "Education for Sustainable Development"
+            "Safety as learners work in groups to use cut outs or drawings of different polygons up to hexagon."
           ],
-          "linkToOtherSubjects": [
-            "Science and Technology"
+          "link_to_other_subjects": [
+            "Pre –career and pre –technical as learners use cut outs or drawings of different polygons up to hexagon, or drawings in tailoring."
           ]
         },
         {
-          "subStrandNumber": "4.2",
-          "subStrandName": "Geometrical Constructions",
-          "numberOfLessons": 8,
-          "specificLearningOutcomes": [
-            "Placeholder learning outcome for Geometrical Constructions"
+          "sub_strand_number": "4.2",
+          "sub_strand_name": "Geometrical Constructions",
+          "number_of_lessons": 12,
+          "specific_learning_outcomes": [
+            "measure different angles in learning situations",
+            "bisect angles using a ruler and a pair of compasses only in learning situations",
+            "construct 900, 450 600, 300 and other angles that are multiples of 7.50 using a ruler and a pair of compasses only in learning situations",
+            "construct different triangles using a ruler and a pair of compasses only in different situations",
+            "construct circles using a ruler and a pair of compasses only in different situations",
+            "recognise use of geometric constructions of different shapes in objects"
           ],
-          "suggestedLearningExperiences": [
-            "Placeholder learning experience for Geometrical Constructions"
+          "suggested_learning_experiences": [
+            "draw and measure different angles",
+            "draw and bisect different angles",
+            "construct 900, 450 600, 300 including 1200, 1050 and practice with angles that are multiples of 7.50 using a pair of compasses and rulers",
+            "construct triangles using a pair of compasses and rulers",
+            "construct circles using a pair of compasses and rulers",
+            "use IT devices on graphics to draw angles and circles, watch videos of bisecting angles and constructing angles and circles"
           ],
-          "keyInquiryQuestions": [
-            "What are the key concepts in Geometrical Constructions?"
+          "key_inquiry_questions": [
+            "Where do we use geometric constructions in real life situations?",
+            "Why do we use geometric constructions?"
           ],
-          "coreCompetencies": [
-            "Communication and collaboration",
-            "Critical thinking and problem solving"
+          "core_competencies": [
+            "Creativity and imagination: Making observations as learners construct angles, triangles and circles.",
+            "Digital literacy: Interacting with digital devices as learners learn to use digital devices to learn more on construction of angles, triangles and circles"
           ],
           "values": [
-            "Unity",
-            "Responsibility"
+            "Responsibility as learners use geometrical instruments for construction of angles and circles.",
+            "Unity as learners work in groups to draw and measure different angles."
           ],
           "pcis": [
-            "Education for Sustainable Development"
+            "Safety as learners use geometrical instruments such as a pair of compasses and dividers."
           ],
-          "linkToOtherSubjects": [
-            "Science and Technology"
+          "link_to_other_subjects": [
+            "Creative arts and sports; as learners construct angles, triangles and circles which they can use to make geometrical patterns."
           ]
         }
       ]
     },
     {
-      "strandNumber": "5.0",
-      "strandName": "DATA HANDLING AND PROBABILITY",
-      "subStrands": [
+      "strand_number": "5.0",
+      "strand_name": "DATA HANDLING AND PROBABILITY",
+      "sub_strands": [
         {
-          "subStrandNumber": "5.1",
-          "subStrandName": "Data handling",
-          "numberOfLessons": 10,
-          "specificLearningOutcomes": [
-            "Placeholder learning outcome for Data handling"
+          "sub_strand_number": "5.1",
+          "sub_strand_name": "Data handling",
+          "number_of_lessons": 10,
+          "specific_learning_outcomes": [
+            "state the meaning of data in learning situation",
+            "collect data from different situations",
+            "draw frequency distribution table of data from different sources",
+            "determine suitable scale for graphs of data from different situations",
+            "draw pictographs of data from real life situations",
+            "draw bar graphs of data from different sources",
+            "interpret bar graphs of data from real life situations",
+            "draw pie charts of data from real life situations",
+            "interpret pie charts of data from real life situations",
+            "draw a line graph of data from different situations",
+            "interpret travel graphs from real life situations",
+            "promote use of data in real life situations"
           ],
-          "suggestedLearningExperiences": [
-            "Placeholder learning experience for Data handling"
+          "suggested_learning_experiences": [
+            "discuss, collect and organize data from immediate environment",
+            "tally and represent the data in a frequency tables",
+            "discuss and come up with suitable scale to represent data in graphs",
+            "discuss and use a suitable scale to draw pictographs from data",
+            "discuss and use a suitable scale to draw bar graphs from data",
+            "discuss and interpret bar graphs of data",
+            "discuss and represent data on pie charts",
+            "discuss and interpret pie charts of data",
+            "use suitable scale to represent data on line graphs",
+            "discuss and interpret travel graphs from real life situations",
+            "draw pie charts, pictographs and read data from bar graphs using IT devices or watch videos relating to data"
           ],
-          "keyInquiryQuestions": [
-            "What are the key concepts in Data handling?"
+          "key_inquiry_questions": [
+            "Why do we collect data?",
+            "How do we represent data?",
+            "How do we interpret data?"
           ],
-          "coreCompetencies": [
-            "Communication and collaboration",
-            "Critical thinking and problem solving"
+          "core_competencies": [
+            "Creativity and imagination: Making observations as learners present data in the form of pie charts and pictograms.",
+            "Critical thinking and problem solving: Interpretation and inference as learners interpret data from bar graphs, pictograms and pie charts."
           ],
           "values": [
-            "Unity",
-            "Responsibility"
+            "Responsibility as learners collect and present data in pictograms that may involve different resources.",
+            "Peace as learners work in groups to collect and present data."
           ],
           "pcis": [
-            "Education for Sustainable Development"
+            "Decision making as learners present data that can be used to make informed decisions."
           ],
-          "linkToOtherSubjects": [
-            "Science and Technology"
+          "link_to_other_subjects": [
+            "Creative Arts and Sports; as learners draw pictographs and pie charts.",
+            "Social studies as learners present data in pie charts and pictographs that may involve populations."
           ]
         }
       ]

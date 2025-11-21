@@ -590,3 +590,15 @@ class LessonPlan(Base):
     user = relationship("User")
     subject_rel = relationship("Subject")
     scheme_lesson = relationship("SchemeLesson")
+
+    @property
+    def lesson_number(self):
+        if self.scheme_lesson:
+            return self.scheme_lesson.lesson_number
+        return None
+
+    @property
+    def week_number(self):
+        if self.scheme_lesson and self.scheme_lesson.week:
+            return self.scheme_lesson.week.week_number
+        return None

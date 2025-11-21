@@ -542,6 +542,8 @@ class LessonPlanSummary(BaseModel):
     date: Optional[str] = None
     status: str
     created_at: datetime
+    lesson_number: Optional[int] = None
+    week_number: Optional[int] = None
     
     class Config:
         from_attributes = True

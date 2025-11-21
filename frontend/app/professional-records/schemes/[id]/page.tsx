@@ -25,6 +25,12 @@ interface WeekLesson {
   key_inquiry_questions: string;
   learning_experiences: string;
   learning_resources: string;
+
+  // Textbook references
+  textbook_name?: string;
+  textbook_teacher_guide_pages?: string;
+  textbook_learner_book_pages?: string;
+
   assessment_methods: string;
   reflection: string;
   core_competencies?: string;
@@ -593,9 +599,14 @@ export default function ViewSchemePage() {
                           key={`${week.week_number}-${lessonIdx}`}
                           className="hover:bg-gray-50"
                         >
-                          <td className="border border-gray-400 px-3 py-3 text-sm font-semibold text-center bg-gray-50">
-                            {week.week_number}
-                          </td>
+                          {lessonIdx === 0 && (
+                            <td
+                              className="border border-gray-400 px-3 py-3 text-sm font-semibold text-center bg-gray-50 align-middle"
+                              rowSpan={week.lessons.length}
+                            >
+                              {week.week_number}
+                            </td>
+                          )}
                           <td className="border border-gray-400 px-3 py-3 text-sm font-semibold text-center bg-gray-50">
                             {lessonIdx + 1}
                           </td>
@@ -615,35 +626,80 @@ export default function ViewSchemePage() {
                             {(() => {
                               if (!lesson.learning_experiences) return "";
 
-                              // Format learning experiences with bullets
                               const text = lesson.learning_experiences.trim();
+                              // Split by newline if present, otherwise split by period followed by space or end of string
+                              // This handles both paragraph style (sentences) and list style (newlines)
+                              let parts = text.includes("\n")
+                                ? text.split("\n")
+                                : text.split(/\.\s+/);
 
-                              // Split by periods and clean up
-                              let sentences = text
-                                .split(".")
-                                .map((s) => s.trim())
-                                .filter((s) => s.length > 0);
-
-                              // Format each sentence with bullet and capitalize first letter
-                              const formatted = sentences
-                                .map((sentence) => {
-                                  if (sentence.length === 0) return "";
+                              return parts
+                                .map((p) => p.trim())
+                                .filter((p) => p.length > 0)
+                                .map((p) => {
+                                  // Remove existing bullets if any
+                                  const cleanP = p.replace(/^[•\-\*]\s*/, "");
                                   // Capitalize first letter
-                                  const capitalized =
-                                    sentence.charAt(0).toUpperCase() +
-                                    sentence.slice(1);
-                                  return `• ${capitalized}`;
+                                  return `• ${
+                                    cleanP.charAt(0).toUpperCase() +
+                                    cleanP.slice(1)
+                                  }`;
                                 })
                                 .join("\n");
-
-                              return formatted;
                             })()}
                           </td>
                           <td className="border border-gray-400 px-3 py-3 text-sm whitespace-pre-wrap">
-                            {lesson.learning_resources || ""}
+                            <div className="space-y-1">
+                              {lesson.learning_resources
+                                ? lesson.learning_resources
+                                    .split(",")
+                                    .map((r) => r.trim())
+                                    .filter((r) => r.length > 0)
+                                    .map((r, i) => (
+                                      <div key={i}>
+                                        •{" "}
+                                        {r.charAt(0).toUpperCase() + r.slice(1)}
+                                      </div>
+                                    ))
+                                : ""}
+
+                              {lesson.textbook_name && (
+                                <div className="mt-3 pt-2 border-t border-gray-300">
+                                  <div className="font-bold text-gray-900 mb-1">
+                                    Textbook:
+                                  </div>
+                                  <div className="text-gray-800 mb-1">
+                                    {lesson.textbook_name}
+                                  </div>
+                                  {lesson.textbook_teacher_guide_pages && (
+                                    <div className="text-gray-700">
+                                      TG: {lesson.textbook_teacher_guide_pages}
+                                    </div>
+                                  )}
+                                  {lesson.textbook_learner_book_pages && (
+                                    <div className="text-gray-700">
+                                      LB: {lesson.textbook_learner_book_pages}
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                            </div>
                           </td>
                           <td className="border border-gray-400 px-3 py-3 text-sm whitespace-pre-wrap">
-                            {lesson.assessment_methods || ""}
+                            <div className="space-y-1">
+                              {lesson.assessment_methods
+                                ? lesson.assessment_methods
+                                    .split(",")
+                                    .map((m) => m.trim())
+                                    .filter((m) => m.length > 0)
+                                    .map((m, i) => (
+                                      <div key={i}>
+                                        •{" "}
+                                        {m.charAt(0).toUpperCase() + m.slice(1)}
+                                      </div>
+                                    ))
+                                : ""}
+                            </div>
                           </td>
                           <td className="border border-gray-400 px-3 py-3 text-sm whitespace-pre-wrap">
                             {lesson.reflection || ""}

@@ -123,21 +123,125 @@ export default function ViewLessonPlanPage() {
       <style jsx global>{`
         @media print {
           @page {
-            size: A4;
-            margin: 10mm;
+            size: A4 portrait;
+            margin: 5mm; /* Small margins */
           }
+
           body {
-            print-color-adjust: exact;
-            -webkit-print-color-adjust: exact;
+            font-size: 11px; /* Smaller font */
+            line-height: 1.2;
+            color: #000;
+            background: white;
+            height: auto !important;
+            overflow: visible !important;
           }
+
+          /* Reset min-height for containers to avoid extra pages */
+          .min-h-screen {
+            min-height: 0 !important;
+            height: auto !important;
+            overflow: visible !important;
+          }
+
+          /* Hide non-print elements */
           .no-print {
             display: none !important;
           }
+
+          /* Reset container widths */
           .print-full-width {
             width: 100% !important;
             max-width: 100% !important;
             margin: 0 !important;
             padding: 0 !important;
+          }
+
+          /* Compact Header */
+          h1 {
+            font-size: 14pt !important;
+            margin-bottom: 2mm !important;
+            padding-bottom: 2mm !important;
+          }
+
+          /* Compact Info Grid */
+          .header-info-grid {
+            display: grid !important;
+            grid-template-columns: repeat(
+              3,
+              1fr
+            ) !important; /* 3 columns to save height */
+            gap: 4px !important;
+            padding: 4px !important;
+            margin-bottom: 4px !important;
+            background-color: transparent !important;
+            border: 1px solid #ccc !important;
+          }
+
+          .header-info-grid > div {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+          }
+
+          .header-info-grid span.font-bold {
+            width: auto !important;
+            min-width: 80px;
+            font-size: 10px;
+          }
+
+          /* Compact Sections */
+          .section-card {
+            padding: 4px !important;
+            margin-bottom: 4px !important;
+            border: 1px solid #eee !important;
+          }
+
+          h3 {
+            font-size: 11px !important;
+            margin-bottom: 2px !important;
+            color: #000 !important;
+          }
+
+          /* Hide Icons in headers to save space/ink */
+          h3 svg,
+          h4 svg {
+            display: none !important;
+          }
+
+          /* Compact Grids for Strand/Competencies */
+          .compact-grid {
+            display: grid !important;
+            gap: 4px !important;
+          }
+
+          /* Organization of Learning */
+          .org-learning-container {
+            border: 1px solid #ccc !important;
+          }
+          .org-learning-header {
+            padding: 2px 4px !important;
+            background-color: #f0f0f0 !important;
+            font-size: 11px !important;
+          }
+          .org-learning-item {
+            padding: 2px 4px !important;
+          }
+          .org-learning-item h4 {
+            margin-bottom: 0 !important;
+            font-size: 10px !important;
+          }
+
+          /* General Text */
+          p,
+          .whitespace-pre-wrap {
+            font-size: 10px !important;
+          }
+
+          /* Remove heavy backgrounds */
+          .bg-gray-50,
+          .bg-yellow-50,
+          .bg-gray-100 {
+            background-color: transparent !important;
           }
         }
       `}</style>
@@ -191,7 +295,7 @@ export default function ViewLessonPlanPage() {
           </div>
 
           {/* Header Info Grid */}
-          <div className="grid grid-cols-2 gap-x-8 gap-y-4 mb-8 p-6 bg-gray-50 border border-gray-200 rounded-xl">
+          <div className="header-info-grid grid grid-cols-2 gap-x-8 gap-y-4 mb-8 p-6 bg-gray-50 border border-gray-200 rounded-xl">
             <div className="flex items-center gap-3">
               <span className="font-bold text-gray-700 w-32">
                 Learning Area:
@@ -207,7 +311,14 @@ export default function ViewLessonPlanPage() {
             <div className="flex items-center gap-3">
               <span className="font-bold text-gray-700 w-32">Date:</span>
               <span className="text-gray-900 font-medium">
-                {plan.date ? new Date(plan.date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : "Not set"}
+                {plan.date
+                  ? new Date(plan.date).toLocaleDateString(undefined, {
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })
+                  : "Not set"}
               </span>
             </div>
             <div className="flex items-center gap-3">
@@ -227,15 +338,15 @@ export default function ViewLessonPlanPage() {
           {/* Main Content */}
           <div className="space-y-6">
             {/* Strand & Sub-strand */}
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="border border-gray-300 rounded-lg p-4">
+            <div className="compact-grid grid md:grid-cols-2 gap-6">
+              <div className="section-card border border-gray-300 rounded-lg p-4">
                 <h3 className="font-bold text-gray-700 mb-2 flex items-center gap-2">
                   <FiLayers className="text-indigo-600" />
                   Strand / Theme / Topic
                 </h3>
                 <p className="text-gray-900">{plan.strand_theme_topic}</p>
               </div>
-              <div className="border border-gray-300 rounded-lg p-4">
+              <div className="section-card border border-gray-300 rounded-lg p-4">
                 <h3 className="font-bold text-gray-700 mb-2 flex items-center gap-2">
                   <FiLayers className="text-purple-600" />
                   Sub-strand / Sub-theme
@@ -247,7 +358,7 @@ export default function ViewLessonPlanPage() {
             </div>
 
             {/* Learning Outcomes */}
-            <div className="border border-gray-300 rounded-lg p-4">
+            <div className="section-card border border-gray-300 rounded-lg p-4">
               <h3 className="font-bold text-gray-700 mb-2 flex items-center gap-2">
                 <FiTarget className="text-emerald-600" />
                 Specific Learning Outcomes
@@ -258,7 +369,7 @@ export default function ViewLessonPlanPage() {
             </div>
 
             {/* Key Inquiry Questions */}
-            <div className="border border-gray-300 rounded-lg p-4">
+            <div className="section-card border border-gray-300 rounded-lg p-4">
               <h3 className="font-bold text-gray-700 mb-2 flex items-center gap-2">
                 <FiHelpCircle className="text-amber-600" />
                 Key Inquiry Questions
@@ -269,8 +380,8 @@ export default function ViewLessonPlanPage() {
             </div>
 
             {/* Competencies & Values */}
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="border border-gray-300 rounded-lg p-4">
+            <div className="compact-grid grid md:grid-cols-3 gap-4">
+              <div className="section-card border border-gray-300 rounded-lg p-4">
                 <h3 className="font-bold text-gray-700 mb-2 text-sm flex items-center gap-2">
                   <FiStar className="text-blue-600" />
                   Core Competencies
@@ -279,7 +390,7 @@ export default function ViewLessonPlanPage() {
                   {plan.core_competences}
                 </p>
               </div>
-              <div className="border border-gray-300 rounded-lg p-4">
+              <div className="section-card border border-gray-300 rounded-lg p-4">
                 <h3 className="font-bold text-gray-700 mb-2 text-sm flex items-center gap-2">
                   <FiStar className="text-rose-600" />
                   Values
@@ -288,7 +399,7 @@ export default function ViewLessonPlanPage() {
                   {plan.values_to_be_developed}
                 </p>
               </div>
-              <div className="border border-gray-300 rounded-lg p-4">
+              <div className="section-card border border-gray-300 rounded-lg p-4">
                 <h3 className="font-bold text-gray-700 mb-2 text-sm flex items-center gap-2">
                   <FiLink className="text-cyan-600" />
                   PCIs
@@ -300,7 +411,7 @@ export default function ViewLessonPlanPage() {
             </div>
 
             {/* Learning Resources */}
-            <div className="border border-gray-300 rounded-lg p-4">
+            <div className="section-card border border-gray-300 rounded-lg p-4">
               <h3 className="font-bold text-gray-700 mb-2 flex items-center gap-2">
                 <FiBox className="text-orange-600" />
                 Learning Resources
@@ -311,12 +422,12 @@ export default function ViewLessonPlanPage() {
             </div>
 
             {/* Lesson Steps */}
-            <div className="border border-gray-300 rounded-lg overflow-hidden">
-              <div className="bg-gray-100 px-4 py-2 border-b border-gray-300 font-bold text-gray-800">
+            <div className="org-learning-container border border-gray-300 rounded-lg overflow-hidden">
+              <div className="org-learning-header bg-gray-100 px-4 py-2 border-b border-gray-300 font-bold text-gray-800">
                 Organization of Learning
               </div>
               <div className="divide-y divide-gray-300">
-                <div className="p-4">
+                <div className="org-learning-item p-4">
                   <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
                     <span>Introduction</span>
                     <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
@@ -327,7 +438,7 @@ export default function ViewLessonPlanPage() {
                     {plan.introduction}
                   </div>
                 </div>
-                <div className="p-4">
+                <div className="org-learning-item p-4">
                   <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
                     <span>Lesson Development</span>
                     <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
@@ -338,7 +449,7 @@ export default function ViewLessonPlanPage() {
                     {plan.development}
                   </div>
                 </div>
-                <div className="p-4">
+                <div className="org-learning-item p-4">
                   <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
                     <span>Conclusion</span>
                     <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
@@ -349,7 +460,7 @@ export default function ViewLessonPlanPage() {
                     {plan.conclusion}
                   </div>
                 </div>
-                <div className="p-4">
+                <div className="org-learning-item p-4">
                   <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase">
                     Summary
                   </h4>
@@ -361,7 +472,7 @@ export default function ViewLessonPlanPage() {
             </div>
 
             {/* Reflection */}
-            <div className="border border-gray-300 rounded-lg p-4 bg-yellow-50">
+            <div className="section-card border border-gray-300 rounded-lg p-4 bg-yellow-50">
               <h3 className="font-bold text-gray-700 mb-2 flex items-center gap-2">
                 <FiCheckCircle className="text-yellow-600" />
                 Reflection / Self-Evaluation

@@ -39,14 +39,18 @@ const nextConfig = {
   },
   turbopack: {},
   async rewrites() {
+    // Use environment variable or fallback to localhost
+    const backendUrl =
+      process.env.NEXT_PUBLIC_API_URL || "http://10.2.0.2:8000";
+
     return [
       {
         source: "/uploads/:path*",
-        destination: "http://localhost:8000/uploads/:path*",
+        destination: `${backendUrl}/uploads/:path*`,
       },
       {
         source: "/api/v1/:path*",
-        destination: "http://localhost:8000/api/v1/:path*",
+        destination: `${backendUrl}/api/v1/:path*`,
       },
     ];
   },

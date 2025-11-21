@@ -1,10 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FiArrowLeft, FiSave, FiFileText } from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
+
+interface TimeSlot {
+  id: number;
+  start_time: string;
+  end_time: string;
+  slot_type: string;
+  label: string;
+}
 
 interface LessonPlanData {
   subject_id: number;
@@ -31,6 +39,7 @@ interface LessonPlanData {
 export default function CreateLessonPlanPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
   const [lessonPlan, setLessonPlan] = useState<LessonPlanData>({
     subject_id: 0,
     learning_area: "",
@@ -53,6 +62,28 @@ export default function CreateLessonPlanPage() {
     summary: "",
     reflection_self_evaluation: "",
   });
+
+  useEffect(() => {
+    const fetchTimeSlots = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        // Fetch time slots for Junior Secondary (or make this dynamic based on grade)
+        // For now, we'll fetch the active schedule's slots
+        const response = await axios.get("/api/v1/timetable/time-slots", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        
+        // Filter for lesson slots only
+        const lessonSlots = response.data.filter((slot: TimeSlot) => slot.slot_type === "lesson");
+        setTimeSlots(lessonSlots);
+      } catch (error) {
+        console.error("Failed to fetch time slots:", error);
+        // Don't show error toast as this is an enhancement, not a blocker
+      }
+    };
+
+    fetchTimeSlots();
+  }, []);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -186,13 +217,30 @@ export default function CreateLessonPlanPage() {
                   <label className="block text-sm font-bold text-gray-700 mb-2">
                     TIME
                   </label>
-                  <input
-                    type="text"
-                    name="time"
-                    value={lessonPlan.time}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                  />
+                  {timeSlots.length > 0 ? (
+                    <select
+                      name="time"
+                      value={lessonPlan.time}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                    >
+                      <option value="">Select Time</option>
+                      {timeSlots.map((slot) => (
+                        <option key={slot.id} value={`${slot.start_time} - ${slot.end_time}`}>
+                          {slot.start_time} - {slot.end_time}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      type="text"
+                      name="time"
+                      value={lessonPlan.time}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                      placeholder="e.g. 08:00 - 08:40"
+                    />
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-2">

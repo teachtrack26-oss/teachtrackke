@@ -14,20 +14,20 @@ interface WeekLesson {
   specific_learning_outcomes: string;
   key_inquiry_questions: string;
   learning_experiences: string;
-  
+
   // Textbook references
   textbook_name?: string;
   textbook_teacher_guide_pages?: string;
   textbook_learner_book_pages?: string;
-  
+
   // Learning resources (multi-select)
   learning_resources: string;
   selected_resources?: string[];
-  
+
   // Assessment methods (multi-select)
   assessment_methods: string;
   selected_assessment_methods?: string[];
-  
+
   reflection: string;
 }
 
@@ -52,7 +52,7 @@ const LEARNING_RESOURCES_OPTIONS = [
   "Maps and globes",
   "Reference books/dictionaries",
   "Community resources/guest speakers",
-  "Field trip locations"
+  "Field trip locations",
 ];
 
 // Predefined assessment options
@@ -76,7 +76,7 @@ const ASSESSMENT_METHODS_OPTIONS = [
   "Creative work (art, essays, models)",
   "Performance tasks",
   "Rubrics",
-  "Checklists"
+  "Checklists",
 ];
 
 interface Week {
@@ -148,6 +148,50 @@ export default function EditSchemePage() {
     });
   };
 
+  const handleTextbookBlur = (
+    weekIndex: number,
+    lessonIndex: number,
+    value: string
+  ) => {
+    if (!scheme || value.trim() === "") return;
+
+    const updatedWeeks = [...scheme.weeks];
+    let startLessonIdx = lessonIndex + 1;
+    let updatedCount = 0;
+
+    for (let w = weekIndex; w < updatedWeeks.length; w++) {
+      const week = updatedWeeks[w];
+      // For subsequent weeks, start from the first lesson
+      if (w > weekIndex) startLessonIdx = 0;
+
+      for (let l = startLessonIdx; l < week.lessons.length; l++) {
+        const currentLesson = week.lessons[l];
+        // Only update if the textbook name is empty
+        if (
+          !currentLesson.textbook_name ||
+          currentLesson.textbook_name.trim() === ""
+        ) {
+          week.lessons[l].textbook_name = value;
+          updatedCount++;
+        }
+      }
+    }
+
+    if (updatedCount > 0) {
+      setScheme({
+        ...scheme,
+        weeks: updatedWeeks,
+      });
+      toast.success(
+        `Textbook name applied to ${updatedCount} subsequent empty lessons`,
+        {
+          id: "textbook-autofill",
+          duration: 2000,
+        }
+      );
+    }
+  };
+
   const addLesson = (weekIndex: number) => {
     if (!scheme) return;
 
@@ -189,52 +233,59 @@ export default function EditSchemePage() {
     });
   };
 
-  const toggleResource = (weekIndex: number, lessonIndex: number, resource: string) => {
+  const toggleResource = (
+    weekIndex: number,
+    lessonIndex: number,
+    resource: string
+  ) => {
     if (!scheme) return;
-    
+
     const lesson = scheme.weeks[weekIndex].lessons[lessonIndex];
     const currentResources = lesson.selected_resources || [];
-    
+
     let updatedResources: string[];
     if (currentResources.includes(resource)) {
-      updatedResources = currentResources.filter(r => r !== resource);
+      updatedResources = currentResources.filter((r) => r !== resource);
     } else {
       updatedResources = [...currentResources, resource];
     }
-    
+
     const updatedWeeks = [...scheme.weeks];
     updatedWeeks[weekIndex].lessons[lessonIndex] = {
       ...lesson,
       selected_resources: updatedResources,
-      learning_resources: updatedResources.join(", ")
+      learning_resources: updatedResources.join(", "),
     };
-    
+
     setScheme({ ...scheme, weeks: updatedWeeks });
   };
 
-  const toggleAssessment = (weekIndex: number, lessonIndex: number, method: string) => {
-    if (! scheme) return;
-    
+  const toggleAssessment = (
+    weekIndex: number,
+    lessonIndex: number,
+    method: string
+  ) => {
+    if (!scheme) return;
+
     const lesson = scheme.weeks[weekIndex].lessons[lessonIndex];
     const currentMethods = lesson.selected_assessment_methods || [];
-    
+
     let updatedMethods: string[];
     if (currentMethods.includes(method)) {
-      updatedMethods = currentMethods.filter(m => m !== method);
+      updatedMethods = currentMethods.filter((m) => m !== method);
     } else {
       updatedMethods = [...currentMethods, method];
     }
-    
+
     const updatedWeeks = [...scheme.weeks];
     updatedWeeks[weekIndex].lessons[lessonIndex] = {
       ...lesson,
       selected_assessment_methods: updatedMethods,
-      assessment_methods: updatedMethods.join(", ")
+      assessment_methods: updatedMethods.join(", "),
     };
-    
+
     setScheme({ ...scheme, weeks: updatedWeeks });
   };
-
 
   const handleSave = async () => {
     if (!scheme) return;
@@ -451,8 +502,10 @@ export default function EditSchemePage() {
 
                       {/* Textbook References */}
                       <div className="md:col-span-2 bg-blue-50 rounded-lg p-4 border border-blue-200">
-                        <h4 className="font-semibold text-blue-900 mb-3">📚 Textbook References</h4>
-                        
+                        <h4 className="font-semibold text-blue-900 mb-3">
+                          📚 Textbook References
+                        </h4>
+
                         <div className="grid md:grid-cols-3 gap-3">
                           <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -469,11 +522,18 @@ export default function EditSchemePage() {
                                   e.target.value
                                 )
                               }
+                              onBlur={(e) =>
+                                handleTextbookBlur(
+                                  weekIndex,
+                                  lessonIndex,
+                                  e.target.value
+                                )
+                              }
                               placeholder="e.g., CBC Pre-Technical Studies Grade 9"
                               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
                             />
                           </div>
-                          
+
                           <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                               Teacher's Guide Pages
@@ -493,7 +553,7 @@ export default function EditSchemePage() {
                               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
                             />
                           </div>
-                          
+
                           <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                               Learner's Book Pages
@@ -523,21 +583,33 @@ export default function EditSchemePage() {
                         </label>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-4 bg-gray-50 rounded-lg border border-gray-200 max-h-64 overflow-y-auto">
                           {LEARNING_RESOURCES_OPTIONS.map((resource) => {
-                            const isSelected = (lesson.selected_resources || []).includes(resource);
+                            const isSelected = (
+                              lesson.selected_resources || []
+                            ).includes(resource);
                             return (
                               <label
                                 key={resource}
                                 className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 transition-colors ${
-                                  isSelected ? "bg-indigo-50 border border-indigo-300" : ""
+                                  isSelected
+                                    ? "bg-indigo-50 border border-indigo-300"
+                                    : ""
                                 }`}
                               >
                                 <input
                                   type="checkbox"
                                   checked={isSelected}
-                                  onChange={() => toggleResource(weekIndex, lessonIndex, resource)}
+                                  onChange={() =>
+                                    toggleResource(
+                                      weekIndex,
+                                      lessonIndex,
+                                      resource
+                                    )
+                                  }
                                   className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500"
                                 />
-                                <span className="text-sm text-gray-700">{resource}</span>
+                                <span className="text-sm text-gray-700">
+                                  {resource}
+                                </span>
                               </label>
                             );
                           })}
@@ -554,21 +626,33 @@ export default function EditSchemePage() {
                         </label>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-4 bg-gray-50 rounded-lg border border-gray-200 max-h-64 overflow-y-auto">
                           {ASSESSMENT_METHODS_OPTIONS.map((method) => {
-                            const isSelected = (lesson.selected_assessment_methods || []).includes(method);
+                            const isSelected = (
+                              lesson.selected_assessment_methods || []
+                            ).includes(method);
                             return (
                               <label
                                 key={method}
                                 className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 transition-colors ${
-                                  isSelected ? "bg-indigo-50 border border-indigo-300" : ""
+                                  isSelected
+                                    ? "bg-indigo-50 border border-indigo-300"
+                                    : ""
                                 }`}
                               >
                                 <input
                                   type="checkbox"
                                   checked={isSelected}
-                                  onChange={() => toggleAssessment(weekIndex, lessonIndex, method)}
+                                  onChange={() =>
+                                    toggleAssessment(
+                                      weekIndex,
+                                      lessonIndex,
+                                      method
+                                    )
+                                  }
                                   className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500"
                                 />
-                                <span className="text-sm text-gray-700">{method}</span>
+                                <span className="text-sm text-gray-700">
+                                  {method}
+                                </span>
                               </label>
                             );
                           })}

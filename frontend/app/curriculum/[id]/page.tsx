@@ -11,18 +11,13 @@ import {
 } from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
+import {
+  parseLessons,
+  getLessonsForSubstrand,
+  Lesson,
+} from "../../../lib/curriculum";
 
-interface Lesson {
-  id: number;
-  lesson_number: number;
-  lesson_title: string;
-  is_completed: boolean;
-  completed_at: string | null;
-  substrand_name: string;
-  substrand_code: string;
-  strand_name: string;
-  strand_code: string;
-}
+// Lesson type now imported from lib/curriculum with runtime validation
 
 interface SubStrand {
   id: number;
@@ -135,7 +130,14 @@ export default function CurriculumDetailPage() {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      setLessons(response.data.lessons || []);
+      const fetchedLessons = parseLessons(response.data);
+      console.log("=== LESSONS FETCHED (validated) ===");
+      console.log("Total lessons:", fetchedLessons.length);
+      if (fetchedLessons.length > 0) {
+        console.log("First lesson (validated):", fetchedLessons[0]);
+        console.log("Using substrand_id for linking lessons to sub-strands");
+      }
+      setLessons(fetchedLessons);
     } catch (error) {
       console.error("Failed to fetch lessons:", error);
     }
@@ -185,14 +187,8 @@ export default function CurriculumDetailPage() {
     }
   };
 
-  const getLessonsForSubstrand = (substrandId: number) => {
-    return lessons.filter(
-      (lesson) =>
-        lesson.substrand_code ===
-        subject?.strands
-          .flatMap((s) => s.sub_strands)
-          .find((ss) => ss.id === substrandId)?.substrand_code
-    );
+  const getLessonsForSubstrandLocal = (substrandId: number) => {
+    return getLessonsForSubstrand(lessons, substrandId);
   };
 
   const toggleStrand = (strandId: number) => {
@@ -503,11 +499,9 @@ export default function CurriculumDetailPage() {
 
                                 {/* Lessons Checklist */}
                                 {(() => {
-                                  const substrandLessons = lessons.filter(
-                                    (lesson) =>
-                                      lesson.substrand_code ===
-                                      subStrand.substrand_code
-                                  );
+                                  // Filter lessons using substrand_id (more reliable than code)
+                                  const substrandLessons =
+                                    getLessonsForSubstrandLocal(subStrand.id);
 
                                   if (substrandLessons.length === 0)
                                     return null;

@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session, joinedload
 from typing import List, Optional
-from datetime import datetime
+from datetime import datetime, timedelta
 import uvicorn
 import json
 import os
@@ -401,16 +401,94 @@ def create_subject(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
+    # Create the basic subject
     new_subject = Subject(
         user_id=current_user.id,
         subject_name=subject_data.subject_name,
         grade=subject_data.grade,
-        curriculum_pdf_url=subject_data.curriculum_pdf_url
+        curriculum_pdf_url=subject_data.curriculum_pdf_url,
+        total_lessons=0,
+        lessons_completed=0,
+        progress_percentage=0.0
     )
     
     db.add(new_subject)
     db.commit()
     db.refresh(new_subject)
+    
+    # Check for matching curriculum template
+    template = db.query(CurriculumTemplate).filter(
+        CurriculumTemplate.subject == subject_data.subject_name,
+        CurriculumTemplate.grade == subject_data.grade,
+        CurriculumTemplate.is_active == True
+    ).first()
+    
+    if template:
+        # Link template to subject
+        new_subject.template_id = template.id
+        
+        # Copy strands and sub-strands
+        template_strands = db.query(TemplateStrand).filter(
+            TemplateStrand.curriculum_template_id == template.id
+        ).order_by(TemplateStrand.sequence_order).all()
+        
+        total_lessons_count = 0
+        
+        for t_strand in template_strands:
+            # Create user strand
+            new_strand = Strand(
+                subject_id=new_subject.id,
+                strand_code=t_strand.strand_number,
+                strand_name=t_strand.strand_name,
+                sequence_order=t_strand.sequence_order,
+                description=""
+            )
+            db.add(new_strand)
+            db.flush()  # Get ID
+            
+            # Get template sub-strands
+            template_substrands = db.query(TemplateSubstrand).filter(
+                TemplateSubstrand.strand_id == t_strand.id
+            ).order_by(TemplateSubstrand.sequence_order).all()
+            
+            for t_substrand in template_substrands:
+                # Create user sub-strand
+                new_substrand = SubStrand(
+                    strand_id=new_strand.id,
+                    substrand_code=t_substrand.substrand_number,
+                    substrand_name=t_substrand.substrand_name,
+                    sequence_order=t_substrand.sequence_order,
+                    lessons_count=t_substrand.number_of_lessons,
+                    # Copy curriculum details
+                    specific_learning_outcomes=t_substrand.specific_learning_outcomes,
+                    suggested_learning_experiences=t_substrand.suggested_learning_experiences,
+                    key_inquiry_questions=t_substrand.key_inquiry_questions,
+                    core_competencies=t_substrand.core_competencies,
+                    values=t_substrand.values,
+                    pcis=t_substrand.pcis,
+                    links_to_other_subjects=t_substrand.links_to_other_subjects
+                )
+                db.add(new_substrand)
+                db.flush()  # Get ID
+                
+                # Create placeholder lessons
+                num_lessons = t_substrand.number_of_lessons
+                total_lessons_count += num_lessons
+                
+                for i in range(1, num_lessons + 1):
+                    new_lesson = Lesson(
+                        substrand_id=new_substrand.id,
+                        lesson_number=i,
+                        lesson_title=f"Lesson {i}",
+                        sequence_order=i,
+                        is_completed=False
+                    )
+                    db.add(new_lesson)
+        
+        # Update total lessons count
+        new_subject.total_lessons = total_lessons_count
+        db.commit()
+        db.refresh(new_subject)
     
     return new_subject
 
@@ -1097,7 +1175,7 @@ async def use_curriculum_template(
                         )
                         db.add(lesson)
                 else:
-                    # Fallback: create generic lessons if no SLOs
+                    # Fallback: create generic lessons
                     for lesson_num in range(t_substrand.number_of_lessons):
                         lesson = Lesson(
                             substrand_id=new_substrand.id,
@@ -1769,20 +1847,9 @@ def get_subject_lessons(
     if not subject:
         raise HTTPException(status_code=404, detail="Subject not found")
     
-    # Get all lessons with strand/substrand info
-    lessons = db.query(
-        Lesson.id,
-        Lesson.lesson_number,
-        Lesson.lesson_title,
-        Lesson.is_completed,
-        Lesson.completed_at,
-        SubStrand.substrand_name,
-        SubStrand.substrand_code,
-        Strand.strand_name,
-        Strand.strand_code
-    ).select_from(Lesson
-    ).join(SubStrand, Lesson.substrand_id == SubStrand.id
-    ).join(Strand, SubStrand.strand_id == Strand.id
+    # Get all lessons with strand/substrand info - use eager loading to ensure relationships are loaded
+    lessons = db.query(Lesson).join(SubStrand).join(Strand).options(
+        joinedload(Lesson.substrand).joinedload(SubStrand.strand)
     ).filter(
         Strand.subject_id == subject_id
     ).order_by(Strand.sequence_order, SubStrand.sequence_order, Lesson.sequence_order).all()
@@ -1795,17 +1862,18 @@ def get_subject_lessons(
         "progress_percentage": subject.progress_percentage,
         "lessons": [
             {
-                "id": l[0],
-                "lesson_number": l[1],
-                "lesson_title": l[2],
-                "is_completed": l[3],
-                "completed_at": l[4].isoformat() if l[4] else None,
-                "substrand_name": l[5],
-                "substrand_code": l[6],
-                "strand_name": l[7],
-                "strand_code": l[8]
+                "id": lesson.id,
+                "lesson_number": lesson.lesson_number,
+                "lesson_title": lesson.lesson_title,
+                "is_completed": lesson.is_completed,
+                "completed_at": lesson.completed_at.isoformat() if lesson.completed_at else None,
+                "substrand_id": lesson.substrand_id,
+                "substrand_name": lesson.substrand.substrand_name,
+                "substrand_code": lesson.substrand.substrand_code,
+                "strand_name": lesson.substrand.strand.strand_name,
+                "strand_code": lesson.substrand.strand.strand_code
             }
-            for l in lessons
+            for lesson in lessons
         ]
     }
 
@@ -2083,7 +2151,7 @@ def update_subject_scheduling(
         subject.single_lesson_duration = scheduling_data["single_lesson_duration"]
     if "double_lesson_duration" in scheduling_data:
         subject.double_lesson_duration = scheduling_data["double_lesson_duration"]
-    if "double_lessons_per_week" in scheduling_data:
+   
         subject.double_lessons_per_week = scheduling_data["double_lessons_per_week"]
     
     db.commit()
@@ -4257,6 +4325,9 @@ class SchemeLessonUpdate(BaseModel):
     key_inquiry_questions: Optional[str] = None
     learning_experiences: Optional[str] = None
     learning_resources: Optional[str] = None
+    textbook_name: Optional[str] = None
+    textbook_teacher_guide_pages: Optional[str] = None
+    textbook_learner_book_pages: Optional[str] = None
     assessment_methods: Optional[str] = None
     reflection: Optional[str] = None
 
@@ -4335,6 +4406,9 @@ async def create_scheme(
                 key_inquiry_questions=lesson_payload.key_inquiry_questions,
                 learning_experiences=lesson_payload.learning_experiences,
                 learning_resources=lesson_payload.learning_resources,
+                textbook_name=lesson_payload.textbook_name,
+                textbook_teacher_guide_pages=lesson_payload.textbook_teacher_guide_pages,
+                textbook_learner_book_pages=lesson_payload.textbook_learner_book_pages,
                 assessment_methods=lesson_payload.assessment_methods,
                 reflection=lesson_payload.reflection or ""
             )
@@ -4408,6 +4482,9 @@ async def update_scheme_lesson(
         key_inquiry_questions=lesson.key_inquiry_questions,
         learning_experiences=lesson.learning_experiences,
         learning_resources=lesson.learning_resources,
+        textbook_name=lesson.textbook_name,
+        textbook_teacher_guide_pages=lesson.textbook_teacher_guide_pages,
+        textbook_learner_book_pages=lesson.textbook_learner_book_pages,
         assessment_methods=lesson.assessment_methods,
         reflection=lesson.reflection
     )
@@ -4474,16 +4551,67 @@ async def scheme_pdf(
     def format_learning_experiences(text):
         if not text:
             return ""
-        # Split by common delimiters and add bullets
-        sentences = [s.strip() for s in text.replace('.', '.|').split('|') if s.strip()]
-        if len(sentences) > 1:
-            # Capitalize first letter of each sentence
-            formatted = []
-            for s in sentences:
-                capitalized = s[0].upper() + s[1:] if s else s
-                formatted.append(f"• {capitalized}")
-            return "<br/>" + "<br/>".join(formatted)
-        return text
+        
+        # Split by newline if present, otherwise split by period
+        if '\n' in text:
+            parts = text.split('\n')
+        else:
+            # Simple split by period, filtering empty strings
+            parts = [p.strip() for p in text.split('.') if p.strip()]
+            
+        formatted = []
+        for p in parts:
+            p = p.strip()
+            if p:
+                # Remove existing bullets
+                p = p.lstrip('•-* ')
+                if p:
+                    capitalized = p[0].upper() + p[1:]
+                    formatted.append(f"• {capitalized}")
+                    
+        return "<br/>".join(formatted)
+
+    # Helper function to format resources
+    def format_resources(text, lesson):
+        formatted_parts = []
+        
+        # Format basic resources
+        if text:
+            resources_list = [r.strip() for r in text.split(',') if r.strip()]
+            for r in resources_list:
+                capitalized = r[0].upper() + r[1:]
+                formatted_parts.append(f"• {capitalized}")
+        
+        # Add textbook info
+        if lesson.textbook_name:
+            # Add spacing if there are other resources
+            if formatted_parts:
+                formatted_parts.append("<br/>")
+                
+            formatted_parts.append("<b>Textbook:</b>")
+            formatted_parts.append(f"{lesson.textbook_name}")
+            
+            if lesson.textbook_teacher_guide_pages:
+                formatted_parts.append(f"TG: {lesson.textbook_teacher_guide_pages}")
+            
+            if lesson.textbook_learner_book_pages:
+                formatted_parts.append(f"LB: {lesson.textbook_learner_book_pages}")
+                
+        return "<br/>".join(formatted_parts)
+
+    # Helper function to format assessment methods
+    def format_assessment_methods(text):
+        if not text:
+            return ""
+        
+        formatted_parts = []
+        methods_list = [m.strip() for m in text.split(',') if m.strip()]
+        
+        for m in methods_list:
+            capitalized = m[0].upper() + m[1:]
+            formatted_parts.append(f"• {capitalized}")
+            
+        return "<br/>".join(formatted_parts)
     
     # Main table - use Paragraphs for text wrapping with optimized spacing
     cell_style = ParagraphStyle('CellStyle', parent=styles['Normal'], fontSize=9, leading=10, spaceBefore=0, spaceAfter=0)
@@ -4502,12 +4630,33 @@ async def scheme_pdf(
         Paragraph('Reflection', header_style)
     ]]
     
+    # Track row spans for merging week cells
+    row_spans = []
+    current_row_index = 1 # Start after header row
+    
     for week in sorted(scheme.weeks, key=lambda w: w.week_number):
-        for lesson in sorted(week.lessons, key=lambda l: l.lesson_number):
+        week_lessons = sorted(week.lessons, key=lambda l: l.lesson_number)
+        num_lessons = len(week_lessons)
+        
+        if num_lessons > 0:
+            # Record span for this week: (col_idx, start_row, end_row)
+            # col_idx is 0 (Week column)
+            # end_row is inclusive in ReportLab logic for some commands, but for SPAN it's (col, row) to (col, row)
+            # So we span from (0, current) to (0, current + num - 1)
+            if num_lessons > 1:
+                row_spans.append(('SPAN', (0, current_row_index), (0, current_row_index + num_lessons - 1)))
+        
+        for lesson in week_lessons:
             outcomes = lesson.specific_learning_outcomes or ""
             if outcomes and not outcomes.startswith("By the end of the sub-strand"):
                 outcomes = f"By the end of the sub-strand, the learner should be able to: {outcomes}"
             
+            # Format resources to include textbooks
+            resources = format_resources(lesson.learning_resources, lesson)
+            
+            # Format assessment methods
+            assessments = format_assessment_methods(lesson.assessment_methods)
+
             table_data.append([
                 Paragraph(str(week.week_number), cell_style),
                 Paragraph(str(lesson.lesson_number), cell_style),
@@ -4516,15 +4665,17 @@ async def scheme_pdf(
                 Paragraph(outcomes, cell_style),
                 Paragraph(lesson.key_inquiry_questions or "", cell_style),
                 Paragraph(format_learning_experiences(lesson.learning_experiences or ""), cell_style),
-                Paragraph(lesson.learning_resources or "", cell_style),
-                Paragraph(lesson.assessment_methods or "", cell_style),
+                Paragraph(resources, cell_style),
+                Paragraph(assessments, cell_style),
                 Paragraph(lesson.reflection or "", cell_style)
             ])
+            current_row_index += 1
     
     # Optimized column widths to reduce space wastage
     # Week, Lesson, Strand, Sub-strand, Outcomes, Questions, Experiences, Resources, Assessment, Reflection
     main_table = Table(table_data, colWidths=[0.6*cm, 0.6*cm, 2.2*cm, 2.5*cm, 4.0*cm, 3.0*cm, 4.8*cm, 2.8*cm, 2.3*cm, 1.0*cm], repeatRows=1, splitByRow=1)
-    main_table.setStyle(TableStyle([
+    
+    table_style_commands = [
         ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#4F46E5')),
         ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#666')),
         ('VALIGN', (0, 0), (-1, -1), 'TOP'),
@@ -4535,7 +4686,14 @@ async def scheme_pdf(
         ('BOTTOMPADDING', (0, 0), (-1, -1), 1),
         ('ALIGN', (0, 1), (1, -1), 'CENTER'),
         ('FONTSIZE', (0, 0), (-1, -1), 9),
-    ]))
+        # Center align the Week column vertically when spanned
+        ('VALIGN', (0, 1), (0, -1), 'MIDDLE'),
+    ]
+    
+    # Add row spans
+    table_style_commands.extend(row_spans)
+    
+    main_table.setStyle(TableStyle(table_style_commands))
     main_table.hAlign = 'LEFT'
     elements.append(main_table)
     
@@ -4575,7 +4733,9 @@ async def get_lesson_plans(
     db: Session = Depends(get_db)
 ):
     """Get all lesson plans for the current user"""
-    lesson_plans = db.query(LessonPlan).filter(LessonPlan.user_id == current_user.id).all()
+    lesson_plans = db.query(LessonPlan).options(
+        joinedload(LessonPlan.scheme_lesson).joinedload(SchemeLesson.week)
+    ).filter(LessonPlan.user_id == current_user.id).all()
     return lesson_plans
 
 @app.get(f"{settings.API_V1_PREFIX}/lesson-plans/{{lesson_plan_id}}", response_model=LessonPlanResponse)
@@ -4647,6 +4807,22 @@ async def delete_lesson_plan(
     db.commit()
     return {"message": "Lesson plan deleted successfully"}
 
+@app.post(f"{settings.API_V1_PREFIX}/lesson-plans/bulk-delete")
+async def bulk_delete_lesson_plans(
+    ids: List[int],
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Bulk delete lesson plans"""
+    # Verify ownership and delete
+    result = db.query(LessonPlan).filter(
+        LessonPlan.id.in_(ids),
+        LessonPlan.user_id == current_user.id
+    ).delete(synchronize_session=False)
+    
+    db.commit()
+    return {"message": f"Successfully deleted {result} lesson plans"}
+
 @app.post(f"{settings.API_V1_PREFIX}/schemes/{{scheme_id}}/generate-lesson-plans")
 async def generate_lesson_plans_from_scheme(
     scheme_id: int,
@@ -4656,7 +4832,8 @@ async def generate_lesson_plans_from_scheme(
     """Generate individual lesson plans from a scheme of work"""
     # Get the scheme with all its weeks and lessons
     scheme = db.query(SchemeOfWork).options(
-        joinedload(SchemeOfWork.weeks).joinedload(SchemeWeek.lessons)
+        joinedload(SchemeOfWork.weeks).joinedload(SchemeWeek.lessons),
+        joinedload(SchemeOfWork.subject_rel)
     ).filter(
         SchemeOfWork.id == scheme_id,
         SchemeOfWork.user_id == current_user.id
@@ -4680,6 +4857,60 @@ async def generate_lesson_plans_from_scheme(
     lesson_counter = 1
     
     # Generate lesson plans for each lesson in each week
+    # Fetch school settings for roll/stream info
+    school_settings = db.query(SchoolSettings).first()
+
+    # Fetch Term Start Date
+    term_start_date = None
+    try:
+        # Assuming scheme.term is like "Term 1", "Term 2"
+        term_number = int(scheme.term.split(" ")[-1])
+        school_term = db.query(SchoolTerm).filter(
+            SchoolTerm.year == scheme.year,
+            SchoolTerm.term_number == term_number
+        ).first()
+        if school_term:
+            term_start_date = school_term.start_date
+    except Exception as e:
+        print(f"Error fetching term dates: {e}")
+
+    # Fetch Timetable Slots for this Subject
+    timetable_slots = []
+    try:
+        # Find timetable entries for this subject and grade
+        # We need to match the subject name and grade
+        # This is a bit tricky as subject names might vary slightly, but let's try exact match first
+        # Also need to handle the day of week mapping
+        
+        # Get all entries for this subject/grade
+        entries = db.query(TimetableEntry).filter(
+            TimetableEntry.subject == scheme.subject,
+            TimetableEntry.grade == scheme.grade
+        ).all()
+        
+        # Sort them by day and start time to create a sequence
+        # Day: Monday=1, Tuesday=2...
+        # We want a list of slots: [Slot1(Mon), Slot2(Mon), Slot3(Tue)...]
+        
+        # Helper to convert day name to number
+        day_map = {"Monday": 1, "Tuesday": 2, "Wednesday": 3, "Thursday": 4, "Friday": 5}
+        
+        processed_entries = []
+        for entry in entries:
+            day_num = day_map.get(entry.day_of_week, 6)
+            processed_entries.append({
+                "day": day_num,
+                "start": entry.start_time,
+                "end": entry.end_time,
+                "section": entry.section # e.g. "Grade 9 Blue"
+            })
+            
+        # Sort by day then start time
+        timetable_slots = sorted(processed_entries, key=lambda x: (x['day'], x['start']))
+        
+    except Exception as e:
+        print(f"Error fetching timetable: {e}")
+    
     for week in scheme.weeks:
         for lesson in week.lessons:
             # Try to find matching SubStrand to get curriculum details
@@ -4689,30 +4920,145 @@ async def generate_lesson_plans_from_scheme(
                 SubStrand.substrand_name == lesson.sub_strand
             ).first()
             
+            # Fallback: If not found in user's subject, try the template
+            if not substrand_details and scheme.subject_rel.template_id:
+                substrand_details = db.query(TemplateSubstrand).join(TemplateStrand).filter(
+                    TemplateStrand.curriculum_template_id == scheme.subject_rel.template_id,
+                    TemplateSubstrand.substrand_name == lesson.sub_strand
+                ).first()
+            
             core_competencies_text = ""
             values_text = ""
             pcis_text = ""
             
+            # Helper to clean curriculum items (remove explanations)
+            def clean_list_items(items):
+                if not items:
+                    return ""
+                
+                # Normalize to list of strings
+                if isinstance(items, list):
+                    raw_list = items
+                else:
+                    # If it's a string, try to split by comma if it looks like a list
+                    # This handles "Unity; expl, Love; expl"
+                    text = str(items)
+                    if "," in text:
+                        raw_list = text.split(',')
+                    else:
+                        raw_list = [text]
+                
+                cleaned = []
+                for item in raw_list:
+                    item_str = str(item).strip()
+                    if not item_str:
+                        continue
+                        
+                    # Heuristics to extract the key term
+                    # We look for separators like ; : or - 
+                    # And we take the first part if the separator exists
+                    
+                    # 1. Semicolon (Unity; explanation) - High priority based on user feedback
+                    if ";" in item_str:
+                        item_str = item_str.split(";")[0]
+                        
+                    # 2. Colon (Communication: Ability to...)
+                    elif ":" in item_str:
+                        item_str = item_str.split(":")[0]
+                        
+                    # 3. Dash (Unity - Working together)
+                    elif " - " in item_str:
+                        item_str = item_str.split(" - ")[0]
+                    
+                    cleaned.append(item_str.strip())
+                
+                # Remove duplicates and join
+                # Use dict.fromkeys to preserve order while removing duplicates
+                return ", ".join(list(dict.fromkeys(cleaned)))
+
             if substrand_details:
                 # Extract and format JSON fields
-                if substrand_details.core_competencies:
-                    if isinstance(substrand_details.core_competencies, list):
-                        core_competencies_text = ", ".join(substrand_details.core_competencies)
-                    else:
-                        core_competencies_text = str(substrand_details.core_competencies)
-                        
-                if substrand_details.values:
-                    if isinstance(substrand_details.values, list):
-                        values_text = ", ".join(substrand_details.values)
-                    else:
-                        values_text = str(substrand_details.values)
-                        
-                if substrand_details.pcis:
-                    if isinstance(substrand_details.pcis, list):
-                        pcis_text = ", ".join(substrand_details.pcis)
-                    else:
-                        pcis_text = str(substrand_details.pcis)
+                core_competencies_text = clean_list_items(substrand_details.core_competencies)
+                values_text = clean_list_items(substrand_details.values)
+                pcis_text = clean_list_items(substrand_details.pcis)
 
+            # Determine Roll and Stream info if possible
+            roll_text = ""
+            grade_text = scheme.grade
+            date_text = None
+            time_text = ""
+            
+            # 1. Try to populate from Timetable (Smart Scheduling)
+            if term_start_date and timetable_slots:
+                # Calculate target slot index: (lesson_number - 1) % num_slots
+                # But wait, lesson_number is per week (1, 2, 3...)
+                # So we just take the (lesson.lesson_number - 1)-th slot of the week
+                slot_idx = lesson.lesson_number - 1
+                
+                if slot_idx < len(timetable_slots):
+                    slot = timetable_slots[slot_idx]
+                    
+                    # Calculate Date
+                    # Start Date is usually Monday of Week 1 (or close to it)
+                    # Let's find the Monday of the week containing term_start_date
+                    start_monday = term_start_date - timedelta(days=term_start_date.weekday())
+                    
+                    # Target Monday = Start Monday + (WeekNum - 1) weeks
+                    target_monday = start_monday + timedelta(weeks=week.week_number - 1)
+                    
+                    # Target Date = Target Monday + (DayOfWeek - 1) days
+                    # slot['day'] is 1=Mon, 2=Tue...
+                    target_date = target_monday + timedelta(days=slot['day'] - 1)
+                    
+                    date_text = target_date.strftime("%Y-%m-%d")
+                    time_text = f"{slot['start']} - {slot['end']}"
+                    
+                    # Use section from timetable if available
+                    if slot['section']:
+                        grade_text = slot['section']
+            
+            # 2. Fallback: Try to populate Roll from School Settings if not already set via Timetable logic
+            # (We do this even if timetable logic ran, to get the roll count for that section)
+            if school_settings and school_settings.streams_per_grade:
+                # Try to find stream info for this grade (or specific section if we found one)
+                target_grade_key = grade_text # e.g. "Grade 9 Blue" or "Grade 9"
+                
+                # Helper to find streams for a grade key
+                def find_streams(key_to_search):
+                    # Direct match
+                    if key_to_search in school_settings.streams_per_grade:
+                        return school_settings.streams_per_grade[key_to_search]
+                    # Partial match (e.g. "Grade 9" matches "Grade 9")
+                    for k, v in school_settings.streams_per_grade.items():
+                        if key_to_search.startswith(k) or k.startswith(key_to_search):
+                            return v
+                    return None
+
+                streams = find_streams(target_grade_key)
+                
+                if streams and isinstance(streams, list):
+                    # If we have a specific section (e.g. "Grade 9 Blue"), try to match it
+                    found_stream = None
+                    if " " in target_grade_key: # heuristic for "Grade 9 Blue"
+                        stream_name_part = target_grade_key.split(" ")[-1] # "Blue"
+                        for s in streams:
+                            if s.get('name') == stream_name_part:
+                                found_stream = s
+                                break
+                    
+                    # If we found a specific stream, use it
+                    if found_stream:
+                        pupils = found_stream.get('pupils', 0)
+                        if pupils > 0:
+                            roll_text = f" / {pupils}"
+                    
+                    # If we didn't find a specific stream, but there's only 1 stream total, use it
+                    elif len(streams) == 1:
+                        stream = streams[0]
+                        pupils = stream.get('pupils', 0)
+                        if pupils > 0:
+                            roll_text = f" / {pupils}"
+            
             # Create lesson plan from scheme lesson
             lesson_plan = LessonPlan(
                 user_id=current_user.id,
@@ -4721,10 +5067,10 @@ async def generate_lesson_plans_from_scheme(
                 
                 # Header Information
                 learning_area=scheme.subject,
-                grade=scheme.grade,
-                date=None,  # To be filled by teacher
-                time="",  # To be filled by teacher
-                roll="",  # To be filled by teacher
+                grade=grade_text,
+                date=date_text,  # Auto-populated from timetable
+                time=time_text,  # Auto-populated from timetable
+                roll=roll_text,  # Auto-populated from settings
                 
                 # Lesson Details from scheme
                 strand_theme_topic=lesson.strand,

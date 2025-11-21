@@ -47,16 +47,15 @@ interface SchemeOfWork {
 
 interface LessonPlan {
   id: number;
-  subject_id: number;
-  subject_name: string;
+  learning_area: string;
   grade: string;
-  lesson_number: number;
-  lesson_title: string;
-  strand_name: string;
-  substrand_name: string;
-  date_planned: string;
+  strand_theme_topic: string;
+  sub_strand_sub_theme_sub_topic: string;
+  date: string;
   status: "pending" | "taught" | "postponed";
   created_at: string;
+  lesson_number?: number;
+  week_number?: number;
 }
 
 interface RecordOfWork {
@@ -84,6 +83,7 @@ export default function ProfessionalRecordsPage() {
   const [schemes, setSchemes] = useState<SchemeOfWork[]>([]);
   const [lessonPlans, setLessonPlans] = useState<LessonPlan[]>([]);
   const [recordsOfWork, setRecordsOfWork] = useState<RecordOfWork[]>([]);
+  const [selectedPlans, setSelectedPlans] = useState<number[]>([]);
 
   // Statistics
   const [stats, setStats] = useState({
@@ -155,6 +155,56 @@ export default function ProfessionalRecordsPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const toggleSelection = (id: number) => {
+    setSelectedPlans((prev) =>
+      prev.includes(id) ? prev.filter((pId) => pId !== id) : [...prev, id]
+    );
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedPlans.length === lessonPlans.length) {
+      setSelectedPlans([]);
+    } else {
+      setSelectedPlans(lessonPlans.map((lp) => lp.id));
+    }
+  };
+
+  const handleBulkDelete = async () => {
+    if (
+      !confirm(
+        `Are you sure you want to delete ${selectedPlans.length} lesson plans?`
+      )
+    ) {
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("accessToken");
+      await axios.post("/api/v1/lesson-plans/bulk-delete", selectedPlans, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      toast.success("Lesson plans deleted successfully");
+      setSelectedPlans([]);
+      fetchData(); // Refresh data
+    } catch (error) {
+      console.error("Failed to delete lesson plans:", error);
+      toast.error("Failed to delete lesson plans");
+    }
+  };
+
+  const handleBulkPrint = () => {
+    if (selectedPlans.length === 0) {
+      toast.error("Please select at least one lesson plan to print");
+      return;
+    }
+    const ids = selectedPlans.join(",");
+    // Open in new tab
+    window.open(
+      `/professional-records/lesson-plans/print?ids=${ids}`,
+      "_blank"
+    );
   };
 
   const getSubjectTheme = (subjectName: string) => {
@@ -443,14 +493,55 @@ export default function ProfessionalRecordsPage() {
         {activeTab === "lessons" && (
           <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">Lesson Plans</h2>
-              <Link
-                href="/professional-records/create-lesson-plan"
-                className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300"
-              >
-                <FiPlus className="w-5 h-5" />
-                Create Lesson Plan
-              </Link>
+              <div className="flex items-center gap-4">
+                <h2 className="text-2xl font-bold text-gray-900">
+                  Lesson Plans
+                </h2>
+                {lessonPlans.length > 0 && (
+                  <div className="flex items-center gap-2 bg-white/50 px-3 py-1 rounded-lg">
+                    <input
+                      type="checkbox"
+                      checked={
+                        selectedPlans.length === lessonPlans.length &&
+                        lessonPlans.length > 0
+                      }
+                      onChange={toggleSelectAll}
+                      className="w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
+                    />
+                    <span className="text-sm font-medium text-gray-700">
+                      Select All
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex gap-2">
+                {selectedPlans.length > 0 && (
+                  <>
+                    <button
+                      onClick={handleBulkPrint}
+                      className="bg-blue-600 text-white px-4 py-3 rounded-xl font-bold shadow-lg hover:bg-blue-700 flex items-center gap-2 transition-all duration-300"
+                    >
+                      <FiDownload className="w-5 h-5" />
+                      Print ({selectedPlans.length})
+                    </button>
+                    <button
+                      onClick={handleBulkDelete}
+                      className="bg-red-600 text-white px-4 py-3 rounded-xl font-bold shadow-lg hover:bg-red-700 flex items-center gap-2 transition-all duration-300"
+                    >
+                      <FiTrash2 className="w-5 h-5" />
+                      Delete ({selectedPlans.length})
+                    </button>
+                  </>
+                )}
+                <Link
+                  href="/professional-records/create-lesson-plan"
+                  className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300"
+                >
+                  <FiPlus className="w-5 h-5" />
+                  Create Lesson Plan
+                </Link>
+              </div>
             </div>
 
             {lessonPlans.length === 0 ? (
@@ -491,8 +582,22 @@ export default function ProfessionalRecordsPage() {
                   return (
                     <div
                       key={lessonPlan.id}
-                      className="glass-card bg-white/80 backdrop-blur-xl rounded-xl shadow-lg border border-white/60 hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden"
+                      className={`glass-card bg-white/80 backdrop-blur-xl rounded-xl shadow-lg border ${
+                        selectedPlans.includes(lessonPlan.id)
+                          ? "border-indigo-500 ring-2 ring-indigo-500"
+                          : "border-white/60"
+                      } hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden relative`}
                     >
+                      {/* Selection Checkbox */}
+                      <div className="absolute top-4 right-4 z-10">
+                        <input
+                          type="checkbox"
+                          checked={selectedPlans.includes(lessonPlan.id)}
+                          onChange={() => toggleSelection(lessonPlan.id)}
+                          className="w-6 h-6 rounded border-white text-indigo-600 focus:ring-indigo-500 shadow-sm cursor-pointer"
+                        />
+                      </div>
+
                       {/* Header */}
                       <div className="bg-gradient-to-br from-emerald-600 to-teal-600 p-6 text-white">
                         <div className="flex items-center justify-between mb-4">
@@ -501,12 +606,31 @@ export default function ProfessionalRecordsPage() {
                             {lessonPlan.grade}
                           </span>
                         </div>
-                        <h3 className="text-xl font-bold mb-2 break-words">
+                        <h3 className="text-xl font-bold mb-2 break-words pr-8">
                           {lessonPlan.learning_area}
                         </h3>
-                        <div className="flex items-center gap-2 text-sm">
-                          <FiCalendar className="w-4 h-4" />
-                          <span>{lessonPlan.date || "No date set"}</span>
+                        <div className="flex flex-col gap-1 text-sm">
+                          <div className="flex items-center gap-2">
+                            <FiCalendar className="w-4 h-4" />
+                            <span>{lessonPlan.date || "No date set"}</span>
+                          </div>
+                          {(lessonPlan.week_number ||
+                            lessonPlan.lesson_number) && (
+                            <div className="flex items-center gap-2 bg-white/20 px-2 py-1 rounded w-fit mt-1">
+                              <span className="font-semibold">
+                                {lessonPlan.week_number
+                                  ? `Week ${lessonPlan.week_number}`
+                                  : ""}
+                                {lessonPlan.week_number &&
+                                lessonPlan.lesson_number
+                                  ? " • "
+                                  : ""}
+                                {lessonPlan.lesson_number
+                                  ? `Lesson ${lessonPlan.lesson_number}`
+                                  : ""}
+                              </span>
+                            </div>
+                          )}
                         </div>
                       </div>
 
