@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import { api } from "@/lib/api";
 import { toast } from "react-hot-toast";
 import {
   BarChart,
@@ -77,24 +77,14 @@ export default function AdminAnalyticsPage() {
 
   const fetchAnalytics = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
-      if (!token) {
-        router.push("/login");
-        return;
-      }
-
-      const response = await axios.get(
-        "http://192.168.0.102:8000/api/v1/admin/analytics",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
+      const response = await api.get("/admin/analytics");
       setAnalytics(response.data);
     } catch (error: any) {
       if (error.response?.status === 403) {
         toast.error("Admin access required");
         router.push("/dashboard");
+      } else if (error.response?.status === 401) {
+        router.push("/login");
       } else {
         toast.error("Failed to load analytics");
       }

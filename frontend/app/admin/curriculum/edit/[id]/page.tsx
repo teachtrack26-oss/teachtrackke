@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import axios from "axios";
+import { api } from "@/lib/api";
 import { toast } from "react-hot-toast";
 import {
   FaSave,
@@ -62,17 +62,8 @@ export default function EditCurriculumPage() {
 
   const fetchTemplate = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
-      if (!token) {
-        router.push("/login");
-        return;
-      }
-
-      const response = await axios.get(
-        `http://192.168.0.102:8000/api/v1/admin/curriculum-templates/${templateId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+      const response = await api.get(
+        `/admin/curriculum-templates/${templateId}`
       );
 
       setTemplate(response.data);
@@ -84,6 +75,8 @@ export default function EditCurriculumPage() {
       if (error.response?.status === 403) {
         toast.error("Admin access required");
         router.push("/dashboard");
+      } else if (error.response?.status === 401) {
+        router.push("/login");
       } else {
         toast.error("Failed to load curriculum");
       }
@@ -97,20 +90,12 @@ export default function EditCurriculumPage() {
 
     setSaving(true);
     try {
-      const token = localStorage.getItem("accessToken");
-
-      await axios.put(
-        `http://192.168.0.102:8000/api/v1/admin/curriculum-templates/${templateId}`,
-        {
-          subject: template.subject,
-          grade: template.grade,
-          is_active: template.is_active,
-          strands: template.strands,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      await api.put(`/admin/curriculum-templates/${templateId}`, {
+        subject: template.subject,
+        grade: template.grade,
+        is_active: template.is_active,
+        strands: template.strands,
+      });
 
       toast.success("Curriculum updated successfully");
     } catch (error) {

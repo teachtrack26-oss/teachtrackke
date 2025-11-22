@@ -23,6 +23,10 @@ import {
 } from "react-icons/fi";
 import axios from "axios";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
+  ? `${process.env.NEXT_PUBLIC_API_URL}/api/v1`
+  : "/api/v1";
+
 interface Subject {
   id: number;
   subject_name: string;
@@ -84,31 +88,35 @@ export default function DashboardPage() {
   }>({});
   const [currentTime, setCurrentTime] = useState(new Date());
   const [expandedLesson, setExpandedLesson] = useState<number | null>(null);
+  const [educationLevel, setEducationLevel] = useState<string>("");
+  const [nextLesson, setNextLesson] = useState<any>(null);
 
   useEffect(() => {
-    // Check authentication - NextAuth or localStorage
     if (status === "loading") return; // Still loading
 
-    if (status === "authenticated" && session) {
-      // User authenticated via NextAuth (Google OAuth)
-      setUser(session.user);
-      const token = (session as any).accessToken;
-      fetchSubjects(token);
-      fetchTodayLessons(token);
-    } else {
-      // Check localStorage for direct login
-      const token = localStorage.getItem("accessToken");
-      const userData = localStorage.getItem("user");
+    const storedToken =
+      typeof window !== "undefined"
+        ? localStorage.getItem("accessToken")
+        : null;
+    const storedUser =
+      typeof window !== "undefined" ? localStorage.getItem("user") : null;
 
-      if (!token || !userData) {
-        router.push("/login");
-        return;
-      }
+    const sessionToken = (session as any)?.accessToken || null;
+    const tokenToUse = sessionToken || storedToken;
 
-      setUser(JSON.parse(userData));
-      fetchSubjects(token);
-      fetchTodayLessons(token);
+    if (!tokenToUse) {
+      router.push("/login");
+      return;
     }
+
+    if (status === "authenticated" && session?.user) {
+      setUser(session.user);
+    } else if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+
+    fetchSubjects(tokenToUse);
+    // fetchTodayLessons will be called after subjects are loaded and education level is determined
   }, [session, status, router]);
 
   // Update current time every minute
@@ -121,12 +129,35 @@ export default function DashboardPage() {
 
   const fetchSubjects = async (token: string) => {
     try {
-      const response = await axios.get(`/api/v1/subjects`, {
+      const response = await axios.get(`${API_BASE_URL}/subjects`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       setSubjects(response.data);
+
+      // Infer education level from the first subject's grade
+      if (response.data.length > 0) {
+        const firstGrade = response.data[0].grade;
+        let level = "";
+        if (["Grade 7", "Grade 8", "Grade 9"].includes(firstGrade)) {
+          level = "Junior Secondary";
+        } else if (["Grade 10", "Grade 11", "Grade 12"].includes(firstGrade)) {
+          level = "Senior Secondary";
+        } else if (["Grade 4", "Grade 5", "Grade 6"].includes(firstGrade)) {
+          level = "Upper Primary";
+        } else if (["Grade 1", "Grade 2", "Grade 3"].includes(firstGrade)) {
+          level = "Lower Primary";
+        } else if (["PP1", "PP2"].includes(firstGrade)) {
+          level = "Pre-Primary";
+        }
+        setEducationLevel(level);
+        // Now fetch today's lessons with the correct education level
+        fetchTodayLessons(token, level);
+      } else {
+        // No subjects yet, still try to fetch lessons without education level filter
+        fetchTodayLessons(token, "");
+      }
     } catch (error) {
       console.error("Failed to fetch subjects:", error);
       // If unauthorized, redirect to login and clear all session data
@@ -141,24 +172,40 @@ export default function DashboardPage() {
     }
   };
 
-  const fetchTodayLessons = async (token: string) => {
+  const fetchTodayLessons = async (token: string, level: string) => {
     try {
+      // Build query params
+      const params = new URLSearchParams();
+      if (level) {
+        params.append("education_level", level);
+      }
+      const queryString = params.toString();
+      const query = queryString ? `?${queryString}` : "";
+
       // Fetch time slots
-      const slotsRes = await axios.get(`/api/v1/timetable/time-slots`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const slotsRes = await axios.get(
+        `${API_BASE_URL}/timetable/time-slots${query}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       const allSlots = slotsRes.data.filter(
         (s: TimeSlot) => s.slot_type === "lesson"
       );
       setTimeSlots(allSlots);
 
       // Fetch timetable entries
-      const entriesRes = await axios.get(`/api/v1/timetable/entries`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const entriesRes = await axios.get(
+        `${API_BASE_URL}/timetable/entries${query}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
-      // Get today's day of week (1 = Monday, 5 = Friday)
-      const today = new Date().getDay();
+      // Get today's day of week (JS getDay: 0=Sunday, 1=Monday, ...)
+      // Backend expects: 1=Monday, 2=Tuesday, ..., 7=Sunday
+      const jsDay = new Date().getDay();
+      const today = jsDay === 0 ? 7 : jsDay; // Convert Sunday from 0 to 7
       const todayEntries = entriesRes.data.filter(
         (entry: TimetableEntry) => entry.day_of_week === today
       );
@@ -169,8 +216,29 @@ export default function DashboardPage() {
       for (const entry of todayEntries) {
         fetchCurriculumDetails(token, entry.subject_id);
       }
+
+      // If no lessons today, fetch next lesson
+      if (todayEntries.length === 0) {
+        fetchNextLesson(token);
+      }
     } catch (error) {
       console.error("Failed to fetch today's lessons:", error);
+    }
+  };
+
+  const fetchNextLesson = async (token: string) => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/timetable/entries/next`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      if (response.data) {
+        setNextLesson(response.data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch next lesson:", error);
     }
   };
 
@@ -180,9 +248,12 @@ export default function DashboardPage() {
       if (!subject) return;
 
       // Fetch the curriculum template and current progress
-      const response = await axios.get(`/api/v1/subjects/${subjectId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        `${API_BASE_URL}/subjects/${subjectId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       const subjectData = response.data;
 
@@ -229,7 +300,7 @@ export default function DashboardPage() {
     try {
       const token =
         localStorage.getItem("accessToken") || (session as any)?.accessToken;
-      await axios.delete(`/api/v1/subjects/${subjectId}`, {
+      await axios.delete(`${API_BASE_URL}/subjects/${subjectId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -347,7 +418,7 @@ export default function DashboardPage() {
 
       <main className="container mx-auto px-6 py-8 relative z-10">
         {todayLessons.length === 0 ? (
-          <EmptySchedule />
+          <EmptySchedule nextLesson={nextLesson} currentTime={currentTime} />
         ) : (
           <div className="space-y-6">
             {todayLessons
@@ -413,22 +484,83 @@ export default function DashboardPage() {
   );
 }
 
-function EmptySchedule() {
+function EmptySchedule({
+  nextLesson,
+  currentTime,
+}: {
+  nextLesson: any;
+  currentTime: Date;
+}) {
+  const isWeekend = currentTime.getDay() === 0 || currentTime.getDay() === 6;
+  const dayName = currentTime.toLocaleDateString("en-US", { weekday: "long" });
+
   return (
-    <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-12 text-center">
-      <div className="text-6xl mb-4">☕</div>
-      <h3 className="text-2xl font-bold text-gray-900 mb-2">
-        No Lessons Today!
-      </h3>
-      <p className="text-gray-600 mb-6">
-        You have a free day. Enjoy your break or set up your timetable.
-      </p>
-      <Link
-        href="/timetable"
-        className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-      >
-        <FiClock /> Setup Timetable
-      </Link>
+    <div className="space-y-6">
+      <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-12 text-center">
+        <div className="text-6xl mb-4">{isWeekend ? "🏖️" : "☕"}</div>
+        <h3 className="text-2xl font-bold text-gray-900 mb-2">
+          No Lessons Today! {isWeekend && `(${dayName})`}
+        </h3>
+        <p className="text-gray-600 mb-6">
+          {isWeekend
+            ? "It's the weekend! Enjoy your break. Your next lessons will appear on Monday."
+            : "You have a free day. Enjoy your break or set up your timetable."}
+        </p>
+        <Link
+          href="/timetable"
+          className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <FiClock /> {nextLesson ? "View Timetable" : "Setup Timetable"}
+        </Link>
+      </div>
+
+      {/* Show next lesson if available */}
+      {nextLesson && (
+        <div className="glass-card bg-gradient-to-r from-blue-50/60 to-indigo-50/60 backdrop-blur-xl rounded-2xl shadow-xl border border-blue-200/60 p-8">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center">
+              <FiCalendar className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-900">
+                Next Upcoming Lesson
+              </h3>
+              <p className="text-sm text-gray-600">
+                {nextLesson.day_name && `${nextLesson.day_name}, `}
+                {nextLesson.time_slot?.start_time} -{" "}
+                {nextLesson.time_slot?.end_time}
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white/60">
+            <div className="flex items-start gap-4">
+              <div className="w-14 h-14 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center text-3xl">
+                📚
+              </div>
+              <div className="flex-1">
+                <h4 className="text-lg font-bold text-gray-900 mb-1">
+                  {nextLesson.subject?.subject_name}
+                </h4>
+                <div className="flex flex-wrap gap-3 text-sm text-gray-700">
+                  {nextLesson.grade_section && (
+                    <div className="flex items-center gap-1">
+                      <FiUsers className="w-4 h-4" />
+                      <span>{nextLesson.grade_section}</span>
+                    </div>
+                  )}
+                  {nextLesson.room_number && (
+                    <div className="flex items-center gap-1">
+                      <FiMapPin className="w-4 h-4" />
+                      <span>Room {nextLesson.room_number}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

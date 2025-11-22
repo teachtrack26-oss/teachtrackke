@@ -472,6 +472,21 @@ class CalendarActivity(Base):
     school_settings = relationship("SchoolSettings", back_populates="activities")
     term = relationship("SchoolTerm", back_populates="activities")
 
+class SystemAnnouncement(Base):
+    __tablename__ = "system_announcements"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String(255), nullable=False)
+    message = Column(Text, nullable=False)
+    type = Column(String(50), default="info")  # info, warning, success, error
+    is_active = Column(Boolean, default=True)
+    expires_at = Column(TIMESTAMP, nullable=True)
+    created_by = Column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    
+    # Relationships
+    creator = relationship("User")
+
 # ============================================================================
 # PROFESSIONAL RECORDS MODELS
 # ============================================================================
@@ -494,6 +509,12 @@ class SchemeOfWork(Base):
     total_weeks = Column(Integer, nullable=False)
     total_lessons = Column(Integer, nullable=False)
     status = Column(String(20), default='draft')  # draft, active, completed
+    is_archived = Column(Boolean, default=False)
+    
+    # Sharing and Notes
+    share_token = Column(String(64), unique=True)
+    is_public = Column(Boolean, default=False)
+    notes = Column(Text)
     
     created_at = Column(TIMESTAMP, server_default=func.now())
     updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
@@ -582,6 +603,12 @@ class LessonPlan(Base):
     
     # Status
     status = Column(String(20), default='pending')  # pending, taught, postponed
+    is_archived = Column(Boolean, default=False)
+    
+    # Sharing and Notes
+    share_token = Column(String(64), unique=True)
+    is_public = Column(Boolean, default=False)
+    notes = Column(Text)
     
     created_at = Column(TIMESTAMP, server_default=func.now())
     updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
@@ -602,3 +629,62 @@ class LessonPlan(Base):
         if self.scheme_lesson and self.scheme_lesson.week:
             return self.scheme_lesson.week.week_number
         return None
+
+# ============================================================================
+# RECORD OF WORK MODELS
+# ============================================================================
+
+class RecordOfWork(Base):
+    __tablename__ = 'records_of_work'
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
+    subject_id = Column(Integer, ForeignKey('subjects.id', ondelete="CASCADE"), nullable=False)
+    
+    # Header Information
+    school_name = Column(String(255))
+    teacher_name = Column(String(255))
+    learning_area = Column(String(255)) # Subject
+    grade = Column(String(50))
+    term = Column(String(50))
+    year = Column(Integer)
+    is_archived = Column(Boolean, default=False)
+    
+    # Sharing and Notes
+    share_token = Column(String(64), unique=True)
+    is_public = Column(Boolean, default=False)
+    notes = Column(Text)
+    
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    user = relationship("User")
+    subject = relationship("Subject")
+    entries = relationship("RecordOfWorkEntry", back_populates="record", cascade="all, delete-orphan")
+
+class RecordOfWorkEntry(Base):
+    __tablename__ = 'record_of_work_entries'
+    id = Column(Integer, primary_key=True, index=True)
+    record_id = Column(Integer, ForeignKey('records_of_work.id', ondelete="CASCADE"), nullable=False)
+    
+    week_number = Column(Integer, nullable=False)
+    strand = Column(String(255)) # Main curriculum area
+    
+    # Work Covered Breakdown
+    topic = Column(String(255)) # Sub-topic
+    learning_outcome_a = Column(Text)
+    learning_outcome_b = Column(Text)
+    learning_outcome_c = Column(Text)
+    learning_outcome_d = Column(Text) # Extra just in case
+    
+    reflection = Column(Text)
+    signature = Column(String(100)) # Teacher's signature or name
+    
+    # Metadata
+    date_taught = Column(TIMESTAMP)
+    status = Column(String(20), default='pending') # pending, taught
+    
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    record = relationship("RecordOfWork", back_populates="entries")

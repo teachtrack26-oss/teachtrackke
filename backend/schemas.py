@@ -39,6 +39,81 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     email: Optional[str] = None
 
+
+class AdminSubjectSummary(BaseModel):
+    id: int
+    subject_name: str
+    grade: str
+    total_lessons: int
+    lessons_completed: int
+    progress_percentage: float
+
+
+class AdminUserSummary(BaseModel):
+    id: int
+    email: EmailStr
+    full_name: str
+    school: Optional[str] = None
+    grade_level: Optional[str] = None
+    is_admin: bool
+    auth_provider: str
+    created_at: datetime
+    subjects_count: int
+    subjects: List[AdminSubjectSummary]
+
+
+class AdminUsersResponse(BaseModel):
+    users: List[AdminUserSummary]
+    total: int
+
+
+class AdminRoleUpdate(BaseModel):
+    is_admin: bool
+
+
+class ResetProgressRequest(BaseModel):
+    subject_id: Optional[int] = None
+
+
+class TermResponse(BaseModel):
+    id: int
+    term_number: int
+    term_name: str
+    academic_year: str
+    start_date: datetime
+    end_date: datetime
+    teaching_weeks: int
+    is_current: bool
+
+    class Config:
+        from_attributes = True
+
+
+class TermsResponse(BaseModel):
+    terms: List[TermResponse]
+
+
+class TermUpdate(BaseModel):
+    term_name: Optional[str] = None
+    academic_year: Optional[str] = None
+    start_date: Optional[datetime] = None
+    end_date: Optional[datetime] = None
+    teaching_weeks: Optional[int] = None
+    is_current: Optional[bool] = None
+
+
+class UserSettingsUpdate(BaseModel):
+    default_lesson_duration: Optional[int] = None
+    default_double_lesson_duration: Optional[int] = None
+
+
+class UserSettingsResponse(BaseModel):
+    default_lesson_duration: int
+    default_double_lesson_duration: int
+
+    class Config:
+        from_attributes = True
+
 # Subject Schemas
 class SubjectBase(BaseModel):
     subject_name: str
@@ -452,6 +527,10 @@ class SchemeOfWorkResponse(SchemeOfWorkBase):
     id: int
     user_id: int
     weeks: List[SchemeWeekResponse]
+    is_archived: bool
+    share_token: Optional[str] = None
+    is_public: bool = False
+    notes: Optional[str] = None
     created_at: datetime
     updated_at: datetime
     
@@ -467,6 +546,9 @@ class SchemeOfWorkSummary(BaseModel):
     total_weeks: int
     total_lessons: int
     status: str
+    is_archived: bool
+    share_token: Optional[str] = None
+    is_public: bool = False
     created_at: datetime
     
     class Config:
@@ -526,6 +608,10 @@ class LessonPlanResponse(LessonPlanBase):
     id: int
     user_id: int
     scheme_lesson_id: Optional[int] = None
+    is_archived: bool
+    share_token: Optional[str] = None
+    is_public: bool = False
+    notes: Optional[str] = None
     created_at: datetime
     updated_at: datetime
     lesson_duration_minutes: Optional[int] = None
@@ -541,9 +627,121 @@ class LessonPlanSummary(BaseModel):
     sub_strand_sub_theme_sub_topic: str
     date: Optional[str] = None
     status: str
+    is_archived: bool
+    share_token: Optional[str] = None
+    is_public: bool = False
     created_at: datetime
     lesson_number: Optional[int] = None
     week_number: Optional[int] = None
+    
+    class Config:
+        from_attributes = True
+
+# ============================================================================
+# RECORD OF WORK SCHEMAS
+# ============================================================================
+
+class RecordOfWorkEntryBase(BaseModel):
+    week_number: int
+    strand: Optional[str] = None
+    topic: Optional[str] = None
+    learning_outcome_a: Optional[str] = None
+    learning_outcome_b: Optional[str] = None
+    learning_outcome_c: Optional[str] = None
+    learning_outcome_d: Optional[str] = None
+    reflection: Optional[str] = None
+    signature: Optional[str] = None
+    date_taught: Optional[datetime] = None
+    status: Optional[str] = "pending"
+
+class RecordOfWorkEntryCreate(RecordOfWorkEntryBase):
+    pass
+
+class RecordOfWorkEntryUpdate(BaseModel):
+    strand: Optional[str] = None
+    topic: Optional[str] = None
+    learning_outcome_a: Optional[str] = None
+    learning_outcome_b: Optional[str] = None
+    learning_outcome_c: Optional[str] = None
+    learning_outcome_d: Optional[str] = None
+    reflection: Optional[str] = None
+    signature: Optional[str] = None
+    date_taught: Optional[datetime] = None
+    status: Optional[str] = None
+
+class RecordOfWorkEntryResponse(RecordOfWorkEntryBase):
+    id: int
+    record_id: int
+    created_at: datetime
+    updated_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+class RecordOfWorkBase(BaseModel):
+    subject_id: int
+    school_name: Optional[str] = None
+    teacher_name: Optional[str] = None
+    learning_area: Optional[str] = None
+    grade: Optional[str] = None
+    term: Optional[str] = None
+    year: Optional[int] = None
+
+class RecordOfWorkCreate(RecordOfWorkBase):
+    entries: List[RecordOfWorkEntryCreate] = []
+
+class RecordOfWorkUpdate(BaseModel):
+    school_name: Optional[str] = None
+    teacher_name: Optional[str] = None
+    term: Optional[str] = None
+    year: Optional[int] = None
+
+class RecordOfWorkResponse(RecordOfWorkBase):
+    id: int
+    user_id: int
+    entries: List[RecordOfWorkEntryResponse]
+    is_archived: bool
+    share_token: Optional[str] = None
+    is_public: bool = False
+    notes: Optional[str] = None
+    created_at: datetime
+    updated_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+class RecordOfWorkSummary(BaseModel):
+    id: int
+    learning_area: str
+    grade: str
+    term: str
+    year: int
+    is_archived: bool
+    share_token: Optional[str] = None
+    is_public: bool = False
+    created_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+# ============================================================================
+# SYSTEM ANNOUNCEMENT SCHEMAS
+# ============================================================================
+
+class SystemAnnouncementBase(BaseModel):
+    title: str
+    message: str
+    type: str = "info"
+    is_active: bool = True
+    expires_at: Optional[datetime] = None
+
+class SystemAnnouncementCreate(SystemAnnouncementBase):
+    pass
+
+class SystemAnnouncementResponse(SystemAnnouncementBase):
+    id: int
+    created_by: Optional[int] = None
+    created_at: datetime
     
     class Config:
         from_attributes = True

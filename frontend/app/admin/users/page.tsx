@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import { api } from "@/lib/api";
 import { toast } from "react-hot-toast";
 import {
   FaTrash,
@@ -12,6 +12,7 @@ import {
   FaSync,
   FaChevronDown,
   FaChevronUp,
+  FaSignInAlt,
 } from "react-icons/fa";
 
 interface Subject {
@@ -48,24 +49,14 @@ export default function AdminUsersPage() {
 
   const fetchUsers = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
-      if (!token) {
-        router.push("/login");
-        return;
-      }
-
-      const response = await axios.get(
-        "http://192.168.0.102:8000/api/v1/admin/users",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
+      const response = await api.get("/admin/users");
       setUsers(response.data.users);
     } catch (error: any) {
       if (error.response?.status === 403) {
         toast.error("Admin access required");
         router.push("/dashboard");
+      } else if (error.response?.status === 401) {
+        router.push("/login");
       } else {
         toast.error("Failed to load users");
       }
@@ -76,15 +67,9 @@ export default function AdminUsersPage() {
 
   const toggleUserRole = async (userId: number, currentIsAdmin: boolean) => {
     try {
-      const token = localStorage.getItem("accessToken");
-
-      await axios.patch(
-        `http://192.168.0.102:8000/api/v1/admin/users/${userId}/role`,
-        { is_admin: !currentIsAdmin },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      await api.patch(`/admin/users/${userId}/role`, {
+        is_admin: !currentIsAdmin,
+      });
 
       toast.success(
         currentIsAdmin ? "User demoted from admin" : "User promoted to admin"
@@ -92,7 +77,10 @@ export default function AdminUsersPage() {
 
       fetchUsers();
     } catch (error: any) {
-      toast.error(error.response?.data?.detail || "Failed to update user role");
+      const detail = error.response?.data?.detail;
+      const message =
+        typeof detail === "string" ? detail : "Failed to update user role";
+      toast.error(message);
     }
   };
 
@@ -106,19 +94,15 @@ export default function AdminUsersPage() {
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
-
-      await axios.delete(
-        `http://192.168.0.102:8000/api/v1/admin/users/${userId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      await api.delete(`/admin/users/${userId}`);
 
       toast.success("User deleted successfully");
       fetchUsers();
     } catch (error: any) {
-      toast.error(error.response?.data?.detail || "Failed to delete user");
+      const detail = error.response?.data?.detail;
+      const message =
+        typeof detail === "string" ? detail : "Failed to delete user";
+      toast.error(message);
     }
   };
 
@@ -136,20 +120,42 @@ export default function AdminUsersPage() {
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
-
-      await axios.post(
-        `http://192.168.0.102:8000/api/v1/admin/users/${userId}/reset-progress`,
-        subjectId ? { subject_id: subjectId } : {},
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+      await api.post(
+        `/admin/users/${userId}/reset-progress`,
+        subjectId ? { subject_id: subjectId } : {}
       );
 
       toast.success("Progress reset successfully");
       fetchUsers();
     } catch (error: any) {
       toast.error("Failed to reset progress");
+    }
+  };
+
+  const handleImpersonate = async (userId: number) => {
+    try {
+      const response = await api.post(`/admin/users/${userId}/impersonate`);
+      const { access_token } = response.data;
+
+      // Store the token correctly as accessToken (not token)
+      localStorage.setItem("accessToken", access_token);
+
+      // Fetch the impersonated user's profile to update localStorage
+      // We explicitly pass the header to ensure we use the new token immediately
+      const userResponse = await api.get("/auth/me", {
+        headers: { Authorization: `Bearer ${access_token}` },
+      });
+
+      // Update user info in localStorage
+      localStorage.setItem("user", JSON.stringify(userResponse.data));
+
+      // Force a reload/redirect to dashboard to pick up new user context
+      window.location.href = "/dashboard";
+    } catch (error: any) {
+      const detail = error.response?.data?.detail;
+      const message =
+        typeof detail === "string" ? detail : "Failed to impersonate user";
+      toast.error(message);
     }
   };
 
@@ -305,6 +311,13 @@ export default function AdminUsersPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <div className="flex space-x-2">
+                          <button
+                            onClick={() => handleImpersonate(user.id)}
+                            className="text-purple-600 hover:text-purple-900"
+                            title="Login as this user"
+                          >
+                            <FaSignInAlt />
+                          </button>
                           <button
                             onClick={() =>
                               toggleUserRole(user.id, user.is_admin)

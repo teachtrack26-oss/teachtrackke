@@ -38,6 +38,8 @@ function PrintContent() {
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [enhancingId, setEnhancingId] = useState<number | null>(null);
+  const [generatingId, setGeneratingId] = useState<number | null>(null);
 
   const handlePlanChange = (
     index: number,
@@ -48,6 +50,67 @@ function PrintContent() {
     // @ts-ignore
     newPlans[index] = { ...newPlans[index], [field]: value };
     setPlans(newPlans);
+  };
+
+  const applyTemplate = (index: number) => {
+    const newPlans = [...plans];
+    const plan = newPlans[index];
+
+    newPlans[index] = {
+      ...plan,
+      introduction:
+        "Introduction (5 minutes)\n- Recap the previous lesson on...\n- Guide learners to...",
+      development: "Step 1: ...\n- ...\n\nStep 2: ...\n- ...",
+      conclusion: "Conclusion (5 minutes)\n- Summarize...",
+    };
+    setPlans(newPlans);
+    toast.success("Template applied!");
+  };
+
+  const autoGeneratePlan = async (index: number, planId: number) => {
+    setGeneratingId(planId);
+    const token = localStorage.getItem("accessToken");
+    try {
+      const response = await axios.post(
+        `/api/v1/lesson-plans/${planId}/auto-generate`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      const updatedPlan = response.data;
+      const newPlans = [...plans];
+      newPlans[index] = updatedPlan;
+      setPlans(newPlans);
+      toast.success("Plan auto-generated from curriculum!");
+    } catch (error) {
+      console.error("Failed to auto-generate plan", error);
+      toast.error("Failed to auto-generate. Please try again.");
+    } finally {
+      setGeneratingId(null);
+    }
+  };
+
+  const enhancePlan = async (index: number, planId: number) => {
+    setEnhancingId(planId);
+    const token = localStorage.getItem("accessToken");
+    try {
+      const response = await axios.post(
+        `/api/v1/lesson-plans/${planId}/enhance`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      const enhancedPlan = response.data;
+      const newPlans = [...plans];
+      newPlans[index] = enhancedPlan;
+      setPlans(newPlans);
+      toast.success("Lesson plan enhanced with AI!");
+    } catch (error) {
+      console.error("Failed to enhance plan", error);
+      toast.error("Failed to enhance plan. Please try again.");
+    } finally {
+      setEnhancingId(null);
+    }
   };
 
   const saveChanges = async () => {
@@ -288,65 +351,74 @@ function PrintContent() {
                   <span className="font-bold text-gray-700 w-32 print:w-auto">
                     Date:
                   </span>
-                  {isEditing ? (
+                  {isEditing && (
                     <input
                       type="date"
                       value={plan.date || ""}
                       onChange={(e) =>
                         handlePlanChange(index, "date", e.target.value)
                       }
-                      className="border-b border-gray-400 bg-yellow-50 px-1"
+                      className="border-b border-gray-400 bg-yellow-50 px-1 print:hidden"
                     />
-                  ) : (
-                    <span className="text-gray-900 font-medium">
-                      {plan.date
-                        ? new Date(plan.date).toLocaleDateString(undefined, {
-                            weekday: "long",
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })
-                        : "Not set"}
-                    </span>
                   )}
+                  <span
+                    className={`text-gray-900 font-medium ${
+                      isEditing ? "hidden print:block" : ""
+                    }`}
+                  >
+                    {plan.date
+                      ? new Date(plan.date).toLocaleDateString(undefined, {
+                          weekday: "long",
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })
+                      : "Not set"}
+                  </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="font-bold text-gray-700 w-32 print:w-auto">
                     Time:
                   </span>
-                  {isEditing ? (
+                  {isEditing && (
                     <input
                       type="text"
                       value={plan.time || ""}
                       onChange={(e) =>
                         handlePlanChange(index, "time", e.target.value)
                       }
-                      className="border-b border-gray-400 bg-yellow-50 px-1 w-full"
+                      className="border-b border-gray-400 bg-yellow-50 px-1 w-full print:hidden"
                     />
-                  ) : (
-                    <span className="text-gray-900 font-medium">
-                      {plan.time || "Not set"}
-                    </span>
                   )}
+                  <span
+                    className={`text-gray-900 font-medium ${
+                      isEditing ? "hidden print:block" : ""
+                    }`}
+                  >
+                    {plan.time || "Not set"}
+                  </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="font-bold text-gray-700 w-32 print:w-auto">
                     Roll:
                   </span>
-                  {isEditing ? (
+                  {isEditing && (
                     <input
                       type="text"
                       value={plan.roll || ""}
                       onChange={(e) =>
                         handlePlanChange(index, "roll", e.target.value)
                       }
-                      className="border-b border-gray-400 bg-yellow-50 px-1 w-full"
+                      className="border-b border-gray-400 bg-yellow-50 px-1 w-full print:hidden"
                     />
-                  ) : (
-                    <span className="text-gray-900 font-medium">
-                      {plan.roll || "Not set"}
-                    </span>
                   )}
+                  <span
+                    className={`text-gray-900 font-medium ${
+                      isEditing ? "hidden print:block" : ""
+                    }`}
+                  >
+                    {plan.roll || "Not set"}
+                  </span>
                 </div>
               </div>
 
@@ -358,7 +430,7 @@ function PrintContent() {
                     <h3 className="font-bold text-gray-700 mb-2">
                       Strand / Theme / Topic
                     </h3>
-                    {isEditing ? (
+                    {isEditing && (
                       <input
                         type="text"
                         value={plan.strand_theme_topic}
@@ -369,17 +441,22 @@ function PrintContent() {
                             e.target.value
                           )
                         }
-                        className="w-full border-b border-gray-400 bg-yellow-50 px-1"
+                        className="w-full border-b border-gray-400 bg-yellow-50 px-1 print:hidden"
                       />
-                    ) : (
-                      <p className="text-gray-900">{plan.strand_theme_topic}</p>
                     )}
+                    <p
+                      className={`text-gray-900 ${
+                        isEditing ? "hidden print:block" : ""
+                      }`}
+                    >
+                      {plan.strand_theme_topic}
+                    </p>
                   </div>
                   <div className="section-card border border-gray-300 rounded-lg p-4 print:p-1">
                     <h3 className="font-bold text-gray-700 mb-2">
                       Sub-strand / Sub-theme
                     </h3>
-                    {isEditing ? (
+                    {isEditing && (
                       <input
                         type="text"
                         value={plan.sub_strand_sub_theme_sub_topic}
@@ -390,13 +467,16 @@ function PrintContent() {
                             e.target.value
                           )
                         }
-                        className="w-full border-b border-gray-400 bg-yellow-50 px-1"
+                        className="w-full border-b border-gray-400 bg-yellow-50 px-1 print:hidden"
                       />
-                    ) : (
-                      <p className="text-gray-900">
-                        {plan.sub_strand_sub_theme_sub_topic}
-                      </p>
                     )}
+                    <p
+                      className={`text-gray-900 ${
+                        isEditing ? "hidden print:block" : ""
+                      }`}
+                    >
+                      {plan.sub_strand_sub_theme_sub_topic}
+                    </p>
                   </div>
                 </div>
 
@@ -405,7 +485,7 @@ function PrintContent() {
                   <h3 className="font-bold text-gray-700 mb-2">
                     Specific Learning Outcomes
                   </h3>
-                  {isEditing ? (
+                  {isEditing && (
                     <textarea
                       value={plan.specific_learning_outcomes}
                       onChange={(e) =>
@@ -415,14 +495,17 @@ function PrintContent() {
                           e.target.value
                         )
                       }
-                      className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm"
+                      className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm print:hidden"
                       rows={4}
                     />
-                  ) : (
-                    <div className="text-gray-900 whitespace-pre-wrap">
-                      {plan.specific_learning_outcomes}
-                    </div>
                   )}
+                  <div
+                    className={`text-gray-900 whitespace-pre-wrap ${
+                      isEditing ? "hidden print:block" : ""
+                    }`}
+                  >
+                    {plan.specific_learning_outcomes}
+                  </div>
                 </div>
 
                 {/* Key Inquiry Questions */}
@@ -430,7 +513,7 @@ function PrintContent() {
                   <h3 className="font-bold text-gray-700 mb-2">
                     Key Inquiry Questions
                   </h3>
-                  {isEditing ? (
+                  {isEditing && (
                     <textarea
                       value={plan.key_inquiry_questions}
                       onChange={(e) =>
@@ -440,14 +523,17 @@ function PrintContent() {
                           e.target.value
                         )
                       }
-                      className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm"
+                      className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm print:hidden"
                       rows={2}
                     />
-                  ) : (
-                    <div className="text-gray-900 whitespace-pre-wrap">
-                      {plan.key_inquiry_questions}
-                    </div>
                   )}
+                  <div
+                    className={`text-gray-900 whitespace-pre-wrap ${
+                      isEditing ? "hidden print:block" : ""
+                    }`}
+                  >
+                    {plan.key_inquiry_questions}
+                  </div>
                 </div>
 
                 {/* Competencies & Values */}
@@ -456,7 +542,7 @@ function PrintContent() {
                     <h3 className="font-bold text-gray-700 mb-2 text-sm">
                       Core Competencies
                     </h3>
-                    {isEditing ? (
+                    {isEditing && (
                       <textarea
                         value={plan.core_competences}
                         onChange={(e) =>
@@ -466,20 +552,23 @@ function PrintContent() {
                             e.target.value
                           )
                         }
-                        className="w-full border border-gray-400 bg-yellow-50 p-1 text-xs"
+                        className="w-full border border-gray-400 bg-yellow-50 p-1 text-xs print:hidden"
                         rows={3}
                       />
-                    ) : (
-                      <p className="text-sm text-gray-900 whitespace-pre-wrap">
-                        {plan.core_competences}
-                      </p>
                     )}
+                    <p
+                      className={`text-sm text-gray-900 whitespace-pre-wrap ${
+                        isEditing ? "hidden print:block" : ""
+                      }`}
+                    >
+                      {plan.core_competences}
+                    </p>
                   </div>
                   <div className="section-card border border-gray-300 rounded-lg p-4 print:p-1">
                     <h3 className="font-bold text-gray-700 mb-2 text-sm">
                       Values
                     </h3>
-                    {isEditing ? (
+                    {isEditing && (
                       <textarea
                         value={plan.values_to_be_developed}
                         onChange={(e) =>
@@ -489,20 +578,23 @@ function PrintContent() {
                             e.target.value
                           )
                         }
-                        className="w-full border border-gray-400 bg-yellow-50 p-1 text-xs"
+                        className="w-full border border-gray-400 bg-yellow-50 p-1 text-xs print:hidden"
                         rows={3}
                       />
-                    ) : (
-                      <p className="text-sm text-gray-900 whitespace-pre-wrap">
-                        {plan.values_to_be_developed}
-                      </p>
                     )}
+                    <p
+                      className={`text-sm text-gray-900 whitespace-pre-wrap ${
+                        isEditing ? "hidden print:block" : ""
+                      }`}
+                    >
+                      {plan.values_to_be_developed}
+                    </p>
                   </div>
                   <div className="section-card border border-gray-300 rounded-lg p-4 print:p-1">
                     <h3 className="font-bold text-gray-700 mb-2 text-sm">
                       PCIs
                     </h3>
-                    {isEditing ? (
+                    {isEditing && (
                       <textarea
                         value={plan.pcis_to_be_addressed}
                         onChange={(e) =>
@@ -512,14 +604,17 @@ function PrintContent() {
                             e.target.value
                           )
                         }
-                        className="w-full border border-gray-400 bg-yellow-50 p-1 text-xs"
+                        className="w-full border border-gray-400 bg-yellow-50 p-1 text-xs print:hidden"
                         rows={3}
                       />
-                    ) : (
-                      <p className="text-sm text-gray-900 whitespace-pre-wrap">
-                        {plan.pcis_to_be_addressed}
-                      </p>
                     )}
+                    <p
+                      className={`text-sm text-gray-900 whitespace-pre-wrap ${
+                        isEditing ? "hidden print:block" : ""
+                      }`}
+                    >
+                      {plan.pcis_to_be_addressed}
+                    </p>
                   </div>
                 </div>
 
@@ -528,7 +623,7 @@ function PrintContent() {
                   <h3 className="font-bold text-gray-700 mb-2">
                     Learning Resources
                   </h3>
-                  {isEditing ? (
+                  {isEditing && (
                     <textarea
                       value={plan.learning_resources}
                       onChange={(e) =>
@@ -538,20 +633,58 @@ function PrintContent() {
                           e.target.value
                         )
                       }
-                      className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm"
+                      className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm print:hidden"
                       rows={2}
                     />
-                  ) : (
-                    <div className="text-gray-900 whitespace-pre-wrap">
-                      {plan.learning_resources}
-                    </div>
                   )}
+                  <div
+                    className={`text-gray-900 whitespace-pre-wrap ${
+                      isEditing ? "hidden print:block" : ""
+                    }`}
+                  >
+                    {plan.learning_resources}
+                  </div>
                 </div>
 
                 {/* Lesson Steps */}
                 <div className="org-learning-container border border-gray-300 rounded-lg overflow-hidden">
-                  <div className="org-learning-header bg-gray-100 px-4 py-2 border-b border-gray-300 font-bold text-gray-800 print:bg-gray-200">
-                    Organization of Learning
+                  <div className="org-learning-header bg-gray-100 px-4 py-2 border-b border-gray-300 font-bold text-gray-800 print:bg-gray-200 flex justify-between items-center">
+                    <span>Organization of Learning</span>
+                    {isEditing && (
+                      <div className="flex gap-2 print:hidden">
+                        <button
+                          onClick={() => applyTemplate(index)}
+                          className="text-xs bg-gray-600 text-white px-2 py-1 rounded hover:bg-gray-700 flex items-center gap-1"
+                          title="Apply a standard structure template"
+                        >
+                          <span>📝 Template</span>
+                        </button>
+                        <button
+                          onClick={() => autoGeneratePlan(index, plan.id)}
+                          disabled={generatingId === plan.id}
+                          className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700 flex items-center gap-1"
+                          title="Auto-generate from curriculum (Free)"
+                        >
+                          {generatingId === plan.id ? (
+                            <span className="animate-spin">⌛</span>
+                          ) : (
+                            <span>⚡ Auto-Generate</span>
+                          )}
+                        </button>
+                        <button
+                          onClick={() => enhancePlan(index, plan.id)}
+                          disabled={enhancingId === plan.id}
+                          className="text-xs bg-purple-600 text-white px-2 py-1 rounded hover:bg-purple-700 flex items-center gap-1"
+                          title="Generate detailed content using AI"
+                        >
+                          {enhancingId === plan.id ? (
+                            <span className="animate-spin">⌛</span>
+                          ) : (
+                            <span>✨ Enhance with AI</span>
+                          )}
+                        </button>
+                      </div>
+                    )}
                   </div>
                   <div className="divide-y divide-gray-300">
                     <div className="org-learning-item p-4 print:p-1">
@@ -561,7 +694,7 @@ function PrintContent() {
                           5 min
                         </span>
                       </h4>
-                      {isEditing ? (
+                      {isEditing && (
                         <textarea
                           value={plan.introduction}
                           onChange={(e) =>
@@ -571,14 +704,17 @@ function PrintContent() {
                               e.target.value
                             )
                           }
-                          className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm"
+                          className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm print:hidden"
                           rows={3}
                         />
-                      ) : (
-                        <div className="text-gray-900 whitespace-pre-wrap">
-                          {plan.introduction}
-                        </div>
                       )}
+                      <div
+                        className={`text-gray-900 whitespace-pre-wrap ${
+                          isEditing ? "hidden print:block" : ""
+                        }`}
+                      >
+                        {plan.introduction}
+                      </div>
                     </div>
                     <div className="org-learning-item p-4 print:p-1">
                       <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
@@ -587,7 +723,7 @@ function PrintContent() {
                           {(plan.lesson_duration_minutes || 40) - 10} min
                         </span>
                       </h4>
-                      {isEditing ? (
+                      {isEditing && (
                         <textarea
                           value={plan.development}
                           onChange={(e) =>
@@ -597,14 +733,17 @@ function PrintContent() {
                               e.target.value
                             )
                           }
-                          className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm"
+                          className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm print:hidden"
                           rows={5}
                         />
-                      ) : (
-                        <div className="text-gray-900 whitespace-pre-wrap">
-                          {plan.development}
-                        </div>
                       )}
+                      <div
+                        className={`text-gray-900 whitespace-pre-wrap ${
+                          isEditing ? "hidden print:block" : ""
+                        }`}
+                      >
+                        {plan.development}
+                      </div>
                     </div>
                     <div className="org-learning-item p-4 print:p-1">
                       <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
@@ -613,7 +752,7 @@ function PrintContent() {
                           5 min
                         </span>
                       </h4>
-                      {isEditing ? (
+                      {isEditing && (
                         <textarea
                           value={plan.conclusion}
                           onChange={(e) =>
@@ -623,33 +762,39 @@ function PrintContent() {
                               e.target.value
                             )
                           }
-                          className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm"
+                          className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm print:hidden"
                           rows={3}
                         />
-                      ) : (
-                        <div className="text-gray-900 whitespace-pre-wrap">
-                          {plan.conclusion}
-                        </div>
                       )}
+                      <div
+                        className={`text-gray-900 whitespace-pre-wrap ${
+                          isEditing ? "hidden print:block" : ""
+                        }`}
+                      >
+                        {plan.conclusion}
+                      </div>
                     </div>
                     <div className="org-learning-item p-4 print:p-1">
                       <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase">
                         Summary
                       </h4>
-                      {isEditing ? (
+                      {isEditing && (
                         <textarea
                           value={plan.summary}
                           onChange={(e) =>
                             handlePlanChange(index, "summary", e.target.value)
                           }
-                          className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm"
+                          className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm print:hidden"
                           rows={2}
                         />
-                      ) : (
-                        <div className="text-gray-900 whitespace-pre-wrap">
-                          {plan.summary}
-                        </div>
                       )}
+                      <div
+                        className={`text-gray-900 whitespace-pre-wrap ${
+                          isEditing ? "hidden print:block" : ""
+                        }`}
+                      >
+                        {plan.summary}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -659,7 +804,7 @@ function PrintContent() {
                   <h3 className="font-bold text-gray-700 mb-2">
                     Reflection / Self-Evaluation
                   </h3>
-                  {isEditing ? (
+                  {isEditing && (
                     <textarea
                       value={plan.reflection_self_evaluation}
                       onChange={(e) =>
@@ -669,16 +814,19 @@ function PrintContent() {
                           e.target.value
                         )
                       }
-                      className="w-full border border-gray-400 bg-white p-1 text-sm"
+                      className="w-full border border-gray-400 bg-white p-1 text-sm print:hidden"
                       rows={3}
                       placeholder="To be filled after the lesson..."
                     />
-                  ) : (
-                    <div className="text-gray-900 whitespace-pre-wrap min-h-[100px]">
-                      {plan.reflection_self_evaluation ||
-                        "To be filled after the lesson..."}
-                    </div>
                   )}
+                  <div
+                    className={`text-gray-900 whitespace-pre-wrap min-h-[100px] ${
+                      isEditing ? "hidden print:block" : ""
+                    }`}
+                  >
+                    {plan.reflection_self_evaluation ||
+                      "To be filled after the lesson..."}
+                  </div>
                 </div>
               </div>
             </div>

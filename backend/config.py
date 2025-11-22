@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     
     # API
     API_V1_PREFIX: str = "/api/v1"
-    FRONTEND_URL: str = "http://192.168.0.102:3000"
+    FRONTEND_URL: str = "http://10.2.0.2:3000"
     
     # CORS
     CORS_ORIGINS: list = [

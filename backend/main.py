@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException, status, Response, UploadFile, File, Form, Request
+from fastapi import FastAPI, Depends, HTTPException, status, Response, UploadFile, File, Form, Request, Body
 from fastapi.responses import StreamingResponse, RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -9,6 +9,7 @@ import uvicorn
 import json
 import os
 import mimetypes
+import secrets
 
 from database import get_db, engine
 from models import (
@@ -17,9 +18,10 @@ from models import (
     NoteAnnotation, PresentationSession, SpeakerNote, SharedPresentation,
     SchoolSchedule, TimeSlot, TimetableEntry,
     SchoolSettings, SchoolTerm, CalendarActivity,
-    SchemeOfWork, SchemeWeek, SchemeLesson, LessonPlan
+    SchemeOfWork, SchemeWeek, SchemeLesson, LessonPlan, RecordOfWork, RecordOfWorkEntry,
+    SystemAnnouncement
 )
-from sqlalchemy import text, func, and_
+from sqlalchemy import text, func, and_, or_
 from schemas import (
     UserCreate, UserLogin, UserResponse, Token, GoogleAuth,
     SubjectCreate, SubjectResponse,
@@ -37,7 +39,14 @@ from schemas import (
     TimeSlotResponse, TimetableEntryCreate, TimetableEntryUpdate, TimetableEntryResponse,
     SchemeOfWorkCreate, SchemeOfWorkUpdate, SchemeOfWorkResponse, SchemeOfWorkSummary,
     SchemeWeekCreate, SchemeWeekResponse, SchemeLessonCreate, SchemeLessonResponse,
-    LessonPlanCreate, LessonPlanUpdate, LessonPlanResponse, LessonPlanSummary
+    LessonPlanCreate, LessonPlanUpdate, LessonPlanResponse, LessonPlanSummary,
+    RecordOfWorkCreate, RecordOfWorkUpdate, RecordOfWorkResponse, RecordOfWorkSummary,
+    RecordOfWorkEntryCreate, RecordOfWorkEntryUpdate, RecordOfWorkEntryResponse,
+    SystemAnnouncementCreate, SystemAnnouncementResponse,
+    AdminUsersResponse, AdminUserSummary, AdminSubjectSummary,
+    AdminRoleUpdate, ResetProgressRequest,
+    TermsResponse, TermResponse, TermUpdate,
+    UserSettingsUpdate, UserSettingsResponse
 )
 from auth import verify_password, get_password_hash, create_access_token, verify_token
 from config import settings
@@ -151,6 +160,133 @@ def get_current_admin_user(
             detail="Access denied. Admin privileges required."
         )
     return current_user
+
+
+def ensure_user_terms(db: Session, user: User) -> List[Term]:
+    """Ensure the current user has term data and one marked as current."""
+    terms = db.query(Term).filter(Term.user_id == user.id).order_by(Term.term_number).all()
+    if terms:
+        has_current = any(term.is_current for term in terms)
+        if not has_current and terms:
+            terms[0].is_current = True
+            db.commit()
+            db.refresh(terms[0])
+        return terms
+
+    current_year = datetime.utcnow().year
+    default_definitions = [
+        {
+            "term_number": 1,
+            "term_name": "Term 1",
+            "start_date": datetime(current_year, 1, 6, 0, 0, 0),
+            "end_date": datetime(current_year, 4, 4, 23, 59, 59),
+            "teaching_weeks": 14,
+            "is_current": True,
+        },
+        {
+            "term_number": 2,
+            "term_name": "Term 2",
+            "start_date": datetime(current_year, 5, 5, 0, 0, 0),
+            "end_date": datetime(current_year, 8, 1, 23, 59, 59),
+            "teaching_weeks": 12,
+            "is_current": False,
+        },
+        {
+            "term_number": 3,
+            "term_name": "Term 3",
+            "start_date": datetime(current_year, 9, 1, 0, 0, 0),
+            "end_date": datetime(current_year, 11, 21, 23, 59, 59),
+            "teaching_weeks": 10,
+            "is_current": False,
+        },
+    ]
+
+    for definition in default_definitions:
+        term = Term(
+            user_id=user.id,
+            academic_year=str(current_year),
+            **definition
+        )
+        db.add(term)
+
+    db.commit()
+    return db.query(Term).filter(Term.user_id == user.id).order_by(Term.term_number).all()
+
+
+def get_active_schedule_or_fallback(
+    db: Session,
+    user: User,
+    education_level: Optional[str] = None
+) -> Optional[SchoolSchedule]:
+    """Return the active schedule for a level, falling back to a generic one when missing."""
+    base_query = db.query(SchoolSchedule).filter(
+        SchoolSchedule.user_id == user.id,
+        SchoolSchedule.is_active == True
+    )
+
+    normalized_level = education_level.strip() if education_level else None
+    if normalized_level in {"", "all", "general"}:
+        normalized_level = None
+
+    schedule = None
+    if normalized_level:
+        schedule = base_query.filter(SchoolSchedule.education_level == normalized_level).first()
+
+    if not schedule:
+        schedule = base_query.filter(
+            or_(SchoolSchedule.education_level == None, SchoolSchedule.education_level == "")
+        ).first()
+
+    if not schedule:
+        schedule = base_query.order_by(SchoolSchedule.created_at.desc()).first()
+
+    return schedule
+
+
+def schedule_has_entries(
+    db: Session,
+    user_id: int,
+    schedule_id: int,
+    day_of_week: Optional[int] = None
+) -> bool:
+    """Check whether a schedule already has timetable entries (optionally for a given day)."""
+    query = db.query(TimetableEntry.id).filter(
+        TimetableEntry.user_id == user_id,
+        TimetableEntry.schedule_id == schedule_id
+    )
+    if day_of_week:
+        query = query.filter(TimetableEntry.day_of_week == day_of_week)
+    return query.first() is not None
+
+
+def resolve_schedule_for_context(
+    db: Session,
+    user: User,
+    education_level: Optional[str] = None,
+    day_of_week: Optional[int] = None
+) -> Optional[SchoolSchedule]:
+    """Prefer the schedule that already has entries when no explicit level is provided."""
+    schedule = get_active_schedule_or_fallback(db, user, education_level)
+    if not schedule:
+        return None
+    if education_level:
+        return schedule
+    if schedule_has_entries(db, user.id, schedule.id, day_of_week):
+        return schedule
+    alt_query = db.query(SchoolSchedule).join(
+        TimetableEntry,
+        TimetableEntry.schedule_id == SchoolSchedule.id
+    ).filter(
+        SchoolSchedule.user_id == user.id,
+        SchoolSchedule.is_active == True
+    )
+    if day_of_week:
+        alt_query = alt_query.filter(TimetableEntry.day_of_week == day_of_week)
+    alt_schedule = alt_query.order_by(
+        SchoolSchedule.updated_at.desc(),
+        SchoolSchedule.created_at.desc()
+    ).first()
+    return alt_schedule or schedule
 
 # Health check
 @app.get("/")
@@ -1016,7 +1152,7 @@ async def list_curriculum_templates(
 @app.delete(f"{settings.API_V1_PREFIX}/curriculum-templates/{{template_id}}")
 async def delete_curriculum_template(
     template_id: int,
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
     """
@@ -1395,7 +1531,6 @@ async def update_curriculum_template(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Another curriculum template already exists with these values"
             )
-    
     for key, value in update_data.items():
         setattr(db_template, key, value)
     
@@ -1550,6 +1685,93 @@ async def upload_school_logo(
     # Return URL
     url = f"/uploads/logos/{filename}"
     return {"url": url}
+
+# User Scheduling Settings
+
+@app.get(f"{settings.API_V1_PREFIX}/user/settings", response_model=UserSettingsResponse)
+def get_user_settings(current_user: User = Depends(get_current_user)):
+    """Return the current user's default scheduling preferences."""
+    return current_user
+
+
+@app.put(f"{settings.API_V1_PREFIX}/user/settings", response_model=UserSettingsResponse)
+def update_user_settings(
+    settings_update: UserSettingsUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update default lesson durations for the authenticated user."""
+    update_data = settings_update.dict(exclude_unset=True)
+    if not update_data:
+        raise HTTPException(status_code=400, detail="No settings provided")
+
+    single = update_data.get("default_lesson_duration", current_user.default_lesson_duration)
+    double = update_data.get("default_double_lesson_duration", current_user.default_double_lesson_duration)
+
+    if single < 20 or single > 120:
+        raise HTTPException(status_code=400, detail="Single lesson duration must be between 20 and 120 minutes")
+    if double < 30 or double > 240:
+        raise HTTPException(status_code=400, detail="Double lesson duration must be between 30 and 240 minutes")
+    if double < single:
+        raise HTTPException(status_code=400, detail="Double lesson duration must be longer than single lessons")
+
+    for field, value in update_data.items():
+        setattr(current_user, field, value)
+
+    db.commit()
+    db.refresh(current_user)
+    return current_user
+
+
+# User Academic Terms Endpoints
+
+@app.get(f"{settings.API_V1_PREFIX}/terms", response_model=TermsResponse)
+def list_user_terms(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Retrieve academic terms for the current user, auto-seeding defaults if missing."""
+    terms = ensure_user_terms(db, current_user)
+    return {"terms": terms}
+
+
+@app.put(f"{settings.API_V1_PREFIX}/terms/{{term_id}}", response_model=TermResponse)
+def update_user_term(
+    term_id: int,
+    term_update: TermUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update a user's academic term and maintain a single active term."""
+    term = db.query(Term).filter(
+        Term.id == term_id,
+        Term.user_id == current_user.id
+    ).first()
+
+    if not term:
+        raise HTTPException(status_code=404, detail="Term not found")
+
+    update_data = term_update.dict(exclude_unset=True)
+    if not update_data:
+        raise HTTPException(status_code=400, detail="No updates supplied")
+
+    if update_data.get("is_current"):
+        db.query(Term).filter(
+            Term.user_id == current_user.id,
+            Term.id != term_id
+        ).update({Term.is_current: False}, synchronize_session=False)
+
+    for field, value in update_data.items():
+        setattr(term, field, value)
+
+    db.commit()
+    db.refresh(term)
+
+    # Ensure at least one term remains marked as current
+    ensure_user_terms(db, current_user)
+
+    return term
+
 
 # School Terms Endpoints
 
@@ -1858,7 +2080,7 @@ def get_subject_lessons(
         "subject_id": subject_id,
         "subject_name": subject.subject_name,
         "total_lessons": subject.total_lessons,
-        "lessons_completed": subject.lessons_completed,
+        "completed_lessons": subject.lessons_completed,
         "progress_percentage": subject.progress_percentage,
         "lessons": [
             {
@@ -1963,7 +2185,6 @@ def get_curriculum_progress(
             "progress_percentage": float(subject.progress_percentage),
             "strands": strand_data
         })
-    
     return {
         "overview": {
             "total_subjects": total_subjects,
@@ -1984,1200 +2205,244 @@ def get_curriculum_progress(
         ]
     }
 
+
 # ============================================================================
-# TERM MANAGEMENT ENDPOINTS
+# ADMIN USER MANAGEMENT ENDPOINTS
 # ============================================================================
 
-@app.get(f"{settings.API_V1_PREFIX}/terms")
-def get_terms(
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Get all terms for the current user"""
-    terms = db.query(Term).filter(Term.user_id == current_user.id).order_by(Term.term_number).all()
-    
-    return {
-        "terms": [
-            {
-                "id": t.id,
-                "term_number": t.term_number,
-                "term_name": t.term_name,
-                "academic_year": t.academic_year,
-                "start_date": t.start_date.isoformat() if t.start_date else None,
-                "end_date": t.end_date.isoformat() if t.end_date else None,
-                "teaching_weeks": t.teaching_weeks,
-                "is_current": t.is_current
-            }
-            for t in terms
-        ]
-    }
-
-@app.post(f"{settings.API_V1_PREFIX}/terms")
-def create_term(
-    term_data: dict,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Create a new term"""
-    term = Term(
-        user_id=current_user.id,
-        term_number=term_data["term_number"],
-        term_name=term_data["term_name"],
-        academic_year=term_data["academic_year"],
-        start_date=datetime.fromisoformat(term_data["start_date"]),
-        end_date=datetime.fromisoformat(term_data["end_date"]),
-        teaching_weeks=term_data["teaching_weeks"],
-        is_current=term_data.get("is_current", False)
+def _reset_subject_progress(db: Session, subject: Subject):
+    """Reset completion data for a single subject."""
+    lessons = (
+        db.query(Lesson)
+        .join(SubStrand, Lesson.substrand_id == SubStrand.id)
+        .join(Strand, SubStrand.strand_id == Strand.id)
+        .filter(Strand.subject_id == subject.id)
+        .all()
     )
-    
-    # If marking as current, unmark all other terms
-    if term.is_current:
-        db.query(Term).filter(Term.user_id == current_user.id).update({"is_current": False})
-    
-    db.add(term)
-    db.commit()
-    db.refresh(term)
-    
-    return {
-        "message": "Term created successfully",
-        "term": {
-            "id": term.id,
-            "term_number": term.term_number,
-            "term_name": term.term_name,
-            "academic_year": term.academic_year,
-            "start_date": term.start_date.isoformat(),
-            "end_date": term.end_date.isoformat(),
-            "teaching_weeks": term.teaching_weeks,
-            "is_current": term.is_current
-        }
-    }
 
-@app.put(f"{settings.API_V1_PREFIX}/terms/{{term_id}}")
-def update_term(
-    term_id: int,
-    term_data: dict,
-    current_user: User = Depends(get_current_user),
+    for lesson in lessons:
+        lesson.is_completed = False
+        lesson.completed_at = None
+
+    db.query(ProgressLog).filter(ProgressLog.subject_id == subject.id).delete()
+
+    subject.lessons_completed = 0
+    subject.progress_percentage = 0.0
+
+
+@app.get(f"{settings.API_V1_PREFIX}/admin/users", response_model=AdminUsersResponse)
+def list_admin_users(
+    current_user: User = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
-    """Update a term"""
-    term = db.query(Term).filter(Term.id == term_id, Term.user_id == current_user.id).first()
-    
-    if not term:
-        raise HTTPException(status_code=404, detail="Term not found")
-    
-    # Update fields
-    if "term_name" in term_data:
-        term.term_name = term_data["term_name"]
-    if "start_date" in term_data:
-        term.start_date = datetime.fromisoformat(term_data["start_date"])
-    if "end_date" in term_data:
-        term.end_date = datetime.fromisoformat(term_data["end_date"])
-    if "teaching_weeks" in term_data:
-        term.teaching_weeks = term_data["teaching_weeks"]
-    if "is_current" in term_data:
-        if term_data["is_current"]:
-            # Unmark all other terms
-            db.query(Term).filter(Term.user_id == current_user.id).update({"is_current": False})
-        term.is_current = term_data["is_current"]
-    
-    db.commit()
-    db.refresh(term)
-    
-    return {
-        "message": "Term updated successfully",
-        "term": {
-            "id": term.id,
-            "term_number": term.term_number,
-            "term_name": term.term_name,
-            "academic_year": term.academic_year,
-            "start_date": term.start_date.isoformat(),
-            "end_date": term.end_date.isoformat(),
-            "teaching_weeks": term.teaching_weeks,
-            "is_current": term.is_current
-        }
-    }
+    """List all users with their subjects and progress (Admin only)."""
+    users = (
+        db.query(User)
+        .options(joinedload(User.subjects))
+        .order_by(User.created_at.desc())
+        .all()
+    )
 
-@app.get(f"{settings.API_V1_PREFIX}/terms/current")
-def get_current_term(
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Get the currently active term"""
-    term = db.query(Term).filter(
-        Term.user_id == current_user.id,
-        Term.is_current == True
-    ).first()
-    
-    if not term:
-        return {"current_term": None}
-    
-    return {
-        "current_term": {
-            "id": term.id,
-            "term_number": term.term_number,
-            "term_name": term.term_name,
-            "academic_year": term.academic_year,
-            "start_date": term.start_date.isoformat(),
-            "end_date": term.end_date.isoformat(),
-            "teaching_weeks": term.teaching_weeks,
-            "is_current": term.is_current
-        }
-    }
-
-# ============================================================================
-# SUBJECT SCHEDULING ENDPOINTS
-# ============================================================================
-
-@app.put(f"{settings.API_V1_PREFIX}/subjects/{{subject_id}}/scheduling")
-def update_subject_scheduling(
-    subject_id: int,
-    scheduling_data: dict,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Update scheduling configuration for a subject"""
-    subject = db.query(Subject).filter(
-        Subject.id == subject_id,
-        Subject.user_id == current_user.id
-    ).first()
-    
-    if not subject:
-        raise HTTPException(status_code=404, detail="Subject not found")
-    
-    # Update scheduling fields
-    if "lessons_per_week" in scheduling_data:
-        subject.lessons_per_week = scheduling_data["lessons_per_week"]
-    if "single_lesson_duration" in scheduling_data:
-        subject.single_lesson_duration = scheduling_data["single_lesson_duration"]
-    if "double_lesson_duration" in scheduling_data:
-        subject.double_lesson_duration = scheduling_data["double_lesson_duration"]
-   
-        subject.double_lessons_per_week = scheduling_data["double_lessons_per_week"]
-    
-    db.commit()
-    db.refresh(subject)
-    
-    return {
-        "message": "Scheduling updated successfully",
-        "scheduling": {
-            "lessons_per_week": subject.lessons_per_week,
-            "single_lesson_duration": subject.single_lesson_duration,
-            "double_lesson_duration": subject.double_lesson_duration,
-            "double_lessons_per_week": subject.double_lessons_per_week
-        }
-    }
-
-@app.get(f"{settings.API_V1_PREFIX}/subjects/{{subject_id}}/scheduling")
-def get_subject_scheduling(
-    subject_id: int,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Get scheduling configuration for a subject"""
-    subject = db.query(Subject).filter(
-        Subject.id == subject_id,
-        Subject.user_id == current_user.id
-    ).first()
-    
-    if not subject:
-        raise HTTPException(status_code=404, detail="Subject not found")
-    
-    return {
-        "subject_id": subject.id,
-        "subject_name": subject.subject_name,
-        "scheduling": {
-            "lessons_per_week": subject.lessons_per_week,
-            "single_lesson_duration": subject.single_lesson_duration,
-            "double_lesson_duration": subject.double_lesson_duration,
-            "double_lessons_per_week": subject.double_lessons_per_week
-        }
-    }
-
-@app.put(f"{settings.API_V1_PREFIX}/user/settings")
-def update_user_settings(
-    settings_data: dict,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Update user's default settings"""
-    user = db.query(User).filter(User.id == current_user.id).first()
-    
-    if "default_lesson_duration" in settings_data:
-        user.default_lesson_duration = settings_data["default_lesson_duration"]
-    if "default_double_lesson_duration" in settings_data:
-        user.default_double_lesson_duration = settings_data["default_double_lesson_duration"]
-    
-    db.commit()
-    db.refresh(user)
-    
-    return {
-        "message": "Settings updated successfully",
-        "settings": {
-            "default_lesson_duration": user.default_lesson_duration,
-            "default_double_lesson_duration": user.default_double_lesson_duration
-        }
-    }
-
-# ============================================================================
-# CURRICULUM IMPORT ENDPOINTS (Admin)
-# ============================================================================
-
-@app.post(f"{settings.API_V1_PREFIX}/admin/import-curriculum")
-async def import_curriculum(
-    file: UploadFile = File(...),
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """
-    Import curriculum from JSON file
-    Upload a JSON file with curriculum structure
-    """
-    
-    # Optional: Add admin check here
-    # if not current_user.is_admin:
-    #     raise HTTPException(status_code=403, detail="Admin access required")
-    
-    try:
-        # Read uploaded file
-        contents = await file.read()
-        json_data = json.loads(contents.decode('utf-8'))
-        
-        # Import curriculum
-        result = import_curriculum_from_json(json_data, db)
-        
-        if result["success"]:
-            return {
-                "success": True,
-                "message": result["message"],
-                "curriculum_id": result["curriculum_id"],
-                "stats": result.get("stats", {}),
-                "filename": file.filename
-            }
-        else:
-            raise HTTPException(status_code=400, detail=result["message"])
-            
-    except json.JSONDecodeError as e:
-        raise HTTPException(status_code=400, detail=f"Invalid JSON file: {str(e)}")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Import failed: {str(e)}")
-
-@app.get(f"{settings.API_V1_PREFIX}/admin/curricula")
-def list_imported_curricula(
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Get list of all imported curriculum templates"""
-    curricula = get_imported_curricula(db)
-    return {
-        "curricula": curricula,
-        "total": len(curricula)
-    }
-
-@app.delete(f"{settings.API_V1_PREFIX}/admin/curricula/{{curriculum_id}}")
-def delete_curriculum(
-    curriculum_id: int,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Delete a curriculum template (admin only)"""
-    
-    # Optional: Add admin check
-    # if not current_user.is_admin:
-    #     raise HTTPException(status_code=403, detail="Admin access required")
-    
-    curriculum = db.query(CurriculumTemplate).filter(CurriculumTemplate.id == curriculum_id).first()
-    
-    if not curriculum:
-        raise HTTPException(status_code=404, detail="Curriculum not found")
-    
-    # Check if any users are using this curriculum
-    users_count = db.query(Subject).filter(Subject.template_id == curriculum_id).count()
-    
-    if users_count > 0:
-        raise HTTPException(
-            status_code=400, 
-            detail=f"Cannot delete. {users_count} users are using this curriculum."
-        )
-    
-    db.delete(curriculum)
-    db.commit()
-    
-    return {
-        "success": True,
-        "message": f"Deleted {curriculum.subject} {curriculum.grade}"
-    }
-
-# ============================================================================
-# ADMIN - USER MANAGEMENT ENDPOINTS
-# ============================================================================
-
-@app.get(f"{settings.API_V1_PREFIX}/admin/users")
-def get_all_users(
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Get all users with their subjects and progress (Admin only)"""
-    
-    # Check if user is admin
-    if not current_user.is_admin:
-        raise HTTPException(status_code=403, detail="Admin access required")
-    
-    users = db.query(User).all()
-    
-    result = []
+    user_payload = []
     for user in users:
-        # Get user's subjects with progress
-        subjects = db.query(Subject).filter(Subject.user_id == user.id).all()
-        
-        subject_data = []
-        for subject in subjects:
-            subject_data.append({
-                "id": subject.id,
-                "subject_name": subject.subject_name,
-                "grade": subject.grade,
-                "total_lessons": subject.total_lessons,
-                "lessons_completed": subject.lessons_completed,
-                "progress_percentage": float(subject.progress_percentage)
-            })
-        
-        result.append({
-            "id": user.id,
-            "email": user.email,
-            "full_name": user.full_name,
-            "school": user.school,
-            "grade_level": user.grade_level,
-            "is_admin": user.is_admin,
-            "auth_provider": user.auth_provider,
-            "created_at": user.created_at.isoformat() if user.created_at else None,
-            "subjects_count": len(subjects),
-            "subjects": subject_data
-        })
-    
-    return {
-        "users": result,
-        "total": len(result)
-    }
+        subjects_payload = [
+            AdminSubjectSummary(
+                id=subject.id,
+                subject_name=subject.subject_name,
+                grade=subject.grade,
+                total_lessons=subject.total_lessons,
+                lessons_completed=subject.lessons_completed,
+                progress_percentage=float(subject.progress_percentage or 0),
+            )
+            for subject in user.subjects
+        ]
+
+        user_payload.append(
+            AdminUserSummary(
+                id=user.id,
+                email=user.email,
+                full_name=user.full_name,
+                school=user.school,
+                grade_level=user.grade_level,
+                is_admin=user.is_admin,
+                auth_provider=user.auth_provider,
+                created_at=user.created_at,
+                subjects_count=len(subjects_payload),
+                subjects=subjects_payload,
+            )
+        )
+
+    return AdminUsersResponse(users=user_payload, total=len(user_payload))
+
 
 @app.patch(f"{settings.API_V1_PREFIX}/admin/users/{{user_id}}/role")
 def update_user_role(
     user_id: int,
-    is_admin: bool,
-    current_user: User = Depends(get_current_user),
+    payload: AdminRoleUpdate,
+    current_user: User = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
-    """Toggle user admin role (Admin only)"""
-    
-    if not current_user.is_admin:
-        raise HTTPException(status_code=403, detail="Admin access required")
-    
+    """Toggle or set a user's admin role."""
+    if user_id == current_user.id and not payload.is_admin:
+        raise HTTPException(status_code=400, detail="You cannot remove your own admin access")
+
     user = db.query(User).filter(User.id == user_id).first()
-    
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    
-    # Prevent removing admin role from yourself
-    if user.id == current_user.id and not is_admin:
-        raise HTTPException(status_code=400, detail="Cannot remove admin role from yourself")
-    
-    user.is_admin = is_admin
+
+    user.is_admin = payload.is_admin
     db.commit()
-    
-    return {
-        "success": True,
-        "message": f"User {'promoted to' if is_admin else 'demoted from'} admin",
-        "user_id": user_id,
-        "is_admin": is_admin
-    }
+    db.refresh(user)
+
+    role_label = "admin" if user.is_admin else "teacher"
+    return {"message": f"User role updated to {role_label}", "is_admin": user.is_admin}
+
 
 @app.delete(f"{settings.API_V1_PREFIX}/admin/users/{{user_id}}")
-def delete_user(
+def delete_user_account(
     user_id: int,
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
-    """Delete a user account (Admin only)"""
-    
-    if not current_user.is_admin:
-        raise HTTPException(status_code=403, detail="Admin access required")
-    
+    """Delete a user's account and associated data."""
+    if user_id == current_user.id:
+        raise HTTPException(status_code=400, detail="You cannot delete your own account")
+
     user = db.query(User).filter(User.id == user_id).first()
-    
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    
-    # Prevent deleting yourself
-    if user.id == current_user.id:
-        raise HTTPException(status_code=400, detail="Cannot delete your own account")
-    
-    email = user.email
+
     db.delete(user)
     db.commit()
-    
-    return {
-        "success": True,
-        "message": f"Deleted user {email}"
-    }
+    return {"message": "User deleted successfully"}
+
 
 @app.post(f"{settings.API_V1_PREFIX}/admin/users/{{user_id}}/reset-progress")
 def reset_user_progress(
     user_id: int,
-    subject_id: int = None,
-    current_user: User = Depends(get_current_user),
+    payload: ResetProgressRequest = Body(default=None),
+    current_user: User = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
-    """Reset user's progress for a subject or all subjects (Admin only)"""
-    
-    if not current_user.is_admin:
-        raise HTTPException(status_code=403, detail="Admin access required")
-    
+    """Reset progress for a user (optionally for a single subject)."""
+    target_user = db.query(User).filter(User.id == user_id).first()
+    if not target_user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    subject_id = payload.subject_id if payload else None
+
+    if subject_id:
+        subject = (
+            db.query(Subject)
+            .filter(Subject.id == subject_id, Subject.user_id == target_user.id)
+            .first()
+        )
+        if not subject:
+            raise HTTPException(status_code=404, detail="Subject not found for this user")
+
+        _reset_subject_progress(db, subject)
+        db.commit()
+        return {"message": f"Progress reset for subject {subject.subject_name}"}
+
+    # Reset all subjects
+    subjects = db.query(Subject).filter(Subject.user_id == target_user.id).all()
+    for subject in subjects:
+        _reset_subject_progress(db, subject)
+
+    db.commit()
+    return {"message": "All subject progress reset for user"}
+
+
+@app.post(f"{settings.API_V1_PREFIX}/admin/users/{{user_id}}/impersonate", response_model=Token)
+def impersonate_user(
+    user_id: int,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Impersonate a user (Admin only)."""
+    if user_id == current_user.id:
+        raise HTTPException(status_code=400, detail="You are already signed in as this user")
+
     user = db.query(User).filter(User.id == user_id).first()
-    
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    
-    try:
-        if subject_id:
-            # Reset specific subject
-            subject = db.query(Subject).filter(
-                Subject.id == subject_id,
-                Subject.user_id == user_id
-            ).first()
-            
-            if not subject:
-                raise HTTPException(status_code=404, detail="Subject not found")
-            
-            # Reset all lessons in this subject
-            lessons = db.query(Lesson).join(SubStrand).join(Strand).filter(
-                Strand.subject_id == subject_id
-            ).all()
-            
-            for lesson in lessons:
-                lesson.is_completed = False
-                lesson.completed_at = None
-            
-            subject.lessons_completed = 0
-            subject.progress_percentage = 0.0
-            
-            db.commit()
-            
-            return {
-                "success": True,
-                "message": f"Reset progress for {subject.subject_name}",
-                "subject_id": subject_id
-            }
-        else:
-            # Reset all subjects for this user
-            subjects = db.query(Subject).filter(Subject.user_id == user_id).all()
-            
-            for subject in subjects:
-                lessons = db.query(Lesson).join(SubStrand).join(Strand).filter(
-                    Strand.subject_id == subject.id
-                ).all()
-                
-                for lesson in lessons:
-                    lesson.is_completed = False
-                    lesson.completed_at = None
-                
-                subject.lessons_completed = 0
-                subject.progress_percentage = 0.0
-            
-            db.commit()
-            
-            return {
-                "success": True,
-                "message": f"Reset all progress for {user.email}",
-                "subjects_reset": len(subjects)
-            }
-    except Exception as e:
-        db.rollback()
-        raise HTTPException(status_code=500, detail=f"Failed to reset progress: {str(e)}")
+
+    access_token = create_access_token(data={"sub": user.email})
+    return {"access_token": access_token, "token_type": "bearer"}
 
 # ============================================================================
-# ADMIN - ANALYTICS ENDPOINTS
+# SYSTEM ANNOUNCEMENTS ENDPOINTS
 # ============================================================================
 
-@app.get(f"{settings.API_V1_PREFIX}/admin/analytics")
-def get_admin_analytics(
+@app.get(f"{settings.API_V1_PREFIX}/announcements", response_model=List[SystemAnnouncementResponse])
+def get_active_announcements(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Get comprehensive analytics for admin dashboard"""
+    """Get all active announcements for users"""
+    now = datetime.utcnow()
+    announcements = db.query(SystemAnnouncement).filter(
+        SystemAnnouncement.is_active == True,
+        (SystemAnnouncement.expires_at == None) | (SystemAnnouncement.expires_at > now)
+    ).order_by(SystemAnnouncement.created_at.desc()).all()
     
-    # Check if user is admin
-    if not current_user.is_admin:
-        raise HTTPException(status_code=403, detail="Admin access required")
-    
-    # Get total counts
-    total_users = db.query(User).count()
-    total_templates = db.query(CurriculumTemplate).count()
-    total_subjects = db.query(Subject).count()
-    
-    # Most used curricula
-    curriculum_usage = db.query(
-        CurriculumTemplate.subject,
-        CurriculumTemplate.grade,
-        func.count(Subject.id).label('usage_count')
-    ).outerjoin(
-        Subject, 
-        and_(
-            Subject.subject_name == CurriculumTemplate.subject,
-            Subject.grade == CurriculumTemplate.grade
-        )
-    ).group_by(
-        CurriculumTemplate.subject,
-        CurriculumTemplate.grade
-    ).order_by(
-        func.count(Subject.id).desc()
-    ).limit(10).all()
-    
-    most_used = [
-        {
-            "subject": row.subject,
-            "grade": row.grade,
-            "usage_count": row.usage_count
-        }
-        for row in curriculum_usage
-    ]
-    
-    # Average completion rates per subject
-    subject_stats = db.query(
-        Subject.subject_name,
-        func.avg(Subject.progress_percentage).label('avg_completion'),
-        func.count(Subject.id).label('subject_count')
-    ).group_by(
-        Subject.subject_name
-    ).all()
-    
-    completion_rates = [
-        {
-            "subject": row.subject_name,
-            "avg_completion": round(float(row.avg_completion or 0), 2),
-            "count": row.subject_count
-        }
-        for row in subject_stats
-    ]
-    
-    # Teacher engagement metrics
-    active_teachers = db.query(User).join(Subject).group_by(User.id).having(func.count(Subject.id) > 0).count()
-    
-    users_with_subjects = db.query(
-        User.id,
-        User.email,
-        func.count(Subject.id).label('subject_count'),
-        func.avg(Subject.progress_percentage).label('avg_progress')
-    ).outerjoin(Subject).group_by(User.id, User.email).all()
-    
-    engagement_data = [
-        {
-            "user_id": row.id,
-            "email": row.email,
-            "subjects": row.subject_count,
-            "avg_progress": round(float(row.avg_progress or 0), 2)
-        }
-        for row in users_with_subjects
-    ]
-    
-    # Subject popularity (by grade)
-    grade_distribution = db.query(
-        Subject.grade,
-        func.count(Subject.id).label('count')
-    ).group_by(Subject.grade).order_by(Subject.grade).all()
-    
-    popularity = [
-        {
-            "grade": row.grade,
-            "count": row.count
-        }
-        for row in grade_distribution
-    ]
-    
-    # Activity timeline (subjects created in last 30 days)
-    from datetime import datetime, timedelta
-    thirty_days_ago = datetime.now() - timedelta(days=30)
-    
-    recent_activity = db.query(
-        func.date(Subject.created_at).label('date'),
-        func.count(Subject.id).label('count')
-    ).filter(
-        Subject.created_at >= thirty_days_ago
-    ).group_by(
-        func.date(Subject.created_at)
-    ).order_by(
-        func.date(Subject.created_at)
-    ).all()
-    
-    activity_timeline = [
-        {
-            "date": row.date.isoformat() if row.date else None,
-            "count": row.count
-        }
-        for row in recent_activity
-    ]
-    
-    # Overall progress statistics
-    all_subjects = db.query(Subject).all()
-    progress_ranges = {
-        "0-25": 0,
-        "26-50": 0,
-        "51-75": 0,
-        "76-100": 0
-    }
-    
-    for subject in all_subjects:
-        progress = subject.progress_percentage
-        if progress <= 25:
-            progress_ranges["0-25"] += 1
-        elif progress <= 50:
-            progress_ranges["26-50"] += 1
-        elif progress <= 75:
-            progress_ranges["51-75"] += 1
-        else:
-            progress_ranges["76-100"] += 1
-    
-    return {
-        "overview": {
-            "total_users": total_users,
-            "active_teachers": active_teachers,
-            "total_templates": total_templates,
-            "total_subjects": total_subjects
-        },
-        "most_used_curricula": most_used,
-        "completion_rates": completion_rates,
-        "teacher_engagement": engagement_data,
-        "subject_popularity": popularity,
-        "activity_timeline": activity_timeline,
-        "progress_distribution": progress_ranges
-    }
+    return announcements
 
-# ============================================================================
-# ADMIN - CURRICULUM TEMPLATE EDITOR ENDPOINTS
-# ============================================================================
-
-@app.get(f"{settings.API_V1_PREFIX}/admin/curriculum-templates/{{template_id}}")
-def get_template_for_editing(
-    template_id: int,
-    current_user: User = Depends(get_current_user),
+@app.get(f"{settings.API_V1_PREFIX}/admin/announcements", response_model=List[SystemAnnouncementResponse])
+def get_all_announcements(
+    current_user: User = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
-    """Get curriculum template with all strands and substrands for editing (Admin only)"""
-    
-    # Check if user is admin
-    if not current_user.is_admin:
-        raise HTTPException(status_code=403, detail="Admin access required")
-    
-    template = db.query(CurriculumTemplate).filter(CurriculumTemplate.id == template_id).first()
-    
-    if not template:
-        raise HTTPException(status_code=404, detail="Template not found")
-    
-    # Get all strands with substrands
-    strands = db.query(TemplateStrand).filter(
-        TemplateStrand.curriculum_template_id == template_id
-    ).order_by(TemplateStrand.sequence_order).all()
-    
-    strands_data = []
-    for strand in strands:
-        substrands = db.query(TemplateSubstrand).filter(
-            TemplateSubstrand.strand_id == strand.id
-        ).order_by(TemplateSubstrand.sequence_order).all()
-        
-        strands_data.append({
-            "id": strand.id,
-            "sequence_order": strand.sequence_order,
-            "strand_name": strand.strand_name,
-            "substrands": [
-                {
-                    "id": ss.id,
-                    "sequence_order": ss.sequence_order,
-                    "substrand_name": ss.substrand_name,
-                    "specific_learning_outcomes": ss.specific_learning_outcomes,
-                    "suggested_learning_experiences": ss.suggested_learning_experiences,
-                    "key_inquiry_questions": ss.key_inquiry_questions,
-                    "number_of_lessons": ss.number_of_lessons
-                }
-                for ss in substrands
-            ]
-        })
-    
-    # Calculate totals from the data
-    total_substrands = sum(len(strand["substrands"]) for strand in strands_data)
-    total_lessons = sum(
-        ss["number_of_lessons"] 
-        for strand in strands_data 
-        for ss in strand["substrands"]
+    """Get all announcements (Admin only)"""
+    announcements = db.query(SystemAnnouncement).order_by(SystemAnnouncement.created_at.desc()).all()
+    return announcements
+
+@app.post(f"{settings.API_V1_PREFIX}/admin/announcements", response_model=SystemAnnouncementResponse)
+def create_announcement(
+    announcement: SystemAnnouncementCreate,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new announcement (Admin only)"""
+    new_announcement = SystemAnnouncement(
+        **announcement.dict(),
+        created_by=current_user.id
     )
-    
-    return {
-        "id": template.id,
-        "subject": template.subject,
-        "grade": template.grade,
-        "is_active": template.is_active,
-        "total_strands": len(strands_data),
-        "total_substrands": total_substrands,
-        "total_lessons": total_lessons,
-        "strands": strands_data
-    }
-
-@app.put(f"{settings.API_V1_PREFIX}/admin/curriculum-templates/{{template_id}}")
-def update_curriculum_template(
-    template_id: int,
-    update_data: dict,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Update curriculum template including strands and substrands (Admin only)"""
-    
-    # Check if user is admin
-    if not current_user.is_admin:
-        raise HTTPException(status_code=403, detail="Admin access required")
-    
-    template = db.query(CurriculumTemplate).filter(CurriculumTemplate.id == template_id).first()
-    
-    if not template:
-        raise HTTPException(status_code=404, detail="Template not found")
-    
-    try:
-        # Update template info
-        template.subject = update_data.get("subject", template.subject)
-        template.grade = update_data.get("grade", template.grade)
-        template.is_active = update_data.get("is_active", template.is_active)
-        
-        # Get existing strand IDs
-        existing_strand_ids = {strand.id for strand in db.query(TemplateStrand).filter(
-            TemplateStrand.template_id == template_id
-        ).all()}
-        
-        new_strand_ids = set()
-        total_substrands = 0
-        total_lessons = 0
-        
-        # Process strands from update data
-        if "strands" in update_data:
-            for strand_data in update_data["strands"]:
-                strand_id = strand_data.get("id")
-                
-                # Check if it's a new strand (temporary ID from frontend)
-                if strand_id and strand_id > 1000000000:  # Temporary IDs are timestamps
-                    # Create new strand
-                    new_strand = TemplateStrand(
-                        curriculum_template_id=template_id,
-                        strand_number=str(strand_data.get("sequence_order", 0)),  # Use sequence as strand number
-                        sequence_order=strand_data.get("sequence_order"),
-                        strand_name=strand_data.get("strand_name")
-                    )
-                    db.add(new_strand)
-                    db.flush()  # Get the new ID
-                    strand_id = new_strand.id
-                else:
-                    # Update existing strand
-                    strand = db.query(TemplateStrand).filter(TemplateStrand.id == strand_id).first()
-                    if strand:
-                        strand.sequence_order = strand_data.get("sequence_order")
-                        strand.strand_name = strand_data.get("strand_name")
-                
-                new_strand_ids.add(strand_id)
-                
-                # Get existing substrand IDs for this strand
-                existing_substrand_ids = {ss.id for ss in db.query(TemplateSubstrand).filter(
-                    TemplateSubstrand.strand_id == strand_id
-                ).all()}
-                
-                new_substrand_ids = set()
-                
-                # Process substrands
-                for substrand_data in strand_data.get("substrands", []):
-                    substrand_id = substrand_data.get("id")
-                    
-                    # Check if it's a new substrand
-                    if substrand_id and substrand_id > 1000000000:
-                        # Create new substrand
-                        new_substrand = TemplateSubstrand(
-                            strand_id=strand_id,
-                            substrand_number=str(substrand_data.get("sequence_order", 0)),  # Use sequence as substrand number
-                            sequence_order=substrand_data.get("sequence_order"),
-                            substrand_name=substrand_data.get("substrand_name"),
-                            specific_learning_outcomes=substrand_data.get("specific_learning_outcomes"),
-                            suggested_learning_experiences=substrand_data.get("suggested_learning_experiences"),
-                            key_inquiry_questions=substrand_data.get("key_inquiry_questions"),
-                            number_of_lessons=substrand_data.get("number_of_lessons", 1)
-                        )
-                        db.add(new_substrand)
-                        db.flush()
-                        substrand_id = new_substrand.id
-                    else:
-                        # Update existing substrand
-                        substrand = db.query(TemplateSubstrand).filter(
-                            TemplateSubstrand.id == substrand_id
-                        ).first()
-                        if substrand:
-                            substrand.sequence_order = substrand_data.get("sequence_order")
-                            substrand.substrand_name = substrand_data.get("substrand_name")
-                            substrand.specific_learning_outcomes = substrand_data.get("specific_learning_outcomes")
-                            substrand.suggested_learning_experiences = substrand_data.get("suggested_learning_experiences")
-                            substrand.key_inquiry_questions = substrand_data.get("key_inquiry_questions")
-                            substrand.number_of_lessons = substrand_data.get("number_of_lessons", 1)
-                    
-                    new_substrand_ids.add(substrand_id)
-                    total_substrands += 1
-                    total_lessons += substrand_data.get("number_of_lessons", 1)
-                
-                # Delete removed substrands
-                for old_id in existing_substrand_ids - new_substrand_ids:
-                    db.query(TemplateSubstrand).filter(TemplateSubstrand.id == old_id).delete()
-        
-        # Delete removed strands (and their substrands will cascade)
-        for old_id in existing_strand_ids - new_strand_ids:
-            db.query(TemplateSubstrand).filter(TemplateSubstrand.strand_id == old_id).delete()
-            db.query(TemplateStrand).filter(TemplateStrand.id == old_id).delete()
-        
-        db.commit()
-        
-        return {
-            "success": True,
-            "message": "Curriculum template updated successfully",
-            "template_id": template_id
-        }
-    
-    except Exception as e:
-        db.rollback()
-        raise HTTPException(status_code=500, detail=f"Failed to update template: {str(e)}")
-
-# ============================================================================
-# PRESENTATION FEATURES API ENDPOINTS
-# ============================================================================
-
-# Annotation Endpoints
-@app.post(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/annotations", response_model=NoteAnnotationResponse)
-async def create_annotation(
-    note_id: int,
-    annotation: NoteAnnotationCreate,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Save drawing/annotation for a note page"""
-    # Verify note belongs to user
-    note = db.query(Note).filter(Note.id == note_id, Note.user_id == current_user.id).first()
-    if not note:
-        raise HTTPException(status_code=404, detail="Note not found")
-    
-    db_annotation = NoteAnnotation(
-        note_id=note_id,
-        user_id=current_user.id,
-        page_number=annotation.page_number,
-        drawing_data=annotation.drawing_data
-    )
-    db.add(db_annotation)
+    db.add(new_announcement)
     db.commit()
-    db.refresh(db_annotation)
-    return db_annotation
+    db.refresh(new_announcement)
+    return new_announcement
 
-@app.get(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/annotations", response_model=List[NoteAnnotationResponse])
-async def get_annotations(
-    note_id: int,
-    page_number: Optional[int] = None,
-    current_user: User = Depends(get_current_user),
+@app.delete(f"{settings.API_V1_PREFIX}/admin/announcements/{{announcement_id}}")
+def delete_announcement(
+    announcement_id: int,
+    current_user: User = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
-    """Get all annotations for a note, optionally filtered by page"""
-    query = db.query(NoteAnnotation).filter(
-        NoteAnnotation.note_id == note_id,
-        NoteAnnotation.user_id == current_user.id
-    )
+    """Delete an announcement (Admin only)"""
+    announcement = db.query(SystemAnnouncement).filter(SystemAnnouncement.id == announcement_id).first()
+    if not announcement:
+        raise HTTPException(status_code=404, detail="Announcement not found")
     
-    if page_number is not None:
-        query = query.filter(NoteAnnotation.page_number == page_number)
-    
-    return query.order_by(NoteAnnotation.page_number).all()
-
-@app.put(f"{settings.API_V1_PREFIX}/annotations/{{annotation_id}}", response_model=NoteAnnotationResponse)
-async def update_annotation(
-    annotation_id: int,
-    annotation_update: NoteAnnotationUpdate,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Update an existing annotation"""
-    db_annotation = db.query(NoteAnnotation).filter(
-        NoteAnnotation.id == annotation_id,
-        NoteAnnotation.user_id == current_user.id
-    ).first()
-    
-    if not db_annotation:
-        raise HTTPException(status_code=404, detail="Annotation not found")
-    
-    db_annotation.drawing_data = annotation_update.drawing_data
+    db.delete(announcement)
     db.commit()
-    db.refresh(db_annotation)
-    return db_annotation
+    return {"message": "Announcement deleted successfully"}
 
-@app.delete(f"{settings.API_V1_PREFIX}/annotations/{{annotation_id}}")
-async def delete_annotation(
-    annotation_id: int,
-    current_user: User = Depends(get_current_user),
+@app.patch(f"{settings.API_V1_PREFIX}/admin/announcements/{{announcement_id}}/toggle")
+def toggle_announcement_status(
+    announcement_id: int,
+    current_user: User = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
-    """Delete an annotation"""
-    db_annotation = db.query(NoteAnnotation).filter(
-        NoteAnnotation.id == annotation_id,
-        NoteAnnotation.user_id == current_user.id
-    ).first()
+    """Toggle active status of an announcement (Admin only)"""
+    announcement = db.query(SystemAnnouncement).filter(SystemAnnouncement.id == announcement_id).first()
+    if not announcement:
+        raise HTTPException(status_code=404, detail="Announcement not found")
     
-    if not db_annotation:
-        raise HTTPException(status_code=404, detail="Annotation not found")
-    
-    db.delete(db_annotation)
+    announcement.is_active = not announcement.is_active
     db.commit()
-    return {"message": "Annotation deleted successfully"}
-
-# Presentation Session (Timer) Endpoints
-@app.post(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/sessions", response_model=PresentationSessionResponse)
-async def start_presentation_session(
-    note_id: int,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Start a new presentation session"""
-    note = db.query(Note).filter(Note.id == note_id, Note.user_id == current_user.id).first()
-    if not note:
-        raise HTTPException(status_code=404, detail="Note not found")
-    
-    session = PresentationSession(
-        note_id=note_id,
-        user_id=current_user.id
-    )
-    db.add(session)
-    db.commit()
-    db.refresh(session)
-    return session
-
-@app.put(f"{settings.API_V1_PREFIX}/sessions/{{session_id}}", response_model=PresentationSessionResponse)
-async def update_presentation_session(
-    session_id: int,
-    session_update: PresentationSessionUpdate,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Update presentation session duration"""
-    session = db.query(PresentationSession).filter(
-        PresentationSession.id == session_id,
-        PresentationSession.user_id == current_user.id
-    ).first()
-    
-    if not session:
-        raise HTTPException(status_code=404, detail="Session not found")
-    
-    session.duration_seconds = session_update.duration_seconds
-    if session_update.ended_at:
-        session.ended_at = session_update.ended_at
-    db.commit()
-    db.refresh(session)
-    return session
-
-@app.get(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/sessions", response_model=List[PresentationSessionResponse])
-async def get_presentation_sessions(
-    note_id: int,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Get all presentation sessions for a note"""
-    return db.query(PresentationSession).filter(
-        PresentationSession.note_id == note_id,
-        PresentationSession.user_id == current_user.id
-    ).order_by(PresentationSession.started_at.desc()).all()
-
-# Speaker Notes Endpoints
-@app.post(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/speaker-notes", response_model=SpeakerNoteResponse)
-async def create_or_update_speaker_note(
-    note_id: int,
-    speaker_note: SpeakerNoteCreate,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Create or update speaker notes for a page"""
-    note = db.query(Note).filter(Note.id == note_id, Note.user_id == current_user.id).first()
-    if not note:
-        raise HTTPException(status_code=404, detail="Note not found")
-    
-    # Check if speaker note exists for this page
-    existing = db.query(SpeakerNote).filter(
-        SpeakerNote.note_id == note_id,
-        SpeakerNote.user_id == current_user.id,
-        SpeakerNote.page_number == speaker_note.page_number
-    ).first()
-    
-    if existing:
-        existing.notes = speaker_note.notes
-        db.commit()
-        db.refresh(existing)
-        return existing
-    else:
-        db_note = SpeakerNote(
-            note_id=note_id,
-            user_id=current_user.id,
-            page_number=speaker_note.page_number,
-            notes=speaker_note.notes
-        )
-        db.add(db_note)
-        db.commit()
-        db.refresh(db_note)
-        return db_note
-
-@app.get(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/speaker-notes", response_model=List[SpeakerNoteResponse])
-async def get_speaker_notes(
-    note_id: int,
-    page_number: Optional[int] = None,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Get speaker notes for a note"""
-    query = db.query(SpeakerNote).filter(
-        SpeakerNote.note_id == note_id,
-        SpeakerNote.user_id == current_user.id
-    )
-    
-    if page_number is not None:
-        query = query.filter(SpeakerNote.page_number == page_number)
-    
-    return query.order_by(SpeakerNote.page_number).all()
-
-# Shared Presentation Endpoints
-@app.post(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/share", response_model=SharedPresentationResponse)
-async def create_share_link(
-    note_id: int,
-    share_request: SharedPresentationCreate,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Generate a shareable link for a presentation"""
-    import secrets
-    from datetime import timedelta
-    
-    note = db.query(Note).filter(Note.id == note_id, Note.user_id == current_user.id).first()
-    if not note:
-        raise HTTPException(status_code=404, detail="Note not found")
-    
-    # Generate unique token
-    share_token = secrets.token_urlsafe(32)
-    
-    # Calculate expiry
-    expires_at = None
-    if share_request.expires_in_days:
-        expires_at = datetime.utcnow() + timedelta(days=share_request.expires_in_days)
-    
-    shared_pres = SharedPresentation(
-        note_id=note_id,
-        user_id=current_user.id,
-        share_token=share_token,
-        expires_at=expires_at,
-        allow_download=share_request.allow_download
-    )
-    db.add(shared_pres)
-    db.commit()
-    db.refresh(shared_pres)
-    
-    # Build share URL
-    share_url = f"{settings.FRONTEND_URL}/shared/{share_token}"
-    
-    response = SharedPresentationResponse(
-        id=shared_pres.id,
-        note_id=shared_pres.note_id,
-        user_id=shared_pres.user_id,
-        share_token=shared_pres.share_token,
-        share_url=share_url,
-        expires_at=shared_pres.expires_at,
-        is_active=shared_pres.is_active,
-        view_count=shared_pres.view_count,
-        allow_download=shared_pres.allow_download,
-        created_at=shared_pres.created_at
-    )
-    return response
-
-@app.get(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/shares", response_model=List[SharedPresentationResponse])
-async def get_share_links(
-    note_id: int,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Get all share links for a note"""
-    shares = db.query(SharedPresentation).filter(
-        SharedPresentation.note_id == note_id,
-        SharedPresentation.user_id == current_user.id
-    ).all()
-    
-    result = []
-    for share in shares:
-        share_url = f"{settings.FRONTEND_URL}/shared/{share.share_token}"
-        result.append(SharedPresentationResponse(
-            id=share.id,
-            note_id=share.note_id,
-            user_id=share.user_id,
-            share_token=share.share_token,
-            share_url=share_url,
-            expires_at=share.expires_at,
-            is_active=share.is_active,
-            view_count=share.view_count,
-            allow_download=share.allow_download,
-            created_at=share.created_at
-        ))
-    return result
-
-@app.delete(f"{settings.API_V1_PREFIX}/shares/{{share_id}}")
-async def delete_share_link(
-    share_id: int,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    """Delete/deactivate a share link"""
-    share = db.query(SharedPresentation).filter(
-        SharedPresentation.id == share_id,
-        SharedPresentation.user_id == current_user.id
-    ).first()
-    
-    if not share:
-        raise HTTPException(status_code=404, detail="Share link not found")
-    
-    share.is_active = False
-    db.commit()
-    return {"message": "Share link deactivated"}
-
-@app.get(f"{settings.API_V1_PREFIX}/shared/{{share_token}}")
-async def get_shared_presentation(
-    share_token: str,
-    db: Session = Depends(get_db)
-):
-    """Public endpoint to view shared presentation"""
-    share = db.query(SharedPresentation).filter(
-        SharedPresentation.share_token == share_token,
-        SharedPresentation.is_active == True
-    ).first()
-    
-    if not share:
-        raise HTTPException(status_code=404, detail="Shared presentation not found or expired")
-    
-    # Check expiry
-    if share.expires_at and share.expires_at < datetime.utcnow():
-        raise HTTPException(status_code=410, detail="This share link has expired")
-    
-    # Increment view count
-    share.view_count += 1
-    db.commit()
-    
-    # Get note
-    note = db.query(Note).filter(Note.id == share.note_id).first()
-    if not note:
-        raise HTTPException(status_code=404, detail="Note not found")
-    
-    return {
-        "note": {
-            "id": note.id,
-            "title": note.title,
-            "file_url": note.file_url,
-            "file_type": note.file_type,
-            "thumbnail_url": note.thumbnail_url
-        },
-        "allow_download": share.allow_download,
-        "view_count": share.view_count
-    }
+    db.refresh(announcement)
+    return announcement
 
 # ============================================================================
 # FILE DOWNLOAD ENDPOINT
@@ -3224,7 +2489,7 @@ async def download_note_file(
         print(f"  Public ID: {public_id}")
         
         # Determine resource type based on file extension
-        resource_type = "raw" if note.file_type in ['pdf', 'docx', 'pptx', 'xlsx', 'doc', 'ppt', 'xls'] else "image"
+        resource_type = "raw" if note.file_type in ['pdf', 'docx', 'pptx', 'xlsx'] else "image"
         print(f"  Resource Type: {resource_type}")
         
         # Generate a fresh authenticated URL using Cloudinary SDK
@@ -3563,24 +2828,12 @@ async def get_active_schedule(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Get the currently active school schedule"""
-    query = db.query(SchoolSchedule).filter(
-        SchoolSchedule.user_id == current_user.id,
-        SchoolSchedule.is_active == True
-    )
-    
-    if education_level:
-        query = query.filter(SchoolSchedule.education_level == education_level)
-        
-    schedule = query.first()
-    
+    """Get the active schedule, falling back to a generic one when needed."""
+    schedule = get_active_schedule_or_fallback(db, current_user, education_level)
     if not schedule:
-        # If looking for specific level and not found, try to find a generic one?
-        # Or just return 404.
-        # For now, strict matching.
         detail = f"No active schedule found for {education_level}" if education_level else "No active schedule found"
         raise HTTPException(status_code=404, detail=f"{detail}. Please create one.")
-    
+
     return schedule
 
 
@@ -3704,20 +2957,18 @@ async def get_time_slots(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Get all time slots for active schedule"""
-    # Get active schedule
-    query = db.query(SchoolSchedule).filter(
-        SchoolSchedule.user_id == current_user.id,
-        SchoolSchedule.is_active == True
-    )
-    
-    if education_level:
-        query = query.filter(SchoolSchedule.education_level == education_level)
-        
-    schedule = query.first()
+    """Return time slots for the active (or fallback) schedule."""
+    schedule = resolve_schedule_for_context(db, current_user, education_level)
     
     if not schedule:
-        raise HTTPException(status_code=404, detail="No active schedule found")
+        detail = (
+            f"No active schedule found for {education_level}"
+            if education_level else "No active schedule found"
+        )
+        raise HTTPException(
+            status_code=404,
+            detail=f"{detail}. Please create one."
+        )
     
     time_slots = db.query(TimeSlot).filter(
         TimeSlot.schedule_id == schedule.id
@@ -3795,19 +3046,13 @@ async def create_timetable_entry(
                 grade=curriculum_template.grade,
                 total_lessons=0,
                 lessons_completed=0,
-                progress_percentage=0.00
+                progress_percentage=0.0
             )
             db.add(new_subject)
             db.flush()  # Get the ID without committing
             subject = new_subject
             entry.subject_id = subject.id
             print(f"Created new subject: {subject.subject_name} - {subject.grade} (ID: {subject.id})")
-    
-    # Time slot verification moved to start of function
-    # Verify time slot exists and is a lesson slot
-    # (Already verified above)
-    
-    # Check for duplicate entry (same user, time slot, and day)
     existing = db.query(TimetableEntry).filter(
         TimetableEntry.user_id == current_user.id,
         TimetableEntry.time_slot_id == entry.time_slot_id,
@@ -3820,7 +3065,7 @@ async def create_timetable_entry(
             detail="This time slot is already occupied on this day"
         )
     
-    # Handle double lesson - need to occupy TWO consecutive slots
+    # Handle double lesson - need to occupy next slot
     if entry.is_double_lesson:
         # Find all lesson slots for this schedule, ordered by sequence
         all_lesson_slots = db.query(TimeSlot).filter(
@@ -3831,14 +3076,10 @@ async def create_timetable_entry(
         # Find current slot's position
         current_slot_index = next((i for i, slot in enumerate(all_lesson_slots) if slot.id == entry.time_slot_id), None)
         
-        if current_slot_index is None:
-            raise HTTPException(status_code=400, detail="Invalid time slot")
-        
-        # Check if there's a next consecutive lesson slot
-        if current_slot_index >= len(all_lesson_slots) - 1:
+        if current_slot_index is None or current_slot_index >= len(all_lesson_slots) - 1:
             raise HTTPException(
                 status_code=400,
-                detail="Cannot create double lesson: no consecutive slot available (this is the last lesson slot)"
+                detail="Cannot create double lesson: no consecutive slot available"
             )
         
         next_slot = all_lesson_slots[current_slot_index + 1]
@@ -3853,7 +3094,7 @@ async def create_timetable_entry(
         if next_slot_occupied:
             raise HTTPException(
                 status_code=400,
-                detail=f"Cannot create double lesson: next time slot is already occupied"
+                detail="Cannot create double lesson: next time slot is already occupied"
             )
         
         print(f"Creating double lesson: slot {entry.time_slot_id} + {next_slot.id}")
@@ -3874,9 +3115,6 @@ async def create_timetable_entry(
             subject_id=entry.subject_id,
             time_slot_id=next_slot.id,
             day_of_week=entry.day_of_week,
-            strand_id=entry.strand_id,
-            substrand_id=entry.substrand_id,
-            lesson_id=entry.lesson_id,
             room_number=entry.room_number,
             grade_section=entry.grade_section,
             notes=f"(Part 2 of double lesson)",
@@ -3903,36 +3141,28 @@ async def create_timetable_entry(
 
 @app.get(f"{settings.API_V1_PREFIX}/timetable/entries", response_model=List[TimetableEntryResponse])
 async def get_timetable_entries(
-    day_of_week: int = None,
+    day_of_week: Optional[int] = None,
+    education_level: Optional[str] = None,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Get all timetable entries, optionally filtered by day"""
-    
-    # Get active schedule
-    schedule = db.query(SchoolSchedule).filter(
-        SchoolSchedule.user_id == current_user.id,
-        SchoolSchedule.is_active == True
-    ).first()
-    
+    """Get all timetable entries, optionally filtered by day or education level."""
+    schedule = resolve_schedule_for_context(db, current_user, education_level, day_of_week)
     if not schedule:
         return []
-    
     query = db.query(TimetableEntry).filter(
         TimetableEntry.user_id == current_user.id,
         TimetableEntry.schedule_id == schedule.id
     )
-    
     if day_of_week:
         query = query.filter(TimetableEntry.day_of_week == day_of_week)
-    
     entries = query.order_by(TimetableEntry.day_of_week, TimetableEntry.time_slot_id).all()
-    
     return entries
 
 
 @app.get(f"{settings.API_V1_PREFIX}/timetable/entries/today")
 async def get_today_entries(
+    education_level: Optional[str] = None,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -3950,14 +3180,13 @@ async def get_today_entries(
             "entries": []
         }
     
-    # Get active schedule
-    schedule = db.query(SchoolSchedule).filter(
-        SchoolSchedule.user_id == current_user.id,
-        SchoolSchedule.is_active == True
-    ).first()
-    
+    schedule = resolve_schedule_for_context(db, current_user, education_level, today)
     if not schedule:
-        raise HTTPException(status_code=404, detail="No active schedule found")
+        detail = (
+            f"No active schedule found for {education_level}"
+            if education_level else "No active schedule found"
+        )
+        raise HTTPException(status_code=404, detail=f"{detail}. Please create one.")
     
     # Get today's entries with subject and curriculum info
     entries = db.query(
@@ -3973,6 +3202,7 @@ async def get_today_entries(
         Lesson, TimetableEntry.lesson_id == Lesson.id
     ).filter(
         TimetableEntry.user_id == current_user.id,
+        TimetableEntry.schedule_id == schedule.id,
         TimetableEntry.day_of_week == today
     ).order_by(TimeSlot.sequence_order).all()
     
@@ -4020,6 +3250,7 @@ async def get_today_entries(
 
 @app.get(f"{settings.API_V1_PREFIX}/timetable/entries/next")
 async def get_next_lesson(
+    education_level: Optional[str] = None,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -4030,31 +3261,23 @@ async def get_next_lesson(
     current_day = current_time.isoweekday()
     current_time_str = current_time.strftime("%H:%M")
     
-    if current_day > 5:  # Weekend
-        return {
-            "has_next_lesson": False,
-            "message": "No lessons on weekends"
-        }
-    
-    # Get active schedule
-    schedule = db.query(SchoolSchedule).filter(
-        SchoolSchedule.user_id == current_user.id,
-        SchoolSchedule.is_active == True
-    ).first()
-    
+    schedule = resolve_schedule_for_context(db, current_user, education_level)
     if not schedule:
+        detail = (
+            f"No active schedule found for {education_level}"
+            if education_level else "No active schedule found"
+        )
         return {
             "has_next_lesson": False,
-            "message": "No active schedule"
+            "message": f"{detail}. Please create one."
         }
+    print(f"[get_next_lesson] Current time: {current_time_str}, Current day: {current_day}")
     
-    # Find next lesson today or on following days
-    for day_offset in range(6):  # Check today + next 5 days
-        check_day = current_day + day_offset
-        if check_day > 5:
-            check_day = check_day - 5  # Wrap to next week
+    # Find next lesson today or on following days (check up to 8 days to cover full week)
+    for day_offset in range(8):
+        check_day = ((current_day - 1 + day_offset) % 7) + 1  # Properly wrap 1-7 (1=Mon, 7=Sun)
         
-        if check_day > 5:  # Skip weekends
+        if check_day > 5:  # Skip weekends (6=Saturday, 7=Sunday)
             continue
         
         # Get entries for this day
@@ -4071,6 +3294,7 @@ async def get_next_lesson(
             Lesson, TimetableEntry.lesson_id == Lesson.id
         ).filter(
             TimetableEntry.user_id == current_user.id,
+            TimetableEntry.schedule_id == schedule.id,
             TimetableEntry.day_of_week == check_day,
             TimeSlot.slot_type == "lesson"
         ).order_by(TimeSlot.sequence_order).all()
@@ -4086,27 +3310,24 @@ async def get_next_lesson(
                 "is_today": day_offset == 0,
                 "day_of_week": check_day,
                 "day_name": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"][check_day - 1],
-                "entry": {
-                    "id": entry.id,
-                    "time_slot": {
-                        "id": slot.id,
-                        "start_time": slot.start_time,
-                        "end_time": slot.end_time,
-                        "label": slot.label
-                    },
-                    "subject": {
-                        "id": subject.id,
-                        "subject_name": subject.subject_name,
-                        "grade": subject.grade
-                    },
-                    "room_number": entry.room_number,
-                    "grade_section": entry.grade_section,
-                    "is_double_lesson": entry.is_double_lesson
-                }
+                "time_slot": {
+                    "id": slot.id,
+                    "start_time": slot.start_time,
+                    "end_time": slot.end_time,
+                    "label": slot.label
+                },
+                "subject": {
+                    "id": subject.id,
+                    "subject_name": subject.subject_name,
+                    "grade": subject.grade
+                },
+                "room_number": entry.room_number,
+                "grade_section": entry.grade_section,
+                "is_double_lesson": entry.is_double_lesson
             }
             
             if lesson:
-                result["entry"]["lesson"] = {
+                result["lesson"] = {
                     "id": lesson.id,
                     "lesson_title": lesson.lesson_title,
                     "learning_outcomes": lesson.learning_outcomes,
@@ -4176,7 +3397,7 @@ async def update_timetable_entry(
         
         next_slot = all_lesson_slots[current_slot_index + 1]
         
-        # Check if next slot is occupied
+        # Check if next slot is already occupied
         next_slot_occupied = db.query(TimetableEntry).filter(
             TimetableEntry.user_id == current_user.id,
             TimetableEntry.time_slot_id == next_slot.id,
@@ -4284,7 +3505,6 @@ async def delete_timetable_entry(
             ).first()
             
             if second_entry:
-                print(f"Deleting paired double lesson entry: {second_entry.id}")
                 db.delete(second_entry)
     
     db.delete(entry)
@@ -5115,5 +4335,2117 @@ async def generate_lesson_plans_from_scheme(
         "lesson_plans": created_plans
     }
 
+# ============================================================================
+# SHARING & COLLABORATION ENDPOINTS
+# ============================================================================
+
+@app.post(f"{settings.API_V1_PREFIX}/{{resource_type}}/{{resource_id}}/share")
+def share_resource(
+    resource_type: str,
+    resource_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Generate a shareable link for a resource"""
+    if resource_type not in ['schemes', 'lesson-plans', 'records-of-work']:
+        raise HTTPException(status_code=400, detail="Invalid resource type")
+        
+    model_map = {
+        'schemes': SchemeOfWork,
+        'lesson-plans': LessonPlan,
+        'records-of-work': RecordOfWork
+    }
+    
+    model = model_map[resource_type]
+    resource = db.query(model).filter(model.id == resource_id, model.user_id == current_user.id).first()
+    
+    if not resource:
+        raise HTTPException(status_code=404, detail="Resource not found")
+        
+    if not resource.share_token:
+        resource.share_token = secrets.token_urlsafe(16)
+        
+    resource.is_public = True
+    db.commit()
+    
+    return {
+        "share_token": resource.share_token,
+        "share_url": f"{settings.FRONTEND_URL}/shared/{resource.share_token}",
+        "is_public": True
+    }
+
+@app.post(f"{settings.API_V1_PREFIX}/{{resource_type}}/{{resource_id}}/unshare")
+def unshare_resource(
+    resource_type: str,
+    resource_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Revoke public access to a resource"""
+    if resource_type not in ['schemes', 'lesson-plans', 'records-of-work']:
+        raise HTTPException(status_code=400, detail="Invalid resource type")
+        
+    model_map = {
+        'schemes': SchemeOfWork,
+        'lesson-plans': LessonPlan,
+        'records-of-work': RecordOfWork
+    }
+    
+    model = model_map[resource_type]
+    resource = db.query(model).filter(model.id == resource_id, model.user_id == current_user.id).first()
+    
+    if not resource:
+        raise HTTPException(status_code=404, detail="Resource not found")
+        
+    resource.is_public = False
+    db.commit()
+    
+    return {"message": "Resource unshared successfully", "is_public": False}
+
+@app.get(f"{settings.API_V1_PREFIX}/shared/{{resource_type}}/{{token}}")
+def get_shared_resource(
+    resource_type: str,
+    token: str,
+    db: Session = Depends(get_db)
+):
+    """Get a shared resource by token (Public Access)"""
+    if resource_type not in ['schemes', 'lesson-plans', 'records-of-work']:
+        raise HTTPException(status_code=400, detail="Invalid resource type")
+        
+    model_map = {
+        'schemes': SchemeOfWork,
+        'lesson-plans': LessonPlan,
+        'records-of-work': RecordOfWork
+    }
+    
+    model = model_map[resource_type]
+    resource = db.query(model).filter(model.share_token == token, model.is_public == True).first()
+    
+    if not resource:
+        raise HTTPException(status_code=404, detail="Resource not found or not public")
+        
+    # For schemes, we need to load weeks and lessons
+    if resource_type == 'schemes':
+        # Eager load logic here if needed, or rely on lazy loading if session is open
+        # But for public access, we might want to return a specific schema
+        pass
+        
+    return resource
+
+# ============================================================================
+# NOTES & STATUS ENDPOINTS
+# ============================================================================
+
+from pydantic import BaseModel
+
+class ResourceUpdate(BaseModel):
+    notes: Optional[str] = None
+    status: Optional[str] = None
+
+@app.patch(f"{settings.API_V1_PREFIX}/{{resource_type}}/{{resource_id}}/update-meta")
+def update_resource_meta(
+    resource_type: str,
+    resource_id: int,
+    data: ResourceUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update notes and status for a resource"""
+    if resource_type not in ['schemes', 'lesson-plans', 'records-of-work']:
+        raise HTTPException(status_code=400, detail="Invalid resource type")
+        
+    model_map = {
+        'schemes': SchemeOfWork,
+        'lesson-plans': LessonPlan,
+        'records-of-work': RecordOfWork
+    }
+    
+    model = model_map[resource_type]
+    resource = db.query(model).filter(model.id == resource_id, model.user_id == current_user.id).first()
+    
+    if not resource:
+        raise HTTPException(status_code=404, detail="Resource not found")
+        
+    if data.notes is not None:
+        resource.notes = data.notes
+    if data.status is not None:
+        # Validate status if needed
+        resource.status = data.status
+        
+    db.commit()
+    db.refresh(resource)
+    return resource
+
+# ============================================================================
+# TEMPLATE / DUPLICATE ENDPOINTS
+# ============================================================================
+
+@app.post(f"{settings.API_V1_PREFIX}/{{resource_type}}/{{resource_id}}/duplicate")
+def duplicate_resource(
+    resource_type: str,
+    resource_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Duplicate a resource (Save as Template)"""
+    if resource_type not in ['schemes', 'lesson-plans']:
+        raise HTTPException(status_code=400, detail="Duplication only supported for schemes and lesson plans")
+        
+    if resource_type == 'schemes':
+        original = db.query(SchemeOfWork).filter(SchemeOfWork.id == resource_id, SchemeOfWork.user_id == current_user.id).first()
+        if not original:
+            raise HTTPException(status_code=404, detail="Scheme not found")
+            
+        # Create copy
+        new_scheme = SchemeOfWork(
+            user_id=current_user.id,
+            subject_id=original.subject_id,
+            teacher_name=original.teacher_name,
+            school=original.school,
+            term=original.term,
+            year=original.year,
+            subject=f"{original.subject} (Copy)",
+            grade=original.grade,
+            total_weeks=original.total_weeks,
+            total_lessons=original.total_lessons,
+            status='draft',
+            notes=original.notes
+        )
+        db.add(new_scheme)
+        db.flush()
+        
+        # Copy weeks and lessons
+        for week in original.weeks:
+            new_week = SchemeWeek(scheme_id=new_scheme.id, week_number=week.week_number)
+            db.add(new_week)
+            db.flush()
+            for idx, lesson_payload in enumerate(week.lessons):
+                lesson = SchemeLesson(
+                    week_id=new_week.id,
+                    lesson_number=idx + 1,
+                    strand=lesson_payload.strand,
+                    sub_strand=lesson_payload.sub_strand,
+                    specific_learning_outcomes=lesson_payload.specific_learning_outcomes,
+                    key_inquiry_questions=lesson_payload.key_inquiry_questions,
+                    learning_experiences=lesson_payload.learning_experiences,
+                    learning_resources=lesson_payload.learning_resources,
+                    textbook_name=lesson_payload.textbook_name,
+                    textbook_teacher_guide_pages=lesson_payload.textbook_teacher_guide_pages,
+                    textbook_learner_book_pages=lesson_payload.textbook_learner_book_pages,
+                    assessment_methods=lesson_payload.assessment_methods,
+                    reflection=""
+                )
+                db.add(lesson)
+        
+        db.commit()
+        db.refresh(new_scheme)
+        return new_scheme
+        
+    elif resource_type == 'lesson-plans':
+        original = db.query(LessonPlan).filter(LessonPlan.id == resource_id, LessonPlan.user_id == current_user.id).first()
+        if not original:
+            raise HTTPException(status_code=404, detail="Lesson plan not found")
+            
+        new_plan = LessonPlan(
+            user_id=current_user.id,
+            subject_id=original.subject_id,
+            scheme_lesson_id=original.scheme_lesson_id,
+            learning_area=original.learning_area,
+            grade=original.grade,
+            date=None,
+            time=None,
+            roll=original.roll,
+            strand_theme_topic=original.strand_theme_topic,
+            sub_strand_sub_theme_sub_topic=original.sub_strand_sub_theme_sub_topic,
+            specific_learning_outcomes=original.specific_learning_outcomes,
+            key_inquiry_questions=original.key_inquiry_questions,
+            core_competences=original.core_competences,
+            values_to_be_developed=original.values_to_be_developed,
+            pcis_to_be_addressed=original.pcis_to_be_addressed,
+            learning_resources=original.learning_resources,
+            introduction=original.introduction,
+            development=original.development,
+            conclusion=original.conclusion,
+            summary=original.summary,
+            reflection_self_evaluation="",
+            status='pending',
+            notes=original.notes
+        )
+        db.add(new_plan)
+        db.commit()
+        db.refresh(new_plan)
+        return new_plan
+
+@app.post(f"{settings.API_V1_PREFIX}/admin/users/{{user_id}}/impersonate", response_model=Token)
+def impersonate_user(
+    user_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Impersonate a user (Admin only)"""
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+        
+    # Create access token for the target user
+    access_token = create_access_token(data={"sub": user.email})
+    return {"access_token": access_token, "token_type": "bearer"}
+
+# ============================================================================
+# SYSTEM ANNOUNCEMENTS ENDPOINTS
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/announcements", response_model=List[SystemAnnouncementResponse])
+def get_active_announcements(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all active announcements for users"""
+    now = datetime.utcnow()
+    announcements = db.query(SystemAnnouncement).filter(
+        SystemAnnouncement.is_active == True,
+        (SystemAnnouncement.expires_at == None) | (SystemAnnouncement.expires_at > now)
+    ).order_by(SystemAnnouncement.created_at.desc()).all()
+    
+    return announcements
+
+@app.get(f"{settings.API_V1_PREFIX}/admin/announcements", response_model=List[SystemAnnouncementResponse])
+def get_all_announcements(
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Get all announcements (Admin only)"""
+    announcements = db.query(SystemAnnouncement).order_by(SystemAnnouncement.created_at.desc()).all()
+    return announcements
+
+@app.post(f"{settings.API_V1_PREFIX}/admin/announcements", response_model=SystemAnnouncementResponse)
+def create_announcement(
+    announcement: SystemAnnouncementCreate,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new announcement (Admin only)"""
+    new_announcement = SystemAnnouncement(
+        **announcement.dict(),
+        created_by=current_user.id
+    )
+    db.add(new_announcement)
+    db.commit()
+    db.refresh(new_announcement)
+    return new_announcement
+
+@app.delete(f"{settings.API_V1_PREFIX}/admin/announcements/{{announcement_id}}")
+def delete_announcement(
+    announcement_id: int,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Delete an announcement (Admin only)"""
+    announcement = db.query(SystemAnnouncement).filter(SystemAnnouncement.id == announcement_id).first()
+    if not announcement:
+        raise HTTPException(status_code=404, detail="Announcement not found")
+    
+    db.delete(announcement)
+    db.commit()
+    return {"message": "Announcement deleted successfully"}
+
+@app.patch(f"{settings.API_V1_PREFIX}/admin/announcements/{{announcement_id}}/toggle")
+def toggle_announcement_status(
+    announcement_id: int,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Toggle active status of an announcement (Admin only)"""
+    announcement = db.query(SystemAnnouncement).filter(SystemAnnouncement.id == announcement_id).first()
+    if not announcement:
+        raise HTTPException(status_code=404, detail="Announcement not found")
+    
+    announcement.is_active = not announcement.is_active
+    db.commit()
+    db.refresh(announcement)
+    return announcement
+
+# ============================================================================
+# FILE DOWNLOAD ENDPOINT
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/download")
+async def download_note_file(
+    note_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Stream file download from Cloudinary with correct file type and name."""
+    import httpx
+    
+    # Get note and verify ownership
+    note = db.query(Note).filter(
+        Note.id == note_id,
+        Note.user_id == current_user.id
+    ).first()
+    
+    if not note or not note.file_url:
+        raise HTTPException(status_code=404, detail="Note or file not found")
+    
+    # DEBUG: Log what we're working with
+    print(f"\n{'='*80}")
+    print(f"DOWNLOAD REQUEST - Note ID: {note_id}")
+    print(f"  Title: {note.title}")
+    print(f"  Stored file_type: '{note.file_type}'")
+    print(f"  Cloudinary URL: {note.file_url}")
+    print(f"{'='*80}\n")
+    
+    # Extract public_id from URL and generate authenticated download URL
+    try:
+        print(f"Extracting public_id from URL...")
+        public_id = cloudinary_storage.extract_public_id_from_url(note.file_url)
+        
+        if not public_id:
+            print(f"ERROR: Could not extract public_id from URL")
+            raise HTTPException(
+                status_code=500,
+                detail="Invalid file URL format"
+            )
+        
+        print(f"  Public ID: {public_id}")
+        
+        # Determine resource type based on file extension
+        resource_type = "raw" if note.file_type in ['pdf', 'docx', 'pptx', 'xlsx'] else "image"
+        print(f"  Resource Type: {resource_type}")
+        
+        # Generate a fresh authenticated URL using Cloudinary SDK
+        import cloudinary.utils
+        
+        # For raw files, we need to use the 'raw' resource type and specify delivery type
+        if resource_type == "raw":
+            # Build URL with authentication - Cloudinary handles signing automatically
+            download_url = cloudinary.utils.cloudinary_url(
+                public_id,
+                resource_type="raw",
+                secure=True,
+                sign_url=True,  # Important: Sign the URL
+                type="upload"
+            )[0]
+        else:
+            # For images/videos, use standard URL
+            download_url = cloudinary.utils.cloudinary_url(
+                public_id,
+                resource_type=resource_type,
+                secure=True,
+                sign_url=True
+            )[0]
+        
+        print(f"  Generated authenticated URL: {download_url[:80]}...")
+        
+        # Fetch file from Cloudinary with the authenticated URL
+        async with httpx.AsyncClient(timeout=60.0) as client:
+            print(f"Fetching file from Cloudinary...")
+            response = await client.get(download_url)
+            
+            if response.status_code != 200:
+                print(f"ERROR: Cloudinary returned status {response.status_code}")
+                print(f"  Response: {response.text[:200]}")
+                raise HTTPException(
+                    status_code=500, 
+                    detail=f"Failed to fetch file from storage (status: {response.status_code})"
+                )
+            
+            # Log what Cloudinary returned
+            cloudinary_content_type = response.headers.get('content-type', 'unknown')
+            print(f"Cloudinary Response:")
+            print(f"  Content-Type: {cloudinary_content_type}")
+            print(f"  Content-Length: {len(response.content)} bytes")
+            
+    except httpx.TimeoutException as e:
+        print(f"ERROR: Timeout fetching file from Cloudinary: {str(e)}")
+        raise HTTPException(
+            status_code=504,
+            detail="Timeout fetching file from cloud storage"
+        )
+    except httpx.HTTPError as e:
+        print(f"ERROR: HTTP error fetching file: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to fetch file: {str(e)}"
+        )
+    except Exception as e:
+        print(f"ERROR: Unexpected error fetching file: {type(e).__name__}: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Unexpected error: {str(e)}"
+        )
+    
+    # Clean filename and ensure it has the correct extension
+    # Use the stored file_type to ensure correct extension
+    filename = note.title.strip()
+    file_ext = note.file_type.lower().strip() if note.file_type else ''
+    
+    # Remove any existing extension from title
+    if '.' in filename:
+        name_parts = filename.rsplit('.', 1)
+        filename = name_parts[0]
+    
+    # Add the correct extension from database
+    if file_ext:
+        filename = f"{filename}.{file_ext}"
+    else:
+        # Fallback: try to get extension from URL
+        print(f"WARNING: No file_type in database, trying to extract from URL")
+        url_parts = note.file_url.split('.')
+        if len(url_parts) > 1:
+            file_ext = url_parts[-1].lower()
+            filename = f"{filename}.{file_ext}"
+    
+    # Comprehensive MIME type mapping based on stored file_type
+    mime_type_map = {
+            'pdf': 'application/pdf',
+            'doc': 'application/msword',
+            'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'ppt': 'application/vnd.ms-powerpoint',
+            'pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+            'xls': 'application/vnd.ms-excel',
+            'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'jpg': 'image/jpeg',
+            'jpeg': 'image/jpeg',
+            'png': 'image/png',
+            'gif': 'image/gif',
+            'webp': 'image/webp',
+            'mp4': 'video/mp4',
+            'mov': 'video/quicktime',
+            'avi': 'video/x-msvideo',
+            'mkv': 'video/x-matroska',
+            'mp3': 'audio/mpeg',
+            'wav': 'audio/wav',
+            'txt': 'text/plain',
+            'csv': 'text/csv',
+            'zip': 'application/zip',
+            'rar': 'application/x-rar-compressed',
+    }
+    
+    # Use the file type from database, not from Cloudinary response
+    media_type = mime_type_map.get(file_ext, 'application/octet-stream')
+    
+    print(f"\nDownload Response:")
+    print(f"  Filename: {filename}")
+    print(f"  Extension: {file_ext}")
+    print(f"  MIME Type: {media_type}")
+    print(f"{'='*80}\n")
+    
+    # Return streaming response with proper headers
+    # CRITICAL: Use the stored file_type to ensure correct download
+    return StreamingResponse(
+        iter([response.content]),
+        media_type=media_type,
+        headers={
+            "Content-Disposition": f'attachment; filename="{filename}"',
+            "Content-Type": media_type,
+            "Content-Length": str(len(response.content)),
+            "Cache-Control": "no-cache"
+        }
+    )
+
+
+# ============================================================================
+# TIMETABLE MANAGEMENT ENDPOINTS
+# ============================================================================
+
+@app.post(f"{settings.API_V1_PREFIX}/timetable/schedules", response_model=SchoolScheduleResponse)
+async def create_school_schedule(
+    schedule: SchoolScheduleCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new school schedule configuration and auto-generate time slots"""
+    
+    # Check if user already has an active schedule for this level
+    query = db.query(SchoolSchedule).filter(
+        SchoolSchedule.user_id == current_user.id,
+        SchoolSchedule.is_active == True
+    )
+    
+    if schedule.education_level:
+        query = query.filter(SchoolSchedule.education_level == schedule.education_level)
+    else:
+        # If no level specified, check if any schedule exists without level (legacy)
+        # or just check if ANY active schedule exists if we want to enforce one per user when no level
+        pass 
+        
+    existing = query.first()
+    
+    if existing:
+        level_msg = f" for {schedule.education_level}" if schedule.education_level else ""
+        raise HTTPException(
+            status_code=400,
+            detail=f"You already have an active schedule{level_msg}. Deactivate it first or update it."
+        )
+    
+    # Create schedule
+    db_schedule = SchoolSchedule(
+        user_id=current_user.id,
+        **schedule.dict()
+    )
+    db.add(db_schedule)
+    db.commit()
+    db.refresh(db_schedule)
+    
+    # Auto-generate time slots
+    generate_time_slots(db_schedule, db)
+    
+    return db_schedule
+
+
+def generate_time_slots(schedule: SchoolSchedule, db: Session):
+    """Generate time slots based on schedule configuration"""
+    from datetime import datetime, timedelta
+    
+    # Parse times
+    def parse_time(time_str: str) -> datetime:
+        return datetime.strptime(time_str, "%H:%M")
+    
+    current_time = parse_time(schedule.school_start_time)
+    slot_number = 1
+    sequence = 1
+    
+    # Session 1 (Before first break)
+    for i in range(schedule.lessons_before_first_break):
+        duration = schedule.single_lesson_duration if i % 2 == 0 else schedule.double_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    # First Break
+    if schedule.first_break_duration > 0:
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=0,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=schedule.first_break_duration)).strftime("%H:%M"),
+            slot_type="break",
+            label="First Break",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        current_time += timedelta(minutes=schedule.first_break_duration)
+        sequence += 1
+    
+    # Session 2 (Before second break)
+    for i in range(schedule.lessons_before_second_break):
+        duration = schedule.single_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    # Second Break (Tea Break)
+    if schedule.second_break_duration > 0:
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=0,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=schedule.second_break_duration)).strftime("%H:%M"),
+            slot_type="break",
+            label="Second Break",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        current_time += timedelta(minutes=schedule.second_break_duration)
+        sequence += 1
+    
+    # Session 3 (Before lunch)
+    for i in range(schedule.lessons_before_lunch):
+        duration = schedule.single_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    # Lunch Break
+    if schedule.lunch_break_duration > 0:
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=0,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=schedule.lunch_break_duration)).strftime("%H:%M"),
+            slot_type="lunch",
+            label="Lunch Break",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        current_time += timedelta(minutes=schedule.lunch_break_duration)
+        sequence += 1
+    
+    # Session 4 (After lunch)
+    for i in range(schedule.lessons_after_lunch):
+        duration = schedule.single_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    db.commit()
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/schedules", response_model=List[SchoolScheduleResponse])
+async def get_school_schedules(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all school schedules for current user"""
+    schedules = db.query(SchoolSchedule).filter(
+        SchoolSchedule.user_id == current_user.id
+    ).order_by(SchoolSchedule.is_active.desc(), SchoolSchedule.created_at.desc()).all()
+    
+    return schedules
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/schedules/active", response_model=SchoolScheduleResponse)
+async def get_active_schedule(
+    education_level: Optional[str] = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get the active schedule, falling back to a generic one when needed."""
+    schedule = get_active_schedule_or_fallback(db, current_user, education_level)
+    if not schedule:
+        detail = f"No active schedule found for {education_level}" if education_level else "No active schedule found"
+        raise HTTPException(status_code=404, detail=f"{detail}. Please create one.")
+
+    return schedule
+
+
+@app.put(f"{settings.API_V1_PREFIX}/timetable/schedules/{{schedule_id}}", response_model=SchoolScheduleResponse)
+async def update_school_schedule(
+    schedule_id: int,
+    schedule_update: SchoolScheduleUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update a school schedule and regenerate time slots"""
+    schedule = db.query(SchoolSchedule).filter(
+        SchoolSchedule.id == schedule_id,
+        SchoolSchedule.user_id == current_user.id
+    ).first()
+    
+    if not schedule:
+        raise HTTPException(status_code=404, detail="Schedule not found")
+    
+    # Update fields
+    update_data = schedule_update.dict(exclude_unset=True)
+    for key, value in update_data.items():
+        setattr(schedule, key, value)
+    
+    db.commit()
+    db.refresh(schedule)
+    
+    # Regenerate time slots if timing changed
+    if any(key in update_data for key in ['school_start_time', 'single_lesson_duration', 
+                                            'double_lesson_duration', 'lessons_before_first_break',
+                                            'lessons_before_second_break', 'lessons_before_lunch',
+                                            'lessons_after_lunch', 'first_break_duration',
+                                            'second_break_duration', 'lunch_break_duration']):
+        # Get existing time slots to preserve lesson mappings
+        existing_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule_id
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        # Get existing entries to remap later
+        existing_entries = db.query(TimetableEntry).filter(
+            TimetableEntry.schedule_id == schedule_id
+        ).all()
+        
+        # Create mapping of old slot details (sequence_order, slot_type) to entry details
+        entry_mappings = {}
+        for entry in existing_entries:
+            old_slot = next((s for s in existing_slots if s.id == entry.time_slot_id), None)
+            if old_slot:
+                # Map by sequence order and slot type to preserve lesson positions
+                key = (old_slot.sequence_order, old_slot.slot_type)
+                if key not in entry_mappings:
+                    entry_mappings[key] = []
+                entry_mappings[key].append({
+                    'subject_id': entry.subject_id,
+                    'day_of_week': entry.day_of_week,
+                    'room_number': entry.room_number,
+                    'grade_section': entry.grade_section,
+                    'notes': entry.notes,
+                    'is_double_lesson': entry.is_double_lesson,
+                    'strand_id': entry.strand_id,
+                    'substrand_id': entry.substrand_id,
+                    'lesson_id': entry.lesson_id
+                })
+        
+        # Delete old entries and slots
+        db.query(TimetableEntry).filter(TimetableEntry.schedule_id == schedule_id).delete()
+        db.query(TimeSlot).filter(TimeSlot.schedule_id == schedule_id).delete()
+        db.commit()
+        
+        # Generate new time slots
+        generate_time_slots(schedule, db)
+        
+        # Get newly created time slots
+        new_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule_id
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        # Recreate entries with new time slot IDs
+        for new_slot in new_slots:
+            key = (new_slot.sequence_order, new_slot.slot_type)
+            if key in entry_mappings:
+                for entry_data in entry_mappings[key]:
+                    new_entry = TimetableEntry(
+                        user_id=current_user.id,
+                        schedule_id=schedule_id,
+                        time_slot_id=new_slot.id,
+                        **entry_data
+                    )
+                    db.add(new_entry)
+        
+        db.commit()
+    
+    return schedule
+
+
+@app.delete(f"{settings.API_V1_PREFIX}/timetable/schedules/{{schedule_id}}")
+async def delete_school_schedule(
+    schedule_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete a school schedule (soft delete by deactivating)"""
+    schedule = db.query(SchoolSchedule).filter(
+        SchoolSchedule.id == schedule_id,
+        SchoolSchedule.user_id == current_user.id
+    ).first()
+    
+    if not schedule:
+        raise HTTPException(status_code=404, detail="Schedule not found")
+    
+    # Soft delete
+    schedule.is_active = False
+    db.commit()
+    
+    return {"message": "Schedule deactivated successfully"}
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/time-slots", response_model=List[TimeSlotResponse])
+async def get_time_slots(
+    education_level: Optional[str] = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Return time slots for the active (or fallback) schedule."""
+    schedule = resolve_schedule_for_context(db, current_user, education_level)
+    
+    if not schedule:
+        detail = (
+            f"No active schedule found for {education_level}"
+            if education_level else "No active schedule found"
+        )
+        raise HTTPException(
+            status_code=404,
+            detail=f"{detail}. Please create one."
+        )
+    
+    time_slots = db.query(TimeSlot).filter(
+        TimeSlot.schedule_id == schedule.id
+    ).order_by(TimeSlot.sequence_order).all()
+    
+    return time_slots
+
+
+@app.post(f"{settings.API_V1_PREFIX}/timetable/entries", response_model=TimetableEntryResponse)
+async def create_timetable_entry(
+    entry: TimetableEntryCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new timetable entry (assign subject to time slot on specific day)"""
+    
+    # Verify time slot exists and belongs to a schedule owned by the user
+    time_slot = db.query(TimeSlot).join(SchoolSchedule).filter(
+        TimeSlot.id == entry.time_slot_id,
+        SchoolSchedule.user_id == current_user.id
+    ).first()
+    
+    if not time_slot:
+        raise HTTPException(status_code=404, detail="Time slot not found or access denied")
+        
+    schedule = time_slot.schedule
+    
+    if time_slot.slot_type != "lesson":
+        raise HTTPException(status_code=400, detail="Cannot assign subject to break/lunch slot")
+    
+    # Log what we received
+    print(f"\n=== CREATE TIMETABLE ENTRY ===")
+    print(f"Received subject_id: {entry.subject_id}")
+    print(f"Time slot: {entry.time_slot_id}")
+    print(f"Day: {entry.day_of_week}")
+    
+    # Try to find subject in user's subjects, or check if it's a curriculum template
+    subject = db.query(Subject).filter(
+        Subject.id == entry.subject_id,
+        Subject.user_id == current_user.id
+    ).first()
+    
+    print(f"Found in user's subjects: {subject.subject_name if subject else 'No'}")
+    
+    # If not found in user's subjects, check if it's a curriculum template
+    if not subject:
+        curriculum_template = db.query(CurriculumTemplate).filter(
+            CurriculumTemplate.id == entry.subject_id,
+            CurriculumTemplate.is_active == True
+        ).first()
+        
+        if not curriculum_template:
+            raise HTTPException(status_code=404, detail="Subject or curriculum template not found")
+        
+        print(f"Found curriculum template: {curriculum_template.subject} - {curriculum_template.grade}")
+        
+        # Check if user already has this subject with EXACT template match
+        existing_subject = db.query(Subject).filter(
+            Subject.user_id == current_user.id,
+            Subject.template_id == curriculum_template.id
+        ).first()
+        
+        print(f"Found existing subject from template: {existing_subject.subject_name if existing_subject else 'No'}")
+        
+        if existing_subject:
+            # Use the existing subject
+            subject = existing_subject
+            entry.subject_id = subject.id
+        else:
+            # Create a new subject from the template for this user
+            new_subject = Subject(
+                user_id=current_user.id,
+                template_id=curriculum_template.id,
+                subject_name=curriculum_template.subject,
+                grade=curriculum_template.grade,
+                total_lessons=0,
+                lessons_completed=0,
+                progress_percentage=0.0
+            )
+            db.add(new_subject)
+            db.flush()  # Get the ID without committing
+            subject = new_subject
+            entry.subject_id = subject.id
+            print(f"Created new subject: {subject.subject_name} - {subject.grade} (ID: {subject.id})")
+    
+    # Time slot verification moved to start of function
+    # Verify time slot exists and is a lesson slot
+    # (Already verified above)
+    
+    # Check for duplicate entry (same user, time slot, and day)
+    existing = db.query(TimetableEntry).filter(
+        TimetableEntry.user_id == current_user.id,
+        TimetableEntry.time_slot_id == entry.time_slot_id,
+        TimetableEntry.day_of_week == entry.day_of_week
+    ).first()
+    
+    if existing:
+        raise HTTPException(
+            status_code=400,
+            detail="This time slot is already occupied on this day"
+        )
+    
+    # Handle double lesson - need to occupy next slot
+    if entry.is_double_lesson:
+        # Find all lesson slots for this schedule, ordered by sequence
+        all_lesson_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule.id,
+            TimeSlot.slot_type == "lesson"
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        # Find current slot's position
+        current_slot_index = next((i for i, slot in enumerate(all_lesson_slots) if slot.id == entry.time_slot_id), None)
+        
+        if current_slot_index is None or current_slot_index >= len(all_lesson_slots) - 1:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot create double lesson: no consecutive slot available"
+            )
+        
+        next_slot = all_lesson_slots[current_slot_index + 1]
+        
+        # Check if next slot is already occupied
+        next_slot_occupied = db.query(TimetableEntry).filter(
+            TimetableEntry.user_id == current_user.id,
+            TimetableEntry.time_slot_id == next_slot.id,
+            TimetableEntry.day_of_week == entry.day_of_week
+        ).first()
+        
+        if next_slot_occupied:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot create double lesson: next time slot is already occupied"
+            )
+        
+        print(f"Creating double lesson: slot {entry.time_slot_id} + {next_slot.id}")
+        
+        # Create entry for FIRST slot
+        db_entry = TimetableEntry(
+            user_id=current_user.id,
+            schedule_id=schedule.id,
+            **entry.dict()
+        )
+        db.add(db_entry)
+        db.flush()  # Get the ID
+        
+        # Create entry for SECOND slot (consecutive)
+        db_entry_2 = TimetableEntry(
+            user_id=current_user.id,
+            schedule_id=schedule.id,
+            subject_id=entry.subject_id,
+            time_slot_id=next_slot.id,
+            day_of_week=entry.day_of_week,
+            room_number=entry.room_number,
+            grade_section=entry.grade_section,
+            notes=f"(Part 2 of double lesson)",
+            is_double_lesson=True
+        )
+        db.add(db_entry_2)
+        db.commit()
+        db.refresh(db_entry)
+        
+        return db_entry
+    else:
+        # Single lesson - create only one entry
+        db_entry = TimetableEntry(
+            user_id=current_user.id,
+            schedule_id=schedule.id,
+            **entry.dict()
+        )
+        db.add(db_entry)
+        db.commit()
+        db.refresh(db_entry)
+        
+        return db_entry
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/entries", response_model=List[TimetableEntryResponse])
+async def get_timetable_entries(
+    day_of_week: Optional[int] = None,
+    education_level: Optional[str] = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all timetable entries, optionally filtered by day or education level."""
+    schedule = resolve_schedule_for_context(db, current_user, education_level, day_of_week)
+    if not schedule:
+        return []
+    query = db.query(TimetableEntry).filter(
+        TimetableEntry.user_id == current_user.id,
+        TimetableEntry.schedule_id == schedule.id
+    )
+    if day_of_week:
+        query = query.filter(TimetableEntry.day_of_week == day_of_week)
+    entries = query.order_by(TimetableEntry.day_of_week, TimetableEntry.time_slot_id).all()
+    return entries
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/entries/today")
+async def get_today_entries(
+    education_level: Optional[str] = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get today's timetable with curriculum content"""
+    from datetime import datetime
+    
+    # Get current day (1=Monday, 5=Friday)
+    today = datetime.now().isoweekday()
+    
+    if today > 5:  # Weekend
+        return {
+            "day": today,
+            "day_name": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][today - 1],
+            "is_weekend": True,
+            "entries": []
+        }
+    
+    schedule = resolve_schedule_for_context(db, current_user, education_level, today)
+    if not schedule:
+        detail = (
+            f"No active schedule found for {education_level}"
+            if education_level else "No active schedule found"
+        )
+        raise HTTPException(status_code=404, detail=f"{detail}. Please create one.")
+    
+    # Get today's entries with subject and curriculum info
+    entries = db.query(
+        TimetableEntry,
+        TimeSlot,
+        Subject,
+        Lesson
+    ).join(
+        TimeSlot, TimetableEntry.time_slot_id == TimeSlot.id
+    ).join(
+        Subject, TimetableEntry.subject_id == Subject.id
+    ).outerjoin(
+        Lesson, TimetableEntry.lesson_id == Lesson.id
+    ).filter(
+        TimetableEntry.user_id == current_user.id,
+        TimetableEntry.schedule_id == schedule.id,
+        TimetableEntry.day_of_week == today
+    ).order_by(TimeSlot.sequence_order).all()
+    
+    result = []
+    for entry, slot, subject, lesson in entries:
+        entry_data = {
+            "id": entry.id,
+            "time_slot": {
+                "id": slot.id,
+                "start_time": slot.start_time,
+                "end_time": slot.end_time,
+                "label": slot.label
+            },
+            "subject": {
+                "id": subject.id,
+                "subject_name": subject.subject_name,
+                "grade": subject.grade
+            },
+            "room_number": entry.room_number,
+            "grade_section": entry.grade_section,
+            "notes": entry.notes,
+            "is_double_lesson": entry.is_double_lesson
+        }
+        
+        # Add curriculum content if linked
+        if lesson:
+            entry_data["lesson"] = {
+                "id": lesson.id,
+                "lesson_title": lesson.lesson_title,
+                "learning_outcomes": lesson.learning_outcomes,
+                "is_completed": lesson.is_completed
+            }
+        
+        result.append(entry_data)
+    
+    day_names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    
+    return {
+        "day": today,
+        "day_name": day_names[today - 1],
+        "is_weekend": False,
+        "entries": result
+    }
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/entries/next")
+async def get_next_lesson(
+    education_level: Optional[str] = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get the next upcoming lesson"""
+    from datetime import datetime
+    
+    current_time = datetime.now()
+    current_day = current_time.isoweekday()
+    current_time_str = current_time.strftime("%H:%M")
+    
+    schedule = resolve_schedule_for_context(db, current_user, education_level)
+    if not schedule:
+        detail = (
+            f"No active schedule found for {education_level}"
+            if education_level else "No active schedule found"
+        )
+        return {
+            "has_next_lesson": False,
+            "message": f"{detail}. Please create one."
+        }
+    print(f"[get_next_lesson] Current time: {current_time_str}, Current day: {current_day}")
+    
+    # Find next lesson today or on following days (check up to 8 days to cover full week)
+    for day_offset in range(8):
+        check_day = ((current_day - 1 + day_offset) % 7) + 1  # Properly wrap 1-7 (1=Mon, 7=Sun)
+        
+        if check_day > 5:  # Skip weekends (6=Saturday, 7=Sunday)
+            continue
+        
+        # Get entries for this day
+        entries = db.query(
+            TimetableEntry,
+            TimeSlot,
+            Subject,
+            Lesson
+        ).join(
+            TimeSlot, TimetableEntry.time_slot_id == TimeSlot.id
+        ).join(
+            Subject, TimetableEntry.subject_id == Subject.id
+        ).outerjoin(
+            Lesson, TimetableEntry.lesson_id == Lesson.id
+        ).filter(
+            TimetableEntry.user_id == current_user.id,
+            TimetableEntry.schedule_id == schedule.id,
+            TimetableEntry.day_of_week == check_day,
+            TimeSlot.slot_type == "lesson"
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        for entry, slot, subject, lesson in entries:
+            # If checking today, only consider future time slots
+            if day_offset == 0 and slot.start_time <= current_time_str:
+                continue
+            
+            # Found next lesson!
+            result = {
+                "has_next_lesson": True,
+                "is_today": day_offset == 0,
+                "day_of_week": check_day,
+                "day_name": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"][check_day - 1],
+                "time_slot": {
+                    "id": slot.id,
+                    "start_time": slot.start_time,
+                    "end_time": slot.end_time,
+                    "label": slot.label
+                },
+                "subject": {
+                    "id": subject.id,
+                    "subject_name": subject.subject_name,
+                    "grade": subject.grade
+                },
+                "room_number": entry.room_number,
+                "grade_section": entry.grade_section,
+                "is_double_lesson": entry.is_double_lesson
+            }
+            
+            if lesson:
+                result["lesson"] = {
+                    "id": lesson.id,
+                    "lesson_title": lesson.lesson_title,
+                    "learning_outcomes": lesson.learning_outcomes,
+                    "is_completed": lesson.is_completed
+                }
+            
+            return result
+    
+    return {
+        "has_next_lesson": False,
+        "message": "No upcoming lessons in the next week"
+    }
+
+
+@app.put(f"{settings.API_V1_PREFIX}/timetable/entries/{{entry_id}}", response_model=TimetableEntryResponse)
+async def update_timetable_entry(
+    entry_id: int,
+    entry_update: TimetableEntryUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update a timetable entry"""
+    entry = db.query(TimetableEntry).filter(
+        TimetableEntry.id == entry_id,
+        TimetableEntry.user_id == current_user.id
+    ).first()
+    
+    if not entry:
+        raise HTTPException(status_code=404, detail="Timetable entry not found")
+    
+    # Update fields
+    update_data = entry_update.dict(exclude_unset=True)
+    
+    # Validate subject if being updated
+    if "subject_id" in update_data:
+        subject = db.query(Subject).filter(
+            Subject.id == update_data["subject_id"],
+            Subject.user_id == current_user.id
+        ).first()
+        
+        if not subject:
+            raise HTTPException(status_code=404, detail="Subject not found")
+    
+    # Handle double lesson changes
+    was_double = entry.is_double_lesson
+    becoming_double = update_data.get("is_double_lesson", was_double)
+    
+    if becoming_double and not was_double:
+        # Converting to double lesson - need to occupy next slot
+        schedule = db.query(SchoolSchedule).filter(
+            SchoolSchedule.user_id == current_user.id,
+            SchoolSchedule.is_active == True
+        ).first()
+        
+        all_lesson_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule.id,
+            TimeSlot.slot_type == "lesson"
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        current_slot_index = next((i for i, slot in enumerate(all_lesson_slots) if slot.id == entry.time_slot_id), None)
+        
+        if current_slot_index is None or current_slot_index >= len(all_lesson_slots) - 1:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot convert to double lesson: no consecutive slot available"
+            )
+        
+        next_slot = all_lesson_slots[current_slot_index + 1]
+        
+        # Check if next slot is already occupied
+        next_slot_occupied = db.query(TimetableEntry).filter(
+            TimetableEntry.user_id == current_user.id,
+            TimetableEntry.time_slot_id == next_slot.id,
+            TimetableEntry.day_of_week == entry.day_of_week
+        ).first()
+        
+        if next_slot_occupied:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot convert to double lesson: next time slot is already occupied"
+            )
+        
+        # Create second slot entry
+        db_entry_2 = TimetableEntry(
+            user_id=current_user.id,
+            schedule_id=entry.schedule_id,
+            subject_id=update_data.get("subject_id", entry.subject_id),
+            time_slot_id=next_slot.id,
+            day_of_week=entry.day_of_week,
+            room_number=update_data.get("room_number", entry.room_number),
+            grade_section=update_data.get("grade_section", entry.grade_section),
+            notes=f"(Part 2 of double lesson)",
+            is_double_lesson=True
+        )
+        db.add(db_entry_2)
+    
+    elif not becoming_double and was_double:
+        # Converting from double to single - need to remove next slot entry
+        schedule = db.query(SchoolSchedule).filter(
+            SchoolSchedule.user_id == current_user.id,
+            SchoolSchedule.is_active == True
+        ).first()
+        
+        all_lesson_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule.id,
+            TimeSlot.slot_type == "lesson"
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        current_slot_index = next((i for i, slot in enumerate(all_lesson_slots) if slot.id == entry.time_slot_id), None)
+        
+        if current_slot_index is not None and current_slot_index < len(all_lesson_slots) - 1:
+            next_slot = all_lesson_slots[current_slot_index + 1]
+            
+            # Find and delete the second part of double lesson
+            second_entry = db.query(TimetableEntry).filter(
+                TimetableEntry.user_id == current_user.id,
+                TimetableEntry.time_slot_id == next_slot.id,
+                TimetableEntry.day_of_week == entry.day_of_week,
+                TimetableEntry.subject_id == entry.subject_id,
+                TimetableEntry.is_double_lesson == True
+            ).first()
+            
+            if second_entry:
+                db.delete(second_entry)
+    
+    # Apply updates
+    for key, value in update_data.items():
+        setattr(entry, key, value)
+    
+    db.commit()
+    db.refresh(entry)
+    
+    return entry
+
+
+@app.delete(f"{settings.API_V1_PREFIX}/timetable/entries/{{entry_id}}")
+async def delete_timetable_entry(
+    entry_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete a timetable entry (and its paired slot if it's a double lesson)"""
+    entry = db.query(TimetableEntry).filter(
+        TimetableEntry.id == entry_id,
+        TimetableEntry.user_id == current_user.id
+    ).first()
+    
+    if not entry:
+        raise HTTPException(status_code=404, detail="Timetable entry not found")
+    
+    # If this is a double lesson, delete the paired entry too
+    if entry.is_double_lesson:
+        schedule = db.query(SchoolSchedule).filter(
+            SchoolSchedule.user_id == current_user.id,
+            SchoolSchedule.is_active == True
+        ).first()
+        
+        all_lesson_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule.id,
+            TimeSlot.slot_type == "lesson"
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        current_slot_index = next((i for i, slot in enumerate(all_lesson_slots) if slot.id == entry.time_slot_id), None)
+        
+        if current_slot_index is not None and current_slot_index < len(all_lesson_slots) - 1:
+            next_slot = all_lesson_slots[current_slot_index + 1]
+            
+            # Find and delete the second part
+            second_entry = db.query(TimetableEntry).filter(
+                TimetableEntry.user_id == current_user.id,
+                TimetableEntry.time_slot_id == next_slot.id,
+                TimetableEntry.day_of_week == entry.day_of_week,
+                TimetableEntry.subject_id == entry.subject_id,
+                TimetableEntry.is_double_lesson == True
+            ).first()
+            
+            if second_entry:
+                db.delete(second_entry)
+    
+    db.delete(entry)
+    db.commit()
+    
+    return {"message": "Timetable entry deleted successfully"}
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/dashboard")
+async def get_timetable_dashboard(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get comprehensive timetable dashboard data (today's lessons + next lesson)"""
+    
+    # Get today's schedule
+    today_data = await get_today_entries(current_user, db)
+    
+    # Get next lesson
+    next_lesson = await get_next_lesson(current_user, db)
+    
+    return {
+        "today": today_data,
+        "next_lesson": next_lesson
+    }
+
+# ============================================================================
+# SYSTEM ANNOUNCEMENTS ENDPOINTS
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/announcements", response_model=List[SystemAnnouncementResponse])
+def get_active_announcements(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all active announcements for users"""
+    now = datetime.utcnow()
+    announcements = db.query(SystemAnnouncement).filter(
+        SystemAnnouncement.is_active == True,
+        (SystemAnnouncement.expires_at == None) | (SystemAnnouncement.expires_at > now)
+    ).order_by(SystemAnnouncement.created_at.desc()).all()
+    
+    return announcements
+
+@app.get(f"{settings.API_V1_PREFIX}/admin/announcements", response_model=List[SystemAnnouncementResponse])
+def get_all_announcements(
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Get all announcements (Admin only)"""
+    announcements = db.query(SystemAnnouncement).order_by(SystemAnnouncement.created_at.desc()).all()
+    return announcements
+
+@app.post(f"{settings.API_V1_PREFIX}/admin/announcements", response_model=SystemAnnouncementResponse)
+def create_announcement(
+    announcement: SystemAnnouncementCreate,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new announcement (Admin only)"""
+    new_announcement = SystemAnnouncement(
+        **announcement.dict(),
+        created_by=current_user.id
+    )
+    db.add(new_announcement)
+    db.commit()
+    db.refresh(new_announcement)
+    return new_announcement
+
+@app.delete(f"{settings.API_V1_PREFIX}/admin/announcements/{{announcement_id}}")
+def delete_announcement(
+    announcement_id: int,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Delete an announcement (Admin only)"""
+    announcement = db.query(SystemAnnouncement).filter(SystemAnnouncement.id == announcement_id).first()
+    if not announcement:
+        raise HTTPException(status_code=404, detail="Announcement not found")
+    
+    db.delete(announcement)
+    db.commit()
+    return {"message": "Announcement deleted successfully"}
+
+@app.patch(f"{settings.API_V1_PREFIX}/admin/announcements/{{announcement_id}}/toggle")
+def toggle_announcement_status(
+    announcement_id: int,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Toggle active status of an announcement (Admin only)"""
+    announcement = db.query(SystemAnnouncement).filter(SystemAnnouncement.id == announcement_id).first()
+    if not announcement:
+        raise HTTPException(status_code=404, detail="Announcement not found")
+    
+    announcement.is_active = not announcement.is_active
+    db.commit()
+    db.refresh(announcement)
+    return announcement
+
+# ============================================================================
+# FILE DOWNLOAD ENDPOINT
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/download")
+async def download_note_file(
+    note_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Stream file download from Cloudinary with correct file type and name."""
+    import httpx
+    
+    # Get note and verify ownership
+    note = db.query(Note).filter(
+        Note.id == note_id,
+        Note.user_id == current_user.id
+    ).first()
+    
+    if not note or not note.file_url:
+        raise HTTPException(status_code=404, detail="Note or file not found")
+    
+    # DEBUG: Log what we're working with
+    print(f"\n{'='*80}")
+    print(f"DOWNLOAD REQUEST - Note ID: {note_id}")
+    print(f"  Title: {note.title}")
+    print(f"  Stored file_type: '{note.file_type}'")
+    print(f"  Cloudinary URL: {note.file_url}")
+    print(f"{'='*80}\n")
+    
+    # Extract public_id from URL and generate authenticated download URL
+    try:
+        print(f"Extracting public_id from URL...")
+        public_id = cloudinary_storage.extract_public_id_from_url(note.file_url)
+        
+        if not public_id:
+            print(f"ERROR: Could not extract public_id from URL")
+            raise HTTPException(
+                status_code=500,
+                detail="Invalid file URL format"
+            )
+        
+        print(f"  Public ID: {public_id}")
+        
+        # Determine resource type based on file extension
+        resource_type = "raw" if note.file_type in ['pdf', 'docx', 'pptx', 'xlsx'] else "image"
+        print(f"  Resource Type: {resource_type}")
+        
+        # Generate a fresh authenticated URL using Cloudinary SDK
+        import cloudinary.utils
+        
+        # For raw files, we need to use the 'raw' resource type and specify delivery type
+        if resource_type == "raw":
+            # Build URL with authentication - Cloudinary handles signing automatically
+            download_url = cloudinary.utils.cloudinary_url(
+                public_id,
+                resource_type="raw",
+                secure=True,
+                sign_url=True,  # Important: Sign the URL
+                type="upload"
+            )[0]
+        else:
+            # For images/videos, use standard URL
+            download_url = cloudinary.utils.cloudinary_url(
+                public_id,
+                resource_type=resource_type,
+                secure=True,
+                sign_url=True
+            )[0]
+        
+        print(f"  Generated authenticated URL: {download_url[:80]}...")
+        
+        # Fetch file from Cloudinary with the authenticated URL
+        async with httpx.AsyncClient(timeout=60.0) as client:
+            print(f"Fetching file from Cloudinary...")
+            response = await client.get(download_url)
+            
+            if response.status_code != 200:
+                print(f"ERROR: Cloudinary returned status {response.status_code}")
+                print(f"  Response: {response.text[:200]}")
+                raise HTTPException(
+                    status_code=500, 
+                    detail=f"Failed to fetch file from storage (status: {response.status_code})"
+                )
+            
+            # Log what Cloudinary returned
+            cloudinary_content_type = response.headers.get('content-type', 'unknown')
+            print(f"Cloudinary Response:")
+            print(f"  Content-Type: {cloudinary_content_type}")
+            print(f"  Content-Length: {len(response.content)} bytes")
+            
+    except httpx.TimeoutException as e:
+        print(f"ERROR: Timeout fetching file from Cloudinary: {str(e)}")
+        raise HTTPException(
+            status_code=504,
+            detail="Timeout fetching file from cloud storage"
+        )
+    except httpx.HTTPError as e:
+        print(f"ERROR: HTTP error fetching file: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to fetch file: {str(e)}"
+        )
+    except Exception as e:
+        print(f"ERROR: Unexpected error fetching file: {type(e).__name__}: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Unexpected error: {str(e)}"
+        )
+    
+    # Clean filename and ensure it has the correct extension
+    # Use the stored file_type to ensure correct extension
+    filename = note.title.strip()
+    file_ext = note.file_type.lower().strip() if note.file_type else ''
+    
+    # Remove any existing extension from title
+    if '.' in filename:
+        name_parts = filename.rsplit('.', 1)
+        filename = name_parts[0]
+    
+    # Add the correct extension from database
+    if file_ext:
+        filename = f"{filename}.{file_ext}"
+    else:
+        # Fallback: try to get extension from URL
+        print(f"WARNING: No file_type in database, trying to extract from URL")
+        url_parts = note.file_url.split('.')
+        if len(url_parts) > 1:
+            file_ext = url_parts[-1].lower()
+            filename = f"{filename}.{file_ext}"
+    
+    # Comprehensive MIME type mapping based on stored file_type
+    mime_type_map = {
+            'pdf': 'application/pdf',
+            'doc': 'application/msword',
+            'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'ppt': 'application/vnd.ms-powerpoint',
+            'pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+            'xls': 'application/vnd.ms-excel',
+            'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'jpg': 'image/jpeg',
+            'jpeg': 'image/jpeg',
+            'png': 'image/png',
+            'gif': 'image/gif',
+            'webp': 'image/webp',
+            'mp4': 'video/mp4',
+            'mov': 'video/quicktime',
+            'avi': 'video/x-msvideo',
+            'mkv': 'video/x-matroska',
+            'mp3': 'audio/mpeg',
+            'wav': 'audio/wav',
+            'txt': 'text/plain',
+            'csv': 'text/csv',
+            'zip': 'application/zip',
+            'rar': 'application/x-rar-compressed',
+    }
+    
+    # Use the file type from database, not from Cloudinary response
+    media_type = mime_type_map.get(file_ext, 'application/octet-stream')
+    
+    print(f"\nDownload Response:")
+    print(f"  Filename: {filename}")
+    print(f"  Extension: {file_ext}")
+    print(f"  MIME Type: {media_type}")
+    print(f"{'='*80}\n")
+    
+    # Return streaming response with proper headers
+    # CRITICAL: Use the stored file_type to ensure correct download
+    return StreamingResponse(
+        iter([response.content]),
+        media_type=media_type,
+        headers={
+            "Content-Disposition": f'attachment; filename="{filename}"',
+            "Content-Type": media_type,
+            "Content-Length": str(len(response.content)),
+            "Cache-Control": "no-cache"
+        }
+    )
+
+
+# ============================================================================
+# TIMETABLE MANAGEMENT ENDPOINTS
+# ============================================================================
+
+@app.post(f"{settings.API_V1_PREFIX}/timetable/schedules", response_model=SchoolScheduleResponse)
+async def create_school_schedule(
+    schedule: SchoolScheduleCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new school schedule configuration and auto-generate time slots"""
+    
+    # Check if user already has an active schedule for this level
+    query = db.query(SchoolSchedule).filter(
+        SchoolSchedule.user_id == current_user.id,
+        SchoolSchedule.is_active == True
+    )
+    
+    if schedule.education_level:
+        query = query.filter(SchoolSchedule.education_level == schedule.education_level)
+    else:
+        # If no level specified, check if any schedule exists without level (legacy)
+        # or just check if ANY active schedule exists if we want to enforce one per user when no level
+        pass 
+        
+    existing = query.first()
+    
+    if existing:
+        level_msg = f" for {schedule.education_level}" if schedule.education_level else ""
+        raise HTTPException(
+            status_code=400,
+            detail=f"You already have an active schedule{level_msg}. Deactivate it first or update it."
+        )
+    
+    # Create schedule
+    db_schedule = SchoolSchedule(
+        user_id=current_user.id,
+        **schedule.dict()
+    )
+    db.add(db_schedule)
+    db.commit()
+    db.refresh(db_schedule)
+    
+    # Auto-generate time slots
+    generate_time_slots(db_schedule, db)
+    
+    return db_schedule
+
+
+def generate_time_slots(schedule: SchoolSchedule, db: Session):
+    """Generate time slots based on schedule configuration"""
+    from datetime import datetime, timedelta
+    
+    # Parse times
+    def parse_time(time_str: str) -> datetime:
+        return datetime.strptime(time_str, "%H:%M")
+    
+    current_time = parse_time(schedule.school_start_time)
+    slot_number = 1
+    sequence = 1
+    
+    # Session 1 (Before first break)
+    for i in range(schedule.lessons_before_first_break):
+        duration = schedule.single_lesson_duration if i % 2 == 0 else schedule.double_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    # First Break
+    if schedule.first_break_duration > 0:
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=0,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=schedule.first_break_duration)).strftime("%H:%M"),
+            slot_type="break",
+            label="First Break",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        current_time += timedelta(minutes=schedule.first_break_duration)
+        sequence += 1
+    
+    # Session 2 (Before second break)
+    for i in range(schedule.lessons_before_second_break):
+        duration = schedule.single_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    # Second Break (Tea Break)
+    if schedule.second_break_duration > 0:
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=0,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=schedule.second_break_duration)).strftime("%H:%M"),
+            slot_type="break",
+            label="Second Break",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        current_time += timedelta(minutes=schedule.second_break_duration)
+        sequence += 1
+    
+    # Session 3 (Before lunch)
+    for i in range(schedule.lessons_before_lunch):
+        duration = schedule.single_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    # Lunch Break
+    if schedule.lunch_break_duration > 0:
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=0,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=schedule.lunch_break_duration)).strftime("%H:%M"),
+            slot_type="lunch",
+            label="Lunch Break",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        current_time += timedelta(minutes=schedule.lunch_break_duration)
+        sequence += 1
+    
+    # Session 4 (After lunch)
+    for i in range(schedule.lessons_after_lunch):
+        duration = schedule.single_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    db.commit()
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/schedules", response_model=List[SchoolScheduleResponse])
+async def get_school_schedules(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all school schedules for current user"""
+    schedules = db.query(SchoolSchedule).filter(
+        SchoolSchedule.user_id == current_user.id
+    ).order_by(SchoolSchedule.is_active.desc(), SchoolSchedule.created_at.desc()).all()
+    
+    return schedules
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/schedules/active", response_model=SchoolScheduleResponse)
+async def get_active_schedule(
+    education_level: Optional[str] = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get the active schedule, falling back to a generic one when needed."""
+    schedule = get_active_schedule_or_fallback(db, current_user, education_level)
+    if not schedule:
+        detail = f"No active schedule found for {education_level}" if education_level else "No active schedule found"
+        raise HTTPException(status_code=404, detail=f"{detail}. Please create one.")
+
+    return schedule
+
+
+@app.put(f"{settings.API_V1_PREFIX}/timetable/schedules/{{schedule_id}}", response_model=SchoolScheduleResponse)
+async def update_school_schedule(
+    schedule_id: int,
+    schedule_update: SchoolScheduleUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update a school schedule and regenerate time slots"""
+    schedule = db.query(SchoolSchedule).filter(
+        SchoolSchedule.id == schedule_id,
+        SchoolSchedule.user_id == current_user.id
+    ).first()
+    
+    if not schedule:
+        raise HTTPException(status_code=404, detail="Schedule not found")
+    
+    # Update fields
+    update_data = schedule_update.dict(exclude_unset=True)
+    for key, value in update_data.items():
+        setattr(schedule, key, value)
+    
+    db.commit()
+    db.refresh(schedule)
+    
+    # Regenerate time slots if timing changed
+    if any(key in update_data for key in ['school_start_time', 'single_lesson_duration', 
+                                            'double_lesson_duration', 'lessons_before_first_break',
+                                            'lessons_before_second_break', 'lessons_before_lunch',
+                                            'lessons_after_lunch', 'first_break_duration',
+                                            'second_break_duration', 'lunch_break_duration']):
+        # Get existing time slots to preserve lesson mappings
+        existing_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule_id
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        # Get existing entries to remap later
+        existing_entries = db.query(TimetableEntry).filter(
+            TimetableEntry.schedule_id == schedule_id
+        ).all()
+        
+        # Create mapping of old slot details (sequence_order, slot_type) to entry details
+        entry_mappings = {}
+        for entry in existing_entries:
+            old_slot = next((s for s in existing_slots if s.id == entry.time_slot_id), None)
+            if old_slot:
+                # Map by sequence order and slot type to preserve lesson positions
+                key = (old_slot.sequence_order, old_slot.slot_type)
+                if key not in entry_mappings:
+                    entry_mappings[key] = []
+                entry_mappings[key].append({
+                    'subject_id': entry.subject_id,
+                    'day_of_week': entry.day_of_week,
+                    'room_number': entry.room_number,
+                    'grade_section': entry.grade_section,
+                    'notes': entry.notes,
+                    'is_double_lesson': entry.is_double_lesson,
+                    'strand_id': entry.strand_id,
+                    'substrand_id': entry.substrand_id,
+                    'lesson_id': entry.lesson_id
+                })
+        
+        # Delete old entries and slots
+        db.query(TimetableEntry).filter(TimetableEntry.schedule_id == schedule_id).delete()
+        db.query(TimeSlot).filter(TimeSlot.schedule_id == schedule_id).delete()
+        db.commit()
+        
+        # Generate new time slots
+        generate_time_slots(schedule, db)
+        
+        # Get newly created time slots
+        new_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule_id
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        # Recreate entries with new time slot IDs
+        for new_slot in new_slots:
+            key = (new_slot.sequence_order, new_slot.slot_type)
+            if key in entry_mappings:
+                for entry_data in entry_mappings[key]:
+                    new_entry = TimetableEntry(
+                        user_id=current_user.id,
+                        schedule_id=schedule_id,
+                        time_slot_id=new_slot.id,
+                        **entry_data
+                    )
+                    db.add(new_entry)
+        
+        db.commit()
+    
+    return schedule
+
+
+@app.delete(f"{settings.API_V1_PREFIX}/timetable/schedules/{{schedule_id}}")
+async def delete_school_schedule(
+    schedule_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete a school schedule (soft delete by deactivating)"""
+    schedule = db.query(SchoolSchedule).filter(
+        SchoolSchedule.id == schedule_id,
+        SchoolSchedule.user_id == current_user.id
+    ).first()
+    
+    if not schedule:
+        raise HTTPException(status_code=404, detail="Schedule not found")
+    
+    # Soft delete
+    schedule.is_active = False
+    db.commit()
+    
+    return {"message": "Schedule deactivated successfully"}
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/time-slots", response_model=List[TimeSlotResponse])
+async def get_time_slots(
+    education_level: Optional[str] = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Return time slots for the active (or fallback) schedule."""
+    schedule = resolve_schedule_for_context(db, current_user, education_level)
+    
+    if not schedule:
+        detail = (
+            f"No active schedule found for {education_level}"
+            if education_level else "No active schedule found"
+        )
+        raise HTTPException(
+            status_code=404,
+            detail=f"{detail}. Please create one."
+        )
+    
+    time_slots = db.query(TimeSlot).filter(
+        TimeSlot.schedule_id == schedule.id
+    ).order_by(TimeSlot.sequence_order).all()
+    
+    return time_slots
+
+
+@app.post(f"{settings.API_V1_PREFIX}/timetable/entries", response_model=TimetableEntryResponse)
+async def create_timetable_entry(
+    entry: TimetableEntryCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new timetable entry (assign subject to time slot on specific day)"""
+    
+    # Verify time slot exists and belongs to a schedule owned by the user
+    time_slot = db.query(TimeSlot).join(SchoolSchedule).filter(
+        TimeSlot.id == entry.time_slot_id,
+        SchoolSchedule.user_id == current_user.id
+    ).first()
+    
+    if not time_slot:
+        raise HTTPException(status_code=404, detail="Time slot not found or access denied")
+        
+    schedule = time_slot.schedule
+    
+    if time_slot.slot_type != "lesson":
+        raise HTTPException(status_code=400, detail="Cannot assign subject to break/lunch slot")
+    
+    # Log what we received
+    print(f"\n=== CREATE TIMETABLE ENTRY ===")
+    print(f"Received subject_id: {entry.subject_id}")
+    print(f"Time slot: {entry.time_slot_id}")
+    print(f"Day: {entry.day_of_week}")
+    
+    # Try to find subject in user's subjects, or check if it's a curriculum template
+    subject = db.query(Subject).filter(
+        Subject.id == entry.subject_id,
+        Subject.user_id == current_user.id
+    ).first()
+    
+    print(f"Found in user's subjects: {subject.subject_name if subject else 'No'}")
+    
+    # If not found in user's subjects, check if it's a curriculum template
+    if not subject:
+        curriculum_template = db.query(CurriculumTemplate).filter(
+            CurriculumTemplate.id == entry.subject_id,
+            CurriculumTemplate.is_active == True
+        ).first()
+        
+        if not curriculum_template:
+            raise HTTPException(status_code=404, detail="Subject or curriculum template not found")
+        
+        print(f"Found curriculum template: {curriculum_template.subject} - {curriculum_template.grade}")
+        
+        # Check if user already has this subject with EXACT template match
+        existing_subject = db.query(Subject).filter(
+            Subject.user_id == current_user.id,
+            Subject.template_id == curriculum_template.id
+        ).first()
+        
+        print(f"Found existing subject from template: {existing_subject.subject_name if existing_subject else 'No'}")
+        
+        if existing_subject:
+            # Use the existing subject
+            subject = existing_subject
+            entry.subject_id = subject.id
+        else:
+            # Create a new subject from the template for this user
+            new_subject = Subject(
+                user_id=current_user.id,
+                template_id=curriculum_template.id,
+                subject_name=curriculum_template.subject,
+                grade=curriculum_template.grade,
+                total_lessons=0,
+                lessons_completed=0,
+                progress_percentage=0.0
+            )
+            db.add(new_subject)
+            db.flush()  # Get the ID without committing
+            subject = new_subject
+            entry.subject_id = subject.id
+            print(f"Created new subject: {subject.subject_name} - {subject.grade} (ID: {subject.id})")
+            
+
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    port = int(os.getenv("API_PORT", os.getenv("PORT", 8000)))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
