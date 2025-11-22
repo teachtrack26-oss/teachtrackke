@@ -1,6 +1,21 @@
 // Additional Dashboard Components
 import { useState } from "react";
-import { FiBell, FiX, FiBarChart2, FiUsers, FiCheck, FiSettings, FiEye, FiEyeOff } from "react-icons/fi";
+import { 
+  FiBell, 
+  FiX, 
+  FiBarChart2, 
+  FiUsers, 
+  FiCheck, 
+  FiSettings, 
+  FiEye, 
+  FiEyeOff, 
+  FiTarget,
+  FiAlertCircle,
+  FiCheckCircle,
+  FiClock,
+  FiCalendar,
+  FiPieChart,
+} from "react-icons/fi";
 import {
   LineChart,
   Line,
@@ -9,6 +24,11 @@ import {
   CartesianGrid,
   Tooltip as RechartsTooltip,
   ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  BarChart,
+  Bar,
 } from "recharts";
 
 export interface Notification {
@@ -36,6 +56,35 @@ export interface WidgetPreferences {
   trendGraph: boolean;
   attendance: boolean;
   notifications: boolean;
+  curriculumProgress?: boolean;
+  upcomingDeadlines?: boolean;
+  teachingInsights?: boolean;
+}
+
+export interface SubjectProgress {
+  id: number;
+  subjectName: string;
+  grade: string;
+  completedLessons: number;
+  totalLessons: number;
+  progressPercentage: number;
+  estimatedCompletionDate: Date;
+  status: "ahead" | "on-track" | "behind";
+}
+
+export interface DeadlineItem {
+  id: number;
+  title: string;
+  date: Date;
+  type: "scheme" | "assessment" | "report" | "other";
+  daysUntil: number;
+}
+
+export interface TeachingInsight {
+  mostTaughtSubjects: { subject: string; count: number; color: string }[];
+  averageLessonDuration: number;
+  peakTeachingHours: { hour: string; count: number }[];
+  weeklyComparison: { week: string; lessons: number }[];
 }
 
 // Notifications Dropdown
@@ -316,6 +365,9 @@ export function CustomizationPanel({
     { key: "quickActions" as keyof WidgetPreferences, label: "Quick Actions", icon: "⚡" },
     { key: "trendGraph" as keyof WidgetPreferences, label: "Trend Graph", icon: "📈" },
     { key: "attendance" as keyof WidgetPreferences, label: "Attendance", icon: "👥" },
+    { key: "curriculumProgress" as keyof WidgetPreferences, label: "Curriculum Progress", icon: "🎯" },
+    { key: "upcomingDeadlines" as keyof WidgetPreferences, label: "Deadlines", icon: "📅" },
+    { key: "teachingInsights" as keyof WidgetPreferences, label: "Insights", icon: "📊" },
   ];
 
   const handleSave = () => {
@@ -386,6 +438,324 @@ export function CustomizationPanel({
             Save Changes
           </button>
         </div>
+      </div>
+    </div>
+  );
+}
+
+// Curriculum Progress Tracker Widget
+export function CurriculumProgressTracker({
+  subjects,
+}: {
+  subjects: SubjectProgress[];
+}) {
+  const getMilestoneIcon = (percentage: number) => {
+    if (percentage >= 100) return "🏆";
+    if (percentage >= 75) return "🎯";
+    if (percentage >= 50) return "⭐";
+    if (percentage >= 25) return "🌱";
+    return "🔵";
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "ahead": return "text-green-600 bg-green-50";
+      case "on-track": return "text-blue-600 bg-blue-50";
+      case "behind": return "text-red-600 bg-red-50";
+      default: return "text-gray-600 bg-gray-50";
+    }
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "ahead": return <FiCheckCircle className="w-4 h-4" />;
+      case "on-track": return <FiTarget className="w-4 h-4" />;
+      case "behind": return <FiAlertCircle className="w-4 h-4" />;
+      default: return <FiClock className="w-4 h-4" />;
+    }
+  };
+
+  return (
+    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+          <FiTarget className="w-5 h-5 text-indigo-600" />
+          Curriculum Progress
+        </h3>
+        <span className="text-xs text-gray-500">
+          {subjects.length} {subjects.length === 1 ? "Subject" : "Subjects"}
+        </span>
+      </div>
+
+      <div className="space-y-4">
+        {subjects.length === 0 ? (
+          <div className="text-center py-8 text-gray-500">
+            <FiTarget className="w-12 h-12 mx-auto mb-2 opacity-30" />
+            <p className="text-sm">No subjects tracked yet</p>
+          </div>
+        ) : (
+          subjects.map((subject) => (
+            <div
+              key={subject.id}
+              className="bg-white p-4 rounded-xl border border-gray-200"
+            >
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-2xl">
+                      {getMilestoneIcon(subject.progressPercentage)}
+                    </span>
+                    <h4 className="font-semibold text-gray-900 text-sm">
+                      {subject.subjectName}
+                    </h4>
+                    <span className="text-xs text-gray-500">
+                      {subject.grade}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-600">
+                    {subject.completedLessons} of {subject.totalLessons} lessons completed
+                  </p>
+                </div>
+                <div className={`flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold ${getStatusColor(subject.status)}`}>
+                  {getStatusIcon(subject.status)}
+                  <span className="capitalize">{subject.status}</span>
+                </div>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="relative h-3 bg-gray-200 rounded-full overflow-hidden mb-2">
+                <div
+                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-indigo-500 to-purple-600 transition-all duration-500"
+                  style={{ width: `${subject.progressPercentage}%` }}
+                />
+                {/* Milestone markers */}
+                <div className="absolute top-0 left-1/4 w-0.5 h-full bg-white/50" />
+                <div className="absolute top-0 left-1/2 w-0.5 h-full bg-white/50" />
+                <div className="absolute top-0 left-3/4 w-0.5 h-full bg-white/50" />
+              </div>
+
+              <div className="flex items-center justify-between text-xs">
+                <div className="flex items-center gap-4">
+                  <span className="font-bold text-indigo-600">
+                    {Math.round(subject.progressPercentage)}%
+                  </span>
+                  <div className="flex gap-1">
+                    <span className={subject.progressPercentage >= 25 ? "text-green-500" : "text-gray-300"}>25%</span>
+                    <span className={subject.progressPercentage >= 50 ? "text-green-500" : "text-gray-300"}>50%</span>
+                    <span className={subject.progressPercentage >= 75 ? "text-green-500" : "text-gray-300"}>75%</span>
+                    <span className={subject.progressPercentage >= 100 ? "text-green-500" : "text-gray-300"}>100%</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1 text-gray-500">
+                  <FiCalendar className="w-3 h-3" />
+                  <span>
+                    Est: {new Date(subject.estimatedCompletionDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      {subjects.length > 0 && (
+        <div className="mt-4 p-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-gray-600">Overall Progress:</span>
+            <span className="font-bold text-indigo-600">
+              {Math.round(
+                subjects.reduce((sum, s) => sum + s.progressPercentage, 0) /
+                  subjects.length
+              )}%
+            </span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Upcoming Deadlines Widget
+export function UpcomingDeadlinesWidget({
+  deadlines,
+}: {
+  deadlines: DeadlineItem[];
+}) {
+  const getDeadlineIcon = (type: string) => {
+    switch (type) {
+      case "scheme": return "📋";
+      case "assessment": return "📝";
+      case "report": return "📊";
+      default: return "📅";
+    }
+  };
+
+  const getUrgencyColor = (daysUntil: number) => {
+    if (daysUntil <= 3) return "bg-red-50 border-red-200 text-red-700";
+    if (daysUntil <= 7) return "bg-amber-50 border-amber-200 text-amber-700";
+    return "bg-blue-50 border-blue-200 text-blue-700";
+  };
+
+  const sortedDeadlines = [...deadlines].sort((a, b) => a.daysUntil - b.daysUntil);
+
+  return (
+    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+          <FiCalendar className="w-5 h-5 text-indigo-600" />
+          📅 Upcoming Deadlines
+        </h3>
+        <span className="text-xs text-gray-500">
+          {sortedDeadlines.filter(d => d.daysUntil <= 14).length} this month
+        </span>
+      </div>
+
+      <div className="space-y-2">
+        {sortedDeadlines.length === 0 ? (
+          <div className="text-center py-8 text-gray-500">
+            <FiCalendar className="w-12 h-12 mx-auto mb-2 opacity-30" />
+            <p className="text-sm">No upcoming deadlines</p>
+          </div>
+        ) : (
+          sortedDeadlines.slice(0, 5).map((deadline) => (
+            <div
+              key={deadline.id}
+              className={`p-3 rounded-xl border-2 ${getUrgencyColor(deadline.daysUntil)}`}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">{getDeadlineIcon(deadline.type)}</span>
+                  <div>
+                    <h4 className="font-semibold text-sm">{deadline.title}</h4>
+                    <p className="text-xs opacity-75">
+                      {new Date(deadline.date).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="font-bold text-lg">
+                    {deadline.daysUntil === 0 ? "Today" : 
+                     deadline.daysUntil === 1 ? "Tomorrow" :
+                     `${deadline.daysUntil}d`}
+                  </div>
+                  {deadline.daysUntil <= 3 && (
+                    <div className="text-xs font-semibold">Urgent!</div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      {sortedDeadlines.length > 0 && (
+        <div className="mt-4 p-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
+          <p className="text-xs text-gray-600 text-center">
+            🔔 {sortedDeadlines.filter(d => d.daysUntil <= 7).length} deadlines in the next week
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Teaching Insights/Analytics Widget
+export function TeachingInsightsWidget({
+  insights,
+}: {
+  insights: TeachingInsight;
+}) {
+  const COLORS = ["#6366f1", "#8b5cf6", "#ec4899", "#f59e0b", "#10b981"];
+
+  return (
+    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+          <FiPieChart className="w-5 h-5 text-indigo-600" />
+          Teaching Insights
+        </h3>
+        <span className="text-xs text-gray-500">This Month</span>
+      </div>
+
+      {/* Most Taught Subjects - Pie Chart */}
+      <div className="mb-6">
+        <h4 className="text-sm font-semibold text-gray-700 mb-3">Subject Distribution</h4>
+        <div className="flex items-center gap-4">
+          <ResponsiveContainer width="40%" height={120}>
+            <PieChart>
+              <Pie
+                data={insights.mostTaughtSubjects}
+                dataKey="count"
+                nameKey="subject"
+                cx="50%"
+                cy="50%"
+                outerRadius={50}
+                label={false}
+              >
+                {insights.mostTaughtSubjects.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color || COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+          <div className="flex-1 space-y-1">
+            {insights.mostTaughtSubjects.slice(0, 4).map((subject, idx) => (
+              <div key={idx} className="flex items-center justify-between text-xs">
+                <div className="flex items-center gap-2">
+                  <div
+                    className="w-3 h-3 rounded-full"
+                    style={{ backgroundColor: subject.color || COLORS[idx % COLORS.length] }}
+                  />
+                  <span className="text-gray-700">{subject.subject}</span>
+                </div>
+                <span className="font-semibold text-gray-900">{subject.count}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Key Metrics Grid */}
+      <div className="grid grid-cols-2 gap-3 mb-4">
+        <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 p-3 rounded-xl">
+          <div className="flex items-center gap-2 mb-1">
+            <FiClock className="w-4 h-4 text-indigo-600" />
+            <span className="text-xs text-gray-600">Avg Duration</span>
+          </div>
+          <p className="text-2xl font-bold text-indigo-600">
+            {insights.averageLessonDuration} min
+          </p>
+        </div>
+        <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-3 rounded-xl">
+          <div className="flex items-center gap-2 mb-1">
+            <FiTarget className="w-4 h-4 text-purple-600" />
+            <span className="text-xs text-gray-600">Peak Hour</span>
+          </div>
+          <p className="text-2xl font-bold text-purple-600">
+            {insights.peakTeachingHours[0]?.hour || "N/A"}
+          </p>
+        </div>
+      </div>
+
+      {/* Peak Teaching Hours - Bar Chart */}
+      <div>
+        <h4 className="text-sm font-semibold text-gray-700 mb-3">Peak Teaching Hours</h4>
+        <ResponsiveContainer width="100%" height={100}>
+          <BarChart data={insights.peakTeachingHours.slice(0, 5)}>
+            <XAxis dataKey="hour" style={{ fontSize: "10px" }} />
+            <Bar dataKey="count" fill="#6366f1" radius={[8, 8, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      <div className="mt-4 p-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
+        <p className="text-xs text-gray-600 text-center">
+          📈 {insights.mostTaughtSubjects.reduce((sum, s) => sum + s.count, 0)} lessons taught this month
+        </p>
       </div>
     </div>
   );

@@ -51,6 +51,17 @@ import {
   TrendGraph,
   AttendanceWidget,
   CustomizationPanel,
+  CurriculumProgressTracker,
+  UpcomingDeadlinesWidget,
+  TeachingInsightsWidget,
+} from "../dashboard-components";
+import type { 
+  Notification, 
+  AttendanceEntry, 
+  WidgetPreferences,
+  SubjectProgress,
+  DeadlineItem,
+  TeachingInsight,
 } from "../dashboard-components";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
@@ -105,9 +116,6 @@ interface CurriculumDetails {
   };
 }
 
-// Import types from dashboard-components
-import type { Notification, AttendanceEntry, WidgetPreferences } from "../dashboard-components";
-
 export default function DashboardPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -144,9 +152,22 @@ export default function DashboardPage() {
     trendGraph: true,
     attendance: true,
     notifications: true,
+    curriculumProgress: true,
+    upcomingDeadlines: true,
+    teachingInsights: true,
   });
   const [showCustomization, setShowCustomization] = useState(false);
   const [draggedLesson, setDraggedLesson] = useState<TimetableEntry | null>(null);
+  
+  // New widgets state
+  const [subjectProgress, setSubjectProgress] = useState<SubjectProgress[]>([]);
+  const [deadlines, setDeadlines] = useState<DeadlineItem[]>([]);
+  const [teachingInsights, setTeachingInsights] = useState<TeachingInsight>({
+    mostTaughtSubjects: [],
+    averageLessonDuration: 0,
+    peakTeachingHours: [],
+    weeklyComparison: [],
+  });
 
   useEffect(() => {
     if (status === "loading") return; // Still loading
@@ -288,6 +309,98 @@ export default function DashboardPage() {
         presentStudents: 0,
       },
     ]);
+
+    // Mock curriculum progress data
+    setSubjectProgress([
+      {
+        id: 1,
+        subjectName: "Mathematics",
+        grade: "Grade 7",
+        completedLessons: 28,
+        totalLessons: 40,
+        progressPercentage: 70,
+        estimatedCompletionDate: new Date("2025-12-15"),
+        status: "on-track",
+      },
+      {
+        id: 2,
+        subjectName: "English",
+        grade: "Grade 7",
+        completedLessons: 35,
+        totalLessons: 40,
+        progressPercentage: 87.5,
+        estimatedCompletionDate: new Date("2025-12-08"),
+        status: "ahead",
+      },
+      {
+        id: 3,
+        subjectName: "Science",
+        grade: "Grade 8",
+        completedLessons: 18,
+        totalLessons: 35,
+        progressPercentage: 51.4,
+        estimatedCompletionDate: new Date("2026-01-10"),
+        status: "behind",
+      },
+    ]);
+
+    // Mock deadlines
+    const today = new Date("2025-11-22");
+    setDeadlines([
+      {
+        id: 1,
+        title: "Scheme of Work Due",
+        date: new Date("2025-12-05"),
+        type: "scheme",
+        daysUntil: Math.ceil((new Date("2025-12-05").getTime() - today.getTime()) / (1000 * 60 * 60 * 24)),
+      },
+      {
+        id: 2,
+        title: "Assessment Period",
+        date: new Date("2025-12-10"),
+        type: "assessment",
+        daysUntil: Math.ceil((new Date("2025-12-10").getTime() - today.getTime()) / (1000 * 60 * 60 * 24)),
+      },
+      {
+        id: 3,
+        title: "Progress Reports",
+        date: new Date("2025-12-20"),
+        type: "report",
+        daysUntil: Math.ceil((new Date("2025-12-20").getTime() - today.getTime()) / (1000 * 60 * 60 * 24)),
+      },
+      {
+        id: 4,
+        title: "Parent-Teacher Conference",
+        date: new Date("2025-11-25"),
+        type: "other",
+        daysUntil: Math.ceil((new Date("2025-11-25").getTime() - today.getTime()) / (1000 * 60 * 60 * 24)),
+      },
+    ]);
+
+    // Mock teaching insights
+    setTeachingInsights({
+      mostTaughtSubjects: [
+        { subject: "Mathematics", count: 18, color: "#6366f1" },
+        { subject: "English", count: 15, color: "#8b5cf6" },
+        { subject: "Science", count: 12, color: "#ec4899" },
+        { subject: "Kiswahili", count: 10, color: "#f59e0b" },
+        { subject: "Social Studies", count: 8, color: "#10b981" },
+      ],
+      averageLessonDuration: 45,
+      peakTeachingHours: [
+        { hour: "08:00", count: 12 },
+        { hour: "09:00", count: 15 },
+        { hour: "10:00", count: 18 },
+        { hour: "11:00", count: 14 },
+        { hour: "14:00", count: 10 },
+      ],
+      weeklyComparison: [
+        { week: "Week 1", lessons: 12 },
+        { week: "Week 2", lessons: 15 },
+        { week: "Week 3", lessons: 13 },
+        { week: "This Week", lessons: 15 },
+      ],
+    });
   }, []);
 
   const saveWidgetPreferences = (prefs: WidgetPreferences) => {
@@ -726,6 +839,24 @@ export default function DashboardPage() {
               data={attendanceData}
               onMarkAttendance={markAttendance}
             />
+          )}
+        </div>
+
+        {/* Third Row - New Advanced Widgets */}
+        <div className="grid lg:grid-cols-3 gap-6 mb-8">
+          {/* Curriculum Progress Tracker */}
+          {widgetPreferences.curriculumProgress && (
+            <CurriculumProgressTracker subjects={subjectProgress} />
+          )}
+
+          {/* Upcoming Deadlines */}
+          {widgetPreferences.upcomingDeadlines && (
+            <UpcomingDeadlinesWidget deadlines={deadlines} />
+          )}
+
+          {/* Teaching Insights */}
+          {widgetPreferences.teachingInsights && (
+            <TeachingInsightsWidget insights={teachingInsights} />
           )}
         </div>
 
