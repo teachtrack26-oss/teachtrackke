@@ -13,31 +13,37 @@ export default function AboutPage() {
   const features = [
     {
       icon: <FiBookOpen className="w-6 h-6 text-indigo-600" />,
-      title: "CBC Curriculum Tracking",
+      title: "Complete Curriculum System",
       description:
-        "Seamlessly track your Competency-Based Curriculum progress across all subjects and grade levels.",
+        "Pre-loaded CBC curricula (Grades 1-10) with strands, sub-strands, learning outcomes, core competencies, and detailed tracking.",
     },
     {
       icon: <FiClock className="w-6 h-6 text-green-600" />,
-      title: "Time-Saving Tools",
+      title: "Smart Timetable Management",
       description:
-        "Automated lesson planning and progress tracking saves you hours every week.",
+        "Drag-and-drop weekly schedules, automatic conflict detection, mobile swipe navigation, and intelligent rescheduling.",
     },
     {
       icon: <FiTrendingUp className="w-6 h-6 text-blue-600" />,
-      title: "Student Progress Insights",
+      title: "Advanced Analytics Dashboard",
       description:
-        "Visual dashboards help you identify student needs and adjust teaching strategies.",
+        "11 customizable widgets: curriculum progress, attendance, teaching insights, trend graphs, deadlines, performance metrics, and resource center.",
     },
   ];
 
   const benefits = [
-    "Track lesson completion across all subjects",
-    "Organize and access teaching notes instantly",
-    "Generate progress reports for parents and administration",
-    "Plan lessons with CBC strand alignment",
-    "Manage multiple classes and subjects efficiently",
-    "Access your data anywhere, anytime",
+    "Track curriculum progress with visual milestones and completion percentages",
+    "Create and manage weekly timetables with drag-and-drop functionality",
+    "Generate AI-powered lesson plans aligned with CBC strands and learning outcomes",
+    "Create professional schemes of work and records of work with PDF export",
+    "Monitor student attendance with quick entry and performance analytics",
+    "Access 11 dashboard widgets: weekly calendar, quick stats, trend graphs, and more",
+    "View teaching insights: peak hours, subject distribution, and weekly comparisons",
+    "Track upcoming deadlines for schemes, assessments, and progress reports",
+    "Manage resource center with lesson plans, materials, and shared documents",
+    "Export all professional records to print-ready PDF formats",
+    "Access your complete teaching data anywhere, anytime on any device",
+    "Customize dashboard layout and toggle widgets based on your preferences",
   ];
 
   return (
@@ -50,9 +56,9 @@ export default function AboutPage() {
               About TeachTrack CBC
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Designed by teachers, for teachers. TeachTrack CBC is the
-              comprehensive solution for managing Competency-Based Curriculum
-              implementation in Kenyan schools.
+              Designed by teachers, for teachers. TeachTrack CBC is Kenya's most comprehensive 
+              teaching management platform, combining curriculum tracking, timetable management, 
+              professional records, attendance monitoring, and advanced analytics in one powerful system.
             </p>
           </div>
         </div>
@@ -66,10 +72,10 @@ export default function AboutPage() {
               Our Mission
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed">
-              To empower Kenyan educators with intuitive digital tools that
-              simplify CBC curriculum management, reduce administrative burden,
-              and enhance teaching effectiveness. We believe technology should
-              work for teachers, not against them.
+              To empower Kenyan educators with an all-in-one digital platform that simplifies 
+              CBC curriculum management, streamlines timetabling, automates professional documentation, 
+              and provides actionable insights. We reduce administrative burden by up to 70%, 
+              giving teachers more time to focus on what matters most—teaching and student engagement.
             </p>
           </div>
         </div>
@@ -118,9 +124,9 @@ export default function AboutPage() {
                 Why Teachers Choose TeachTrack CBC
               </h2>
               <p className="text-lg text-gray-600 mb-8">
-                Developed with input from experienced CBC teachers across Kenya,
-                TeachTrack addresses the real pain points of curriculum
-                management.
+                Developed with input from experienced CBC teachers across Kenya, TeachTrack combines 
+                curriculum tracking, timetable management, professional documentation, and analytics 
+                into one seamless platform. Everything you need, nothing you don't.
               </p>
 
               <div className="space-y-4">
@@ -136,9 +142,9 @@ export default function AboutPage() {
             <div className="bg-gradient-to-br from-indigo-500 to-cyan-600 rounded-2xl p-8 text-white">
               <h3 className="text-2xl font-bold mb-4">Ready to Get Started?</h3>
               <p className="text-indigo-100 mb-6">
-                Join hundreds of teachers already using TeachTrack CBC to
-                streamline their curriculum management and focus on what matters
-                most - teaching.
+                Join Kenyan teachers using TeachTrack CBC's comprehensive platform to manage 
+                curriculum, timetables, lesson plans, attendance, and analytics—all in one place. 
+                Save up to 10+ hours per week on administrative tasks.
               </p>
               <Link
                 href="/register"

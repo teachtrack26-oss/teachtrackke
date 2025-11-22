@@ -52,11 +52,12 @@ export default function Home() {
       >
         <div className="container mx-auto px-6 py-20 text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-2xl">
-            Track Your CBC Curriculum Like Never Before
+            Complete Teaching Management for CBC Educators
           </h1>
           <p className="text-xl mb-8 max-w-2xl mx-auto text-white drop-shadow-lg">
-            The smart way for Kenyan teachers to track progress, organize notes,
-            and save hours every week. Built specifically for CBC Grades 1-10.
+            Comprehensive platform for Kenyan teachers: Track curriculum, manage timetables, 
+            create lesson plans, monitor attendance, and generate professional reports. 
+            Built specifically for CBC Grades 1-10.
           </p>
           <button
             onClick={handleGetStarted}
@@ -82,26 +83,26 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <FeatureCard
               icon={<FiBook className="w-12 h-12 text-indigo-600" />}
-              title="Ready-to-Use Curricula"
-              description="Access pre-loaded CBC curricula for all grades and subjects. All strands, sub-strands, and learning outcomes already organized."
+              title="Complete CBC Curriculum"
+              description="Pre-loaded curricula for Grades 1-10 with all strands, sub-strands, learning outcomes, and core competencies."
             />
 
             <FeatureCard
               icon={<FiCheckCircle className="w-12 h-12 text-green-500" />}
-              title="Track Progress"
-              description="Visual progress bars show exactly where you are. One-click to mark lessons complete."
+              title="Smart Timetable Manager"
+              description="Create, manage, and track your weekly timetable. Drag-and-drop rescheduling with automatic conflict detection."
             />
 
             <FeatureCard
               icon={<FiUpload className="w-12 h-12 text-purple-600" />}
-              title="Organize Notes"
-              description="Upload PowerPoints, PDFs, and Word docs. Auto-organized by subject and strand."
+              title="Professional Records"
+              description="Create lesson plans, schemes of work, and records of work. Export to PDF with professional templates."
             />
 
             <FeatureCard
               icon={<FiBarChart className="w-12 h-12 text-amber-500" />}
-              title="Generate Reports"
-              description="Create professional progress reports for your headteacher in seconds."
+              title="Advanced Analytics"
+              description="Real-time dashboards with curriculum progress, attendance tracking, teaching insights, and performance metrics."
             />
           </div>
         </div>
@@ -117,18 +118,23 @@ export default function Home() {
           <div className="max-w-3xl mx-auto space-y-8">
             <Step
               number="1"
-              title="Select Your Curriculum"
-              description="Browse the curriculum library, select your grade and subject from pre-loaded CBC curricula. Import instantly with one click."
+              title="Setup Your Teaching Profile"
+              description="Create your timetable, select CBC curricula for your subjects (Grades 1-10), and configure your teaching schedule with time slots and class sections."
             />
             <Step
               number="2"
-              title="Track Your Progress"
-              description="As you teach, mark lessons complete. See your progress visually across all subjects."
+              title="Manage Daily Teaching"
+              description="View today's lessons on your dashboard, mark attendance, track curriculum progress, and access teaching resources. Drag-and-drop to reschedule lessons instantly."
             />
             <Step
               number="3"
-              title="Organize & Present Notes"
-              description="Add your teaching notes and present them directly from the app - even offline."
+              title="Create Professional Documents"
+              description="Generate lesson plans with AI assistance, create schemes of work, maintain records of work, and export everything to professional PDF formats."
+            />
+            <Step
+              number="4"
+              title="Monitor & Analyze"
+              description="Track curriculum completion, attendance rates, teaching insights, and performance metrics. View upcoming deadlines and resource center all in one place."
             />
           </div>
         </div>
@@ -144,10 +150,11 @@ export default function Home() {
       >
         <div className="container mx-auto px-6">
           <h2 className="text-4xl font-bold mb-6 drop-shadow-xl text-white">
-            Ready to Save Hours Every Week?
+            Transform Your Teaching Workflow Today
           </h2>
           <p className="text-xl mb-8 text-white drop-shadow-lg">
-            Join hundreds of Kenyan teachers already using TeachTrack CBC
+            Join Kenyan teachers using TeachTrack's comprehensive platform for curriculum management, 
+            timetabling, lesson planning, and professional documentation
           </p>
           <button
             onClick={handleGetStarted}
