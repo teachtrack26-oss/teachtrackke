@@ -20,6 +20,12 @@ import {
   FiUsers,
   FiChevronDown,
   FiChevronUp,
+  FiTrendingUp,
+  FiActivity,
+  FiEdit3,
+  FiFileText,
+  FiUserCheck,
+  FiAward,
 } from "react-icons/fi";
 import axios from "axios";
 
@@ -90,6 +96,13 @@ export default function DashboardPage() {
   const [expandedLesson, setExpandedLesson] = useState<number | null>(null);
   const [educationLevel, setEducationLevel] = useState<string>("");
   const [nextLesson, setNextLesson] = useState<any>(null);
+  const [weeklyEntries, setWeeklyEntries] = useState<TimetableEntry[]>([]);
+  const [weeklyStats, setWeeklyStats] = useState({
+    lessonsThisWeek: 0,
+    lessonsTaught: 0,
+    lessonPlansCreated: 0,
+    progressPercentage: 0,
+  });
 
   useEffect(() => {
     if (status === "loading") return; // Still loading
@@ -221,6 +234,23 @@ export default function DashboardPage() {
       if (todayEntries.length === 0) {
         fetchNextLesson(token);
       }
+
+      // Fetch all weekly entries for the calendar
+      setWeeklyEntries(entriesRes.data || []);
+
+      // Calculate weekly stats
+      const todayForStats = new Date().getDay();
+      const thisWeekEntries = entriesRes.data.filter((e: TimetableEntry) => e.day_of_week >= 1 && e.day_of_week <= 5);
+      const lessonsThisWeek = thisWeekEntries.length;
+      const currentDay = todayForStats === 0 ? 7 : todayForStats;
+      const lessonsSoFar = thisWeekEntries.filter((e: TimetableEntry) => e.day_of_week < currentDay).length;
+      
+      setWeeklyStats({
+        lessonsThisWeek,
+        lessonsTaught: lessonsSoFar,
+        lessonPlansCreated: subjects.filter(s => s.lessons_completed > 0).length,
+        progressPercentage: lessonsThisWeek > 0 ? Math.round((lessonsSoFar / lessonsThisWeek) * 100) : 0,
+      });
     } catch (error) {
       console.error("Failed to fetch today's lessons:", error);
     }
@@ -417,6 +447,23 @@ export default function DashboardPage() {
       </header>
 
       <main className="container mx-auto px-6 py-8 relative z-10">
+        {/* Dashboard Widgets Row */}
+        <div className="grid lg:grid-cols-3 gap-6 mb-8">
+          {/* Weekly Overview Calendar */}
+          <WeeklyCalendar
+            weeklyEntries={weeklyEntries}
+            subjects={subjects}
+            currentTime={currentTime}
+          />
+
+          {/* Quick Stats Widget */}
+          <QuickStats stats={weeklyStats} />
+
+          {/* Quick Actions Panel */}
+          <QuickActions />
+        </div>
+
+        {/* Today's Schedule Section */}
         {todayLessons.length === 0 ? (
           <EmptySchedule nextLesson={nextLesson} currentTime={currentTime} />
         ) : (
@@ -932,6 +979,287 @@ function SubjectCard({
       >
         Delete Subject
       </button>
+    </div>
+  );
+}
+
+// Weekly Calendar Widget
+function WeeklyCalendar({
+  weeklyEntries,
+  subjects,
+  currentTime,
+}: {
+  weeklyEntries: TimetableEntry[];
+  subjects: Subject[];
+  currentTime: Date;
+}) {
+  const days = [
+    { name: "Mon", fullName: "Monday", day: 1, emoji: "📚" },
+    { name: "Tue", fullName: "Tuesday", day: 2, emoji: "📖" },
+    { name: "Wed", fullName: "Wednesday", day: 3, emoji: "✏️" },
+    { name: "Thu", fullName: "Thursday", day: 4, emoji: "📝" },
+    { name: "Fri", fullName: "Friday", day: 5, emoji: "🎓" },
+  ];
+
+  const currentDay = currentTime.getDay();
+  const todayIndex = currentDay === 0 ? 7 : currentDay;
+
+  const getDayLessons = (day: number) => {
+    return weeklyEntries.filter((entry) => entry.day_of_week === day);
+  };
+
+  const getSubjectIcon = (subjectId: number) => {
+    const subject = subjects.find((s) => s.id === subjectId);
+    if (!subject) return "📚";
+    const name = subject.subject_name.toLowerCase();
+    if (name.includes("math")) return "🔢";
+    if (name.includes("english")) return "📖";
+    if (name.includes("kiswahili")) return "🗣️";
+    if (name.includes("science")) return "🌿";
+    if (name.includes("social")) return "🌍";
+    return "📚";
+  };
+
+  return (
+    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+          <FiCalendar className="w-5 h-5 text-indigo-600" />
+          Week at a Glance
+        </h3>
+        <Link
+          href="/timetable"
+          className="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
+        >
+          Full Timetable →
+        </Link>
+      </div>
+
+      <div className="grid grid-cols-5 gap-2">
+        {days.map((day) => {
+          const lessons = getDayLessons(day.day);
+          const isToday = todayIndex === day.day;
+          const isPast = todayIndex > day.day;
+
+          return (
+            <div
+              key={day.day}
+              className={`relative p-3 rounded-xl transition-all duration-200 ${
+                isToday
+                  ? "bg-gradient-to-br from-indigo-500 to-purple-500 text-white shadow-lg scale-105"
+                  : isPast
+                  ? "bg-gray-100 border border-gray-200"
+                  : "bg-white border border-gray-200 hover:border-indigo-300 hover:shadow-md"
+              }`}
+            >
+              <div className="text-center">
+                <div className="text-xs font-semibold mb-1 opacity-70">
+                  {day.name}
+                </div>
+                <div className="text-2xl mb-2">{day.emoji}</div>
+                <div
+                  className={`text-xl font-bold ${
+                    isToday ? "text-white" : "text-gray-900"
+                  }`}
+                >
+                  {lessons.length}
+                </div>
+                <div
+                  className={`text-xs ${
+                    isToday ? "text-white/80" : "text-gray-500"
+                  }`}
+                >
+                  {lessons.length === 1 ? "lesson" : "lessons"}
+                </div>
+              </div>
+
+              {/* Show subject icons for upcoming days */}
+              {!isPast && lessons.length > 0 && (
+                <div className="mt-2 flex justify-center gap-1 flex-wrap">
+                  {lessons.slice(0, 3).map((lesson, idx) => (
+                    <span key={idx} className="text-xs">
+                      {getSubjectIcon(lesson.subject_id)}
+                    </span>
+                  ))}
+                  {lessons.length > 3 && (
+                    <span className="text-xs opacity-70">+{lessons.length - 3}</span>
+                  )}
+                </div>
+              )}
+
+              {isToday && (
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-pulse" />
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// Quick Stats Widget
+function QuickStats({ stats }: { stats: any }) {
+  return (
+    <div className="glass-card bg-gradient-to-br from-indigo-50/70 to-purple-50/70 backdrop-blur-xl rounded-2xl shadow-xl border border-indigo-200/60 p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+          <FiTrendingUp className="w-5 h-5 text-indigo-600" />
+          This Week's Progress
+        </h3>
+      </div>
+
+      <div className="space-y-4">
+        {/* Progress Ring */}
+        <div className="flex items-center justify-between">
+          <div className="flex-1">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="relative w-16 h-16">
+                <svg className="transform -rotate-90 w-16 h-16">
+                  <circle
+                    cx="32"
+                    cy="32"
+                    r="28"
+                    stroke="currentColor"
+                    strokeWidth="6"
+                    fill="transparent"
+                    className="text-gray-200"
+                  />
+                  <circle
+                    cx="32"
+                    cy="32"
+                    r="28"
+                    stroke="currentColor"
+                    strokeWidth="6"
+                    fill="transparent"
+                    strokeDasharray={`${2 * Math.PI * 28}`}
+                    strokeDashoffset={`${
+                      2 * Math.PI * 28 * (1 - stats.progressPercentage / 100)
+                    }`}
+                    className="text-indigo-600 transition-all duration-500"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-lg font-bold text-indigo-600">
+                    {stats.progressPercentage}%
+                  </span>
+                </div>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-gray-900">
+                  {stats.lessonsTaught}/{stats.lessonsThisWeek}
+                </p>
+                <p className="text-sm text-gray-600">Lessons Completed</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 gap-3">
+          <div className="bg-white/60 backdrop-blur-sm rounded-xl p-3 border border-white/60">
+            <div className="flex items-center gap-2 mb-1">
+              <FiActivity className="w-4 h-4 text-green-600" />
+              <p className="text-xs text-gray-600">Total Lessons</p>
+            </div>
+            <p className="text-2xl font-bold text-gray-900">
+              {stats.lessonsThisWeek}
+            </p>
+          </div>
+
+          <div className="bg-white/60 backdrop-blur-sm rounded-xl p-3 border border-white/60">
+            <div className="flex items-center gap-2 mb-1">
+              <FiFileText className="w-4 h-4 text-blue-600" />
+              <p className="text-xs text-gray-600">Lesson Plans</p>
+            </div>
+            <p className="text-2xl font-bold text-gray-900">
+              {stats.lessonPlansCreated}
+            </p>
+          </div>
+        </div>
+
+        {/* Motivational Message */}
+        <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-3 rounded-xl text-center">
+          <p className="text-sm font-semibold">
+            {stats.progressPercentage >= 80
+              ? "🎉 Excellent progress!"
+              : stats.progressPercentage >= 50
+              ? "💪 Keep going!"
+              : "🚀 Great start to the week!"}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Quick Actions Panel
+function QuickActions() {
+  const actions = [
+    {
+      icon: FiEdit3,
+      label: "New Lesson Plan",
+      href: "/professional-records/create-lesson-plan",
+      color: "from-blue-500 to-cyan-500",
+      emoji: "📝",
+    },
+    {
+      icon: FiFileText,
+      label: "Scheme of Work",
+      href: "/professional-records/generate-scheme",
+      color: "from-purple-500 to-pink-500",
+      emoji: "📊",
+    },
+    {
+      icon: FiUserCheck,
+      label: "Record of Work",
+      href: "/professional-records/record-of-work/create",
+      color: "from-emerald-500 to-teal-500",
+      emoji: "✅",
+    },
+    {
+      icon: FiAward,
+      label: "Track Progress",
+      href: "/curriculum",
+      color: "from-amber-500 to-orange-500",
+      emoji: "🎯",
+    },
+  ];
+
+  return (
+    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6">
+      <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+        <FiZap className="w-5 h-5 text-indigo-600" />
+        Quick Actions
+      </h3>
+
+      <div className="grid grid-cols-2 gap-3">
+        {actions.map((action, idx) => (
+          <Link
+            key={idx}
+            href={action.href}
+            className="group relative overflow-hidden bg-white hover:shadow-xl transition-all duration-300 rounded-xl border border-gray-200 hover:border-indigo-300 p-4 flex flex-col items-center justify-center gap-2"
+          >
+            <div
+              className={`w-12 h-12 bg-gradient-to-r ${action.color} rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}
+            >
+              <action.icon className="w-6 h-6" />
+            </div>
+            <span className="text-xs font-semibold text-gray-700 text-center">
+              {action.label}
+            </span>
+            <span className="absolute top-2 right-2 text-lg opacity-20 group-hover:opacity-40 transition-opacity">
+              {action.emoji}
+            </span>
+          </Link>
+        ))}
+      </div>
+
+      <div className="mt-4 p-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
+        <p className="text-xs text-gray-600 text-center">
+          💡 <span className="font-semibold">Tip:</span> Create lesson plans ahead to stay organized!
+        </p>
+      </div>
     </div>
   );
 }
