@@ -26,8 +26,32 @@ import {
   FiFileText,
   FiUserCheck,
   FiAward,
+  FiBell,
+  FiChevronLeft,
+  FiChevronRight,
+  FiSettings,
+  FiX,
+  FiEye,
+  FiEyeOff,
+  FiMove,
+  FiBarChart2,
 } from "react-icons/fi";
 import axios from "axios";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip as RechartsTooltip,
+  ResponsiveContainer,
+} from "recharts";
+import {
+  NotificationsDropdown,
+  TrendGraph,
+  AttendanceWidget,
+  CustomizationPanel,
+} from "../dashboard-components";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
   ? `${process.env.NEXT_PUBLIC_API_URL}/api/v1`
@@ -81,6 +105,9 @@ interface CurriculumDetails {
   };
 }
 
+// Import types from dashboard-components
+import type { Notification, AttendanceEntry, WidgetPreferences } from "../dashboard-components";
+
 export default function DashboardPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -103,6 +130,23 @@ export default function DashboardPage() {
     lessonPlansCreated: 0,
     progressPercentage: 0,
   });
+  
+  // Advanced features state
+  const [weekOffset, setWeekOffset] = useState(0); // For week navigation
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [trendData, setTrendData] = useState<any[]>([]);
+  const [attendanceData, setAttendanceData] = useState<AttendanceEntry[]>([]);
+  const [widgetPreferences, setWidgetPreferences] = useState<WidgetPreferences>({
+    weeklyCalendar: true,
+    quickStats: true,
+    quickActions: true,
+    trendGraph: true,
+    attendance: true,
+    notifications: true,
+  });
+  const [showCustomization, setShowCustomization] = useState(false);
+  const [draggedLesson, setDraggedLesson] = useState<TimetableEntry | null>(null);
 
   useEffect(() => {
     if (status === "loading") return; // Still loading
@@ -139,6 +183,166 @@ export default function DashboardPage() {
     }, 60000);
     return () => clearInterval(interval);
   }, []);
+
+  // Swipe gesture detection for mobile
+  useEffect(() => {
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.changedTouches[0].screenX;
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    };
+
+    const handleSwipe = () => {
+      const swipeThreshold = 50;
+      if (touchStartX - touchEndX > swipeThreshold) {
+        // Swipe left - next week
+        setWeekOffset((prev) => prev + 1);
+      } else if (touchEndX - touchStartX > swipeThreshold) {
+        // Swipe right - previous week
+        setWeekOffset((prev) => Math.max(-4, prev - 1)); // Limit to 4 weeks back
+      }
+    };
+
+    const calendarElement = document.getElementById("weekly-calendar");
+    if (calendarElement) {
+      calendarElement.addEventListener("touchstart", handleTouchStart);
+      calendarElement.addEventListener("touchend", handleTouchEnd);
+    }
+
+    return () => {
+      if (calendarElement) {
+        calendarElement.removeEventListener("touchstart", handleTouchStart);
+        calendarElement.removeEventListener("touchend", handleTouchEnd);
+      }
+    };
+  }, []);
+
+  // Load widget preferences from localStorage
+  useEffect(() => {
+    const savedPrefs = localStorage.getItem("dashboardWidgets");
+    if (savedPrefs) {
+      setWidgetPreferences(JSON.parse(savedPrefs));
+    }
+  }, []);
+
+  // Initialize mock data for new features
+  useEffect(() => {
+    // Mock notifications
+    setNotifications([
+      {
+        id: 1,
+        title: "Scheme of Work Due",
+        message: "Term 3 scheme due on December 5th",
+        type: "deadline",
+        date: new Date("2025-12-05"),
+        read: false,
+      },
+      {
+        id: 2,
+        title: "Assessment Period",
+        message: "End-of-term assessments: Dec 10-14",
+        type: "reminder",
+        date: new Date("2025-12-10"),
+        read: false,
+      },
+      {
+        id: 3,
+        title: "Progress Reports",
+        message: "Submit progress reports by Dec 20th",
+        type: "deadline",
+        date: new Date("2025-12-20"),
+        read: true,
+      },
+    ]);
+
+    // Mock trend data (last 4 weeks)
+    setTrendData([
+      { week: "Week 1", lessons: 12, completed: 10 },
+      { week: "Week 2", lessons: 15, completed: 14 },
+      { week: "Week 3", lessons: 13, completed: 11 },
+      { week: "This Week", lessons: 15, completed: 12 },
+    ]);
+
+    // Mock attendance data for today
+    setAttendanceData([
+      {
+        lessonId: 1,
+        subjectName: "Mathematics",
+        gradeSection: "Grade 7A",
+        timeSlot: "08:00 - 09:00",
+        totalStudents: 35,
+        presentStudents: 0,
+      },
+      {
+        lessonId: 2,
+        subjectName: "English",
+        gradeSection: "Grade 7B",
+        timeSlot: "10:00 - 11:00",
+        totalStudents: 32,
+        presentStudents: 0,
+      },
+    ]);
+  }, []);
+
+  const saveWidgetPreferences = (prefs: WidgetPreferences) => {
+    setWidgetPreferences(prefs);
+    localStorage.setItem("dashboardWidgets", JSON.stringify(prefs));
+  };
+
+  const handleDragStart = (lesson: TimetableEntry) => {
+    setDraggedLesson(lesson);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = async (targetDay: number) => {
+    if (!draggedLesson) return;
+    
+    // Update lesson day
+    try {
+      const token = localStorage.getItem("accessToken");
+      await axios.put(
+        `${API_BASE_URL}/timetable/entries/${draggedLesson.id}`,
+        { ...draggedLesson, day_of_week: targetDay },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      
+      // Refresh data
+      const tokenToUse = (session as any)?.accessToken || token;
+      if (tokenToUse) fetchSubjects(tokenToUse);
+    } catch (error) {
+      console.error("Failed to reschedule lesson:", error);
+    }
+    
+    setDraggedLesson(null);
+  };
+
+  const markAttendance = (lessonId: number, present: number) => {
+    setAttendanceData((prev) =>
+      prev.map((entry) =>
+        entry.lessonId === lessonId
+          ? { ...entry, presentStudents: present }
+          : entry
+      )
+    );
+    // TODO: Save to backend
+  };
+
+  const markNotificationRead = (id: number) => {
+    setNotifications((prev) =>
+      prev.map((notif) =>
+        notif.id === id ? { ...notif, read: true } : notif
+      )
+    );
+  };
 
   const fetchSubjects = async (token: string) => {
     try {
@@ -430,6 +634,36 @@ export default function DashboardPage() {
             </p>
           </div>
           <div className="flex gap-3">
+            {/* Notifications */}
+            <div className="relative">
+              <button
+                onClick={() => setShowNotifications(!showNotifications)}
+                className="glass-button bg-white/60 backdrop-blur-lg border border-white/60 hover:bg-white/80 px-4 py-2.5 rounded-xl flex items-center gap-2 text-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 font-medium relative"
+              >
+                <FiBell className="w-5 h-5" />
+                {notifications.filter((n) => !n.read).length > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
+                    {notifications.filter((n) => !n.read).length}
+                  </span>
+                )}
+              </button>
+              {showNotifications && (
+                <NotificationsDropdown
+                  notifications={notifications}
+                  onClose={() => setShowNotifications(false)}
+                  onMarkRead={markNotificationRead}
+                />
+              )}
+            </div>
+
+            {/* Customization */}
+            <button
+              onClick={() => setShowCustomization(!showCustomization)}
+              className="glass-button bg-white/60 backdrop-blur-lg border border-white/60 hover:bg-white/80 px-4 py-2.5 rounded-xl flex items-center gap-2 text-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
+            >
+              <FiSettings className="w-5 h-5" />
+            </button>
+
             <Link
               href="/timetable"
               className="glass-button bg-white/60 backdrop-blur-lg border border-white/60 hover:bg-white/80 px-5 py-2.5 rounded-xl flex items-center gap-2 text-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
@@ -444,23 +678,55 @@ export default function DashboardPage() {
             </Link>
           </div>
         </div>
+        
+        {/* Customization Panel */}
+        {showCustomization && (
+          <CustomizationPanel
+            preferences={widgetPreferences}
+            onSave={saveWidgetPreferences}
+            onClose={() => setShowCustomization(false)}
+          />
+        )}
       </header>
 
       <main className="container mx-auto px-6 py-8 relative z-10">
         {/* Dashboard Widgets Row */}
         <div className="grid lg:grid-cols-3 gap-6 mb-8">
-          {/* Weekly Overview Calendar */}
-          <WeeklyCalendar
-            weeklyEntries={weeklyEntries}
-            subjects={subjects}
-            currentTime={currentTime}
-          />
+          {/* Weekly Overview Calendar with Swipe */}
+          {widgetPreferences.weeklyCalendar && (
+            <WeeklyCalendar
+              weeklyEntries={weeklyEntries}
+              subjects={subjects}
+              currentTime={currentTime}
+              weekOffset={weekOffset}
+              onWeekChange={setWeekOffset}
+              onDragStart={handleDragStart}
+              onDragOver={handleDragOver}
+              onDrop={handleDrop}
+            />
+          )}
 
           {/* Quick Stats Widget */}
-          <QuickStats stats={weeklyStats} />
+          {widgetPreferences.quickStats && <QuickStats stats={weeklyStats} />}
 
           {/* Quick Actions Panel */}
-          <QuickActions />
+          {widgetPreferences.quickActions && <QuickActions />}
+        </div>
+
+        {/* Second Row - Trends and Attendance */}
+        <div className="grid lg:grid-cols-2 gap-6 mb-8">
+          {/* Trend Graph */}
+          {widgetPreferences.trendGraph && (
+            <TrendGraph data={trendData} />
+          )}
+
+          {/* Attendance Quick Entry */}
+          {widgetPreferences.attendance && (
+            <AttendanceWidget
+              data={attendanceData}
+              onMarkAttendance={markAttendance}
+            />
+          )}
         </div>
 
         {/* Today's Schedule Section */}
@@ -983,15 +1249,25 @@ function SubjectCard({
   );
 }
 
-// Weekly Calendar Widget
+// Weekly Calendar Widget with Swipe & Drag-Drop
 function WeeklyCalendar({
   weeklyEntries,
   subjects,
   currentTime,
+  weekOffset = 0,
+  onWeekChange,
+  onDragStart,
+  onDragOver,
+  onDrop,
 }: {
   weeklyEntries: TimetableEntry[];
   subjects: Subject[];
   currentTime: Date;
+  weekOffset?: number;
+  onWeekChange?: (offset: number) => void;
+  onDragStart?: (lesson: TimetableEntry) => void;
+  onDragOver?: (e: React.DragEvent) => void;
+  onDrop?: (targetDay: number) => Promise<void>;
 }) {
   const days = [
     { name: "Mon", fullName: "Monday", day: 1, emoji: "📚" },
@@ -1003,6 +1279,14 @@ function WeeklyCalendar({
 
   const currentDay = currentTime.getDay();
   const todayIndex = currentDay === 0 ? 7 : currentDay;
+  
+  const getWeekLabel = () => {
+    if (weekOffset === 0) return "This Week";
+    if (weekOffset === 1) return "Next Week";
+    if (weekOffset === -1) return "Last Week";
+    if (weekOffset > 1) return `${weekOffset} Weeks Ahead`;
+    return `${Math.abs(weekOffset)} Weeks Ago`;
+  };
 
   const getDayLessons = (day: number) => {
     return weeklyEntries.filter((entry) => entry.day_of_week === day);
@@ -1021,25 +1305,50 @@ function WeeklyCalendar({
   };
 
   return (
-    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6">
+    <div id="weekly-calendar" className="glass-card bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-          <FiCalendar className="w-5 h-5 text-indigo-600" />
-          Week at a Glance
-        </h3>
-        <Link
-          href="/timetable"
-          className="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
-        >
-          Full Timetable →
-        </Link>
+        <div className="flex items-center gap-2">
+          <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+            <FiCalendar className="w-5 h-5 text-indigo-600" />
+            {getWeekLabel()}
+          </h3>
+          {weekOffset !== 0 && (
+            <button
+              onClick={() => onWeekChange && onWeekChange(0)}
+              className="text-xs bg-indigo-100 text-indigo-600 px-2 py-1 rounded-lg hover:bg-indigo-200"
+            >
+              Today
+            </button>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => onWeekChange && onWeekChange(weekOffset - 1)}
+            className="p-1 hover:bg-white/50 rounded-lg transition-colors disabled:opacity-50"
+            disabled={weekOffset <= -4}
+          >
+            <FiChevronLeft className="w-5 h-5 text-gray-600" />
+          </button>
+          <button
+            onClick={() => onWeekChange && onWeekChange(weekOffset + 1)}
+            className="p-1 hover:bg-white/50 rounded-lg transition-colors"
+          >
+            <FiChevronRight className="w-5 h-5 text-gray-600" />
+          </button>
+          <Link
+            href="/timetable"
+            className="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
+          >
+            Full →
+          </Link>
+        </div>
       </div>
 
       <div className="grid grid-cols-5 gap-2">
         {days.map((day) => {
           const lessons = getDayLessons(day.day);
-          const isToday = todayIndex === day.day;
-          const isPast = todayIndex > day.day;
+          const isToday = todayIndex === day.day && weekOffset === 0;
+          const isPast = todayIndex > day.day && weekOffset === 0;
 
           return (
             <div
@@ -1051,6 +1360,8 @@ function WeeklyCalendar({
                   ? "bg-gray-100 border border-gray-200"
                   : "bg-white border border-gray-200 hover:border-indigo-300 hover:shadow-md"
               }`}
+              onDragOver={(e) => onDragOver && onDragOver(e)}
+              onDrop={() => onDrop && onDrop(day.day)}
             >
               <div className="text-center">
                 <div className="text-xs font-semibold mb-1 opacity-70">
@@ -1073,11 +1384,17 @@ function WeeklyCalendar({
                 </div>
               </div>
 
-              {/* Show subject icons for upcoming days */}
+              {/* Show subject icons for upcoming days - Draggable */}
               {!isPast && lessons.length > 0 && (
                 <div className="mt-2 flex justify-center gap-1 flex-wrap">
                   {lessons.slice(0, 3).map((lesson, idx) => (
-                    <span key={idx} className="text-xs">
+                    <span
+                      key={idx}
+                      className="text-xs cursor-move hover:scale-125 transition-transform"
+                      draggable={!!onDragStart}
+                      onDragStart={() => onDragStart && onDragStart(lesson)}
+                      title="Drag to reschedule"
+                    >
                       {getSubjectIcon(lesson.subject_id)}
                     </span>
                   ))}
