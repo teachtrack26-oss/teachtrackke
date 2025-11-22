@@ -54,14 +54,18 @@ import {
   CurriculumProgressTracker,
   UpcomingDeadlinesWidget,
   TeachingInsightsWidget,
+  ResourceCenterWidget,
+  PerformanceSummaryCards,
 } from "../dashboard-components";
-import type { 
-  Notification, 
-  AttendanceEntry, 
+import type {
+  Notification,
+  AttendanceEntry,
   WidgetPreferences,
   SubjectProgress,
   DeadlineItem,
   TeachingInsight,
+  ResourceItem,
+  PerformanceSummary,
 } from "../dashboard-components";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
@@ -138,27 +142,33 @@ export default function DashboardPage() {
     lessonPlansCreated: 0,
     progressPercentage: 0,
   });
-  
+
   // Advanced features state
   const [weekOffset, setWeekOffset] = useState(0); // For week navigation
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [showNotifications, setShowNotifications] = useState(false);
   const [trendData, setTrendData] = useState<any[]>([]);
   const [attendanceData, setAttendanceData] = useState<AttendanceEntry[]>([]);
-  const [widgetPreferences, setWidgetPreferences] = useState<WidgetPreferences>({
-    weeklyCalendar: true,
-    quickStats: true,
-    quickActions: true,
-    trendGraph: true,
-    attendance: true,
-    notifications: true,
-    curriculumProgress: true,
-    upcomingDeadlines: true,
-    teachingInsights: true,
-  });
+  const [widgetPreferences, setWidgetPreferences] = useState<WidgetPreferences>(
+    {
+      weeklyCalendar: true,
+      quickStats: true,
+      quickActions: true,
+      trendGraph: true,
+      attendance: true,
+      notifications: true,
+      curriculumProgress: true,
+      upcomingDeadlines: true,
+      teachingInsights: true,
+      resourceCenter: true,
+      performanceSummary: true,
+    }
+  );
   const [showCustomization, setShowCustomization] = useState(false);
-  const [draggedLesson, setDraggedLesson] = useState<TimetableEntry | null>(null);
-  
+  const [draggedLesson, setDraggedLesson] = useState<TimetableEntry | null>(
+    null
+  );
+
   // New widgets state
   const [subjectProgress, setSubjectProgress] = useState<SubjectProgress[]>([]);
   const [deadlines, setDeadlines] = useState<DeadlineItem[]>([]);
@@ -167,6 +177,13 @@ export default function DashboardPage() {
     averageLessonDuration: 0,
     peakTeachingHours: [],
     weeklyComparison: [],
+  });
+  const [resources, setResources] = useState<ResourceItem[]>([]);
+  const [performanceSummary, setPerformanceSummary] = useState<PerformanceSummary>({
+    lessonsCompleted: 0,
+    totalLessons: 0,
+    attendanceAverage: 0,
+    assessmentsCreated: 0,
   });
 
   useEffect(() => {
@@ -352,28 +369,40 @@ export default function DashboardPage() {
         title: "Scheme of Work Due",
         date: new Date("2025-12-05"),
         type: "scheme",
-        daysUntil: Math.ceil((new Date("2025-12-05").getTime() - today.getTime()) / (1000 * 60 * 60 * 24)),
+        daysUntil: Math.ceil(
+          (new Date("2025-12-05").getTime() - today.getTime()) /
+            (1000 * 60 * 60 * 24)
+        ),
       },
       {
         id: 2,
         title: "Assessment Period",
         date: new Date("2025-12-10"),
         type: "assessment",
-        daysUntil: Math.ceil((new Date("2025-12-10").getTime() - today.getTime()) / (1000 * 60 * 60 * 24)),
+        daysUntil: Math.ceil(
+          (new Date("2025-12-10").getTime() - today.getTime()) /
+            (1000 * 60 * 60 * 24)
+        ),
       },
       {
         id: 3,
         title: "Progress Reports",
         date: new Date("2025-12-20"),
         type: "report",
-        daysUntil: Math.ceil((new Date("2025-12-20").getTime() - today.getTime()) / (1000 * 60 * 60 * 24)),
+        daysUntil: Math.ceil(
+          (new Date("2025-12-20").getTime() - today.getTime()) /
+            (1000 * 60 * 60 * 24)
+        ),
       },
       {
         id: 4,
         title: "Parent-Teacher Conference",
         date: new Date("2025-11-25"),
         type: "other",
-        daysUntil: Math.ceil((new Date("2025-11-25").getTime() - today.getTime()) / (1000 * 60 * 60 * 24)),
+        daysUntil: Math.ceil(
+          (new Date("2025-11-25").getTime() - today.getTime()) /
+            (1000 * 60 * 60 * 24)
+        ),
       },
     ]);
 
@@ -401,6 +430,60 @@ export default function DashboardPage() {
         { week: "This Week", lessons: 15 },
       ],
     });
+
+    // Mock resources data
+    setResources([
+      {
+        id: 1,
+        title: "Grade 7 Mathematics - Algebra Basics",
+        type: "lesson-plan",
+        lastAccessed: new Date("2025-11-22"),
+        icon: "📄",
+      },
+      {
+        id: 2,
+        title: "Term 3 Science Scheme of Work",
+        type: "scheme",
+        lastAccessed: new Date("2025-11-21"),
+        icon: "📚",
+      },
+      {
+        id: 3,
+        title: "English Grammar Worksheets",
+        type: "material",
+        lastAccessed: new Date("2025-11-20"),
+        icon: "📥",
+      },
+      {
+        id: 4,
+        title: "Kiswahili Reading Comprehension",
+        type: "shared",
+        lastAccessed: new Date("2025-11-19"),
+        icon: "🔗",
+      },
+      {
+        id: 5,
+        title: "Grade 8 Geography - Climate Zones",
+        type: "lesson-plan",
+        lastAccessed: new Date("2025-11-18"),
+        icon: "📄",
+      },
+      {
+        id: 6,
+        title: "Mathematics Assessment Templates",
+        type: "material",
+        lastAccessed: new Date("2025-11-17"),
+        icon: "📥",
+      },
+    ]);
+
+    // Mock performance summary
+    setPerformanceSummary({
+      lessonsCompleted: 45,
+      totalLessons: 60,
+      attendanceAverage: 92,
+      assessmentsCreated: 12,
+    });
   }, []);
 
   const saveWidgetPreferences = (prefs: WidgetPreferences) => {
@@ -418,7 +501,7 @@ export default function DashboardPage() {
 
   const handleDrop = async (targetDay: number) => {
     if (!draggedLesson) return;
-    
+
     // Update lesson day
     try {
       const token = localStorage.getItem("accessToken");
@@ -427,14 +510,14 @@ export default function DashboardPage() {
         { ...draggedLesson, day_of_week: targetDay },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      
+
       // Refresh data
       const tokenToUse = (session as any)?.accessToken || token;
       if (tokenToUse) fetchSubjects(tokenToUse);
     } catch (error) {
       console.error("Failed to reschedule lesson:", error);
     }
-    
+
     setDraggedLesson(null);
   };
 
@@ -451,9 +534,7 @@ export default function DashboardPage() {
 
   const markNotificationRead = (id: number) => {
     setNotifications((prev) =>
-      prev.map((notif) =>
-        notif.id === id ? { ...notif, read: true } : notif
-      )
+      prev.map((notif) => (notif.id === id ? { ...notif, read: true } : notif))
     );
   };
 
@@ -557,16 +638,24 @@ export default function DashboardPage() {
 
       // Calculate weekly stats
       const todayForStats = new Date().getDay();
-      const thisWeekEntries = entriesRes.data.filter((e: TimetableEntry) => e.day_of_week >= 1 && e.day_of_week <= 5);
+      const thisWeekEntries = entriesRes.data.filter(
+        (e: TimetableEntry) => e.day_of_week >= 1 && e.day_of_week <= 5
+      );
       const lessonsThisWeek = thisWeekEntries.length;
       const currentDay = todayForStats === 0 ? 7 : todayForStats;
-      const lessonsSoFar = thisWeekEntries.filter((e: TimetableEntry) => e.day_of_week < currentDay).length;
-      
+      const lessonsSoFar = thisWeekEntries.filter(
+        (e: TimetableEntry) => e.day_of_week < currentDay
+      ).length;
+
       setWeeklyStats({
         lessonsThisWeek,
         lessonsTaught: lessonsSoFar,
-        lessonPlansCreated: subjects.filter(s => s.lessons_completed > 0).length,
-        progressPercentage: lessonsThisWeek > 0 ? Math.round((lessonsSoFar / lessonsThisWeek) * 100) : 0,
+        lessonPlansCreated: subjects.filter((s) => s.lessons_completed > 0)
+          .length,
+        progressPercentage:
+          lessonsThisWeek > 0
+            ? Math.round((lessonsSoFar / lessonsThisWeek) * 100)
+            : 0,
       });
     } catch (error) {
       console.error("Failed to fetch today's lessons:", error);
@@ -791,7 +880,7 @@ export default function DashboardPage() {
             </Link>
           </div>
         </div>
-        
+
         {/* Customization Panel */}
         {showCustomization && (
           <CustomizationPanel
@@ -829,9 +918,7 @@ export default function DashboardPage() {
         {/* Second Row - Trends and Attendance */}
         <div className="grid lg:grid-cols-2 gap-6 mb-8">
           {/* Trend Graph */}
-          {widgetPreferences.trendGraph && (
-            <TrendGraph data={trendData} />
-          )}
+          {widgetPreferences.trendGraph && <TrendGraph data={trendData} />}
 
           {/* Attendance Quick Entry */}
           {widgetPreferences.attendance && (
@@ -859,6 +946,20 @@ export default function DashboardPage() {
             <TeachingInsightsWidget insights={teachingInsights} />
           )}
         </div>
+
+        {/* Fourth Row - Performance Summary */}
+        {widgetPreferences.performanceSummary && (
+          <div className="mb-8">
+            <PerformanceSummaryCards performance={performanceSummary} />
+          </div>
+        )}
+
+        {/* Fifth Row - Resource Center */}
+        {widgetPreferences.resourceCenter && (
+          <div className="mb-8">
+            <ResourceCenterWidget resources={resources} />
+          </div>
+        )}
 
         {/* Today's Schedule Section */}
         {todayLessons.length === 0 ? (
@@ -1410,7 +1511,7 @@ function WeeklyCalendar({
 
   const currentDay = currentTime.getDay();
   const todayIndex = currentDay === 0 ? 7 : currentDay;
-  
+
   const getWeekLabel = () => {
     if (weekOffset === 0) return "This Week";
     if (weekOffset === 1) return "Next Week";
@@ -1436,7 +1537,10 @@ function WeeklyCalendar({
   };
 
   return (
-    <div id="weekly-calendar" className="glass-card bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6">
+    <div
+      id="weekly-calendar"
+      className="glass-card bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6"
+    >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
@@ -1530,7 +1634,9 @@ function WeeklyCalendar({
                     </span>
                   ))}
                   {lessons.length > 3 && (
-                    <span className="text-xs opacity-70">+{lessons.length - 3}</span>
+                    <span className="text-xs opacity-70">
+                      +{lessons.length - 3}
+                    </span>
                   )}
                 </div>
               )}
@@ -1705,7 +1811,8 @@ function QuickActions() {
 
       <div className="mt-4 p-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
         <p className="text-xs text-gray-600 text-center">
-          💡 <span className="font-semibold">Tip:</span> Create lesson plans ahead to stay organized!
+          💡 <span className="font-semibold">Tip:</span> Create lesson plans
+          ahead to stay organized!
         </p>
       </div>
     </div>
