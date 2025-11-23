@@ -1,0 +1,434 @@
+{
+  "grade": "Grade 1",
+  "subject": "Environmental Activities",
+  "educationLevel": "Lower Primary",
+  "strands": [
+    {
+      "strandNumber": "1.0",
+      "strandName": "SOCIAL ENVIRONMENT",
+      "subStrands": [
+        {
+          "subStrandNumber": "1.1",
+          "subStrandName": "Body Care",
+          "number_of_lessons": 13,
+          "specificLearningOutcomes": [
+            "identify materials used to clean different parts of the body",
+            "clean parts of the body using locally available materials",
+            "appreciate the importance of a clean body for personal hygiene"
+          ],
+          "suggestedLearningExperiences": [
+            "observe pictures and name materials used to clean different parts of the body",
+            "draw and colour materials used to clean different parts of the body",
+            "match cleaning materials (sponge, pumice stone, face towel, plant fibres, toothbrush, earbuds) with pictures of body parts they are used to clean (face, teeth, hands, feet and hair)",
+            "watch a video clip or observe pictures on oral hygiene practices for personal wellbeing",
+            "think, pair and share information on problems related to oral hygiene (bad breath, bleeding gums, cavities)",
+            "practice brushing teeth for proper oral hygiene and personal well-being",
+            "observe a demonstration on cleaning parts of the body (face, hair, hands, legs, feet)",
+            "enhance diligence and excellence by following appropriate steps for washing own face, hands, feet and hair as well as by not wasting cleaning agents and water (soap, water, toothpaste)",
+            "sing a song or recite a poem on cleaning different parts of the body",
+            "make and maintain a journal on cleaning different parts of the body for one week",
+            "exhibit the skill of originality in creating a healthy habit poster showing the importance of oral habits"
+          ],
+          "keyInquiryQuestions": [
+            "How do you clean your body parts?",
+            "Why should we clean our body parts?"
+          ],
+          "coreCompetencies": [
+            "Creativity and imagination: Learner exhibits the skill of originality when creating a healthy habit poster showing the importance of oral habits"
+          ],
+          "values": [
+            "Responsibility: Learner enhances diligence and excellence while cleaning body parts without wasting cleaning agents and water"
+          ],
+          "pcis": [
+            "Life Skills: Learner develops self-awareness when taking care of different body parts",
+            "Health Promotion Issues: Learner develops the skill of cleaning own body parts as a way of practising personal cleanliness"
+          ],
+          "linkToOtherSubjects": [
+            "Taking an account of cleaning the body parts relates to the skill of journaling in Language Activities",
+            "Singing songs on cleaning different parts of the body draws knowledge of singing in Creative Activities"
+          ]
+        },
+        {
+          "subStrandNumber": "1.2",
+          "subStrandName": "Our Home",
+          "number_of_lessons": 8,
+          "specificLearningOutcomes": [
+            "identify materials used to clean a home environment",
+            "identify common accidents at home for personal and others' safety",
+            "carry out activities to ensure cleanliness in the home",
+            "reflect on the importance of living in a clean home environment"
+          ],
+          "suggestedLearningExperiences": [
+            "think, pair and share on different materials used to sweep, wipe, dust and collect litter at home",
+            "draw and colour materials used to sweep, wipe, dust and collect litter at home",
+            "think, pair and share information on common accidents that occur at home (falls, cuts and burns)",
+            "talk with a caregiver to identify things that can cause common accidents at home and share with peers",
+            "watch videos or observe pictures on ways of preventing accidents at home (wiping spills, arranging furniture properly, disposing of waste appropriately, covering open pits, proper handling of tools like knives and forks, proper use and storage of medicine)",
+            "role play how to use medicine (syrup) with the recommended dosage (use clean drinking water)",
+            "watch a video or observe pictures on ways of ensuring cleanliness in the home (collecting litter, sweeping, dusting, wiping furniture, proper disposing of waste)",
+            "develop independence in cleaning places (compound, living room, kitchen) and assorted items (table, chair, mat) using different suitable cleaning materials (soap, water, sponge, sisal fibres, piece of cloth) at home"
+          ],
+          "keyInquiryQuestions": [
+            "How can you make your home environment clean and safe?"
+          ],
+          "coreCompetencies": [
+            "Learning to learn: Learner develops independence when cleaning furniture using suitable materials"
+          ],
+          "values": [
+            "Responsibility: The learner enhances self-drive when keeping the home environment clean such as practising cleaning assorted home items using suitable cleaning materials"
+          ],
+          "pcis": [
+            "The learner develops life skills regarding right dosage during taking of medicine"
+          ],
+          "linkToOtherSubjects": []
+        },
+        {
+          "subStrandNumber": "1.3",
+          "subStrandName": "Family Needs",
+          "number_of_lessons": 13,
+          "specificLearningOutcomes": [
+            "identify basic needs in the family",
+            "classify physical needs in the family",
+            "categorise food from plants and animals eaten at home",
+            "select suitable food for a healthy body",
+            "appreciate different needs in the family"
+          ],
+          "suggestedLearningExperiences": [
+            "think, pair and share information on different family needs",
+            "appreciate diverse opinions while sharing information on different family needs",
+            "watch a video clip and/or observe pictures of different physical family needs (food and water, clothing and shelter)",
+            "draw and colour different family needs (food items, water storage container/tap, assorted clothes and hut/house)",
+            "observe pictures of food items used by family members",
+            "match pictures of food items with their names",
+            "recite poems and/or sing songs on different family needs",
+            "manipulate digital devices while recording poems and songs on different family needs",
+            "make picture cut outs of food items, water, clothes, houses, Manyatta, huts",
+            "group locally assorted food items (from plants and animals) into likes and dislikes using sense of sight, taste, touch and smell",
+            "think, pair and share the reasons for eating food every day (for growth, energy prevention of illness) irrespective of colour, taste, touch and smell",
+            "create a one-week journal of healthy foods eaten",
+            "make a nature corner with different food items found in the locality"
+          ],
+          "keyInquiryQuestions": [
+            "Which things do you use as a family at home?",
+            "How do you choose the food you eat?"
+          ],
+          "coreCompetencies": [
+            "Digital literacy: Learner manipulates digital devices while recording poems and songs on different family needs",
+            "Self-efficacy: Learner groups locally assorted food items into likes and dislikes using sense of sight, taste, touch and smell"
+          ],
+          "values": [
+            "Respect: Learner enhances appreciates diverse opinions when sharing information on different family needs"
+          ],
+          "pcis": [
+            "Life skills: Learner develops the skill of self-awareness when drawing, colouring, grouping different family needs"
+          ],
+          "linkToOtherSubjects": [
+            "Physical needs of the family can be drawn from concepts portrayed in the Religious Activities"
+          ]
+        },
+        {
+          "subStrandNumber": "1.4",
+          "subStrandName": "Our School",
+          "number_of_lessons": 9,
+          "specificLearningOutcomes": [
+            "identify main physical features between home and school",
+            "draw main physical features between home and school",
+            "apply personal safety on the way to school",
+            "acknowledge the significance of identifying places using key features"
+          ],
+          "suggestedLearningExperiences": [
+            "watch videos or observe pictures on main physical features between home and school (relative location; landmarks close to home and school)",
+            "think, pair and share information on the main physical features between home and school (rivers, hills, forest, bridges, roads, buildings)",
+            "draw a river, a hill, forest/trees, a bridge, a road, buildings (church, mosque, temple)",
+            "interact with digital technology when playing educative digital games on locating main features between home and school",
+            "cooperate and display team spirit in role playing safety measures to take on the way to school (observing road signs, not speaking to strangers, not picking foods from strangers, respecting community helpers)"
+          ],
+          "keyInquiryQuestions": [
+            "How do you identify your way to school?",
+            "How can you be safe while coming to school?"
+          ],
+          "coreCompetencies": [
+            "Digital Literacy: Learner interacts with digital technology when playing educative digital games on locating main features between home and school"
+          ],
+          "values": [
+            "Unity: Learner enriches cooperation and team spirit when role playing safety measures to take on the way to school"
+          ],
+          "pcis": [
+            "Socio economic Issues: Learner acquires child road safety awareness when role playing safety measures to take on the way to school and back"
+          ],
+          "linkToOtherSubjects": [
+            "Drawing physical features between home and school relates to the skill of drawing and colouring in Creative Activities"
+          ]
+        },
+        {
+          "subStrandNumber": "1.5",
+          "subStrandName": "Our market",
+          "number_of_lessons": 9,
+          "specificLearningOutcomes": [
+            "identify roles of people found in a market",
+            "identify food items found in the market",
+            "categorise food items found in the market into fruits and vegetables",
+            "appreciate activities that are carried out in a market"
+          ],
+          "suggestedLearningExperiences": [
+            "observe pictures and/or videos of people found in a market",
+            "listen keenly and speak effectively when sharing information with peers on roles of people found in a market",
+            "use pictures or flashcards to pick out food items found in the local market",
+            "draw and colour different food items found in the market (orange, mango, banana, kales/sukuma wiki,)",
+            "Cooperate with peers when drawing and colouring different food items found in the market",
+            "use flashcards to sort and group food items into fruits (bananas, oranges, lemon) and vegetables (spinach, carrots, cabbage,)",
+            "use digital learner devices or pictures from paper cuttings to group food items found in the market and make a portfolio",
+            "recite poems and sing songs on food items found in the market"
+          ],
+          "keyInquiryQuestions": ["Why do we have markets?"],
+          "coreCompetencies": [
+            "Communication and collaboration: Learner listens keenly and speaks effectively when sharing information with peers on roles of people found in a market"
+          ],
+          "values": [
+            "Unity: Learner enhances cooperation when drawing and colouring different food items found in the market in groups"
+          ],
+          "pcis": [
+            "Social-economic issues: Learner develops the skill of career awareness when sharing information with peers on roles of people found in a market"
+          ],
+          "linkToOtherSubjects": [
+            "Sorting and grouping food items found in a market relates to concepts of classification in Mathematics Activities"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "2.0",
+      "strandName": "NATURAL ENVIRONMENT",
+      "subStrands": [
+        {
+          "subStrandNumber": "2.1",
+          "subStrandName": "Weather and the Sky",
+          "number_of_lessons": 12,
+          "specificLearningOutcomes": [
+            "describe the appearance of the sky during the day and at night",
+            "identify weather conditions in the locality",
+            "record different weather conditions in the locality",
+            "appreciate differences in weather conditions at different times of the day"
+          ],
+          "suggestedLearningExperiences": [
+            "observe the sky (the moon, sun and stars) during the day and at night (with guidance of parents or guardians) and share observations with others",
+            "Watch video clips or observe pictures showing the appearance of the sky during the day and at night and share observations on the appearances",
+            "draw the findings (stars, moon, clouds, sun) of the appearance of the sky during the day and at night",
+            "watch video clips or observe pictures of different weather conditions (cloudy, sunny, windy, rainy, calm)",
+            "draw different weather conditions (cloudy, sunny, windy, rainy, calm)",
+            "observe and share ideas on prevailing weather conditions (cloudy, sunny, windy, rainy, calm) as an outdoor activity and make a weather chart",
+            "role play various weather conditions for enjoyment",
+            "speak engagingly when telling age appropriate stories about weather and weather conditions",
+            "enhances honour to commitments when making and maintaining a one- week daily journal on weather conditions"
+          ],
+          "keyInquiryQuestions": [
+            "How does the sky appear at night and during the day?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration: Learner speaks engagingly when telling age appropriate stories about weather and weather conditions"
+          ],
+          "values": [
+            "Responsibility: Learner enhances honours to commitments when making and maintaining a one-week daily journal on weather conditions"
+          ],
+          "pcis": [
+            "Life skills: Learner develops time management skills when making and reading weather charts"
+          ],
+          "linkToOtherSubjects": [
+            "Appearance of the sky and conditions can be used when learning creation in Religious Activities"
+          ]
+        },
+        {
+          "subStrandNumber": "2.2",
+          "subStrandName": "Soil",
+          "number_of_lessons": 10,
+          "specificLearningOutcomes": [
+            "identify ways of playing with soil for enjoyment",
+            "play with soil for enjoyment",
+            "model objects using soil at school",
+            "develop curiosity in playing with soil for enjoyment"
+          ],
+          "suggestedLearningExperiences": [
+            "think, pair and share ways of playing with soil for enjoyment",
+            "enhance cooperation when filling and emptying cans with soil in turns",
+            "make different patterns using soil and paint",
+            "watch videos or observe pictures of objects made from soil",
+            "develop high self- esteem when modelling different objects using soil (dolls, plate, bowl and a ball)",
+            "sing relevant songs to peers while playing with soil for fun",
+            "clean or tidy up working space after modelling activities and wash hands with soap and clean running water"
+          ],
+          "keyInquiryQuestions": ["Why is playing with soil important to us?"],
+          "coreCompetencies": [
+            "Self-efficacy: Learner develops high self-esteem when modelling different objects using soil"
+          ],
+          "values": [
+            "Social justice: Learner enhances cooperation when filling and emptying cans with soil in turns"
+          ],
+          "pcis": [
+            "Health Promotion Issues: Learners develop the skill of washing hands with soap and clean running water after playing with soil"
+          ],
+          "linkToOtherSubjects": [
+            "Modelling different objects using soil can be used when learning modelling in Creative Activities"
+          ]
+        },
+        {
+          "subStrandNumber": "2.3",
+          "subStrandName": "Sound",
+          "number_of_lessons": 12,
+          "specificLearningOutcomes": [
+            "identify sounds in the immediate environment",
+            "create sounds from objects for enjoyment",
+            "discriminate sounds that alert us on dangers for appropriate response",
+            "acknowledge sounds that alerts us to dangers"
+          ],
+          "suggestedLearningExperiences": [
+            "take a sound walk in the immediate environment to identify sounds from humans, animals, machines, natural sources and share with peers",
+            "watch a video clip or listen to audio clip on ways of creating sound using the body, objects and voice (plucking, hitting, blowing, shaking snapping, tapping and clicking)",
+            "develop confidence when imitating and recording videos or audios of sounds from humans, animals, machines and natural sources (thunder)",
+            "use video clips or pictures to find out various sounds used to alert on danger",
+            "use common courteous words when engaging with peers to identify sounds inferring danger",
+            "explore sources of loud sound and effects to health and safety in the immediate environment",
+            "observe practices that reduce harmful effects of loud sounds",
+            "think, pair and share information on physical (hearing loss) and mental (sleep disturbance, headaches) harmful effects of loud sounds",
+            "recite a poem on limiting harmful effects of loud sounds",
+            "enhance loyalty when obeying laws and regulation on sounds that alert us on dangers for appropriate response"
+          ],
+          "keyInquiryQuestions": [
+            "How do animals and other objects in our environment produce sounds?",
+            "Why are some sounds important in our lives?"
+          ],
+          "coreCompetencies": [
+            "Self-efficacy: Learner develops confidence when imitating various sounds produced by animals or objects"
+          ],
+          "values": [
+            "Patriotism: Learner enhances loyalty when obeying laws and regulation on sounds that alert on dangers for appropriate response"
+          ],
+          "pcis": [
+            "Life skills: Learner uses common courteous words when engaging with peers to identify sounds inferring danger"
+          ],
+          "linkToOtherSubjects": [
+            "Sounds in the immediate environment draws concepts in Creative Activities"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "3.0",
+      "strandName": "RESOURCES IN OUR ENVIRONMENT",
+      "subStrands": [
+        {
+          "subStrandNumber": "3.1",
+          "subStrandName": "Water",
+          "number_of_lessons": 14,
+          "specificLearningOutcomes": [
+            "identify sources of water in the immediate environment",
+            "record uses of water at home and school",
+            "conserve water at home and school",
+            "acknowledge different sources of water in the immediate environment"
+          ],
+          "suggestedLearningExperiences": [
+            "watch videos, observe pictures or play computer games on different sources of water",
+            "develop originality skills when drawing and colouring different sources of water (rain, springs, boreholes, rivers, dams, lakes, oceans)",
+            "complete a simple word puzzle on sources of water at home and school",
+            "collaboratively model sources of water (rivers, lakes, dams, oceans) in the class learning space or corner using locally available materials",
+            "observe and write uses of water at home and school and share with peers in class (We drink it, wash with it, swim in it, we wash ourselves with it….)",
+            "think, pair and share experiences on careful use of water in the home and school",
+            "share experiences on using water sparingly (careful use of water - reducing and re-using water) with peers and caregivers",
+            "role play water conservation activities that can be used at home and school",
+            "make a poster on water conservation (reducing use of water) at home and school"
+          ],
+          "keyInquiryQuestions": [
+            "How can you use water without wasting it?",
+            "Why do we care for water sources?"
+          ],
+          "coreCompetencies": [
+            "Learning to learn: Learner develops self-discipline when working collaboratively with peers during modelling of water sources in the class learning space or corner using locally available materials",
+            "Creativity and imagination: Learner develops originality skills when drawing and colouring different sources of water"
+          ],
+          "values": [
+            "Unity: Learner enriches equality when sharing experiences on using water sparingly with peers and caregivers"
+          ],
+          "pcis": [
+            "Health promotion issues: Learners drink clean water and role play using water sparingly for personal wellbeing"
+          ],
+          "linkToOtherSubjects": [
+            "Making a poster on water conservation at home and school draws knowledge from writing skills in Language Activities"
+          ]
+        },
+        {
+          "subStrandNumber": "3.2",
+          "subStrandName": "Plants",
+          "number_of_lessons": 10,
+          "specificLearningOutcomes": [
+            "identify parts of a plant found in the school garden or compound",
+            "draw different parts of a plant found at school",
+            "carry out activities that conserve plants in the immediate environment",
+            "advocate for conservation of plants in the immediate environment"
+          ],
+          "suggestedLearningExperiences": [
+            "go on a nature walk to explore parts of plants",
+            "watch video clips, observe pictures and photographs to identify different parts of a plant in pairs",
+            "observe safety and carefully collect and observe young plants in the locality",
+            "indicate parts of a plant (leaves, stem, roots) using real plants or pictures",
+            "colour parts of a plant and display own work for further learning and peer assessment",
+            "plant seeds (common food plants in the immediate environment) in the nature corner of the class, in a school garden or flowerbed",
+            "enrich citizenship by watering plants found in the immediate environment"
+          ],
+          "keyInquiryQuestions": [
+            "How can you care for plants in your environment?"
+          ],
+          "coreCompetencies": [
+            "Learning to learn: Learner develops self-discipline when going for a nature walk to explore different parts of plants in the immediate environment"
+          ],
+          "values": [
+            "Patriotism: Learner enriches citizenship when showing love to the country by watering plants found in the immediate environment"
+          ],
+          "pcis": [
+            "Environmental education and climate change: learner observes safety when collecting young plants in the locality"
+          ],
+          "linkToOtherSubjects": [
+            "Drawing and colouring parts of a plant relates to sketching and drawing concepts in Creative Arts"
+          ]
+        },
+        {
+          "subStrandNumber": "3.3",
+          "subStrandName": "Animals",
+          "number_of_lessons": 10,
+          "specificLearningOutcomes": [
+            "identify domestic animals in the immediate environment",
+            "carry out basic care activities for small domestic animals",
+            "acknowledges diversity of animals in the immediate environment"
+          ],
+          "suggestedLearningExperiences": [
+            "watch and observe pictures of domestic animals in the immediate environment",
+            "explore the immediate environment by taking a nature walk to observe and write names of domestic animals to share with peers",
+            "watch video clips of domestic animals being watered, fed and treated",
+            "think and share precautions taken when feeding and watering domestic animals",
+            "water and feed some domestic animals in the immediate environment accompanied by a caregiver (rabbit, goat, sheep, chicken, cat, dog)",
+            "wash hands using clean running water after interacting with animals for personal hygiene",
+            "make a journal on basic care activities done to domestic animals at home or school (number of times animals are fed and watered)",
+            "listen to stories on animals for enjoyment",
+            "write clearly and correctly when gathering more information on care for domestic animals from parents or guardians"
+          ],
+          "keyInquiryQuestions": [
+            "How can you care for animals in your immediate environment?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration: Learner writes clearly and correctly when gathering more information on care for domestic animals from parents or guardians",
+            "Learning to learn: Learner develops exploration skills when taking a nature walk to observe and write names of domestic animals to share with peers"
+          ],
+          "values": [
+            "Love: Learner enhances compassion when portraying a caring attitude during watering and feeding of some domestic animals in the immediate environment",
+            "Unity: Learner enriches cooperation when displaying team spirit during nature walks while observing domestic animals"
+          ],
+          "pcis": [
+            "Health promotion issues: Learner develops hand washing skills using clean running water after feeding and watering animals",
+            "Life skills : Learner develops empathy when taking precautions when feeding and watering domestic animals"
+          ],
+          "linkToOtherSubjects": [
+            "Listening to stories on animals for enjoyment relates to active listening in Language Activities"
+          ]
+        }
+      ]
+    }
+  ]
+}
