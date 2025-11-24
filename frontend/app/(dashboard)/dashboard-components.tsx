@@ -963,7 +963,8 @@ export function ResourceCenterWidget({
   };
 
   const sortedResources = [...resources].sort(
-    (a, b) => new Date(b.lastAccessed).getTime() - new Date(a.lastAccessed).getTime()
+    (a, b) =>
+      new Date(b.lastAccessed).getTime() - new Date(a.lastAccessed).getTime()
   );
 
   return (
@@ -1007,10 +1008,13 @@ export function ResourceCenterWidget({
                       {getResourceTypeLabel(resource.type)}
                     </span>
                     <span className="text-xs text-gray-500">
-                      {new Date(resource.lastAccessed).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                      })}
+                      {new Date(resource.lastAccessed).toLocaleDateString(
+                        "en-US",
+                        {
+                          month: "short",
+                          day: "numeric",
+                        }
+                      )}
                     </span>
                   </div>
                 </div>
@@ -1081,7 +1085,9 @@ export function PerformanceSummaryCards({
             This Term
           </span>
         </div>
-        <h3 className="text-sm font-semibold text-gray-700 mb-2">Lessons Completed</h3>
+        <h3 className="text-sm font-semibold text-gray-700 mb-2">
+          Lessons Completed
+        </h3>
         <div className="mb-3">
           <div className="flex items-baseline gap-2">
             <span className="text-4xl font-bold text-indigo-600">
@@ -1105,7 +1111,8 @@ export function PerformanceSummaryCards({
         <div className="mt-3 flex items-center gap-1 text-xs text-indigo-600">
           <FiTrendingUp className="w-3 h-3" />
           <span>
-            {performance.totalLessons - performance.lessonsCompleted} lessons remaining
+            {performance.totalLessons - performance.lessonsCompleted} lessons
+            remaining
           </span>
         </div>
       </div>
@@ -1182,7 +1189,10 @@ export function PerformanceSummaryCards({
           <div
             className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-500 to-purple-600 transition-all duration-500"
             style={{
-              width: `${Math.min((performance.assessmentsCreated / 20) * 100, 100)}%`,
+              width: `${Math.min(
+                (performance.assessmentsCreated / 20) * 100,
+                100
+              )}%`,
             }}
           />
         </div>

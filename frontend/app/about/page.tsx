@@ -56,9 +56,10 @@ export default function AboutPage() {
               About TeachTrack CBC
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Designed by teachers, for teachers. TeachTrack CBC is Kenya's most comprehensive 
-              teaching management platform, combining curriculum tracking, timetable management, 
-              professional records, attendance monitoring, and advanced analytics in one powerful system.
+              Designed by teachers, for teachers. TeachTrack CBC is Kenya's most
+              comprehensive teaching management platform, combining curriculum
+              tracking, timetable management, professional records, attendance
+              monitoring, and advanced analytics in one powerful system.
             </p>
           </div>
         </div>
@@ -72,10 +73,12 @@ export default function AboutPage() {
               Our Mission
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed">
-              To empower Kenyan educators with an all-in-one digital platform that simplifies 
-              CBC curriculum management, streamlines timetabling, automates professional documentation, 
-              and provides actionable insights. We reduce administrative burden by up to 70%, 
-              giving teachers more time to focus on what matters most—teaching and student engagement.
+              To empower Kenyan educators with an all-in-one digital platform
+              that simplifies CBC curriculum management, streamlines
+              timetabling, automates professional documentation, and provides
+              actionable insights. We reduce administrative burden by up to 70%,
+              giving teachers more time to focus on what matters most—teaching
+              and student engagement.
             </p>
           </div>
         </div>
@@ -124,9 +127,10 @@ export default function AboutPage() {
                 Why Teachers Choose TeachTrack CBC
               </h2>
               <p className="text-lg text-gray-600 mb-8">
-                Developed with input from experienced CBC teachers across Kenya, TeachTrack combines 
-                curriculum tracking, timetable management, professional documentation, and analytics 
-                into one seamless platform. Everything you need, nothing you don't.
+                Developed with input from experienced CBC teachers across Kenya,
+                TeachTrack combines curriculum tracking, timetable management,
+                professional documentation, and analytics into one seamless
+                platform. Everything you need, nothing you don't.
               </p>
 
               <div className="space-y-4">
@@ -142,9 +146,10 @@ export default function AboutPage() {
             <div className="bg-gradient-to-br from-indigo-500 to-cyan-600 rounded-2xl p-8 text-white">
               <h3 className="text-2xl font-bold mb-4">Ready to Get Started?</h3>
               <p className="text-indigo-100 mb-6">
-                Join Kenyan teachers using TeachTrack CBC's comprehensive platform to manage 
-                curriculum, timetables, lesson plans, attendance, and analytics—all in one place. 
-                Save up to 10+ hours per week on administrative tasks.
+                Join Kenyan teachers using TeachTrack CBC's comprehensive
+                platform to manage curriculum, timetables, lesson plans,
+                attendance, and analytics—all in one place. Save up to 10+ hours
+                per week on administrative tasks.
               </p>
               <Link
                 href="/register"

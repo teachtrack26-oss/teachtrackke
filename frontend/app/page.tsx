@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { FiCheckCircle, FiUpload, FiBarChart, FiBook } from "react-icons/fi";
 import { FeatureCard, Step } from "@/components/ui/card";
 
@@ -10,6 +11,8 @@ export default function Home() {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
+  const heroImages = ["/hero1.jpg", "/hero2.jpg"];
 
   useEffect(() => {
     // Check if user is logged in
@@ -25,6 +28,15 @@ export default function Home() {
         console.error("Error parsing user data", e);
       }
     }
+  }, []);
+
+  useEffect(() => {
+    // Auto-slide images every 5 seconds
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const handleGetStarted = () => {
@@ -43,21 +55,40 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <header
-        className="bg-gradient-to-br from-indigo-600 via-indigo-700 to-indigo-900"
-        style={{
-          background:
-            "linear-gradient(to bottom right, #4f46e5, #4338ca, #312e81)",
-        }}
-      >
-        <div className="container mx-auto px-6 py-20 text-center">
+      <header className="relative h-[600px] md:h-[700px] overflow-hidden">
+        {/* Background Image Slider */}
+        <div className="absolute inset-0">
+          {heroImages.map((image, index) => (
+            <div
+              key={image}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                index === currentImage ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <Image
+                src={image}
+                alt={`Hero ${index + 1}`}
+                fill
+                priority={index === 0}
+                className="object-cover"
+                quality={100}
+                unoptimized
+              />
+              {/* Overlay gradient */}
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/90 via-indigo-800/80 to-indigo-900/70" />
+            </div>
+          ))}
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center items-center text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-2xl">
             Complete Teaching Management for CBC Educators
           </h1>
           <p className="text-xl mb-8 max-w-2xl mx-auto text-white drop-shadow-lg">
-            Comprehensive platform for Kenyan teachers: Track curriculum, manage timetables, 
-            create lesson plans, monitor attendance, and generate professional reports. 
-            Built specifically for CBC Grades 1-10.
+            Comprehensive platform for Kenyan teachers: Track curriculum, manage
+            timetables, create lesson plans, monitor attendance, and generate
+            professional reports. Built specifically for CBC Grades 1-10.
           </p>
           <button
             onClick={handleGetStarted}
@@ -70,6 +101,22 @@ export default function Home() {
               No credit card required • Free for 2 subjects
             </p>
           )}
+
+          {/* Slide Indicators */}
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2">
+            {heroImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentImage(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === currentImage
+                    ? "bg-white w-8"
+                    : "bg-white/50 hover:bg-white/75"
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </header>
 
@@ -153,8 +200,9 @@ export default function Home() {
             Transform Your Teaching Workflow Today
           </h2>
           <p className="text-xl mb-8 text-white drop-shadow-lg">
-            Join Kenyan teachers using TeachTrack's comprehensive platform for curriculum management, 
-            timetabling, lesson planning, and professional documentation
+            Join Kenyan teachers using TeachTrack's comprehensive platform for
+            curriculum management, timetabling, lesson planning, and
+            professional documentation
           </p>
           <button
             onClick={handleGetStarted}

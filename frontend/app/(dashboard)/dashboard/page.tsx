@@ -179,12 +179,13 @@ export default function DashboardPage() {
     weeklyComparison: [],
   });
   const [resources, setResources] = useState<ResourceItem[]>([]);
-  const [performanceSummary, setPerformanceSummary] = useState<PerformanceSummary>({
-    lessonsCompleted: 0,
-    totalLessons: 0,
-    attendanceAverage: 0,
-    assessmentsCreated: 0,
-  });
+  const [performanceSummary, setPerformanceSummary] =
+    useState<PerformanceSummary>({
+      lessonsCompleted: 0,
+      totalLessons: 0,
+      attendanceAverage: 0,
+      assessmentsCreated: 0,
+    });
 
   useEffect(() => {
     if (status === "loading") return; // Still loading
