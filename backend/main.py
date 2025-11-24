@@ -51,6 +51,7 @@ from schemas import (
 from auth import verify_password, get_password_hash, create_access_token, verify_token
 from config import settings
 from curriculum_importer import import_curriculum_from_json, get_imported_curricula
+from cache_manager import cache, CacheTTL  # Redis caching layer
 
 # Create tables (DISABLED - using SQL migrations instead)
 # Base.metadata.create_all(bind=engine)
@@ -398,7 +399,18 @@ def get_subjects(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
+    # Check cache first (30-minute TTL)
+    cache_key = f"subjects:user:{current_user.id}"
+    cached = cache.get(cache_key)
+    if cached:
+        return cached
+    
+    # Query database
     subjects = db.query(Subject).filter(Subject.user_id == current_user.id).all()
+    
+    # Cache the result
+    cache.set(cache_key, [s.__dict__ for s in subjects], CacheTTL.LIST_DATA)
+    
     return subjects
 
 @app.get(f"{settings.API_V1_PREFIX}/subjects/{{subject_id}}")
@@ -625,6 +637,9 @@ def create_subject(
         new_subject.total_lessons = total_lessons_count
         db.commit()
         db.refresh(new_subject)
+    
+    # Invalidate cache for this user's subjects
+    cache.delete(f"subjects:user:{current_user.id}")
     
     return new_subject
 

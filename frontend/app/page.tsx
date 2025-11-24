@@ -74,8 +74,8 @@ export default function Home() {
                 quality={100}
                 unoptimized
               />
-              {/* Overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/90 via-indigo-800/80 to-indigo-900/70" />
+              {/* Subtle dark gradient for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/50" />
             </div>
           ))}
         </div>

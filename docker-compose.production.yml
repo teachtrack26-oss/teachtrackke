@@ -1,0 +1,99 @@
+version: "3.8"
+
+services:
+  # Redis for caching and background tasks (UPGRADED for 2000 users)
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --maxmemory 2gb --maxmemory-policy allkeys-lru --save 60 1000
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2.5G
+
+  # MySQL Database (ULTRA HIGH CONCURRENCY)
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: teachtrack
+      MYSQL_ROOT_PASSWORD: "2078@lk//K."
+      MYSQL_USER: teachtrack_user
+      MYSQL_PASSWORD: "2078@lk//K."
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+      - mysql_data:/var/lib/mysql
+      - ./backend/mysql_config.cnf:/etc/mysql/conf.d/custom.cnf
+    command: --max_connections=2000 --innodb_buffer_pool_size=8G --innodb_buffer_pool_instances=8
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 12G  # 8GB for buffer pool + overhead
+
+  # Backend API (8 instances for load balancing - DOUBLED from 4)
+  backend:
+    build: ./backend
+    ports:
+      - "8000-8007:8000"
+    environment:
+      - ENV=production
+      - REDIS_URL=redis://redis:6379/0
+      - DATABASE_URL=mysql+pymysql://teachtrack_user:2078@lk//K.@db/teachtrack
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+      - redis
+    deploy:
+      replicas: 8  # Run 8 backend instances (doubled for 2000 users)
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+
+  # Celery Workers for Background Tasks (4 workers - DOUBLED from 2)
+  celery_worker:
+    build: ./backend
+    command: celery -A celery_app worker --loglevel=info --concurrency=16 --max-tasks-per-child=500
+    environment:
+      - ENV=production
+      - REDIS_URL=redis://redis:6379/0
+      - DATABASE_URL=mysql+pymysql://teachtrack_user:2078@lk//K.@db/teachtrack
+    depends_on:
+      - db
+      - redis
+    deploy:
+      replicas: 4  # Run 4 worker instances (doubled for heavy load)
+
+  # Frontend
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+
+  # Nginx Load Balancer (Optional)
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+      - frontend
+
+volumes:
+  mysql_data:
+  redis_data:

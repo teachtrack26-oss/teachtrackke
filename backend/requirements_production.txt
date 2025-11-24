@@ -1,0 +1,18 @@
+# Additional requirements for production deployment with high concurrency
+
+# Existing requirements are in requirements.txt
+# Add these for production scaling:
+
+# Background Task Processing
+celery==5.4.0
+redis==5.2.1
+
+# Production Server
+gunicorn==23.0.0
+
+# Monitoring and Performance
+prometheus-client==0.21.0
+psutil==6.1.1
+
+# Rate Limiting
+slowapi==0.1.9

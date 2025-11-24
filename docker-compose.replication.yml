@@ -1,0 +1,236 @@
+version: "3.8"
+
+# Production deployment with database replication
+# Supports 2000+ concurrent users with high availability
+
+services:
+  # ==================================================
+  # REDIS - Caching Layer
+  # ==================================================
+  redis:
+    image: redis:7-alpine
+    container_name: teachtrack-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --maxmemory 2gb --maxmemory-policy allkeys-lru --save 60 1000
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2.5G
+    restart: always
+    networks:
+      - teachtrack-network
+
+  # ==================================================
+  # MYSQL MASTER - Write Operations
+  # ==================================================
+  mysql-master:
+    image: mysql:8.0
+    container_name: teachtrack-mysql-master
+    environment:
+      MYSQL_ROOT_PASSWORD: "2078@lk//K."
+      MYSQL_DATABASE: teachtrack
+      MYSQL_USER: teachtrack_user
+      MYSQL_PASSWORD: "2078@lk//K."
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+      - mysql_master_data:/var/lib/mysql
+      - ./backend/mysql_config.cnf:/etc/mysql/conf.d/custom.cnf
+    command: >
+      --server-id=1
+      --log-bin=mysql-bin
+      --binlog-do-db=teachtrack
+      --max_connections=2000
+      --innodb_buffer_pool_size=8G
+      --innodb_buffer_pool_instances=8
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 12G
+    restart: always
+    networks:
+      - teachtrack-network
+
+  # ==================================================
+  # MYSQL REPLICA 1 - Read Operations
+  # ==================================================
+  mysql-replica1:
+    image: mysql:8.0
+    container_name: teachtrack-mysql-replica1
+    environment:
+      MYSQL_ROOT_PASSWORD: "2078@lk//K."
+      MYSQL_DATABASE: teachtrack
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_replica1_data:/var/lib/mysql
+    command: >
+      --server-id=2
+      --relay-log=mysql-relay-bin
+      --log-bin=mysql-bin
+      --read-only=1
+      --max_connections=2000
+      --innodb_buffer_pool_size=4G
+    depends_on:
+      - mysql-master
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 6G
+    restart: always
+    networks:
+      - teachtrack-network
+
+  # ==================================================
+  # MYSQL REPLICA 2 - Read Operations
+  # ==================================================
+  mysql-replica2:
+    image: mysql:8.0
+    container_name: teachtrack-mysql-replica2
+    environment:
+      MYSQL_ROOT_PASSWORD: "2078@lk//K."
+      MYSQL_DATABASE: teachtrack
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_replica2_data:/var/lib/mysql
+    command: >
+      --server-id=3
+      --relay-log=mysql-relay-bin
+      --log-bin=mysql-bin
+      --read-only=1
+      --max_connections=2000
+      --innodb_buffer_pool_size=4G
+    depends_on:
+      - mysql-master
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 6G
+    restart: always
+    networks:
+      - teachtrack-network
+
+  # ==================================================
+  # BACKEND API - 8 Instances (Load Balanced)
+  # ==================================================
+  backend:
+    build: ./backend
+    ports:
+      - "8000-8007:8000"
+    environment:
+      - ENV=production
+      - REDIS_URL=redis://redis:6379/0
+      - CACHE_ENABLED=true
+      - DATABASE_URL=mysql+pymysql://teachtrack_user:2078@lk//K.@mysql-master/teachtrack
+      - DATABASE_REPLICATION_ENABLED=true
+      - DATABASE_REPLICA_1_URL=mysql+pymysql://teachtrack_user:2078@lk//K.@mysql-replica1/teachtrack
+      - DATABASE_REPLICA_2_URL=mysql+pymysql://teachtrack_user:2078@lk//K.@mysql-replica2/teachtrack
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - mysql-master
+      - mysql-replica1
+      - mysql-replica2
+      - redis
+    deploy:
+      replicas: 8  # 8 backend instances for 2000 users
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+    restart: always
+    networks:
+      - teachtrack-network
+
+  # ==================================================
+  # CELERY WORKERS - Background Task Processing
+  # ==================================================
+  celery_worker:
+    build: ./backend
+    command: celery -A celery_app worker --loglevel=info --concurrency=16 --max-tasks-per-child=500
+    environment:
+      - ENV=production
+      - REDIS_URL=redis://redis:6379/0
+      - DATABASE_URL=mysql+pymysql://teachtrack_user:2078@lk//K.@mysql-master/teachtrack
+      - DATABASE_REPLICATION_ENABLED=true
+      - DATABASE_REPLICA_1_URL=mysql+pymysql://teachtrack_user:2078@lk//K.@mysql-replica1/teachtrack
+      - DATABASE_REPLICA_2_URL=mysql+pymysql://teachtrack_user:2078@lk//K.@mysql-replica2/teachtrack
+    depends_on:
+      - mysql-master
+      - redis
+    deploy:
+      replicas: 4  # 4 Celery workers
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+    restart: always
+    networks:
+      - teachtrack-network
+
+  # ==================================================
+  # FRONTEND - Next.js Application
+  # ==================================================
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+    restart: always
+    networks:
+      - teachtrack-network
+
+  # ==================================================
+  # NGINX - Load Balancer
+  # ==================================================
+  nginx:
+    image: nginx:alpine
+    container_name: teachtrack-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+      - frontend
+    restart: always
+    networks:
+      - teachtrack-network
+
+# ==================================================
+# VOLUMES - Data Persistence
+# ==================================================
+volumes:
+  mysql_master_data:
+    driver: local
+  mysql_replica1_data:
+    driver: local
+  mysql_replica2_data:
+    driver: local
+  redis_data:
+    driver: local
+
+# ==================================================
+# NETWORKS
+# ==================================================
+networks:
+  teachtrack-network:
+    driver: bridge

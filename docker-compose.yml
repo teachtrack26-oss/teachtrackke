@@ -33,6 +33,8 @@ services:
     volumes:
       - ./database:/docker-entrypoint-initdb.d
       - mysql_data:/var/lib/mysql
+      - ./backend/mysql_config.cnf:/etc/mysql/conf.d/custom.cnf:ro
+    command: --max_connections=2000 --innodb_buffer_pool_size=4G
 
 volumes:
   mysql_data:
