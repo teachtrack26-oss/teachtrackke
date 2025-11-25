@@ -22,9 +22,9 @@ class CacheManager:
         try:
             self.redis_client = redis.from_url(self.redis_url, decode_responses=True)
             self.redis_client.ping()
-            print(f"✅ Redis cache connected: {self.redis_url}")
+            print(f"[OK] Redis cache connected: {self.redis_url}")
         except Exception as e:
-            print(f"⚠️  Redis cache not available: {e}")
+            print(f"[WARN] Redis cache not available: {e}")
             self.redis_client = None
             self.cache_enabled = False
     

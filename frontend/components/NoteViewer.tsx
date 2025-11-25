@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FiX, FiDownload, FiShare2 } from "react-icons/fi";
+import { FiX, FiDownload, FiShare2, FiEye } from "react-icons/fi";
 
 import ShareModal from "./ShareModal";
 
@@ -167,90 +167,189 @@ export default function NoteViewer({ note, onClose }: NoteViewerProps) {
           </div>
         </div>
 
-        {/* Content Area - Basic file info display */}
-        <div className="flex-1 overflow-auto p-8">
-          <div className="max-w-4xl mx-auto bg-gray-800 rounded-lg p-8 text-white">
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-lg font-semibold mb-2">File Information</h3>
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div>
-                    <span className="text-gray-400">Title:</span>
-                    <p className="text-white font-medium">{note.title}</p>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">File Type:</span>
-                    <p className="text-white font-medium">{note.file_type}</p>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">File Size:</span>
-                    <p className="text-white font-medium">
-                      {formatFileSize(note.file_size_bytes)}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">Views:</span>
-                    <p className="text-white font-medium">{note.view_count}</p>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">Created:</span>
-                    <p className="text-white font-medium">
-                      {new Date(note.created_at).toLocaleDateString()}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">Updated:</span>
-                    <p className="text-white font-medium">
-                      {new Date(note.updated_at).toLocaleDateString()}
-                    </p>
-                  </div>
+        {/* Content Area - Actual file display */}
+        <div className="flex-1 overflow-auto bg-gray-900">
+          {/* PDF Display - Auto-open in new tab due to CORS restrictions */}
+          {note.file_type.toLowerCase() === 'pdf' && (
+            <div className="h-full flex items-center justify-center p-8">
+              <div className="max-w-2xl w-full bg-gray-800 rounded-lg p-8 text-white text-center">
+                <div className="text-6xl mb-4">📄</div>
+                <h3 className="text-2xl font-semibold mb-3">{note.title}</h3>
+                <p className="text-gray-400 mb-6">
+                  Click below to view your PDF document
+                </p>
+                
+                <div className="space-y-3">
+                  <a
+                    href={note.file_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-lg font-semibold shadow-lg"
+                  >
+                    <FiEye size={24} />
+                    Open PDF Document
+                  </a>
+                  
+                  <div className="text-sm text-gray-500">or</div>
+                  
+                  <button
+                    onClick={handleDownload}
+                    disabled={downloading}
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors disabled:opacity-50"
+                  >
+                    {downloading ? (
+                      <>
+                        <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
+                        Downloading...
+                      </>
+                    ) : (
+                      <>
+                        <FiDownload size={18} />
+                        Download PDF
+                      </>
+                    )}
+                  </button>
                 </div>
-              </div>
-
-              {note.description && (
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">Description</h3>
-                  <p className="text-gray-300">{note.description}</p>
-                </div>
-              )}
-
-              {note.tags && (
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">Tags</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {note.tags.split(",").map((tag, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1 bg-gray-700 rounded-full text-sm"
-                      >
-                        {tag.trim()}
-                      </span>
-                    ))}
+                
+                <div className="mt-8 pt-6 border-t border-gray-700 text-left">
+                  <p className="text-sm text-gray-400 mb-3 font-semibold">Document Details:</p>
+                  <div className="grid grid-cols-2 gap-4 text-sm text-gray-300">
+                    <div>
+                      <strong className="text-gray-400">Type:</strong> PDF Document
+                    </div>
+                    <div>
+                      <strong className="text-gray-400">Size:</strong> {formatFileSize(note.file_size_bytes)}
+                    </div>
+                    <div className="col-span-2">
+                      <strong className="text-gray-400">Created:</strong> {new Date(note.created_at).toLocaleString()}
+                    </div>
                   </div>
-                </div>
-              )}
-
-              <div className="pt-6 border-t border-gray-700">
-                <button
-                  onClick={handleDownload}
-                  disabled={downloading}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {downloading ? (
-                    <>
-                      <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
-                      Downloading...
-                    </>
-                  ) : (
-                    <>
-                      <FiDownload size={18} />
-                      Download File
-                    </>
+                  
+                  {note.description && (
+                    <div className="mt-4">
+                      <strong className="text-gray-400">Description:</strong>
+                      <p className="text-gray-300 mt-1">{note.description}</p>
+                    </div>
                   )}
-                </button>
+                </div>
               </div>
             </div>
-          </div>
+          )}
+
+          {/* Image Display */}
+          {['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp'].includes(note.file_type.toLowerCase()) && (
+            <div className="h-full flex items-center justify-center p-8">
+              <img
+                src={note.file_url}
+                alt={note.title}
+                className="max-w-full max-h-full object-contain"
+              />
+            </div>
+          )}
+
+          {/* Video Display */}
+          {['mp4', 'mov', 'avi', 'mkv', 'webm'].includes(note.file_type.toLowerCase()) && (
+            <div className="h-full flex items-center justify-center p-8">
+              <video
+                src={note.file_url}
+                controls
+                className="max-w-full max-h-full"
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          )}
+
+          {/* Office Documents (DOCX, PPTX, etc.) - Use Google Docs Viewer */}
+          {['docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls'].includes(note.file_type.toLowerCase()) && (
+            <iframe
+              src={`https://docs.google.com/gview?url=${encodeURIComponent(note.file_url)}&embedded=true`}
+              className="w-full h-full border-0"
+              title={note.title}
+            />
+          )}
+
+          {/* Fallback - Show file info for unsupported types */}
+          {!['pdf', 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp', 'mp4', 'mov', 'avi', 'mkv', 'webm', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls'].includes(note.file_type.toLowerCase()) && (
+            <div className="h-full flex items-center justify-center p-8">
+              <div className="max-w-4xl w-full bg-gray-800 rounded-lg p-8 text-white">
+                <div className="text-center mb-6">
+                  <div className="text-6xl mb-4">📎</div>
+                  <h3 className="text-2xl font-semibold mb-2">Preview Not Available</h3>
+                  <p className="text-gray-400">This file type cannot be previewed directly.</p>
+                </div>
+
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-lg font-semibold mb-3">File Information</h4>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <span className="text-gray-400">Title:</span>
+                        <p className="text-white font-medium">{note.title}</p>
+                      </div>
+                      <div>
+                        <span className="text-gray-400">File Type:</span>
+                        <p className="text-white font-medium">{note.file_type.toUpperCase()}</p>
+                      </div>
+                      <div>
+                        <span className="text-gray-400">File Size:</span>
+                        <p className="text-white font-medium">
+                          {formatFileSize(note.file_size_bytes)}
+                        </p>
+                      </div>
+                      <div>
+                        <span className="text-gray-400">Views:</span>
+                        <p className="text-white font-medium">{note.view_count}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {note.description && (
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2">Description</h4>
+                      <p className="text-gray-300">{note.description}</p>
+                    </div>
+                  )}
+
+                  {note.tags && (
+                    <div>
+                      <h4 className="text-lg font-semibold mb-2">Tags</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {note.tags.split(",").map((tag, index) => (
+                          <span
+                            key={index}
+                            className="px-3 py-1 bg-gray-700 rounded-full text-sm"
+                          >
+                            {tag.trim()}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="pt-6 border-t border-gray-700">
+                    <button
+                      onClick={handleDownload}
+                      disabled={downloading}
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {downloading ? (
+                        <>
+                          <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
+                          Downloading...
+                        </>
+                      ) : (
+                        <>
+                          <FiDownload size={18} />
+                          Download File
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

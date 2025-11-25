@@ -26,15 +26,15 @@ def check_database():
         
         if result == 1:
             connection_usage = (stats[0] / stats[1]) * 100
-            print(f"✅ Database: Connected ({stats[0]}/{stats[1]} connections, {connection_usage:.1f}% used)")
+            print(f"[OK] Database: Connected ({stats[0]}/{stats[1]} connections, {connection_usage:.1f}% used)")
             
             if connection_usage > 80:
-                print(f"   ⚠️  WARNING: High connection usage!")
+                print(f"   [WARN] WARNING: High connection usage!")
             
             return True
         return False
     except Exception as e:
-        print(f"❌ Database: Failed - {str(e)}")
+        print(f"[ERR] Database: Failed - {str(e)}")
         return False
 
 def check_redis():
@@ -54,13 +54,13 @@ def check_redis():
         connected_clients = info.get('connected_clients', 0)
         used_memory_human = info.get('used_memory_human', 'Unknown')
         
-        print(f"✅ Redis: Connected ({connected_clients} clients, {used_memory_human} memory)")
+        print(f"[OK] Redis: Connected ({connected_clients} clients, {used_memory_human} memory)")
         return True
     except ImportError:
-        print("⚠️  Redis: Not installed (pip install redis)")
+        print("[WARN] Redis: Not installed (pip install redis)")
         return None
     except Exception as e:
-        print(f"❌ Redis: Failed - {str(e)}")
+        print(f"[ERR] Redis: Failed - {str(e)}")
         return False
 
 def check_celery():
@@ -73,7 +73,7 @@ def check_celery():
         
         if stats:
             worker_count = len(stats)
-            print(f"✅ Celery: {worker_count} worker(s) active")
+            print(f"[OK] Celery: {worker_count} worker(s) active")
             
             for worker_name, worker_stats in stats.items():
                 pool_size = worker_stats.get('pool', {}).get('max-concurrency', 'Unknown')
@@ -81,13 +81,13 @@ def check_celery():
             
             return True
         else:
-            print("❌ Celery: No workers found")
+            print("[ERR] Celery: No workers found")
             return False
     except ImportError:
-        print("⚠️  Celery: Not installed")
+        print("[WARN] Celery: Not installed")
         return None
     except Exception as e:
-        print(f"❌ Celery: Failed - {str(e)}")
+        print(f"[ERR] Celery: Failed - {str(e)}")
         return False
 
 def check_api():
@@ -99,16 +99,16 @@ def check_api():
         
         if response.status_code == 200:
             data = response.json()
-            print(f"✅ API: {data.get('status', 'unknown')}")
+            print(f"[OK] API: {data.get('status', 'unknown')}")
             return True
         else:
-            print(f"❌ API: HTTP {response.status_code}")
+            print(f"[ERR] API: HTTP {response.status_code}")
             return False
     except ImportError:
-        print("⚠️  API check: requests not installed (pip install requests)")
+        print("[WARN] API check: requests not installed (pip install requests)")
         return None
     except Exception as e:
-        print(f"❌ API: Failed - {str(e)}")
+        print(f"[ERR] API: Failed - {str(e)}")
         return False
 
 def main(continuous=False, interval=30):

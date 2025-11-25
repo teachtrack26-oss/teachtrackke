@@ -907,18 +907,15 @@ const TimetablePage = () => {
     );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100 relative overflow-hidden">
-      {/* Animated background patterns */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-        <div className="absolute top-40 right-20 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-20 left-40 w-96 h-96 bg-violet-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
+    <div className="min-h-screen bg-gray-50 relative overflow-hidden">
+      {/* Premium Animated Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-400/20 rounded-full blur-[128px] animate-blob"></div>
+        <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-400/20 rounded-full blur-[128px] animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-pink-400/20 rounded-full blur-[128px] animate-blob animation-delay-4000"></div>
       </div>
 
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-
-      <div className="max-w-7xl mx-auto px-4 py-8 relative z-10">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header with Schedule Info */}
         <div className="mb-8">
           {/* Live Status Timer */}
@@ -1027,21 +1024,26 @@ const TimetablePage = () => {
             </div>
           )}
 
-          <div className="flex justify-between items-start mb-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
             <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 bg-clip-text text-transparent">
-                Weekly Timetable
-              </h1>
-              <p className="text-gray-700 mt-2 text-lg font-medium">
-                Manage your teaching schedule with elegance
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
+                  <FiClock className="w-6 h-6 text-white" />
+                </div>
+                <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
+                  Weekly Timetable
+                </h1>
+              </div>
+              <p className="text-gray-600 text-lg ml-15">
+                Organize your teaching schedule with ease
               </p>
             </div>
-            <div className="flex space-x-3 items-center">
+            <div className="flex flex-wrap gap-3 items-center">
               <div className="relative">
                 <select
                   value={selectedViewLevel}
                   onChange={(e) => setSelectedViewLevel(e.target.value)}
-                  className="appearance-none bg-white/60 backdrop-blur-lg border border-white/60 hover:bg-white/80 px-4 py-2.5 pr-8 rounded-xl text-gray-800 shadow-lg font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
+                  className="appearance-none bg-white border border-gray-200 px-4 py-3 pr-10 rounded-xl text-gray-700 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer transition-all font-medium"
                 >
                   {Object.keys(educationLevels).map((level) => (
                     <option key={level} value={level}>
@@ -1049,7 +1051,7 @@ const TimetablePage = () => {
                     </option>
                   ))}
                 </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
                   <FiChevronDown className="w-4 h-4" />
                 </div>
               </div>
@@ -1071,34 +1073,34 @@ const TimetablePage = () => {
                   setBulkLessons([{ day_of_week: 1, time_slot_id: 0 }]);
                   setIsBulkModalOpen(true);
                 }}
-                className="glass-button bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white px-5 py-2.5 rounded-xl flex items-center shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
+                className="inline-flex items-center gap-2 px-4 py-3 bg-white border border-gray-200 hover:border-green-300 hover:bg-green-50 text-gray-700 hover:text-green-700 rounded-xl font-semibold transition-all shadow-sm hover:shadow group"
               >
-                <FiBook className="mr-2" />
-                Bulk Add
+                <FiBook className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <span className="hidden sm:inline">Bulk Add</span>
               </button>
               <button
                 onClick={() => openAddModal()}
-                className="glass-button bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-5 py-2.5 rounded-xl flex items-center shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
+                className="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg shadow-indigo-200 hover:shadow-indigo-300 transition-all"
               >
-                <FiPlus className="mr-2" />
-                Add Lesson
+                <FiPlus className="w-5 h-5" />
+                <span>Add Lesson</span>
               </button>
             </div>
           </div>
 
           {/* Schedule Information Card */}
           {schedule && (
-            <div className="glass-card bg-white/50 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6 mb-8 hover:shadow-2xl transition-all duration-300">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8 hover:shadow-lg transition-all duration-300">
               <div className="flex items-start">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md">
                   <FiInfo className="w-6 h-6 text-white" />
                 </div>
                 <div className="flex-1 ml-4">
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">
+                  <h3 className="font-bold text-gray-900 mb-4 text-lg">
                     {schedule.schedule_name}
                   </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">
-                    <div className="glass-stat bg-gradient-to-br from-blue-50/50 to-indigo-50/50 rounded-xl p-3 border border-indigo-100/50">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-3 border border-indigo-100">
                       <span className="text-gray-600 block text-xs font-medium mb-1">
                         School Hours
                       </span>
@@ -1107,7 +1109,7 @@ const TimetablePage = () => {
                         {schedule.school_end_time}
                       </p>
                     </div>
-                    <div className="glass-stat bg-gradient-to-br from-purple-50/50 to-violet-50/50 rounded-xl p-3 border border-purple-100/50">
+                    <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl p-3 border border-purple-100">
                       <span className="text-gray-600 block text-xs font-medium mb-1">
                         Lesson Duration
                       </span>
@@ -1116,7 +1118,7 @@ const TimetablePage = () => {
                         {schedule.double_lesson_duration} min
                       </p>
                     </div>
-                    <div className="glass-stat bg-gradient-to-br from-emerald-50/50 to-green-50/50 rounded-xl p-3 border border-emerald-100/50">
+                    <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-xl p-3 border border-emerald-100">
                       <span className="text-gray-600 block text-xs font-medium mb-1">
                         Total Lessons
                       </span>
@@ -1124,7 +1126,7 @@ const TimetablePage = () => {
                         {timeSlots.length} per day
                       </p>
                     </div>
-                    <div className="glass-stat bg-gradient-to-br from-orange-50/50 to-amber-50/50 rounded-xl p-3 border border-orange-100/50">
+                    <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl p-3 border border-orange-100">
                       <span className="text-gray-600 block text-xs font-medium mb-1">
                         Breaks
                       </span>
@@ -1144,7 +1146,7 @@ const TimetablePage = () => {
 
         {/* Timetable Grid */}
         <DndContext onDragEnd={handleDragEnd}>
-          <div className="glass-card bg-white/40 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/60 overflow-hidden">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>

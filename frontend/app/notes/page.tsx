@@ -325,38 +325,52 @@ export default function NotesPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-6">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">My Notes</h1>
-          <p className="text-gray-600">
-            Organize and manage your teaching notes and resources.
+    <div className="min-h-screen bg-gray-50 relative overflow-hidden">
+      {/* Premium Animated Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-400/20 rounded-full blur-[128px] animate-blob"></div>
+        <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-400/20 rounded-full blur-[128px] animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-pink-400/20 rounded-full blur-[128px] animate-blob animation-delay-4000"></div>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Premium Header */}
+        <div className="mb-10">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
+              <FiBook className="w-6 h-6 text-white" />
+            </div>
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
+              My Notes
+            </h1>
+          </div>
+          <p className="text-lg text-gray-600 ml-15">
+            Organize and manage all your teaching notes and resources
           </p>
         </div>
 
-        {/* Actions Bar */}
+        {/* Premium Actions Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-          <div className="relative flex-1 max-w-md">
-            <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <div className="relative flex-1 max-w-md w-full">
+            <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
               type="text"
-              placeholder="Search notes..."
+              placeholder="Search notes by title, description, or tags..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm transition-all"
             />
           </div>
           <button
             onClick={() => setShowUploadModal(true)}
-            className="inline-flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg shadow-indigo-200 hover:shadow-indigo-300 transition-all"
           >
             <FiPlus className="w-5 h-5" />
             <span>Upload Note</span>
@@ -365,121 +379,130 @@ export default function NotesPage() {
 
         {/* Notes Grid */}
         {filteredNotes.length === 0 ? (
-          <div className="text-center py-12">
-            <FiBook className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
-              {searchTerm ? "No notes found" : "No notes yet"}
-            </h3>
-            <p className="text-gray-600 mb-6">
-              {searchTerm
-                ? "Try adjusting your search terms"
-                : "Create your first note to get started organizing your teaching resources"}
-            </p>
-            {!searchTerm && (
-              <button
-                onClick={() => setShowUploadModal(true)}
-                className="inline-flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
-              >
-                <FiPlus className="w-5 h-5" />
-                <span>Upload Your First Note</span>
-              </button>
-            )}
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center relative overflow-hidden group">
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
+            <div className="absolute -top-24 -right-24 w-48 h-48 bg-indigo-50 rounded-full blur-3xl group-hover:bg-indigo-100 transition-colors duration-500"></div>
+            <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-50 rounded-full blur-3xl group-hover:bg-purple-100 transition-colors duration-500"></div>
+            
+            <div className="relative z-10">
+              <div className="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <FiBook className="w-10 h-10 text-gray-400" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                {searchTerm ? "No notes found" : "Your notes library is empty"}
+              </h3>
+              <p className="text-gray-600 mb-8 max-w-md mx-auto text-lg">
+                {searchTerm
+                  ? "Try adjusting your search terms or clear the filter"
+                  : "Get started by uploading your first note to organize your teaching resources"}
+              </p>
+              {!searchTerm && (
+                <button
+                  onClick={() => setShowUploadModal(true)}
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all"
+                >
+                  <FiPlus className="w-5 h-5" />
+                  <span>Upload Your First Note</span>
+                </button>
+              )}
+            </div>
           </div>
         ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filteredNotes.map((note, index) => (
               <div
                 key={note.id}
-                className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6"
+                className="group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden hover:-translate-y-1"
               >
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-lg font-semibold text-gray-900 line-clamp-2">
-                    {note.title}
-                  </h3>
-                  <div className="flex space-x-1 ml-2">
-                    <button
-                      onClick={() => {
-                        setViewerNoteIndex(index);
-                        setShowViewer(true);
-                      }}
-                      className="p-1 text-gray-400 hover:text-indigo-600 transition-colors"
-                      title="Present"
-                    >
-                      <FiPlay className="w-4 h-4" />
-                    </button>
-                    <a
-                      href={note.file_url}
-                      download
-                      onClick={(e) => e.stopPropagation()}
-                      className="p-1 text-gray-400 hover:text-green-600 transition-colors"
-                      title="Download"
-                    >
-                      <FiDownload className="w-4 h-4" />
-                    </a>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDeleteNote(note.id);
-                      }}
-                      className="p-1 text-gray-400 hover:text-red-600 transition-colors"
-                      title="Delete"
-                    >
-                      <FiTrash2 className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-
                 {/* Thumbnail or file icon */}
                 {note.thumbnail_url ? (
                   <img
                     src={note.thumbnail_url}
                     alt={note.title}
-                    className="w-full h-32 object-cover rounded mb-3"
+                    className="w-full h-40 object-cover"
                   />
                 ) : (
-                  <div className="flex items-center justify-center h-32 bg-gray-100 rounded mb-3">
-                    <span className="text-4xl">
+                  <div className="flex items-center justify-center h-40 bg-gradient-to-br from-gray-50 to-gray-100 group-hover:from-indigo-50 group-hover:to-purple-50 transition-colors">
+                    <span className="text-5xl transform group-hover:scale-110 transition-transform">
                       {getFileIcon(note.file_type)}
                     </span>
                   </div>
                 )}
 
-                {note.description && (
-                  <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-                    {note.description}
-                  </p>
-                )}
+                <div className="p-5">
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="text-lg font-bold text-gray-900 line-clamp-2 flex-1 group-hover:text-indigo-600 transition-colors">
+                      {note.title}
+                    </h3>
+                    <div className="flex space-x-1 ml-2">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setViewerNoteIndex(index);
+                          setShowViewer(true);
+                        }}
+                        className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
+                        title="Present"
+                      >
+                        <FiPlay className="w-4 h-4" />
+                      </button>
+                      <a
+                        href={note.file_url}
+                        download
+                        onClick={(e) => e.stopPropagation()}
+                        className="p-2 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-all"
+                        title="Download"
+                      >
+                        <FiDownload className="w-4 h-4" />
+                      </a>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteNote(note.id);
+                        }}
+                        className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
+                        title="Delete"
+                      >
+                        <FiTrash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
 
-                <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
-                  <span className="flex items-center space-x-1">
-                    <FiFile className="w-3 h-3" />
-                    <span>{note.file_type.toUpperCase()}</span>
-                    <span>•</span>
-                    <span>{formatFileSize(note.file_size_bytes)}</span>
-                  </span>
-                  <span className="flex items-center space-x-2">
+                  {note.description && (
+                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                      {note.description}
+                    </p>
+                  )}
+
+                  <div className="flex items-center justify-between text-xs text-gray-500 mb-3 pb-3 border-b border-gray-100">
+                    <span className="flex items-center gap-1.5">
+                      <FiFile className="w-3 h-3" />
+                      <span className="font-medium">{note.file_type.toUpperCase()}</span>
+                      <span>•</span>
+                      <span>{formatFileSize(note.file_size_bytes)}</span>
+                    </span>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         handleToggleFavorite(note.id);
                       }}
-                      className={`${
-                        note.is_favorite ? "text-yellow-500" : "text-gray-400"
+                      className={`p-1 rounded transition-colors ${
+                        note.is_favorite ? "text-yellow-500 hover:text-yellow-600" : "text-gray-400 hover:text-yellow-500"
                       }`}
                     >
-                      <FiStar className="w-4 h-4" />
+                      <FiStar className="w-4 h-4" fill={note.is_favorite ? "currentColor" : "none"} />
                     </button>
-                  </span>
-                </div>
-
-                <div className="flex items-center justify-between text-xs text-gray-500">
-                  <div className="flex items-center space-x-2">
-                    <FiCalendar className="w-3 h-3" />
-                    <span>
-                      {new Date(note.created_at).toLocaleDateString()}
-                    </span>
                   </div>
-                  <span>{note.view_count} views</span>
+
+                  <div className="flex items-center justify-between text-xs text-gray-500">
+                    <div className="flex items-center gap-1.5">
+                      <FiCalendar className="w-3 h-3" />
+                      <span>
+                        {new Date(note.created_at).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <span>{note.view_count} views</span>
+                  </div>
                 </div>
               </div>
             ))}

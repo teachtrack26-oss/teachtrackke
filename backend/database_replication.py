@@ -43,11 +43,11 @@ if REPLICATION_ENABLED:
         create_engine(REPLICA_1_URL, **engine_config),
         create_engine(REPLICA_2_URL, **engine_config)
     ]
-    print(f"✅ Database replication enabled: 1 master + {len(replica_engines)} replicas")
+    print(f"[OK] Database replication enabled: 1 master + {len(replica_engines)} replicas")
 else:
     # Fallback: use master for reads too
     replica_engines = [master_engine]
-    print("⚠️  Database replication disabled - using master for all operations")
+    print("[WARN] Database replication disabled - using master for all operations")
 
 # Session factories
 MasterSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=master_engine)
@@ -128,4 +128,4 @@ if os.getenv('LOG_SLOW_QUERIES', 'false').lower() == 'true':
     def receive_after_cursor_execute(conn, cursor, statement, params, context, executemany):
         total = __import__('time').time() - context._query_start_time
         if total > 1:  # Log queries slower than 1 second
-            print(f"⚠️  Slow query ({total:.2f}s): {statement[:100]}...")
+            print(f"[WARN] Slow query ({total:.2f}s): {statement[:100]}...")

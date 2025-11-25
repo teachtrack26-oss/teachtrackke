@@ -812,73 +812,81 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100 relative overflow-hidden">
-      {/* Animated background */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-        <div className="absolute top-40 right-20 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+    <div className="min-h-screen bg-[#F3F4F6] relative overflow-hidden font-sans selection:bg-indigo-500 selection:text-white">
+      {/* Premium Animated Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-400/30 rounded-full mix-blend-multiply filter blur-[128px] animate-blob"></div>
+        <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-400/30 rounded-full mix-blend-multiply filter blur-[128px] animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-pink-400/30 rounded-full mix-blend-multiply filter blur-[128px] animate-blob animation-delay-4000"></div>
+        <div className="absolute inset-0 bg-grid-slate-200/50 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]"></div>
       </div>
 
       {/* Header */}
-      <header className="glass-card bg-white/40 backdrop-blur-xl shadow-xl border-b border-white/60 relative z-10">
-        <div className="container mx-auto px-6 py-6 flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 bg-clip-text text-transparent">
-              Today's Teaching Schedule
-            </h1>
-            <p className="text-gray-700 mt-1 flex items-center gap-2">
-              <FiCalendar className="w-4 h-4" />
-              {currentTime.toLocaleDateString("en-US", {
-                weekday: "long",
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </p>
-          </div>
-          <div className="flex gap-3">
-            {/* Notifications */}
-            <div className="relative">
-              <button
-                onClick={() => setShowNotifications(!showNotifications)}
-                className="glass-button bg-white/60 backdrop-blur-lg border border-white/60 hover:bg-white/80 px-4 py-2.5 rounded-xl flex items-center gap-2 text-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 font-medium relative"
-              >
-                <FiBell className="w-5 h-5" />
-                {notifications.filter((n) => !n.read).length > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
-                    {notifications.filter((n) => !n.read).length}
-                  </span>
-                )}
-              </button>
-              {showNotifications && (
-                <NotificationsDropdown
-                  notifications={notifications}
-                  onClose={() => setShowNotifications(false)}
-                  onMarkRead={markNotificationRead}
-                />
-              )}
+      {/* Premium Glass Header */}
+      <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/70 border-b border-white/50 shadow-sm transition-all duration-300">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex justify-between items-center">
+            <div className="flex flex-col">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
+                Dashboard
+              </h1>
+              <p className="text-sm text-gray-500 font-medium flex items-center gap-2 mt-0.5">
+                <FiCalendar className="w-3.5 h-3.5" />
+                {currentTime.toLocaleDateString("en-US", {
+                  weekday: "long",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </p>
             </div>
 
-            {/* Customization */}
-            <button
-              onClick={() => setShowCustomization(!showCustomization)}
-              className="glass-button bg-white/60 backdrop-blur-lg border border-white/60 hover:bg-white/80 px-4 py-2.5 rounded-xl flex items-center gap-2 text-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
-            >
-              <FiSettings className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-3">
+              {/* Notifications */}
+              <div className="relative">
+                <button
+                  onClick={() => setShowNotifications(!showNotifications)}
+                  className="p-2.5 rounded-xl bg-white/50 border border-white/60 hover:bg-white hover:shadow-md transition-all duration-300 group relative"
+                >
+                  <FiBell className="w-5 h-5 text-gray-600 group-hover:text-indigo-600 transition-colors" />
+                  {notifications.filter((n) => !n.read).length > 0 && (
+                    <span className="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white animate-pulse"></span>
+                  )}
+                </button>
+                {showNotifications && (
+                  <NotificationsDropdown
+                    notifications={notifications}
+                    onClose={() => setShowNotifications(false)}
+                    onMarkRead={markNotificationRead}
+                  />
+                )}
+              </div>
 
-            <Link
-              href="/timetable"
-              className="glass-button bg-white/60 backdrop-blur-lg border border-white/60 hover:bg-white/80 px-5 py-2.5 rounded-xl flex items-center gap-2 text-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
-            >
-              <FiClock /> View Timetable
-            </Link>
-            <Link
-              href="/curriculum"
-              className="glass-button bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-5 py-2.5 rounded-xl shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 font-medium"
-            >
-              <FiPlus /> Add Subject
-            </Link>
+              {/* Customization */}
+              <button
+                onClick={() => setShowCustomization(!showCustomization)}
+                className="p-2.5 rounded-xl bg-white/50 border border-white/60 hover:bg-white hover:shadow-md transition-all duration-300 group"
+              >
+                <FiSettings className="w-5 h-5 text-gray-600 group-hover:text-indigo-600 transition-colors" />
+              </button>
+
+              <div className="h-8 w-[1px] bg-gray-200 mx-1"></div>
+
+              <Link
+                href="/timetable"
+                className="hidden md:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/50 border border-white/60 hover:bg-white hover:shadow-md transition-all duration-300 text-sm font-semibold text-gray-700 group"
+              >
+                <FiClock className="w-4 h-4 text-gray-500 group-hover:text-indigo-600 transition-colors" />
+                <span>Timetable</span>
+              </Link>
+              
+              <Link
+                href="/curriculum"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg shadow-indigo-200 hover:shadow-indigo-300 transition-all duration-300 text-sm font-semibold"
+              >
+                <FiPlus className="w-4 h-4" />
+                <span className="hidden sm:inline">Add Subject</span>
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -892,9 +900,9 @@ export default function DashboardPage() {
         )}
       </header>
 
-      <main className="container mx-auto px-6 py-8 relative z-10">
+      <main className="container mx-auto px-4 sm:px-6 py-8 relative z-10 max-w-7xl">
         {/* Dashboard Widgets Row */}
-        <div className="grid lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
           {/* Weekly Overview Calendar with Swipe */}
           {widgetPreferences.weeklyCalendar && (
             <WeeklyCalendar
@@ -1041,66 +1049,75 @@ function EmptySchedule({
   const dayName = currentTime.toLocaleDateString("en-US", { weekday: "long" });
 
   return (
-    <div className="space-y-6">
-      <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-12 text-center">
-        <div className="text-6xl mb-4">{isWeekend ? "🏖️" : "☕"}</div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">
-          No Lessons Today! {isWeekend && `(${dayName})`}
-        </h3>
-        <p className="text-gray-600 mb-6">
-          {isWeekend
-            ? "It's the weekend! Enjoy your break. Your next lessons will appear on Monday."
-            : "You have a free day. Enjoy your break or set up your timetable."}
-        </p>
-        <Link
-          href="/timetable"
-          className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-        >
-          <FiClock /> {nextLesson ? "View Timetable" : "Setup Timetable"}
-        </Link>
+    <div className="space-y-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center relative overflow-hidden group hover:shadow-lg transition-all duration-500">
+        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
+        <div className="absolute -top-24 -right-24 w-48 h-48 bg-indigo-50 rounded-full blur-3xl group-hover:bg-indigo-100 transition-colors duration-500"></div>
+        <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-50 rounded-full blur-3xl group-hover:bg-purple-100 transition-colors duration-500"></div>
+        
+        <div className="relative z-10">
+          <div className="text-7xl mb-6 transform group-hover:scale-110 transition-transform duration-500 inline-block">
+            {isWeekend ? "🏖️" : "☕"}
+          </div>
+          <h3 className="text-3xl font-bold text-gray-900 mb-3 tracking-tight">
+            No Lessons Today! {isWeekend && <span className="text-indigo-600">It's {dayName}</span>}
+          </h3>
+          <p className="text-gray-500 mb-8 max-w-md mx-auto text-lg leading-relaxed">
+            {isWeekend
+              ? "Time to recharge! Enjoy your well-deserved break. Your next lessons will be ready for you on Monday."
+              : "You have a free day ahead. Use this time to plan, grade, or just relax."}
+          </p>
+          <Link
+            href="/timetable"
+            className="inline-flex items-center gap-2 bg-gray-900 hover:bg-gray-800 text-white font-medium px-8 py-3.5 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+          >
+            <FiClock className="w-5 h-5" /> 
+            <span>{nextLesson ? "View Full Timetable" : "Setup Timetable"}</span>
+          </Link>
+        </div>
       </div>
 
       {/* Show next lesson if available */}
       {nextLesson && (
-        <div className="glass-card bg-gradient-to-r from-blue-50/60 to-indigo-50/60 backdrop-blur-xl rounded-2xl shadow-xl border border-blue-200/60 p-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center">
-              <FiCalendar className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-gray-900">
-                Next Upcoming Lesson
-              </h3>
-              <p className="text-sm text-gray-600">
-                {nextLesson.day_name && `${nextLesson.day_name}, `}
-                {nextLesson.time_slot?.start_time} -{" "}
-                {nextLesson.time_slot?.end_time}
-              </p>
-            </div>
-          </div>
-
-          <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white/60">
-            <div className="flex items-start gap-4">
-              <div className="w-14 h-14 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center text-3xl">
-                📚
+        <div className="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-2xl shadow-xl p-1 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 sm:p-8 relative z-10">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+              <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-inner border border-white/20 flex-shrink-0">
+                <FiCalendar className="w-8 h-8 text-white" />
               </div>
+              
               <div className="flex-1">
-                <h4 className="text-lg font-bold text-gray-900 mb-1">
+                <div className="flex items-center gap-2 text-indigo-100 mb-1 font-medium">
+                  <span className="uppercase tracking-wider text-xs bg-white/20 px-2 py-0.5 rounded">Up Next</span>
+                  <span>
+                    {nextLesson.day_name && `${nextLesson.day_name}, `}
+                    {nextLesson.time_slot?.start_time}
+                  </span>
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-2">
                   {nextLesson.subject?.subject_name}
-                </h4>
-                <div className="flex flex-wrap gap-3 text-sm text-gray-700">
+                </h3>
+                
+                <div className="flex flex-wrap gap-3">
                   {nextLesson.grade_section && (
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1.5 text-white/90 bg-black/20 px-3 py-1.5 rounded-lg text-sm backdrop-blur-sm">
                       <FiUsers className="w-4 h-4" />
                       <span>{nextLesson.grade_section}</span>
                     </div>
                   )}
                   {nextLesson.room_number && (
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1.5 text-white/90 bg-black/20 px-3 py-1.5 rounded-lg text-sm backdrop-blur-sm">
                       <FiMapPin className="w-4 h-4" />
                       <span>Room {nextLesson.room_number}</span>
                     </div>
                   )}
+                </div>
+              </div>
+              
+              <div className="hidden sm:block">
+                <div className="w-12 h-12 rounded-full border-2 border-white/30 flex items-center justify-center text-white/50">
+                  <FiChevronRight className="w-6 h-6" />
                 </div>
               </div>
             </div>
@@ -1132,19 +1149,22 @@ function LessonCard({
 }) {
   const statusConfig = {
     upcoming: {
-      bg: "from-blue-400/30 to-cyan-400/30",
-      badge: "bg-blue-500",
+      border: "border-l-4 border-l-blue-500",
+      badge: "bg-blue-100 text-blue-700 border border-blue-200",
       text: "Upcoming",
+      icon: <FiClock className="w-3 h-3" />,
     },
     current: {
-      bg: "from-green-400/30 to-emerald-400/30",
-      badge: "bg-green-500 animate-pulse",
+      border: "border-l-4 border-l-green-500 ring-2 ring-green-500/20",
+      badge: "bg-green-100 text-green-700 border border-green-200 animate-pulse",
       text: "In Progress",
+      icon: <FiActivity className="w-3 h-3" />,
     },
     completed: {
-      bg: "from-gray-400/30 to-slate-400/30",
-      badge: "bg-gray-500",
+      border: "border-l-4 border-l-gray-400 opacity-75",
+      badge: "bg-gray-100 text-gray-600 border border-gray-200",
       text: "Completed",
+      icon: <FiCheckCircle className="w-3 h-3" />,
     },
   };
 
@@ -1153,67 +1173,67 @@ function LessonCard({
 
   return (
     <div
-      className={`glass-card bg-gradient-to-r ${config.bg} backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 overflow-hidden transition-all duration-300 hover:shadow-2xl`}
+      className={`group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden ${config.border}`}
     >
       {/* Lesson Header */}
-      <div
-        className={`p-6 bg-gradient-to-r ${theme.gradient} relative overflow-hidden`}
-      >
-        <div className="absolute inset-0 pattern-dots opacity-20"></div>
-        <div className="relative z-10 flex justify-between items-start">
+      <div className="p-5">
+        <div className="flex justify-between items-start">
           <div className="flex items-start gap-4 flex-1">
             <div
-              className={`w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg`}
+              className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-sm bg-gradient-to-br ${theme.gradient} text-white transform group-hover:scale-110 transition-transform duration-300`}
             >
-              <span className="text-4xl">{theme.icon}</span>
+              <span className="text-2xl">{theme.icon}</span>
             </div>
+            
             <div className="flex-1">
-              <div className="flex items-center gap-3 mb-2">
-                <h3 className="text-2xl font-bold text-white drop-shadow-md">
+              <div className="flex items-center gap-3 mb-1">
+                <h3 className="text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">
                   {subject?.subject_name || "Unknown Subject"}
                 </h3>
                 <span
-                  className={`${config.badge} text-white px-3 py-1 rounded-full text-xs font-bold shadow-md`}
+                  className={`${config.badge} px-2.5 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1.5`}
                 >
+                  {config.icon}
                   {config.text}
                 </span>
               </div>
-              <div className="flex flex-wrap gap-4 text-white/90 text-sm">
-                <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-lg">
-                  <FiClock className="w-4 h-4" />
-                  <span className="font-medium">
+              
+              <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-500 mt-2">
+                <div className="flex items-center gap-1.5">
+                  <FiClock className="w-4 h-4 text-indigo-400" />
+                  <span className="font-medium text-gray-700">
                     {timeSlot?.start_time} - {timeSlot?.end_time}
                   </span>
                 </div>
-                <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-lg">
-                  <FiUsers className="w-4 h-4" />
-                  <span className="font-medium">{lesson.grade_section}</span>
+                <div className="flex items-center gap-1.5">
+                  <FiUsers className="w-4 h-4 text-purple-400" />
+                  <span>{lesson.grade_section}</span>
                 </div>
                 {lesson.room_number && (
-                  <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-lg">
-                    <FiMapPin className="w-4 h-4" />
-                    <span className="font-medium">
-                      Room {lesson.room_number}
-                    </span>
+                  <div className="flex items-center gap-1.5">
+                    <FiMapPin className="w-4 h-4 text-pink-400" />
+                    <span>Room {lesson.room_number}</span>
                   </div>
                 )}
                 {lesson.is_double_lesson && (
-                  <div className="bg-white/30 backdrop-blur-sm px-3 py-1 rounded-lg font-bold text-xs">
+                  <div className="flex items-center gap-1.5 text-amber-600 bg-amber-50 px-2 py-0.5 rounded text-xs font-medium">
+                    <FiLayers className="w-3 h-3" />
                     Double Lesson
                   </div>
                 )}
               </div>
             </div>
           </div>
+          
           <button
             onClick={onToggleExpand}
-            className="bg-white/20 hover:bg-white/30 backdrop-blur-sm p-2 rounded-lg transition-all duration-200"
+            className={`p-2 rounded-lg transition-all duration-200 ${
+              isExpanded 
+                ? "bg-indigo-50 text-indigo-600 rotate-180" 
+                : "hover:bg-gray-50 text-gray-400 hover:text-gray-600"
+            }`}
           >
-            {isExpanded ? (
-              <FiChevronUp className="w-6 h-6 text-white" />
-            ) : (
-              <FiChevronDown className="w-6 h-6 text-white" />
-            )}
+            <FiChevronDown className="w-5 h-5" />
           </button>
         </div>
       </div>
