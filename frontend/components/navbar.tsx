@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 import {
   FiMenu,
   FiX,
@@ -17,6 +18,7 @@ import toast from "react-hot-toast";
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
+  const { data: session, status } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
@@ -35,12 +37,17 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    // Check authentication status on every route change
+    // Check authentication status
     const checkAuth = () => {
       const token = localStorage.getItem("accessToken");
       const userData = localStorage.getItem("user");
 
-      if (token && userData) {
+      if (status === "authenticated" && session?.user) {
+        // User is logged in via NextAuth (Google Sign-In)
+        setUser(session.user);
+        setIsLoggedIn(true);
+      } else if (token && userData) {
+        // User is logged in via email/password
         setUser(JSON.parse(userData));
         setIsLoggedIn(true);
       } else {
@@ -50,7 +57,7 @@ export default function Navbar() {
     };
 
     checkAuth();
-  }, [pathname]); // Re-check when route changes
+  }, [pathname, session, status]); // Re-check when route or session changes
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -245,11 +252,11 @@ export default function Navbar() {
                       className="flex items-center space-x-3 pl-1 pr-2 py-1 rounded-full hover:bg-gray-50 transition-all duration-300 border border-transparent hover:border-gray-200"
                     >
                       <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-semibold shadow-md">
-                        {user?.name?.charAt(0).toUpperCase() || "U"}
+                        {(user?.name || user?.full_name || user?.email)?.charAt(0).toUpperCase() || "U"}
                       </div>
                       <div className="hidden lg:block text-left">
                         <p className="text-sm font-semibold text-gray-700 leading-none">
-                          {user?.name || "Account"}
+                          {user?.name || user?.full_name || user?.email?.split('@')[0] || "Account"}
                         </p>
                         <p className="text-xs text-gray-500 mt-0.5">Teacher</p>
                       </div>
@@ -266,7 +273,7 @@ export default function Navbar() {
                         {/* User Info */}
                         <div className="px-6 py-4 border-b border-gray-50 bg-gray-50/50">
                           <p className="text-sm font-bold text-gray-900">
-                            {user?.name}
+                            {user?.name || user?.full_name || user?.email?.split('@')[0] || "Account"}
                           </p>
                           <p className="text-xs text-gray-500 truncate">
                             {user?.email}
@@ -400,10 +407,10 @@ export default function Navbar() {
                 <div className="space-y-3">
                   <div className="px-4 flex items-center space-x-3 mb-4">
                     <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold">
-                      {user?.name?.charAt(0).toUpperCase() || "U"}
+                      {(user?.name || user?.full_name || user?.email)?.charAt(0).toUpperCase() || "U"}
                     </div>
                     <div>
-                      <div className="font-bold text-gray-900">{user?.name}</div>
+                      <div className="font-bold text-gray-900">{user?.name || user?.full_name || user?.email?.split('@')[0] || "Account"}</div>
                       <div className="text-xs text-gray-500">{user?.email}</div>
                     </div>
                   </div>

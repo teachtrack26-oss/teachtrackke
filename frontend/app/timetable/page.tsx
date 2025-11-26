@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { toast } from "react-hot-toast";
 import {
   FiClock,
@@ -332,6 +333,7 @@ const getSubjectTheme = (subjectName: string) => {
 
 const TimetablePage = () => {
   const router = useRouter();
+  const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(true);
   const [schedule, setSchedule] = useState<any>(null);
   const [timeSlots, setTimeSlots] = useState<any[]>([]);
@@ -378,14 +380,18 @@ const TimetablePage = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
+    const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
     if (!token) {
-      toast.error("Please login");
-      router.push("/login");
-      return;
+      // Wait for session to load
+      if (session === undefined) return;
+      if (session === null) {
+        toast.error("Please login");
+        router.push("/login");
+        return;
+      }
     }
     loadData();
-  }, [selectedViewLevel]); // Reload when level changes
+  }, [selectedViewLevel, session]); // Reload when level changes or session loads
 
   // Timer and status update effect
   useEffect(() => {
@@ -394,7 +400,7 @@ const TimetablePage = () => {
 
   const loadData = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
       const headers = { Authorization: `Bearer ${token}` };
 
       const scheduleRes = await fetch(

@@ -21,13 +21,14 @@ export default function VerifyEmailPage() {
       }
 
       try {
-        // TODO: Replace with actual API call when backend is ready
-        // const response = await axios.get(
-        //   `${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/verify-email?token=${token}`
-        // );
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/auth/verify-email?token=${token}`
+        );
 
-        // Mock verification - simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        if (!response.ok) {
+          throw new Error("Verification failed");
+        }
+
         setStatus("success");
 
         // Redirect to login after 3 seconds

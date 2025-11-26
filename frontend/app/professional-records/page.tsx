@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import {
   FiBookOpen,
@@ -86,6 +87,7 @@ interface RecordOfWork {
 
 export default function ProfessionalRecordsPage() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [loading, setLoading] = useState(true);
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [activeTab, setActiveTab] = useState<"schemes" | "lessons" | "records">(
@@ -127,11 +129,23 @@ export default function ProfessionalRecordsPage() {
 
   useEffect(() => {
     fetchData();
-  }, [showArchived]);
+  }, [showArchived, session]);
 
   const fetchData = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
+      
+      if (!token) {
+        // Wait for session to load if not in local storage
+        if (session === undefined) return; 
+        // If session loaded and still no token, redirect
+        if (session === null) {
+            // router.push("/login"); // Optional: redirect if no auth
+            setLoading(false);
+            return;
+        }
+      }
+
       const archivedQuery = showArchived ? "?archived=true" : "";
 
       // Fetch subjects
@@ -236,7 +250,7 @@ export default function ProfessionalRecordsPage() {
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
       await axios.post("/api/v1/lesson-plans/bulk-delete", selectedPlans, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -286,7 +300,7 @@ export default function ProfessionalRecordsPage() {
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
       // Delete each record individually
       await Promise.all(
         selectedRecords.map((id) =>
@@ -375,7 +389,7 @@ export default function ProfessionalRecordsPage() {
   ) => {
     if (!confirm("Are you sure you want to archive this item?")) return;
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
       let endpoint = "";
       if (type === "scheme") endpoint = `/api/v1/schemes/${id}/archive`;
       else if (type === "lesson")
@@ -401,7 +415,7 @@ export default function ProfessionalRecordsPage() {
     id: number
   ) => {
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
       let endpoint = "";
       if (type === "scheme") endpoint = `/api/v1/schemes/${id}/unarchive`;
       else if (type === "lesson")
@@ -427,7 +441,7 @@ export default function ProfessionalRecordsPage() {
     id: number
   ) => {
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
       const res = await axios.post(
         `/api/v1/${type}/${id}/share`,
         {},
@@ -449,7 +463,7 @@ export default function ProfessionalRecordsPage() {
   ) => {
     if (!confirm("Create a copy of this item?")) return;
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
       await axios.post(
         `/api/v1/${type}/${id}/duplicate`,
         {},
@@ -781,36 +795,39 @@ export default function ProfessionalRecordsPage() {
             <div className="flex gap-2">
               <button
                 onClick={() => setActiveTab("schemes")}
-                className={`flex-1 px-6 py-3 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 ${
+                className={`flex-1 px-3 sm:px-6 py-3 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base ${
                   activeTab === "schemes"
                     ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
                     : "text-gray-700 hover:bg-white/60"
                 }`}
               >
-                <FiBookOpen className="w-5 h-5" />
-                Schemes of Work
+                <FiBookOpen className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                <span className="hidden sm:inline">Schemes of Work</span>
+                <span className="sm:hidden">Schemes</span>
               </button>
               <button
                 onClick={() => setActiveTab("lessons")}
-                className={`flex-1 px-6 py-3 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 ${
+                className={`flex-1 px-3 sm:px-6 py-3 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base ${
                   activeTab === "lessons"
                     ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
                     : "text-gray-700 hover:bg-white/60"
                 }`}
               >
-                <FiFileText className="w-5 h-5" />
-                Lesson Plans
+                <FiFileText className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                <span className="hidden sm:inline">Lesson Plans</span>
+                <span className="sm:hidden">Lessons</span>
               </button>
               <button
                 onClick={() => setActiveTab("records")}
-                className={`flex-1 px-6 py-3 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 ${
+                className={`flex-1 px-3 sm:px-6 py-3 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base ${
                   activeTab === "records"
                     ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
                     : "text-gray-700 hover:bg-white/60"
                 }`}
               >
-                <FiCheckSquare className="w-5 h-5" />
-                Records of Work
+                <FiCheckSquare className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                <span className="hidden sm:inline">Records of Work</span>
+                <span className="sm:hidden">Records</span>
               </button>
             </div>
           </div>
@@ -848,24 +865,25 @@ export default function ProfessionalRecordsPage() {
         {/* Schemes of Work Tab */}
         {activeTab === "schemes" && (
           <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
                 Schemes of Work
               </h2>
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                 <button
                   onClick={() => handleExport("schemes")}
-                  className="bg-white text-indigo-600 border border-indigo-200 px-4 py-3 rounded-xl font-bold shadow-sm hover:bg-indigo-50 flex items-center gap-2 transition-all duration-300"
+                  className="bg-white text-indigo-600 border border-indigo-200 px-4 py-3 rounded-xl font-bold shadow-sm hover:bg-indigo-50 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
                 >
-                  <FiDownload className="w-5 h-5" />
+                  <FiDownload className="w-4 h-4 sm:w-5 sm:h-5" />
                   Export
                 </button>
                 <Link
                   href="/professional-records/generate-scheme"
-                  className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300"
+                  className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 sm:px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
                 >
-                  <FiPlus className="w-5 h-5" />
-                  Create New Scheme
+                  <FiPlus className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="hidden sm:inline">Create New Scheme</span>
+                  <span className="sm:hidden">New Scheme</span>
                 </Link>
               </div>
             </div>
@@ -1133,9 +1151,9 @@ export default function ProfessionalRecordsPage() {
         {/* Lesson Plans Tab */}
         {activeTab === "lessons" && (
           <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
-            <div className="flex justify-between items-center mb-6">
-              <div className="flex items-center gap-4">
-                <h2 className="text-2xl font-bold text-gray-900">
+            <div className="flex flex-col gap-4 mb-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
                   Lesson Plans
                 </h2>
                 {lessonPlans.length > 0 && (
@@ -1156,38 +1174,39 @@ export default function ProfessionalRecordsPage() {
                 )}
               </div>
 
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto sm:ml-auto">
                 {selectedPlans.length > 0 && (
                   <>
                     <button
                       onClick={handleBulkPrint}
-                      className="bg-blue-600 text-white px-4 py-3 rounded-xl font-bold shadow-lg hover:bg-blue-700 flex items-center gap-2 transition-all duration-300"
+                      className="bg-blue-600 text-white px-4 py-3 rounded-xl font-bold shadow-lg hover:bg-blue-700 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
                     >
-                      <FiDownload className="w-5 h-5" />
+                      <FiDownload className="w-4 h-4 sm:w-5 sm:h-5" />
                       Print ({selectedPlans.length})
                     </button>
                     <button
                       onClick={handleBulkDelete}
-                      className="bg-red-600 text-white px-4 py-3 rounded-xl font-bold shadow-lg hover:bg-red-700 flex items-center gap-2 transition-all duration-300"
+                      className="bg-red-600 text-white px-4 py-3 rounded-xl font-bold shadow-lg hover:bg-red-700 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
                     >
-                      <FiTrash2 className="w-5 h-5" />
+                      <FiTrash2 className="w-4 h-4 sm:w-5 sm:h-5" />
                       Delete ({selectedPlans.length})
                     </button>
                   </>
                 )}
                 <button
                   onClick={() => handleExport("lessons")}
-                  className="bg-white text-emerald-600 border border-emerald-200 px-4 py-3 rounded-xl font-bold shadow-sm hover:bg-emerald-50 flex items-center gap-2 transition-all duration-300"
+                  className="bg-white text-emerald-600 border border-emerald-200 px-4 py-3 rounded-xl font-bold shadow-sm hover:bg-emerald-50 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
                 >
-                  <FiDownload className="w-5 h-5" />
+                  <FiDownload className="w-4 h-4 sm:w-5 sm:h-5" />
                   Export
                 </button>
                 <Link
                   href="/professional-records/create-lesson-plan"
-                  className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300"
+                  className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-4 sm:px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
                 >
-                  <FiPlus className="w-5 h-5" />
-                  Create Lesson Plan
+                  <FiPlus className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="hidden sm:inline">Create Lesson Plan</span>
+                  <span className="sm:hidden">New Plan</span>
                 </Link>
               </div>
             </div>
@@ -1481,9 +1500,9 @@ export default function ProfessionalRecordsPage() {
         {/* Records of Work Tab */}
         {activeTab === "records" && (
           <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
-            <div className="flex justify-between items-center mb-6">
-              <div className="flex items-center gap-4">
-                <h2 className="text-2xl font-bold text-gray-900">
+            <div className="flex flex-col gap-4 mb-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
                   Records of Work Covered
                 </h2>
                 {recordsOfWork.length > 0 && (
@@ -1505,29 +1524,30 @@ export default function ProfessionalRecordsPage() {
                 )}
               </div>
 
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto sm:ml-auto">
                 {selectedRecords.length > 0 && (
                   <button
                     onClick={handleBulkDeleteRecords}
-                    className="bg-red-600 text-white px-4 py-3 rounded-xl font-bold shadow-lg hover:bg-red-700 flex items-center gap-2 transition-all duration-300"
+                    className="bg-red-600 text-white px-4 py-3 rounded-xl font-bold shadow-lg hover:bg-red-700 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
                   >
-                    <FiTrash2 className="w-5 h-5" />
+                    <FiTrash2 className="w-4 h-4 sm:w-5 sm:h-5" />
                     Delete ({selectedRecords.length})
                   </button>
                 )}
                 <button
                   onClick={() => handleExport("records")}
-                  className="bg-white text-green-600 border border-green-200 px-4 py-3 rounded-xl font-bold shadow-sm hover:bg-green-50 flex items-center gap-2 transition-all duration-300"
+                  className="bg-white text-green-600 border border-green-200 px-4 py-3 rounded-xl font-bold shadow-sm hover:bg-green-50 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
                 >
-                  <FiDownload className="w-5 h-5" />
+                  <FiDownload className="w-4 h-4 sm:w-5 sm:h-5" />
                   Export
                 </button>
                 <Link
                   href="/professional-records/record-of-work/create"
-                  className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300"
+                  className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 sm:px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
                 >
-                  <FiPlus className="w-5 h-5" />
-                  Create Record
+                  <FiPlus className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="hidden sm:inline">Create Record</span>
+                  <span className="sm:hidden">New Record</span>
                 </Link>
               </div>
             </div>

@@ -1,0 +1,9 @@
+# NextAuth.js Environment Variables Template
+# Copy these to your frontend/.env.local file
+
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=907729144078-fr45nc0pp830aben4cg0v6c31a770hnj.apps.googleusercontent.com
+GOOGLE_CLIENT_ID=907729144078-fr45nc0pp830aben4cg0v6c31a770hnj.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
+NEXTAUTH_URL=http://localhost:3001
+NEXTAUTH_SECRET=your-super-secret-key-change-this-in-production-minimum-32-characters-long
+NEXT_PUBLIC_API_URL=http://localhost:8000

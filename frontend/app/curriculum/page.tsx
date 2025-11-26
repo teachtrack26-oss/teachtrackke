@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import {
   FiUpload,
   FiBook,
@@ -31,6 +32,7 @@ interface Subject {
 
 export default function CurriculumPage() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -39,19 +41,23 @@ export default function CurriculumPage() {
 
   useEffect(() => {
     // Check authentication
-    const token = localStorage.getItem("accessToken");
+    const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
     if (!token) {
-      toast.error("Please login to access curriculum");
-      router.push("/login");
-      return;
+      // Wait for session to load
+      if (session === undefined) return;
+      if (session === null) {
+        toast.error("Please login to access curriculum");
+        router.push("/login");
+        return;
+      }
     }
     setIsAuthenticated(true);
     fetchSubjects();
-  }, [router]);
+  }, [router, session]);
 
   const fetchSubjects = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
       const response = await axios.get(`/api/v1/subjects`, {
         headers: { Authorization: `Bearer ${token}` },
       });

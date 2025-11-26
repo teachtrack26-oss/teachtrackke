@@ -1,0 +1,23 @@
+# ============================================================================
+# TeachTrack Frontend Configuration Template
+# ============================================================================
+# HOW TO USE THIS FILE:
+# ============================================================================
+# 1. Copy all the content below
+# 2. Create a new file named ".env.local" in the frontend folder
+# 3. Paste the content into that file
+# 4. Replace the PLACEHOLDER value with your actual Google Client ID
+# 5. Save the file
+# ============================================================================
+
+# ============================================================================
+# GOOGLE OAUTH ⬇️ FILL THIS IN
+# ============================================================================
+# Use the SAME Client ID you got from Google Cloud Console
+
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=PASTE_YOUR_CLIENT_ID_HERE.apps.googleusercontent.com
+
+# ============================================================================
+# API CONFIGURATION (Already Set)
+# ============================================================================
+NEXT_PUBLIC_API_URL=http://localhost:8000

@@ -2,11 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { FcGoogle } from "react-icons/fc";
+import GoogleSignInButton from "@/components/auth/GoogleSignInButton";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -68,7 +67,7 @@ export default function RegisterPage() {
         grade_level: formData.gradeLevel,
       });
 
-      toast.success("Account created successfully! You can now login.");
+      toast.success("Account created successfully! Please check your email to verify your account.");
       router.push("/login");
     } catch (error: any) {
       const errorMessage =
@@ -77,14 +76,6 @@ export default function RegisterPage() {
       toast.error(errorMessage);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleGoogleSignIn = async () => {
-    try {
-      await signIn("google", { callbackUrl: "/dashboard" });
-    } catch (error) {
-      toast.error("Failed to sign in with Google");
     }
   };
 
@@ -127,32 +118,26 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        {/* Google Sign In Button - Temporarily disabled until Google OAuth is configured */}
-        {process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === "true" && (
-          <>
-            <button
-              type="button"
-              onClick={handleGoogleSignIn}
-              className="w-full flex items-center justify-center gap-3 px-4 py-2.5 border border-gray-300 rounded-xl shadow-sm bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
-            >
-              <FcGoogle className="w-5 h-5" />
-              <span className="text-sm font-medium text-gray-700">
-                Continue with Google
-              </span>
-            </button>
-
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
-                  Or continue with email
-                </span>
-              </div>
+        {/* Google Sign In */}
+        <div className="mb-6">
+          <GoogleSignInButton />
+          
+          {/* Helper text */}
+          <p className="mt-3 text-center text-xs text-gray-500 italic">
+            💡 Skip the form! Google Sign-In creates your account instantly - no registration needed
+          </p>
+          
+          <div className="relative mt-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300" />
             </div>
-          </>
-        )}
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">
+                Or continue with email
+              </span>
+            </div>
+          </div>
+        </div>
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="space-y-4">

@@ -24,7 +24,24 @@ class Settings(BaseSettings):
         "http://127.0.0.1:3000",
         "http://192.168.0.102:3000",
         "http://10.2.0.2:3000",
+        "https://rubeolar-jaxon-unintuitively.ngrok-free.dev",  # Ngrok URL
     ]
+    
+    # Google OAuth
+    GOOGLE_CLIENT_ID: str = ""
+    GOOGLE_CLIENT_SECRET: str = ""
+    GOOGLE_REDIRECT_URI: str = "https://rubeolar-jaxon-unintuitively.ngrok-free.dev/api/auth/callback/google"
+    
+    # Email Configuration (Gmail SMTP)
+    SMTP_HOST: str = "smtp.gmail.com"
+    SMTP_PORT: int = 587
+    SMTP_USER: str = "teachtrack26@gmail.com"
+    SMTP_PASSWORD: str = ""  # App password from Gmail
+    FROM_EMAIL: str = "teachtrack26@gmail.com"
+    FROM_NAME: str = "TeachTrack"
+    
+    # Email Verification
+    VERIFICATION_TOKEN_EXPIRE_HOURS: int = 24
     
     # OpenRouter AI (for intelligent document parsing)
     OPENROUTER_API_KEY: str = ""  # Get free API key from https://openrouter.ai/keys

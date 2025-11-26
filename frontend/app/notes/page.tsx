@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import {
   FiPlus,
   FiSearch,
@@ -43,6 +44,7 @@ interface Subject {
 
 export default function NotesPage() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [notes, setNotes] = useState<Note[]>([]);
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [loading, setLoading] = useState(true);
@@ -65,22 +67,26 @@ export default function NotesPage() {
 
   useEffect(() => {
     // Check authentication
-    const token = localStorage.getItem("accessToken");
+    const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
     if (!token) {
-      toast.error("Please login to access notes");
-      router.push("/login");
-      return;
+      // Wait for session to load
+      if (session === undefined) return;
+      if (session === null) {
+        toast.error("Please login to access notes");
+        router.push("/login");
+        return;
+      }
     }
     setIsAuthenticated(true);
     fetchData();
-  }, [router]);
+  }, [router, session]);
 
   const fetchData = async () => {
     try {
       setLoading(true);
 
-      // Get token from localStorage
-      let token = localStorage.getItem("accessToken");
+      // Get token from localStorage or session
+      let token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
 
       // Check if token exists
       if (!token) {

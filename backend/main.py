@@ -65,6 +65,7 @@ app = FastAPI(
 )
 
 from fastapi.staticfiles import StaticFiles
+from auth_routes import router as auth_router
 
 # CORS middleware
 app.add_middleware(
@@ -78,6 +79,9 @@ app.add_middleware(
 # Mount uploads directory
 os.makedirs("uploads", exist_ok=True)
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+
+# Include routers
+app.include_router(auth_router)
 
 # Debug / CORS middleware to properly handle preflight requests (remove or simplify in production)
 @app.middleware("http")
@@ -2976,14 +2980,144 @@ async def get_time_slots(
     schedule = resolve_schedule_for_context(db, current_user, education_level)
     
     if not schedule:
-        detail = (
-            f"No active schedule found for {education_level}"
-            if education_level else "No active schedule found"
+        # Auto-create a default schedule for new users
+        from datetime import datetime
+        
+        default_schedule = SchoolSchedule(
+            user_id=current_user.id,
+            schedule_name="Default Schedule",
+            education_level=education_level or "Junior Secondary",
+            school_start_time="08:00",
+            single_lesson_duration=40,
+            double_lesson_duration=80,
+            first_break_duration=10,
+            second_break_duration=30,
+            lunch_break_duration=60,
+            lessons_before_first_break=2,
+            lessons_before_second_break=2,
+            lessons_before_lunch=2,
+            lessons_after_lunch=2,
+            school_end_time="16:00",
+            is_active=True,
+            created_at=datetime.utcnow(),
+            updated_at=datetime.utcnow()
         )
-        raise HTTPException(
-            status_code=404,
-            detail=f"{detail}. Please create one."
-        )
+        db.add(default_schedule)
+        db.commit()
+        db.refresh(default_schedule)
+        
+        # Create default time slots
+        current_time = datetime.strptime("08:00", "%H:%M")
+        slot_id = 1
+        
+        # Helper to add minutes
+        def add_minutes(dt, mins):
+            return dt + timedelta(minutes=mins)
+            
+        # Morning block 1
+        for i in range(2):
+            end_time = add_minutes(current_time, 40)
+            db.add(TimeSlot(
+                schedule_id=default_schedule.id,
+                slot_number=slot_id,
+                start_time=current_time.strftime("%H:%M"),
+                end_time=end_time.strftime("%H:%M"),
+                slot_type="lesson",
+                label=f"Lesson {slot_id}",
+                sequence_order=slot_id
+            ))
+            current_time = end_time
+            slot_id += 1
+            
+        # Break 1
+        end_time = add_minutes(current_time, 10)
+        db.add(TimeSlot(
+            schedule_id=default_schedule.id,
+            slot_number=slot_id,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=end_time.strftime("%H:%M"),
+            slot_type="break",
+            label="Short Break",
+            sequence_order=slot_id
+        ))
+        current_time = end_time
+        slot_id += 1
+        
+        # Morning block 2
+        for i in range(2):
+            end_time = add_minutes(current_time, 40)
+            db.add(TimeSlot(
+                schedule_id=default_schedule.id,
+                slot_number=slot_id,
+                start_time=current_time.strftime("%H:%M"),
+                end_time=end_time.strftime("%H:%M"),
+                slot_type="lesson",
+                label=f"Lesson {slot_id-1}", # Adjust for break slot
+                sequence_order=slot_id
+            ))
+            current_time = end_time
+            slot_id += 1
+            
+        # Break 2
+        end_time = add_minutes(current_time, 30)
+        db.add(TimeSlot(
+            schedule_id=default_schedule.id,
+            slot_number=slot_id,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=end_time.strftime("%H:%M"),
+            slot_type="break",
+            label="Tea Break",
+            sequence_order=slot_id
+        ))
+        current_time = end_time
+        slot_id += 1
+        
+        # Mid-day block
+        for i in range(2):
+            end_time = add_minutes(current_time, 40)
+            db.add(TimeSlot(
+                schedule_id=default_schedule.id,
+                slot_number=slot_id,
+                start_time=current_time.strftime("%H:%M"),
+                end_time=end_time.strftime("%H:%M"),
+                slot_type="lesson",
+                label=f"Lesson {slot_id-2}",
+                sequence_order=slot_id
+            ))
+            current_time = end_time
+            slot_id += 1
+            
+        # Lunch
+        end_time = add_minutes(current_time, 60)
+        db.add(TimeSlot(
+            schedule_id=default_schedule.id,
+            slot_number=slot_id,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=end_time.strftime("%H:%M"),
+            slot_type="lunch",
+            label="Lunch Break",
+            sequence_order=slot_id
+        ))
+        current_time = end_time
+        slot_id += 1
+        
+        # Afternoon block
+        for i in range(2):
+            end_time = add_minutes(current_time, 40)
+            db.add(TimeSlot(
+                schedule_id=default_schedule.id,
+                slot_number=slot_id,
+                start_time=current_time.strftime("%H:%M"),
+                end_time=end_time.strftime("%H:%M"),
+                slot_type="lesson",
+                label=f"Lesson {slot_id-3}",
+                sequence_order=slot_id
+            ))
+            current_time = end_time
+            slot_id += 1
+            
+        db.commit()
+        schedule = default_schedule
     
     time_slots = db.query(TimeSlot).filter(
         TimeSlot.schedule_id == schedule.id
