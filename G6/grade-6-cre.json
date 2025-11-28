@@ -1,0 +1,846 @@
+{
+  "subject": "Religious Education (CRE)",
+  "grade": "Grade 6",
+  "educationLevel": "Upper Primary",
+  "strands": [
+    {
+      "strandNumber": "1.0",
+      "strandName": "Creation",
+      "subStrands": [
+        {
+          "subStrandNumber": "1.1",
+          "subStrandName": "My Purpose",
+          "numberOfLessons": 5,
+          "specificLearningOutcomes": [
+            "Discuss how they use their God-given talents and abilities",
+            "Explain biblical teachings on the use of talents and abilities",
+            "Identify values required to nurture talents and abilities",
+            "Utilise God-given talents and abilities to serve others"
+          ],
+          "suggestedLearningExperiences": [
+            "List the different talents and abilities they possess",
+            "Discuss how they use their God-given talents and abilities",
+            "Participate in different activities to nurture their talents and abilities",
+            "In turns, read Exodus 31:3 and share what they have learnt",
+            "Read Romans 12:4 and discuss lessons learnt",
+            "List values that can help them develop and sustain their God-given talents and abilities",
+            "Use their God-given talents and abilities to serve others",
+            "Compose a poem on 'how I use my talents and abilities'"
+          ],
+          "keyInquiryQuestions": [
+            "How do you use your God-given talents and abilities?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration: the skill of speaking clearly and effectively is portrayed as learners discuss how they use their talents and abilities",
+            "Creativity and imagination: the skill of originality is enhanced as learners role-play the use of different talents and abilities in serving others"
+          ],
+          "values": [
+            "Responsibility: is nurtured as learners take up assigned roles and duties to serve others",
+            "Unity: is enhanced as learners discuss, in pairs, how they use their talents and abilities"
+          ],
+          "pcis": [
+            "Social cohesion is portrayed as learners role-play use of different talents and abilities in serving others"
+          ],
+          "linkToOtherSubjects": [
+            "English: communication skills are enhanced as learners read and participate in class discussions",
+            "Creative Arts: creative skills are applied as learners compose a poem on 'how I use my talents and abilities'"
+          ]
+        },
+        {
+          "subStrandNumber": "1.2",
+          "subStrandName": "Marriage and Family",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Explain the biblical teachings on marriage and family",
+            "Discuss the negative results of early marriage",
+            "Identify values needed to avoid early marriage",
+            "Desire to uphold Christian values to avoid early marriage"
+          ],
+          "suggestedLearningExperiences": [
+            "Brainstorm on the meaning of the word, 'marriage'",
+            "Share experiences of how they relate with other members of their families",
+            "Use a digital device or a chart to write messages on how families should relate with each other",
+            "In groups, role-play how a Christian family should relate with each other",
+            "In pairs, read Genesis 2:21-24 and discuss what the Bible teaches about marriage",
+            "Discuss, collaboratively, why early marriages should be discouraged in society today",
+            "List values that young people should uphold to avoid early marriage",
+            "Develop posters with messages discouraging early marriage"
+          ],
+          "keyInquiryQuestions": ["Why is marriage an important institution?"],
+          "coreCompetencies": [
+            "Communication and collaboration: the skill of teamwork is enhanced as learners work collaboratively to write messages discouraging early marriage",
+            "Digital literacy: the skill of connecting and using technology is exhibited as learners use digital devices to write messages on how families should relate with each other"
+          ],
+          "values": [
+            "Unity is nurtured as learners discuss, in small groups, why early marriage should be discouraged in the society today"
+          ],
+          "pcis": [
+            "Social cohesion: living together in harmony is enhanced as learners brainstorm on the meaning of marriage",
+            "Children rights and Human Sexuality: human rights/children rights are enhanced as learners recognise that early marriage is an abuse of human rights"
+          ],
+          "linkToOtherSubjects": [
+            "English: reading skills are enhanced as learners read, discuss and write messages discouraging early marriage today",
+            "Science and Technology: learners use digital devices to write messages on how families should relate with each other"
+          ]
+        },
+        {
+          "subStrandNumber": "1.3",
+          "subStrandName": "Leisure",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Describe the biblical teaching on God's rest",
+            "Explain biblical teachings on good use of leisure",
+            "Describe how youths misuse leisure time today",
+            "Identify values needed for appropriate use of leisure time",
+            "Desire to use leisure time responsibly"
+          ],
+          "suggestedLearningExperiences": [
+            "Brainstorm on the meaning of the word, 'leisure'",
+            "Share with a classmate how they use their leisure time",
+            "List different activities they do during their leisure time",
+            "Read Genesis 2:1-3 and state why God rested",
+            "Read 1Timothy 5:13 and state the importance of leisure time",
+            "List ways in which youths misuse leisure time today",
+            "List values which can help youths to use leisure time well",
+            "Write a reflection journal on positive ways of spending leisure time"
+          ],
+          "keyInquiryQuestions": [
+            "How can youths avoid misuse of leisure time?"
+          ],
+          "coreCompetencies": [
+            "Learning to learn: the skill of reflection on own learning is enhanced as learners write a reflection journal on positive ways of spending leisure time",
+            "Communication and collaboration: the skill of speaking clearly and effectively is enhanced as learners discuss values needed to use leisure time appropriately"
+          ],
+          "values": [
+            "Patriotism: learners dedicate their leisure time to carry out positive activities in the society",
+            "Integrity: learners display honesty as one of the values which can help them use leisure time appropriately"
+          ],
+          "pcis": [
+            "Human rights and responsibility: is portrayed as learners outline biblical teachings on good use of leisure time"
+          ],
+          "linkToOtherSubjects": [
+            "English: reading skills are enhanced as learners read the Bible and outline the importance of leisure time"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "2.0",
+      "strandName": "The Bible",
+      "subStrands": [
+        {
+          "subStrandNumber": "2.1",
+          "subStrandName": "The Inspired Word of God",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Explain why the Bible is the inspired word of God",
+            "Name three authors who wrote the Bible",
+            "Discuss reasons that led to translation of the Bible into local languages",
+            "Outline the advantages of translating the Bible into local languages",
+            "Read the Bible always to get spiritual nourishment"
+          ],
+          "suggestedLearningExperiences": [
+            "Brainstorm on the meaning of 'Bible is the inspired Word of God'",
+            "Compose and sing a song on 'the Bible as an inspired Word of God'",
+            "Read 2 Timothy 3:16-17 and explain the meaning of the text",
+            "Name authors who were inspired to write the Old and New Testament",
+            "Use digital devices to search for reasons that led to translation of the Bible into local languages",
+            "Identify the advantages of translating the Bible into local languages"
+          ],
+          "keyInquiryQuestions": [
+            "Why is the Bible different from other books?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration: the skill of teamwork is enhanced as learners, in groups, identify the advantages of translating the Bible into local languages",
+            "Imagination and creativity: the skill of originality is enhanced as learners compose and sing a song on, 'The Bible as an inspired Word of God'",
+            "Digital literacy: the skill of interacting with digital technology is enhanced as learners use digital devices to perform various tasks"
+          ],
+          "values": [
+            "Respect: learners accept and appreciate the opinions of others as they discuss, in groups, the advantages of translating the Bible into local languages"
+          ],
+          "pcis": [
+            "Social cohesion is portrayed as learners identify the advantages of translating the Bible into local languages"
+          ],
+          "linkToOtherSubjects": [
+            "Creative Arts: creative skills are applied as learners compose and sing a song on, 'The Bible as an inspired Word of God'",
+            "Science and Technology skills are applied as learners use digital devices to search for reasons that led to translation of the Bible into local languages"
+          ]
+        },
+        {
+          "subStrandNumber": "2.2",
+          "subStrandName": "The Ten Commandments",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Outline the Ten Commandments and their importance",
+            "Identify values and life skills in the Ten Commandments",
+            "Outline lessons learnt from the Ten Commandments",
+            "Appreciate the importance of obeying the Ten Commandments"
+          ],
+          "suggestedLearningExperiences": [
+            "Team up to brainstorm on the meaning of the word, 'Commandment'",
+            "Read Exodus 20:3-17 and list the Ten Commandments",
+            "Discuss how the Ten Commandments help Christians live well with God and others",
+            "Discuss with peers the values and life skills found in the Ten Commandments",
+            "Discuss lessons learnt from the Ten Commandments",
+            "Design a poster or a chart and write the Ten Commandments, display the chart at the CRE learning corner",
+            "Watch a video clip of Moses and the Ten Commandments"
+          ],
+          "keyInquiryQuestions": ["Why should you obey the Ten Commandments?"],
+          "coreCompetencies": [
+            "Critical thinking and problem solving: the skill of active listening and communication is enhanced as learners follow simple instructions in class",
+            "Creativity and imagination: the skill of originality is enhanced as learners design a poster/chart on the Ten Commandments and display it in class",
+            "Digital literacy: the skill of digital citizenship is enhanced as learners watch a video clip on Moses and the Ten Commandments"
+          ],
+          "values": [
+            "Peace: learners learn to live in harmony with others as guided by the Ten Commandments",
+            "Love: learners learn to love God, self and neighbour",
+            "Respect: learners learn how to honour God by obeying His commandments"
+          ],
+          "pcis": [
+            "Social cohesion: is nurtured as learners learn to live together in harmony as outlined in the Ten Commandments",
+            "Human rights and responsibilities: is enhanced as learners learn to respect the rights of others"
+          ],
+          "linkToOtherSubjects": [
+            "English: communication skills are enhanced as learners compose and recite poems about the Ten Commandments",
+            "Social Studies skills are enhanced through the concept of human rights and good neighbourliness"
+          ]
+        },
+        {
+          "subStrandNumber": "2.3",
+          "subStrandName": "Samson Defeats the Philistines",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Retell the story of Samson as guided by the scriptures",
+            "Outline ways Christians depend on God to overcome challenges in life",
+            "List lessons learnt from the story of Samson",
+            "Depend on God in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "Team up to read Judges 15:14-17 and retell the story",
+            "Retell how God gave Samson power to defeat his enemies",
+            "List ways Christians depend on God's power to overcome daily challenges",
+            "Work with peers to list lessons learnt from the story of Samson",
+            "Compose a poem on the importance of depending on God"
+          ],
+          "keyInquiryQuestions": ["Why should you depend on God?"],
+          "coreCompetencies": [
+            "Communication and collaboration: the skill of speaking clearly and effectively is enhanced as learners discuss how Christians depend on God's power",
+            "Learning to learn: the skill of self-discipline is enhanced as learners work collaboratively to read the scriptures",
+            "Creativity and imagination: the skill of communication and self-expression is enhanced as learners creatively express their ideas by composing a poem on the importance of depending on God's power"
+          ],
+          "values": [
+            "Unity: learners cooperate and take turns during discussions"
+          ],
+          "pcis": [
+            "Safety and security: is enhanced as learners become aware of their safety and learn how to depend on God for protection"
+          ],
+          "linkToOtherSubjects": [
+            "English: reading skills are enhanced as learners read and retell the story of Samson",
+            "Creative Arts: creative skills are applied as learners compose a poem on the importance of depending on God's power"
+          ]
+        },
+        {
+          "subStrandNumber": "2.4",
+          "subStrandName": "Faith in God (Elisha)",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Describe how Elisha recovered the axe head",
+            "Exercise faith in God to overcome challenges in life",
+            "Trust in God's power when faced with challenges"
+          ],
+          "suggestedLearningExperiences": [
+            "In pairs, brainstorm on challenges they experience in life and how they deal with them",
+            "Read 2 Kings 6:1-7 and retell the story",
+            "Use a digital device to watch a video clip about the story",
+            "Discuss ways they exercise faith in God to overcome challenges in life"
+          ],
+          "keyInquiryQuestions": ["How did Elisha recover the axe head?"],
+          "coreCompetencies": [
+            "Learning to learn: the skill of reflection on own learning is enhanced as learners brainstorm on challenges they experience in life and how they deal with them",
+            "Digital literacy: the skill of interacting with digital technology is enhanced as learners use digital devices to watch a video clip based on the story"
+          ],
+          "values": [
+            "Unity: learners cooperate as they discuss and participate in various tasks",
+            "Love: learners learn to portray a caring attitude towards others just like what Elisha did by retrieving the axe head"
+          ],
+          "pcis": [
+            "Empathy: is enhanced as learners learn how Elisha helped the prophet to retrieve the axe head from water"
+          ],
+          "linkToOtherSubjects": [
+            "Science and Technology skills are applied as learners use digital devices to perform tasks"
+          ]
+        },
+        {
+          "subStrandNumber": "2.5",
+          "subStrandName": "Jacob Wrestles an Angel",
+          "numberOfLessons": 5,
+          "specificLearningOutcomes": [
+            "Narrate the story of Jacob as guided by the scriptures",
+            "Outline lessons learnt from the story of Jacob",
+            "Identify values learnt from the story of Jacob",
+            "Emulate Jacob by being persistent in prayer"
+          ],
+          "suggestedLearningExperiences": [
+            "In turns, read Genesis 32:22-30 and retell the story",
+            "Watch a video clip of Jacob wrestling with God",
+            "Role-play the story of Jacob wrestling with God",
+            "Brainstorm on the meaning of 'persistence in prayer'",
+            "Discuss lessons learnt from the story",
+            "Discuss how they apply lessons learnt in their lives",
+            "Compose and say a prayer to God"
+          ],
+          "keyInquiryQuestions": ["Why is it good to pray always?"],
+          "coreCompetencies": [
+            "Communication and collaboration: the skill of teamwork is enhanced as learners role-play the story of Jacob wrestling with God",
+            "Creativity and imagination: the skill of originality is enhanced as learners compose and sing a song on persistence in prayer",
+            "Digital literacy: the skill of digital citizenship is enhanced as learners use digital devices to watch a video clip about Jacob wrestling with God"
+          ],
+          "values": [
+            "Responsibility: learners learn to be persistent in prayer as portrayed by Jacob",
+            "Unity: unity is enhanced as learners role-play the story of Jacob wrestling with God"
+          ],
+          "pcis": [
+            "Social cohesion: is enhanced as they learn the importance of having guiding values in life as they discuss the story of Jacob"
+          ],
+          "linkToOtherSubjects": [
+            "Creative Arts: creative skills are exhibited as learners compose and sing a song on persistence in prayers",
+            "Science and Technology skills are applied as learners watch a video clip on Jacob wrestling with God",
+            "English: reading skills are enhanced as learners take turns to read the Bible"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "3.0",
+      "strandName": "The Life of Jesus Christ",
+      "subStrands": [
+        {
+          "subStrandNumber": "3.1",
+          "subStrandName": "The Call of the Disciples",
+          "numberOfLessons": 5,
+          "specificLearningOutcomes": [
+            "Retell the call of the first disciples as guided by the scriptures",
+            "State how different people are called to serve God today",
+            "Serve God in his or her daily life to grow spiritually"
+          ],
+          "suggestedLearningExperiences": [
+            "Discuss, in small groups, different roles they play in church and share in class",
+            "In turns, read Mark 1:16-20 and retell the call of the first disciples",
+            "Watch a video clip on the call of the first disciples",
+            "Role-play the call of the first disciples",
+            "Compose and sing a song on the call of the first four disciples",
+            "Say how people are called to serve God today",
+            "Share with peers activities they do in church as service to God"
+          ],
+          "keyInquiryQuestions": [
+            "How did the disciples respond to the call of Jesus Christ?"
+          ],
+          "coreCompetencies": [
+            "Digital literacy: the skill of digital citizenship is enhanced as learners watch a video clip on the call of the first disciples",
+            "Critical thinking and problem solving: active listening and communication skills are enhanced as learners follow simple instructions",
+            "Self-efficacy: the skill of knowing self is enhanced as learners share with others the different activities they perform in church"
+          ],
+          "values": [
+            "Responsibility: learners work diligently in assigned roles and duties in church",
+            "Unity: learners display team spirit as they role-play the call of the first disciples"
+          ],
+          "pcis": [
+            "Human rights and responsibilities: is enhanced as learners participate in different activities at home, school and in church"
+          ],
+          "linkToOtherSubjects": [
+            "Creative Arts: creative skills are applied as learners compose and sing a song on the call of the first disciples",
+            "English: speaking skills are enhanced as learners retell the call of the first disciples"
+          ]
+        },
+        {
+          "subStrandNumber": "3.2",
+          "subStrandName": "The Temptations of Jesus Christ",
+          "numberOfLessons": 5,
+          "specificLearningOutcomes": [
+            "Narrate how Jesus Christ was tempted in the wilderness",
+            "Identify temptations they face as young people today",
+            "Desire to overcome temptations in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "In pairs, brainstorm on the temptations they face in their daily lives",
+            "Read Luke 4:1-13 and describe temptations faced by Jesus Christ",
+            "Discuss how Jesus Christ overcame the temptations He faced in the wilderness",
+            "Watch a video clip on how Jesus Christ was tempted in the wilderness",
+            "In pairs, list the temptations they are likely to face as young people today",
+            "Team up to discuss how they overcome temptations and share experiences in class"
+          ],
+          "keyInquiryQuestions": [
+            "How did Jesus Christ overcome the temptations He faced in the wilderness?",
+            "How do you overcome temptations as a young person?"
+          ],
+          "coreCompetencies": [
+            "Learning to learn: the skill of reflection on own learning is enhanced as learners brainstorm, in pairs, on the temptations they face in day-to-day life",
+            "Communication and collaboration: the skill of speaking clearly and effectively is enhanced as learners discuss, in small groups, how Jesus Christ responded to the temptations He faced in the wilderness"
+          ],
+          "values": [
+            "Responsibility: learners learn to be resilient as they proactively overcome temptations",
+            "Unity: learners cooperate with others as they discuss, in small groups, how Jesus Christ overcame temptations"
+          ],
+          "pcis": [
+            "Safety and security: is enhanced as learners become aware of their safety and that of their family members"
+          ],
+          "linkToOtherSubjects": [
+            "Science and Technology skills are applied as learners watch a video clip about Jesus Christ's temptations in the wilderness",
+            "English: reading skills are enhanced as learners read Luke 4:1-13 and retell the story"
+          ]
+        },
+        {
+          "subStrandNumber": "3.3",
+          "subStrandName": "Miracles of Jesus Christ (The Roman Officer's Servant)",
+          "numberOfLessons": 5,
+          "specificLearningOutcomes": [
+            "Narrate the healing of the Roman officer's servant",
+            "Discuss lessons learnt from the healing of the Roman officer's servant",
+            "Emulate Jesus Christ's example by praying for the sick"
+          ],
+          "suggestedLearningExperiences": [
+            "Brainstorm on the importance of praying for the sick",
+            "Read Matthew 8:5-13 and narrate the miracle",
+            "List lessons learnt from the healing of the Roman officer's servant",
+            "Watch a video clip on the healing of the Roman officer's servant",
+            "Role play the healing of the Roman officer's servant",
+            "Share experiences on how they prayed for a sick person"
+          ],
+          "keyInquiryQuestions": [
+            "How did the Roman officer demonstrate faith in God?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration: the skill of teamwork is enhanced as learners role-play the miracle of healing the Roman Officer's servant",
+            "Learning to learn: the skill of developing relationships is enhanced as learners share what they learnt from the healing of the Roman officer's servant"
+          ],
+          "values": [
+            "Social justice: learners portray equity as they foster inclusivity and non-discrimination as shown by the Roman officer",
+            "Love: is acquired as learners learn about care and concern for others as portrayed by the Roman officer"
+          ],
+          "pcis": [
+            "Health promotion issues: is enhanced as learners learn about the healing of the Roman officer's servant"
+          ],
+          "linkToOtherSubjects": [
+            "English: Communication skills are enhanced as learners discuss and read Bible verses",
+            "Creative Arts: creative skills are applied as learners role-play the healing of the Roman officer's servant",
+            "Science and Technology skills are applied as learners use digital devices to watch a video clip on the healing of the Roman officer's servant"
+          ]
+        },
+        {
+          "subStrandNumber": "3.4",
+          "subStrandName": "Faith in God",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Describe the miracle of healing the bleeding woman",
+            "Identify different ways the church and government help the sick in society",
+            "Outline lessons learnt from the miracle of healing the bleeding woman",
+            "Appreciate the healing power of Jesus Christ in their lives"
+          ],
+          "suggestedLearningExperiences": [
+            "Brainstorm on what they do when they are sick",
+            "In turns, read Luke 8:43-48 and retell the miracle",
+            "Discuss different ways the church and government are helping the sick and share in class",
+            "Discuss lessons learnt from the healing of the bleeding woman",
+            "Compose and sing a song about God's healing power"
+          ],
+          "keyInquiryQuestions": [
+            "How did the bleeding woman portray faith in God?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration: the skill of speaking clearly and effectively is enhanced as learners discuss ways the church and government are helping the sick in the society",
+            "Creativity and imagination: the skill of originality is enhanced as learners compose and sing a song about God's healing power"
+          ],
+          "values": [
+            "Integrity: learners display honesty as learnt from the healing of the bleeding woman",
+            "Love: learners demonstrate a caring attitude towards sick people in society as demonstrated by Jesus Christ"
+          ],
+          "pcis": [
+            "Health promotion issues are enhanced as they learn the importance of being in good health"
+          ],
+          "linkToOtherSubjects": [
+            "Creative Arts: creative skills are applied as learners compose and sing songs",
+            "English: communication skills are enhanced as learners read Luke 8:43-48 and retell the miracle"
+          ]
+        },
+        {
+          "subStrandNumber": "3.5",
+          "subStrandName": "Lazarus is Raised from Dead",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Describe the miracle of raising Lazarus from the dead",
+            "Outline lessons learnt from the miracle of raising Lazarus from the dead",
+            "Appreciate God's power over sickness and death"
+          ],
+          "suggestedLearningExperiences": [
+            "Share how they show empathy to those who have lost family members or friends",
+            "Discuss how they cope with grief if they lose a close family member or a relative",
+            "In pairs, read John 11:32-45 and retell the miracle of raising Lazarus from the dead",
+            "Outline lessons learnt from raising Lazarus from the dead",
+            "Compose a poem on 'God's power over sickness and death'"
+          ],
+          "keyInquiryQuestions": [
+            "Why did Jesus say that Lazarus was only asleep?"
+          ],
+          "coreCompetencies": [
+            "Learning to learn: the skill of reflection on own learning is enhanced as learners share experiences of how they show empathy to others",
+            "Creativity and imagination: the skill of originality is enhanced as learners compose a poem on 'God's power over sickness and death'"
+          ],
+          "values": [
+            "Love is portrayed as they learn to grieve with those who have lost loved ones",
+            "Respect is inculcated as they learn to value human dignity as portrayed by Jesus Christ when He raised Lazarus from the dead"
+          ],
+          "pcis": [
+            "Social cohesion: is enhanced as learners show empathy to those who have lost their loved ones"
+          ],
+          "linkToOtherSubjects": [
+            "Social Studies skills are enhanced as learners discuss how to show empathy to those who have lost loved ones"
+          ]
+        },
+        {
+          "subStrandNumber": "3.6",
+          "subStrandName": "The Hidden Treasure",
+          "numberOfLessons": 5,
+          "specificLearningOutcomes": [
+            "Retell the parable of the hidden treasure",
+            "Outline lessons learnt from the parable of the hidden treasure",
+            "Be partakers of the Kingdom of God by committing their lives to Christ"
+          ],
+          "suggestedLearningExperiences": [
+            "Define the meaning of the word, 'treasure'",
+            "State what they treasure most in their lives",
+            "Brainstorm on the value of the Kingdom of God, 'Why is it so valuable?'",
+            "Read, in pairs, Matthew 13:44-46 and retell the parable of the hidden treasure",
+            "Outline lessons learnt from the parable of the hidden treasure",
+            "Role-play the parable of the hidden treasure",
+            "Brainstorm on how they can be part of the kingdom of God",
+            "Share how they respond to the call of salvation in their lives",
+            "Share with peers the value of the Kingdom of God",
+            "Compose and sing a song about how valuable the Kingdom of God is"
+          ],
+          "keyInquiryQuestions": [
+            "Why is the Kingdom of God compared to a hidden treasure?"
+          ],
+          "coreCompetencies": [
+            "Self-efficacy: the skill of knowing self is enhanced as learners, in small groups, share what they value in life",
+            "Critical thinking and problem solving: the skill of active listening and communication is enhanced as learners follow simple instructions and as they share how they respond to the call of salvation in their lives"
+          ],
+          "values": [
+            "Unity: learners display team spirit as they perform different tasks, in pairs and groups, and respect each other's opinions"
+          ],
+          "pcis": [
+            "Social cohesion: is enhanced as learners work together, in groups, and share about the Kingdom of God with peers"
+          ],
+          "linkToOtherSubjects": [
+            "English: speaking skills are enhanced as learners brainstorm and discuss, in groups, what they value most in their lives",
+            "Creative Arts: creative skills are applied as learners compose and sing a song about the value of the Kingdom of God"
+          ]
+        },
+        {
+          "subStrandNumber": "3.7",
+          "subStrandName": "The Rich Man and Lazarus",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Describe the parable of the rich man and Lazarus",
+            "Discuss lessons learnt from the parable of the rich man and Lazarus",
+            "Live responsibly as God-fearing Christians"
+          ],
+          "suggestedLearningExperiences": [
+            "In groups, search from the internet, how Christians use their resources to help people in need",
+            "In turns, read Luke 16:19-31 and retell the parable",
+            "Watch a video clip on the rich man and Lazarus",
+            "Outline lessons learnt from the parable of the rich man and Lazarus",
+            "Role-play the parable of the rich man and Lazarus and summarise key points"
+          ],
+          "keyInquiryQuestions": ["How should Christians use their wealth?"],
+          "coreCompetencies": [
+            "Learning to learn: the skill of developing relations is exhibited as learners, in groups, share what they have learnt from the parable of the rich man and Lazarus",
+            "Digital literacy: the skill of connecting using technology is enhanced as learners connect to and use the internet to search for the necessary information"
+          ],
+          "values": [
+            "Love: learners share and use their resources to support one another",
+            "Respect: learners value human dignity as they help those in need"
+          ],
+          "pcis": [
+            "Mental health: is enhanced as learners learn how they should relate and cater for the wellbeing of each other"
+          ],
+          "linkToOtherSubjects": [
+            "Science and Technology skills are applied as learners use digital devices to search for information from the internet",
+            "Creative Arts: creative skills are applied as learners role-play the parable of the rich man and Lazarus"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "4.0",
+      "strandName": "The Church",
+      "subStrands": [
+        {
+          "subStrandNumber": "4.1",
+          "subStrandName": "The Apostles' Creed",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Recite the Apostles' creed to affirm their faith in Christ",
+            "Outline the teachings outlined in the Apostle's Creed",
+            "Discuss the importance of the Apostles' Creed to Christians today",
+            "List the three persons of the Holy Trinity",
+            "Recognise the value of the Holy Trinity in their lives"
+          ],
+          "suggestedLearningExperiences": [
+            "Recite the Apostle's Creed",
+            "Write the meaning of Apostles' Creed on charts and display them in the CRE learning corner",
+            "Summarise the teachings outlined in the Apostle's Creed",
+            "State the importance of the Apostles' Creed to Christians today",
+            "Mention the three persons of the Holy Trinity",
+            "Compose and sing a song related to Holy Trinity"
+          ],
+          "keyInquiryQuestions": [
+            "Why is the Apostles' Creed important in Christianity?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration: the skill of speaking clearly and effectively is exhibited as learners discuss the teachings found in the Apostles' Creed",
+            "Learning to learn: the skill of developing relationships is enhanced as learners brainstorm, in pairs, the importance of the Apostles' Creed to Christians today"
+          ],
+          "values": [
+            "Unity is nurtured as learners cooperate during group discussions"
+          ],
+          "pcis": [
+            "Healthy inter- and intra-personal relationships are nurtured as learners work in pairs and groups"
+          ],
+          "linkToOtherSubjects": [
+            "English Language: communication skills are enhanced as learners recite the Apostles' Creed",
+            "Creative Arts: creative skills are applied as learners compose and sing a song related to the Holy Trinity"
+          ]
+        },
+        {
+          "subStrandNumber": "4.2",
+          "subStrandName": "Standing Firm in Faith",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Describe the suffering faced by the Apostles according to 2 Corinthians 6:3-7",
+            "Identify values/virtues in the life of Apostle Paul",
+            "Apply values from the life of Apostle Paul in day-to-day life",
+            "Stand firm in the Christian faith in the face of persecution"
+          ],
+          "suggestedLearningExperiences": [
+            "Brainstorm on how Christians are persecuted in the society today",
+            "In turns, read 2 Corinthians 6:3-7 and write down the main points in their exercise books",
+            "Outline values/virtues in the life of Apostle Paul",
+            "Practise values learnt from the life of Apostle Paul in daily life",
+            "Compose and sing relevant songs on standing firm in the Christian faith"
+          ],
+          "keyInquiryQuestions": [
+            "Why should Christians stand firm in their faith in God?"
+          ],
+          "coreCompetencies": [
+            "Creativity and imagination: the skill of coming up with unique and new ideas is exhibited as learners compose and sing relevant songs on standing firm in the Christian faith"
+          ],
+          "values": [
+            "Unity: learners cooperate as they discuss, in pairs, values learnt from the teachings of Apostle Paul"
+          ],
+          "pcis": [
+            "Peace education: is nurtured as learners outline values learnt from the life of Apostle Paul"
+          ],
+          "linkToOtherSubjects": [
+            "English: communication skills are enhanced as learners brainstorm on how Christians are persecuted in the society today",
+            "Creative Arts: creative skills are applied as learners compose and sing relevant songs on standing firm in the Christian faith"
+          ]
+        },
+        {
+          "subStrandNumber": "4.3",
+          "subStrandName": "Church Unity",
+          "numberOfLessons": 5,
+          "specificLearningOutcomes": [
+            "Explain the meaning of Church unity",
+            "Explain the biblical teachings on Church unity",
+            "Describe ways in which Church unity fosters harmonious living",
+            "Desire to live harmoniously with each other"
+          ],
+          "suggestedLearningExperiences": [
+            "In pairs, list the different churches in their communities",
+            "Brainstorm, in small groups, the meaning of Church unity and share with the class",
+            "Read, in turns; Matthew 16:18, Galatians 3:28 and 1Corinthians 12:12 and note key points on Church unity",
+            "Discuss, in small groups, biblical teachings on Christian unity",
+            "Discuss, in pairs, how Christian unity is demonstrated at school and in their communities",
+            "Identify ways in which different churches work together",
+            "Watch a video clip on churches working together",
+            "Compose and sing a song on Church unity"
+          ],
+          "keyInquiryQuestions": ["Why is Church unity important?"],
+          "coreCompetencies": [
+            "Digital literacy: the skill of digital citizenship is exhibited as learners watch a video clip on churches working together",
+            "Communication and collaboration: the skill of teamwork is portrayed as learners discuss how Christian unity is demonstrated at school and in the community"
+          ],
+          "values": [
+            "Social justice: learners cooperate as they discuss how Christian unity is demonstrated at school and in the community"
+          ],
+          "pcis": [
+            "Social cohesion: is nurtured as they learn how to live together in harmony"
+          ],
+          "linkToOtherSubjects": [
+            "English: communication skills are enhanced as learners read, brainstorm and discuss various concepts",
+            "Creative Arts: creative arts skills are applied as learners compose and sing songs related to concepts taught",
+            "Science and Technology skills are enhanced as learners use digital devices to perform various tasks"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "5.0",
+      "strandName": "Christian Living Today",
+      "subStrands": [
+        {
+          "subStrandNumber": "5.1",
+          "subStrandName": "Friendship Formation",
+          "numberOfLessons": 6,
+          "specificLearningOutcomes": [
+            "Discuss the importance of having good friends",
+            "Outline biblical teachings on friendship formation",
+            "Desire to walk with morally upright friends"
+          ],
+          "suggestedLearningExperiences": [
+            "State qualities to consider in choosing good friends",
+            "Buzz on how to avoid bad company and negative peer influence",
+            "Brainstorm on how to choose good friends",
+            "Discuss the importance of having good friends",
+            "Read 1Corinthians 15:33, Proverbs 13:20-21 and Proverbs 16:28-29; discuss lessons learnt and make notes",
+            "Brainstorm on the topic; 'how to avoid negative peer influence'"
+          ],
+          "keyInquiryQuestions": ["Why is it important to have good friends?"],
+          "coreCompetencies": [
+            "Communication and collaboration: the skill of communicating clearly and effectively is exhibited as learners discuss the importance of having good friends",
+            "Digital literacy: the skill of connecting using technology is enhanced as learners brainstorm on the topic 'how to avoid negative peer influence' and make power point presentations"
+          ],
+          "values": [
+            "Responsibility: learners are responsible for their actions by ensuring they choose their friends wisely",
+            "Love: learners portray a caring attitude towards their friends"
+          ],
+          "pcis": [
+            "Social cohesion is nurtured as learners learn to live in harmony with each other by avoiding negative peer influence"
+          ],
+          "linkToOtherSubjects": [
+            "English: speaking skills are enhanced as learners read the Bible Texts and compose poems",
+            "Science and Technology skills are applied as learners use digital devices to make presentation"
+          ]
+        },
+        {
+          "subStrandNumber": "5.2",
+          "subStrandName": "Human Sexuality",
+          "numberOfLessons": 7,
+          "specificLearningOutcomes": [
+            "Describe biblical teachings on responsible sexual behaviour",
+            "Outline the causes of irresponsible sexual behaviour among the youth",
+            "Identify values and life skills required to avoid irresponsible sexual behaviour",
+            "Respect his or her body as the temple of the Holy Spirit"
+          ],
+          "suggestedLearningExperiences": [
+            "In small groups, list physical and emotional changes that boys and girls experience during adolescence",
+            "Discuss how to cope with the changes in their bodies during adolescence",
+            "In turns, read 1 Corinthians 6:18-20, 2 Timothy 2:22, James 1:14-16 and outline lessons learnt",
+            "List some irresponsible sexual behaviour that youths engage in and how to avoid them",
+            "In small groups, discuss the causes of irresponsible sexual behaviour",
+            "Discuss values and life skills required to avoid irresponsible sexual behaviour",
+            "Compose a poem on, 'My body is the Temple of the Holy Spirit'"
+          ],
+          "keyInquiryQuestions": [
+            "How can you avoid irresponsible sexual behaviour?"
+          ],
+          "coreCompetencies": [
+            "Learning to learn: the skill of developing relationships is enhanced as learners live responsibly and avoid irresponsible sexual behaviour",
+            "Self-efficacy: the skill of expressing self is portrayed as learners make a decision to avoid irresponsible sexual behaviour"
+          ],
+          "values": [
+            "Peace: learners care and respect self and others by not engaging in irresponsible sexual behaviour",
+            "Unity: learners cooperate with others as they list, in groups, irresponsible sexual behaviours that youths engage in and how to avoid such behaviours"
+          ],
+          "pcis": [
+            "Human sexuality – morality: is nurtured as learners discuss values and life skills required to avoid irresponsible sexual behaviour"
+          ],
+          "linkToOtherSubjects": [
+            "English: reading skills are enhanced as learners read the Bible",
+            "Science and Technology skills are applied as learners use digital devices to search the internet on the causes of irresponsible sexual behaviour"
+          ]
+        },
+        {
+          "subStrandNumber": "5.3",
+          "subStrandName": "Sanctity of Life",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Identify practices that violate the right to life in society today",
+            "Outline the effects of violating the right to life",
+            "Explain Christian teachings on sanctity of life",
+            "List virtues that young people should practise to protect life",
+            "Acknowledge that life is a gift from God"
+          ],
+          "suggestedLearningExperiences": [
+            "Team up to outline practices which violate the right to life in today's society",
+            "Debate on the topic, 'The effects of violating the right to life'",
+            "Read Exodus 20:13, Matthew 5:21-24 and write lessons learnt in their exercise books",
+            "Say why they should observe road safety rules",
+            "Role-play observing road safety rules while crossing the road",
+            "Discuss, in small groups, virtues required to maintain the sanctity of life",
+            "Compose a poem to thank God for the gift of life"
+          ],
+          "keyInquiryQuestions": ["How can you uphold the sanctity of life?"],
+          "coreCompetencies": [
+            "Communication and collaboration: the skill of speaking engagingly is exhibited as learners debate, in two groups, the 'effects of violating the right to life'",
+            "Creativity and imagination: the skill of originality is portrayed as learners compose a poem thanking God for the gift of life"
+          ],
+          "values": [
+            "Respect is nurtured as learners portray a caring attitude towards self and others",
+            "Responsibility is exhibited as learners make a decision to uphold the sanctity of life",
+            "Love is inculcated as learners honour God's commandment to respect the right to life"
+          ],
+          "pcis": [
+            "Human rights and responsibilities: are nurtured as learners discuss, in small groups, practices that violate the right to life and report to the class"
+          ],
+          "linkToOtherSubjects": [
+            "English: communication skills are enhanced as learners debate on the topic, 'The effects of violating the right to life'",
+            "Social Studies skills are enhanced as learners learn about the right to life"
+          ]
+        },
+        {
+          "subStrandNumber": "5.4",
+          "subStrandName": "Alcohol, Drug and Substance Abuse",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Explain Christian teachings on the dangers of alcohol, drugs and substance abuse",
+            "Outline strategies used by Christians to prevent alcohol, drugs and substance abuse",
+            "Analyse the measures taken by government agencies to fight drug trafficking and abuse",
+            "Utilise Christian values and life skills to avoid alcohol, drugs and substance abuse"
+          ],
+          "suggestedLearningExperiences": [
+            "Brainstorm, in groups, tricks used to trap young people into alcohol, drugs and substance abuse",
+            "Brainstorm on the dangers of using and abusing alcohol and drugs",
+            "In pairs read Ephesians 5:18, Hosea 4:11 and discuss Christian teachings on the dangers of alcohol, drugs and substance abuse",
+            "Discuss strategies used by Christians to prevent alcohol, drugs, and substance abuse",
+            "In pairs discuss measures taken by government agencies to fight drug trafficking and abuse",
+            "Discuss values and life skills required to avoid alcohol, drugs and substance abuse"
+          ],
+          "keyInquiryQuestions": [
+            "Why do young people abuse alcohol and drugs?",
+            "How can you avoid alcohol, drugs and substance abuse?"
+          ],
+          "coreCompetencies": [
+            "Self-efficacy: the skill of exhibiting responsibility is demonstrated as learners choose to do what is right by avoiding alcohol, drugs and substance abuse",
+            "Learning to learn: the skill of sharing what they have learnt is exhibited as they discuss strategies used by Christians to prevent alcohol, drugs and substance abuse",
+            "Communication: the skill of active listening and communication is demonstrated as they discuss values and life skills needed to avoid alcohol, drugs and substance abuse"
+          ],
+          "values": [
+            "Responsibility is nurtured as they say No! to alcohol, drug and substance abuse",
+            "Integrity is portrayed as they say No! to alcohol, drug and substance abuse",
+            "Respect is demonstrated as they care for their bodies by avoiding harmful substances"
+          ],
+          "pcis": [
+            "Safety and security issues: learners ensure safety from harmful effects of drugs, alcohol and substance abuse",
+            "Alcohol and substance abuse: learners brainstorm, in groups, tricks used to trap young people into alcohol, drugs and substance abuse hence avoid bad friends"
+          ],
+          "linkToOtherSubjects": [
+            "English: communication skills are enhanced as learners discuss and debate on various concepts",
+            "Social Studies skills are enhanced as learners learn about human rights and responsibilities",
+            "Agriculture skills are enhanced as learners learn the negative effects of abusing alcohol and drugs"
+          ]
+        }
+      ]
+    }
+  ]
+}

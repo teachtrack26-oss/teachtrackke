@@ -1,0 +1,354 @@
+{
+  "subject": "Integrated Science",
+  "grade": "Grade 7",
+  "educationLevel": "Junior Secondary",
+  "strands": [
+    {
+      "strandNumber": "1.0",
+      "strandName": "Scientific Investigation",
+      "subStrands": [
+        {
+          "subStrandNumber": "1.1",
+          "subStrandName": "Introduction to Integrated Science",
+          "numberOfLessons": 12,
+          "specificLearningOutcomes": [
+            "Outline the components of Integrated Science as a field of study",
+            "Explain the importance of science in daily life",
+            "Show interest in learning Integrated Science at junior school"
+          ],
+          "suggestedLearningExperiences": [
+            "Brainstorm on the components of Integrated Science",
+            "Use digital or print media to search for information on components of integrated science and share with peers",
+            "Collaboratively discuss the importance of science in daily life",
+            "Search for information from print or digital media on pathways related to Integrated Science at Senior School",
+            "Project: Use locally available materials to construct a career chart and display"
+          ],
+          "keyInquiryQuestions": [
+            "How is the knowledge acquired in Integrated Science useful in daily life?"
+          ],
+          "coreCompetencies": [
+            "Communication and Collaboration: the learner acquires listening and speaking skills as they discuss the importance of science in daily life",
+            "Digital Literacy: the learner acquires digital manipulative skills as they search for information from digital media on pathways related to Integrated Science at Senior School"
+          ],
+          "values": [
+            "Respect: the learner respects each other's opinion(s) as they discuss the importance of scientific knowledge in daily life",
+            "Unity: the learner cooperates and works harmoniously as they brainstorm on the components of Integrated Science"
+          ],
+          "pcis": [],
+          "linkToOtherSubjects": [
+            "The learner can link the importance of science to career pathways in Pre-technical Studies"
+          ]
+        },
+        {
+          "subStrandNumber": "1.2",
+          "subStrandName": "Laboratory Safety",
+          "numberOfLessons": 14,
+          "specificLearningOutcomes": [
+            "Identify common hazards and their symbols in the laboratory",
+            "Explain the causes of common accidents in the laboratory",
+            "Describe First Aid measures for common laboratory accidents",
+            "Appreciate the importance of safety in the laboratory and access to a healthy working environment"
+          ],
+          "suggestedLearningExperiences": [
+            "Brainstorm on common hazards and their symbols",
+            "Discuss causes of common laboratory accidents and their related First Aid measures",
+            "Collaboratively role-play some First Aid procedures for common accidents in the laboratory",
+            "Practise safety measures in the laboratory and the general school learning environment",
+            "Discuss the importance of safety measures in the laboratory",
+            "Use digital or print media to search for information on laboratory safety procedures"
+          ],
+          "keyInquiryQuestions": [
+            "What causes accidents in the laboratory?",
+            "What safety measures should be considered while working in the laboratory?"
+          ],
+          "coreCompetencies": [
+            "Learning to Learn: the learner learns new concepts and identifies their talents as they role-play some First Aid procedures for common accidents in the laboratory",
+            "Critical thinking and Problem-solving: the learner reflects and identifies solutions to some challenges that require First Aid while role-playing some First Aid procedures for common accidents in the laboratory"
+          ],
+          "values": [
+            "Unity: the learner harmoniously works with peers as they role-play some First Aid procedures for common accidents in the laboratory"
+          ],
+          "pcis": [
+            "Safety: the learner learns some safety measures to take as they practise safety measures in the laboratory and the general school learning environment"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate safety and the importance of safety measures in the laboratory to safety measures at workplace in Pre-Technical studies"
+          ]
+        },
+        {
+          "subStrandNumber": "1.3",
+          "subStrandName": "Laboratory apparatus and instruments",
+          "numberOfLessons": 16,
+          "specificLearningOutcomes": [
+            "Describe the basic skills in science",
+            "Use and care for apparatus and instruments in the laboratory",
+            "Use the SI units for basic and derived quantities in science",
+            "Appreciate consumer protection when handling different apparatus, instruments, and other materials in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "Discuss the meaning and use of basic skills in science",
+            "Practise use and care for apparatus and instruments in the laboratory (for heating, measuring mass, temperature, length, volume, weight, magnification, and time) - include parts, functions, and care of a light microscope; and parts of a bunsen burner",
+            "Collaboratively carry out activities on measurements of basic quantities and express them in the International System of Units (SI) - length, mass, time, electric current, temperature, amount of substance, light intensity",
+            "Work with peers to carry out activities to determine derived units from basic units (area, volume, speed, density)",
+            "Collect packaging with labels of quantities and discuss the importance of the information on labels"
+          ],
+          "keyInquiryQuestions": [
+            "Why are basic science skills important?",
+            "How are quantities in science expressed?"
+          ],
+          "coreCompetencies": [
+            "Learning to Learn: the learner practises the use and care for apparatus and instruments in the laboratory",
+            "Communication and Collaboration: the learner collaboratively carries out activities on measurements of basic quantities and expresses them in the International System of Units"
+          ],
+          "values": [
+            "Respect: the learner works harmoniously with peers when carrying out activities to determine derived units from basic units",
+            "Responsibility: the learner learns how to care for apparatus and instruments as they practise how to care for and use them in the laboratory"
+          ],
+          "pcis": [
+            "Socio-economic issues: the learner links the quantity of goods packed to their prices as they collect packaging with labels of quantities and discuss the importance of the information on labels"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can link the packaging of goods and labels of quantities from inputs and product labels learnt in Agriculture",
+            "The learner uses mathematical manipulation skills in recording and carrying out measurements"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "2.0",
+      "strandName": "Mixtures, Elements and Compounds",
+      "subStrands": [
+        {
+          "subStrandNumber": "2.1",
+          "subStrandName": "Mixtures",
+          "numberOfLessons": 18,
+          "specificLearningOutcomes": [
+            "Separate homogeneous mixtures using appropriate methods",
+            "Outline applications of separating homogeneous mixtures in day-to-day life",
+            "Appreciate the use of different methods of separating mixtures in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "Collaboratively categorise the mixtures as homogeneous or heterogeneous",
+            "Discuss the meaning of the terms solvent, solute, and solution",
+            "Share tasks as they carry out activities to separate homogeneous mixtures",
+            "Discuss the applications of separating mixtures in day-to-day life",
+            "Use digital or print media to search for more information on fractional distillation as a method of separating a mixture"
+          ],
+          "keyInquiryQuestions": [
+            "How is the separation of mixtures important in day-to-day life?"
+          ],
+          "coreCompetencies": [
+            "Communication and Collaboration: the learner learns data presentation as they work collaboratively to categorise the mixtures as homogeneous or heterogeneous",
+            "Learning to Learn: the learner learns how to separate various mixtures as they carry out activities to separate homogeneous mixtures"
+          ],
+          "values": [
+            "Unity: the learner works harmoniously with peers while carrying out activities to separate homogeneous mixtures"
+          ],
+          "pcis": [
+            "Peer Education and Mentorship: the learner practises sharing of tasks as they carry out activities to separate homogeneous mixtures"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate methods of separating mixtures in cereals to heterogeneous mixtures in Agriculture"
+          ]
+        },
+        {
+          "subStrandNumber": "2.2",
+          "subStrandName": "Acids, Bases and Indicators",
+          "numberOfLessons": 22,
+          "specificLearningOutcomes": [
+            "Identify acids and bases using a litmus paper",
+            "Prepare an acid-base indicator from plant extracts",
+            "Describe the physical properties of acids and bases",
+            "Outline applications of acids, bases, and indicators in real life",
+            "Appreciate the uses of acids and bases in real life"
+          ],
+          "suggestedLearningExperiences": [
+            "Use litmus paper to classify household solutions into acids and bases",
+            "Work with peers to prepare acid-base indicators from plant extracts, and dispose of laboratory waste responsibly",
+            "Use acid-base indicators from plant extracts to classify common household solutions as either acidic or basic",
+            "Collaboratively carry out activities to investigate the physical properties of acids and bases",
+            "Use digital or print media to explore applications of acids and bases"
+          ],
+          "keyInquiryQuestions": ["Why are acids and bases important?"],
+          "coreCompetencies": [
+            "Communication and Collaboration: the learner acquires data recording and presentation techniques as they carry out activities to investigate the physical properties of acids and bases",
+            "Critical thinking and Problem-solving: the learner develops research skills as they explore applications of acids and bases using print or digital media",
+            "Creativity and Imagination: the learner acquires innovative practises as they use acid-base indicators from plant extracts to classify common household solutions as either acidic or basic"
+          ],
+          "values": [
+            "Responsibility: the learner engages in assigned roles as they carry out activities to prepare acid-base indicators from plant extracts collaboratively",
+            "Respect: the learner works with peers and recognises each other's contribution(s) as they prepare acid-base indicators from plant extracts, and dispose of laboratory waste responsibly"
+          ],
+          "pcis": [
+            "Environmental Education: the learner learns how to use flowers sparingly to protect plants as they use acid-base indicators from plant extracts to classify common household solutions as either acidic or basic"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the content of acids and bases to testing soil acidity and application of lime and fertilizers to improve soil fertility and pH in Agriculture"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "3.0",
+      "strandName": "Living Things and their Environment",
+      "subStrands": [
+        {
+          "subStrandNumber": "3.1",
+          "subStrandName": "Human Reproductive System",
+          "numberOfLessons": 16,
+          "specificLearningOutcomes": [
+            "Identify parts of the male and female reproductive systems",
+            "Describe functions of parts of the male and female reproductive system",
+            "Describe the physical changes that take place in boys and girls during adolescence",
+            "Develop a plan to manage developmental challenges during adolescence",
+            "Appreciate that physical changes in boys and girls during adolescence have social and reproductive implications"
+          ],
+          "suggestedLearningExperiences": [
+            "Use charts and other print materials to observe and identify parts of the male and female reproductive systems",
+            "Discuss the functions of parts of the male and female reproductive systems and share",
+            "Use print and non-print material to search for information on physical changes that take place in boys and girls during adolescence",
+            "Use print and non-print material to search for information on developmental challenges during adolescence",
+            "Discuss with peers the coping mechanisms for developmental challenges during adolescence",
+            "Collaborate with peers and develop a plan to manage developmental challenges during adolescence"
+          ],
+          "keyInquiryQuestions": [
+            "What are the physical, social, and emotional changes that take place during adolescence?",
+            "How are developmental changes managed during adolescence?"
+          ],
+          "coreCompetencies": [
+            "Self-efficacy: the learner develops confidence as they learn how to manage developmental challenges during adolescence",
+            "Communication and Collaboration: the learner acquires speaking, listening skills, and self-expression as they discuss with peers the coping mechanisms for developmental challenges during adolescence"
+          ],
+          "values": [
+            "Integrity: the learner shows self-discipline in coping with developmental challenges during adolescence",
+            "Respect: the learner learns how to live harmoniously with peers already experiencing different developmental challenges as they develop a plan to manage developmental challenges during adolescence"
+          ],
+          "pcis": [
+            "Human Sexuality: the learner develops the skill of self-awareness as they discuss with peers the coping mechanisms for developmental challenges during adolescence"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate content on the reproductive system in humans to reproductive systems in other animals in Agriculture"
+          ]
+        },
+        {
+          "subStrandNumber": "3.2",
+          "subStrandName": "Human Excretory System",
+          "numberOfLessons": 18,
+          "specificLearningOutcomes": [
+            "Identify functions of parts of the human skin",
+            "Identify functions of parts of the urinary system in human",
+            "Describe the causes of kidney disorders in human beings",
+            "Develop and maintain a daily log of activities that promote skin and kidney health in human beings",
+            "Appreciate the need for a healthy lifestyle to promote kidney and skin health"
+          ],
+          "suggestedLearningExperiences": [
+            "Use a hand lens to observe the external parts of the skin (hair and sweat pores)",
+            "Use a chart or model to discuss on parts and functions of the human skin",
+            "Search for information on the waste products excreted through the skin (excess salts and water in sweat), lungs (carbon IV oxide), and kidneys (excess salts and water in urine)",
+            "Discuss parts of the urinary system",
+            "Use locally available materials to model the urinary system",
+            "Use charts/models/animations to discuss the external parts and functions of the human kidney",
+            "Use print and non-print materials to search for information on the causes and prevention of kidney disorders",
+            "Search for information on healthy lifestyles that promote kidney and skin health",
+            "Collaborate with peers to develop a daily log of activities that promote skin and kidney health"
+          ],
+          "keyInquiryQuestions": [
+            "What is the role of the excretory system?",
+            "How can a healthy excretory system be maintained?"
+          ],
+          "coreCompetencies": [
+            "Communication and Collaboration: the learner acquires speaking and listening skills as they discuss parts of the urinary system",
+            "Self-efficacy: the learner develops confidence as they search for information on healthy lifestyles that promote kidney and skin health"
+          ],
+          "values": [
+            "Love: the learner appreciates and embraces their natural skin as they develop and maintain a daily log of activities that promote skin and kidney health",
+            "Unity: the learner works collaboratively and harmoniously with peers as they develop a daily log of activities that promote skin and kidney health"
+          ],
+          "pcis": [
+            "Health Promotion Issues: the learner learns how to improve skin and kidney health as they develop a daily log of activities that promote skin and kidney health"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the content on healthy lifestyles that promote kidney and skin health linked to nutrition for healthy skin and kidneys in Agriculture"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "4.0",
+      "strandName": "Force and Energy",
+      "subStrands": [
+        {
+          "subStrandNumber": "4.1",
+          "subStrandName": "Electrical Energy",
+          "numberOfLessons": 18,
+          "specificLearningOutcomes": [
+            "Identify sources of electricity in the environment",
+            "Connect simple electrical circuits to demonstrate the flow of electric current",
+            "Identify common electrical appliances used in day-to-day life",
+            "Identify safety measures observed when handling electrical appliances",
+            "Appreciate the use of electricity in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "Discuss the sources of electricity in the environment",
+            "Use print or digital media to search for more information on sources of electricity in nature (hydro-electric power, geothermal, solar, wind power, nuclear, tidal-wave, fossil fuels, biomass, natural gas, electrical cells)",
+            "Collaboratively set up simple electrical circuits in series and in parallel (using electrical cells, connecting wires, switch, bulb, bulb holder) to demonstrate the flow of electric current",
+            "Discuss common electrical appliances used in day-to-day life (pressure cooker, electric cooker, electric blender, electrical lamp and torch, electric iron box, electric kettle, electric guitar, electric fan, air conditioner, electric oven, television, electric speaker, washing machine and electric refrigerator)",
+            "Discuss safety measures observed when using electrical appliances",
+            "Collaboratively explore uses of electricity in day-to-day life",
+            "Use digital or print media to search for more information on electrical appliances and safety measures observed when using them"
+          ],
+          "keyInquiryQuestions": [
+            "What are the sources of electricity in the environment?",
+            "How is electricity used in day-to-day life?"
+          ],
+          "coreCompetencies": [
+            "Learning to Learn: the learner learns how to set up a simple electric circuit as they carry out activities of series and parallel circuits",
+            "Communication and Collaboration: the learner collaboratively works with peers to set up simple electrical circuits in series and parallel"
+          ],
+          "values": [
+            "Unity: the learner with peers harmoniously set up simple electrical circuits in series and parallel",
+            "Responsibility: the learner practises carefully handling various apparatus as they set up simple electrical circuits in series and parallel while working"
+          ],
+          "pcis": [
+            "Environmental Awareness: the learner learns how to identify sources of electricity from the environment as they discuss sources of electricity in the environment"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate concepts in electrical circuits to electrical energy in Pre-Technical Studies"
+          ]
+        },
+        {
+          "subStrandNumber": "4.2",
+          "subStrandName": "Magnetism",
+          "numberOfLessons": 16,
+          "specificLearningOutcomes": [
+            "Demonstrate the properties of a magnet",
+            "Classify materials as magnetic or non-magnetic",
+            "Identify the uses of magnets in day-to-day life",
+            "Appreciate the applications of magnets in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "Collaboratively carry out activities to demonstrate properties of a magnet (attractive and repulsive, directional, poles and magnetic strength properties)",
+            "Carry out activities to investigate the nature of force between different poles of magnets (basic law of magnetism)",
+            "Use a permanent magnet to test different materials, sort and classify them into either magnetic or non-magnetic materials",
+            "Discuss the applications of magnets in day-to-day life (separation of mixtures in radios, speakers, refrigerator doors, magnetic compass, and magnets used in toys to give magic effect)",
+            "Use digital or print media to search for information on applications of magnets in day-to-day life"
+          ],
+          "keyInquiryQuestions": ["How are magnets used in day-to-day life?"],
+          "coreCompetencies": [
+            "Communication and Collaboration: the learner collaborates with others to carry out activities to demonstrate the properties of a magnet"
+          ],
+          "values": [
+            "Responsibility: the learner diligently engages in assigned roles when carrying out activities to investigate the nature of force between different poles of magnets",
+            "Unity: the learner works with others harmoniously to carry out activities to demonstrate the properties of a magnet"
+          ],
+          "pcis": [
+            "Socio-economic Issue: the learner links different materials to their cost based on magnetic properties as they use a permanent magnet to test different materials, sort, and classify them into either magnetic or non-magnetic materials"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can link the concept learnt in magnetism to the application of magnets and magnetic materials in Pre-Technical studies"
+          ]
+        }
+      ]
+    }
+  ]
+}
