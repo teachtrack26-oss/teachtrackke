@@ -154,6 +154,9 @@ export default function Navbar() {
     window.location.href = "/";
   };
 
+  // Check if user is admin
+  const isAdmin = user?.role === "SUPER_ADMIN" || user?.role === "SCHOOL_ADMIN";
+
   const navLinks = [
     { name: "Home", href: "/", public: true },
     { name: "About", href: "/about", public: true },
@@ -166,6 +169,17 @@ export default function Navbar() {
       href: "/professional-records",
       public: false,
     },
+    // Admin link - only visible to admins
+    ...(isAdmin
+      ? [
+          {
+            name: "Admin",
+            href: "/admin/dashboard",
+            public: false,
+            adminOnly: true,
+          },
+        ]
+      : []),
   ];
 
   const isActiveLink = (href: string) => {
@@ -218,7 +232,11 @@ export default function Navbar() {
                 key={link.name}
                 onClick={() => handleProtectedRoute(link.href, link.public)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  isActiveLink(link.href)
+                  (link as any).adminOnly
+                    ? isActiveLink(link.href)
+                      ? "text-white bg-gradient-to-r from-purple-600 to-indigo-600 shadow-md"
+                      : "text-purple-600 bg-purple-50 hover:bg-gradient-to-r hover:from-purple-600 hover:to-indigo-600 hover:text-white border border-purple-200"
+                    : isActiveLink(link.href)
                     ? "text-indigo-600 bg-indigo-50 shadow-sm"
                     : "text-gray-600 hover:text-indigo-600 hover:bg-gray-50"
                 } ${
@@ -228,6 +246,7 @@ export default function Navbar() {
                 }`}
                 disabled={!link.public && !isLoggedIn}
               >
+                {(link as any).adminOnly && <span className="mr-1">⚙️</span>}
                 {link.name}
                 {!link.public && !isLoggedIn && (
                   <span className="ml-1 text-xs opacity-70">🔒</span>
@@ -243,7 +262,7 @@ export default function Navbar() {
                     <FiBell className="w-5 h-5" />
                     <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
                   </button>
-                  
+
                   <div className="relative" ref={dropdownRef}>
                     <button
                       onClick={() =>
@@ -252,13 +271,24 @@ export default function Navbar() {
                       className="flex items-center space-x-3 pl-1 pr-2 py-1 rounded-full hover:bg-gray-50 transition-all duration-300 border border-transparent hover:border-gray-200"
                     >
                       <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-semibold shadow-md">
-                        {(user?.name || user?.full_name || user?.email)?.charAt(0).toUpperCase() || "U"}
+                        {(user?.name || user?.full_name || user?.email)
+                          ?.charAt(0)
+                          .toUpperCase() || "U"}
                       </div>
                       <div className="hidden lg:block text-left">
                         <p className="text-sm font-semibold text-gray-700 leading-none">
-                          {user?.name || user?.full_name || user?.email?.split('@')[0] || "Account"}
+                          {user?.name ||
+                            user?.full_name ||
+                            user?.email?.split("@")[0] ||
+                            "Account"}
                         </p>
-                        <p className="text-xs text-gray-500 mt-0.5">Teacher</p>
+                        <p className="text-xs text-gray-500 mt-0.5">
+                          {user?.role === "SUPER_ADMIN"
+                            ? "Super Admin"
+                            : user?.role === "SCHOOL_ADMIN"
+                            ? "School Admin"
+                            : "Teacher"}
+                        </p>
                       </div>
                       <FiChevronDown
                         className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${
@@ -273,7 +303,10 @@ export default function Navbar() {
                         {/* User Info */}
                         <div className="px-6 py-4 border-b border-gray-50 bg-gray-50/50">
                           <p className="text-sm font-bold text-gray-900">
-                            {user?.name || user?.full_name || user?.email?.split('@')[0] || "Account"}
+                            {user?.name ||
+                              user?.full_name ||
+                              user?.email?.split("@")[0] ||
+                              "Account"}
                           </p>
                           <p className="text-xs text-gray-500 truncate">
                             {user?.email}
@@ -284,7 +317,9 @@ export default function Navbar() {
                         {nextLesson && (
                           <div className="mx-4 my-2 p-3 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
                             <div className="flex justify-between items-start mb-1">
-                              <span className="text-xs font-semibold text-indigo-600 uppercase tracking-wider">Next Lesson</span>
+                              <span className="text-xs font-semibold text-indigo-600 uppercase tracking-wider">
+                                Next Lesson
+                              </span>
                               <span className="text-xs font-bold text-indigo-600 bg-white px-2 py-0.5 rounded-full shadow-sm">
                                 {countdown}
                               </span>
@@ -293,7 +328,8 @@ export default function Navbar() {
                               {nextLesson.subject.subject_name}
                             </div>
                             <div className="text-xs text-gray-600 mt-0.5">
-                              {nextLesson.time_slot.label} • {nextLesson.time_slot.start_time}
+                              {nextLesson.time_slot.label} •{" "}
+                              {nextLesson.time_slot.start_time}
                             </div>
                           </div>
                         )}
@@ -382,7 +418,11 @@ export default function Navbar() {
                 key={link.name}
                 onClick={() => handleProtectedRoute(link.href, link.public)}
                 className={`block w-full text-left px-4 py-3 rounded-xl text-base font-medium transition-all duration-200 ${
-                  isActiveLink(link.href)
+                  (link as any).adminOnly
+                    ? isActiveLink(link.href)
+                      ? "text-white bg-gradient-to-r from-purple-600 to-indigo-600 shadow-md"
+                      : "text-purple-600 bg-purple-50 border border-purple-200"
+                    : isActiveLink(link.href)
                     ? "text-indigo-600 bg-indigo-50"
                     : "text-gray-600 hover:text-indigo-600 hover:bg-gray-50"
                 } ${
@@ -393,9 +433,16 @@ export default function Navbar() {
                 disabled={!link.public && !isLoggedIn}
               >
                 <div className="flex items-center justify-between">
-                  {link.name}
+                  <span>
+                    {(link as any).adminOnly && (
+                      <span className="mr-1">⚙️</span>
+                    )}
+                    {link.name}
+                  </span>
                   {!link.public && !isLoggedIn && (
-                    <span className="text-xs bg-gray-100 px-2 py-1 rounded-full">Locked</span>
+                    <span className="text-xs bg-gray-100 px-2 py-1 rounded-full">
+                      Locked
+                    </span>
                   )}
                 </div>
               </button>
@@ -407,14 +454,21 @@ export default function Navbar() {
                 <div className="space-y-3">
                   <div className="px-4 flex items-center space-x-3 mb-4">
                     <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold">
-                      {(user?.name || user?.full_name || user?.email)?.charAt(0).toUpperCase() || "U"}
+                      {(user?.name || user?.full_name || user?.email)
+                        ?.charAt(0)
+                        .toUpperCase() || "U"}
                     </div>
                     <div>
-                      <div className="font-bold text-gray-900">{user?.name || user?.full_name || user?.email?.split('@')[0] || "Account"}</div>
+                      <div className="font-bold text-gray-900">
+                        {user?.name ||
+                          user?.full_name ||
+                          user?.email?.split("@")[0] ||
+                          "Account"}
+                      </div>
                       <div className="text-xs text-gray-500">{user?.email}</div>
                     </div>
                   </div>
-                  
+
                   <Link
                     href="/dashboard"
                     className="flex items-center space-x-3 px-4 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-xl transition-colors"
@@ -423,7 +477,7 @@ export default function Navbar() {
                     <FiUser className="w-5 h-5" />
                     <span>Dashboard</span>
                   </Link>
-                  
+
                   <button
                     onClick={handleLogout}
                     className="flex items-center space-x-3 w-full px-4 py-3 text-base font-medium text-red-600 hover:bg-red-50 rounded-xl transition-colors"

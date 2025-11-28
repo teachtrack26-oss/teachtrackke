@@ -57,6 +57,20 @@ export default function CurriculumManagementPage() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingTemplate, setEditingTemplate] =
     useState<CurriculumTemplate | null>(null);
+
+  // Check for Super Admin access on mount
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      if (user.role !== "SUPER_ADMIN") {
+        toast.error("Access denied. Super Admin privileges required.");
+        router.push("/admin/dashboard");
+        return;
+      }
+    }
+  }, [router]);
+
   const [formData, setFormData] = useState<TemplateFormData>({
     education_level: "",
     grade: "",

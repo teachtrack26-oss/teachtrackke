@@ -346,9 +346,9 @@ export default function LessonsConfigPage() {
                         {isEditing ? (
                           <input
                             type="number"
-                            min="30"
+                            min="1"
                             max="90"
-                            step="5"
+                            step="1"
                             value={editValues.single_lesson_duration}
                             onChange={(e) =>
                               setEditValues({
@@ -369,9 +369,9 @@ export default function LessonsConfigPage() {
                         {isEditing ? (
                           <input
                             type="number"
-                            min="60"
-                            max="120"
-                            step="5"
+                            min="1"
+                            max="180"
+                            step="1"
                             value={editValues.double_lesson_duration}
                             onChange={(e) =>
                               setEditValues({

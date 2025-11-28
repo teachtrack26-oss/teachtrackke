@@ -28,6 +28,7 @@ def generate_verification_token() -> str:
     return secrets.token_urlsafe(32)
 
 
+
 @router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 async def register(user_data: UserCreate, db: Session = Depends(get_db)):
     """
@@ -54,6 +55,7 @@ async def register(user_data: UserCreate, db: Session = Depends(get_db)):
             phone=user_data.phone,
             school=user_data.school,
             grade_level=user_data.grade_level,
+            tsc_number=user_data.tsc_number,
             email_verified=False,
             verification_token=verification_token,
             auth_provider="local",
@@ -88,6 +90,7 @@ async def register(user_data: UserCreate, db: Session = Depends(get_db)):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to register user"
         )
+
 
 
 @router.post("/login", response_model=Token)
@@ -163,22 +166,6 @@ async def google_auth(google_data: GoogleAuth, db: Session = Depends(get_db)):
             if user.auth_provider != "google":
                 # User registered with email/password, link Google account
                 user.google_id = user_info['google_id']
-            user.updated_at = datetime.utcnow()
-            db.commit()
-            db.refresh(user)
-        else:
-            # Create new user
-            user = User(
-                email=user_info['email'],
-                full_name=user_info['name'],
-                google_id=user_info['google_id'],
-                email_verified=True,  # Google emails are pre-verified
-                auth_provider="google",
-                created_at=datetime.utcnow(),
-                updated_at=datetime.utcnow()
-            )
-            db.add(user)
-            db.commit()
             db.refresh(user)
             
             # Send welcome email
@@ -190,6 +177,8 @@ async def google_auth(google_data: GoogleAuth, db: Session = Depends(get_db)):
         # Create access token
         access_token = create_access_token(data={"sub": user.email})
         
+        print(f"DEBUG: Returning user {user.email} with role {user.role}")
+
         return {
             "access_token": access_token,
             "token_type": "bearer",

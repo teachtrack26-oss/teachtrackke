@@ -1,8 +1,50 @@
-from sqlalchemy import Column, Integer, String, Boolean, TIMESTAMP, Text, DECIMAL, ForeignKey, BigInteger
+from sqlalchemy import Column, Integer, String, Boolean, TIMESTAMP, Text, DECIMAL, ForeignKey, BigInteger, Enum as SQLEnum, Index
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from sqlalchemy.dialects.mysql import JSON
 from database import Base
+import enum
+
+# ============================================================================
+# ENUMS
+# ============================================================================
+
+class UserRole(str, enum.Enum):
+    SUPER_ADMIN = "SUPER_ADMIN"
+    SCHOOL_ADMIN = "SCHOOL_ADMIN"
+    TEACHER = "TEACHER"
+
+class SubscriptionType(str, enum.Enum):
+    SCHOOL_SPONSORED = "SCHOOL_SPONSORED"
+    INDIVIDUAL_BASIC = "INDIVIDUAL_BASIC"
+    INDIVIDUAL_PREMIUM = "INDIVIDUAL_PREMIUM"
+
+class SubscriptionStatus(str, enum.Enum):
+    ACTIVE = "ACTIVE"
+    INACTIVE = "INACTIVE"
+    PAST_DUE = "PAST_DUE"
+    CANCELLED = "CANCELLED"
+
+# ============================================================================
+# SCHOOL MODEL
+# ============================================================================
+
+class School(Base):
+    __tablename__ = "schools"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(255), nullable=False)
+    admin_id = Column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    subscription_status = Column(SQLEnum(SubscriptionStatus), default=SubscriptionStatus.INACTIVE)
+    max_teachers = Column(Integer, default=1)
+    teacher_counts_by_level = Column(JSON, default={})  # Stores breakdown like {"Pre-Primary": 2, "Lower Primary": 5}
+    
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    admin = relationship("User", foreign_keys=[admin_id], back_populates="managed_school")
+    teachers = relationship("User", foreign_keys="[User.school_id]", back_populates="school_rel")
 
 # ============================================================================
 # TEMPLATE MODELS
@@ -67,11 +109,22 @@ class User(Base):
     phone = Column(String(20))
     school = Column(String(255))
     grade_level = Column(String(50))
+    tsc_number = Column(String(50))  # Teachers Service Commission Number
     email_verified = Column(Boolean, default=False)
     verification_token = Column(String(255), index=True)
     google_id = Column(String(255), unique=True, nullable=True, index=True)  # For Google OAuth
     auth_provider = Column(String(50), default="local")  # local, google, etc.
-    is_admin = Column(Boolean, default=False)  # Admin role flag
+    is_admin = Column(Boolean, default=False)  # Legacy Admin flag (keep for backward compatibility)
+    
+    # SaaS Fields
+    role = Column(SQLEnum(UserRole), default=UserRole.TEACHER)
+    school_id = Column(Integer, ForeignKey("schools.id", ondelete="SET NULL"), nullable=True)
+    subscription_type = Column(SQLEnum(SubscriptionType), default=SubscriptionType.INDIVIDUAL_BASIC)
+    subscription_status = Column(SQLEnum(SubscriptionStatus), default=SubscriptionStatus.ACTIVE) # Default active for free tier
+    
+    # For Individual Basic plan limits
+    # We'll calculate active_subjects count dynamically, but could store a list if needed.
+    # For now, we'll rely on the 'subjects' relationship count.
     
     # School settings
     default_lesson_duration = Column(Integer, default=40)  # Default lesson duration in minutes
@@ -81,10 +134,15 @@ class User(Base):
     updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
     
     # Relationships
+    # Relationships
     subjects = relationship("Subject", back_populates="user", cascade="all, delete-orphan")
     notes = relationship("Note", back_populates="user", cascade="all, delete-orphan")
     progress_logs = relationship("ProgressLog", back_populates="user", cascade="all, delete-orphan")
     terms = relationship("Term", back_populates="user", cascade="all, delete-orphan")
+    
+    # SaaS Relationships
+    school_rel = relationship("School", foreign_keys=[school_id], back_populates="teachers")
+    managed_school = relationship("School", foreign_keys="[School.admin_id]", back_populates="admin", uselist=False)
 
 class Subject(Base):
     __tablename__ = "subjects"
@@ -471,6 +529,28 @@ class CalendarActivity(Base):
     # Relationships
     school_settings = relationship("SchoolSettings", back_populates="activities")
     term = relationship("SchoolTerm", back_populates="activities")
+
+
+class LessonConfiguration(Base):
+    """Global lesson configuration set by admin for each subject/grade combination"""
+    __tablename__ = 'lesson_configurations'
+    
+    id = Column(Integer, primary_key=True, index=True)
+    subject_name = Column(String(255), nullable=False)
+    grade = Column(String(50), nullable=False)
+    education_level = Column(String(100), nullable=True)  # e.g., "Junior Secondary", "Senior Secondary"
+    lessons_per_week = Column(Integer, default=5)
+    double_lessons_per_week = Column(Integer, default=0)
+    single_lesson_duration = Column(Integer, default=40)  # in minutes
+    double_lesson_duration = Column(Integer, default=80)  # in minutes
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    # Unique constraint on subject_name + grade
+    __table_args__ = (
+        Index('ix_lesson_config_subject_grade', 'subject_name', 'grade', unique=True),
+    )
+
 
 class SystemAnnouncement(Base):
     __tablename__ = "system_announcements"

@@ -37,6 +37,7 @@ import {
   FiBarChart2,
 } from "react-icons/fi";
 import axios from "axios";
+import toast from "react-hot-toast";
 import {
   LineChart,
   Line,
@@ -67,6 +68,8 @@ import type {
   ResourceItem,
   PerformanceSummary,
 } from "../dashboard-components";
+import SchoolAdminDashboard from "@/components/dashboard/SchoolAdminDashboard";
+import SuperAdminDashboard from "@/components/dashboard/SuperAdminDashboard";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
   ? `${process.env.NEXT_PUBLIC_API_URL}/api/v1`
@@ -811,6 +814,16 @@ export default function DashboardPage() {
     );
   }
 
+  // Check for Super Admin role
+  if (user?.role === "SUPER_ADMIN") {
+    return <SuperAdminDashboard />;
+  }
+
+  // Check for School Admin role
+  if (user?.role === "SCHOOL_ADMIN") {
+    return <SchoolAdminDashboard user={user} />;
+  }
+
   return (
     <div className="min-h-screen bg-[#F3F4F6] relative overflow-hidden font-sans selection:bg-indigo-500 selection:text-white">
       {/* Premium Animated Background */}
@@ -1019,9 +1032,37 @@ export default function DashboardPage() {
         {/* My Subjects Overview */}
         {subjects.length > 0 && (
           <div className="mt-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
-              My Subjects Overview
-            </h2>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+              <h2 className="text-2xl font-bold text-gray-900">
+                My Subjects Overview
+              </h2>
+              
+              {/* SaaS Limit Indicator */}
+              {(user?.subscription_type === "INDIVIDUAL_BASIC" || !user?.subscription_type) && (
+                <div className="flex items-center gap-3 bg-orange-50 px-4 py-2 rounded-lg border border-orange-200">
+                  <div className="flex items-center gap-2">
+                    <div className="w-24 h-2 bg-orange-200 rounded-full overflow-hidden">
+                      <div 
+                        className={`h-full rounded-full ${subjects.length >= 4 ? 'bg-red-500' : 'bg-orange-500'}`} 
+                        style={{ width: `${Math.min((subjects.length / 4) * 100, 100)}%` }}
+                      />
+                    </div>
+                    <span className="text-sm font-medium text-orange-800">
+                      {subjects.length}/4 Used
+                    </span>
+                  </div>
+                  
+                  {subjects.length >= 4 && (
+                    <button 
+                      onClick={() => toast.success("Premium features coming soon!")}
+                      className="text-xs bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1.5 rounded-md hover:shadow-md transition-all font-bold flex items-center gap-1"
+                    >
+                      <FiZap className="w-3 h-3" /> Upgrade
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {subjects.map((subject) => (
                 <SubjectCard

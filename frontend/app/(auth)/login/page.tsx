@@ -70,16 +70,20 @@ export default function LoginPage() {
             email: user.email,
             name: user.full_name,
             is_admin: user.is_admin,
+            role: user.role,
+            subscription_type: user.subscription_type,
           })
         );
 
         toast.success("Login successful!");
 
         // Redirect based on user role
-        if (user.is_admin) {
-          router.push("/admin/dashboard");
+        if (user.role === "SUPER_ADMIN") {
+          router.push("/dashboard"); // Super Admin sees Super Admin Dashboard
+        } else if (user.role === "SCHOOL_ADMIN") {
+          router.push("/dashboard"); // School Admin sees School Admin Dashboard
         } else {
-          router.push("/dashboard");
+          router.push("/dashboard"); // Teachers see Teacher Dashboard
         }
       } else {
         toast.success("Login successful!");

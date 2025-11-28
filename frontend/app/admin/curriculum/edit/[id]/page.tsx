@@ -56,6 +56,19 @@ export default function EditCurriculumPage() {
   const [editingStrand, setEditingStrand] = useState<number | null>(null);
   const [editingSubstrand, setEditingSubstrand] = useState<number | null>(null);
 
+  // Check for Super Admin access on mount
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      if (user.role !== "SUPER_ADMIN") {
+        toast.error("Access denied. Super Admin privileges required.");
+        router.push("/admin/dashboard");
+        return;
+      }
+    }
+  }, [router]);
+
   useEffect(() => {
     fetchTemplate();
   }, [templateId]);

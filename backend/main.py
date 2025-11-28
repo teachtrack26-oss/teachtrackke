@@ -17,9 +17,9 @@ from models import (
     CurriculumTemplate, TemplateStrand, TemplateSubstrand,
     NoteAnnotation, PresentationSession, SpeakerNote, SharedPresentation,
     SchoolSchedule, TimeSlot, TimetableEntry,
-    SchoolSettings, SchoolTerm, CalendarActivity,
+    SchoolSettings, SchoolTerm, CalendarActivity, LessonConfiguration,
     SchemeOfWork, SchemeWeek, SchemeLesson, LessonPlan, RecordOfWork, RecordOfWorkEntry,
-    SystemAnnouncement
+    SystemAnnouncement, SubscriptionType, UserRole, School, SubscriptionStatus
 )
 from sqlalchemy import text, func, and_, or_
 from schemas import (
@@ -46,7 +46,8 @@ from schemas import (
     AdminUsersResponse, AdminUserSummary, AdminSubjectSummary,
     AdminRoleUpdate, ResetProgressRequest,
     TermsResponse, TermResponse, TermUpdate,
-    UserSettingsUpdate, UserSettingsResponse
+    UserSettingsUpdate, UserSettingsResponse,
+    SchoolCreate, SchoolResponse, TeacherInvite, SchoolTeacherResponse
 )
 from auth import verify_password, get_password_hash, create_access_token, verify_token
 from config import settings
@@ -158,8 +159,10 @@ def get_current_user(
 def get_current_admin_user(
     current_user: User = Depends(get_current_user)
 ):
-    """Dependency to check if current user is an admin"""
-    if not current_user.is_admin:
+    """Dependency to check if current user is an admin (Super Admin or School Admin)"""
+    # Check both legacy is_admin flag AND role-based access
+    is_admin_by_role = current_user.role in [UserRole.SUPER_ADMIN, UserRole.SCHOOL_ADMIN]
+    if not current_user.is_admin and not is_admin_by_role:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Access denied. Admin privileges required."
@@ -293,6 +296,24 @@ def resolve_schedule_for_context(
     ).first()
     return alt_schedule or schedule
 
+def get_current_super_admin(current_user: User = Depends(get_current_user)) -> User:
+    """Dependency to verify the user is a Super Admin."""
+    if current_user.role != UserRole.SUPER_ADMIN:
+        raise HTTPException(
+            status_code=403,
+            detail="Super Admin access required"
+        )
+    return current_user
+
+def get_current_admin(current_user: User = Depends(get_current_user)) -> User:
+    """Dependency to verify the user is an Admin (Super Admin or School Admin)."""
+    if current_user.role not in [UserRole.SUPER_ADMIN, UserRole.SCHOOL_ADMIN]:
+        raise HTTPException(
+            status_code=403,
+            detail="Admin access required"
+        )
+    return current_user
+
 # Health check
 @app.get("/")
 def read_root():
@@ -317,6 +338,15 @@ def register(user_data: UserCreate, db: Session = Depends(get_db)):
     
     # Create new user
     hashed_password = get_password_hash(user_data.password)
+    
+    # Determine role and subscription
+    role = UserRole.TEACHER
+    subscription_type = SubscriptionType.INDIVIDUAL_BASIC
+    
+    if user_data.role == "SCHOOL_ADMIN":
+        role = UserRole.SCHOOL_ADMIN
+        # School admins don't have a subscription type yet, or it's implied by the school they create
+    
     new_user = User(
         email=user_data.email,
         password_hash=hashed_password,
@@ -324,7 +354,9 @@ def register(user_data: UserCreate, db: Session = Depends(get_db)):
         phone=user_data.phone,
         school=user_data.school,
         grade_level=user_data.grade_level,
-        email_verified=True  # Auto-verify for now
+        email_verified=True,  # Auto-verify for now
+        role=role,
+        subscription_type=subscription_type
     )
     
     db.add(new_user)
@@ -377,7 +409,9 @@ def google_auth(google_data: GoogleAuth, db: Session = Depends(get_db)):
             google_id=google_data.google_id,
             auth_provider="google",
             email_verified=True,
-            password_hash=None  # No password for OAuth users
+            password_hash=None,  # No password for OAuth users
+            role=UserRole.TEACHER,
+            subscription_type=SubscriptionType.INDIVIDUAL_BASIC
         )
         db.add(user)
         db.commit()
@@ -393,9 +427,249 @@ def google_auth(google_data: GoogleAuth, db: Session = Depends(get_db)):
             "id": user.id,
             "email": user.email,
             "full_name": user.full_name,
-            "auth_provider": user.auth_provider
+            "auth_provider": user.auth_provider,
+            "role": user.role,
+            "subscription_type": user.subscription_type
         }
     }
+
+
+# ============================================================================
+# SCHOOL ENDPOINTS
+# ============================================================================
+
+@app.post(f"{settings.API_V1_PREFIX}/schools", response_model=SchoolResponse)
+def create_school(
+    school_data: SchoolCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    # Verify user is School Admin
+    if current_user.role != UserRole.SCHOOL_ADMIN:
+        raise HTTPException(status_code=403, detail="Only School Admins can create schools")
+    
+    # Check if user already manages a school
+    existing_school = db.query(School).filter(School.admin_id == current_user.id).first()
+    if existing_school:
+        raise HTTPException(status_code=400, detail="You already manage a school")
+        
+    new_school = School(
+        name=school_data.name,
+        admin_id=current_user.id,
+        max_teachers=school_data.max_teachers,
+        teacher_counts_by_level=school_data.teacher_counts_by_level,
+        subscription_status=SubscriptionStatus.ACTIVE  # Auto-activate for trial
+    )
+    
+    db.add(new_school)
+    db.commit()
+    db.refresh(new_school)
+    
+    # Link admin to school
+    current_user.school_id = new_school.id
+    current_user.subscription_type = SubscriptionType.SCHOOL_SPONSORED
+    db.commit()
+    
+    return new_school
+
+@app.get(f"{settings.API_V1_PREFIX}/schools/me", response_model=SchoolResponse)
+def get_my_school(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    if not current_user.school_id:
+        raise HTTPException(status_code=404, detail="You are not part of any school")
+        
+    school = db.query(School).filter(School.id == current_user.school_id).first()
+    return school
+
+@app.post(f"{settings.API_V1_PREFIX}/schools/teachers", response_model=SchoolTeacherResponse)
+def invite_teacher(
+    invite_data: TeacherInvite,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    # Verify user is School Admin
+    if current_user.role != UserRole.SCHOOL_ADMIN:
+        raise HTTPException(status_code=403, detail="Only School Admins can invite teachers")
+        
+    school = db.query(School).filter(School.admin_id == current_user.id).first()
+    if not school:
+        raise HTTPException(status_code=404, detail="School not found")
+        
+    # Check capacity
+    current_count = db.query(User).filter(User.school_id == school.id).count()
+    if current_count >= school.max_teachers:
+        raise HTTPException(status_code=403, detail="School teacher limit reached")
+        
+    # Find user
+    teacher = db.query(User).filter(User.email == invite_data.email).first()
+    if not teacher:
+        raise HTTPException(status_code=404, detail="User not found. Ask them to register first.")
+        
+    if teacher.school_id:
+        raise HTTPException(status_code=400, detail="User is already in a school")
+        
+    # Add to school
+    teacher.school_id = school.id
+    teacher.subscription_type = SubscriptionType.SCHOOL_SPONSORED
+    teacher.role = UserRole.TEACHER
+    db.commit()
+    db.refresh(teacher)
+    
+    return teacher
+
+@app.get(f"{settings.API_V1_PREFIX}/schools/teachers", response_model=List[SchoolTeacherResponse])
+def get_school_teachers(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    if not current_user.school_id:
+        raise HTTPException(status_code=404, detail="You are not part of any school")
+        
+    teachers = db.query(User).filter(User.school_id == current_user.school_id).all()
+    return teachers
+
+@app.delete(f"{settings.API_V1_PREFIX}/schools/teachers/{{teacher_id}}")
+def remove_teacher(
+    teacher_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    if current_user.role != UserRole.SCHOOL_ADMIN:
+        raise HTTPException(status_code=403, detail="Only School Admins can remove teachers")
+        
+    teacher = db.query(User).filter(User.id == teacher_id, User.school_id == current_user.school_id).first()
+    if not teacher:
+        raise HTTPException(status_code=404, detail="Teacher not found in your school")
+        
+    # Remove from school
+    teacher.school_id = None
+    teacher.subscription_type = SubscriptionType.INDIVIDUAL_BASIC
+    db.commit()
+    
+    return {"message": "Teacher removed from school"}
+
+# ============================================================================
+# SUPER ADMIN ENDPOINTS
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/admin/stats")
+def get_platform_stats(
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    """Get overall platform statistics."""
+    total_users = db.query(User).count()
+    total_teachers = db.query(User).filter(User.role == UserRole.TEACHER).count()
+    total_school_admins = db.query(User).filter(User.role == UserRole.SCHOOL_ADMIN).count()
+    total_schools = db.query(School).count()
+    total_subjects = db.query(Subject).count()
+    
+    # Subscription breakdown
+    basic_users = db.query(User).filter(User.subscription_type == SubscriptionType.INDIVIDUAL_BASIC).count()
+    premium_users = db.query(User).filter(User.subscription_type == SubscriptionType.INDIVIDUAL_PREMIUM).count()
+    school_sponsored = db.query(User).filter(User.subscription_type == SubscriptionType.SCHOOL_SPONSORED).count()
+    
+    return {
+        "total_users": total_users,
+        "total_teachers": total_teachers,
+        "total_school_admins": total_school_admins,
+        "total_schools": total_schools,
+        "total_subjects": total_subjects,
+        "subscriptions": {
+            "basic": basic_users,
+            "premium": premium_users,
+            "school_sponsored": school_sponsored
+        }
+    }
+
+# NOTE: Admin users endpoint moved to line ~2760 to consolidate with subject loading
+
+@app.get(f"{settings.API_V1_PREFIX}/admin/schools")
+def get_all_schools(
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    """Get all schools."""
+    schools = db.query(School).all()
+    
+    result = []
+    for school in schools:
+        teacher_count = db.query(User).filter(User.school_id == school.id).count()
+        admin = db.query(User).filter(User.id == school.admin_id).first()
+        
+        result.append({
+            "id": school.id,
+            "name": school.name,
+            "admin_email": admin.email if admin else None,
+            "teacher_count": teacher_count,
+            "max_teachers": school.max_teachers,
+            "subscription_status": school.subscription_status,
+            "created_at": school.created_at
+        })
+    
+    return result
+
+@app.put(f"{settings.API_V1_PREFIX}/admin/users/{{user_id}}/upgrade")
+def upgrade_user(
+    user_id: int,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    """Manually upgrade a user to Premium."""
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    if user.subscription_type == SubscriptionType.SCHOOL_SPONSORED:
+        raise HTTPException(status_code=400, detail="Cannot upgrade school-sponsored users")
+        
+    user.subscription_type = SubscriptionType.INDIVIDUAL_PREMIUM
+    user.subscription_status = SubscriptionStatus.ACTIVE
+    db.commit()
+    
+    return {"message": f"User {user.email} upgraded to Premium"}
+
+@app.put(f"{settings.API_V1_PREFIX}/admin/users/{{user_id}}/role", response_model=dict)
+def update_user_role(
+    user_id: int,
+    role_update: AdminRoleUpdate,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    """Update a user's role."""
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Prevent changing other super admins
+    if user.role == UserRole.SUPER_ADMIN and user.id != current_user.id:
+        raise HTTPException(status_code=403, detail="Cannot modify other Super Admins")
+        
+    user.role = role_update.role
+    db.commit()
+    
+    return {"message": f"User role updated to {role_update.role}"}
+
+@app.delete(f"{settings.API_V1_PREFIX}/admin/users/{{user_id}}")
+def ban_user(
+    user_id: int,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    """Ban a user (set subscription to INACTIVE)."""
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+        
+    if user.role == UserRole.SUPER_ADMIN:
+        raise HTTPException(status_code=403, detail="Cannot ban Super Admins")
+        
+    user.subscription_status = SubscriptionStatus.CANCELLED
+    db.commit()
+    
+    return {"message": f"User {user.email} has been banned"}
 
 # Subject endpoints
 @app.get(f"{settings.API_V1_PREFIX}/subjects", response_model=List[SubjectResponse])
@@ -482,12 +756,8 @@ def get_subject_strands(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    # Verify subject belongs to user
-    subject = db.query(Subject).filter(
-        Subject.id == subject_id,
-        Subject.user_id == current_user.id
-    ).first()
-    
+    # Verify subject exists and belongs to user
+    subject = db.query(Subject).filter(Subject.id == subject_id, Subject.user_id == current_user.id).first()
     if not subject:
         raise HTTPException(status_code=404, detail="Subject not found")
     
@@ -553,6 +823,16 @@ def create_subject(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
+    # SaaS: Check Subject Limits for Individual Basic Plan
+    if current_user.subscription_type == SubscriptionType.INDIVIDUAL_BASIC:
+        # Count existing subjects
+        subject_count = db.query(Subject).filter(Subject.user_id == current_user.id).count()
+        if subject_count >= 4:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Basic Plan is limited to 4 subjects. Please upgrade to Premium to add more."
+            )
+    
     # Create the basic subject
     new_subject = Subject(
         user_id=current_user.id,
@@ -1243,6 +1523,15 @@ async def use_curriculum_template(
             detail=f"You already have {template.subject} {template.grade} in your subjects"
         )
     
+    # SaaS: Check Subject Limits for Individual Basic Plan
+    if current_user.subscription_type == SubscriptionType.INDIVIDUAL_BASIC:
+        subject_count = db.query(Subject).filter(Subject.user_id == current_user.id).count()
+        if subject_count >= 4:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Basic Plan is limited to 4 subjects. Please upgrade to Premium to add more."
+            )
+
     try:
         # Get total lessons from template
         # Count based on SLOs (one lesson per SLO) or fall back to number_of_lessons
@@ -1976,6 +2265,266 @@ def delete_calendar_activity(
     return {"message": "Activity deleted successfully"}
 
 # ============================================================================
+# ADMIN ANALYTICS ENDPOINTS
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/admin/analytics")
+def get_admin_analytics(
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Get analytics data for admin dashboard."""
+    from sqlalchemy import func
+    from datetime import datetime, timedelta
+    
+    # Filter by school if School Admin
+    school_filter = True
+    if current_user.role == UserRole.SCHOOL_ADMIN and current_user.school_id:
+        school_filter = User.school_id == current_user.school_id
+    
+    # Overview stats
+    total_users = db.query(User).filter(school_filter).count() if current_user.role == UserRole.SCHOOL_ADMIN else db.query(User).count()
+    active_teachers = db.query(User).filter(
+        User.role == UserRole.TEACHER,
+        school_filter if current_user.role == UserRole.SCHOOL_ADMIN else True
+    ).count()
+    total_templates = db.query(CurriculumTemplate).filter(CurriculumTemplate.is_active == True).count()
+    total_subjects = db.query(Subject).count()
+    
+    # Most used curricula (by subject selection)
+    most_used_query = db.query(
+        Subject.subject_name,
+        Subject.grade,
+        func.count(Subject.id).label('usage_count')
+    ).group_by(Subject.subject_name, Subject.grade).order_by(func.count(Subject.id).desc()).limit(10)
+    
+    most_used_curricula = [
+        {"subject": row[0], "grade": row[1] or "Unknown", "usage_count": row[2]}
+        for row in most_used_query.all()
+    ]
+    
+    # Completion rates by subject
+    completion_query = db.query(
+        Subject.subject_name,
+        func.avg(Subject.progress_percentage).label('avg_completion'),
+        func.count(Subject.id).label('count')
+    ).group_by(Subject.subject_name).order_by(func.avg(Subject.progress_percentage).desc()).limit(10)
+    
+    completion_rates = [
+        {"subject": row[0], "avg_completion": float(row[1] or 0), "count": row[2]}
+        for row in completion_query.all()
+    ]
+    
+    # Teacher engagement (top teachers by progress)
+    teacher_query = db.query(
+        User.id,
+        User.email,
+        func.count(Subject.id).label('subjects'),
+        func.avg(Subject.progress_percentage).label('avg_progress')
+    ).join(Subject, Subject.user_id == User.id).filter(
+        school_filter if current_user.role == UserRole.SCHOOL_ADMIN else True
+    ).group_by(User.id, User.email).order_by(func.avg(Subject.progress_percentage).desc()).limit(10)
+    
+    teacher_engagement = [
+        {"user_id": row[0], "email": row[1], "subjects": row[2], "avg_progress": float(row[3] or 0)}
+        for row in teacher_query.all()
+    ]
+    
+    # Subject popularity by grade
+    popularity_query = db.query(
+        Subject.grade,
+        func.count(Subject.id).label('count')
+    ).filter(Subject.grade != None).group_by(Subject.grade).order_by(func.count(Subject.id).desc())
+    
+    subject_popularity = [
+        {"grade": row[0] or "Unknown", "count": row[1]}
+        for row in popularity_query.all()
+    ]
+    
+    # Activity timeline (last 30 days)
+    thirty_days_ago = datetime.utcnow() - timedelta(days=30)
+    timeline_query = db.query(
+        func.date(Subject.created_at).label('date'),
+        func.count(Subject.id).label('count')
+    ).filter(Subject.created_at >= thirty_days_ago).group_by(func.date(Subject.created_at)).order_by(func.date(Subject.created_at))
+    
+    activity_timeline = [
+        {"date": str(row[0]), "count": row[1]}
+        for row in timeline_query.all()
+    ]
+    
+    # Progress distribution
+    progress_ranges = {
+        "0-25%": db.query(Subject).filter(Subject.progress_percentage <= 25).count(),
+        "26-50%": db.query(Subject).filter(Subject.progress_percentage > 25, Subject.progress_percentage <= 50).count(),
+        "51-75%": db.query(Subject).filter(Subject.progress_percentage > 50, Subject.progress_percentage <= 75).count(),
+        "76-100%": db.query(Subject).filter(Subject.progress_percentage > 75).count(),
+    }
+    
+    return {
+        "overview": {
+            "total_users": total_users,
+            "active_teachers": active_teachers,
+            "total_templates": total_templates,
+            "total_subjects": total_subjects
+        },
+        "most_used_curricula": most_used_curricula,
+        "completion_rates": completion_rates,
+        "teacher_engagement": teacher_engagement,
+        "subject_popularity": subject_popularity,
+        "activity_timeline": activity_timeline,
+        "progress_distribution": progress_ranges
+    }
+
+# ============================================================================
+# LESSONS PER WEEK CONFIG ENDPOINTS
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/admin/lessons-per-week")
+def get_lessons_per_week_configs(
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Get lessons per week configurations for all subjects/grades from LessonConfiguration table."""
+    from sqlalchemy import distinct
+    
+    # Get all saved configurations
+    saved_configs = db.query(LessonConfiguration).all()
+    saved_config_map = {}
+    for cfg in saved_configs:
+        key = f"{cfg.subject_name}|{cfg.grade}"
+        saved_config_map[key] = cfg
+    
+    # Get all unique subject/grade combinations from Subject table with user counts
+    subject_combos = db.query(
+        Subject.subject_name,
+        Subject.grade,
+        func.count(Subject.id).label('user_count')
+    ).group_by(Subject.subject_name, Subject.grade).all()
+    
+    # Build response combining saved configs with subject data
+    configs = []
+    seen_keys = set()
+    
+    # First add all configs from subject table
+    for row in subject_combos:
+        subject_name = row[0]
+        grade = row[1] or "Unknown"
+        user_count = row[2]
+        key = f"{subject_name}|{grade}"
+        seen_keys.add(key)
+        
+        # Check if we have saved config for this combo
+        if key in saved_config_map:
+            cfg = saved_config_map[key]
+            configs.append({
+                "id": cfg.id,
+                "subject_name": cfg.subject_name,
+                "grade": cfg.grade,
+                "education_level": cfg.education_level,
+                "lessons_per_week": cfg.lessons_per_week,
+                "double_lessons_per_week": cfg.double_lessons_per_week,
+                "single_lesson_duration": cfg.single_lesson_duration,
+                "double_lesson_duration": cfg.double_lesson_duration,
+                "user_count": user_count
+            })
+        else:
+            # Return defaults
+            configs.append({
+                "id": None,
+                "subject_name": subject_name,
+                "grade": grade,
+                "education_level": None,
+                "lessons_per_week": 5,
+                "double_lessons_per_week": 0,
+                "single_lesson_duration": 40,
+                "double_lesson_duration": 80,
+                "user_count": user_count
+            })
+    
+    # Also add any saved configs that don't have active subjects
+    for key, cfg in saved_config_map.items():
+        if key not in seen_keys:
+            configs.append({
+                "id": cfg.id,
+                "subject_name": cfg.subject_name,
+                "grade": cfg.grade,
+                "education_level": cfg.education_level,
+                "lessons_per_week": cfg.lessons_per_week,
+                "double_lessons_per_week": cfg.double_lessons_per_week,
+                "single_lesson_duration": cfg.single_lesson_duration,
+                "double_lesson_duration": cfg.double_lesson_duration,
+                "user_count": 0
+            })
+    
+    return {"configs": configs}
+
+@app.post(f"{settings.API_V1_PREFIX}/admin/lessons-per-week")
+def update_lessons_per_week_config(
+    config_data: dict,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Update lessons per week configuration for a subject/grade - persists to LessonConfiguration table."""
+    subject_name = config_data.get("subject_name")
+    grade = config_data.get("grade")
+    lessons_per_week = config_data.get("lessons_per_week", 5)
+    double_lessons_per_week = config_data.get("double_lessons_per_week", 0)
+    single_lesson_duration = config_data.get("single_lesson_duration", 40)
+    double_lesson_duration = config_data.get("double_lesson_duration", 80)
+    education_level = config_data.get("education_level")
+    
+    if not subject_name or not grade:
+        raise HTTPException(
+            status_code=400,
+            detail="subject_name and grade are required"
+        )
+    
+    # Check if config already exists
+    existing = db.query(LessonConfiguration).filter(
+        LessonConfiguration.subject_name == subject_name,
+        LessonConfiguration.grade == grade
+    ).first()
+    
+    if existing:
+        # Update existing
+        existing.lessons_per_week = lessons_per_week
+        existing.double_lessons_per_week = double_lessons_per_week
+        existing.single_lesson_duration = single_lesson_duration
+        existing.double_lesson_duration = double_lesson_duration
+        if education_level:
+            existing.education_level = education_level
+        db.commit()
+        db.refresh(existing)
+        config_id = existing.id
+    else:
+        # Create new
+        new_config = LessonConfiguration(
+            subject_name=subject_name,
+            grade=grade,
+            education_level=education_level,
+            lessons_per_week=lessons_per_week,
+            double_lessons_per_week=double_lessons_per_week,
+            single_lesson_duration=single_lesson_duration,
+            double_lesson_duration=double_lesson_duration
+        )
+        db.add(new_config)
+        db.commit()
+        db.refresh(new_config)
+        config_id = new_config.id
+    
+    return {
+        "message": "Configuration saved successfully",
+        "id": config_id,
+        "subject_name": subject_name,
+        "grade": grade,
+        "lessons_per_week": lessons_per_week,
+        "double_lessons_per_week": double_lessons_per_week,
+        "single_lesson_duration": single_lesson_duration,
+        "double_lesson_duration": double_lesson_duration
+    }
+
+# ============================================================================
 # LESSON TRACKING ENDPOINTS
 # ============================================================================
 
@@ -2254,13 +2803,16 @@ def list_admin_users(
     current_user: User = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
-    """List all users with their subjects and progress (Admin only)."""
-    users = (
-        db.query(User)
-        .options(joinedload(User.subjects))
-        .order_by(User.created_at.desc())
-        .all()
-    )
+    """List all users with their subjects and progress (Admin only).
+    School Admin only sees users from their school."""
+    
+    query = db.query(User).options(joinedload(User.subjects))
+    
+    # School Admin can only see users from their school
+    if current_user.role == UserRole.SCHOOL_ADMIN and current_user.school_id:
+        query = query.filter(User.school_id == current_user.school_id)
+    
+    users = query.order_by(User.created_at.desc()).all()
 
     user_payload = []
     for user in users:
@@ -2302,14 +2854,24 @@ def update_user_role(
     db: Session = Depends(get_db)
 ):
     """Toggle or set a user's admin role."""
-    if user_id == current_user.id and not payload.is_admin:
+    # Handle both is_admin (legacy) and role (new)
+    new_is_admin = payload.is_admin
+    
+    if new_is_admin is None and payload.role:
+        # Convert role to is_admin
+        new_is_admin = payload.role in ["SUPER_ADMIN", "SCHOOL_ADMIN", "admin"]
+    
+    if new_is_admin is None:
+        raise HTTPException(status_code=400, detail="Either is_admin or role must be provided")
+    
+    if user_id == current_user.id and not new_is_admin:
         raise HTTPException(status_code=400, detail="You cannot remove your own admin access")
 
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    user.is_admin = payload.is_admin
+    user.is_admin = new_is_admin
     db.commit()
     db.refresh(user)
 
@@ -6578,6 +7140,15 @@ async def create_timetable_entry(
             subject = existing_subject
             entry.subject_id = subject.id
         else:
+            # SaaS: Check Subject Limits for Individual Basic Plan
+            if current_user.subscription_type == SubscriptionType.INDIVIDUAL_BASIC:
+                subject_count = db.query(Subject).filter(Subject.user_id == current_user.id).count()
+                if subject_count >= 4:
+                    raise HTTPException(
+                        status_code=status.HTTP_403_FORBIDDEN,
+                        detail="Basic Plan is limited to 4 subjects. Please upgrade to Premium to add more."
+                    )
+
             # Create a new subject from the template for this user
             new_subject = Subject(
                 user_id=current_user.id,

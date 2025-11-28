@@ -9,9 +9,11 @@ class UserBase(BaseModel):
     phone: Optional[str] = None
     school: Optional[str] = None
     grade_level: Optional[str] = None
+    tsc_number: Optional[str] = None
 
 class UserCreate(UserBase):
     password: str
+    role: Optional[str] = "TEACHER"  # TEACHER or SCHOOL_ADMIN
 
 class UserLogin(BaseModel):
     email: EmailStr
@@ -24,6 +26,8 @@ class UserResponse(UserBase):
     id: int
     email_verified: bool
     is_admin: bool
+    role: str
+    subscription_type: str
     created_at: datetime
     
     class Config:
@@ -50,23 +54,33 @@ class AdminSubjectSummary(BaseModel):
 class AdminUserSummary(BaseModel):
     id: int
     email: EmailStr
-    full_name: str
+    full_name: Optional[str] = None
+    # Legacy fields for backward compatibility
     school: Optional[str] = None
     grade_level: Optional[str] = None
-    is_admin: bool
-    auth_provider: str
-    created_at: datetime
-    subjects_count: int
-    subjects: List[AdminSubjectSummary]
+    is_admin: Optional[bool] = False
+    auth_provider: Optional[str] = None
+    # New role-based fields
+    role: Optional[str] = None
+    subscription_type: Optional[str] = None
+    subscription_status: Optional[str] = None
+    school_id: Optional[int] = None
+    subject_count: Optional[int] = 0
+    subjects_count: Optional[int] = 0
+    subjects: Optional[List[AdminSubjectSummary]] = []
+    created_at: Optional[datetime] = None
 
 
 class AdminUsersResponse(BaseModel):
     users: List[AdminUserSummary]
     total: int
+    page: Optional[int] = 1
+    page_size: Optional[int] = 50
 
 
 class AdminRoleUpdate(BaseModel):
-    is_admin: bool
+    is_admin: Optional[bool] = None
+    role: Optional[str] = None
 
 
 class ResetProgressRequest(BaseModel):
@@ -740,6 +754,38 @@ class SystemAnnouncementResponse(SystemAnnouncementBase):
     id: int
     created_by: Optional[int] = None
     created_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+# ============================================================================
+# SCHOOL SCHEMAS
+# ============================================================================
+
+class SchoolCreate(BaseModel):
+    name: str
+    max_teachers: int
+    teacher_counts_by_level: Optional[dict] = {}
+
+class SchoolResponse(BaseModel):
+    id: int
+    name: str
+    admin_id: Optional[int]
+    subscription_status: str
+    max_teachers: int
+    created_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+class TeacherInvite(BaseModel):
+    email: EmailStr
+
+class SchoolTeacherResponse(UserBase):
+    id: int
+    email_verified: bool
+    subscription_status: str
+    subjects_count: int = 0
     
     class Config:
         from_attributes = True

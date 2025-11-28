@@ -57,6 +57,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async jwt({ token, user, account }) {
       if (user) {
+        console.log("JWT Callback - User Role:", (user as any).user?.role);
         token.accessToken = (user as any).accessToken;
         token.user = (user as any).user;
       }
@@ -66,6 +67,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (token.accessToken) {
         (session as any).accessToken = token.accessToken;
         (session as any).user = token.user;
+        // Explicitly map role and subscription_type to session.user for easier access
+        if ((token.user as any)?.role) {
+           (session.user as any).role = (token.user as any).role;
+        }
+        if ((token.user as any)?.subscription_type) {
+           (session.user as any).subscription_type = (token.user as any).subscription_type;
+        }
+        console.log("Session Callback - User Role:", (token.user as any)?.role);
       }
       return session;
     },

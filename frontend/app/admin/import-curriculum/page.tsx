@@ -48,6 +48,18 @@ export default function ImportCurriculumPage() {
       router.push("/login");
       return;
     }
+    
+    // Check for Super Admin access
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      if (user.role !== "SUPER_ADMIN") {
+        toast.error("Access denied. Super Admin privileges required.");
+        router.push("/admin/dashboard");
+        return;
+      }
+    }
+    
     fetchCurricula();
   }, [router]);
 
