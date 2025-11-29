@@ -1,0 +1,427 @@
+{
+  "grade": "Grade 4",
+  "subject": "Social Studies",
+  "strands": [
+    {
+      "strandId": "1.0",
+      "strandTitle": "Natural and Built Environments",
+      "subStrands": [
+        {
+          "subStrandId": "1.1",
+          "subStrandTitle": "Compass Direction",
+          "specificLearningOutcomes": [
+            "identify the four cardinal points of a compass",
+            "use the four cardinal points to give directions on a map",
+            "appreciate the use of four cardinal points in everyday life"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm the four cardinal points of a compass",
+            "draw and label the four cardinal points, practise giving directions to places using the four cardinal points",
+            "use the four compass points to show direction on the interactive map to enrich the mapping skills",
+            "play computer games on the compass direction for enjoyment"
+          ],
+          "keyInquiryQuestions": ["How can we show direction of places?"]
+        },
+        {
+          "subStrandId": "1.2",
+          "subStrandTitle": "Location and size of the County",
+          "specificLearningOutcomes": [
+            "identify sub-counties in the county",
+            "locate the county in relation to neighbouring counties",
+            "estimate the size of the county in relation to neighbouring counties",
+            "acknowledge the location and size of the county"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm and list sub- counties in their county",
+            "use relevant print or digital resources to identify the location of the county in relation to neighbouring counties",
+            "discuss the size of the county in relation to the neighbouring counties",
+            "sketch, colour, and display the map of the county in class",
+            "play games on the location of the county in relation to neighbouring counties"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to learn the size and location of a county?"
+          ]
+        },
+        {
+          "subStrandId": "1.3",
+          "subStrandTitle": "Physical features in the County",
+          "specificLearningOutcomes": [
+            "identify the main physical features in the county",
+            "state the importance of the main physical features in the county",
+            "illustrate the main physical features in the county",
+            "appreciate the main physical features in the county"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm the main physical features in the county, sketch the main physical features in the county",
+            "draw or take photographs of the main physical features in the county",
+            "outline the importance of the main physical features in the county and share the discussion points in class",
+            "display pictures or models of the main physical features in the county in class",
+            "find out from parents or guardians the main physical features in the county and share"
+          ],
+          "keyInquiryQuestions": [
+            "Which physical features are found in your county?"
+          ]
+        },
+        {
+          "subStrandId": "1.4",
+          "subStrandTitle": "Seasons in the County",
+          "specificLearningOutcomes": [
+            "identify the four seasons experienced in the county",
+            "explain how the four seasons influence human activities in the county",
+            "explore how rainy weather affects road safety in the county",
+            "model weather charts of seasons in the county",
+            "appreciate the different seasons experienced in the county"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm about seasons experienced in the county",
+            "use print or digital resources to identify seasons experienced in the county",
+            "engage a resource person to find out how seasons influence human activities in the county",
+            "discuss ways in which rainy weather affects safety of road users",
+            "draw weather charts of seasons in the county",
+            "observe and record in charts human activities associated with different seasons",
+            "sing songs about seasons experienced in the county"
+          ],
+          "keyInquiryQuestions": [
+            "How do seasons influence human activities in the county?"
+          ]
+        },
+        {
+          "subStrandId": "1.5",
+          "subStrandTitle": "Historic Built Environments in the County",
+          "specificLearningOutcomes": [
+            "identify the main historic built environments in the county",
+            "explain the importance of the main historic built environments in the county",
+            "participate in conservation activities of the historic built environments within the county",
+            "appreciate historic built environments in the county"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm and share the main historic built environments in the county",
+            "use print or digital resources to identify historic built environments in the county",
+            "visit some of the historic, built environments within the locality (take photographs, audio tape conversations on the environments or take notes)",
+            "engage a resource person to discuss the importance of the historic built environment in the county",
+            "participate in conserving historic built environments in the locality as service learning (collecting litter, sweeping)"
+          ],
+          "keyInquiryQuestions": [
+            "How can we care for the historic built environments in our county?"
+          ]
+        }
+      ]
+    },
+    {
+      "strandId": "2.0",
+      "strandTitle": "People and Population",
+      "subStrands": [
+        {
+          "subStrandId": "2.1",
+          "subStrandTitle": "Interdependence of people",
+          "specificLearningOutcomes": [
+            "identify ways in which people depend on each other in the county",
+            "explain the benefits of interdependence of people in the county",
+            "use chart to illustrate the benefits of interdependence people",
+            "appreciate the interdependence of people in the County"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm in class the ways in which people depend on each other in the county",
+            "use print or digital resources to identify ways in which people depend on each other in the county",
+            "draw a chart on benefits of interdependence among the people",
+            "role-play interdependence of people in the community",
+            "recite a poem about the importance of interdependence of people",
+            "find out from parents or guardians about the importance of interdependence of people and report back"
+          ],
+          "keyInquiryQuestions": [
+            "How do people in the county depend on each other?",
+            "Why should we support each other in the county?"
+          ]
+        },
+        {
+          "subStrandId": "2.2",
+          "subStrandTitle": "Population Distribution",
+          "specificLearningOutcomes": [
+            "describe patterns of population distribution in the county",
+            "illustrate the patterns of population distribution in the county",
+            "appreciate population distribution in the county"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm what is population distribution",
+            "use a digital or print map of the county to identify the patterns of population, distribution in the county",
+            "explain the patterns of population distribution in the county",
+            "use the map of the county to plot patterns of population distribution",
+            "draw a map of the county showing population distribution",
+            "display the map of the county in the appropriate learning corner"
+          ],
+          "keyInquiryQuestions": ["How is population spread out in the county?"]
+        }
+      ]
+    },
+    {
+      "strandId": "3.0",
+      "strandTitle": "Social Organisations",
+      "subStrands": [
+        {
+          "subStrandId": "3.1",
+          "subStrandTitle": "Aspects of Traditional Culture in the County",
+          "specificLearningOutcomes": [
+            "identify aspects of traditional culture in the county",
+            "illustrate aspects of traditional culture practised in the county",
+            "appreciate the importance of traditional culture in the county"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm aspects of traditional culture in the county",
+            "describe aspects of traditional culture in the county",
+            "discuss the importance of traditional culture in the county",
+            "collect and record aspects of traditional culture practised in the community (pictures, songs, artefacts, dress, food, paintings, tools)",
+            "showcase different aspects of traditional culture practised in the community"
+          ],
+          "keyInquiryQuestions": ["Why is culture important?"]
+        },
+        {
+          "subStrandId": "3.2",
+          "subStrandTitle": "The School",
+          "specificLearningOutcomes": [
+            "narrate the history of the school",
+            "explain the values of the school",
+            "recite the school motto",
+            "desire to obey the school rules"
+          ],
+          "suggestedLearningExperiences": [
+            "gather information on the history of the school from relevant personnel and share in class",
+            "discuss the history of the school with others in class",
+            "use digital or print resources to find out the school values",
+            "develop a poster on the school values",
+            "develop a poster on the school motto and display it in class",
+            "make a gallery walk and peer assess"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to maintain discipline in school?"
+          ]
+        }
+      ]
+    },
+    {
+      "strandId": "4.0",
+      "strandTitle": "Resources and Economic Activities",
+      "subStrands": [
+        {
+          "subStrandId": "4.1",
+          "subStrandTitle": "Economic activities in the County",
+          "specificLearningOutcomes": [
+            "Explore the main resources found in the county",
+            "identify the main economic activities carried out in the county",
+            "explain the importance of economic activities carried out in the county",
+            "participate in economic activities in the locality",
+            "appreciate the economic activities in the county"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm on the economic activities in the county",
+            "make posters on the economic activities carried out in the county",
+            "discuss the importance of economic activities in the county",
+            "participate in appropriate economic activities in the locality",
+            "create and recite poems or songs on the economic activities in their county"
+          ],
+          "keyInquiryQuestions": [
+            "How can we conserve the resources found in the county?"
+          ]
+        },
+        {
+          "subStrandId": "4.2",
+          "subStrandTitle": "Industries in the County",
+          "specificLearningOutcomes": [
+            "identify industries in the county",
+            "explain the benefits of industries in the county",
+            "locate industries in the county",
+            "recognise the role of industries in the county"
+          ],
+          "suggestedLearningExperiences": [
+            "share the industries in the county",
+            "discuss the benefits of industries in the county",
+            "locate industries in the county",
+            "visit an industry to learn its benefits in the county",
+            "create a poster of the industry visited and display in class",
+            "Compose poems on the benefits of industries in the county"
+          ],
+          "keyInquiryQuestions": [
+            "How can a county benefit from its industries?"
+          ]
+        },
+        {
+          "subStrandId": "4.3",
+          "subStrandTitle": "Enterprise Project at School",
+          "specificLearningOutcomes": [
+            "identify the projects that can be initiated at school",
+            "participate in initiating an enterprise project at school",
+            "uphold ethics and collective efforts in managing enterprise projects at school"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm enterprise projects that can be undertaken at school",
+            "plan and undertake a viable enterprise project at school",
+            "design personal protective equipment for safety on the roads using locally available materials",
+            "participate in the initiation and management of the enterprise project in the school",
+            "share responsibilities on the planned enterprise project",
+            "discuss ethical practices to be observed in managing the enterprise project",
+            "showcase the school project"
+          ],
+          "keyInquiryQuestions": [
+            "How are enterprise projects managed in school?"
+          ]
+        }
+      ]
+    },
+    {
+      "strandId": "5.0",
+      "strandTitle": "Citizenship and Governance in Kenya",
+      "subStrands": [
+        {
+          "subStrandId": "5.1",
+          "subStrandTitle": "Good Citizenship in School",
+          "specificLearningOutcomes": [
+            "identify qualities of a good citizen in school",
+            "develop qualities of good citizenship in school",
+            "appreciate qualities of good citizenship in school"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm qualities of a good citizen in school",
+            "use digital or print resources to identify qualities of a good citizen in school",
+            "role-play qualities of a good citizen in a school",
+            "engage a role model in the community and discuss good citizenship",
+            "design a poster with qualities of a good citizen in school",
+            "write an essay on qualities of a good citizen and share in class"
+          ],
+          "keyInquiryQuestions": [
+            "How can we demonstrate good citizenship in school?"
+          ]
+        },
+        {
+          "subStrandId": "5.2",
+          "subStrandTitle": "Peace",
+          "specificLearningOutcomes": [
+            "identify factors that promote peace in school",
+            "develop strategies of living in peace with others in school",
+            "desire to uphold peace in school"
+          ],
+          "suggestedLearningExperiences": [
+            "discuss factors that promote peace in school",
+            "create messages on strategies of living in peace with others in school",
+            "use digital or print resources to find out examples of peace activities undertaken in schools (peace gardens/nature trails, peace corners, peace competition essays)",
+            "design posters with peace- building messages",
+            "participate in peacebuilding activities",
+            "find out from parents and guardians how they can uphold peace"
+          ],
+          "keyInquiryQuestions": [
+            "How can we live in peace with others in school?",
+            "Why is it important to plan for a peacebuilding activity in school?"
+          ]
+        },
+        {
+          "subStrandId": "5.3",
+          "subStrandTitle": "Child Rights",
+          "specificLearningOutcomes": [
+            "outline forms of child abuse in the community",
+            "explain the causes of child abuse in the community",
+            "explain effects of child abuse in the community",
+            "desire to promote child rights and responsibilities in the school"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm forms of child abuse in the community",
+            "use digital or print resources to find out the causes of child abuse in the community",
+            "discuss effects of child abuse in the community",
+            "design posters on the effects of child abuse in the community",
+            "sing songs and recite poems on the protection of self and others from child abuse in the community",
+            "create awareness on use of authorised school transport practices to peers",
+            "participate in activities that promote child rights in the school"
+          ],
+          "keyInquiryQuestions": [
+            "How can harmful cultural practices violate child rights in the community?",
+            "How can we protect ourselves from child abuse?"
+          ]
+        },
+        {
+          "subStrandId": "5.4",
+          "subStrandTitle": "Democracy in school",
+          "specificLearningOutcomes": [
+            "identify democratic processes in the school",
+            "explain the benefits of democracy in school",
+            "practise democratic elements in school",
+            "appreciate democratic practices in school"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm democratic processes in school",
+            "prepare a chart showing the democratic processes in the school",
+            "discuss benefits of democracy in school",
+            "prepare posters with benefits of democracy in school",
+            "carry out a mock election of leaders in class",
+            "engage a resource person to learn the elements of democratic practices in school"
+          ],
+          "keyInquiryQuestions": [
+            "How can we practise democracy in school?",
+            "Why is democracy important in a school?"
+          ]
+        },
+        {
+          "subStrandId": "5.5",
+          "subStrandTitle": "Children’s Government in school",
+          "specificLearningOutcomes": [
+            "explain the composition of Children’s Government in school",
+            "describe the functions of the Children’s Government in school",
+            "participate in Children’s Government in school",
+            "respect Children’s Government in school"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm the composition of Children’s Government in school",
+            "write the structure of the Children’s Government",
+            "share experiences in groups on functions of Children’s Government in school",
+            "role-play the functions of Children’s Government",
+            "write a composition on ways of participating in Children’s Government in school",
+            "simulate the Children’s Government in session in school",
+            "share on how to respect Children’s Government"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to have a Children's Government in school?",
+            "How can we support Children’s Government in school?"
+          ]
+        },
+        {
+          "subStrandId": "5.6",
+          "subStrandTitle": "Community Leadership",
+          "specificLearningOutcomes": [
+            "identify leaders in the community",
+            "explain the duties of leaders in the community",
+            "demonstrate qualities of good leadership in the community",
+            "appreciate good leadership in the community"
+          ],
+          "suggestedLearningExperiences": [
+            "name leaders in the community",
+            "discuss duties of community leaders and make class presentation",
+            "engage a resource person to discuss the qualities of a good community leader and report",
+            "role-play qualities of good leadership in the community",
+            "design and display a poster with qualities of good leadership in the community",
+            "Compose songs on good leadership in the community"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important for leaders to have good qualities?"
+          ]
+        },
+        {
+          "subStrandId": "5.7",
+          "subStrandTitle": "The County Governments in Kenya",
+          "specificLearningOutcomes": [
+            "identify the structure of county government",
+            "explain the duties of County Governor in Kenya",
+            "explain the roles of a member of county assembly",
+            "appreciate the County Government in Kenya"
+          ],
+          "suggestedLearningExperiences": [
+            "brainstorm the leaders of county government in Kenya",
+            "outline the structure of the county government",
+            "draw the structure of the county assembly in Kenya",
+            "discuss the duties of the governor and a member of the county assembly",
+            "watch video clips or visit county government offices to learn administrative structure"
+          ],
+          "keyInquiryQuestions": [
+            "Why is a county government important in Kenya?",
+            "What are the duties of ward and village administrators?"
+          ]
+        }
+      ]
+    }
+  ]
+}

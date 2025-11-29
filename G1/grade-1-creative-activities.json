@@ -1,0 +1,355 @@
+{
+  "subjectName": "Creative Arts Activities",
+  "grade": "Grade 1",
+  "strands": [
+    {
+      "strandId": "1.0",
+      "strandTitle": "Creating and Executing",
+      "subStrands": [
+        {
+          "subStrandId": "1.1",
+          "subStrandTitle": "Jumping",
+          "specificLearningOutcomes": [
+            "identify different ways of jumping for body agility",
+            "improvise objects to be used for jumping",
+            "jump in different ways for coordination",
+            "sing songs while jumping for fun",
+            "appreciate jumping for enjoyment while observing safety"
+          ],
+          "suggestedLearningExperiences": [
+            "watch a video clip or a demonstration on jumping activities",
+            "practise different ways of jumping with peers",
+            "identify and collect locally available materials for improvising objects to be used in jumping while observing safety",
+            "jump high for height and far in different directions",
+            "collaboratively sing songs while jumping high and far in different ways",
+            "talk about their own and others' performance in jumping activities"
+          ],
+          "keyInquiryQuestions": [
+            "Why are jumping activities important as a physical activity?",
+            "Which objects can be improvised for use in jumping activities?"
+          ]
+        },
+        {
+          "subStrandId": "1.2",
+          "subStrandTitle": "Rhythm",
+          "specificLearningOutcomes": [
+            "identify items that maintain a steady pulse for beat articulation",
+            "play a steady beat on a percussion instrument while singing",
+            "create a rhythmic accompaniment to a song using body percussion",
+            "appreciate the use of percussions in creating rhythm"
+          ],
+          "suggestedLearningExperiences": [
+            "identify and imitate objects that maintain a constant beat such as a ticking clock",
+            "collaboratively tap/clap the beat using body percussion; clapping/tapping/marching/stamping the foot while singing simple songs",
+            "watch live or recorded performances to identify body percussion accompaniments to songs",
+            "explore their body and use body percussions to accompany familiar topical songs",
+            "improvise body percussion accompaniments to songs",
+            "record performances using a digital device or present to peers for feedback"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it importrant to maintain a steady in music?",
+            "How can body percussions be used to create a rhythm?"
+          ]
+        },
+        {
+          "subStrandId": "1.3",
+          "subStrandTitle": "Drawing",
+          "specificLearningOutcomes": [
+            "identify lines for familiarity",
+            "draw lines in different directions",
+            "draw patterns using lines in different directions",
+            "appreciate drawing pictures for expression"
+          ],
+          "suggestedLearningExperiences": [
+            "observe actual and virtual pictures and identify lines",
+            "collaboratively, recognise straight, wavy, curved and zigzag lines within the environment",
+            "select appropriate materials for drawing such as coloured pencils, crayons, and charcoal among others",
+            "draw various lines; straight, wavy, curved and zigzag",
+            "draw the lines in different directions; vertical, diagonal and horizontal",
+            "create a pattern by drawing lines in different directions",
+            "draw simple pictures using lines for enjoyment",
+            "show and speak clearly about own and others’ drawing for feedback"
+          ],
+          "keyInquiryQuestions": ["What tools are used in drawing?"]
+        },
+        {
+          "subStrandId": "1.4",
+          "subStrandTitle": "Stretching",
+          "specificLearningOutcomes": [
+            "identify body parts involved in stretching",
+            "perform stretching in different directions for flexibility",
+            "enjoy stretching in different directions for body fitness"
+          ],
+          "suggestedLearningExperiences": [
+            "talk about body parts involved in stretching",
+            "demonstrate stretching in different directions with peers",
+            "practise stretching in different directions",
+            "practise stretching in different positions",
+            "collaboratively, play appropriate games involving stretching while observing safety",
+            "sing action songs on body parts involved in stretching",
+            "team up to use digital devices to record performances on stretching for future reference"
+          ],
+          "keyInquiryQuestions": [
+            "Why is stretching important as a physical activity?"
+          ]
+        },
+        {
+          "subStrandId": "1.5",
+          "subStrandTitle": "Painting and Colouring",
+          "specificLearningOutcomes": [
+            "identify materials and tools for painting and colouring",
+            "colour a picture to immitate the environment",
+            "paint shapes using a brush",
+            "paint using fingers on a surface",
+            "paint using a sponge on a surface",
+            "enjoy painting and colouring as a form of expression"
+          ],
+          "suggestedLearningExperiences": [
+            "observe actual and virtual environment to; identify materials and tools for painting and colouring",
+            "apply colour within the pictures using dry media to represent colours of objects in the environment",
+            "paint using a brush within the shapes of the picture on paper",
+            "paint using fingers on a paper or fabric",
+            "use sponge to paint within drawn forms on a paper or fabric, take note; clean hands after painting",
+            "display the pictures and talk about them with your peers"
+          ],
+          "keyInquiryQuestions": ["Which tools can be used in painting?"]
+        },
+        {
+          "subStrandId": "1.6",
+          "subStrandTitle": "Melody",
+          "specificLearningOutcomes": [
+            "identify sounds as melodic or non-melodic for aural discrimination",
+            "aurally recognise like and unlike passages in short melodies",
+            "echo simple melodic patterns by singing or humming for aural skill development",
+            "enjoy replicating melodic passages for aural discrimination"
+          ],
+          "suggestedLearningExperiences": [
+            "collaboratively listen to a variety of sounds and identify them as melodic or non- melodic",
+            "listen to songs and aurally identify the passages as like or unlike",
+            "listen to age-appropriate live or recorded melodic patterns and imitate through singing or humming with pitch accuracy",
+            "comment on peers’ imitation of melodies using polite language"
+          ],
+          "keyInquiryQuestions": ["Why are melodic sounds important?"]
+        },
+        {
+          "subStrandId": "1.7",
+          "subStrandTitle": "Pattern Making",
+          "specificLearningOutcomes": [
+            "recognise patterns made using numeral and letters",
+            "create patterns using letters",
+            "make a pattern using numerals",
+            "enjoy making patterns for expression"
+          ],
+          "suggestedLearningExperiences": [
+            "explore virtual and actual source to identify letter and numeral patterns",
+            "use letters to create a line pattern",
+            "use numerals to create a line pattern",
+            "take turns to show and talk about patterns created by self and others"
+          ],
+          "keyInquiryQuestions": ["How is a pattern made?"]
+        }
+      ]
+    },
+    {
+      "strandId": "2.0",
+      "strandTitle": "Performing and Displaying",
+      "subStrands": [
+        {
+          "subStrandId": "2.1",
+          "subStrandTitle": "Singing Games- Kenyan style",
+          "specificLearningOutcomes": [
+            "identify props used in the performance of a singing game from a Kenyan community",
+            "improvise a simple prop for use in performing a singing game",
+            "perform singing games drawn from local cultures in Kenyan for enjoyment",
+            "enjoy performing singing games from Kenyan local cultures"
+          ],
+          "suggestedLearningExperiences": [
+            "watch live or recorded performances of singing games drawn from Kenyan local cultures and talk about them",
+            "identify props used in a singing game performance by name",
+            "collect relevant locally available materials and improvise a prop for use in singing games, performance observing safety",
+            "take a role and perform age- appropriate singing games with peers focussing on performance aspects; singing, game activities, pattern formations, the use of props, observance of safety and appropriate etiquette (behaviour)"
+          ],
+          "keyInquiryQuestions": [
+            "Why are singing games performed?",
+            "Why are props used in a singing game?"
+          ]
+        },
+        {
+          "subStrandId": "2.2",
+          "subStrandTitle": "Throwing and Catching",
+          "specificLearningOutcomes": [
+            "identify materials used to improvise a ball",
+            "improvise a ball from locally available materials",
+            "perform throwing and catching activities for skill acquisition",
+            "appreciate throwing and catching activities for enjoyment"
+          ],
+          "suggestedLearningExperiences": [
+            "collect locally available reusable materials to be used for making a ball while observing hygiene",
+            "make an appropriate ball using collected materials",
+            "practise throwing and catching activities using the ball with peers while observing safety",
+            "play simple games on throwing and catching a ball",
+            "talk about own and others effort while playing games involving throwing and catching"
+          ],
+          "keyInquiryQuestions": [
+            "Which direction is easier to throw and catch the ball from during play?"
+          ]
+        },
+        {
+          "subStrandId": "2.3",
+          "subStrandTitle": "Paper Craft",
+          "specificLearningOutcomes": [
+            "identify items made using paper craft",
+            "make paper items using the pleating technique",
+            "make paper items using the folding technique",
+            "play using the paper items for enjoyment"
+          ],
+          "suggestedLearningExperiences": [
+            "observe virtual or actual pictures of items made out of paper",
+            "collect varied recyclable papers for craft",
+            "create paper toys using the pleating technique such as animals, fan among others",
+            "use the folding technique to make toy items to imitate things in the environment",
+            "narrate to peers about and/or play with the paper item"
+          ],
+          "keyInquiryQuestions": ["Which items can you make using paper?"]
+        },
+        {
+          "subStrandId": "2.4",
+          "subStrandTitle": "Log Roll and T Balances",
+          "specificLearningOutcomes": [
+            "identify log roll and T- balance through practice",
+            "make markers for use during log rolls and T- balance performance",
+            "perform a log roll for coordination",
+            "perform the T-balance for flexibility",
+            "appreciate performing the log roll and T-balance for enjoyment"
+          ],
+          "suggestedLearningExperiences": [
+            "watch a video clip or a demonstration of a log roll",
+            "watch a video clip or demonstration of a T-balance",
+            "collect and share reusable materials for making markers to be used during the log roll and T-balance performance with peers",
+            "work collaboratively to make markers and mark the open space using improvised markers",
+            "perform the log roll in different directions while observing safety",
+            "perform the T-balance in different with peers while observing safety",
+            "sing action songs while performing log roll and T-balance",
+            "talk about own and others performance of the log roll and T - balance"
+          ],
+          "keyInquiryQuestions": [
+            "Why should there be good spacing while performing the log roll and T- balance?"
+          ]
+        },
+        {
+          "subStrandId": "2.5",
+          "subStrandTitle": "Songs-Action songs",
+          "specificLearningOutcomes": [
+            "describe the message in an action song",
+            "sing action songs in unison applying performance techniques",
+            "enjoy singing action songs for self-expression"
+          ],
+          "suggestedLearningExperiences": [
+            "watch live or recorded performances of age-appropriate action songs and imitate the performances",
+            "collaboratively listen to or perform action songs based on pertinent issues and talk about the message in the action songs",
+            "sing action songs in unison focusing on performance techniques",
+            "respectfully talk about peers’ performances for improvement"
+          ],
+          "keyInquiryQuestions": ["Why do we sing with actions?"]
+        },
+        {
+          "subStrandId": "2.6",
+          "subStrandTitle": "Modelling",
+          "specificLearningOutcomes": [
+            "identify items modelled using the pinch method",
+            "identify materials and tools used in modelling",
+            "model items using the pinch method",
+            "enjoy modelling items using the pinch method"
+          ],
+          "suggestedLearningExperiences": [
+            "observe actual or virtual items modelled using the pinch method",
+            "collect materials and tools for use in the pinch method modelling",
+            "model simple objects using the pinch method",
+            "showcase, talk about own and others’ work"
+          ],
+          "keyInquiryQuestions": [
+            "What items in the Inquiry Corner, are modelled using the pinch method?",
+            "What materials and tools are used for modelling?",
+            "What items would you like to model?"
+          ]
+        },
+        {
+          "subStrandId": "2.7",
+          "subStrandTitle": "Percussion Musical Instruments",
+          "specificLearningOutcomes": [
+            "identify percussion musical instruments from diverse indigenous Kenyan communities",
+            "improvise a percussion musical instrument using locally available materials",
+            "play a percussion musical instrument for enjoyment",
+            "appreciate percussion musical instruments from diverse Kenyan cultural communities"
+          ],
+          "suggestedLearningExperiences": [
+            "search for percussion instruments from print and electronic media and identify them by name",
+            "responsibly collect appropriate available materials and improvise a shaker or jingle",
+            "display and positively talk about percussion instruments improvised by peers and self and store them for future use",
+            "visit actual or virtual sites to watch or observe how percussion instruments are played",
+            "practice the methods of playing shakers, jingles and drums",
+            "play a percussion musical instrument to accompany singing"
+          ],
+          "keyInquiryQuestions": [
+            "Why are percussion musical instruments played?",
+            "How can percussion instruments be improvised?"
+          ]
+        }
+      ]
+    },
+    {
+      "strandId": "3.0",
+      "strandTitle": "Appreciation",
+      "subStrands": [
+        {
+          "subStrandId": "3.1",
+          "subStrandTitle": "Musical Sounds",
+          "specificLearningOutcomes": [
+            "identify sounds in the local environment for aural discrimination",
+            "describe the elements of music as used in a song",
+            "respond to sounds in the environment for self-expression",
+            "describe the mood of songs for emotional expression",
+            "enjoy listening to and talking about music"
+          ],
+          "suggestedLearningExperiences": [
+            "keenly listen to sounds (birds, humans, animals, objects) within the school environment and identify their sources",
+            "identify high and low sounds from the environment",
+            "collaboratively listen to live/recorded music and describe its volume, speed and pitch, using appropriate terminology such as; loud/soft, fast/slow and high/ low",
+            "listen to and respond imaginatively to sounds in the environment through; movement, imitation or talking about it",
+            "talk about the mood of selected pieces of short music either as happy or sad"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to listen to music?",
+            "How does listening to music make you feel?"
+          ]
+        },
+        {
+          "subStrandId": "3.2",
+          "subStrandTitle": "Water Safety Awareness",
+          "specificLearningOutcomes": [
+            "recognise different water points around the home environment",
+            "identify water dangers arising from water points at home",
+            "make a montage of water points around the home environment",
+            "narrate ways of applying safety around water points at home",
+            "appreciate water safety at home for life skills"
+          ],
+          "suggestedLearningExperiences": [
+            "observe pictures of different water points at home and share with peers",
+            "talk about water points at home",
+            "talk about the dangers of water points at home with peers",
+            "collect pictures of familiar water points from magazines, newspapers among others",
+            "sort and cut out the pictures",
+            "stick using glue side by side the pictures on a stiff paper to make a simple montage",
+            "perform a singing game about the dangers of water",
+            "show the montage work and talk about ways to be safe around water points at homes",
+            "observe safety measures around water points at home by exercising self- discipline"
+          ],
+          "keyInquiryQuestions": [
+            "How can water points at home be dangerous?",
+            "What materials are used to make a montage?"
+          ]
+        }
+      ]
+    }
+  ]
+}

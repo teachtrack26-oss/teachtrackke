@@ -1,0 +1,332 @@
+{
+  "grade": "Grade 3",
+  "subjectName": "Creative Arts Activities",
+  "strands": [
+    {
+      "strandId": "1.0",
+      "strandTitle": "Creating and Executing",
+      "subStrands": [
+        {
+          "subStrandId": "1.1",
+          "subStrandTitle": "Pushing and Pulling",
+          "specificLearningOutcomes": [
+            "identify pushing and pulling in physical activities for space and body awareness",
+            "perform pulling and pushing activities for flexibility",
+            "enjoy pushing and pulling for strength and flexibility"
+          ],
+          "suggestedLearningExperiences": [
+            "watch virtual or a demonstration of pushing and pulling activities in physical activities",
+            "demonstrate pushing and pulling activities",
+            "practise pushing and pulling activities",
+            "sing songs while pulling and pushing",
+            "play games using pulling and pushing skills by observing safety"
+          ],
+          "keyInquiryQuestions": [
+            "How can pulling and pushing skills be applied at home?"
+          ]
+        },
+        {
+          "subStrandId": "1.2",
+          "subStrandTitle": "Drawing and Painting",
+          "specificLearningOutcomes": [
+            "identify colour mixing for familiarity",
+            "mix colours using spraying and blowing techniques",
+            "draw a picture using regular and irregular shapes",
+            "create a painting for self- expression",
+            "value drawing and painting for expression"
+          ],
+          "suggestedLearningExperiences": [
+            "watch videos/pictures to recognise how to mix colour by spraying and blowing technique",
+            "spray colours randomly using recyclable old brushes/improvised brushes and clean the hands after the activity",
+            "mix the colour by blowing randomly using straws and a biro pen tube among others while observing safety",
+            "draw and colour a simple composition using regular and irregular shapes",
+            "paint a picture creatively for expression",
+            "collaboratively, display their work for peer feedback"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to clean the brush after painting?"
+          ]
+        },
+        {
+          "subStrandId": "1.3",
+          "subStrandTitle": "Rhythm and Pattern Making",
+          "specificLearningOutcomes": [
+            "identify different sound durations in simple songs",
+            "create a simple rhythmic pattern using long and short sounds",
+            "improvise rhythmic accompaniment to simple songs using long and short sounds",
+            "make a random repeat pattern using found objects",
+            "appreciate creating rhythms and patterns"
+          ],
+          "suggestedLearningExperiences": [
+            "sing simple familiar songs for familiarisation of short and long sounds used in creating their rhythmic patterns",
+            "listen to or watch live or recorded performances of simple songs and clap their rhythmic patterns",
+            "use short and long sounds to create simple rhythmic patterns using body percussion or a percussion instrument",
+            "provide rhythmic accompaniment to familiar songs using body percussion or a percussion instrument",
+            "explore virtual sources to identify random and an all over patterns",
+            "print a random pattern alternating colours to suggest rhythm, using a leaf or block (banana stalk, maize cob, among others)"
+          ],
+          "keyInquiryQuestions": ["How can rhythms be created?"]
+        },
+        {
+          "subStrandId": "1.4",
+          "subStrandTitle": "Skipping",
+          "specificLearningOutcomes": [
+            "identify different ways of skipping in different directions",
+            "skip in different directions for skill acquisition",
+            "make patterns while skipping in different ways",
+            "appreciate skipping in different directions for balance and strength"
+          ],
+          "suggestedLearningExperiences": [
+            "talk about skipping in different directions",
+            "demonstrate skipping in different ways and directions",
+            "practise skipping in different ways and directions with peers",
+            "sing songs while skipping for enjoyment while making line patterns and shapes",
+            "play games involving skipping activities with peers while observing safety",
+            "share feedback about own and others performance in skipping"
+          ],
+          "keyInquiryQuestions": ["Why are skipping activities interesting?"]
+        },
+        {
+          "subStrandId": "1.5",
+          "subStrandTitle": "Collage",
+          "specificLearningOutcomes": [
+            "identify a collage for familiarity",
+            "prepare materials for making the collage",
+            "create a collage for self- expression",
+            "appreciate using collage as an art of self- expression"
+          ],
+          "suggestedLearningExperiences": [
+            "observe images of simple collage from actual or virtual environment for motivation to make a collage",
+            "collect varied recyclable materials for making collage",
+            "sort out materials to make the collage",
+            "outline a simple picture to guide the pasting of materials",
+            "collaboratively, paste different materials on the outlined forms",
+            "show and talk about own and others’ collage, work"
+          ],
+          "keyInquiryQuestions": [
+            "What materials can be used to make a collage?"
+          ]
+        },
+        {
+          "subStrandId": "1.6",
+          "subStrandTitle": "Melody",
+          "specificLearningOutcomes": [
+            "identify variations in a simple melodic pattern for aural skill development",
+            "create melodic patterns using improvised percussions",
+            "apply performance directions in performing simple songs",
+            "enjoy creating melodies using the variation technique"
+          ],
+          "suggestedLearningExperiences": [
+            "collaboratively listen to simple songs, noting variations in rhythm, volume, and speed in live or recorded performances and discuss them",
+            "sing simple short songs and improvise variations in rhythm, tempo, volume, text and pitch",
+            "use improvised pitched percussions such as bottles filled with water to different levels or two-tone wood blocks, to create melodic patterns",
+            "collaboratively perform the created melodic patterns applying performance directions; slow/fast, soft/loud",
+            "record the created melodies or play the melodies to peers for feedback"
+          ],
+          "keyInquiryQuestions": [
+            "How can a song be varied to make it more interesting?"
+          ]
+        },
+        {
+          "subStrandId": "1.7",
+          "subStrandTitle": "Weaving",
+          "specificLearningOutcomes": [
+            "identify a plain paper weave for familiarity",
+            "create a plain paper weave",
+            "enjoy making paper mat using weaving"
+          ],
+          "suggestedLearningExperiences": [
+            "observe actual or virtual samples of paper plain weaves of varied colours",
+            "collect different coloured papers",
+            "cut slits on a paper to make a paper loom",
+            "cut paper strips of a different colour to the loom and dispose of waste responsibly",
+            "interlace the strips by running over and under the slits on the paper frame to make paper mats in two colours",
+            "experiment to make paper weaves with different colours",
+            "showcase their plain weaves and ask their peers to comment"
+          ],
+          "keyInquiryQuestions": [
+            "Which other items can be woven?",
+            "Which other materials can be used for weaving?"
+          ]
+        }
+      ]
+    },
+    {
+      "strandId": "2.0",
+      "strandTitle": "Performing and Displaying",
+      "subStrands": [
+        {
+          "subStrandId": "2.1",
+          "subStrandTitle": "Rounds",
+          "specificLearningOutcomes": [
+            "aurally identify a round performance",
+            "sing own part in a round applying appropriate performance techniques",
+            "describe the message in a round",
+            "enjoy singing in a round"
+          ],
+          "suggestedLearningExperiences": [
+            "watch a variety of virtual or recorded clips on age-appropriate 2 and 3-part rounds and talk about what a round is",
+            "talk about how to sing in a round focusing on; posture, accuracy of tune, clarity of words, entries and keeping to own part",
+            "sing own part in a round on a specific theme for skill development",
+            "sing rounds with peers applying appropriate performance techniques",
+            "collaboratively, take turns to sing own part in a round as others give feedback",
+            "talk about the message in a round sung"
+          ],
+          "keyInquiryQuestions": ["How are rounds sung?"]
+        },
+        {
+          "subStrandId": "2.2",
+          "subStrandTitle": "Galloping",
+          "specificLearningOutcomes": [
+            "identify different directions of galloping for agility and coordination",
+            "perform galloping movement in different directions for skill acquisition",
+            "enjoy playing galloping games while moving in different directions"
+          ],
+          "suggestedLearningExperiences": [
+            "observe videos or demonstrations of galloping and talk about the body movement",
+            "demonstrate galloping skills",
+            "practise galloping in different directions",
+            "practise galloping to make patterns",
+            "play games while galloping in different directions",
+            "give self and others feedback on their performance in galloping activities"
+          ],
+          "keyInquiryQuestions": ["Which animals use galloping movement?"]
+        },
+        {
+          "subStrandId": "2.3",
+          "subStrandTitle": "Sculpture (Toy Assemblage)",
+          "specificLearningOutcomes": [
+            "identify toys made by assemblage",
+            "make toys using assemblage",
+            "enjoy making and playing with the toys"
+          ],
+          "suggestedLearningExperiences": [
+            "observe actual or virtual samples of playing toys or dolls",
+            "collaboratively, collect and sort different recyclable material for assemblage of toys or dolls",
+            "safely, assemble the materials to get the structure of the doll or toy",
+            "add details to enhance features of the toy or doll",
+            "use the toys or dolls to play and sing with peers for enjoyment"
+          ],
+          "keyInquiryQuestions": [
+            "What local materials can be used to make a toy?",
+            "How can one join different materials to make a toy?"
+          ]
+        },
+        {
+          "subStrandId": "2.4",
+          "subStrandTitle": "Forward Roll and V-balance",
+          "specificLearningOutcomes": [
+            "identify body parts used for performing forward roll and V- balance in gymnastics",
+            "make markers for use during forward roll and V-balance performance in gymnastics",
+            "perform forward roll for skill acquisition",
+            "perform V-balance for skill acquisition",
+            "enjoy performing forward roll and V- balance for flexibility and balance"
+          ],
+          "suggestedLearningExperiences": [
+            "watch video clips or a demonstration of a forward roll and V-balance",
+            "perform a forward roll and talk about how the body moves",
+            "perform V balance and talk about different parts of the body used",
+            "identify, collect and share simple reusable materials within the environment to be used as markers as they observe safety precautions",
+            "improvise the markers using the collected reusable materials and paint them",
+            "mark the field using the improvised markers",
+            "practise forward roll and V-balance",
+            "play games using forward roll and V-balance in sequence"
+          ],
+          "keyInquiryQuestions": [
+            "How can forward roll and V balances be used to improve flexibility and balance?"
+          ]
+        },
+        {
+          "subStrandId": "2.5",
+          "subStrandTitle": "String Musical Instruments",
+          "specificLearningOutcomes": [
+            "identify Indigenous string musical instruments from Kenyan communities",
+            "improvise a string musical instrument using available materials",
+            "play an improvised string instrument for enjoyment",
+            "value Indigenous string instruments from Kenyan communities"
+          ],
+          "suggestedLearningExperiences": [
+            "watch live or recorded performances and aurally and orally identify string instruments from Kenyan communities",
+            "responsibly use digital devices or pictures to identify the local names of Indigenous string instruments from Kenyan communities",
+            "improvise a Kenyan stringed instrument- either a fiddle, ground or mouth bow observing safety and hygiene by washing hands and cleaning the working area",
+            "explore methods of playing the improvised string instruments",
+            "practise producing sound from a string instrument"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to learn about string instruments from different communities?",
+            "Which materials can be used to improvise a string instrument?"
+          ]
+        },
+        {
+          "subStrandId": "2.6",
+          "subStrandTitle": "Modelling and Ornament Making",
+          "specificLearningOutcomes": [
+            "identify modelled beads for familiarity",
+            "model beads using the pellet technique",
+            "decorate the beads by painting",
+            "make an ornament using beads",
+            "appreciate making beads using the pellet technique"
+          ],
+          "suggestedLearningExperiences": [
+            "explore virtual and actual samples of beaded ornaments",
+            "roll clay or papier mâché to make pellets for beading and clean hands",
+            "pierce the pellets to make a hole through for stringing",
+            "dry the beads under shade",
+            "decorate the beads by painting",
+            "pass a string to make a single- stranded necklace",
+            "display the ornament for peers’ feedback"
+          ],
+          "keyInquiryQuestions": [
+            "What other materials can be used to make beads?"
+          ]
+        }
+      ]
+    },
+    {
+      "strandId": "3.0",
+      "strandTitle": "Appreciation",
+      "subStrands": [
+        {
+          "subStrandId": "3.1",
+          "subStrandTitle": "The Kenya National Anthem",
+          "specificLearningOutcomes": [
+            "identify the text of the first stanza of the Kenya National Anthem in Kiswahili",
+            "describe the message in the Kenya National anthem",
+            "identify occasions when the Kenya National Flag is raised",
+            "sing the Kenya National Anthem observing the anthem’s etiquette",
+            "appreciate the performance of the Kenya National Anthem for patriotism"
+          ],
+          "suggestedLearningExperiences": [
+            "listen to or watch a live or recorded performance of the first stanza of the Kenya National Anthem in unison and sing along",
+            "write the text of the first stanza of the Kenya National Anthem and talk about the message in the stanza",
+            "collaboratively perform the first stanza of the Kenya National Anthem observing appropriate etiquette",
+            "talk about the occasions when the Kenyan National Flag is hoisted"
+          ],
+          "keyInquiryQuestions": [
+            "How is the Kenya National Anthem performed?",
+            "What can one learn from the Kenya National Anthem?"
+          ]
+        },
+        {
+          "subStrandId": "3.2",
+          "subStrandTitle": "Water Safety Awareness",
+          "specificLearningOutcomes": [
+            "identify different water points and water bodies in the locality",
+            "explain water dangers arising from water points and water bodies in the locality",
+            "narrate ways of observing safety around water points and water bodies in the locality",
+            "appreciate water safety in the locality for life skills"
+          ],
+          "suggestedLearningExperiences": [
+            "observe pictures of different water points and water bodies within your locality and share them with peers",
+            "talk about the dangers of water points and water bodies in your locality with peers",
+            "talk about ways of observing safety around water points and water bodies in your locality"
+          ],
+          "keyInquiryQuestions": [
+            "How safe are the water points and water bodies in your locality?",
+            "Why is water safety awareness important?"
+          ]
+        }
+      ]
+    }
+  ]
+}

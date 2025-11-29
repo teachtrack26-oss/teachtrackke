@@ -1,0 +1,328 @@
+{
+  "grade": "Grade 2",
+  "subject": "Mathematics",
+  "strands": [
+    {
+      "strandId": "1.0",
+      "strandTitle": "Numbers",
+      "subStrands": [
+        {
+          "subStrandId": "1.1",
+          "subStrandTitle": "Number Concept",
+          "specificLearningOutcomes": [
+            "identify numbers 1 to 100 in symbols in different situations",
+            "represent numbers 1 to 100 using concrete objects from the environment",
+            "play number games using number cards or digital devices",
+            "appreciate the use of numbers in real-life situations"
+          ],
+          "suggestedLearningExperiences": [
+            "recognise and read numbers 1 to 100 from number cards or charts",
+            "collect safe concrete objects from the environment",
+            "count concrete objects of given numbers in symbols",
+            "match a group of objects to their number value",
+            "in turns, discuss, choose, and play number games in turns using number cards or digital devices"
+          ],
+          "keyInquiryQuestions": ["How can we represent numbers using objects?"]
+        },
+        {
+          "subStrandId": "1.2",
+          "subStrandTitle": "Whole Numbers",
+          "specificLearningOutcomes": [
+            "count numbers forward up to 100 in different situations",
+            "count numbers backward from the number 50",
+            "read and write numbers 1 to 100 in symbols in different situations",
+            "identify the place value of numbers in ones and tens",
+            "read and write numbers 1 to 20 in words",
+            "work out missing numbers in number patterns up to 100",
+            "appreciate number patterns in playing number games"
+          ],
+          "suggestedLearningExperiences": [
+            "count numbers forward up to 100 starting from any point",
+            "count numbers backward from 50 starting from any point",
+            "recognise and read numbers 1 to 100 in symbols from number cards or charts",
+            "name and write the numbers in the place value of ones and tens",
+            "discuss the place value of digits written on the number cards",
+            "read and write numbers 1 to 20 in words",
+            "work out missing numbers in number patterns up to 100",
+            "make number patterns and share with peers",
+            "play games involving whole numbers using digital devices or other resources",
+            "improvise place value apparatus by use of place value tins and pockets from locally available materials",
+            "play a game of putting number cards in place value tins or pockets (ones and tens) according to the place value of digits"
+          ],
+          "keyInquiryQuestions": [
+            "How do we get the next number in a number pattern?"
+          ]
+        },
+        {
+          "subStrandId": "1.3",
+          "subStrandTitle": "Addition",
+          "specificLearningOutcomes": [
+            "add a 2-digit number to a 1-digit number without and with regrouping with the sum not exceeding 100",
+            "add a 2-digit number to a 2-digit number without and with regrouping, with the sum not exceeding 100",
+            "add two multiples of 10 whose sum does not exceed 100",
+            "work out missing numbers in patterns involving the addition of whole numbers up to 100",
+            "appreciate the addition of numbers in real-life situations"
+          ],
+          "suggestedLearningExperiences": [
+            "write additional sentences given in horizontal form into vertical form according to place value",
+            "add a 2-digit number to a 1- digit number without regrouping",
+            "use number cards to add a 2- digit number to a 1-digit number with regrouping",
+            "in teams, discuss and come up with different ways of adding two 2-digit numbers without and with regrouping",
+            "add 2 multiples of ten whose sum does not exceed 100",
+            "work with peers and make patterns using numbers up to 100 and share with others",
+            "play games with peers involving addition using digital devices or other resources"
+          ],
+          "keyInquiryQuestions": [
+            "How are horizontal addition sentences written vertically?",
+            "When do we regroup during addition?"
+          ]
+        },
+        {
+          "subStrandId": "1.4",
+          "subStrandTitle": "Subtraction",
+          "specificLearningOutcomes": [
+            "subtract a 1-digit number from a 2-digit number without regrouping",
+            "subtract a 2-digit number from a 2-digit number without and with regrouping",
+            "subtract a lower multiple of 10 from a higher multiple of 10",
+            "work out missing numbers in patterns involving subtraction up to 100",
+            "appreciate the subtraction of numbers in real-life situations"
+          ],
+          "suggestedLearningExperiences": [
+            "subtract a 1-digit number from a 2-digit number without regrouping",
+            "subtract a 2-digit number from a 2-digit number without regrouping using place value apparatus",
+            "subtract a 2-digit number from a 2-digit number with regrouping using place value apparatus",
+            "subtract lower multiples of 10 from higher multiples of 10 using number cards",
+            "in teams, discuss and work out missing numbers in patterns involving subtraction up to 100"
+          ],
+          "keyInquiryQuestions": [
+            "How do you work out missing numbers in number patterns involving subtraction?"
+          ]
+        },
+        {
+          "subStrandId": "1.5",
+          "subStrandTitle": "Multiplication",
+          "specificLearningOutcomes": [
+            "represent multiplication as repeated addition using numbers 1, 2, 3, by 2 and 3",
+            "write repeated addition sentences as multiplication using ‘×’ sign",
+            "multiply 1-digit numbers by 1, 2, 3, 4 and 5",
+            "multiply 1-digit numbers by 10",
+            "appreciate arranging objects in groups of 3’s, 4’s, 5’s, and 10’s in real-life situations"
+          ],
+          "suggestedLearningExperiences": [
+            "use counters or other concrete objects to represent multiplication as repeated addition",
+            "model multiplication as repeated addition using concrete objects",
+            "practice using ‘×’ sign in writing repeated addition sentences as multiplication",
+            "work with peers and multiply 1- digit numbers by 1, 2, 3, 4, 5",
+            "use locally available materials to model a multiplication chart and display it in the learning environment",
+            "multiply 1-digit numbers by 10 to form multiples of 10",
+            "play games involving multiplication using digital devices or other resources",
+            "visit the local market to see how different fruits and other items are arranged in groups of 3's, 4's, 5's, or 10's for selling, and assist in grouping some of the items for sale"
+          ],
+          "keyInquiryQuestions": [
+            "How is multiplication represented as repeated addition?"
+          ]
+        },
+        {
+          "subStrandId": "1.6",
+          "subStrandTitle": "Division",
+          "specificLearningOutcomes": [
+            "represent division as equal sharing up to the number 20 by 2",
+            "represent division as the equal grouping of numbers up to 25 by 3",
+            "use the '÷' sign in writing division statements",
+            "divide numbers up to 25 by 4 and 5 without a remainder",
+            "appreciate the application of division of numbers in real-life situations"
+          ],
+          "suggestedLearningExperiences": [
+            "in teams, share a given number of objects equally by each picking one object at a time until all the objects are finished. Each learner to count how many objects he/she got",
+            "in teams, place several objects together, and let each team pick one item at a time until there is no object remaining, each team is to count the number of objects they picked",
+            "write division statements using the sign ‘÷’",
+            "organise numbers up to 25 into groups of 4 or 5 without a remainder",
+            "play games involving division using digital devices or other resources with peers"
+          ],
+          "keyInquiryQuestions": [
+            "How can you share a given number of objects equally?"
+          ]
+        },
+        {
+          "subStrandId": "1.7",
+          "subStrandTitle": "Fractions",
+          "specificLearningOutcomes": [
+            "identify a 1/2 as part of a whole in different situations",
+            "identify a 1/4 as part of a whole in different situations",
+            "apply fractions in day-to-day activities",
+            "appreciate use of fractions in daily life activities"
+          ],
+          "suggestedLearningExperiences": [
+            "use papers, pencils, and a pair of scissors to make circular paper cut-outs while observing safety",
+            "fold the circular paper cut-outs into two equal parts and identify one of the parts as half of the whole written as 1/2",
+            "make rectangular paper cut-outs and fold them into two equal parts to get half of a whole written as 1/2",
+            "fold circular paper cut-outs to get 4 equal parts and identify one of the parts as a 1/4 of a whole",
+            "practise making or sharing items in halves or quarters of a whole",
+            "play games involving fractions using digital devices or other resources"
+          ],
+          "keyInquiryQuestions": ["How do we get a fraction from a whole?"]
+        }
+      ]
+    },
+    {
+      "strandId": "2.0",
+      "strandTitle": "Measurement",
+      "subStrands": [
+        {
+          "subStrandId": "2.1",
+          "subStrandTitle": "Length",
+          "specificLearningOutcomes": [
+            "measure length using fixed units",
+            "identify the metre as a unit of measuring length",
+            "measure length in metres",
+            "appreciate measuring length using fixed units in real-life situations"
+          ],
+          "suggestedLearningExperiences": [
+            "use sticks of equal length to measure the lengths of different objects and record the measurements",
+            "use sticks of different lengths to measure length, including 1-metre sticks",
+            "in teams, use locally available materials to make 1-metre sticks and use them to measure the length of various objects within the classroom and record the measurements",
+            "measure the length of different objects at home, record the measurements, and discuss them with peers in school"
+          ],
+          "keyInquiryQuestions": ["How is the length of an object measured?"]
+        },
+        {
+          "subStrandId": "2.2",
+          "subStrandTitle": "Mass",
+          "specificLearningOutcomes": [
+            "measure mass using fixed units",
+            "identify the kilogram as a unit of measuring mass",
+            "measure the mass of different objects in kilograms",
+            "appreciate measuring mass using fixed units in real-life situations"
+          ],
+          "suggestedLearningExperiences": [
+            "collect safe materials from the environment for measuring mass",
+            "work with peers to use locally available materials to make an improvised a beam balance",
+            "in teams, use items of the same mass and an improvised beam balance to measure different masses, record and discuss the results with peers",
+            "use an item equivalent to a 1-kilogram mass and a beam balance to measure the mass of different objects in kilograms accurately",
+            "visit a shop or market and assist vendors in measuring the mass of items such as beans, maize, rice, and flour using fixed units, for example, an empty 1-kilogram container",
+            "measure the mass of different items in kilograms using a 1-kilogram container",
+            "play games using digital devices or other resources involving mass in kilograms"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to know the mass of an object?"
+          ]
+        },
+        {
+          "subStrandId": "2.3",
+          "subStrandTitle": "Capacity",
+          "specificLearningOutcomes": [
+            "measure capacity using fixed units",
+            "identify the litre as a unit of measuring capacity",
+            "measure capacity in litres",
+            "appreciate measuring capacity in litres using improvised containers in real-life situations"
+          ],
+          "suggestedLearningExperiences": [
+            "collect containers of different sizes for use in measuring capacity",
+            "use small containers of equal capacity to fill bigger containers of the same capacity but different shapes with water, count the number of small containers used to fill the big containers",
+            "use 1-litre containers to fill bigger containers with water, and count the number of litres used to fill the big containers. Use water properly to avoid wetting floors",
+            "in teams, discuss and measure the capacity of different containers in litres accurately",
+            "participate in activities involving measuring liquids such as milk and water using 1-litre bottles"
+          ],
+          "keyInquiryQuestions": [
+            "Why do containers have different capacities?",
+            "Which commodities can be measured in terms of litres?"
+          ]
+        },
+        {
+          "subStrandId": "2.4",
+          "subStrandTitle": "Time",
+          "specificLearningOutcomes": [
+            "relate the months of the year to special occasions",
+            "recite the number of days in each month of the year",
+            "read the calendar in terms of day and date",
+            "measure time using arbitrary units",
+            "identify the minute and hour hand in the clock face",
+            "read time by the hour from the clock face",
+            "write time by the hour shown by an analogue and digital clock",
+            "appreciate keeping time in day-to-day activities"
+          ],
+          "suggestedLearningExperiences": [
+            "discuss special occasions that take place in different months of the year",
+            "sing songs and rhymes related to the number of days in the months of the year",
+            "discuss how to read, tell, and write dates from the calendar",
+            "discuss and relate time by hour using the length of a shadow of an object such as a tree in the environment",
+            "discuss places where clocks are displayed and how they look",
+            "observe a clock face and discuss the minute and hour hand",
+            "discuss how to read, tell and write time by the hour using both the analogue and digital clock",
+            "discuss the importance of keeping time for different activities"
+          ],
+          "keyInquiryQuestions": [
+            "How do we use calendars and clocks to track time?"
+          ]
+        },
+        {
+          "subStrandId": "2.5",
+          "subStrandTitle": "Money",
+          "specificLearningOutcomes": [
+            "identify Kenyan currency coins and notes up to sh.100",
+            "count the number of sh. 10 and sh. 20 coins in different situations",
+            "count the number of sh. 50 and sh. 100 notes in different situations",
+            "add two denominations of money with a sum not exceeding sh. 100",
+            "use money to buy up to 3 items without balance",
+            "appreciate the use of money in buying items"
+          ],
+          "suggestedLearningExperiences": [
+            "recognise and sort out Kenyan currency coins and notes up to sh.100",
+            "in teams, make sh. 10 and sh. 20 coins paper cut-outs, sort and count the number of sh. 10 and sh. 20 coins paper cut-outs",
+            "work collaboratively, to make sh. 50 and sh. 100 notes paper cut-outs, sort and count the number of sh. 50 and sh. 100 notes paper cut-outs",
+            "add two denominations of money with a sum not exceeding sh. 100",
+            "with peers, role play buying up to 3 items without balance from the model shop in the classroom",
+            "record a video during a role play of classroom shopping activities"
+          ],
+          "keyInquiryQuestions": [
+            "How different are Kenyan currency denominations?"
+          ]
+        }
+      ]
+    },
+    {
+      "strandId": "3.0",
+      "strandTitle": "Geometry",
+      "subStrands": [
+        {
+          "subStrandId": "3.1",
+          "subStrandTitle": "Lines",
+          "specificLearningOutcomes": [
+            "model straight lines in different ways",
+            "draw straight lines in different ways",
+            "model curved lines in different ways",
+            "draw curved lines in different situations",
+            "recognise the use lines in real-life situations"
+          ],
+          "suggestedLearningExperiences": [
+            "safely model straight lines using sticks, plasticine/clay, or papier mache and strings",
+            "safely model curved lines using plasticine/clay, or papier mache and strings",
+            "model straight and curved lines by holding their hands in different ways; upward, horizontal, diagonal",
+            "draw straight and curved lines on manila papers and books using pencils, crayons rulers, or sticks",
+            "use digital devices or other resources to draw lines and share with peers"
+          ],
+          "keyInquiryQuestions": ["How are lines used in real life?"]
+        },
+        {
+          "subStrandId": "3.2",
+          "subStrandTitle": "Shapes",
+          "specificLearningOutcomes": [
+            "identify different shapes in the environment",
+            "draw shapes in different ways",
+            "draw patterns involving different shapes",
+            "appreciate the use of shapes in forming patterns in fabrics"
+          ],
+          "suggestedLearningExperiences": [
+            "recognise and name different shapes in the environment (triangles, rectangles, squares, circles, and ovals)",
+            "discuss types of lines in different shapes (triangles, rectangles, squares, circles, and ovals)",
+            "in turn, name different shapes of objects or on surfaces in their classroom",
+            "draw triangles, rectangles, squares, circles, and ovals on manila papers and display them in the learning environment",
+            "make patterns using triangles, rectangles, squares, circles, and ovals, colour them and share them with peers",
+            "play games involving pattern-making using digital devices or other resources with peers"
+          ],
+          "keyInquiryQuestions": ["How can patterns be made using shapes?"]
+        }
+      ]
+    }
+  ]
+}

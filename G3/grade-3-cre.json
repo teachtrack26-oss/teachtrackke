@@ -1,0 +1,495 @@
+{
+  "grade": 3,
+  "subjectName": "Religious Education (CRE/IRE/HRE)",
+  "strands": [
+    {
+      "strandId": "1.0",
+      "strandTitle": "Creation",
+      "subStrands": [
+        {
+          "subStrandId": "1.1",
+          "subStrandTitle": "Self awareness",
+          "suggestedLessons": 5,
+          "specificLearningOutcomes": [
+            "identify themselves as male or female according to Genesis 1:27",
+            "describe how they cope with happy or sad feelings",
+            "make the right choices guided by the word of God",
+            "appreciate his or her gender as guided by the scriptures"
+          ],
+          "suggestedLearningExperiences": [
+            "read Genesis 1:27 and state their gender",
+            "list different activities done by boys and girls",
+            "write Psalms 139:13 on flashcards and read aloud",
+            "draw and colour faces depicting various emotions",
+            "in groups list good thoughts and feelings e.g. loving others, loving God, having joy, forgiving others",
+            "sing a song ‘I’m happy today so happy in Jesus name I’m happy…",
+            "avoid bad thoughts which can lead to bad behaviour, such as fights, stealing, hating others, abusing others, and talking about other people behind their back",
+            "list results of making bad choices and share in class"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to appreciate your gender?"
+          ]
+        },
+        {
+          "subStrandId": "1.2",
+          "subStrandTitle": "My Family",
+          "suggestedLessons": 3,
+          "specificLearningOutcomes": [
+            "name family members in the nuclear and extended family",
+            "draw the family tree to understand family relationships",
+            "desire to respect family members for harmonious living"
+          ],
+          "suggestedLearningExperiences": [
+            "name members of their family",
+            "tell how they relate with family members",
+            "draw and colour the family tree",
+            "compose a poem to appreciate members of their families"
+          ],
+          "keyInquiryQuestions": ["Why should you respect family members?"]
+        },
+        {
+          "subStrandId": "1.3",
+          "subStrandTitle": "Adam and Eve",
+          "suggestedLessons": 4,
+          "specificLearningOutcomes": [
+            "recognise God as the creator of Adam and Eve",
+            "describe how Adam and Eve disobeyed God",
+            "state four results of Adam’s disobedience",
+            "desire to exercise obedience in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "picture-read Genesis 2:7, 21",
+            "picture-read Genesis 2:16-17",
+            "tell how man disobeyed God in Genesis 3:6-7",
+            "mention the result of man’s disobedience; Genesis 3:17, 19 & 23",
+            "compose a poem on the importance of obeying parents"
+          ],
+          "keyInquiryQuestions": [
+            "How did Adam and Eve disobey God?",
+            "Why should you obey your parents?"
+          ]
+        }
+      ]
+    },
+    {
+      "strandId": "2.0",
+      "strandTitle": "The Bible",
+      "subStrands": [
+        {
+          "subStrandId": "2.1",
+          "subStrandTitle": "The Bible as the Word of God",
+          "suggestedLessons": 4,
+          "specificLearningOutcomes": [
+            "differentiate the Bible from other books as guided in 2 Timothy 3:16A",
+            "state the number of books in the New Testament",
+            "name the four Gospel books in the New Testament",
+            "appreciate the Bible as a guide in their daily life"
+          ],
+          "suggestedLearningExperiences": [
+            "in pairs, tell the difference between the Bible and other books",
+            "in groups, draw and colour the Holy Bible",
+            "sing the song “My Bible and I”",
+            "in groups read 2 Timothy 3:16A and say why they should respect the Holy Bible",
+            "state the number of books in the New Testament",
+            "name the four Gospel books",
+            "tell the importance of reading the Bible always",
+            "recite Psalms 119:105"
+          ],
+          "keyInquiryQuestions": ["Why is the Bible a Holy book?"]
+        },
+        {
+          "subStrandId": "2.2",
+          "subStrandTitle": "Moses and the Burning Bush",
+          "suggestedLessons": 4,
+          "specificLearningOutcomes": [
+            "retell the story of Moses and the burning bush",
+            "mention three lessons learnt from the story",
+            "desire to obey God in their day-to-day lives"
+          ],
+          "suggestedLearningExperiences": [
+            "in turns read Exodus 3:1-6",
+            "watch a video clip of Moses and the burning bush",
+            "in pairs state how Moses obeyed God",
+            "mention three lessons learnt from the story of Moses and the burning bush",
+            "sing a song about Moses and the burning bush",
+            "draw and colour Moses and the burning bush",
+            "in pairs share experiences of how they obey their parents"
+          ],
+          "keyInquiryQuestions": ["How did Moses express obedience to God?"]
+        },
+        {
+          "subStrandId": "2.3",
+          "subStrandTitle": "The big fish swallows Jonah",
+          "suggestedLessons": 4,
+          "specificLearningOutcomes": [
+            "narrate the story of Jonah and the big fish",
+            "list the results of Jonah’s disobedience",
+            "desire to obey God in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "read the story of Jonah 1:1-4,15,17; 2:10",
+            "watch a video on the story of Jonah",
+            "draw and colour the big fish",
+            "mention what happened to Jonah after he disobeyed God",
+            "state why they should be obedient to God and others",
+            "sing a song, “The big fish swallows Jonah…”"
+          ],
+          "keyInquiryQuestions": ["Why is it important to obey God?"]
+        },
+        {
+          "subStrandId": "2.4",
+          "subStrandTitle": "Naaman is Healed",
+          "suggestedLessons": 4,
+          "specificLearningOutcomes": [
+            "retell the healing of Naaman the Syrian commander",
+            "mention three lessons learnt from the story of Naaman",
+            "appreciate God as the healer of all diseases"
+          ],
+          "suggestedLearningExperiences": [
+            "know what is leprosy and how it is spread from one person to the other",
+            "picture-read the healing of Naaman in 2 Kings 5:1-14",
+            "watch a video clip on Naaman’s healing",
+            "dramatise the story of Naaman",
+            "list three lessons learnt from the healing of Naaman"
+          ],
+          "keyInquiryQuestions": ["How was Naaman healed?"]
+        },
+        {
+          "subStrandId": "2.5",
+          "subStrandTitle": "The Three Hebrew Men",
+          "suggestedLessons": 4,
+          "specificLearningOutcomes": [
+            "narrate the story of the three Hebrew men",
+            "list three lessons learnt from the story",
+            "desire to depend on God when faced with challenges"
+          ],
+          "suggestedLearningExperiences": [
+            "picture-read Daniel 3:15-16, 18, 23-30",
+            "watch a video on the story",
+            "tell why the three men were thrown into the fire",
+            "draw and colour the three Hebrew men and the fourth person who rescued them",
+            "mention lessons learnt from the story",
+            "dramatise how the three Hebrew men were rescued",
+            "sing a song based on the story"
+          ],
+          "keyInquiryQuestions": [
+            "How were the three Hebrew men rescued from the fire?"
+          ]
+        },
+        {
+          "subStrandId": "2.6",
+          "subStrandTitle": "Elisha and the Boys",
+          "suggestedLessons": 4,
+          "specificLearningOutcomes": [
+            "retell the story of Elisha and the boys",
+            "mention four lessons learnt from the story of Elisha and the boys",
+            "desire to respect the elderly in the community"
+          ],
+          "suggestedLearningExperiences": [
+            "read 2 Kings 2: 23-24 and retell the story of Elisha and the boys",
+            "mention the number of boys in the story",
+            "draw, colour, and display pictures of the two bears",
+            "in pairs tell why they should respect the elderly",
+            "say why they should not join their friends to do mischief",
+            "role-play the story of Elisha and the boys",
+            "compose a poem on how to respect the elderly in society"
+          ],
+          "keyInquiryQuestions": [
+            "How did Elisha respond to the boys who insulted him?"
+          ]
+        }
+      ]
+    },
+    {
+      "strandId": "3.0",
+      "strandTitle": "The Life of Jesus Christ",
+      "subStrands": [
+        {
+          "subStrandId": "3.1",
+          "subStrandTitle": "The Birth of Jesus Christ",
+          "suggestedLessons": 3,
+          "specificLearningOutcomes": [
+            "retell the story of the wise men",
+            "name the hometown of Jesus Christ",
+            "desire to be led by God in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "in pairs read Matt 2:1-2",
+            "watch a video clip on the wise men from the East",
+            "in groups role-play the story of the wise men",
+            "draw stars and colour them",
+            "in pairs mention their home towns",
+            "say what they like about their hometowns",
+            "name the town where Jesus grew up; Luke 2: 39- 40",
+            "compose simple poems about their hometowns"
+          ],
+          "keyInquiryQuestions": [
+            "Why is the birth of Jesus Christ important to us?"
+          ]
+        },
+        {
+          "subStrandId": "3.2",
+          "subStrandTitle": "The Good Samaritan",
+          "suggestedLessons": 5,
+          "specificLearningOutcomes": [
+            "narrate the story of the Good Samaritan",
+            "list four lessons learnt from the story of the Good Samaritan",
+            "desire to show kindness to people in need"
+          ],
+          "suggestedLearningExperiences": [
+            "read Luke 10:30-37 in turns",
+            "watch a video on the story of the Good Samaritan",
+            "role-play the story of the Good Samaritan",
+            "mention lessons learnt from the story of the Good Samaritan",
+            "tell how they help people in need",
+            "sing a song about the Good Samaritan"
+          ],
+          "keyInquiryQuestions": ["How did the Good Samaritan show kindness?"]
+        },
+        {
+          "subStrandId": "3.3",
+          "subStrandTitle": "The Little boy with five loaves and two fish",
+          "suggestedLessons": 5,
+          "specificLearningOutcomes": [
+            "retell the miracle of the five loaves and two fish",
+            "state lessons learnt from the miracle of five loaves and two fish",
+            "desire to show kindness to those in need"
+          ],
+          "suggestedLearningExperiences": [
+            "picture-read John 6:1-14",
+            "watch a video of the little boy with five loaves and two fish",
+            "narrate the story of the little boy with five loaves and two fish",
+            "role-play the miracle",
+            "tell how they keep the environment clean",
+            "share experiences; on how they show kindness to others",
+            "tell how many baskets remained after feeding the people",
+            "draw the two fish and five loaves of bread",
+            "compose a poem on how to avoid food wastage",
+            "sing a song about the five loaves and two fish"
+          ],
+          "keyInquiryQuestions": [
+            "Why is the story of the little boy important to Christians today?"
+          ]
+        },
+        {
+          "subStrandId": "3.4",
+          "subStrandTitle": "Jesus Christ Walks on Water",
+          "suggestedLessons": 3,
+          "specificLearningOutcomes": [
+            "narrate the miracle of Jesus Christ walking on water",
+            "list lessons learnt from the miracle",
+            "appreciate Jesus’ power over nature"
+          ],
+          "suggestedLearningExperiences": [
+            "picture-read Mathew 14:22-33",
+            "discuss why the disciples were frightened (Mathew 14:26) in groups",
+            "watch a video on Jesus walking on water",
+            "draw a picture of Jesus walking on water in groups",
+            "sing a song about Jesus walking on water"
+          ],
+          "keyInquiryQuestions": [
+            "How does this miracle portray God’s Power over nature?"
+          ]
+        },
+        {
+          "subStrandId": "3.5",
+          "subStrandTitle": "Raising of Jairus Daughter",
+          "suggestedLessons": 5,
+          "specificLearningOutcomes": [
+            "retell the miracle of raising Jairus’ daughter",
+            "list four lessons learnt from the miracle of healing Jairus’ daughter",
+            "recognise Jesus Christ’s power over life and death"
+          ],
+          "suggestedLearningExperiences": [
+            "read Mark 5:35-43 in turns",
+            "retell the story of raising Jairus’ daughter",
+            "write Mark 5:41on a speech bubble and display it in the CRE learning corner",
+            "watch a video clip on the raising of Jairus’ daughter",
+            "sing a song on the raising of Jairus’ daughter"
+          ],
+          "keyInquiryQuestions": ["How did Jairus portray faith in God?"]
+        },
+        {
+          "subStrandId": "3.6",
+          "subStrandTitle": "Easter",
+          "suggestedLessons": 4,
+          "specificLearningOutcomes": [
+            "mention the importance of celebrating Easter",
+            "identify the events that take place during Easter celebrations",
+            "appreciate Jesus Christ’s resurrection by taking part in Easter celebrations"
+          ],
+          "suggestedLearningExperiences": [
+            "share experiences of how they celebrate Easter",
+            "list in groups the importance of celebrating Easter",
+            "list the activities that take place during Easter celebrations",
+            "picture-read Mathew 28:1-6 in pairs",
+            "write Matthew 28:6 on flashcards and read aloud",
+            "sing songs about the resurrection of Jesus Christ"
+          ],
+          "keyInquiryQuestions": ["Why do Christians celebrate Easter?"]
+        }
+      ]
+    },
+    {
+      "strandId": "4.0",
+      "strandTitle": "Christian Values",
+      "subStrands": [
+        {
+          "subStrandId": "4.1",
+          "subStrandTitle": "Honesty",
+          "suggestedLessons": 5,
+          "specificLearningOutcomes": [
+            "narrate the story of Ananias and Sapphira",
+            "practise honesty by taking offerings given by parents to church",
+            "explain the importance of respecting other people’s property",
+            "desire to exercise honesty in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "picture-read the story of Ananias and Sapphira in Acts 5:1-11",
+            "watch a video clip about Ananias and Sapphira",
+            "mention lessons learnt from the story of Ananias and Sapphira",
+            "in groups sing a song on honesty",
+            "say why they should not use church offerings for other purposes",
+            "in groups, role-play ways of respecting other people’s properties"
+          ],
+          "keyInquiryQuestions": [
+            "Why should you practise honesty as a Christian?",
+            "Why should you respect other people’s property?"
+          ]
+        },
+        {
+          "subStrandId": "4.2",
+          "subStrandTitle": "Thankfulness",
+          "suggestedLessons": 3,
+          "specificLearningOutcomes": [
+            "list ways they thank God in day-to-day life",
+            "state five reasons for thanking God for their family, friends, and teachers",
+            "desire to thank God in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "write Psalms 136:1 on flashcards and read it aloud in class",
+            "in pairs tell why they should thank God",
+            "write on flashcards reasons for thanking God, family, friends, and teachers",
+            "make cards to thank God and mount them at the CRE learning corner",
+            "role-play in groups various ways of thanking God for family, friends, and teachers",
+            "participate in singing games with a theme, ‘thank you God’",
+            "say a simple, ‘Thank you’ prayer to God"
+          ],
+          "keyInquiryQuestions": [
+            "Why should you thank God for your family, friends and teachers?"
+          ]
+        },
+        {
+          "subStrandId": "4.3",
+          "subStrandTitle": "Forgiveness",
+          "suggestedLessons": 4,
+          "specificLearningOutcomes": [
+            "retell the story of the unforgiving servant",
+            "dramatise the story of the unforgiving servant",
+            "desire to forgive others in their day- to-day lives"
+          ],
+          "suggestedLearningExperiences": [
+            "observe and read pictures of the unforgiving servant (Matthew 18:21-31)",
+            "watch a video on the unforgiving servant",
+            "role-play the story of the unforgiving servant",
+            "always say, ‘Sorry’ when they wrong others",
+            "write Colossians 3:13 on flashcards and read aloud in turns",
+            "say what to do when wronged by others; Colossians 3:13",
+            "play a game on forgiveness"
+          ],
+          "keyInquiryQuestions": ["Why should you forgive others?"]
+        },
+        {
+          "subStrandId": "4.4",
+          "subStrandTitle": "Trust",
+          "suggestedLessons": 4,
+          "specificLearningOutcomes": [
+            "identify people they can trust for their own safety",
+            "mention three people to report to when molested or touched inappropriately",
+            "stay safe by reporting people who molest them"
+          ],
+          "suggestedLearningExperiences": [
+            "list people they can trust for their own safety",
+            "mention the people to report to in case they are molested or touched inappropriately",
+            "role-play how to behave when confronted by a stranger",
+            "sing the song, “Trust and obey”",
+            "read and recite Proverbs 11:13"
+          ],
+          "keyInquiryQuestions": ["How do you ensure personal safety?"]
+        },
+        {
+          "subStrandId": "4.5",
+          "subStrandTitle": "Responsibility",
+          "suggestedLessons": 4,
+          "specificLearningOutcomes": [
+            "practise cleanliness at home and school",
+            "demonstrate responsibility by correcting those in the wrong",
+            "carry out chores at home without expecting a reward",
+            "desire to be responsible in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "mention the importance of personal hygiene and good grooming",
+            "report students who play mischief",
+            "mention chores they do at home",
+            "say why they should not expect rewards after doing chores at home",
+            "recite Philippians 2:4"
+          ],
+          "keyInquiryQuestions": [
+            "Why is personal hygiene important?",
+            "How do show responsibility at home?"
+          ]
+        }
+      ]
+    },
+    {
+      "strandId": "5.0",
+      "strandTitle": "The Church",
+      "subStrands": [
+        {
+          "subStrandId": "5.1",
+          "subStrandTitle": "Prayer",
+          "suggestedLessons": 5,
+          "specificLearningOutcomes": [
+            "recite the Lord’s prayer in Mathew 6:9-13",
+            "use appropriate postures during prayer",
+            "desire to show respect to God when praying"
+          ],
+          "suggestedLearningExperiences": [
+            "recite the Lord’s prayer, Matthew 6:9-13",
+            "read the Lord’s prayer from a chart displayed in class",
+            "role-play ways of showing respect to God during prayers",
+            "say the Lord’s prayer at home or in church",
+            "sing songs related to the Lord’s prayer"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to pray?",
+            "How do you show respect to God during prayer?"
+          ]
+        },
+        {
+          "subStrandId": "5.2",
+          "subStrandTitle": "The Holy Spirit",
+          "suggestedLessons": 4,
+          "specificLearningOutcomes": [
+            "retell the coming of the Holy Spirit on the day of Pentecost",
+            "identify the work of the Holy Spirit in the life of a Christian",
+            "identify five fruit of the Holy Spirit",
+            "desire to be led by the Holy Spirit as they make decisions in life"
+          ],
+          "suggestedLearningExperiences": [
+            "read Acts 2:1-4 in turns",
+            "watch a video clip on the coming of the Holy Spirit",
+            "mention the work of the Holy Spirit in pairs",
+            "read Galatians 5:22 and list the fruit of the Holy Spirit",
+            "draw a tree and write the fruit of the Holy Spirit (love, joy, peace, patience, and kindness)",
+            "learners to model and label five fruit of the Holy Spirit (love, joy, peace, patience, and kindness)",
+            "sing songs about the fruit of Holy Spirit"
+          ],
+          "keyInquiryQuestions": [
+            "Why is the Holy Spirit important in the life of a Christian?"
+          ]
+        }
+      ]
+    }
+  ]
+}

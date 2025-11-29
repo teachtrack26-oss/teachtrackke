@@ -1,0 +1,336 @@
+{
+  "subjectName": "Creative Arts Activities",
+  "grade": "Grade 2",
+  "strands": [
+    {
+      "strandId": "1.0",
+      "strandTitle": "Creating and Executing",
+      "subStrands": [
+        {
+          "subStrandId": "1.1",
+          "subStrandTitle": "Hopping",
+          "specificLearningOutcomes": [
+            "identify different directions of hopping for space awareness",
+            "perform hopping in different directions for agility",
+            "make pattern formations while hopping in different directions for coordination",
+            "appreciate hopping in different directions for fitness"
+          ],
+          "suggestedLearningExperiences": [
+            "hop and talk about different directions of hopping for fitness",
+            "demonstrate hopping in different directions and forming patterns with peers",
+            "practise hopping in different directions and forming patterns",
+            "play simple games using the hop skill while singing action songs"
+          ],
+          "keyInquiryQuestions": [
+            "Why is hopping activity important as a physical activity?"
+          ]
+        },
+        {
+          "subStrandId": "1.2",
+          "subStrandTitle": "Drawing and Painting",
+          "specificLearningOutcomes": [
+            "identify texture on surfaces",
+            "create texture on paper by rubbing on surfaces",
+            "apply texture on drawn shapes",
+            "paint regular shapes using a brush",
+            "enjoy drawing and painting for creativity"
+          ],
+          "suggestedLearningExperiences": [
+            "observe virtual pictures or explore objects in the environment to identify rough and smooth texture",
+            "responsibly, explore the environment to simulate different texture on objects by rubbing",
+            "draw natural forms found in the environment",
+            "apply appropriate texture (rough or smooth) on drawn shapes (explore different drawing tools)",
+            "mix colour using bloating techniques",
+            "use one colour to paint within the outline of regular shapes/forms",
+            "show the drawing and painting work to peers and talk about them"
+          ],
+          "keyInquiryQuestions": [
+            "How did you create texture in your drawing?",
+            "Which materials can you paint on ?"
+          ]
+        },
+        {
+          "subStrandId": "1.3",
+          "subStrandTitle": "Rhythm and Pattern Making",
+          "specificLearningOutcomes": [
+            "identify different ways of creating rhythms in music",
+            "imitate repetitive rhythmic sounds for rhythm awareness",
+            "recite/clap rhythmic patterns of simple words to develop a sense of rhythm",
+            "create rhythmic patterns based on simple words",
+            "create simple shape patterns by printing",
+            "appreciate rhythmic improvisation as a way of developing rhythm skills"
+          ],
+          "suggestedLearningExperiences": [
+            "watch live or recorded performances of various ways of creating rhythms and talk about them",
+            "identify and imitate repetitive rhythmic sounds produced by objects and animals in the environment, such as; sirens, chicken, dove, donkey and clock ticking, maintaining a steady beat",
+            "imitate virtual/real games on performances of simple rhythmic patterns by clapping, tapping or humming",
+            "recite and clap the natural speech rhythm of simple word patterns such as; coffee tea soda; cat cat, kitten kitten, cat; dog chicken dog elephant",
+            "collaboratively create rhythmic patterns using a combination of simple words",
+            "clap/tap/recite own created rhythmic patterns to peers for feedback",
+            "draw regular shapes to create patterns and colour them"
+          ],
+          "keyInquiryQuestions": ["How can rhythmic patterns be made?"]
+        },
+        {
+          "subStrandId": "1.4",
+          "subStrandTitle": "Turning",
+          "specificLearningOutcomes": [
+            "identify the different directions of turning body in movement",
+            "perform turning body in different directions for coordination",
+            "appreciate turning activities as a basic skill for body movement during play"
+          ],
+          "suggestedLearningExperiences": [
+            "talk about various directions a body can face while turning through demonstration",
+            "practise turning body in different directions",
+            "sing action songs and make patterns while turning in different directions",
+            "play games while practising turning activities in different directions for enjoyment",
+            "talk about own and others ability to turn body in the activities"
+          ],
+          "keyInquiryQuestions": [
+            "Why is turning an important skill for a player during a game?"
+          ]
+        },
+        {
+          "subStrandId": "1.5",
+          "subStrandTitle": "Mosaic",
+          "specificLearningOutcomes": [
+            "identify a mosaic picture",
+            "identify materials and tools used in making a mosaic",
+            "make a mosaic for self-expression",
+            "appreciate mosaic for aesthetic awareness"
+          ],
+          "suggestedLearningExperiences": [
+            "observe actual or virtual images of simple mosaics to; identify a mosaic, materials and tools",
+            "collect materials and tools that can be used in mosaic",
+            "safely, cut coloured papers into small pieces",
+            "paste the coloured paper within a drawn shape/form (contrast the background and the paper)",
+            "show and talk about own and others’ mosaic work"
+          ],
+          "keyInquiryQuestions": [
+            "What do you use to paste papers in mosaic?",
+            "How do we make mosaic?"
+          ]
+        },
+        {
+          "subStrandId": "1.6",
+          "subStrandTitle": "Melody",
+          "specificLearningOutcomes": [
+            "identify melodic variations in simple tunes for aural discrimination",
+            "use basic shapes to represent melodic variations in a simple song",
+            "improvise new words to existing tunes for self- expression",
+            "enjoy improvising text to familiar tunes",
+            "value melodic variation in creating a melody"
+          ],
+          "suggestedLearningExperiences": [
+            "listen to simple familiar songs with similar (repeated) and varied melodic phrases and sing along or hum the tune",
+            "collaboratively listen to a familiar song and identify similar/repeated tunes or varied tunes by singing",
+            "use basic shapes (circle, triangle or square) to identify similar tunes and those that are different in a short song",
+            "listen to simple familiar songs and sing along",
+            "select and fit appropriate text to an existing tune",
+            "perform the song with the new words before peers for feedback"
+          ],
+          "keyInquiryQuestions": ["How can melodies be made interesting?"]
+        }
+      ]
+    },
+    {
+      "strandId": "2.0",
+      "strandTitle": "Performing and Displaying",
+      "subStrands": [
+        {
+          "subStrandId": "2.1",
+          "subStrandTitle": "Singing Games- Western Style",
+          "specificLearningOutcomes": [
+            "identify singing games in Western style",
+            "sing appropriate game songs in Western style",
+            "use props in performing a singing game in Western style",
+            "perform singing games in Western style observing performance aspects",
+            "enjoy performing singing games in Western style"
+          ],
+          "suggestedLearningExperiences": [
+            "watch a live or recorded performance of singing games and identify singing games in Western style",
+            "imitate the songs and body movements used in the Western singing games",
+            "talk about how to keep safe when performing singing games",
+            "take a role to perform appropriate singing games in Western style, combining aspects of a singing game; songs, game activities, variety of body movements, formations, costumes and props, safety"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to perform singing games from other cultures?"
+          ]
+        },
+        {
+          "subStrandId": "2.2",
+          "subStrandTitle": "Kicking",
+          "specificLearningOutcomes": [
+            "identify parts of the leg used when kicking a ball",
+            "perform kicking a ball in different directions for skill acquisition",
+            "appreciate kicking the ball in different directions as a fundamental skill in games"
+          ],
+          "suggestedLearningExperiences": [
+            "talk about different parts of the leg that can be used to kick the ball",
+            "improvise a soft ball for kicking using reusable materials",
+            "demonstrate kicking the ball in different directions",
+            "practise kicking a ball in different directions with peers",
+            "observe safety while playing simple games using kicking balls",
+            "collaboratively, practise kicking balls in different directions and give feedback"
+          ],
+          "keyInquiryQuestions": [
+            "How can the ball be kicked using different parts of the leg?"
+          ]
+        },
+        {
+          "subStrandId": "2.3",
+          "subStrandTitle": "Plaited Ornaments",
+          "specificLearningOutcomes": [
+            "identify different materials for plaiting a bracelet",
+            "make a single strand bracelet using the plaiting technique",
+            "value plaiting technique and ornament making"
+          ],
+          "suggestedLearningExperiences": [
+            "identify plaited bracelets from actual or virtual sources for inspiration",
+            "collect recyclable materials for making plaited bracelets",
+            "prepare the material for plaiting",
+            "practice plaiting using three strands focusing on colour variation",
+            "use the strand to make a bracelet and attach any locally available beads for hooking",
+            "showcase to peers plaited bracelets and talk about own and others’ work"
+          ],
+          "keyInquiryQuestions": [
+            "What materials can be used in plaiting strands?",
+            "What beads would you attach to a bracelet?"
+          ]
+        },
+        {
+          "subStrandId": "2.4",
+          "subStrandTitle": "Egg Roll and Swan Balance",
+          "specificLearningOutcomes": [
+            "identify different directions the body moves when performing an egg roll in gymnastics",
+            "identify body parts used to perform a swan balance in gymnastics",
+            "improvise markers for use during performance of the egg roll and swan balance",
+            "perform the egg roll and swan balance in gymnastics for skill acquisition",
+            "appreciate performing the egg roll and swan balance for fun"
+          ],
+          "suggestedLearningExperiences": [
+            "talk about different directions the body moves during an egg roll",
+            "demonstrate the egg roll",
+            "talk about body parts used to perform swan balance",
+            "demonstrate the swan balance",
+            "identify, collect and share reusable materials within the environment to be used as markers as they observe safety precautions",
+            "improvise the markers using the collected reusable materials",
+            "mark the field using the improvised marker",
+            "practise the egg roll",
+            "practise the swan balance",
+            "sing action songs while performing the egg roll and swan balance",
+            "play games using the egg roll and swan balance for enjoyment"
+          ],
+          "keyInquiryQuestions": [
+            "Which body parts are used in performing egg rolls",
+            "Why is it necessary to mark performing areas when performing swan balances?"
+          ]
+        },
+        {
+          "subStrandId": "2.5",
+          "subStrandTitle": "Wind Musical Instruments",
+          "specificLearningOutcomes": [
+            "identify wind musical instruments from indigenous Kenyan communities",
+            "improvise a wind instrument using locally available materials",
+            "produce sound on an improvised musical wind instrument",
+            "enjoy playing an improvised musical wind instrument"
+          ],
+          "suggestedLearningExperiences": [
+            "watch audio- visual recordings or look at pictures of varied music instruments and identify flutes from indigenous Kenyan communities",
+            "visually and aurally identify and talk about the flutes from the recordings and pictures",
+            "imitate how to play flutes",
+            "collaboratively collect appropriate materials and improvise a simple wind instrument, clearing and disposing off waste appropriately",
+            "practise playing the improvised wind instrument applying the skills of holding and blowing, for enjoyment",
+            "display the improvised flute for peer critique"
+          ],
+          "keyInquiryQuestions": ["Why are wind instruments played?"]
+        },
+        {
+          "subStrandId": "2.6",
+          "subStrandTitle": "Modelling",
+          "specificLearningOutcomes": [
+            "identify items made by coil method",
+            "model items using the coil method",
+            "appreciate modelling using the coiling technique"
+          ],
+          "suggestedLearningExperiences": [
+            "collaboratively, observe actual or virtual items modelled using the coil method",
+            "collect materials and tools for use in the coil method modelling",
+            "model simple objects using the coiling method",
+            "showcase and talk about their own and others’ work"
+          ],
+          "keyInquiryQuestions": [
+            "What items in the Inquiry Corner are modelled using the coil method?",
+            "What materials are used for modelling?"
+          ]
+        },
+        {
+          "subStrandId": "2.7",
+          "subStrandTitle": "Songs",
+          "specificLearningOutcomes": [
+            "identify a topical song for knowledge acquisition",
+            "describe the message of a given topical song",
+            "perform a topical song applying performance techniques",
+            "appreciate the importance of performing topical songs"
+          ],
+          "suggestedLearningExperiences": [
+            "observe actual or virtual performances of topical songs and describe what a topical song is",
+            "collaboratively listen to the words /perform age-appropriate topical songs and talk about their message",
+            "brainstorm and demonstrate the performance techniques to consider while singing",
+            "sing topical songs on pertinent issues such as hygiene and road safety in unison focusing on performance techniques to convey the desired message",
+            "perform a topical song to peers for feedback",
+            "perform a topical song during school events"
+          ],
+          "keyInquiryQuestions": ["Why are topical songs performed?"]
+        }
+      ]
+    },
+    {
+      "strandId": "3.0",
+      "strandTitle": "Appreciation",
+      "subStrands": [
+        {
+          "subStrandId": "3.1",
+          "subStrandTitle": "Singing Games - Western Style",
+          "specificLearningOutcomes": [
+            "identify the participants in a Western style singing game performance",
+            "identify costumes used in a Western style singing game performance",
+            "identify props used in a Western style singing game",
+            "describe the message in a singing game",
+            "appreciate the aspects in the performances of a singing game in Western style"
+          ],
+          "suggestedLearningExperiences": [
+            "watch live or recorded performances in Western style singing games from different Western countries and talk about the participants",
+            "name costumes and props used in a singing game performance",
+            "talk about the body movements used in a singing game performance",
+            "watch a live/recorded singing game and talk about its message"
+          ],
+          "keyInquiryQuestions": [
+            "What makes a western singing game interesting?"
+          ]
+        },
+        {
+          "subStrandId": "3.2",
+          "subStrandTitle": "Water Safety Awareness",
+          "specificLearningOutcomes": [
+            "recognise different water points in the school environment",
+            "perform singing games on water safety around water points in school",
+            "narrate ways of applying water safety precautions in the school",
+            "appreciate water safety at school for life skills"
+          ],
+          "suggestedLearningExperiences": [
+            "walk around the school and observe water points with peers",
+            "sing water safety songs",
+            "talk about the dangers of water points at school",
+            "talk about school precaution measures for water safety",
+            "talk about safety around water points at school with peers"
+          ],
+          "keyInquiryQuestions": [
+            "Why is water safety in the school environment important?",
+            "Which safety precautions should be taken when near water points in the school?"
+          ]
+        }
+      ]
+    }
+  ]
+}

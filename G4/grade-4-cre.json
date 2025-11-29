@@ -1,0 +1,723 @@
+{
+  "grade": "Grade 4",
+  "subject": "Christian Religious Education",
+  "strands": [
+    {
+      "strandId": "1.0",
+      "strandTitle": "Creation",
+      "subStrands": [
+        {
+          "subStrandId": "1.1",
+          "subStrandTitle": "Self-awareness",
+          "specificLearningOutcomes": [
+            "mention his or her name for identification and self-awareness",
+            "recognise his or her uniqueness as a creation of God",
+            "acknowledge God as the creator",
+            "appreciate his or her uniqueness as God’s special creation"
+          ],
+          "suggestedLearningExperiences": [
+            "say their names",
+            "state what is unique about them",
+            "recite and meditate on Psalms 139:13 about being fearfully and wonderfully made",
+            "read Genesis 1:27 about being, ‘created in the image and likeness of God’",
+            "sing a song related to their uniqueness"
+          ],
+          "keyInquiryQuestions": ["Why are you a special creation?"]
+        },
+        {
+          "subStrandId": "1.2",
+          "subStrandTitle": "Thoughts and feelings",
+          "specificLearningOutcomes": [
+            "identify good thoughts and feelings",
+            "explain the importance of being joyful",
+            "list lessons learnt from Ephesians 4:26",
+            "apply the lessons learnt to cope with emotions in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "sing a song related to good thoughts and feelings",
+            "list good thoughts such as sharing with others, helping parents, being happy, being thankful, respecting others",
+            "say why it is good to be joyful",
+            "share experiences on how they cope with emotions such as anger or sadness",
+            "use digital devices to draw and colour pictures of faces depicting various emotions",
+            "role-play forgiving others when wronged",
+            "read Ephesians 4:26 and write down lessons learnt",
+            "write Philippians 4:4 on flash cards and recite it",
+            "sing songs related to rejoicing in the Lord always (Philippians 4:4)"
+          ],
+          "keyInquiryQuestions": [
+            "How do you control your thoughts and feelings?",
+            "How do you cope with anger or sadness?"
+          ]
+        },
+        {
+          "subStrandId": "1.3",
+          "subStrandTitle": "Making choices",
+          "specificLearningOutcomes": [
+            "list choices they make in day-to-day life",
+            "discuss results of choices they make in daily life",
+            "make right choices guided by the word of God",
+            "portray responsibility by making right choices"
+          ],
+          "suggestedLearningExperiences": [
+            "in pairs, list choices they make in day-to-day life",
+            "list results of choices that they make",
+            "sing a song about good choices",
+            "Role-play ‘making right choices that are acceptable to God.’"
+          ],
+          "keyInquiryQuestions": [
+            "What are the effects of the choices you make?"
+          ]
+        },
+        {
+          "subStrandId": "1.4",
+          "subStrandTitle": "My Family: Family members",
+          "specificLearningOutcomes": [
+            "name family members in the nuclear and extended family",
+            "draw a family tree to understand relationships within the family",
+            "explain why it is important to honour parents",
+            "respect family members for harmonious co-existence"
+          ],
+          "suggestedLearningExperiences": [
+            "sing a song related to family relationships",
+            "name family members in the nuclear family",
+            "name family members in the extended family (cousins, aunts, uncles, grandparents)",
+            "draw a family tree and write names of family members on it",
+            "list ways of respecting family members",
+            "type a poem using a digital device about respect for family members",
+            "watch a video clip of family members eating or praying together",
+            "recite Ephesians 6:1-3 on respecting parents"
+          ],
+          "keyInquiryQuestions": [
+            "Why is it important to know members of your family?"
+          ]
+        },
+        {
+          "subStrandId": "1.5",
+          "subStrandTitle": "Relationships within the Family",
+          "specificLearningOutcomes": [
+            "take care when alone with people of the opposite sex",
+            "mention ways of protecting oneself from sexual abuse",
+            "identify whom to report to if touched inappropriately or sexually abused",
+            "appreciate the body as a temple of the Holy Spirit and live a holy life"
+          ],
+          "suggestedLearningExperiences": [
+            "sing a song related to respecting their bodies as the temple of the Holy Spirit",
+            "in turns, read 2 Samuel 13:4-14",
+            "say whom to report to if they are touched inappropriately or sexually abused",
+            "in groups, tell how they should protect themselves from sexual abuse",
+            "role-play ways of protecting themselves from sexual abuse",
+            "write 1 Corinthians 6:19 on flash cards and meditate on it",
+            "watch a video clip of children being tempted with gifts, but they say NO! to the strangers"
+          ],
+          "keyInquiryQuestions": [
+            "Why are healthy family relationships important?"
+          ]
+        },
+        {
+          "subStrandId": "1.6",
+          "subStrandTitle": "Attributes of God",
+          "specificLearningOutcomes": [
+            "read scriptures on the attributes of God",
+            "list three attributes of God and revere Him",
+            "recognise God as a loving Father who knows them by their names"
+          ],
+          "suggestedLearningExperiences": [
+            "in groups, picture-read 1 John 4:7-8, Genesis 1:1-25 and 1Samuel 2:2 in turns",
+            "sort and match letters on attributes of God (Sole Creator, Loving Father, Holy Father)",
+            "join words about the attributes of God from a puzzle (sole creator, loving, holy)",
+            "compose a poem on, ‘God our loving Father,’",
+            "sing a song about the love of God"
+          ],
+          "keyInquiryQuestions": ["Why should you know the attributes of God?"]
+        }
+      ]
+    },
+    {
+      "strandId": "2.0",
+      "strandTitle": "The Holy Bible",
+      "subStrands": [
+        {
+          "subStrandId": "2.1",
+          "subStrandTitle": "The Inspired Word of God",
+          "specificLearningOutcomes": [
+            "handle the Holy Bible with respect as the inspired word of God",
+            "identify the books in the Old and New Testament",
+            "role play naming some books in the Bible",
+            "recite Isaiah 49:16 and desire to read the Holy Bible always"
+          ],
+          "suggestedLearningExperiences": [
+            "sing a song related to respecting the Holy Bible",
+            "role-play ways of handling the Holy Bible with respect",
+            "in pairs, observe and read charts containing books in the Old and New Testament",
+            "play games on naming some books in the Old and the New Testament",
+            "recite and meditate on Isaiah 49:16",
+            "sing a song about the books in the Holy Bible"
+          ],
+          "keyInquiryQuestions": [
+            "Why should you respect the Holy Bible?",
+            "Why is it important to know the books in the Holy Bible?"
+          ]
+        },
+        {
+          "subStrandId": "2.2",
+          "subStrandTitle": "Bible Stories: Zacchaeus the Tax Collector",
+          "specificLearningOutcomes": [
+            "retell the story of Zacchaeus",
+            "recount how Zacchaeus changed his behaviour positively",
+            "demonstrate integrity when using money",
+            "discuss why it is important to repent sins in order to be like Christ"
+          ],
+          "suggestedLearningExperiences": [
+            "read Luke19:2-10 in turns",
+            "draw and colour Zacchaeus on a tree and share the drawings with peers",
+            "retell the story of Zacchaeus",
+            "tell a friend how to turn away from bad behaviour//sin",
+            "state three lessons learnt from the story of Zacchaeus",
+            "list ways of using money wisely",
+            "sing a song related to Jesus Christ as the saviour"
+          ],
+          "keyInquiryQuestions": [
+            "How did Zacchaeus’ encounter with Jesus Christ change his behaviour?"
+          ]
+        },
+        {
+          "subStrandId": "2.3",
+          "subStrandTitle": "Balaam’s Donkey",
+          "specificLearningOutcomes": [
+            "retell the story of Balaam and his donkey",
+            "apply the story in their lives by obeying God’s instructions",
+            "acquire the value of love by speaking good things about others",
+            "acknowledge God’s greatness by revering Him"
+          ],
+          "suggestedLearningExperiences": [
+            "in groups, read Numbers 22:1-6, 20-34",
+            "in pairs, list the importance of obeying God and their seniors",
+            "role-play the story of Balaam’s Donkey",
+            "discuss why they should bless and not curse or speak ill about others according to Numbers 22:1-6, 20-34",
+            "use a digital device or a pencil to draw the scenarios in this story",
+            "sing a song related to obedience"
+          ],
+          "keyInquiryQuestions": ["Why did the donkey talk?"]
+        },
+        {
+          "subStrandId": "2.4",
+          "subStrandTitle": "Samson kills a Lion",
+          "specificLearningOutcomes": [
+            "retell the story of Samson; Judges 14: 5- 9",
+            "acknowledge God’s power in his or her life",
+            "trust in God to cope with the challenges of life"
+          ],
+          "suggestedLearningExperiences": [
+            "in turns, read Judges 14:5-9",
+            "model or draw a lion",
+            "compose a poem on ‘Samson kills a lion’",
+            "watch a video clip about Samson",
+            "sing a song on God’s power",
+            "draw pictures of Samson killing a lion"
+          ],
+          "keyInquiryQuestions": [
+            "How does the story of Samson portray God’s power?"
+          ]
+        },
+        {
+          "subStrandId": "2.5",
+          "subStrandTitle": "Joseph interprets a Dream",
+          "specificLearningOutcomes": [
+            "retell the story of Joseph interpreting a dream",
+            "apply lessons learnt by depending on God’s wisdom",
+            "recognise that, ‘the fear of God is the beginning of wisdom.’"
+          ],
+          "suggestedLearningExperiences": [
+            "read Genesis 41:14-24, 28-30 in turns",
+            "share dreams they have dreamt about and try to interpret them",
+            "dramatise Joseph interpreting the dream",
+            "draw a picture of Joseph before Pharaoh and colour it",
+            "mention three lessons learnt from the story",
+            "sing a song related to this story",
+            "recite Proverbs 1:7"
+          ],
+          "keyInquiryQuestions": ["How was Joseph able to interpret dreams?"]
+        },
+        {
+          "subStrandId": "2.6",
+          "subStrandTitle": "Bible Patriarchs Abraham",
+          "specificLearningOutcomes": [
+            "recount the call of Abraham",
+            "obey God’s instructions in his or her day-to-day life",
+            "mention his or her name for self-identity",
+            "discuss Abram’s change of name to Abraham",
+            "appreciate God’s blessings in his or her life"
+          ],
+          "suggestedLearningExperiences": [
+            "sing the song about Abraham the father of faith",
+            "read Genesis 12:1-5 and retell the call of Abraham",
+            "role-play the call of Abraham",
+            "tell what they like about their names",
+            "read Genesis 17:1-5 on the change of Abraham’s name",
+            "recite Genesis 12:3 and appreciate God’s blessings in their lives"
+          ],
+          "keyInquiryQuestions": [
+            "Why was the name Abram changed?",
+            "How did Abraham show obedience to God?"
+          ]
+        }
+      ]
+    },
+    {
+      "strandId": "3.0",
+      "strandTitle": "The Life of Jesus Christ",
+      "subStrands": [
+        {
+          "subStrandId": "3.1",
+          "subStrandTitle": "The Annunciation",
+          "specificLearningOutcomes": [
+            "narrate the annunciation of the Birth of Jesus Christ",
+            "acknowledge the uniqueness of the birth of Jesus Christ",
+            "recite Luke 1:37 and trust in God’s power",
+            "emulate Mary the mother of Jesus and lead a holy life"
+          ],
+          "suggestedLearningExperiences": [
+            "in turns, read Luke 1:26-37",
+            "role-play the annunciation of the birth of Jesus Christ",
+            "watch a video clip on the annunciation of the birth of Jesus Christ",
+            "in groups, sing a song about the annunciation of the birth of Jesus Christ",
+            "say why sexual purity is important",
+            "recite and meditate on Luke 1:37"
+          ],
+          "keyInquiryQuestions": ["Why is the birth of Jesus Christ unique?"]
+        },
+        {
+          "subStrandId": "3.2",
+          "subStrandTitle": "Birth of John the Baptist",
+          "specificLearningOutcomes": [
+            "retell the Birth of John the Baptist",
+            "discuss how John the Baptist prepared the way for the Messiah",
+            "appreciate the need to live a righteous life by turning away from sins"
+          ],
+          "suggestedLearningExperiences": [
+            "in pairs, read Luke 1:5-13, 57",
+            "role-play the angel’s appearance to Zechariah in the temple",
+            "watch a video clip on the birth of John the Baptist",
+            "read Luke 1:76-79 and tell how John the Baptist prepared the way for the Messiah",
+            "sing a song about John the Baptist"
+          ],
+          "keyInquiryQuestions": [
+            "How is John the Baptist a precursor of Jesus Christ?"
+          ]
+        },
+        {
+          "subStrandId": "3.3",
+          "subStrandTitle": "Healing of Blind Bartimaeus",
+          "specificLearningOutcomes": [
+            "retell the healing of blind Bartimaeus",
+            "recognise the healing power of Jesus Christ in their lives",
+            "appreciate Jesus’ power over sickness and disease"
+          ],
+          "suggestedLearningExperiences": [
+            "sing a song about the healing power of God",
+            "read Mark 10:46-52 and retell the healing of blind Bartimaeus",
+            "role-play the healing of blind Bartimaeus",
+            "record the role play using a digital device",
+            "share an incident when they prayed to God for healing"
+          ],
+          "keyInquiryQuestions": [
+            "How did Bartimaeus show faith in Jesus Christ?"
+          ]
+        },
+        {
+          "subStrandId": "3.4",
+          "subStrandTitle": "Healing the 10 Lepers",
+          "specificLearningOutcomes": [
+            "narrate the story of the 10 lepers",
+            "outline ways of showing gratitude to God in day-to-day life",
+            "express gratitude to those who are kind tp them",
+            "appreciate the miracle by having faith in God"
+          ],
+          "suggestedLearningExperiences": [
+            "in turns, read Luke 17:11-19",
+            "role-play the healing of the ten lepers",
+            "draw the ten lepers using a digital device or a pencil",
+            "tell how the 10 lepers showed faith in God",
+            "mention how they exercise faith in God",
+            "share instances when they prayed to God for healing",
+            "in groups, list ways they express gratitude to God",
+            "write a ‘Thank you note’ to God for the gift of life",
+            "list ways they express gratitude to others",
+            "sing a song related to showing gratitude to God"
+          ],
+          "keyInquiryQuestions": ["How did the 10 lepers portray gratitude?"]
+        },
+        {
+          "subStrandId": "3.5",
+          "subStrandTitle": "Jesus raises a Widow’s Son",
+          "specificLearningOutcomes": [
+            "retell the story of raising the widow’s son",
+            "recognise God’s power over life and death",
+            "apply lessons learnt by showing compassion to others",
+            "pray to God when faced with challenges"
+          ],
+          "suggestedLearningExperiences": [
+            "read Luke 7:11-16 and retell the story",
+            "list challenges they face in their lives and how they involve God",
+            "tell how they show kindness to others",
+            "say how Jesus showed compassion to the widow",
+            "watch a video clip on raising the widow’s son",
+            "write John 11:25 on flash cards and recite it",
+            "sing a song about God’s power over life and death"
+          ],
+          "keyInquiryQuestions": [
+            "What do you learn from the miracle of raising the widow’s son?"
+          ]
+        },
+        {
+          "subStrandId": "3.6",
+          "subStrandTitle": "Forgiveness",
+          "specificLearningOutcomes": [
+            "outline the importance of forgiving others",
+            "resist vengeance as outlined in Mathew 5:39",
+            "appreciate forgiveness by not repaying evil for evil"
+          ],
+          "suggestedLearningExperiences": [
+            "read Matthew 5:39 and say why it is important to forgive others",
+            "role-play acts of forgiveness",
+            "say why they should not revenge when wronged",
+            "sing a song about loving others",
+            "write Mathew 5:39, display it in class and recite it"
+          ],
+          "keyInquiryQuestions": ["Why should you not pay evil for evil?"]
+        },
+        {
+          "subStrandId": "3.7",
+          "subStrandTitle": "Helping the Needy",
+          "specificLearningOutcomes": [
+            "state the importance of helping the needy",
+            "demonstrate kindness by sharing with those in need",
+            "recite Mathew 5:42 and help those in need promptly"
+          ],
+          "suggestedLearningExperiences": [
+            "read Matthew 5:42 and tell what they have learnt",
+            "mention instances they helped someone at school, home or in church e.g. they gave a pencil, rubber or shared lunch with another pupil",
+            "role-play sharing items with those who do not have",
+            "write Matthew 5:42 on flash cards and recite it"
+          ],
+          "keyInquiryQuestions": ["How do you help those in need?"]
+        },
+        {
+          "subStrandId": "3.8",
+          "subStrandTitle": "Parable of the lost coin",
+          "specificLearningOutcomes": [
+            "retell the parable of the lost coin",
+            "list lessons learnt from the parable of the lost coin",
+            "recognise God’s love for the sinner and the need to live a righteous life",
+            "appreciate God’s love and lead upright lives"
+          ],
+          "suggestedLearningExperiences": [
+            "read Luke 15:8-10 and retell the parable of the lost coin",
+            "role-play the parable of the lost coin",
+            "share lessons learnt from the parable of the lost coin with a friend",
+            "say how God loves them and how to lead a righteous life",
+            "tell why it is important to live a holy life as a Christian",
+            "sing a song about God’s willingness to save the lost"
+          ],
+          "keyInquiryQuestions": ["How does God show love for the sinner?"]
+        },
+        {
+          "subStrandId": "3.9",
+          "subStrandTitle": "Parable of the mustard seed",
+          "specificLearningOutcomes": [
+            "retell the parable of the mustard seed as guided by the Bible text",
+            "describe how the kingdom of God grows from a small beginning",
+            "explain how they contribute to the growth of the kingdom of God",
+            "appreciate the growth of God’s kingdom by evangelising to others"
+          ],
+          "suggestedLearningExperiences": [
+            "read Luke 13:18-19 and narrate the parable",
+            "in groups, collect small seeds from the school compound",
+            "plant the seeds, water them and observe as the seeds sprout and grow to a big tree",
+            "draw a big tree with birds resting on its branches and compare it to the growth of God’s kingdom",
+            "Role-play the activities they do in Church",
+            "watch a video clip on a mustard seed",
+            "say how they respond to salvation",
+            "sing a song about the kingdom of God"
+          ],
+          "keyInquiryQuestions": [
+            "How does the parable of the mustard seed relate to the kingdom of God?"
+          ]
+        },
+        {
+          "subStrandId": "3.10",
+          "subStrandTitle": "Nicodemus’ encounter with Jesus Christ",
+          "specificLearningOutcomes": [
+            "retell the story of Nicodemus’ encounter with Jesus Christ",
+            "acknowledge that repentance of sins draws us close to Christ",
+            "discuss the importance of baptism to Christians today",
+            "recite John 3:16 and believe in Jesus Christ to inherit eternal life"
+          ],
+          "suggestedLearningExperiences": [
+            "read John 3:1-5 and say how they respond to Christ’s saving grace",
+            "role-play the story of Nicodemus’ encounter with Jesus Christ",
+            "discuss how repentance of sins can draw them to Christ",
+            "watch a video on Nicodemus’ conversion",
+            "say why baptism is important to Christians today",
+            "sing a song on Nicodemus’ conversion",
+            "tell how they respond to John 3:16"
+          ],
+          "keyInquiryQuestions": [
+            "How did Nicodemus’ encounter with Jesus Christ change his life?"
+          ]
+        }
+      ]
+    },
+    {
+      "strandId": "4.0",
+      "strandTitle": "Christian Values",
+      "subStrands": [
+        {
+          "subStrandId": "4.1",
+          "subStrandTitle": "Trust",
+          "specificLearningOutcomes": [
+            "emulate Joseph by resisting sexual temptations as young people",
+            "exercise assertiveness in the face of temptations/tempting situations",
+            "identify people he/she can trust for own safety",
+            "recite Psalm 125:1 and trust in God always"
+          ],
+          "suggestedLearningExperiences": [
+            "in turns, read Genesis 39:7-12 and retell the story of Joseph and Potiphar’s wife",
+            "list lessons learnt from the story of Joseph and Potiphar’s wife",
+            "list people they can trust at home, school and in the community",
+            "brainstorm on how to escape/avoid temptations/tempting situations",
+            "in pairs, roleplay saying No! to sexual temptations",
+            "in groups, discuss whom to report to when in danger",
+            "write a poem on, ‘People I trust’",
+            "role-play saying, ‘No’ to strangers to avoid child abuse or kidnap",
+            "list the importance of trusting God",
+            "sing a song about trusting God"
+          ],
+          "keyInquiryQuestions": [
+            "Whom do you trust at home and school?",
+            "Why should you avoid talking to strangers?",
+            "Why should you put your trust in God?"
+          ]
+        },
+        {
+          "subStrandId": "4.2",
+          "subStrandTitle": "Truthfulness",
+          "specificLearningOutcomes": [
+            "state the importance of telling the truth",
+            "resist lying as cited in Proverbs 12:19",
+            "desire to always speak the truth according to Ephesians 4:25"
+          ],
+          "suggestedLearningExperiences": [
+            "read Ephesians 4:25",
+            "say why they should always tell the truth",
+            "in pairs, say when they did not tell the truth and how to overcome lies",
+            "write a poem on the importance of always telling the truth",
+            "write Proverbs 12:19 on flash cards and recite it"
+          ],
+          "keyInquiryQuestions": ["Why should you always tell the truth?"]
+        },
+        {
+          "subStrandId": "4.3",
+          "subStrandTitle": "Obedience",
+          "specificLearningOutcomes": [
+            "read Exodus 20:12 and state the benefit of honouring parents",
+            "obey parents and teachers to promote harmonious co- existence",
+            "practise responsibility by obeying school rules",
+            "outline the results of disobedience",
+            "desire to exercise obedience in day-to-day life"
+          ],
+          "suggestedLearningExperiences": [
+            "read Exodus 20:12 and state the benefit of honouring parents",
+            "compose a poem on the benefits of obeying parents",
+            "discuss the importance of obeying teachers",
+            "say why they should obey school rules",
+            "in groups, list the results of disobedience",
+            "sing a song on the benefits of obedience"
+          ],
+          "keyInquiryQuestions": ["Why is it important to obey?"]
+        },
+        {
+          "subStrandId": "4.4",
+          "subStrandTitle": "Love",
+          "specificLearningOutcomes": [
+            "recognise that God loves children; Matthew 19:13-15",
+            "demonstrate love by showing kindness to others",
+            "appreciate God’s love by obeying His teachings"
+          ],
+          "suggestedLearningExperiences": [
+            "in groups, retell Jesus Christ’s love for children",
+            "role-play Jesus blessing Children (Mathew 19:13-15)",
+            "draw Jesus praying for children",
+            "watch a video clip on Jesus Christ blessing children",
+            "show love to others as taught by Jesus Christ"
+          ],
+          "keyInquiryQuestions": [
+            "How did Jesus Christ show love to children?",
+            "How do you show Godly love to others as a Christian?"
+          ]
+        },
+        {
+          "subStrandId": "4.5",
+          "subStrandTitle": "Responsibility Personal and school items",
+          "specificLearningOutcomes": [
+            "identify personal items and how they care for them",
+            "identify school properties and how they care for them",
+            "acquire responsibility by taking care of personal and school properties"
+          ],
+          "suggestedLearningExperiences": [
+            "display personal items e.g. pullover, pen, pencils, eraser, exercise books, text books",
+            "in pairs, list the use of each item",
+            "say why they should take good care of their personal and school items",
+            "compose a poem on taking care of personal and school properties"
+          ],
+          "keyInquiryQuestions": [
+            "How do you take care of personal and school items?"
+          ]
+        },
+        {
+          "subStrandId": "4.6",
+          "subStrandTitle": "Holiness",
+          "specificLearningOutcomes": [
+            "describe ways of glorifying God with their bodies",
+            "acquire the value of holiness by keeping away from situations that lead to sin",
+            "recite 1Corinthians 6:19 on the body as the temple of the Holy Spirit",
+            "desire to lead holy lives free from sin"
+          ],
+          "suggestedLearningExperiences": [
+            "in pairs, read 1 Corinthians 6:19-20 and mention the lessons learnt",
+            "in pairs, list sins that do not please God",
+            "in groups, discuss how to avoid situations that lead to sin",
+            "sing a song on holiness"
+          ],
+          "keyInquiryQuestions": [
+            "Why should you lead holy lives as young people?"
+          ]
+        }
+      ]
+    },
+    {
+      "strandId": "5.0",
+      "strandTitle": "The Church",
+      "subStrands": [
+        {
+          "subStrandId": "5.1",
+          "subStrandTitle": "House of God",
+          "specificLearningOutcomes": [
+            "outline lessons learnt from Matthew 21:12-14",
+            "participate in church activities to grow spiritually",
+            "appreciate the church as a house of worship"
+          ],
+          "suggestedLearningExperiences": [
+            "read Matthew 21:12-13 and list lessons learnt from the Bible text",
+            "read 1Corithinians 14:26 and list activities mentioned in the Bible text",
+            "in groups, list the activities they do in church",
+            "in pairs, list ways of respecting the church as a house of God",
+            "write a poem about respecting the church",
+            "sing a song related to serving God"
+          ],
+          "keyInquiryQuestions": ["Why is the church a holy place?"]
+        },
+        {
+          "subStrandId": "5.2",
+          "subStrandTitle": "The Early Church",
+          "specificLearningOutcomes": [
+            "name the disciples of Jesus Christ",
+            "describe how the early church was started",
+            "desire to turn away from sins according to Acts 2:38"
+          ],
+          "suggestedLearningExperiences": [
+            "read Matthew 10:1-4 and list the disciples of Jesus Christ",
+            "sort the names of the 12 disciples using flash cards",
+            "search for the names of the disciples in a word puzzle",
+            "watch a video clip on the twelve disciples",
+            "read Acts 2:38-41 on how the early church was started",
+            "Role-play how the early church was started",
+            "repent their sins as guided in Acts 2:38"
+          ],
+          "keyInquiryQuestions": ["How was the early church started?"]
+        },
+        {
+          "subStrandId": "5.3",
+          "subStrandTitle": "Standing Firm in Faith",
+          "specificLearningOutcomes": [
+            "name the city where believers were first called Christians",
+            "retell how Stephen was stoned for standing firm in his faith",
+            "list three lessons learnt from the stoning of Stephen",
+            "explain why they should not join ungodly groups",
+            "utilise the virtue of assertiveness and stand firm in faith"
+          ],
+          "suggestedLearningExperiences": [
+            "sing a song related to standing firm in the Christian faith",
+            "read Acts 11: 26 and say where believers were first called Christians",
+            "identify Antioch, from a Bible map",
+            "in groups, read Acts 7: 54-60 and retell the story of Stephen",
+            "brainstorm on lessons learnt from the story of Stephen",
+            "explain why they should not join ungodly groups; radicalised groups, groups that do not recognise Jesus Christ",
+            "list ways they can stand firm in their Christian faith"
+          ],
+          "keyInquiryQuestions": [
+            "Why should you stand firm in your Christian faith?",
+            "Why should you not join ungodly groups?"
+          ]
+        },
+        {
+          "subStrandId": "5.4",
+          "subStrandTitle": "The Lord’s Prayer",
+          "specificLearningOutcomes": [
+            "recite the Lord’s prayer",
+            "pray for parents, guardians and friends",
+            "say a prayer to God every day to grow spiritually"
+          ],
+          "suggestedLearningExperiences": [
+            "sing a song related to the Lord’s Prayer",
+            "read Matthew 6:9-13",
+            "discuss why it is important to pray every day",
+            "pray for their parents/guardians, friends and relatives",
+            "recite the Lord’s prayer daily",
+            "list the number of times they pray and share with classmates"
+          ],
+          "keyInquiryQuestions": ["Why should you pray always as a Christian?"]
+        },
+        {
+          "subStrandId": "5.5",
+          "subStrandTitle": "Fruit of the Holy Spirit",
+          "specificLearningOutcomes": [
+            "list the fruit of the Holy Spirit; Galatians 5:22-23",
+            "describe how they apply the fruit of the Holy Spirit in their lives",
+            "desire to be led by the Holy Spirit in their daily activities"
+          ],
+          "suggestedLearningExperiences": [
+            "in pairs, read Galatians 5:22-23",
+            "list the fruit of the Holy Spirit",
+            "write the fruit of the Holy Spirit on flash cards and display it in class",
+            "in groups, list good things they should do to others as Christians",
+            "discuss how they apply the fruit of the Holy Spirit in their daily lives",
+            "compose and sing a song on the fruit of the Holy Spirit"
+          ],
+          "keyInquiryQuestions": [
+            "Why should you have the fruit of the Holy Spirit?"
+          ]
+        },
+        {
+          "subStrandId": "5.6",
+          "subStrandTitle": "Self-control",
+          "specificLearningOutcomes": [
+            "practice self-control as guided in Galatians 5:23- 25",
+            "make right decisions that are guided by the Holy Spirit",
+            "demonstrate self-control by avoiding behaviour that defiles the body",
+            "live Godly lives guided by the Holy Spirit"
+          ],
+          "suggestedLearningExperiences": [
+            "read Galatians 5:23-25",
+            "role-play ‘making decisions that portray self-control’",
+            "in groups, list choices they make in their day-to-day lives",
+            "list things that can defile them e.g. engaging in sex, watching ungodly movies, drug use and abuse",
+            "say how they can avoid defiling their bodies",
+            "compose a song on self-control: Galatians 5:23-25"
+          ],
+          "keyInquiryQuestions": ["Why should you practice self- control?"]
+        }
+      ]
+    }
+  ]
+}

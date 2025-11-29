@@ -1,0 +1,1964 @@
+{
+  "subject": "Kiswahili",
+  "grade": "Grade 5",
+  "educationLevel": "Upper Primary",
+  "strands": [
+    {
+      "strandNumber": "1.0",
+      "strandName": "MAPISHI",
+      "subStrands": [
+        {
+          "subStrandNumber": "1.1.1",
+          "subStrandName": "Matamshi Bora - Sauti f/v, s/z, l/r na th/dh",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Kutambua silabi zinazotokana na sauti zinazokaribiana katika maneno: f/v, s/z, l/r na th/dh",
+            "Kutamka silabi zinazotokana na sauti zinazokaribiana kimatamshi: f/v, s/z, l/r na th/dh ili kutofautisha matamshi yake",
+            "Kutamka vitanzandimi vinavyoundwa kwa silabi za sauti zinazokaribiana kimatamshi: f/v, s/z, l/r na th/dh ili kuimarisha mawasiliano",
+            "Kutunga vitanzandimi vyenye maana kutokana na sauti zinazokaribiana kimatamshi: f/v, s/z, l/r na th/dh",
+            "Kuchangamkia kukariri vitanzandimi vinavyotungwa kwa silabi za sauti zinazokaribiana kimatamshi: f/v, s/z, l/r na th/dh ili kuimarisha matamshi yake"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua silabi za sauti lengwa kutokana na maneno kwenye vitabu, ubaoni au kwa kutumia vifaa vya kiteknolojia",
+            "Kusikiliza silabi za sauti f/v, s/z, l/r na th/dh zikitamkwa na mwalimu, mgeni mwalikwa au kutoka kwa vifaa vya kidijitali",
+            "Kutamka silabi za sauti lengwa akiwa na wenzake",
+            "Kusikiliza vitanzandimi vinavyotungwa kutokana na maneno yenye sauti lengwa vikikaririwa",
+            "Kutunga vitanzandimi vinavyotokana na sauti husika akiwa peke yake au katika vikundi",
+            "Kutunga vitanzandimi kwenye vifaa vya kidijitali na kushirikiana na wenzake kuvirekebisha",
+            "Kusakura mtandaoni ili kupata vitanzandimi zaidi vyenye sauti lengwa"
+          ],
+          "keyInquiryQuestions": [
+            "Je, unajua maneno gani yenye silabi zinazokanganaya kimatamshi?",
+            "Je, unajua vitanzandimi gani vyenye silabi zinazokanganaya kimatamshi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana katika kutamka silabi na kutunga vitanzandimi",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kusikiliza sauti na kuunda vitanzandimi mtandaoni",
+            "Kujiamini: mwanafunzi anapotamka kwa usahihi silabi zinazotokana na sauti lengwa na kutunga vitanzandimi sahihi",
+            "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapofikiria kuhusu vitanzandimi atakavyotunga vyenye sauti lengwa"
+          ],
+          "values": [
+            "Umoja: mwanafunzi anaposhirikiana na wenzake kutunga vitanzandimi vinavyotokana na sauti husika",
+            "Uwajibikaji: mwanafunzi anapotunga vitanzandimi na kuvirekebisha ifaapo akiwa na wenzake"
+          ],
+          "pcis": [
+            "Kujithamini: mwanafunzi anapounda na kutamka vitanzandimi vilivyo na sauti lengwa",
+            "Masuala mtambuko anuwai: kutokana na vitanzandimi vinavyoelekeza utoaji wa maelezo kuhusu masuala hayo kama vile utunzaji wa mazingira, ujuzi wa matumizi ya fedha, afya bora na utunzaji wa wanyama"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha matamshi bora ya sauti lengwa na somo la English kwa sababu somo hili hufundisha matamshi bora ya sauti"
+          ]
+        },
+        {
+          "subStrandNumber": "1.2.1",
+          "subStrandName": "Kusoma kwa Ufahamu",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua msamiati wa suala lengwa uliotumika katika kifungu ili kuimarisha ufahamu",
+            "Kutumia msamiati lengwa kwa usahihi katika sentensi",
+            "Kusoma kifungu cha hadithi kwa kuzingatia ujumbe, matukio na wahusika",
+            "Kuonyesha uelewa wa kifungu kwa kutoa muhtasari na kujibu maswali",
+            "Kujenga mazoea ya usomaji bora katika maisha ya kila siku"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua msamiati wa suala lengwa (k.v. vyakula, viungo vya kupikia, njia za kupika na vifaa vya kupikia) kwa kutumia kadi maneno, chati, mti maneno au kifaa cha kidijitali",
+            "Kushiriki katika vikundi kujadili na kutumia msamiati wa suala lengwa katika sentensi",
+            "Kusoma kifungu kuhusu suala lengwa kwenye kitabu au kwenye tarakilishi akiwa peke yake au katika vikundi",
+            "Kutoa muhtasari kuhusu kifungu alichosoma",
+            "Kujibu maswali kutokana na kifungu alichosoma",
+            "Kusoma vifungu mtandaoni kuhusu suala lengwa na kujadiliana na wenzake kuhusu ujumbe ulioyomo"
+          ],
+          "keyInquiryQuestions": [
+            "Kusoma kuhusu mapishi kuna umuhimu gani?",
+            "Ni hadithi gani umewahi kuisoma kuhusu mapishi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika mijadala na kazi za vikundi",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kusoma kifungu",
+            "Hamu ya ujifunzaji: mwanafunzi anaposakura mtandaoni ili kusoma vifungu zaidi kuhusu suala lengwa"
+          ],
+          "values": [
+            "Umoja: mwanafunzi anaposhirikiana na wenzake katika shughuli za vikundi",
+            "Heshima: mwanafunzi anapoziheshimu kazi za wenzake kwenye kikundi"
+          ],
+          "pcis": [
+            "Masuala ya afya: mwanafunzi anapojifunza kuhusu mapishi",
+            "Afya ya mtu binafsi: mwanafunzi anaposoma vifungu vinavyoeleza kuhusu mapishi"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha usomaji kwa ufahamu na matumizi ya msamiati kimuktadha na somo la English kwa sababu somo hili hufundisha usomaji kwa ufahamu"
+          ]
+        },
+        {
+          "subStrandNumber": "1.3.1",
+          "subStrandName": "Insha ya Wasifu",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua insha ya wasifu kwa kuzingatia mtindo na muundo wake",
+            "Kuandika insha ya wasifu kwa ubunifu ili kujenga maelezo yenye kutoa picha dhahiri",
+            "Kufurahia kutunga insha bora ili kuimarisha mazoea ya kuandika"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua insha ya wasifu kwa kurejelea vielelezo vya insha zilizoandikwa kwenye matini mbalimbali au tarakilishi",
+            "Kusoma vielelezo vya insha ya wasifu vilivyoandikwa katika matini mbalimbali au tarakilishi",
+            "Kushirikiana na wenzake kujadili mada na muundo wa insha ya wasifu",
+            "Kushirikiana na wenzake katika vikundi ili kubainisha na kujadili vidokezo vifaavyo vya mada lengwa",
+            "Kuandika insha ya wasifu isiyopungua maneno 150 inayohusu mada lengwa kwa kuzingatia anwani, mpangilio mzuri wa mawazo, hati safi, kanuni za kisarufi na kwa lugha ya kiubunifu",
+            "Kuandika insha ya wasifu mtandaoni na kuisambaza kwa wenzake na mwalimu ili kuisoma na kuitathmini",
+            "Kuwasomea wenzake insha aliyoandika ili kumpa motisha kuandika zaidi",
+            "Kumwonyesha mzazi au mlezi wake insha ya wasifu aliyoandika ili apate maoni"
+          ],
+          "keyInquiryQuestions": [
+            "Insha ya wasifu inahusu nini?",
+            "Unazingatia nini unapoandika insha ya wasifu?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika mijadala na kazi za vikundi",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kuandika insha mtandaoni na kurejelea kielelezo cha insha ya wasifu",
+            "Ubunifu: mwanafunzi anapoandika insha ya wasifu"
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anaposhiriki katika shughuli za kikundi",
+            "Uadilifu: mwanafunzi anapoandika insha ya wasifu kuhusu watu ambao wanajulikana kwa matendo mema"
+          ],
+          "pcis": [
+            "Elimu ya afya na kujikinga: mwanafunzi anapofanya kazi pamoja na wenzake katika vikundi anajifunza mambo ya afya"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha uandishi wa insha na somo la English kwa sababu somo hili hufundisha uandishi wa insha mbalimbali"
+          ]
+        },
+        {
+          "subStrandNumber": "1.4.1",
+          "subStrandName": "Nomino za Pekee",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua nomino za pekee kwenye sentensi au vifungu vya maneno",
+            "Kutunga sentensi kwa kutumia nomino za pekee ili kukuza matumizi ya lugha sahihi",
+            "Kuchangamkia matumizi ya nomino za pekee katika mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua nomino za pekee (k.v. Kisumu, Mei, Rabuka, Alhamisi na Yohana) kwenye tarakilishi, kapu maneno, mti maneno, kadi maneno au chati",
+            "Kutaja nomino za pekee akiwa na wenzake kama vile za majina ya mji, majina ya mito, majina ya watu na majina ya miezi",
+            "Kutambua nomino za pekee katika sentensi kwenye vitabu, tarakilishi, chati kwa kuzipigia mstari au kukolezea rangi",
+            "Kujaza nafasi kwenye sentensi au kifungu kwa kutumia nomino za pekee",
+            "Kutunga sentensi kwa kutumia nomino za pekee akiwa na wenzake"
+          ],
+          "keyInquiryQuestions": [
+            "Nomino za pekee zinahusu nini?",
+            "Ni nomino zipi za pekee unazozijua?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika kazi za vikundi",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali katika kutambua nomino za pekee",
+            "Ubunifu: mwanafunzi anapotunga sentensi sahihi akitumia nomino za pekee",
+            "Kujiamini: mwanafunzi anapofaulu kutambua nomino za pekee na kuzitungia sentensi sahihi"
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapofanya kazi ya vikundi",
+            "Heshima: mwanafunzi anapothamini wenzake wakitaja nomino za pekee"
+          ],
+          "pcis": [
+            "Masuala mtambuko anuwai kutokana na sentensi zinazoelekeza utoaji wa maelezo kuhusu masuala hayo k.v. usalama, utunzaji wa mazingira, afya bora na utunzaji wa wanyama"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia aina za maneno kama vile nomino za kipekee na somo la English kwa sababu somo hili hufundisha utambuzi na matumizi ya aina mbalimbali za maneno ikiwemo nomino za kipekee"
+          ]
+        },
+        {
+          "subStrandNumber": "1.4.2",
+          "subStrandName": "Nomino za Kawaida",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua nomino za kawaida kwenye sentensi au vifungu vya maneno",
+            "Kutunga sentensi kwa kutumia nomino za kawaida ili kukuza matumizi sahihi ya lugha",
+            "Kufurahia kutumia nomino za kawaida katika mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua nomino za kawaida kwenye kadi au kapu la maneno (k.v. mtu, mtoto, darasa, ukuta, mwalimu, meza na kiti)",
+            "Kutaja akiwa na wenzake nomino za kawaida",
+            "Kutambua nomino za kawaida katika sentensi kwa kuzipigia mistari au kuzikolezea rangi kwenye tarakilishi",
+            "Kutumia nomino za kawaida kujaza nafasi kwenye sentensi",
+            "Kutunga sentensi kwa kutumia nomino za kawaida akiwa peke yake au kwenye vikundi"
+          ],
+          "keyInquiryQuestions": [
+            "Je, ni vitu gani vipatikanavyo katika mazingira yako?",
+            "Ni vitu gani vinavyotumika katika mapishi mbalimbali?"
+          ],
+          "coreCompetencies": [
+            "Ubunifu: mwanafunzi anapotunga sentensi na kujaza nafasi",
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake katika vikundi kutaja nomino na kutunga sentensi"
+          ],
+          "values": [
+            "Upendo: mwanafunzi anapotangamana na wenzake kwenye vikundi",
+            "Heshima: mwanafunzi anapothamini maoni ya wengine kwenye kikundi"
+          ],
+          "pcis": [
+            "Mshikamano wa kijamii na utaifa: mwanafunzi anashirikiana na wenzake katika vikundi",
+            "Masuala mtambuko anuwai kutokana na sentensi zinazotoa maelezo kuhusu masuala hayo k.v. utunzaji wa mazingira, afya bora na utunzaji wa wanyama"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia aina za maneno kama vile nomino za kawaida na somo la English kwa sababu somo hili hufundisha utambuzi na matumizi ya aina mbalimbali za maneno ikiwemo nomino za kawaida"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "2.0",
+      "strandName": "HUDUMA YA KWANZA",
+      "subStrands": [
+        {
+          "subStrandNumber": "2.1.1",
+          "subStrandName": "Maamkuzi na Maagano",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua aina mbalimbali za maamkuzi na maagano katika mawasiliano",
+            "Kueleza maamkuzi na maagano yanayotumika katika miktadha mbalimbali ili kuyabainisha",
+            "Kutumia aina mbalimbali za maamkuzi na maagano katika mawasiliano",
+            "Kuchangamkia maamkuzi na maagano katika mahusiano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua maamkuzi (k.v. shikamoo, Habari za utokako? Habari za adhuhuri? Habari za jioni?) kutoka kwenye chati, ubao au vifaa vya kidijitali, michoro na picha",
+            "Kushiriki kujadiliana na mwenzake au katika vikundi maamkuzi yanayolengwa na matumizi yake",
+            "Kutambua maagano (k.v. lala salama, safari njema, alamsiki) kutoka kwenye chati, ubao au vifaa vya kidijitali, michoro na picha",
+            "Kushirikiana na wenzake kuigiza maamkuzi na maagano lengwa",
+            "Kutazama watu wakiamkuana na kuagana katika vifaa vya kidijitali",
+            "Kuambatanisha maamkuzi na maagano na majibu sahihi"
+          ],
+          "keyInquiryQuestions": [
+            "Je, watu husalimiana vipi katika jamii?",
+            "Je, watu huagana vipi katika jamii?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kuigiza maamkuzi na maagano",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kujifunzia",
+            "Kujiamini: mwanafunzi anapotumia maamkuzi na maagano ipasavyo"
+          ],
+          "values": [
+            "Heshima: maamkuzi huimarisha heshima",
+            "Upendo: maamkuzi huashiria upendo",
+            "Umoja: maamkuzi huimarisha umoja na uhusiano mwema"
+          ],
+          "pcis": [
+            "Utunzi na usalama wa watoto: mwanafunzi anapoamkua na kujibu maamkuzi",
+            "Utangamano wa kijamii: mwanafunzi anapoamkuana na kuagana na wenzake"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha utambuzi na matumizi ya maamkuzi na maagano na somo la English kwa sababu somo hili hufundisha maamkuzi na maagano"
+          ]
+        },
+        {
+          "subStrandNumber": "2.2.1",
+          "subStrandName": "Kusoma kwa Kina - Matumizi ya Kamusi",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua mpangilio wa maneno katika kamusi ili kupata maneno lengwa kwa urahisi",
+            "Kutumia kamusi ipasavyo kutafuta maana za maneno asiyoyajua yaliyo katika matini teule ili kukuza msamiati wake",
+            "Kuchangamkia kutumia kamusi katika kukuza msamiati wake"
+          ],
+          "suggestedLearningExperiences": [
+            "Kupanga maneno aliyopewa kwenye chati, kapu maneno au mti maneno kialfabeti",
+            "Kuchagua neno kutoka kapu maneno au mti maneno ili kulitafuta kwenye kamusi",
+            "Kutumia kamusi kutafuta maana za maneno mbalimbali kuhusu suala lengwa akiwa peke yake au katika vikundi",
+            "Kutumia mtandao kutafuta maana za maneno"
+          ],
+          "keyInquiryQuestions": [
+            "Maana ya maneno ya Kiswahili hupatikana wapi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anashirikiana na wenzake kutafuta maana za maneno",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia mtandao kutafuta maana za maneno",
+            "Kujiamini: mwanafunzi anapotumia kamusi kutafuta maana za maneno",
+            "Hamu ya ujifunzaji: mwanafunzi anapoanza kutumia kamusi kutafuta maana za maneno"
+          ],
+          "values": [
+            "Uzalendo: mwanafunzi anapotumia lugha ya Kiswahili kama lugha ya taifa",
+            "Uadilifu: mwanafunzi anapotumia msamiati ufaao katika mawasiliano",
+            "Amani: mwanafunzi anaposhirikiana na wenzake kupata maneno kwenye kamusi"
+          ],
+          "pcis": [
+            "Uwajibikaji: mwanafunzi anapojitegemea katika kutumia kamusi",
+            "Kujithamini: mwanafunzi anapofanya kazi na wengine katika vikundi",
+            "Masuala ya afya: mwanafunzi anaposoma kifungu kuhusu huduma ya kwanza"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha usomaji kina na matumizi ya kamusi na somo la English kwa sababu somo hili hufundisha usomaji wa kina kwa kuhusisha matumizi ya kamusi"
+          ]
+        },
+        {
+          "subStrandNumber": "2.3.1",
+          "subStrandName": "Insha ya Masimulizi",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua insha ya masimulizi kwa kuzingatia ujumbe, mtindo na muundo",
+            "Kuandika insha ya masimulizi kwa kufuata kanuni zifaazo",
+            "Kuchangamkia utunzi mzuri wa insha ya masimulizi ili kukuza ubunifu wake"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua insha ya masimulizi kwa kurejelea vielelezo vya insha zilizoandikwa kwenye matini mbalimbali au tarakilishi",
+            "Kushiriki na wenzake kujadili mada ya insha na muundo wa insha ya masimulizi",
+            "Kuandika insha isiyopungua maneno 150 inayosimulia kisa kuhusu jinsi ya kutoa huduma ya kwanza barabarani kwa kuzingatia anwani, mpangilio mzuri wa mawazo, hati safi, tahajia, kanuni za kisarufi, uakifishaji mwafaka na kwa lugha ya kiubunifu",
+            "Kuandika insha ya masimulizi mtandaoni na kuisambaza kwa wenzake na mwalimu ili kuisoma na kuitathmini",
+            "Kusomea wenzake insha aliyoandika ili kuitathmini"
+          ],
+          "keyInquiryQuestions": [
+            "Je, unazingatia nini ili kuandika insha nzuri ya masimulizi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika mijadala na kazi za vikundi",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kiteknolojia kuandika insha mtandaoni na kurejelea kielelezo cha insha ya masimulizi",
+            "Ubunifu: mwanafunzi anapoandika insha ya masimulizi",
+            "Hamu ya ujifunzaji: mwanafunzi anapoimarisha ujuzi wake wa kutumia tarakilishi"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anaposhiriki katika shughuli za vikundi",
+            "Umoja: mwanafunzi anaposhiriki katika shughuli za vikundi"
+          ],
+          "pcis": [
+            "Mshikamano wa kijamii na utaifa: mwanafunzi anaposhirikiana na wenzake katika shughuli za vikundi",
+            "Masuala ya afya: mwanafunzi anapoandika insha kuhusu huduma ya kwanza"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha uandishi wa insha ya masimulizi na somo la English kwa sababu somo hili hufundisha uandishi wa aina mbalimbali za insha ikiwemo insha ya masimulizi"
+          ]
+        },
+        {
+          "subStrandNumber": "2.4.1",
+          "subStrandName": "Nomino za Wingi",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua nomino za wingi katika matini ili kuzibainisha",
+            "Kutumia nomino za wingi katika sentensi ili kuimarisha mawasiliano",
+            "Kufurahia kutumia nomino za wingi katika mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua nomino za wingi (k.m chumvi, sukari, maji, uji, mafuta na manukato) kutoka kwenye kapu la maneno, chati, vitabu na vifaa vya kidijitali akiwa peke yake au katika kikundi",
+            "Kutambua nomino za wingi kwa kuzipigia mistari au kuzikolezea rangi kwenye matini",
+            "Kutumia nomino za wingi kujaza nafasi kwenye sentensi",
+            "Kutumia nomino za wingi katika sentensi kwa kufanya mazoezi daftarini"
+          ],
+          "keyInquiryQuestions": [
+            "Unajua majina gani yanayohusu vitu vinavyopatikana katika wingi tu?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika mijadala na kazi za vikundi",
+            "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapotunga sentensi na kuzijadili na wenzake",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kiteknolojia katika kutambua nomino za wingi"
+          ],
+          "values": [
+            "Upendo: mwanafunzi anaposhiriki kwenye vikundi",
+            "Uwajibikaji: mwanafunzi anapokamilisha kazi zake za somo pamoja na kutunza vifaa vya kidijitali kama vile tarakilishi"
+          ],
+          "pcis": [
+            "Utangamano wa kijamii: anaposhirikiana na wenzake kutambua nomino za wingi",
+            "Kujithamini: anapokuza stadi ya kujieleza kupitia utungaji wa sentensi"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia aina za maneno kama vile nomino za wingi na somo la English kwa sababu somo hili hufundisha utambuzi na matumizi ya aina mbalimbali za maneno ikiwemo nomino za wingi"
+          ]
+        },
+        {
+          "subStrandNumber": "2.4.2",
+          "subStrandName": "Vitenzi-jina",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua nomino za vitenzi-jina kwenye kifungu cha maneno au kwenye sentensi",
+            "Kutunga sentensi au vifungu vya maneno akitumia nomino za vitenzi-jina ili kukuza matumizi bora ya lugha",
+            "Kufurahia kutumia nomino za vitenzi-jina katika utungaji wa sentensi na kujaza nafasi"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua vitenzi-jina kutoka kwenye kapu la maneno, vyombo vya kidijitali (k.v. kusoma, kucheka, kula, kulia na kuandika)",
+            "Kutambua vitenzi-jina akiwa na wenzake kwa kuvipigia mistari au kuzikolezea rangi kwenye matini",
+            "Kutumia nomino za vitenzi-jina kwa kujaza nafasi kwenye sentensi",
+            "Kutunga sentensi au vifungu vya maneno kwa kutumia nomino za vitenzi-jina akiwa peke yake au katika vikundi"
+          ],
+          "keyInquiryQuestions": [
+            "Ni mambo gani wewe hufanya ukiwa nyumbani?",
+            "Unapenda kufanya mambo gani darasani?"
+          ],
+          "coreCompetencies": [
+            "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapotunga sentensi na kuzijadili na wenzake",
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wengine kwenye kazi za vikundi",
+            "Kujiamini: mwanafunzi anapowatungia wenzake sentensi katika makundi"
+          ],
+          "values": [
+            "Upendo: mwanafunzi anaposhirikiana kwenye vikundi kufanya shughuli mbalimbali",
+            "Uwajibikaji: mwanafunzi anapokamilisha kazi zake pamoja na kutunza vifaa vya kiteknolojia kama vile projekta na tarakilishi"
+          ],
+          "pcis": [
+            "Utangamano wa kijamii: mwanafunzi anaposhirikiana na wenzake kwenye vikundi",
+            "Utaifa: mwanafunzi anapotagusana na wenzake wenye asili tofauti kwenye shughuli za vikundi"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia aina za maneno kama vile vitenzi-jina na somo la English kwa sababu somo hili hufundisha utambuzi na matumizi ya aina mbalimbali za maneno ikiwemo vitenzi-jina"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "3.0",
+      "strandName": "MAPAMBO",
+      "subStrands": [
+        {
+          "subStrandNumber": "3.1.1",
+          "subStrandName": "Vitendawili",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua vitendawili vya suala lengwa",
+            "Kutega na kutegua vitendawili ili kujenga matamshi bora",
+            "Kuchangamkia matumizi ya vitendawili kama njia ya kujenga utamkaji bora wa maneno"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua vitendawili vya mapambo katika chati, ubao au vifaa vya kidijitali",
+            "Kushiriki katika kutega na kutegua vitendawili",
+            "Kusikiliza vitendawili vikitegwa na kuteguliwa kupitia vyombo vya kidijitali"
+          ],
+          "keyInquiryQuestions": ["Je, ni vitendawili gani unavyovijua?"],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika kutega na kutegua vitendawili kwenye vikundi",
+            "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapofikiria kuhusu majibu ya vitendawili",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kusikiliza vitendawili vikitegwa na kuteguliwa",
+            "Kujiamini: mwanafunzi anapoweza kutega na kutegua vitendawili"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapochangamkia maoni ya wenzake",
+            "Umoja: mwanafunzi anapofanya kazi katika vikundi"
+          ],
+          "pcis": [
+            "Umoja wa kijamii: mwanafunzi anaposhiriki katika vikundi",
+            "Kujithamini: mwanafunzi anapotega na kutegua vitendawili"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua, kutega na kutegua vitendawili na somo la English kwa sababu somo hili hufundisha kuhusu vitendawili"
+          ]
+        },
+        {
+          "subStrandNumber": "3.2.1",
+          "subStrandName": "Kusoma kwa Ufasaha",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua vipengele vya kuzingatia katika kusoma kwa ufasaha",
+            "Kusoma kifungu kwa kuzingatia matamshi bora",
+            "Kusoma kifungu kwa kasi ifaayo",
+            "Kusoma kifungu kwa kutumia sauti ipasavyo",
+            "Kusoma kifungu kwa kuambatanisha ishara zifaazo",
+            "Kuchangamkia kusoma kifungu kwa kuzingatia vipengele vya usomaji"
+          ],
+          "suggestedLearningExperiences": [
+            "Kujadiliana na wenzake vipengele vya kuzingatia katika kusoma makala kwa ufasaha",
+            "Kutazama vielelezo vya video vinavyoonyesha usomaji fasaha wa makala",
+            "Kusoma kifungu cha habari kwa kuzingatia matamshi bora",
+            "Kusoma kifungu cha hadithi kuhusu suala lengwa kwa kuzingatia kasi ifaayo (maneno sahihi yasiyopungua 70 kwa dakika)",
+            "Kusoma kifungu akizingatia sauti ifaayo (k.v. kiwango cha sauti na kiimbo)",
+            "Kusoma kifungu kwa kuambatanisha ishara zifaazo panapofaa",
+            "Kushirikiana na mzazi au mlezi kusoma makala akizingatia vipengele vya usomaji bora"
+          ],
+          "keyInquiryQuestions": ["Kwa nini ni muhimu kusoma kifungu ifaavyo?"],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapowasomea wenzake kifungu",
+            "Kujiamini: mwanafunzi anaposoma kifungu mbele ya wenzake"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anaposikiliza kwa makini wenzake wakisoma kifungu",
+            "Uwajibikaji: mwanafunzi anaposoma kifungu kwa ukamilifu"
+          ],
+          "pcis": [
+            "Kujithamini: mwanafunzi anaposhiriki kikamilifu shughuli za vikundi na kuzikamilisha"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kusoma kwa ufasaha na somo la English kwa sababu somo hili hufundisha kusoma kwa ufasaha"
+          ]
+        },
+        {
+          "subStrandNumber": "3.3.1",
+          "subStrandName": "Kuandika kwa Tarakilishi",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua sehemu mbalimbali za tarakilishi zinazotumika kupigia chapa",
+            "Kutumia tarakilishi ili kujenga maarifa ya kidijitali",
+            "Kujenga mazoea ya kutumia tarakilishi kuandika na kuhifadhi maandishi"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua sehemu mbalimbali za tarakilishi za kupigia chapa (k.v. kipanya na kiwambo/mulishi)",
+            "Kutumia tarakilishi kuandika maneno au sentensi zinazolenga msamiati wa mapambo (k.v. herini, vipuli, pete, kipini, bangili, shanga, taji, kugesi na hina)",
+            "Kutumia tarakilishi kuandika kifungu kinachohusisha mapambo mbalimbali",
+            "Kuhifadhi kazi yake kwenye faili ya tarakilishi mara kwa mara",
+            "Kuhariri kazi yake kwenye tarakilishi akishirikiana na wenzake katika kikundi",
+            "Kutuma kazi yake kwa mwalimu ili kuitathmini",
+            "Kuendelea kufanya mazoezi ya kuandika kwa kutumia tarakilishi akisaidiwa na mzazi/mlezi wake"
+          ],
+          "keyInquiryQuestions": [
+            "Je, ni sehemu zipi za tarakilishi unazojua?",
+            "Tarakilishi hutuwezesha kufanya kazi gani?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake katika kazi za vikundi",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia tarakilishi kuandika na kuhifadhi kazi yake",
+            "Hamu ya ujifunzaji: mwanafunzi anapotumia ipasavyo vyombo vya kidijitali kama kipakatalishi na rununu"
+          ],
+          "values": [
+            "Umoja: mwanafunzi anapohariri kazi yake kwenye tarakilishi akishirikiana na wenzake katika kikundi",
+            "Uwajibikaji: mwanafunzi anapohifadhi vyombo vya kidijitali anavyotumia"
+          ],
+          "pcis": [
+            "Elimu ya maendeleo endelevu: mwanafunzi anapotumia ujuzi wa kidijitali ya kisasa kufanikisha uandishi"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kuandika kwa tarakilishi na somo la English kwa sababu somo hili hufundisha kuandika kwa tarakilishi"
+          ]
+        },
+        {
+          "subStrandNumber": "3.4.1",
+          "subStrandName": "Nomino za Makundi",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua nomino za makundi katika matini ili kuzibainisha",
+            "Kutumia nomino za makundi katika sentensi ili kuimarisha mawasiliano",
+            "Kufurahia kutumia nomino za makundi katika mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua nomino za makundi katika chati, kadi maneno, ubao, vifaa vya kidijitali",
+            "Kutumia nomino za makundi katika sentensi na kuziandika daftarini mwake",
+            "Kutumia nomino za makundi kutunga sentensi mtandaoni akiwa na wenzake"
+          ],
+          "keyInquiryQuestions": [
+            "Je, unajua maneno gani yanayotaja makundi ya watu na vitu?",
+            "Je, nomino za makundi hutumiwa vipi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapotunga sentensi mtandaoni akiwa na wenzake",
+            "Hamu ya ujifunzaji: mwanafunzi anapojibu swali dadisi",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kutunga sentensi mtandaoni",
+            "Uwazaji wa kina na utatuzi wa matatizo: mwanafunzi anapotunga sentensi sahihi"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapofanya kazi na wenzake kwa zamu",
+            "Umoja: anapotunga sentensi mtandaoni akiwa na wenzake",
+            "Uwajibikaji: mwanafunzi anapokamilisha kazi yake kwa wakati ufaao"
+          ],
+          "pcis": [
+            "Utangamano wa kijamii: mwanafunzi anaposhiriki katika vikundi vinavyojumuisha wanafunzi kutoka maeneo mbalimbali"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia aina za maneno kama vile nomino za makundi na somo la English kwa sababu somo hili hufundisha utambuzi na matumizi ya aina mbalimbali za maneno ikiwemo nomino za makundi"
+          ]
+        },
+        {
+          "subStrandNumber": "3.4.2",
+          "subStrandName": "Nomino Ambata",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua nomino ambata katika matini ili kuzitofautisha na aina nyingine za nomino",
+            "Kutumia nomino ambata kwa usahihi katika sentensi ili kuimarisha mawasiliano",
+            "Kuonea fahari matumizi ya nomino ambata katika mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua nomino ambata (k.v. askarikanzu, mbwamwitu, mwanasiasa na mwananchi) kwa kutumia kadi maneno, kapu maneno, chati au vifaa vya kidijitali akiwa peke yake au katika kikundi",
+            "Kujadili katika kikundi maana ya nomino ambata huku akitoa mifano",
+            "Kutumia nomino ambata katika sentensi na kuziandika katika daftari lake",
+            "Kutumia nomino ambata kutunga sentensi mtandaoni akishirikiana na wenzake",
+            "Kusakura mtandaoni ili kupata mifano zaidi ya nomino ambata na kuziandika katika daftari lake"
+          ],
+          "keyInquiryQuestions": [
+            "Je, unajua maneno yapi yanayounganishwa kuunda neno moja?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika majadiliano kuhusu nomino ambata",
+            "Hamu ya ujifunzaji: mwanafunzi anaposakura mtandaoni ili kupata mifano ya nomino ambata",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kutunga sentensi",
+            "Kujiamini: mwanafunzi anapotunga sentensi akitumia nomino ambata"
+          ],
+          "values": [
+            "Umoja: mwanafunzi anaposhirikiana na wenzake kutumia nomino ambata kutunga sentensi",
+            "Uwajibikaji: mwanafunzi anapokamilisha kazi yake"
+          ],
+          "pcis": [
+            "Utangamano wa kijamii: mwanafunzi anapotangamana na wenzake katika shughuli za vikundi na kujifunza ukakamavu na kujiamini"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia aina za maneno kama vile nomino ambata na somo la English kwa sababu somo hili hufundisha utambuzi na matumizi ya aina mbalimbali za maneno ikiwemo nomino ambata"
+          ]
+        },
+        {
+          "subStrandNumber": "3.4.3",
+          "subStrandName": "Nomino za Dhahania",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua nomino za dhahania katika matini mbalimbali",
+            "Kuelezea nomino za dhahania kwa kutoa mifano mwafaka",
+            "Kutumia nomino za dhahania kwa usahihi katika sentensi",
+            "Kuonea fahari matumizi ya nomino za dhahania katika mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua nomino za dhahania (k.v. upendo, uhodari, ukweli) kwa kutumia kadi maneno, mti maneno, chati au vifaa vya kidijitali",
+            "Kujadili katika kikundi maana ya nomino za dhahania huku akitoa mifano",
+            "Kutumia nomino za dhahania katika sentensi na kuziandika sentensi hizo daftarini mwake",
+            "Kutumia nomino za dhahania kutunga sentensi mtandaoni akishirikiana na wenzake"
+          ],
+          "keyInquiryQuestions": [
+            "Je, unajua maneno yapi yanayotaja vitu ambavyo haviwezi kushikwa au kuonekana kwa macho?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika majadiliano na wenzake kuhusu nomino za dhahania",
+            "Hamu ya ujifunzaji: mwanafunzi anapojadili katika kikundi maana ya nomino za dhahania na kutoa mifano",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kutunga sentensi",
+            "Kujiamini: mwanafunzi anapoweza kutumia nomino za dhahania kutunga sentensi"
+          ],
+          "values": [
+            "Umoja: mwanafunzi anapotumia nomino za dhahania kutunga sentensi mtandaoni akishirikiana na wenzake",
+            "Uwajibikaji: mwanafunzi anapokamilisha kazi yake"
+          ],
+          "pcis": [
+            "Kujithamini: mwanafunzi anaposhirikiana na wenzake katika shughuli za vikundi hivyo atajifunza ukakamavu, stahamala na kujiamini"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia aina za maneno kama vile nomino za kidhahania na somo la English kwa sababu somo hili hufundisha utambuzi na matumizi ya aina mbalimbali za maneno ikiwemo nomino za kidhahania"
+          ]
+        },
+        {
+          "subStrandNumber": "3.4.4",
+          "subStrandName": "Uakifishi - Herufi kubwa, Koma, Kikomo na Kiulizi",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Kutambua herufi kubwa, alama ya koma, kikomo na kiulizi katika maandishi",
+            "Kutumia herufi kubwa, koma, kikomo na kiulizi ifaavyo katika maandishi",
+            "Kufurahia matumizi ya herufi kubwa, koma, kikomo na kiulizi katika maandishi"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua herufi kubwa, koma, kikomo na kiulizi katika maandishi",
+            "Kushiriki katika vikundi kuakifisha sentensi akitumia herufi kubwa, koma, kikomo na kiulizi",
+            "Kuandika sentensi akitumia herufi kubwa, koma, kikomo na kiulizi ifaavyo",
+            "Kuandika sentensi zenye herufi kubwa, koma, kikomo na kiulizi akitumia kifaa cha kidijitali"
+          ],
+          "keyInquiryQuestions": [
+            "Kwa nini alama za kuakifisha hutumiwa katika maandishi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika vikundi kuakifisha sentensi akitumia herufi kubwa, koma, kikomo na kiulizi",
+            "Ubunifu: mwanafunzi anapoandika sentensi akitumia herufi kubwa, koma, kikomo na kiulizi ifaavyo",
+            "Ujuzi wa kidijitali: mwanafunzi anapoandika sentensi zenye herufi kubwa, koma, kikomo na kiulizi akitumia kifaa cha kidijitali"
+          ],
+          "values": [
+            "Umoja: mwanafunzi anaposhiriki katika vikundi kuakifisha sentensi akitumia herufi kubwa, koma, kikomo na kiulizi"
+          ],
+          "pcis": [
+            "Masuala mtambuko anuwai: kutokana na sentensi zinazotoa maelezo kuhusu masuala hayo kama vile utunzaji wa mazingira, upunguzaji wa mikasa na zinazohusu suala la usalama"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia uakifishi wa aina mbalimbali na somo la English kwa sababu somo hili hufundisha utambuzi na matumizi ya aina mbalimbali za uakifishi"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "4.0",
+      "strandName": "SAA NA MAJIRA",
+      "subStrands": [
+        {
+          "subStrandNumber": "4.1.1",
+          "subStrandName": "Maneno ya Heshima na Adabu - Maneno yanayohusiana na udugu",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua maneno ya heshima yanayohusiana na udugu yanayotumiwa katika mawasiliano",
+            "Kutumia maneno ya heshima yanayohusiana na udugu kwa usahihi katika mazungumzo yake ya kila siku",
+            "Kuthamini matumizi ya maneno ya heshima katika mawasiliano ya kila siku"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua maneno ya udugu (k.v. bwana, bibi, ndugu, binti, mama, mama mkubwa/mdogo, mjomba) kwenye ubao, mti maneno, tarakilishi au kapu maneno",
+            "Kueleza maana ya maneno lengwa kama yanavyotumiwa katika mahusiano ya kila siku kati ya watu",
+            "Kutunga sentensi kwa kutumia maneno lengwa kwa usahihi",
+            "Kutazama maigizo ya watu wakitumia maneno ya udugu kwenye tarakilishi na video",
+            "Kujadili matumizi ya maneno ya udugu akishirikiana na wenzake darasani",
+            "Kuigiza mazungumzo mafupi akiwa na wenzake huku akitumia msamiati wa udugu"
+          ],
+          "keyInquiryQuestions": [
+            "Kutumia maneno ya heshima kuna umuhimu gani katika mawasiliano?"
+          ],
+          "coreCompetencies": [
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia tarakilishi na video kutazama maigizo ya watu wakitumia maneno ya udugu",
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika maigizo yanayozingatia matumizi ya maneno ya udugu"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapotumia maneno ya udugu kuwasiliana",
+            "Upendo: mwanafunzi anapotumia maneno ya udugu kwa wenzake na kwa wakubwa wake"
+          ],
+          "pcis": [
+            "Utangamano wa kijamii: mwanafunzi anaposhiriki katika maigizo mafupi",
+            "Haki za kijamii: mwanafunzi anapotumia maneno ya udugu katika mawasiliano"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia lugha ya heshima na adabu na somo la English na Religious Studies kwa sababu masomo haya hufundisha utambuzi na matumizi ya lugha ya heshima na adabu ili kuimarisha uhusiano baina ya watu"
+          ]
+        },
+        {
+          "subStrandNumber": "4.2.1",
+          "subStrandName": "Kusoma kwa Mapana",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua na kuzingatia hatua za kiusalama katika matumizi ya vifaa vya kidijitali",
+            "Kutambua msamiati wa suala lengwa katika matini ya kidijitali",
+            "Kusakura matini kwenye tovuti salama ili kupata vifungu vya kusoma vyenye suala lengwa",
+            "Kuchangamkia matumizi ya vifaa vya kidijitali katika kutafuta na kusoma ujumbe ili kuimarisha maarifa yake"
+          ],
+          "suggestedLearningExperiences": [
+            "Kuzingatia hatua za kiusalama katika kutumia vifaa vya kidijitali k.v. kufungua mitandao ifaayo",
+            "Kutambua mitandao salama yenye matini inayohusu suala lengwa (saa na majira) na inayoafiki kiwango chake",
+            "Kutambua umuhimu wa kutoa habari kwa mwalimu, mzazi au mlezi wake endapo atapata ujumbe kutoka kwa watu asiowajua mtandaoni na kutowasiliana nao",
+            "Kusoma matini kwa kutumia vifaa vya kidijitali inayojumuisha msamiati wa saa na majira",
+            "Kusoma vifungu vyenye suala lengwa ambavyo alisakura",
+            "Kutoa habari kuhusu matini aliyosoma kwa muhtasari na kujibu maswali katika maandishi au mazungumzo na wenzake"
+          ],
+          "keyInquiryQuestions": [
+            "Ni njia zipi unazoweza kupata matini za kusoma katika vifaa vya kidijitali?"
+          ],
+          "coreCompetencies": [
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali katika kusakura na kusoma matini",
+            "Hamu ya kujifunza: mwanafunzi anapotafuta matini za kusoma kwenye tarakilishi na mitandaoni",
+            "Kujiamini: mwanafunzi anaposakura vifungu vyenye habari kuhusu saa na majira na kuwatolea wenzake habari za matini yenyewe",
+            "Mawasiliano na ushirikiano: mwanafunzi anapowasiliana na wenzake kutoa habari kuhusu matini aliyosoma kwa muhtasari"
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapotunza vifaa vya kidijitali na kuzingatia mitandao salama",
+            "Uadilifu: mwanafunzi anapohakikisha anasakura matini kwenye tovuti salama",
+            "Heshima: mwanafunzi anapowasiliana na mwalimu, mzazi au mlezi kuhusu usalama wake mtandaoni"
+          ],
+          "pcis": [
+            "Usalama: mwanafunzi anapozingatia hatua za kiusalama mtandaoni"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kusoma kwa mapana kwa kutumia vifaa vya kidijitali na somo la English kwa sababu somo hili hufundisha kusoma kwa mapana"
+          ]
+        },
+        {
+          "subStrandNumber": "4.3.1",
+          "subStrandName": "Baruapepe",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua baruapepe kwa kuzingatia muundo wake",
+            "Kuandika baruapepe kwa kuzingatia ujumbe, muundo na mtindo",
+            "Kuchangamkia uandishi wa baruapepe katika mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua muundo wa baruapepe kwa kurejelea kielelezo chake kilichochapishwa au kwenye tarakilishi",
+            "Kujadili sehemu mbalimbali za baruapepe kama vile anwanipepe ya mtumaji, anwanipepe ya mpokeaji, mada ya baruapepe, mtajo, mwili, hitimisho na jina la mwandishi/mtumaji",
+            "Kuandika baruapepe kwa rafiki, ndugu, au mzazi akishirikiana na wenzake darasani, kwa kutumia tarakilishi akizingatia muundo wa uandishi wa baruapepe",
+            "Kushirikiana na wenzake kujadili mada ya baruapepe na vipengele vyake",
+            "Kuandika baruapepe kwa rafiki kwa kuzingatia ubora wa sentensi",
+            "Kushirikisha msamiati wa mada lengwa katika baruapepe yake",
+            "Kuandika baruapepe na kuituma kwa wenzake na mwalimu ili waisome na kuitathmini"
+          ],
+          "keyInquiryQuestions": [
+            "Unazingatia mambo gani unapoandika baruapepe?",
+            "Ni mambo gani unayoweza kumweleza rafiki yako katika baruapepe?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika shughuli za kikundi na kujadiliana na wenzake kuhusu baruapepe",
+            "Ubunifu: mwanafunzi anapoandika na kutuma baruapepe",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia tarakilishi kuandika na kutuma baruapepe",
+            "Hamu ya ujifunzaji: mwanafunzi anapoandika baruapepe na kuwapa wenzake waitathmini"
+          ],
+          "values": [
+            "Upendo: mwanafunzi anapotuma baruapepe kwa rafiki, mzazi au mlezi wake kuwajulia hali",
+            "Heshima: mwanafunzi anapozingatia maoni ya wengine wanapojadili mada ya baruapepe na vipengele vyake",
+            "Uwajibikaji: mwanafunzi anapotunza kifaa cha kidijitali alichotumia katika uandishi wa baruapepe"
+          ],
+          "pcis": [
+            "Kujithamini: mwanafunzi anapotumia baruapepe kuwasiliana",
+            "Elimu ya maendeleo endelevu: mwanafunzi anapotumia teknolojia kuwasiliana"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kuandika baruapepe na somo la English kwa sababu somo hili hufundisha uandishi wa baruapepe na ujuzi wa kidijitali unaweza kutumiwa katika ujifunzaji wa masomo mengineyo"
+          ]
+        },
+        {
+          "subStrandNumber": "4.4.1",
+          "subStrandName": "Ngeli ya I-ZI",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Kutambua viambishi vipatanishi vya ngeli ya I-ZI katika sentensi",
+            "Kutambua nomino katika ngeli ya I-ZI ili kuzitofautisha na nomino katika ngeli nyingine",
+            "Kutumia nomino za ngeli ya I-ZI katika umoja na wingi akizingatia upatanisho wa kisarufi",
+            "Kuonea fahari matumizi ya nomino katika ngeli ya I-ZI katika mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua viambishi vya ngeli ya I-ZI katika sentensi kwa kuvipigia mstari daftarini au kuvikoleza rangi katika tarakilishi",
+            "Kutambua nomino katika ngeli ya I-ZI kwenye kadi, mti maneno, tarakilishi au kapu la maneno (k.v. nguo-nguo, ndizi-ndizi, ndoo-ndoo na nyumba-nyumba)",
+            "Kutumia nomino za ngeli ya I-ZI katika sentensi akiwa peke yake au katika vikundi",
+            "Kusikiliza usomaji wa sentensi zilizoundwa kutokana na nomino za ngeli ya I-ZI kutoka kwenye tepurekoda au kinasasauti",
+            "Kutunga sentensi kwa kutumia nomino za ngeli ya I-ZI akiwa peke yake au kwa kushirikiana na wenzake",
+            "Kujaza nafasi kwa kutumia viambishi vya nomino za ngeli ya I-ZI"
+          ],
+          "keyInquiryQuestions": [
+            "Je, utajuaje viambishi vipatanishi vya ngeli ya I-ZI kwenye sentensi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapotumia nomino za ngeli ya I-ZI katika sentensi akiwa katika vikundi",
+            "Ubunifu: mwanafunzi anapotunga sentensi sahihi kwa kutumia nomino za ngeli ya I-ZI",
+            "Uwazaji wa kina na utatuzi wa matatizo: mwanafunzi anapowaza kwa kina kuhusu sentensi sahihi katika ngeli ya I-ZI",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia tarakilishi kutambua viambishi vya ngeli ya I-ZI katika sentensi na kuvikoleza rangi"
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapofanya kazi yake kikamilifu kama vile kujaza nafasi kwa kutumia viambishi vya nomino za ngeli ya I-ZI",
+            "Umoja: mwanafunzi anapofanya kazi na wengine kwenye vikundi",
+            "Amani: mwanafunzi anaposhirikiana na wenzake kutunga sentensi"
+          ],
+          "pcis": [
+            "Utangamano wa kijamii: mwanafunzi anapotangamana na wenzake katika kazi ya vikundi"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia nomino katika ngeli ya I-ZI na somo la English kwa sababu somo hili hufundisha utambuzi na matumizi ya ngeli mbalimbali za nomino"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "5.0",
+      "strandName": "KUKABILIANA NA UMASKINI",
+      "subStrands": [
+        {
+          "subStrandNumber": "5.1.1",
+          "subStrandName": "Methali - Methali zinazohusu bidii",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua methali zinazohusu bidii ili kuzitofautisha na aina zingine za methali",
+            "Kueleza maana na matumizi ya methali mbalimbali zinazohusu bidii katika jamii",
+            "Kutumia methali zinazohusu bidii katika mawasiliano",
+            "Kuchangamkia matumizi ya methali katika kuhimiza bidii"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua methali zinazohusu bidii (k.v. mchagua jembe si mkulima, mgagaa na upwa hali wali mkavu, atafutaye hupata, anayejitahidi hufaidi, ukiona vyaelea jua vimeundwa) katika chati, ubao, vyombo vya kidijitali",
+            "Kujadiliana kuhusu maana na matumizi ya methali zinazohusu bidii akiwa na wenzake",
+            "Kutoa mifano ya methali zinazohusu bidii",
+            "Kusikiliza methali zinazohusu bidii zikitumiwa kupitia vyombo vya kidijitali",
+            "Kushirikiana na wenzake katika kukamilisha methali zinazohusu bidii",
+            "Kusakura mtandaoni ili kupata methali zaidi zinazohusu bidii na matumizi ya methali hizo"
+          ],
+          "keyInquiryQuestions": [
+            "Je, ni nini umuhimu wa methali katika jamii?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake katika kujadili maana na matumizi ya methali zinazohusu bidii",
+            "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapofikiria kuhusu matumizi ya methali",
+            "Ubunifu: mwanafunzi anapotumia methali kujieleza",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kutambua methali zaidi zinazohusu bidii na matumizi ya methali hizo"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapothamini maoni ya wenzake katika kikundi",
+            "Umoja: mwanafunzi anaposhirikiana na wenzake katika kukamilisha methali zinazohusu bidii",
+            "Uwajibikaji: mwanafunzi anaposakura methali mtandaoni salama"
+          ],
+          "pcis": [
+            "Umaskini: mwanafunzi anapojadiliana na wenzake kuhusu umaskini",
+            "Elimu ya fedha: mwanafunzi anapojadiliana na wenzake methali zinazohusu bidii"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia methali zinazohusu bidii na somo la English kwa sababu somo hili hufundisha utambuzi na matumizi ya aina mbalimbali za methali"
+          ]
+        },
+        {
+          "subStrandNumber": "5.2.1",
+          "subStrandName": "Kusoma kwa Ufahamu - Ushairi",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua mizani na vina katika shairi ili kuvibainisha",
+            "Kusoma shairi akizingatia vina, mizani na ujumbe ili kuimarisha ufahamu",
+            "Kuchangamkia kusoma shairi akizingatia mapigo ya sauti"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua vina na mizani katika shairi lililochapishwa au la mtandaoni",
+            "Kujadili vina na mizani katika shairi akiwa na mwenzake au katika kikundi",
+            "Kushirikiana na mwenzake kusoma shairi akizingatia vina, mizani na ujumbe",
+            "Kusikiliza shairi likisomwa kwa mahadhi kwenye vifaa vya kidijitali au na mgeni mwalikwa na kujadili vina, mizani na ujumbe wake",
+            "Kushirikiana na wenzake kutafuta mashairi mtandaoni na kujadili vina, mizani na ujumbe uliomo"
+          ],
+          "keyInquiryQuestions": [
+            "Je, ni nini kinachotofautisha mashairi na maandishi mengine?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika kujadili vina, mizani na ujumbe katika shairi",
+            "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapojadili ujumbe katika shairi",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kutambua vina na mizani katika shairi"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapothamini maoni ya wenzake kuhusu ushairi",
+            "Umoja: mwanafunzi anaposhirikiana na wenzake kutafuta mashairi mtandaoni na kujadili vina, mizani na ujumbe uliomo"
+          ],
+          "pcis": [
+            "Mshikamano wa kijamii: mwanafunzi anaposhirikiana na mwenzake kusoma shairi akizingatia vina, mizani na ujumbe",
+            "Mawasiliano faafu: mwanafunzi anapotumia lugha kwa ufundi"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kusoma ushairi na kutambua vipengele vyake na somo la English kwa sababu somo hili hufundisha ushairi"
+          ]
+        },
+        {
+          "subStrandNumber": "5.3.1",
+          "subStrandName": "Insha ya Maelezo",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua insha za maelezo katika matini mbalimbali",
+            "Kuandika insha ya maelezo kwa kufuata kanuni zifaazo",
+            "Kuchangamkia utunzi mzuri wa insha ili kuimarisha uandishi"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua vifungu vya maelezo vilivyoandikwa kwenye matini mbalimbali au tarakilishi",
+            "Kushirikiana na wenzake kujadili mada na muundo wa insha ya maelezo",
+            "Kujadiliana na wenzake kuhusu mambo muhimu yanayojenga mpangilio mzuri wa mawazo katika insha",
+            "Kuandika insha ya maelezo isiyopungua maneno 150 kwa kuzingatia anwani, mpangilio mzuri wa mawazo, hati safi, tahajia, kanuni za kisarufi, uakifishaji mwafaka na kwa lugha ya kiubunifu",
+            "Kuandika insha ya maelezo mtandaoni na kuisambaza kwa wenzake na mwalimu ili kuisoma na kuitathmini",
+            "Kuwasomea wenzake insha aliyoandika ili kuitolea maoni"
+          ],
+          "keyInquiryQuestions": [
+            "Unazingatia nini unapoandika insha ya maelezo?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kujadili mada na muundo wa insha ya maelezo",
+            "Ujuzi wa kidijitali: mwanafunzi anapoandika insha ya maelezo mtandaoni na kuisambaza kwa wenzake",
+            "Ubunifu: mwanafunzi anapoandika insha ya maelezo",
+            "Hamu ya ujifunzaji: mwanafunzi anapotafakari swali dadisi lililopendekezwa na anapoimarisha ujuzi wake wa kutumia tarakilishi"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapoheshimu maoni ya wenzake wanapojadili kuhusu insha ya maelezo",
+            "Upendo: mwanafunzi anapowasomea wenzake insha aliyoandika ili kuitolea maoni"
+          ],
+          "pcis": [
+            "Mshikamano wa kijamii: mwanafunzi anaposhiriki kufanya kazi pamoja",
+            "Elimu ya pesa: mwanafunzi anapoandika insha kuhusu jinsi ya kukabiliana na umaskini"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha uandishi wa insha ya maelezo kwa kuzingatia mada na muundo na somo la English kwa sababu somo hili hufundisha uandishi wa insha mbalimbali ikiwemo insha ya maelezo"
+          ]
+        },
+        {
+          "subStrandNumber": "5.4.1",
+          "subStrandName": "Ngeli ya U-ZI",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Kutambua viambishi vipatanishi vya ngeli ya U-ZI katika sentensi",
+            "Kutambua nomino katika ngeli ya U-ZI ili kuzibainisha",
+            "Kutumia nomino za ngeli ya U-ZI katika umoja na wingi akizingatia upatanisho wa kisarufi",
+            "Kufurahia matumizi ya nomino za ngeli ya U-ZI katika mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua viambishi vya ngeli ya U-ZI katika sentensi kwa kuvipigia mstari daftarini mwake au kuvikoleza rangi katika tarakilishi",
+            "Kutambua nomino katika ngeli ya U-ZI kwenye kadi, mti maneno, tarakilishi au kapu maneno",
+            "Kusikiliza usomaji wa sentensi zilizoundwa kutokana na nomino za ngeli ya U-ZI kutoka kwenye tepurekoda au kinasasauti",
+            "Kutunga sentensi kwa kutumia nomino za ngeli ya U-ZI akiwa peke yake au kwa kushirikiana na wenzake",
+            "Kujaza nafasi kwa kutumia viambishi vya ngeli ya U-ZI kwa maandishi ya mkono au kwa tarakilishi"
+          ],
+          "keyInquiryQuestions": [
+            "Je, nomino za ngeli ya U-ZI huchukua viambishi vipatanishi gani?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kutunga sentensi kwa kutumia nomino za ngeli ya U-ZI",
+            "Ubunifu: mwanafunzi anapotunga sentensi kwa kutumia nomino za ngeli ya U-ZI",
+            "Ujuzi wa kidijitali: mwanafunzi anapotambua viambishi vya ngeli ya U-ZI katika sentensi na kuvikoleza rangi katika tarakilishi"
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapotunza tarakilishi anayotumia",
+            "Umoja: mwanafunzi anapofanya shughuli za ujifunzaji kuhusu ngeli ya U-ZI akiwa na wengine"
+          ],
+          "pcis": [
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia tepurekoda au kinasasauti kusikiliza usomaji wa sentensi zilizoundwa kutokana na nomino za ngeli ya U-ZI"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia nomino katika ngeli ya U-ZI na somo la English kwa sababu somo hili hufundisha ngeli za nomino"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "6.0",
+      "strandName": "MAADILI",
+      "subStrands": [
+        {
+          "subStrandNumber": "6.1.1",
+          "subStrandName": "Ushairi",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kukariri shairi kwa kuzingatia matamshi na mahadhi mbalimbali",
+            "Kueleza maana ya msamiati uliotumiwa katika shairi",
+            "Kutumia msamiati uliotumiwa katika shairi kuboresha mawasiliano",
+            "Kuonyesha ufahamu wa ujumbe katika shairi kwa kujibu maswali",
+            "Kuchangamkia ushairi kama njia ya kujieleza kwa ufasaha"
+          ],
+          "suggestedLearningExperiences": [
+            "Kukariri shairi kuhusu mada lengwa (maadili) kwa kuzingatia matamshi na mahadhi mbalimbali",
+            "Kusikiliza shairi lengwa likikaririwa au kuimbwa na mwalimu, mgeni mwalikwa au kupitia vifaa vya kidijitali",
+            "Kushirikiana na wenzake kukariri au kuimba shairi kwa mahadhi mbalimbali",
+            "Kutambua msamiati uliotumika katika ushairi kuhusu maadili (k.m. haki, usawa, heshima na uwajibikaji) na kuueleza akiwa peke yake au kwa kushirikiana na wenzake",
+            "Kushirikiana na wenzake kujadili ujumbe katika shairi",
+            "Kujibu maswali yanayotokana na shairi alilosikiliza, aliloimba au kukariri"
+          ],
+          "keyInquiryQuestions": [
+            "Ushairi unaweza kuboresha mazungumzo yako vipi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kukariri au kuimba shairi kwa mahadhi mbalimbali",
+            "Ujuzi wa kidijitali: mwanafunzi anaposikiliza shairi kuhusu maadili likikaririwa au kuimbwa kupitia vifaa vya kidijitali",
+            "Kujiamini: mwanafunzi anapokariri shairi"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapoheshimu maoni ya wenzake katika vikundi",
+            "Uwajibikaji: mwanafunzi anapojibu maswali yanayotokana na shairi",
+            "Upendo: mwanafunzi anaposhirikiana na wenzake kujadili ujumbe katika shairi"
+          ],
+          "pcis": [
+            "Kujithamini: mwanafunzi anapokariri shairi kuhusu maadili kwa kuzingatia matamshi na mahadhi mbalimbali"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kukariri mashairi na kutambua maana ya msamiati katika ushairi na somo la English kwa sababu somo hili hufundisha ushairi"
+          ]
+        },
+        {
+          "subStrandNumber": "6.2.1",
+          "subStrandName": "Kusoma kwa Kina - Makala ya kujichagulia",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua makala ya kusoma katika maktaba ili kuimarisha uchaguzi bora wa makala",
+            "Kusoma makala mbalimbali ili kujenga ufasaha wa lugha",
+            "Kufurahia kusoma makala mbalimbali ili kujenga ufasaha wa lugha"
+          ],
+          "suggestedLearningExperiences": [
+            "Kuchagua makala atakayosoma katika maktaba",
+            "Kusoma makala ya aina mbalimbali ya kujichagulia",
+            "Kujadiliana na wenzake kuhusu makala aliyoyasoma na alichojifunza kutokana na makala hayo"
+          ],
+          "keyInquiryQuestions": [
+            "Unapenda kusoma makala ya aina gani?",
+            "Ni ujumbe upi ulioupata kwenye makala uliyowahi kusoma?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapojadiliana na wenzake kuhusu makala aliyoyasoma na alichojifunza kutokana na makala hayo",
+            "Kujiamini: mwanafunzi anaposoma makala ya aina mbalimbali ya kujichagulia"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapothamini mchango wa wenzake wakieleza waliyoyasoma na kujifunza kutokana na makala ya kujichagulia"
+          ],
+          "pcis": [
+            "Kujithamini: mwanafunzi anaposoma makala ya aina mbalimbali ya kujichagulia"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kusoma makala kwa mapana na somo la English kwa sababu somo hili hufundisha kusoma kwa mapana"
+          ]
+        },
+        {
+          "subStrandNumber": "6.3.1",
+          "subStrandName": "Insha ya Wasifu",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua vipengele vya kimuundo vya insha za wasifu",
+            "Kuandika insha ya wasifu kwa kuzingatia muundo na mtindo ufaao",
+            "Kufurahia uandishi wa insha za wasifu ili kukuza stadi ya kuandika"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutazama nakala za insha za wasifu kwenye chapa au kwenye tarakilishi",
+            "Kutambua vipengele muhimu vya kimuundo kama vile kichwa, mwili, hitimisho",
+            "Kujadili na wenzake kuhusu mada mbalimbali zinazoweza kutungiwa insha za wasifu",
+            "Kuandika insha ya wasifu isiyopungua maneno 150 daftarini au kwenye tarakilishi",
+            "Kuwasomea wenzake insha aliyoiandika ili kuitathmini"
+          ],
+          "keyInquiryQuestions": [
+            "Unazingatia nini unapoandika insha ya wasifu?"
+          ],
+          "coreCompetencies": [
+            "Hamu ya ujifunzaji: mwanafunzi anapotaja mada mbalimbali zinazoweza kutungiwa insha za wasifu",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia tarakilishi kuandika insha ya wasifu",
+            "Mawasiliano na ushirikiano: mwanafunzi anapojadili na wenzake kuhusu kinachoweza kuandikiwa katika insha ya wasifu"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anaposikiliza kwa makini wenzake wakisoma insha zao",
+            "Uwajibikaji: mwanafunzi anapokamilisha kuandika insha ya wasifu"
+          ],
+          "pcis": [
+            "Mtazamo wa ukuaji wa binadamu: mwanafunzi anapoandika insha ya wasifu kuhusu mtu"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kuandika insha ya wasifu kwa kuzingatia vipengele vya kimuundo na somo la English kwa sababu somo hili hufundisha uandishi wa insha ya wasifu"
+          ]
+        },
+        {
+          "subStrandNumber": "6.4.1",
+          "subStrandName": "Ngeli ya U-YA",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Kutambua viambishi vipatanishi vya ngeli ya U-YA kwenye sentensi",
+            "Kutambua nomino katika ngeli ya U-YA ili kuzitofautisha na nomino katika ngeli nyingine",
+            "Kutumia nomino za ngeli ya U-YA katika umoja na wingi akizingatia upatanisho wa kisarufi",
+            "Kufurahia matumizi ya nomino za ngeli ya U-YA katika mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua viambishi vya ngeli ya U-YA katika sentensi kwa kuvipigia mstari daftarini mwake au kuvikoleza rangi katika tarakilishi",
+            "Kutambua nomino katika ngeli ya U-YA kwenye kadi, mti wa maneno, tarakilishi au kapu la maneno (k.v. ubele, uovu, ugonjwa)",
+            "Kutumia nomino za ngeli ya U-YA katika sentensi akiwa na wenzake",
+            "Kusikiliza usomaji wa sentensi zilizoundwa kutokana na nomino za ngeli ya U-YA kutoka kwenye tepurekoda au kinasasauti",
+            "Kuunda sentensi kwa kutumia nomino ya ngeli ya U-YA akiwa peke yake au kwa kushirikiana na wengine",
+            "Kujaza nafasi kwa kutumia viambishi vya ngeli ya U-YA kwa maandishi ya mkono au tarakilishi"
+          ],
+          "keyInquiryQuestions": [
+            "Je, nomino za ngeli ya U-YA huchukua viambishi gani katika sentensi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kutunga sentensi kwa kutumia nomino za ngeli ya U-YA",
+            "Ubunifu: mwanafunzi anapotunga sentensi kwa kutumia nomino za ngeli ya U-YA",
+            "Ujuzi wa kidijitali: mwanafunzi anapotambua viambishi vya ngeli ya U-YA katika sentensi na kuvikoleza rangi katika tarakilishi"
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapotunza tarakilishi anayotumia",
+            "Umoja: mwanafunzi anapofanya shughuli za ujifunzaji kuhusu ngeli ya U-YA akiwa na wengine"
+          ],
+          "pcis": [
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia tepurekoda au kinasasauti kusikiliza usomaji wa sentensi zilizoundwa kutokana na nomino za ngeli ya U-YA"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia nomino za ngeli ya U-YA na somo la English kwa sababu somo hili hufundisha utambuzi na matumizi ngeli mbalimbali za nomino"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "7.0",
+      "strandName": "ELIMU YA MAZINGIRA",
+      "subStrands": [
+        {
+          "subStrandNumber": "7.1.1",
+          "subStrandName": "Nahau - Nahau za usafi na mazingira",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua nahau za usafi na mazingira katika matini mbalimbali",
+            "Kufafanua maana za nahau mbalimbali za usafi na mazingira kwa kutoa mifano",
+            "Kutumia nahau za usafi na mazingira katika mawasiliano",
+            "Kuthamini matumizi ya nahau za usafi na mazingira katika mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua nahau za usafi na mazingira (k.v. angua kucha, penga kamasi) katika chati, michoro, picha, vikapu maneno, mti maneno, chati, kamusi na katika vyombo vya kidijitali",
+            "Kujadiliana na wenzake maana za nahau za usafi na mazingira na kutoa mifano",
+            "Kutumia nahau za usafi na mazingira kutunga sentensi akiwa peke au kwa kushirikiana na wenzake",
+            "Kushirikiana na wenzake kujaza nafasi katika sentensi kwa kutumia nahau mwafaka kwenye zoezi la ubaoni, vitabuni au katika tarakilishi"
+          ],
+          "keyInquiryQuestions": [
+            "Je, ni nahau zipi zinahusu usafi?",
+            "Je, ni nahau zipi zinahusu mazingira?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kutambua nahau za usafi na mazingira katika matini",
+            "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapojadiliana na wenzake maana za nahau za usafi na mazingira na kutoa mifano",
+            "Ubunifu: mwanafunzi anapotumia nahau ipasavyo kujieleza"
+          ],
+          "values": [
+            "Umoja: mwanafunzi anaposhirikiana na wenzake kujaza nafasi katika sentensi kwa kutumia nahau",
+            "Heshima: mwanafunzi anapoheshimu maoni ya wenzake wanapojadiliana kuhusu maana za nahau za usafi na mazingira"
+          ],
+          "pcis": [
+            "Mshikamano wa kijamii: mwanafunzi anapojadiliana na wenzake kuhusu nahau za usafi na mazingira",
+            "Kujithamini: mwanafunzi anapotumia nahau za usafi na mazingira katika mawasiliano"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia nahau za usafi wa mazingira na somo la English kwa sababu somo hili hufundisha utambuzi na matumizi ya nahau mbalimbali"
+          ]
+        },
+        {
+          "subStrandNumber": "7.2.1",
+          "subStrandName": "Kusoma kwa Mapana - Matini ya kujichagulia",
+          "numberOfLessons": 3,
+          "specificLearningOutcomes": [
+            "Kutambua matini anazotaka kusoma kwenye maktaba",
+            "Kusoma matini ili kufaidika na ujumbe na lugha inayotumiwa",
+            "Kufurahia usomaji wa matini za aina mbalimbali ili kujenga utamaduni wa kusoma"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua aina mbalimbali za matini (k.v. vitabu, magazeti, na majarida) kwenye maktaba, tarakilishi au kadi za katalogi",
+            "Kuchagua matini atakayosoma",
+            "Kusoma matini kimyakimya ili kupata ujumbe uliopo na kufaidi matumizi ya lugha",
+            "Kusimulia ujumbe kutokana na matini alizosoma kwa wenzake",
+            "Kujadiliana na wenzake matini alizosoma ili kuchochea hamu ya usomaji wa mapana miongoni mwao"
+          ],
+          "keyInquiryQuestions": [
+            "Unapenda kusoma matini ya aina gani?",
+            "Ni vipi unavyoweza kupata matini ya kusoma?",
+            "Kusoma aina mbalimbali za matini kuna umuhimu gani?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposoma na kusimulia ujumbe aliosoma kutokana na matini za aina mbalimbali",
+            "Hamu ya ujifunzaji: mwanafunzi anapochagua na kusoma matini za aina mbalimbali maktabani"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapothamini maoni ya wenzake wanapojadiliana kuhusu matini walizosoma",
+            "Uwajibikaji: mwanafunzi anapoazima, kutunza na kurudisha vitabu maktabani"
+          ],
+          "pcis": [
+            "Kujithamini: mwanafunzi anapothamini mazingira yake na ya wenzake",
+            "Elimu ya maendeleo endelevu: mwanafunzi anapotunza mazingira"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha dhana ya kusoma kwa mapana katika somo la Kiswahili na dhana inayofanana na hii katika somo la English"
+          ]
+        },
+        {
+          "subStrandNumber": "7.3.1",
+          "subStrandName": "Insha ya Maelezo",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua insha za maelezo katika matini mbalimbali",
+            "Kuandika insha ya maelezo kwa kuzingatia muundo na mtindo ufaao",
+            "Kuchangamkia utungaji wa insha za maelezo ili kuimarisha uandishi bora"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua vifungu vya insha za maelezo vilivyoandikwa kwenye matini mbalimbali au tarakilishi (k.v. maelezo kuhusu upanzi wa miche, kusafisha darasa, kufua nguo, kuzuia mmomonyoko wa udongo, kupanda miti)",
+            "Kushiriki na wenzake kujadili mada ya insha na muundo wa insha ya maelezo",
+            "Kuandika insha ya maelezo isiyopungua maneno 150 akizingatia anwani, mpangilio mzuri wa mawazo, hati safi, tahajia, kanuni za kisarufi, uakifishaji mwafaka na kwa lugha ya kiubunifu",
+            "Kuandika insha ya maelezo mtandaoni na kuisambaza kwa wenzake na mwalimu ili kuisoma na kuitathmini",
+            "Kuwasomea wenzake insha aliyoandika ili kuisikiliza na kuitathmini"
+          ],
+          "keyInquiryQuestions": [
+            "Je, ni shughuli gani zinazoweza kuandikiwa insha za maelezo?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapojadili mada na muundo wa insha ya maelezo akiwa na wenzake",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kuandika insha ya maelezo mtandaoni na kuisambaza kwa wenzake",
+            "Ubunifu: mwanafunzi anapoandika insha ya maelezo",
+            "Kujiamini: mwanafunzi anapowasomea wenzake insha aliyoandika ili kuisikiliza na kuitathmini"
+          ],
+          "values": [
+            "Heshima na adabu: mwanafunzi anapothamini maoni ya wenzake wanapojadili mada na muundo wa insha ya maelezo",
+            "Umoja: mwanafunzi anaposhiriki katika mjadala kuhusu muundo wa insha ya maelezo"
+          ],
+          "pcis": [
+            "Elimu ya mazingira: mwanafunzi anapotunga insha na kujieleza kwa kurejelea mazingira anamoishi"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kuandika insha ya maelezo na somo la English kwa sababu somo hili hufundisha uandishi wa insha ya maelezo"
+          ]
+        },
+        {
+          "subStrandNumber": "7.4.1",
+          "subStrandName": "Ngeli ya KU-KU",
+          "numberOfLessons": 4,
+          "specificLearningOutcomes": [
+            "Kutambua viambishi vipatanishi vya ngeli ya KU-KU kwenye sentensi",
+            "Kutambua nomino katika ngeli ya KU-KU",
+            "Kutumia nomino za ngeli ya KU-KU katika umoja na wingi akizingatia upatanisho wa kisarufi",
+            "Kufurahia matumizi ya ngeli ya KU-KU katika mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua viambishi vya ngeli ya KU-KU katika sentensi kwa kuvipigia mstari au kuvikoleza rangi katika tarakilishi",
+            "Kutambua nomino katika ngeli ya KU-KU (k.v. kupika, kufyeka, kuzuru, kukariri, kufua) kwenye kadi, mti maneno, tarakilishi au kapu la maneno",
+            "Kutumia nomino za ngeli ya KU-KU katika sentensi akiwa na wenzake",
+            "Kusikiliza usomaji wa sentensi zilizoundwa kutokana na nomino za ngeli ya KU-KU kutoka kwenye tepurekoda au kinasasauti",
+            "Kutunga sentensi kwa kutumia nomino za ngeli ya KU-KU akiwa peke yake au kwa kushirikiana na wenzake",
+            "Kujaza nafasi kwa kutumia viambishi vya ngeli ya KU-KU kwa maandishi ya mkono au tarakilishi"
+          ],
+          "keyInquiryQuestions": [
+            "Je, nomino za ngeli ya KU-KU huchukua viambishi gani katika sentensi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kutunga sentensi kwa kutumia nomino za ngeli ya KU-KU",
+            "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapowaza kwa kina kuhusu atakachoandika",
+            "Ujuzi wa kidijitali: mwanafunzi anapotambua viambishi vya ngeli ya KU-KU katika sentensi kwa kuvikoleza rangi katika tarakilishi",
+            "Kujiamini: mwanafunzi anapojaza nafasi kwa kutumia viambishi vya ngeli ya KU-KU kwa maandishi ya mkono au tarakilishi"
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapotunza vifaa vya kidijitali kama vile tarakilishi anayotumia",
+            "Uzalendo: mwanafunzi anapofanya kazi na wengine kwenye vikundi"
+          ],
+          "pcis": [
+            "Elimu ya tabia nchi: mwanafunzi anapothamini mazingira yake na ya wenzake"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia nomino katika ngeli ya KU-KU na somo la English kwa sababu somo hili hufundisha utambuzi na matumizi ya aina mbalimbali za ngeli za nomino"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "8.0",
+      "strandName": "NDEGE WA PORINI",
+      "subStrands": [
+        {
+          "subStrandNumber": "8.1.1",
+          "subStrandName": "Visawe",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua maneno matatu yenye maana sawa katika matini",
+            "Kutumia visawe ifaavyo katika mawasiliano",
+            "Kuthamini matumizi ya visawe katika mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua maneno matatu yenye maana sawa (k.v. nyumbani, mastakimu, chengo; barabara, tariki, baraste; jitimai, huzuni, simanzi) kwa kutumia kapu la maneno, kadi maneno, mti maneno, kuburura kwa kutumia tarakilishi",
+            "Kueleza maana ya maneno matatu yenye maana sawa akiwa na wenzake",
+            "Kuambatanisha maneno matatu yenye maana sawa kutoka kapu maneno, mti maneno, ubao, chati, vyombo vya kidijitali, kadi maneno n.k",
+            "Kuhusisha visawe na vifaa halisi, picha, michoro kwenye chati, kitabu au katika vyombo vya kidijitali",
+            "Kujadili visawe mbalimbali akiwa na wenzake",
+            "Kutumia kisawe kimoja kuchukua nafasi ya kingine katika sentensi"
+          ],
+          "keyInquiryQuestions": [
+            "Maneno yaliyo na maana sawa yana umuhimu gani katika mawasiliano?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapojadili visawe mbalimbali akiwa na wenzake",
+            "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapotumia kisawe kimoja kuchukua nafasi ya kingine katika sentensi",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kutambua maneno matatu yenye maana sawa kwa kuburura akitumia tarakilishi"
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anaposhiriki kikamilifu mjadala kuhusu visawe akiwa na wenzake",
+            "Umoja: mwanafunzi anapoeleza maana ya maneno matatu yenye maana sawa akiwa na wenzake",
+            "Upendo: mwanafunzi anapothamini mchango wa wenzake wanapojadili kuhusu visawe"
+          ],
+          "pcis": [
+            "Utangamano wa kijamii: mwanafunzi anapofanya shughuli za visawe akiwa na wenzake",
+            "Kujithamini: mwanafunzi anapojieleza akitumia visawe mbalimbali"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia visawe na somo la English kwa sababu somo hili hufundisha utambuzi na matumizi ya visawe"
+          ]
+        },
+        {
+          "subStrandNumber": "8.2.1",
+          "subStrandName": "Kusoma kwa Ufahamu - Mchezo wa kuigiza",
+          "numberOfLessons": 3,
+          "specificLearningOutcomes": [
+            "Kutambua mchezo wa kuigiza katika matini",
+            "Kusoma mchezo mfupi wa kuigiza kwa ufasaha",
+            "Kueleza maana ya msamiati uliotumiwa katika mchezo wa kuigiza",
+            "Kuonyesha ufahamu wa mchezo wa kuigiza kwa kujibu maswali",
+            "Kuigiza mchezo mfupi ili kukuza uwezo wa kujieleza",
+            "Kufurahia kusoma michezo na kuigiza"
+          ],
+          "suggestedLearningExperiences": [
+            "Kueleza maana ya mchezo wa kuigiza akiwa katika kikundi",
+            "Kutambua mchezo wa kuigiza, wahusika na maelekezo katika matini mbalimbali kama vile vitabu, chati na vilevile kwa kutumia tarakilishi",
+            "Kusoma mchezo wa kuigiza akizingatia wahusika, maelekezo na ujumbe",
+            "Kushiriki katika majadiliano kuhusu msamiati wa suala lengwa (ndege wa porini) uliotumiwa katika mchezo wa kuigiza (k.v. chiriku, kasuku, tai, korongo, mwewe na kanga)",
+            "Kutazama mchezo mfupi wa kuigiza ukiigizwa darasani au kwenye vifaa vya kidijitali",
+            "Kuigiza mchezo mfupi aliousoma akishirikiana na wenzake",
+            "Kushiriki mjadala kuhusu ujumbe unaojitokeza kwenye mchezo wa kuigiza",
+            "Kusoma mchezo wa kuigiza kwenye mtandao",
+            "Kushiriki katika kutoa muhtasari wa mchezo aliousoma, kuuliza na kujibu maswali ya ufahamu"
+          ],
+          "keyInquiryQuestions": [
+            "Umewahi kusoma michezo ipi ya kuigiza?",
+            "Unakumbuka nini katika mchezo uliowahi kuusoma?",
+            "Kusoma michezo ya kuigiza kuna umuhimu gani?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki mjadala kuhusu ujumbe unaojitokeza kwenye mchezo wa kuigiza",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kusoma mchezo wa kuigiza kwenye mtandao",
+            "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapong’amua ujumbe uliomo kwenye mchezo",
+            "Kujiamini: mwanafunzi anaposhiriki katika kusoma na kuigiza mchezo"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapoonyesha heshima kwa wenzake katika ujifunzaji kupitia vikundi",
+            "Umoja: mwanafunzi anaposhirikiana na wenzake kuigiza mchezo"
+          ],
+          "pcis": [
+            "Elimu ya Wanyama: mwanafunzi anaposoma matini kuhusu ndege wa porini"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kusoma kwa ufahamu kwa uigizaji na somo la English kwa sababu somo hili hufundisha kusoma kwa ufahamu na uigizaji"
+          ]
+        },
+        {
+          "subStrandNumber": "8.3.1",
+          "subStrandName": "Insha za masimulizi",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kueleza sifa za insha ya masimulizi ili kuibainisha",
+            "Kuandika insha ya masimulizi kwa kufuata kanuni zifaazo",
+            "Kuchangamkia utunzi mzuri"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua insha ya masimulizi kwa kurejelea vielelezo vya insha zilizoandikwa kwenye matini mbalimbali au tarakilishi",
+            "Kushiriki na wenzake kujadili mada ya insha na muundo wa insha ya masimulizi",
+            "Kuandika insha isiyopungua maneno 150, inayosimulia tukio linalohusiana na ndege wa porini kwa kuzingatia anwani, mpangilio mzuri wa mawazo, hati safi, tahajia, kanuni za kisarufi, uakifishaji mwafaka na kwa lugha ya kiubunifu",
+            "Kuandika insha ya masimulizi katika vifaa vya kidijitali na kuisambaza kwa wenzake na mwalimu ili kuisoma na kuitathmini",
+            "Kuwasomea wenzake insha aliyoandika ili waitathmini na kumwelekeza"
+          ],
+          "keyInquiryQuestions": [
+            "Ni mambo gani unayozingatia ili kuandika insha ya masimulizi ya kuvutia?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki na wenzake kujadili mada na muundo wa insha ya masimulizi",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kuandika insha ya masimulizi na kuwasambazia wenzake na mwalimu",
+            "Ubunifu: mwanafunzi anapoandika insha ya masimulizi",
+            "Kujiamini: mwanafunzi anapoandika insha ya masimulizi kwa kurejelea vipengele vifaavyo"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anaposikiliza mwenzake akiwasomea insha aliyoandika",
+            "Umoja: mwanafunzi anaposhirikiana na wenzake kusomeana insha"
+          ],
+          "pcis": [
+            "Elimu ya utunzaji wa wanyama: mwanafunzi anaposimulia tukio linalohusiana na ndege wa porini"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha uandishi wa insha ya masimulizi na somo la English kwa sababu somo hili hufundisha aina mbalimbali za insha ikiwemo insha ya masimulizi"
+          ]
+        },
+        {
+          "subStrandNumber": "8.4.1",
+          "subStrandName": "Mnyambuliko wa Vitenzi - Hali ya kutendewa, kutendeka, kutendana",
+          "numberOfLessons": 3,
+          "specificLearningOutcomes": [
+            "Kutambua vitenzi katika hali ya kutendewa, kutendeka na kutendana katika matini ili kuvitofautisha",
+            "Kutumia vitenzi katika hali za kutendewa, kutendeka na kutendana ipasavyo anapowasiliana",
+            "Kuchangamkia matumizi ya vitenzi katika hali ya kutendewa, kutendeka na kutendana katika mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua vitenzi katika hali za kutendewa, kutendeka na kutendana katika chati, jedwali, kapu la maneno, mti maneno, ubao na vifaa vya kidijitali",
+            "Kunyambua vitenzi katika hali lengwa akiwa peke yake au katika vikundi",
+            "Kutumia vitenzi katika hali lengwa kwenye sentensi",
+            "Kushirikiana na wenzake kujaza nafasi katika jedwali la mnyambuliko wa vitenzi kwenye daftari au kwa kutumia tarakilishi",
+            "Kuandika sentensi upya kwa kutumia vitenzi katika hali mbalimbali"
+          ],
+          "keyInquiryQuestions": [
+            "Je, vitenzi vinaweza kubadilika vipi mwishoni ili kuleta maana mbalimbali?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kujaza nafasi katika jedwali la mnyambuliko wa vitenzi",
+            "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapotambua vitenzi katika hali mbalimbali",
+            "Kujiamini: mwanafunzi anapotumia vitenzi katika hali mbalimbali kuwasiliana",
+            "Ujuzi wa kidijitali: mwanafunzi anapojaza nafasi katika jedwali la mnyambuliko wa vitenzi kwa kutumia tarakilishi"
+          ],
+          "values": [
+            "Umoja: mwanafunzi anaponyambua vitenzi katika hali husika akiwa katika kikundi",
+            "Uwajibikaji: mwanafunzi anapokamilisha shughuli za somo la myambuliko wa vitenzi"
+          ],
+          "pcis": [
+            "Utangamano wa kijamii: mwanafunzi anaposhiriki katika kikundi na kufanya kazi kama anavyoelekezwa"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia hali mbalimbali za mnyambuliko wa vitenzi na somo la English kwa sababu somo hili hufundisha mnyambuliko wa vitenzi"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "9.0",
+      "strandName": "MAGONJWA",
+      "subStrands": [
+        {
+          "subStrandNumber": "9.1.1",
+          "subStrandName": "Mazungumzo ya Kimuktadha - Matumizi ya lugha rasmi",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua miktadha mbalimbali kunakotumiwa lugha rasmi ili kukuza mawasiliano",
+            "Kutumia lugha katika miktadha rasmi ili kufanikisha mawasiliano",
+            "Kuchangamkia matumizi ya lugha katika miktadha rasmi"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua miktadha kunakotumiwa lugha rasmi (k.v. ofisini, hospitalini, mahakamani na bungeni)",
+            "Kusikiliza mazungumzo rasmi kwa kutazama maigizo kwenye vifaa vya kidijitali kama vile video, rununu, runinga, tarakilishi",
+            "Kushiriki katika maigizo ya mazungumzo ya miktadha rasmi akishirikiana na wenzake",
+            "Kushiriki katika mazungumzo rasmi nje ya darasa k.m. akiwa kwenye gwaride na mazingira rasmi",
+            "Kutambua nidhamu ya lugha inayozingatiwa katika mazingira rasmi k.m. lugha ya heshima na adabu anapowasiliana"
+          ],
+          "keyInquiryQuestions": [
+            "Ni wapi katika shughuli zetu za kila siku tunatumia lugha rasmi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika maigizo ya mazungumzo ya miktadha rasmi akishirikiana na wenzake",
+            "Ubunifu: mwanafunzi anapotambua nidhamu ya lugha inayozingatiwa katika mazingira rasmi anapowasiliana",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kusikiliza na kutazama mazungumzo rasmi"
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapotunza vifaa vya kidijitali",
+            "Heshima: mwanafunzi anapoigiza mazungumzao rasmi kwa kutumia nidhamu ya lugha inayozingatiwa katika mazingira rasmi"
+          ],
+          "pcis": [
+            "Magonjwa ya kuambukizwa na yasiyoambukizwa: mwanafunzi anaposhiriki katika mazungumzo kuhusu magonjwa"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia lugha katika miktadha mbalimbali na somo la English kwa sababu somo hili hufundisha utambuzi na matumizi ya lugha katika miktadha mbalimbali"
+          ]
+        },
+        {
+          "subStrandNumber": "9.2.1",
+          "subStrandName": "Kusoma kwa Mapana - Matini ya kujichagulia",
+          "numberOfLessons": 3,
+          "specificLearningOutcomes": [
+            "Kutambua matini za aina mbalimbali za kusoma na kuchagua zinazomvutia",
+            "Kusoma matini alizochagua ili kufaidika na ujumbe na lugha iliyotumiwa",
+            "Kufurahia usomaji wa aina mbalimbali za matini ili kupanua mawazo yake"
+          ],
+          "suggestedLearningExperiences": [
+            "Kuchagua matini (k.v. vitabu, majarida, magazeti) zinazomvutia maktabani na mtandaoni",
+            "Kusoma matini alizochagua ili kufaidi ujumbe uliomo",
+            "Kuwatolea wenzake muhtasari wa kile alichosoma kwenye matini ili kupashana ujumbe na kuchocheana kusoma zaidi kwa ajili ya kujifurahisha",
+            "Kujadiliana na wenzake matini ambayo wamesoma kwa kuzingatia ukuzaji wa msamiati"
+          ],
+          "keyInquiryQuestions": [
+            "Ni habari zipi unazopenda kusoma kwenye matini?",
+            "Unachagua matini hayo kwa nini?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposoma na kusimulia ujumbe aliosoma kutokana na matini za aina mbalimbali",
+            "Hamu ya ujifunzaji: mwanafunzi anapowatolea wenzake muhtasari wa kile alichosoma kwenye matini ya kujichagulia"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapothamini maoni ya wenzake wanapojadiliana kuhusu matini walizosoma",
+            "Uwajibikaji: mwanafunzi anapowatolea wenzake muhtasari wa kile alichosoma"
+          ],
+          "pcis": [
+            "Kujithamini: mwanafunzi anapothamini ndege wa porini",
+            "Elimu ya maendeleo endelevu: mwanafunzi anapotunza ndege wa porini"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kusoma kwa mapana na somo la English kwa sababu somo hili hufundisha kusoma kwa mapana"
+          ]
+        },
+        {
+          "subStrandNumber": "9.3.1",
+          "subStrandName": "Insha ya Maelezo",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua vifungu vya maelezo vilivyoandikwa kwenye matini mbalimbali",
+            "Kuandika insha ya maelezo kwa kufuata mtindo na muundo ufaao",
+            "Kuchangamkia utunzi mzuri wenye ujumbe mahususi"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua vifungu vya maelezo vilivyoandikwa kwenye matini mbalimbali au tarakilishi",
+            "Kushiriki na wenzake kujadili mada ya insha na muundo wa insha ya maelezo",
+            "Kuandika insha ya maelezo isiyopungua maneno 150 kwa kuzingatia msamiati unaohusu suala lengwa na kwa kuzingatia vigezo kama vile: ujumbe, tahajia, anwani, muundo, mtindo, mapambo ya lugha k.v methali, nahau, tashbihi, istiari n.k. alizojifunza awali",
+            "Kuandika insha ya maelezo mtandaoni na kuisambaza kwa wenzake na mwalimu ili kuisoma na kuitathmini",
+            "Kuwasomea wenzake insha aliyoandika ili kuisoma na kuitathmini"
+          ],
+          "keyInquiryQuestions": [
+            "Je, unaweza kuandika insha ya maelezo juu ya mada gani?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki na wenzake kujadili mada na muundo wa insha ya maelezo",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kuandika insha mtandaoni na kuisambaza",
+            "Ubunifu: mwanafunzi anapoandika insha ya maelezo"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapowasikiliza wenzake wakisoma insha waliyoandika",
+            "Uwajibikaji: mwanafunzi anapoandika insha ya maelezo kwa kuzingatia vipengele husika"
+          ],
+          "pcis": [
+            "Masuala ya afya: mwanafunzi anapoandika insha ya maelezo kuhusu magonjwa"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha uandishi wa insha ya maelezo na somo la English kwa sababu somo hili hufundisha uandishi wa insha mbalimbali ikiwemo insha ya maelezo"
+          ]
+        },
+        {
+          "subStrandNumber": "9.4.1",
+          "subStrandName": "Vinyume vya Vitenzi",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua vinyume vya vitenzi katika matini",
+            "Kutumia vinyume vya vitenzi katika matini",
+            "Kuchangamkia matumizi ya vinyume vya vitenzi katika mawasiliano ya kila siku"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua vinyume vya vitenzi (k.m. simama- keti, cheka-lia, enda- rudi, anika-anua) katika chati, kadi maneno, kapu maneno, mti maneno au vifaa vya kidijitali",
+            "Kushirikiana na wenzake kutafuta vinyume vya vitenzi kwa kurejelea orodha ya vitenzi aliyopewa",
+            "Kutalii mazingira yake na kuunda orodha ya vinyume vya vitenzi anavyovitambua",
+            "Atunge sentensi kwa kutumia vinyume vya vitenzi kwa kuzingatia upatanisho wa kisarufi",
+            "Kuandika upya sentensi kwa kutumia vinyume vya vitenzi"
+          ],
+          "keyInquiryQuestions": [
+            "Je, ni vitenzi gani unavyoweza kutambua vinyume vyake?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kutafuta vinyume vya vitenzi kwa kurejelea orodha ya vitenzi aliyopewa",
+            "Ubunifu: mwanafunzi anapotunga sentensi akitumia vinyume vya vitenzi kwa kuzingatia upatanisho wa kisarufi",
+            "Hamu ya ujifunzaji: mwanafunzi anapotalii mazingira yake na kutambua vitenzi na vinyume vya vitenzi hivyo"
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapoandika upya sentensi kwa kutumia vinyume vya vitenzi",
+            "Heshima: mwanafunzi anapohusiana na wenzake kutafuta vinyume vya vitenzi kwenye orodha",
+            "Amani: mwanafunzi anaposhirikiana na wenzake kwa utulivu"
+          ],
+          "pcis": [
+            "Elimu ya maendeleo endelevu: mwanafunzi anakuza mawazo kuhusu mazingira yake anapotambua vinyume vya vitenzi kutokana na vitendo anavyovishuhudia katika jamii yake"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia vinyume vya vitenzi na somo la English kwa sababu somo hili hufundisha utambuzi na matumizi ya vitenzi na dhana ya unyume"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "10.0",
+      "strandName": "KUDHIBITI ITIKADI ZA KIDINI NA ZA KIJAMII",
+      "subStrands": [
+        {
+          "subStrandNumber": "10.1.1",
+          "subStrandName": "Tashbihi",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua tashbihi za tabia katika matini ili kuzibainisha",
+            "Kutumia tashbihi za tabia kwa usahihi katika sentensi",
+            "Kufurahia matumizi ya tashbihi za tabia katika mawasiliano ya kila siku"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua tashbihi za tabia (k.v. mjanja kama sungura) katika vitabu, chati na vifaa vya kidijitali",
+            "Kueleza maana ya tashbihi mbalimbali za tabia kwa kutoa mifano",
+            "Kukamilisha tashbihi mbalimbali za tabia akiwa peke yake au kwa kushirikiana na wenzake",
+            "Kujaza nafasi katika sentensi kwa kutumia tashbihi mbalimbali za tabia",
+            "Kutumia tashbihi za tabia katika sentensi akiwa katika kikundi"
+          ],
+          "keyInquiryQuestions": ["Ni tashbihi zipi hutumiwa kuelezea tabia?"],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapokamilisha tashbihi mbalimbali za tabia kwa kushirikiana na wenzake",
+            "Hamu ya kujifunza: mwanafunzi anapotambua tashbihi za tabia katika matini",
+            "Ujuzi wa kidijitali: mwanafunzi anapotambua tashbihi za tabia katika vifaa vya kidijitali"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapowapa nafasi wenzake kukamilisha tashbihi za tabia",
+            "Uwajibikaji: mwanafunzi anapokamilisha tashibihi za tabia akiwa na wenzake"
+          ],
+          "pcis": [
+            "Mawasiliano faafu: mwanafunzi anapowasiliana na wenzake akihusisha tashbihi za tabia"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kutumia tashbihi na somo la English kwa sababu somo hili hufundisha utambuzi na matumizi ya tashbihi"
+          ]
+        },
+        {
+          "subStrandNumber": "10.2.1",
+          "subStrandName": "Matini ya Kidijitali",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua na kuzingatia hatua za kiusalama katika matumizi ya vifaa vya kidijitali",
+            "Kutambua na kufungua faili iliyo na kifungu cha kusoma ili kuimarisha umilisi wake wa kutumia tarakilishi",
+            "Kusakura kwenye tovuti salama ili kupata vifungu vya kusoma",
+            "Kutumia vyombo vya kidijitali kwa urahisi kupata matini zinazolengwa",
+            "Kuchangamkia matumizi ya vifaa vya kidijitali katika kutafuta na kusoma ujumbe ili kuimarisha maarifa yake"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua na kuzingatia hatua za kiusalama kutoka kwenye chati au kwenye tarakilishi na mitandao",
+            "Kutambua jina la faili lengwa kwenye tarakilishi na kufanya mazoezi ya kufungua na kufunga",
+            "Kutambua mitandao salama yenye matini inayoafiki kiwango na mahitaji yake",
+            "Kutambua umuhimu wa kutoa habari kwa mwalimu, mzazi au mlezi wake endapo atapata ujumbe kutoka kwa watu asiowajua mtandaoni na kutowasiliana nao",
+            "Kusimulia habari kuhusu matini aliyosoma kwa wenzake"
+          ],
+          "keyInquiryQuestions": [
+            "Unapenda kusoma habari kuhusu nini mtandaoni?",
+            "Ni hatua gani za kiusalama unazozingatia unapotafuta habari mtandaoni?"
+          ],
+          "coreCompetencies": [
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali katika kusakura kwenye tovuti salama ili kupata vifungu vya kusoma",
+            "Hamu ya ujifunzaji: mwanafunzi anapotafuta matini za kusoma kwenye tarakilishi na mitandaoni",
+            "Ubunifu: mwanafunzi anapofungua na kufunga faili lengwa kwenye kifaa cha kidijitali"
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapotunza vifaa vya kidijitali",
+            "Umoja: mwanafunzi anaposhiriki katika kazi ya kikundi"
+          ],
+          "pcis": [
+            "Usalama na ulinzi, kudhibiti, kuzuia uingizaji wa silaha ndogondogo na usalama wa mtandaoni: mwanafunzi anapozingatia usalama wa mtandaoni"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kusoma matini ya kidijitali na somo la English kwa sababu somo hili hufundisha kusoma matini za kidijitali"
+          ]
+        },
+        {
+          "subStrandNumber": "10.3.1",
+          "subStrandName": "Insha ya Masimulizi",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua insha ya masimulizi kwa kuzingatia muundo",
+            "Kuandika insha ya masimulizi kwa kufuata kanuni zifaazo",
+            "Kuchangamkia utunzi mzuri wa insha"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua insha ya masimulizi kwa kurejelea vielelezo vya insha zilizoandikwa kwenye matini mbalimbali au tarakilishi",
+            "Kushiriki na wenzake kujadili mada ya insha na muundo wa insha ya masimulizi",
+            "Kuandika insha ya masimulizi (k.v. kuhusu itikadi za kidini na za kijamii, sherehe, hadithi, ndoto, ndoa za lazima) isiyopungua maneno 150 akizingatia aina mbalimbali za maneno, mnyambuliko wa vitenzi, na nyakati ili kujenga picha dhahiri ya anachokiandikia daftarini",
+            "Kuandika insha ya masimulizi katika vifaa vya kidijitali na kuisambaza kwa wenzake na mwalimu ili kuisoma na kuitathmini",
+            "Kuwasomea wenzake insha aliyoandika ili waitathmini na kumwelekeza"
+          ],
+          "keyInquiryQuestions": [
+            "Unawezaje kupata kwa haraka hoja za kusimulia katika insha?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika mijadala na kazi za vikundi",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kama tarakilishi kuandika insha ya masimulizi na kuisambaza kwa wenzake",
+            "Ubunifu: mwanafunzi anapoandika insha ya masimulizi",
+            "Hamu ya ujifunzaji: mwanafunzi anapolitafakari swali dadisi lililopendekezwa na anapoimarisha ujuzi wake wa kutumia tarakilishi"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anaposoma na kutathmini insha za wenzake bila upendeleo",
+            "Uwajibikaji: mwanafunzi anapoandika insha kwa kufuata kanuni zifaazo"
+          ],
+          "pcis": [
+            "Mshikamano wa kijamii: mwanafunzi anaposhirikiana na wenzake katika kujadili mada na muundo wa insha ya masimulizi",
+            "Haki na majukumu ya kibinadamu: mwanafunzi anapoandika insha kuhusu kudhibiti itikadi za kidini na za kijamii"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kuandika insha za masimulizi na somo la English kwa sababu somo hili hufundisha uandishi wa insha mbalimbali ikiwemo insha ya masimulizi"
+          ]
+        },
+        {
+          "subStrandNumber": "10.4.1",
+          "subStrandName": "Nyakati na Hali - Hali ya mazoea (hu) na Hali timilifu (me)",
+          "numberOfLessons": 3,
+          "specificLearningOutcomes": [
+            "Kutambua viambishi vya hali ya mazoea na hali timilifu katika kitenzi",
+            "Kutambua vitenzi katika hali ya mazoea na hali timilifu katika matini",
+            "Kutumia vitenzi vya hali ya mazoea na timilifu katika sentensi ili kuimarisha mawasiliano",
+            "Kufurahia matumizi ya hali ya mazoea na timilifu katika mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua viambishi vya hali ya mazoea (hu) na hali timilifu (me) kwenye vitenzi katika chati, ubao au kwa kutumia vifaa vya kidijitali",
+            "Kutambua vitenzi katika hali ya mazoea (hu) na hali timilifu (me) kwenye sentensi, chati, ubao au kwa kutumia vifaa vya kidijitali",
+            "Kushiriki na wenzake katika mazoezi ya kuandika sentensi katika hali ya mazoea (hu) na hali timilifu (me) kwenye daftari au kwa kutumia vifaa vya kidijitali",
+            "Kushirikiana na wenzake kubadilisha sentensi kutoka hali moja hadi nyingine",
+            "Kutunga sentensi katika hali ya mazoea na hali timilifu ili wenzake waweze kuisoma na kutathmini usahihi wake"
+          ],
+          "keyInquiryQuestions": ["Je, wewe hufanya shughuli gani kila siku?"],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kubadilisha sentensi kutoka hali moja hadi nyingine",
+            "Ubunifu: mwanafunzi anapotunga sentensi katika hali ya mazoea na hali timilifu",
+            "Hamu ya ujifunzaji: mwanafunzi anapoendelea kutunga sentensi katika hali ya mazoea na hali timilifu",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kuandika sentensi"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapojifunza kuthamini maoni ya wengine katika shughuli za somo",
+            "Umoja: mwanafunzi anaposhirikiana na wenzake katika kutunga sentensi"
+          ],
+          "pcis": [
+            "Kujithamini: anapotunga sentensi sahihi na kuzitumia kujieleza",
+            "Tamaduni hasi za kijamii: mwanafunzi anapotunga sentensi zinazohusiana na kudhibiti itikadi za kidini na za kijamii"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha matumizi ifaayo ya nyakati na hali na somo la English kwa sababu somo hili hufundisha matumizi ya nyakati na hali"
+          ]
+        }
+      ]
+    },
+    {
+      "strandNumber": "11.0",
+      "strandName": "UWEKEZAJI",
+      "subStrands": [
+        {
+          "subStrandNumber": "11.1.1",
+          "subStrandName": "Masimulizi",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kusikiliza masimulizi kwa kuzingatia ujumbe",
+            "Kusimulia tungo mbele ya wenzake kwa kuzingatia mada, ubunifu na usanifu wa lugha",
+            "Kutumia ishara zifaazo kuimarisha masimulizi yake",
+            "Kuchangamkia masimulizi katika mazingira mbalimbali"
+          ],
+          "suggestedLearningExperiences": [
+            "Kusikiliza masimulizi yakitolewa na mgeni mwalikwa, mwalimu, mwanafunzi mwenzake au kutokana na vifaa vya kidijitali",
+            "Kubuni masimulizi yanayohusiana na mada husika kwa kutazama picha, michoro au kujadiliana na wenzake",
+            "Kutoa masimulizi kuhusu mada (k.v. Jinsi ya kuwekeza na faida za uwekezaji)",
+            "Kutumia ishara za mwili zifaazo k.v. ishara za uso, za mikono na mabega ili kuimarisha masimulizi yake",
+            "Kujadiliana na wenzake kuhusu ubora wa masimulizi aliyosikiliza"
+          ],
+          "keyInquiryQuestions": [
+            "Je, ni nini unachozingatia katika kutoa masimulizi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapojadili kuhusu ubora wa masimulizi na wenzake",
+            "Ubunifu: mwanafunzi anapotunga na kusimulia visa mbalimbali",
+            "Kujiamini: mwanafunzi anaposimulia visa mbele ya wenzake"
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapotoa masimulizi kuhusu uwekezaji",
+            "Umoja: mwanafunzi anapojadiliana na wenzake ubora wa masimulizi aliyosikiliza"
+          ],
+          "pcis": [
+            "Elimu ya fedha: mwanafunzi anaposimulia kuhusu uwekezaji",
+            "Mshikamano wa kijamii na kitaifa: mwanafunzi anposimulia kuhusu uwekezaji akiwa na wenzake"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kusikiliza na kusimulia masimulizi na somo la English kwa sababu somo hili hufundisha masimulizi"
+          ]
+        },
+        {
+          "subStrandNumber": "11.2.1",
+          "subStrandName": "Kusoma kwa Ufasaha",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua vipengele vya kuzingatia katika kusoma kwa ufasaha",
+            "Kusoma kifungu kwa kuzingatia matamshi bora",
+            "Kusoma kifungu kwa kasi ifaayo",
+            "Kusoma kifungu kwa kutumia sauti ipasavyo",
+            "Kusoma kifungu kwa kuambatanisha ishara zifaazo",
+            "Kuchangamkia kusoma kifungu kwa kuzingatia vipengele vya usomaji"
+          ],
+          "suggestedLearningExperiences": [
+            "Kujadiliana na wenzake vipengele vya kuzingatia katika kusoma makala kwa ufasaha",
+            "Kutazama vielelezo vya video vinavyoonyesha usomaji fasaha wa makala (k.v. hotuba, habari,) akiwa peke yake au na wenzake",
+            "Kusoma kifungu akizingatia matamshi bora",
+            "Kusoma kifungu cha hadithi kuhusu suala lengwa kwa kuzingatia kasi ifaayo (maneno sahihi yasiyopungua 75 kwa dakika) ili wenzake wamtolee maoni",
+            "Kusoma kifungu akizingatia sauti ifaayo (k.v. kiwango cha sauti na kiimbo)",
+            "Kusoma kifungu kwa kuambatanisha ishara zifaazo panapofaa (k.v. ishara za uso na mikono zinazozingatia tamaduni)"
+          ],
+          "keyInquiryQuestions": [
+            "Unaposoma kifungu ni mambo yapi unayozingatia ili kusoma ifaavyo?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapowasomea wenzake kifungu",
+            "Kujiamini: mwanafunzi anaposoma kifungu mbele ya wenzake"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anaposikiliza kwa makini wenzake wakisoma kifungu",
+            "Uwajibikaji: mwanafunzi anaposoma kifungu kwa ukamilifu"
+          ],
+          "pcis": [
+            "Kujithamini: mwanafunzi anaposhiriki kikamilifu shughuli za vikundi na kuzikamilisha"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kusoma kwa ufasaha na somo la English kwa sababu somo hili hufundisha kusoma kwa ufasaha"
+          ]
+        },
+        {
+          "subStrandNumber": "11.3.1",
+          "subStrandName": "Baruapepe",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua baruapepe kwa kuzingatia muundo wake",
+            "Kuandika baruapepe kwa kuzingatia ujumbe, muundo na mtindo",
+            "Kuchangamkia uandishi wa baruapepe katika mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua muundo wa baruapepe kwa kurejelea kielelezo chake kilichochapishwa au kwenye tarakilishi",
+            "Kujadili na wenzake sehemu mbalimbali za baruapepe kama vile anwanipepe ya mtumaji, anwanipepe ya mpokeaji, mada ya baruapepe, mtajo, mwili, hitimisho na jina la mwandishi/mtumaji",
+            "Kuandika baruapepe kwa rafiki, mzazi, mwalimu akishirikiana na wenzake kwa kutumia tarakilishi akizingatia muundo wa uandishi wa baruapepe",
+            "Kutuma baruapepe aliyoiandika kwa mpokeaji",
+            "Kujadiliana na wenzake kuhusu umuhimu wa baruapepe katika mawasiliano"
+          ],
+          "keyInquiryQuestions": [
+            "Unazingatia vipengele gani unapoandika baruapepe?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapoandika na kutuma baruapepe",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia tarakilishi kuandika na kutuma baruapepe",
+            "Kujiamini: mwanafunzi anapotuma baruapepe kwa mpokeaji"
+          ],
+          "values": [
+            "Upendo: mwanafunzi anapotuma baruapepe kwa wazazi au marafiki kuwajulia hali",
+            "Heshima: mwanafunzi anapozingatia maoni ya wengine wakati wa mjadala",
+            "Uwajibikaji: mwanafunzi anapoandika baruapepe akizingatia muundo wa kuiandika"
+          ],
+          "pcis": [
+            "Mawasiliano faafu: mwanafunzi anapotumia baruapepe kuwasiliana",
+            "Elimu ya maendeleo endelevu: mwanafunzi anapotumia tarakilishi na mtandao kuwasiliana"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kuandika baruapepe kwa kutumia tarakilishi na somo la English kwa sababu somo hili hufundisha utambuzi na uandishi wa baruapepe kwa kutumia tarakilishi"
+          ]
+        },
+        {
+          "subStrandNumber": "11.4.1",
+          "subStrandName": "Ukanushaji - Viambishi vya wakati li, na na ta",
+          "numberOfLessons": 3,
+          "specificLearningOutcomes": [
+            "Kutambua viambishi vya wakati na nafsi katika sentensi",
+            "Kukanusha viambishi vya nafsi na wakati katika sentensi kwa usahihi",
+            "Kutunga sentensi sahihi zenye viambishi vya nafsi na wakati na kuzikanusha",
+            "Kufurahia ukanushaji wa viambishi vya nafsi na wakati katika sentensi"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua viambishi vya nafsi hali ya mazoea na timilifu katika vitenzi kwa kuvipigia mistari kwenye vitabu au kuvikolezea wino kwenye tarakilishi",
+            "Kutambua viambishi vya wakati li, na na ta katika hali yakinishi na ku, ta, si, ha katika hali kanushi akiwa na wenzake",
+            "Kusoma sentensi zenye viambishi lengwa kwenye vitabu au tarakilishi katika hali yakinishi na kanushi",
+            "Kukanusha sentensi akizingatia nafsi na nyakati kwenye daftari au kwa kutumia tarakilishi akiwa peke yake au na wenzake",
+            "Kusikiliza au kutazama vipindi vya ukanushaji wa nafsi na wakati kupitia vifaa vya kidijitali akiwa peke yake au katika kikundi"
+          ],
+          "keyInquiryQuestions": [
+            "Viambishi vya nafsi katika vitenzi ni vipi?",
+            "Unatumia viambishi gani wakati wa kukanusha vitenzi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapokanusha sentensi akizingatia viambishi vya nyakati husika akiwa na wenzake",
+            "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapokanusha sentensi akizingatia viambishi vya nyakati husika",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kusikiliza au kutazama vipindi vya ukanushaji",
+            "Kujiamini: mwanafunzi anapotunga sentensi katika hali Kanushi akizingatia viambishi vya nyakati li, na na ta"
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapothamini wenzake wanapotambua viambishi vya wakati li, na na ta katika hali yakinishi na ku, ta, si, ha katika hali kanushi",
+            "Uadilifu: mwanafunzi anapotunga sentensi sahihi kuhusu uwekezaji"
+          ],
+          "pcis": [
+            "Kujithamini: mwanafunzi anakuza uwezo wa kukabili au kukataa mambo mbalimbali maishani",
+            "Umaskini: mwanafunzi anapotumia viambishi vya nafsi na vya wakati katika sentensi zinazolenga suala lengwa"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kukanusha kwa kutumia viambishi vya wakati na somo la English kwa sababu somo hili hufundisha ukanushaji na dhana ya viambishi"
+          ]
+        },
+        {
+          "subStrandNumber": "11.4.2",
+          "subStrandName": "Ukubwa na Udogo wa Nomino (m-)",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua nomino zinazoanza kwa herufi m- na zenye mzizi wa silabi mbili",
+            "Kutambua nomino zinazoanza kwa herufi m- katika hali ya ukubwa na udogo",
+            "Kubadilisha nomino katika hali ya wastani kuwa katika hali ya ukubwa na udogo",
+            "Kutumia nomino zinazoanza kwa herufi m- katika hali ya ukubwa na udogo kwenye sentensi",
+            "Kufurahia kutumia nomino katika hali ya ukubwa na udogo kwa usahihi ili kuimarisha mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua nomino zinazoanza kwa herufi m- na zenye mzizi wa silabi mbili (k.m mtoto, mlango, mkate na mlima) kwenye chati, ubao, mti maneno, kapu la maneno au kifaa cha kidijitali",
+            "Kutambua nomino zinazoanza kwa herufi m- na zenye mzizi wa silabi mbili katika ukubwa na udogo (k.v. mtoto (toto- kitoto), mlango (lango - kilango), mkate (kate- kikate)",
+            "Kushiriki katika vikundi kubadilisha nomino kutoka hali ya wastani hadi hali ya ukubwa na udogo",
+            "Kushiriki katika mchezo wa vikundi ambapo kikundi kimoja kitataja wastani wa nomino na kingine kutaja ukubwa na udogo wa nomino hiyo",
+            "Kupewa orodha ya nomino katika hali ya ukubwa na orodha nyingine ya nomino katika hali ya udogo kwenye tarakilishi ili aziburure kuziambatanisha",
+            "Kutunga sentensi zinazorejelea nomino lengwa katika ukubwa na udogo akiwa peke yake au kwenye vikundi"
+          ],
+          "keyInquiryQuestions": [
+            "Ni nomino gani unazoweza kutaja ukubwa wake?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika mchezo wa vikundi ambapo kikundi kimoja kitataja wastani wa nomino na kingine kutaja ukubwa na udogo wa nomino hiyo",
+            "Ubunifu: mwanafunzi anapotunga sentensi katika hali ya ukubwa na udogo",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia tarakilishi kutambua na kuambatanisha nomino katika hali ya wastani, ukubwa na udogo"
+          ],
+          "values": [
+            "Upendo: mwanafunzi anaposhiriki katika vikundi kubadilisha nomino kutoka hali ya wastani hadi hali ya ukubwa na udogo",
+            "Umoja: mwanafunzi anapotunga sentensi katika ukubwa na udogo akiwa kwenye vikundi"
+          ],
+          "pcis": [
+            "Elimu ya kifedha: mwanafunzi anapotunga sentensi za ukubwa na udogo kuhusu uwekezaji"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kubadilisha nomino katika ukubwa na udogo na somo la English kwa sababu somo hili hufundisha ukubwa na udogo wa nomino"
+          ]
+        },
+        {
+          "subStrandNumber": "11.4.3",
+          "subStrandName": "Ukubwa na Udogo wa Nomino (n-)",
+          "numberOfLessons": 2,
+          "specificLearningOutcomes": [
+            "Kutambua nomino zinazoanza kwa herufi n- ili kuzitofautisha na nomino nyingine",
+            "Kutambua nomino zinazoanza kwa herufi n- katika hali ya ukubwa na udogo",
+            "Kubadilisha nomino katika hali wastani kuwa katika hali ya ukubwa na udogo",
+            "Kutumia nomino katika hali ya ukubwa na udogo kwenye sentensi ili kuimarisha mawasiliano",
+            "Kufurahia kutumia nomino katika hali ya ukubwa na udogo kwa usahihi ili kuimarisha mawasiliano"
+          ],
+          "suggestedLearningExperiences": [
+            "Kutambua nomino zinazoanza kwa herufi n- kwenye chati, ubao, mti maneno, kapu la maneno au kifaa cha kidijitali",
+            "Kushiriki katika vikundi kubadilisha nomino kutoka hali ya wastani hadi hali ya ukubwa na udogo",
+            "Kushiriki katika mchezo wa vikundi ambapo kikundi kimoja kitataja wastani wa nomino, kingine ukubwa na kingine kutaja udogo wa nomino hiyo",
+            "Kupewa orodha ya nomino katika hali ya ukubwa na orodha nyingine ya nomino katika hali ya udogo kwenye tarakilishi ili aziburure kuziambatanisha",
+            "Kutunga sentensi zinazorejelea nomino lengwa katika ukubwa na udogo akiwa peke yake au kwenye vikundi"
+          ],
+          "keyInquiryQuestions": [
+            "Ni nomino gani unazoweza kutaja udogo wake?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika mchezo wa vikundi ambapo kikundi kimoja kitataja wastani wa nomino na kingine kutaja ukubwa na udogo wa nomino hiyo",
+            "Ubunifu: mwanafunzi anapotunga sentensi katika hali ya ukubwa na udogo",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia tarakilishi kutambua na kuambatanisha nomino katika hali ya wastani, ukubwa na udogo"
+          ],
+          "values": [
+            "Upendo: mwanafunzi anaposhiriki katika vikundi kubadilisha nomino kutoka hali ya wastani hadi hali ya ukubwa na udogo",
+            "Umoja: mwanafunzi anapotunga sentensi katika ukubwa na udogo akiwa kwenye vikundi"
+          ],
+          "pcis": [
+            "Elimu ya kifedha: mwanafunzi anapotunga sentensi za ukubwa na udogo kuhusu uwekezaji"
+          ],
+          "linkToOtherSubjects": [
+            "English: Mwanafunzi anaweza kuhusisha kutambua na kubadilisha nomino katika ukubwa na udogo na somo la English kwa sababu somo hili hufundisha ukubwa na udogo wa nomino"
+          ]
+        }
+      ]
+    }
+  ]
+}
