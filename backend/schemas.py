@@ -498,11 +498,30 @@ class SchemeLessonResponse(SchemeLessonBase):
     class Config:
         from_attributes = True
 
+class SchemeLessonUpdate(BaseModel):
+    id: Optional[int] = None
+    lesson_number: Optional[int] = None
+    strand: Optional[str] = None
+    sub_strand: Optional[str] = None
+    specific_learning_outcomes: Optional[str] = None
+    key_inquiry_questions: Optional[str] = None
+    learning_experiences: Optional[str] = None
+    learning_resources: Optional[str] = None
+    textbook_name: Optional[str] = None
+    textbook_teacher_guide_pages: Optional[str] = None
+    textbook_learner_book_pages: Optional[str] = None
+    assessment_methods: Optional[str] = None
+    reflection: Optional[str] = None
+
 class SchemeWeekBase(BaseModel):
     week_number: int
 
 class SchemeWeekCreate(SchemeWeekBase):
     lessons: List[SchemeLessonCreate]
+
+class SchemeWeekUpdate(BaseModel):
+    week_number: Optional[int] = None
+    lessons: Optional[List[SchemeLessonUpdate]] = None
 
 class SchemeWeekResponse(SchemeWeekBase):
     id: int
@@ -534,6 +553,7 @@ class SchemeOfWorkUpdate(BaseModel):
     term: Optional[str] = None
     year: Optional[int] = None
     status: Optional[str] = None
+    weeks: Optional[List[SchemeWeekUpdate]] = None
 
 class SchemeOfWorkResponse(SchemeOfWorkBase):
     id: int
@@ -789,3 +809,70 @@ class SchoolTeacherResponse(UserBase):
     
     class Config:
         from_attributes = True
+
+
+# ============================================================================
+# TEACHER PROFILE SCHEMAS (For Independent Teachers)
+# ============================================================================
+
+class TeacherProfileBase(BaseModel):
+    """Base schema for teacher profile settings"""
+    # School Context
+    school_name: Optional[str] = None
+    school_address: Optional[str] = None
+    school_phone: Optional[str] = None
+    school_email: Optional[str] = None
+    school_motto: Optional[str] = None
+    principal_name: Optional[str] = None
+    deputy_principal_name: Optional[str] = None
+    county: Optional[str] = None
+    sub_county: Optional[str] = None
+    school_type: Optional[str] = None
+    
+    # Teaching Preferences
+    default_lessons_per_week: int = 5
+    default_lesson_duration: int = 40
+    default_double_lesson_duration: int = 80
+    default_double_lessons_per_week: int = 0
+    
+    # Professional Details
+    tsc_number: Optional[str] = None
+    registration_number: Optional[str] = None
+    subjects_taught: Optional[List[str]] = []
+    grade_levels_taught: Optional[List[str]] = []
+    years_of_experience: Optional[int] = None
+    qualifications: Optional[str] = None
+    specialization: Optional[str] = None
+    
+    # Academic Year Settings
+    current_academic_year: Optional[str] = None
+    default_term_weeks: int = 13
+    
+    # Grades & Streams
+    grades_offered: Optional[List[str]] = []
+    streams_per_grade: Optional[dict] = {}
+
+class TeacherProfileCreate(TeacherProfileBase):
+    """Schema for creating/updating teacher profile"""
+    pass
+
+class TeacherProfileUpdate(TeacherProfileBase):
+    """Schema for partial updates"""
+    pass
+
+class TeacherProfileResponse(TeacherProfileBase):
+    """Schema for teacher profile response"""
+    id: int
+    user_id: int
+    school_logo_url: Optional[str] = None
+    created_at: datetime
+    updated_at: datetime
+    
+    class Config:
+        from_attributes = True
+
+class TeacherProfileLogoResponse(BaseModel):
+    """Response after uploading logo"""
+    message: str
+    logo_url: str
+

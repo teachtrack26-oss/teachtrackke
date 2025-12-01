@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
-import { FiPrinter, FiEdit2, FiSave, FiX } from "react-icons/fi";
+import { FiPrinter, FiArrowLeft } from "react-icons/fi";
 import toast from "react-hot-toast";
 
 interface LessonPlan {
@@ -32,107 +32,23 @@ interface LessonPlan {
   lesson_duration_minutes?: number;
 }
 
+interface SchoolContext {
+  school_name?: string;
+  school_logo_url?: string;
+  school_motto?: string;
+  county?: string;
+  sub_county?: string;
+  is_school_linked?: boolean;
+}
+
 function PrintContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [plans, setPlans] = useState<LessonPlan[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isEditing, setIsEditing] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [enhancingId, setEnhancingId] = useState<number | null>(null);
-  const [generatingId, setGeneratingId] = useState<number | null>(null);
-
-  const handlePlanChange = (
-    index: number,
-    field: keyof LessonPlan,
-    value: string
-  ) => {
-    const newPlans = [...plans];
-    // @ts-ignore
-    newPlans[index] = { ...newPlans[index], [field]: value };
-    setPlans(newPlans);
-  };
-
-  const applyTemplate = (index: number) => {
-    const newPlans = [...plans];
-    const plan = newPlans[index];
-
-    newPlans[index] = {
-      ...plan,
-      introduction:
-        "Introduction (5 minutes)\n- Recap the previous lesson on...\n- Guide learners to...",
-      development: "Step 1: ...\n- ...\n\nStep 2: ...\n- ...",
-      conclusion: "Conclusion (5 minutes)\n- Summarize...",
-    };
-    setPlans(newPlans);
-    toast.success("Template applied!");
-  };
-
-  const autoGeneratePlan = async (index: number, planId: number) => {
-    setGeneratingId(planId);
-    const token = localStorage.getItem("accessToken");
-    try {
-      const response = await axios.post(
-        `/api/v1/lesson-plans/${planId}/auto-generate`,
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-
-      const updatedPlan = response.data;
-      const newPlans = [...plans];
-      newPlans[index] = updatedPlan;
-      setPlans(newPlans);
-      toast.success("Plan auto-generated from curriculum!");
-    } catch (error) {
-      console.error("Failed to auto-generate plan", error);
-      toast.error("Failed to auto-generate. Please try again.");
-    } finally {
-      setGeneratingId(null);
-    }
-  };
-
-  const enhancePlan = async (index: number, planId: number) => {
-    setEnhancingId(planId);
-    const token = localStorage.getItem("accessToken");
-    try {
-      const response = await axios.post(
-        `/api/v1/lesson-plans/${planId}/enhance`,
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-
-      const enhancedPlan = response.data;
-      const newPlans = [...plans];
-      newPlans[index] = enhancedPlan;
-      setPlans(newPlans);
-      toast.success("Lesson plan enhanced with AI!");
-    } catch (error) {
-      console.error("Failed to enhance plan", error);
-      toast.error("Failed to enhance plan. Please try again.");
-    } finally {
-      setEnhancingId(null);
-    }
-  };
-
-  const saveChanges = async () => {
-    setSaving(true);
-    const token = localStorage.getItem("accessToken");
-    try {
-      const promises = plans.map((plan) =>
-        axios.put(`/api/v1/lesson-plans/${plan.id}`, plan, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-      );
-
-      await Promise.all(promises);
-      toast.success("All changes saved successfully!");
-      setIsEditing(false);
-    } catch (error) {
-      console.error("Failed to save changes", error);
-      toast.error("Failed to save changes. Please try again.");
-    } finally {
-      setSaving(false);
-    }
-  };
+  const [schoolContext, setSchoolContext] = useState<SchoolContext | null>(
+    null
+  );
 
   useEffect(() => {
     const fetchPlans = async () => {
@@ -146,6 +62,16 @@ function PrintContent() {
       const token = localStorage.getItem("accessToken");
 
       try {
+        // Fetch school context for header
+        try {
+          const contextRes = await axios.get("/api/v1/profile/school-context", {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setSchoolContext(contextRes.data);
+        } catch (err) {
+          console.log("No school context available");
+        }
+
         // Fetch all plans in parallel
         const promises = ids.map((id) =>
           axios.get(`/api/v1/lesson-plans/${id}`, {
@@ -275,42 +201,24 @@ function PrintContent() {
 
       {/* Print Controls */}
       <div className="no-print fixed top-0 left-0 right-0 bg-white shadow-md p-4 flex justify-between items-center z-50">
-        <h2 className="text-xl font-bold">
-          Printing {plans.length} Lesson Plans
-        </h2>
-        <div className="flex gap-2">
-          {isEditing ? (
-            <>
-              <button
-                onClick={() => setIsEditing(false)}
-                className="bg-gray-500 text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 hover:bg-gray-600"
-                disabled={saving}
-              >
-                <FiX /> Cancel
-              </button>
-              <button
-                onClick={saveChanges}
-                className="bg-green-600 text-white px-6 py-2 rounded-lg font-bold flex items-center gap-2 hover:bg-green-700"
-                disabled={saving}
-              >
-                <FiSave /> {saving ? "Saving..." : "Save Changes"}
-              </button>
-            </>
-          ) : (
-            <button
-              onClick={() => setIsEditing(true)}
-              className="bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 hover:bg-indigo-700"
-            >
-              <FiEdit2 /> Edit Mode
-            </button>
-          )}
+        <div className="flex items-center gap-4">
           <button
-            onClick={() => window.print()}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold flex items-center gap-2 hover:bg-blue-700"
+            onClick={() => router.push("/professional-records?tab=lessons")}
+            className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-medium"
           >
-            <FiPrinter /> Print Now
+            <FiArrowLeft className="w-5 h-5" />
+            Back
           </button>
+          <h2 className="text-xl font-bold">
+            Print {plans.length} Lesson Plan{plans.length > 1 ? "s" : ""}
+          </h2>
         </div>
+        <button
+          onClick={() => window.print()}
+          className="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold flex items-center gap-2 hover:bg-blue-700"
+        >
+          <FiPrinter /> Print Now
+        </button>
       </div>
 
       <div className="pt-20 print:pt-0">
@@ -320,6 +228,39 @@ function PrintContent() {
             className={index < plans.length - 1 ? "page-break" : ""}
           >
             <div className="max-w-4xl mx-auto px-8 py-6 print:px-0 print:py-0">
+              {/* School Header - Only show if school context available */}
+              {schoolContext?.school_name && (
+                <div className="flex items-center justify-center gap-4 mb-4 print:mb-2">
+                  {schoolContext.school_logo_url && (
+                    <img
+                      src={schoolContext.school_logo_url}
+                      alt="School Logo"
+                      className="h-16 w-16 object-contain print:h-12 print:w-12"
+                    />
+                  )}
+                  <div className="text-center">
+                    <h2 className="text-xl font-bold text-gray-900 uppercase print:text-base">
+                      {schoolContext.school_name}
+                    </h2>
+                    {schoolContext.school_motto && (
+                      <p className="text-sm italic text-gray-600 print:text-xs">
+                        &ldquo;{schoolContext.school_motto}&rdquo;
+                      </p>
+                    )}
+                    {(schoolContext.county || schoolContext.sub_county) && (
+                      <p className="text-xs text-gray-500">
+                        {[schoolContext.sub_county, schoolContext.county]
+                          .filter(Boolean)
+                          .join(", ")}
+                      </p>
+                    )}
+                  </div>
+                  {schoolContext.school_logo_url && (
+                    <div className="h-16 w-16 print:h-12 print:w-12" />
+                  )}
+                </div>
+              )}
+
               {/* Document Header */}
               <div className="text-center mb-6 pb-4 border-b-2 border-gray-800 print:mb-2 print:pb-2">
                 <h1 className="text-3xl font-bold text-gray-900 uppercase tracking-wider print:text-lg">
@@ -351,21 +292,7 @@ function PrintContent() {
                   <span className="font-bold text-gray-700 w-32 print:w-auto">
                     Date:
                   </span>
-                  {isEditing && (
-                    <input
-                      type="date"
-                      value={plan.date || ""}
-                      onChange={(e) =>
-                        handlePlanChange(index, "date", e.target.value)
-                      }
-                      className="border-b border-gray-400 bg-yellow-50 px-1 print:hidden"
-                    />
-                  )}
-                  <span
-                    className={`text-gray-900 font-medium ${
-                      isEditing ? "hidden print:block" : ""
-                    }`}
-                  >
+                  <span className="text-gray-900 font-medium">
                     {plan.date
                       ? new Date(plan.date).toLocaleDateString(undefined, {
                           weekday: "long",
@@ -380,21 +307,7 @@ function PrintContent() {
                   <span className="font-bold text-gray-700 w-32 print:w-auto">
                     Time:
                   </span>
-                  {isEditing && (
-                    <input
-                      type="text"
-                      value={plan.time || ""}
-                      onChange={(e) =>
-                        handlePlanChange(index, "time", e.target.value)
-                      }
-                      className="border-b border-gray-400 bg-yellow-50 px-1 w-full print:hidden"
-                    />
-                  )}
-                  <span
-                    className={`text-gray-900 font-medium ${
-                      isEditing ? "hidden print:block" : ""
-                    }`}
-                  >
+                  <span className="text-gray-900 font-medium">
                     {plan.time || "Not set"}
                   </span>
                 </div>
@@ -402,21 +315,7 @@ function PrintContent() {
                   <span className="font-bold text-gray-700 w-32 print:w-auto">
                     Roll:
                   </span>
-                  {isEditing && (
-                    <input
-                      type="text"
-                      value={plan.roll || ""}
-                      onChange={(e) =>
-                        handlePlanChange(index, "roll", e.target.value)
-                      }
-                      className="border-b border-gray-400 bg-yellow-50 px-1 w-full print:hidden"
-                    />
-                  )}
-                  <span
-                    className={`text-gray-900 font-medium ${
-                      isEditing ? "hidden print:block" : ""
-                    }`}
-                  >
+                  <span className="text-gray-900 font-medium">
                     {plan.roll || "Not set"}
                   </span>
                 </div>
@@ -430,51 +329,13 @@ function PrintContent() {
                     <h3 className="font-bold text-gray-700 mb-2">
                       Strand / Theme / Topic
                     </h3>
-                    {isEditing && (
-                      <input
-                        type="text"
-                        value={plan.strand_theme_topic}
-                        onChange={(e) =>
-                          handlePlanChange(
-                            index,
-                            "strand_theme_topic",
-                            e.target.value
-                          )
-                        }
-                        className="w-full border-b border-gray-400 bg-yellow-50 px-1 print:hidden"
-                      />
-                    )}
-                    <p
-                      className={`text-gray-900 ${
-                        isEditing ? "hidden print:block" : ""
-                      }`}
-                    >
-                      {plan.strand_theme_topic}
-                    </p>
+                    <p className="text-gray-900">{plan.strand_theme_topic}</p>
                   </div>
                   <div className="section-card border border-gray-300 rounded-lg p-4 print:p-1">
                     <h3 className="font-bold text-gray-700 mb-2">
                       Sub-strand / Sub-theme
                     </h3>
-                    {isEditing && (
-                      <input
-                        type="text"
-                        value={plan.sub_strand_sub_theme_sub_topic}
-                        onChange={(e) =>
-                          handlePlanChange(
-                            index,
-                            "sub_strand_sub_theme_sub_topic",
-                            e.target.value
-                          )
-                        }
-                        className="w-full border-b border-gray-400 bg-yellow-50 px-1 print:hidden"
-                      />
-                    )}
-                    <p
-                      className={`text-gray-900 ${
-                        isEditing ? "hidden print:block" : ""
-                      }`}
-                    >
+                    <p className="text-gray-900">
                       {plan.sub_strand_sub_theme_sub_topic}
                     </p>
                   </div>
@@ -485,25 +346,7 @@ function PrintContent() {
                   <h3 className="font-bold text-gray-700 mb-2">
                     Specific Learning Outcomes
                   </h3>
-                  {isEditing && (
-                    <textarea
-                      value={plan.specific_learning_outcomes}
-                      onChange={(e) =>
-                        handlePlanChange(
-                          index,
-                          "specific_learning_outcomes",
-                          e.target.value
-                        )
-                      }
-                      className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm print:hidden"
-                      rows={4}
-                    />
-                  )}
-                  <div
-                    className={`text-gray-900 whitespace-pre-wrap ${
-                      isEditing ? "hidden print:block" : ""
-                    }`}
-                  >
+                  <div className="text-gray-900 whitespace-pre-wrap">
                     {plan.specific_learning_outcomes}
                   </div>
                 </div>
@@ -513,25 +356,7 @@ function PrintContent() {
                   <h3 className="font-bold text-gray-700 mb-2">
                     Key Inquiry Questions
                   </h3>
-                  {isEditing && (
-                    <textarea
-                      value={plan.key_inquiry_questions}
-                      onChange={(e) =>
-                        handlePlanChange(
-                          index,
-                          "key_inquiry_questions",
-                          e.target.value
-                        )
-                      }
-                      className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm print:hidden"
-                      rows={2}
-                    />
-                  )}
-                  <div
-                    className={`text-gray-900 whitespace-pre-wrap ${
-                      isEditing ? "hidden print:block" : ""
-                    }`}
-                  >
+                  <div className="text-gray-900 whitespace-pre-wrap">
                     {plan.key_inquiry_questions}
                   </div>
                 </div>
@@ -542,25 +367,7 @@ function PrintContent() {
                     <h3 className="font-bold text-gray-700 mb-2 text-sm">
                       Core Competencies
                     </h3>
-                    {isEditing && (
-                      <textarea
-                        value={plan.core_competences}
-                        onChange={(e) =>
-                          handlePlanChange(
-                            index,
-                            "core_competences",
-                            e.target.value
-                          )
-                        }
-                        className="w-full border border-gray-400 bg-yellow-50 p-1 text-xs print:hidden"
-                        rows={3}
-                      />
-                    )}
-                    <p
-                      className={`text-sm text-gray-900 whitespace-pre-wrap ${
-                        isEditing ? "hidden print:block" : ""
-                      }`}
-                    >
+                    <p className="text-sm text-gray-900 whitespace-pre-wrap">
                       {plan.core_competences}
                     </p>
                   </div>
@@ -568,25 +375,7 @@ function PrintContent() {
                     <h3 className="font-bold text-gray-700 mb-2 text-sm">
                       Values
                     </h3>
-                    {isEditing && (
-                      <textarea
-                        value={plan.values_to_be_developed}
-                        onChange={(e) =>
-                          handlePlanChange(
-                            index,
-                            "values_to_be_developed",
-                            e.target.value
-                          )
-                        }
-                        className="w-full border border-gray-400 bg-yellow-50 p-1 text-xs print:hidden"
-                        rows={3}
-                      />
-                    )}
-                    <p
-                      className={`text-sm text-gray-900 whitespace-pre-wrap ${
-                        isEditing ? "hidden print:block" : ""
-                      }`}
-                    >
+                    <p className="text-sm text-gray-900 whitespace-pre-wrap">
                       {plan.values_to_be_developed}
                     </p>
                   </div>
@@ -594,25 +383,7 @@ function PrintContent() {
                     <h3 className="font-bold text-gray-700 mb-2 text-sm">
                       PCIs
                     </h3>
-                    {isEditing && (
-                      <textarea
-                        value={plan.pcis_to_be_addressed}
-                        onChange={(e) =>
-                          handlePlanChange(
-                            index,
-                            "pcis_to_be_addressed",
-                            e.target.value
-                          )
-                        }
-                        className="w-full border border-gray-400 bg-yellow-50 p-1 text-xs print:hidden"
-                        rows={3}
-                      />
-                    )}
-                    <p
-                      className={`text-sm text-gray-900 whitespace-pre-wrap ${
-                        isEditing ? "hidden print:block" : ""
-                      }`}
-                    >
+                    <p className="text-sm text-gray-900 whitespace-pre-wrap">
                       {plan.pcis_to_be_addressed}
                     </p>
                   </div>
@@ -623,68 +394,15 @@ function PrintContent() {
                   <h3 className="font-bold text-gray-700 mb-2">
                     Learning Resources
                   </h3>
-                  {isEditing && (
-                    <textarea
-                      value={plan.learning_resources}
-                      onChange={(e) =>
-                        handlePlanChange(
-                          index,
-                          "learning_resources",
-                          e.target.value
-                        )
-                      }
-                      className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm print:hidden"
-                      rows={2}
-                    />
-                  )}
-                  <div
-                    className={`text-gray-900 whitespace-pre-wrap ${
-                      isEditing ? "hidden print:block" : ""
-                    }`}
-                  >
+                  <div className="text-gray-900 whitespace-pre-wrap">
                     {plan.learning_resources}
                   </div>
                 </div>
 
                 {/* Lesson Steps */}
                 <div className="org-learning-container border border-gray-300 rounded-lg overflow-hidden">
-                  <div className="org-learning-header bg-gray-100 px-4 py-2 border-b border-gray-300 font-bold text-gray-800 print:bg-gray-200 flex justify-between items-center">
+                  <div className="org-learning-header bg-gray-100 px-4 py-2 border-b border-gray-300 font-bold text-gray-800 print:bg-gray-200">
                     <span>Organization of Learning</span>
-                    {isEditing && (
-                      <div className="flex gap-2 print:hidden">
-                        <button
-                          onClick={() => applyTemplate(index)}
-                          className="text-xs bg-gray-600 text-white px-2 py-1 rounded hover:bg-gray-700 flex items-center gap-1"
-                          title="Apply a standard structure template"
-                        >
-                          <span>📝 Template</span>
-                        </button>
-                        <button
-                          onClick={() => autoGeneratePlan(index, plan.id)}
-                          disabled={generatingId === plan.id}
-                          className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700 flex items-center gap-1"
-                          title="Auto-generate from curriculum (Free)"
-                        >
-                          {generatingId === plan.id ? (
-                            <span className="animate-spin">⌛</span>
-                          ) : (
-                            <span>⚡ Auto-Generate</span>
-                          )}
-                        </button>
-                        <button
-                          onClick={() => enhancePlan(index, plan.id)}
-                          disabled={enhancingId === plan.id}
-                          className="text-xs bg-purple-600 text-white px-2 py-1 rounded hover:bg-purple-700 flex items-center gap-1"
-                          title="Generate detailed content using AI"
-                        >
-                          {enhancingId === plan.id ? (
-                            <span className="animate-spin">⌛</span>
-                          ) : (
-                            <span>✨ Enhance with AI</span>
-                          )}
-                        </button>
-                      </div>
-                    )}
                   </div>
                   <div className="divide-y divide-gray-300">
                     <div className="org-learning-item p-4 print:p-1">
@@ -694,25 +412,7 @@ function PrintContent() {
                           5 min
                         </span>
                       </h4>
-                      {isEditing && (
-                        <textarea
-                          value={plan.introduction}
-                          onChange={(e) =>
-                            handlePlanChange(
-                              index,
-                              "introduction",
-                              e.target.value
-                            )
-                          }
-                          className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm print:hidden"
-                          rows={3}
-                        />
-                      )}
-                      <div
-                        className={`text-gray-900 whitespace-pre-wrap ${
-                          isEditing ? "hidden print:block" : ""
-                        }`}
-                      >
+                      <div className="text-gray-900 whitespace-pre-wrap">
                         {plan.introduction}
                       </div>
                     </div>
@@ -723,25 +423,7 @@ function PrintContent() {
                           {(plan.lesson_duration_minutes || 40) - 10} min
                         </span>
                       </h4>
-                      {isEditing && (
-                        <textarea
-                          value={plan.development}
-                          onChange={(e) =>
-                            handlePlanChange(
-                              index,
-                              "development",
-                              e.target.value
-                            )
-                          }
-                          className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm print:hidden"
-                          rows={5}
-                        />
-                      )}
-                      <div
-                        className={`text-gray-900 whitespace-pre-wrap ${
-                          isEditing ? "hidden print:block" : ""
-                        }`}
-                      >
+                      <div className="text-gray-900 whitespace-pre-wrap">
                         {plan.development}
                       </div>
                     </div>
@@ -752,25 +434,7 @@ function PrintContent() {
                           5 min
                         </span>
                       </h4>
-                      {isEditing && (
-                        <textarea
-                          value={plan.conclusion}
-                          onChange={(e) =>
-                            handlePlanChange(
-                              index,
-                              "conclusion",
-                              e.target.value
-                            )
-                          }
-                          className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm print:hidden"
-                          rows={3}
-                        />
-                      )}
-                      <div
-                        className={`text-gray-900 whitespace-pre-wrap ${
-                          isEditing ? "hidden print:block" : ""
-                        }`}
-                      >
+                      <div className="text-gray-900 whitespace-pre-wrap">
                         {plan.conclusion}
                       </div>
                     </div>
@@ -778,21 +442,7 @@ function PrintContent() {
                       <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase">
                         Summary
                       </h4>
-                      {isEditing && (
-                        <textarea
-                          value={plan.summary}
-                          onChange={(e) =>
-                            handlePlanChange(index, "summary", e.target.value)
-                          }
-                          className="w-full border border-gray-400 bg-yellow-50 p-1 text-sm print:hidden"
-                          rows={2}
-                        />
-                      )}
-                      <div
-                        className={`text-gray-900 whitespace-pre-wrap ${
-                          isEditing ? "hidden print:block" : ""
-                        }`}
-                      >
+                      <div className="text-gray-900 whitespace-pre-wrap">
                         {plan.summary}
                       </div>
                     </div>
@@ -804,26 +454,7 @@ function PrintContent() {
                   <h3 className="font-bold text-gray-700 mb-2">
                     Reflection / Self-Evaluation
                   </h3>
-                  {isEditing && (
-                    <textarea
-                      value={plan.reflection_self_evaluation}
-                      onChange={(e) =>
-                        handlePlanChange(
-                          index,
-                          "reflection_self_evaluation",
-                          e.target.value
-                        )
-                      }
-                      className="w-full border border-gray-400 bg-white p-1 text-sm print:hidden"
-                      rows={3}
-                      placeholder="To be filled after the lesson..."
-                    />
-                  )}
-                  <div
-                    className={`text-gray-900 whitespace-pre-wrap min-h-[100px] ${
-                      isEditing ? "hidden print:block" : ""
-                    }`}
-                  >
+                  <div className="text-gray-900 whitespace-pre-wrap min-h-[100px]">
                     {plan.reflection_self_evaluation ||
                       "To be filled after the lesson..."}
                   </div>

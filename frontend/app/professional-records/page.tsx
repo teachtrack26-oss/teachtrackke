@@ -87,7 +87,7 @@ interface RecordOfWork {
 
 export default function ProfessionalRecordsPage() {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [loading, setLoading] = useState(true);
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [activeTab, setActiveTab] = useState<"schemes" | "lessons" | "records">(
@@ -127,23 +127,38 @@ export default function ProfessionalRecordsPage() {
     subject_progress: [],
   });
 
+  // Sync session token to localStorage for Google OAuth users
+  useEffect(() => {
+    if (status === "authenticated" && (session as any)?.accessToken) {
+      const sessionToken = (session as any).accessToken;
+      const storedToken = localStorage.getItem("accessToken");
+      if (!storedToken && sessionToken) {
+        localStorage.setItem("accessToken", sessionToken);
+        if ((session as any)?.user) {
+          localStorage.setItem("user", JSON.stringify((session as any).user));
+        }
+      }
+    }
+  }, [session, status]);
+
   useEffect(() => {
     fetchData();
-  }, [showArchived, session]);
+  }, [showArchived, session, status]);
 
   const fetchData = async () => {
+    // Wait for session status to be determined
+    if (status === "loading") return;
+
     try {
-      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
-      
+      const sessionToken = (session as any)?.accessToken;
+      const storedToken = localStorage.getItem("accessToken");
+      const token = sessionToken || storedToken;
+
       if (!token) {
-        // Wait for session to load if not in local storage
-        if (session === undefined) return; 
-        // If session loaded and still no token, redirect
-        if (session === null) {
-            // router.push("/login"); // Optional: redirect if no auth
-            setLoading(false);
-            return;
-        }
+        // No token available, redirect to login
+        toast.error("Please login to access professional records");
+        router.push("/login");
+        return;
       }
 
       const archivedQuery = showArchived ? "?archived=true" : "";
@@ -250,7 +265,8 @@ export default function ProfessionalRecordsPage() {
     }
 
     try {
-      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
+      const token =
+        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       await axios.post("/api/v1/lesson-plans/bulk-delete", selectedPlans, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -300,7 +316,8 @@ export default function ProfessionalRecordsPage() {
     }
 
     try {
-      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
+      const token =
+        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       // Delete each record individually
       await Promise.all(
         selectedRecords.map((id) =>
@@ -389,7 +406,8 @@ export default function ProfessionalRecordsPage() {
   ) => {
     if (!confirm("Are you sure you want to archive this item?")) return;
     try {
-      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
+      const token =
+        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       let endpoint = "";
       if (type === "scheme") endpoint = `/api/v1/schemes/${id}/archive`;
       else if (type === "lesson")
@@ -415,7 +433,8 @@ export default function ProfessionalRecordsPage() {
     id: number
   ) => {
     try {
-      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
+      const token =
+        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       let endpoint = "";
       if (type === "scheme") endpoint = `/api/v1/schemes/${id}/unarchive`;
       else if (type === "lesson")
@@ -441,7 +460,8 @@ export default function ProfessionalRecordsPage() {
     id: number
   ) => {
     try {
-      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
+      const token =
+        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       const res = await axios.post(
         `/api/v1/${type}/${id}/share`,
         {},
@@ -463,7 +483,8 @@ export default function ProfessionalRecordsPage() {
   ) => {
     if (!confirm("Create a copy of this item?")) return;
     try {
-      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
+      const token =
+        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       await axios.post(
         `/api/v1/${type}/${id}/duplicate`,
         {},
@@ -637,7 +658,8 @@ export default function ProfessionalRecordsPage() {
             </h1>
           </div>
           <p className="text-lg text-gray-600 ml-15">
-            Manage your schemes of work, lesson plans, and teaching documentation
+            Manage your schemes of work, lesson plans, and teaching
+            documentation
           </p>
         </div>
 
@@ -652,7 +674,9 @@ export default function ProfessionalRecordsPage() {
                 {stats.totalSchemes}
               </div>
             </div>
-            <div className="text-sm font-medium text-gray-600">Total Schemes</div>
+            <div className="text-sm font-medium text-gray-600">
+              Total Schemes
+            </div>
           </div>
 
           <div className="group bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-lg hover:border-green-200 transition-all">
@@ -664,7 +688,9 @@ export default function ProfessionalRecordsPage() {
                 {stats.activeSchemes}
               </div>
             </div>
-            <div className="text-sm font-medium text-gray-600">Active Schemes</div>
+            <div className="text-sm font-medium text-gray-600">
+              Active Schemes
+            </div>
           </div>
 
           <div className="group bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-lg hover:border-purple-200 transition-all">
@@ -676,7 +702,9 @@ export default function ProfessionalRecordsPage() {
                 {stats.totalLessonPlans}
               </div>
             </div>
-            <div className="text-sm font-medium text-gray-600">Lesson Plans</div>
+            <div className="text-sm font-medium text-gray-600">
+              Lesson Plans
+            </div>
           </div>
 
           <div className="group bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-lg hover:border-emerald-200 transition-all">
@@ -688,7 +716,9 @@ export default function ProfessionalRecordsPage() {
                 {stats.taughtLessons}
               </div>
             </div>
-            <div className="text-sm font-medium text-gray-600">Taught Lessons</div>
+            <div className="text-sm font-medium text-gray-600">
+              Taught Lessons
+            </div>
           </div>
 
           <div className="group bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-lg hover:border-orange-200 transition-all">
@@ -712,7 +742,9 @@ export default function ProfessionalRecordsPage() {
                 {stats.completionRate}%
               </div>
             </div>
-            <div className="text-sm font-medium text-gray-600">Completion Rate</div>
+            <div className="text-sm font-medium text-gray-600">
+              Completion Rate
+            </div>
           </div>
         </div>
 

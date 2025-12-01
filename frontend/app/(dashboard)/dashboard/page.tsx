@@ -190,6 +190,20 @@ export default function DashboardPage() {
       assessmentsCreated: 0,
     });
 
+  // Sync session token to localStorage for Google OAuth users
+  useEffect(() => {
+    if (status === "authenticated" && (session as any)?.accessToken) {
+      const sessionToken = (session as any).accessToken;
+      const storedToken = localStorage.getItem("accessToken");
+      if (!storedToken && sessionToken) {
+        localStorage.setItem("accessToken", sessionToken);
+        if ((session as any)?.user) {
+          localStorage.setItem("user", JSON.stringify((session as any).user));
+        }
+      }
+    }
+  }, [session, status]);
+
   useEffect(() => {
     if (status === "loading") return; // Still loading
 
@@ -891,7 +905,7 @@ export default function DashboardPage() {
                 <FiClock className="w-4 h-4 text-gray-500 group-hover:text-indigo-600 transition-colors" />
                 <span>Timetable</span>
               </Link>
-              
+
               <Link
                 href="/curriculum"
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg shadow-indigo-200 hover:shadow-indigo-300 transition-all duration-300 text-sm font-semibold"
@@ -1036,25 +1050,35 @@ export default function DashboardPage() {
               <h2 className="text-2xl font-bold text-gray-900">
                 My Subjects Overview
               </h2>
-              
+
               {/* SaaS Limit Indicator */}
-              {(user?.subscription_type === "INDIVIDUAL_BASIC" || !user?.subscription_type) && (
+              {(user?.subscription_type === "INDIVIDUAL_BASIC" ||
+                !user?.subscription_type) && (
                 <div className="flex items-center gap-3 bg-orange-50 px-4 py-2 rounded-lg border border-orange-200">
                   <div className="flex items-center gap-2">
                     <div className="w-24 h-2 bg-orange-200 rounded-full overflow-hidden">
-                      <div 
-                        className={`h-full rounded-full ${subjects.length >= 4 ? 'bg-red-500' : 'bg-orange-500'}`} 
-                        style={{ width: `${Math.min((subjects.length / 4) * 100, 100)}%` }}
+                      <div
+                        className={`h-full rounded-full ${
+                          subjects.length >= 4 ? "bg-red-500" : "bg-orange-500"
+                        }`}
+                        style={{
+                          width: `${Math.min(
+                            (subjects.length / 4) * 100,
+                            100
+                          )}%`,
+                        }}
                       />
                     </div>
                     <span className="text-sm font-medium text-orange-800">
                       {subjects.length}/4 Used
                     </span>
                   </div>
-                  
+
                   {subjects.length >= 4 && (
-                    <button 
-                      onClick={() => toast.success("Premium features coming soon!")}
+                    <button
+                      onClick={() =>
+                        toast.success("Premium features coming soon!")
+                      }
                       className="text-xs bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1.5 rounded-md hover:shadow-md transition-all font-bold flex items-center gap-1"
                     >
                       <FiZap className="w-3 h-3" /> Upgrade
@@ -1095,13 +1119,16 @@ function EmptySchedule({
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
         <div className="absolute -top-24 -right-24 w-48 h-48 bg-indigo-50 rounded-full blur-3xl group-hover:bg-indigo-100 transition-colors duration-500"></div>
         <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-50 rounded-full blur-3xl group-hover:bg-purple-100 transition-colors duration-500"></div>
-        
+
         <div className="relative z-10">
           <div className="text-7xl mb-6 transform group-hover:scale-110 transition-transform duration-500 inline-block">
             {isWeekend ? "🏖️" : "☕"}
           </div>
           <h3 className="text-3xl font-bold text-gray-900 mb-3 tracking-tight">
-            No Lessons Today! {isWeekend && <span className="text-indigo-600">It's {dayName}</span>}
+            No Lessons Today!{" "}
+            {isWeekend && (
+              <span className="text-indigo-600">It's {dayName}</span>
+            )}
           </h3>
           <p className="text-gray-500 mb-8 max-w-md mx-auto text-lg leading-relaxed">
             {isWeekend
@@ -1112,8 +1139,10 @@ function EmptySchedule({
             href="/timetable"
             className="inline-flex items-center gap-2 bg-gray-900 hover:bg-gray-800 text-white font-medium px-8 py-3.5 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
           >
-            <FiClock className="w-5 h-5" /> 
-            <span>{nextLesson ? "View Full Timetable" : "Setup Timetable"}</span>
+            <FiClock className="w-5 h-5" />
+            <span>
+              {nextLesson ? "View Full Timetable" : "Setup Timetable"}
+            </span>
           </Link>
         </div>
       </div>
@@ -1127,10 +1156,12 @@ function EmptySchedule({
               <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-inner border border-white/20 flex-shrink-0">
                 <FiCalendar className="w-8 h-8 text-white" />
               </div>
-              
+
               <div className="flex-1">
                 <div className="flex items-center gap-2 text-indigo-100 mb-1 font-medium">
-                  <span className="uppercase tracking-wider text-xs bg-white/20 px-2 py-0.5 rounded">Up Next</span>
+                  <span className="uppercase tracking-wider text-xs bg-white/20 px-2 py-0.5 rounded">
+                    Up Next
+                  </span>
                   <span>
                     {nextLesson.day_name && `${nextLesson.day_name}, `}
                     {nextLesson.time_slot?.start_time}
@@ -1139,7 +1170,7 @@ function EmptySchedule({
                 <h3 className="text-2xl font-bold text-white mb-2">
                   {nextLesson.subject?.subject_name}
                 </h3>
-                
+
                 <div className="flex flex-wrap gap-3">
                   {nextLesson.grade_section && (
                     <div className="flex items-center gap-1.5 text-white/90 bg-black/20 px-3 py-1.5 rounded-lg text-sm backdrop-blur-sm">
@@ -1155,7 +1186,7 @@ function EmptySchedule({
                   )}
                 </div>
               </div>
-              
+
               <div className="hidden sm:block">
                 <div className="w-12 h-12 rounded-full border-2 border-white/30 flex items-center justify-center text-white/50">
                   <FiChevronRight className="w-6 h-6" />
@@ -1197,7 +1228,8 @@ function LessonCard({
     },
     current: {
       border: "border-l-4 border-l-green-500 ring-2 ring-green-500/20",
-      badge: "bg-green-100 text-green-700 border border-green-200 animate-pulse",
+      badge:
+        "bg-green-100 text-green-700 border border-green-200 animate-pulse",
       text: "In Progress",
       icon: <FiActivity className="w-3 h-3" />,
     },
@@ -1225,7 +1257,7 @@ function LessonCard({
             >
               <span className="text-2xl">{theme.icon}</span>
             </div>
-            
+
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-1">
                 <h3 className="text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">
@@ -1238,7 +1270,7 @@ function LessonCard({
                   {config.text}
                 </span>
               </div>
-              
+
               <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-500 mt-2">
                 <div className="flex items-center gap-1.5">
                   <FiClock className="w-4 h-4 text-indigo-400" />
@@ -1265,12 +1297,12 @@ function LessonCard({
               </div>
             </div>
           </div>
-          
+
           <button
             onClick={onToggleExpand}
             className={`p-2 rounded-lg transition-all duration-200 ${
-              isExpanded 
-                ? "bg-indigo-50 text-indigo-600 rotate-180" 
+              isExpanded
+                ? "bg-indigo-50 text-indigo-600 rotate-180"
                 : "hover:bg-gray-50 text-gray-400 hover:text-gray-600"
             }`}
           >

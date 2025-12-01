@@ -64,6 +64,8 @@ export default function EditLessonPlanPage() {
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [generatingAuto, setGeneratingAuto] = useState(false);
+  const [enhancingAI, setEnhancingAI] = useState(false);
   const [lessonPlan, setLessonPlan] = useState<LessonPlanData>({
     subject_id: 0,
     learning_area: "",
@@ -280,6 +282,89 @@ export default function EditLessonPlanPage() {
     }
   };
 
+  // Apply a standard template
+  const applyTemplate = () => {
+    setLessonPlan((prev) => ({
+      ...prev,
+      introduction:
+        "Introduction (5 minutes)\n- Recap the previous lesson on...\n- Guide learners to...\n- State the learning objectives",
+      development:
+        "Lesson Development (30 minutes)\n\nStep 1: (10 mins)\n- ...\n\nStep 2: (10 mins)\n- ...\n\nStep 3: (10 mins)\n- ...",
+      conclusion:
+        "Conclusion (5 minutes)\n- Summarize key points\n- Ask review questions\n- Preview next lesson\n- Assign homework",
+    }));
+    toast.success("Template applied!");
+  };
+
+  // Auto-generate from curriculum data
+  const autoGeneratePlan = async () => {
+    if (!lessonPlan.id) {
+      toast.error("Please save the lesson plan first");
+      return;
+    }
+
+    setGeneratingAuto(true);
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.post(
+        `/api/v1/lesson-plans/${lessonPlan.id}/auto-generate`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      const updatedPlan = response.data;
+      setLessonPlan((prev) => ({
+        ...prev,
+        introduction: updatedPlan.introduction || prev.introduction,
+        development: updatedPlan.development || prev.development,
+        conclusion: updatedPlan.conclusion || prev.conclusion,
+        summary: updatedPlan.summary || prev.summary,
+      }));
+      toast.success("Plan auto-generated from curriculum!");
+    } catch (error) {
+      console.error("Failed to auto-generate plan", error);
+      toast.error("Failed to auto-generate. Please try again.");
+    } finally {
+      setGeneratingAuto(false);
+    }
+  };
+
+  // Enhance with AI
+  const enhancePlan = async () => {
+    if (!lessonPlan.id) {
+      toast.error("Please save the lesson plan first");
+      return;
+    }
+
+    setEnhancingAI(true);
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.post(
+        `/api/v1/lesson-plans/${lessonPlan.id}/enhance`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      const enhancedPlan = response.data;
+      setLessonPlan((prev) => ({
+        ...prev,
+        introduction: enhancedPlan.introduction || prev.introduction,
+        development: enhancedPlan.development || prev.development,
+        conclusion: enhancedPlan.conclusion || prev.conclusion,
+        summary: enhancedPlan.summary || prev.summary,
+        reflection_self_evaluation:
+          enhancedPlan.reflection_self_evaluation ||
+          prev.reflection_self_evaluation,
+      }));
+      toast.success("Lesson plan enhanced with AI!");
+    } catch (error) {
+      console.error("Failed to enhance plan", error);
+      toast.error("Failed to enhance plan. Please try again.");
+    } finally {
+      setEnhancingAI(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -341,20 +426,32 @@ export default function EditLessonPlanPage() {
         <div className="absolute top-40 right-20 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 py-8">
+      <div className="relative z-10 max-w-4xl mx-auto px-4 py-8 pt-24">
         {/* Header */}
         <div className="mb-8">
-          <button
-            onClick={() =>
-              router.push(
-                `/professional-records/lesson-plans/${planId.replace(/-$/, "")}`
-              )
-            }
-            className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 mb-4 font-medium"
-          >
-            <FiArrowLeft className="w-5 h-5" />
-            Back to Lesson Plan
-          </button>
+          <div className="flex items-center gap-4 mb-4">
+            <button
+              onClick={() => router.push("/professional-records?tab=lessons")}
+              className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-medium"
+            >
+              <FiArrowLeft className="w-5 h-5" />
+              Back to Professional Records
+            </button>
+            <span className="text-gray-400">|</span>
+            <button
+              onClick={() =>
+                router.push(
+                  `/professional-records/lesson-plans/${planId.replace(
+                    /-$/,
+                    ""
+                  )}`
+                )
+              }
+              className="flex items-center gap-2 text-gray-600 hover:text-gray-800 font-medium"
+            >
+              View Lesson Plan
+            </button>
+          </div>
 
           <div className="flex items-center gap-3">
             <div className="p-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl">
@@ -663,9 +760,49 @@ export default function EditLessonPlanPage() {
 
               {/* Organization of Learning */}
               <div className="border-t pt-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">
-                  Organization of learning
-                </h3>
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-lg font-bold text-gray-900">
+                    Organization of learning
+                  </h3>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={applyTemplate}
+                      className="text-sm bg-gray-600 text-white px-3 py-1.5 rounded-lg hover:bg-gray-700 flex items-center gap-1 transition-colors"
+                      title="Apply a standard structure template"
+                    >
+                      <span>📝</span> Template
+                    </button>
+                    <button
+                      type="button"
+                      onClick={autoGeneratePlan}
+                      disabled={generatingAuto}
+                      className="text-sm bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700 flex items-center gap-1 transition-colors disabled:opacity-50"
+                      title="Auto-generate from curriculum (Free)"
+                    >
+                      {generatingAuto ? (
+                        <span className="animate-spin">⌛</span>
+                      ) : (
+                        <span>⚡</span>
+                      )}
+                      {generatingAuto ? "Generating..." : "Auto-Generate"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={enhancePlan}
+                      disabled={enhancingAI}
+                      className="text-sm bg-purple-600 text-white px-3 py-1.5 rounded-lg hover:bg-purple-700 flex items-center gap-1 transition-colors disabled:opacity-50"
+                      title="Generate detailed content using AI"
+                    >
+                      {enhancingAI ? (
+                        <span className="animate-spin">⌛</span>
+                      ) : (
+                        <span>✨</span>
+                      )}
+                      {enhancingAI ? "Enhancing..." : "AI Enhance"}
+                    </button>
+                  </div>
+                </div>
 
                 <div className="space-y-6">
                   <div>

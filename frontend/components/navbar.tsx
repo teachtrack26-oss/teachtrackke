@@ -169,6 +169,11 @@ export default function Navbar() {
       href: "/professional-records",
       public: false,
     },
+    {
+      name: "Settings",
+      href: "/settings/profile",
+      public: false,
+    },
     // Admin link - only visible to admins
     ...(isAdmin
       ? [

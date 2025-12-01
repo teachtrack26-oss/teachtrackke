@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import GoogleSignInButtonNextAuth from "@/components/auth/GoogleSignInButtonNextAuth";
 
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -15,12 +16,27 @@ export default function LoginPage() {
 
   // Check if user is already logged in
   useEffect(() => {
-    // Always clear auth when visiting login page - force fresh login
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
-    sessionStorage.clear();
+    // Don't clear auth if coming back from OAuth callback with error
+    const error = searchParams.get("error");
+    if (error) {
+      // Show OAuth error message
+      if (error === "Configuration") {
+        toast.error("Google sign-in configuration error. Please try again.");
+      } else {
+        toast.error(`Sign-in error: ${error}`);
+      }
+    }
+
+    // Only clear auth data if user is intentionally visiting login page
+    // Don't clear if there's an OAuth callback happening
+    const callbackUrl = searchParams.get("callbackUrl");
+    if (!callbackUrl) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("user");
+      sessionStorage.clear();
+    }
     setCheckingAuth(false);
-  }, [router]);
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -97,7 +113,6 @@ export default function LoginPage() {
     }
   };
 
-
   // Show loading state while checking authentication
   if (checkingAuth) {
     return (
@@ -131,12 +146,13 @@ export default function LoginPage() {
         {/* Google Sign In */}
         <div className="mb-6">
           <GoogleSignInButtonNextAuth />
-          
+
           {/* Helper text */}
           <p className="mt-3 text-center text-xs text-gray-500 italic">
-            New to TeachTrack? Google Sign-In automatically creates your account!
+            New to TeachTrack? Google Sign-In automatically creates your
+            account!
           </p>
-          
+
           <div className="relative mt-6">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300" />

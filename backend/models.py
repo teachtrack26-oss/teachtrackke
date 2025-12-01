@@ -143,6 +143,10 @@ class User(Base):
     # SaaS Relationships
     school_rel = relationship("School", foreign_keys=[school_id], back_populates="teachers")
     managed_school = relationship("School", foreign_keys="[School.admin_id]", back_populates="admin", uselist=False)
+    
+    # Teacher Profile (for independent teachers)
+    teacher_profile = relationship("TeacherProfile", back_populates="user", uselist=False, cascade="all, delete-orphan")
+
 
 class Subject(Base):
     __tablename__ = "subjects"
@@ -552,6 +556,30 @@ class LessonConfiguration(Base):
     )
 
 
+class TeacherLessonConfig(Base):
+    """Teacher-specific lesson configuration (for independent teachers)"""
+    __tablename__ = 'teacher_lesson_configs'
+    
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
+    subject_name = Column(String(255), nullable=False)
+    grade = Column(String(50), nullable=False)
+    lessons_per_week = Column(Integer, default=5)
+    double_lessons_per_week = Column(Integer, default=0)
+    single_lesson_duration = Column(Integer, default=40)  # in minutes
+    double_lesson_duration = Column(Integer, default=80)  # in minutes
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    user = relationship("User")
+    
+    # Unique constraint: one config per user + subject + grade
+    __table_args__ = (
+        Index('ix_teacher_lesson_config_user_subject_grade', 'user_id', 'subject_name', 'grade', unique=True),
+    )
+
+
 class SystemAnnouncement(Base):
     __tablename__ = "system_announcements"
     
@@ -768,3 +796,80 @@ class RecordOfWorkEntry(Base):
     updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
     
     record = relationship("RecordOfWork", back_populates="entries")
+
+
+# ============================================================================
+# TEACHER PROFILE MODEL (For Independent Teachers)
+# ============================================================================
+
+class TeacherProfile(Base):
+    """
+    Profile settings for independent teachers (not linked to a school).
+    Stores their school context, teaching preferences, and professional details.
+    
+    Logic:
+    - If teacher has school_id (linked to a school) → Use SchoolSettings
+    - If teacher has NO school_id (independent) → Use TeacherProfile
+    """
+    __tablename__ = 'teacher_profiles'
+    
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), unique=True, nullable=False)
+    
+    # ========================================
+    # School Context (for letterheads/documents)
+    # ========================================
+    school_name = Column(String(255))
+    school_logo_url = Column(String(500))
+    school_address = Column(Text)
+    school_phone = Column(String(50))
+    school_email = Column(String(255))
+    school_motto = Column(String(500))
+    principal_name = Column(String(255))
+    deputy_principal_name = Column(String(255))
+    county = Column(String(100))
+    sub_county = Column(String(100))
+    school_type = Column(String(50))  # Public, Private, Government, Faith-Based, County
+    
+    # ========================================
+    # Teaching Preferences (defaults for new subjects)
+    # ========================================
+    default_lessons_per_week = Column(Integer, default=5)
+    default_lesson_duration = Column(Integer, default=40)  # minutes
+    default_double_lesson_duration = Column(Integer, default=80)  # minutes
+    default_double_lessons_per_week = Column(Integer, default=0)
+    
+    # ========================================
+    # Professional Details
+    # ========================================
+    tsc_number = Column(String(50))  # Teachers Service Commission Number
+    registration_number = Column(String(50))  # Other registration
+    subjects_taught = Column(JSON)  # Array: ["Mathematics", "Science"]
+    grade_levels_taught = Column(JSON)  # Array: ["Grade 4", "Grade 5"]
+    years_of_experience = Column(Integer)
+    qualifications = Column(Text)  # Degrees, certifications
+    specialization = Column(String(255))  # e.g., "Special Needs Education"
+    
+    # ========================================
+    # Academic Year Settings
+    # ========================================
+    current_academic_year = Column(String(20))  # e.g., "2024/2025"
+    default_term_weeks = Column(Integer, default=13)  # Teaching weeks per term
+    
+    # ========================================
+    # Grades & Streams Configuration
+    # ========================================
+    grades_offered = Column(JSON)  # Array: ["Grade 1", "Grade 2", "Grade 3"]
+    streams_per_grade = Column(JSON)  # Object: {"Grade 1": ["East", "West"], "Grade 2": ["A", "B"]}
+    
+    # ========================================
+    # Timestamps
+    # ========================================
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    # ========================================
+    # Relationships
+    # ========================================
+    user = relationship("User", back_populates="teacher_profile")
+

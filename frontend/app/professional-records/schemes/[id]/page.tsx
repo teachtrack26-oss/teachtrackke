@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import {
   FiArrowLeft,
   FiDownload,
@@ -48,7 +49,8 @@ interface Week {
 interface SchemeOfWork {
   id: number;
   subject_id: number;
-  subject_name: string;
+  subject_name?: string;
+  subject?: string;
   grade: string;
   term_number: number;
   term_year: number;
@@ -58,36 +60,94 @@ interface SchemeOfWork {
   weeks: Week[];
   created_at: string;
   updated_at: string;
+  teacher_name?: string;
+  school?: string;
+  term?: string;
+  year?: number;
+}
+
+interface SchoolContext {
+  has_context?: boolean;
+  school_name?: string;
+  principal_name?: string;
+  county?: string;
+  sub_county?: string;
 }
 
 export default function ViewSchemePage() {
   const router = useRouter();
   const params = useParams();
   const schemeId = params?.id as string;
+  const { data: session, status } = useSession();
 
   const [loading, setLoading] = useState(true);
   const [scheme, setScheme] = useState<SchemeOfWork | null>(null);
+  const [schoolContext, setSchoolContext] = useState<SchoolContext | null>(
+    null
+  );
   const [expandedWeeks, setExpandedWeeks] = useState<Set<number>>(new Set());
   const [changingStatus, setChangingStatus] = useState(false);
   const [generatingPlans, setGeneratingPlans] = useState(false);
 
+  // Sync session token to localStorage on mount
   useEffect(() => {
+    if (status === "authenticated" && (session as any)?.accessToken) {
+      const sessionToken = (session as any).accessToken;
+      const localToken = localStorage.getItem("accessToken");
+      if (!localToken || localToken !== sessionToken) {
+        localStorage.setItem("accessToken", sessionToken);
+        console.log("Synced session token to localStorage");
+      }
+    }
+  }, [session, status]);
+
+  useEffect(() => {
+    // Wait for session to load before fetching
+    if (status === "loading") return;
+
     if (schemeId) {
       fetchScheme();
     }
-  }, [schemeId]);
+  }, [schemeId, status]);
 
   const fetchScheme = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
+      // Check for token from localStorage or session
+      let token =
+        localStorage.getItem("accessToken") || (session as any)?.accessToken;
+
+      if (!token) {
+        toast.error("Please login to view scheme");
+        router.push("/login");
+        return;
+      }
+
+      // Fetch school context for teacher/school names
+      try {
+        const contextRes = await axios.get("/api/v1/profile/school-context", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log("School context response:", contextRes.data);
+        setSchoolContext(contextRes.data);
+      } catch (err) {
+        console.error("Failed to fetch school context:", err);
+      }
+
       const response = await axios.get(`/api/v1/schemes/${schemeId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log("Scheme data:", response.data);
+      console.log("Session user:", session?.user);
       setScheme(response.data);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to fetch scheme:", error);
-      toast.error("Failed to load scheme of work");
-      router.push("/professional-records");
+      if (error.response?.status === 401) {
+        toast.error("Session expired. Please login again.");
+        router.push("/login");
+      } else {
+        toast.error("Failed to load scheme of work");
+        router.push("/professional-records");
+      }
     } finally {
       setLoading(false);
     }
@@ -111,7 +171,8 @@ export default function ViewSchemePage() {
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token =
+        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       await axios.delete(`/api/v1/schemes/${schemeId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -129,7 +190,8 @@ export default function ViewSchemePage() {
     const loadingToast = toast.loading("Generating PDF...");
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token =
+        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       const response = await axios.get(`/api/v1/schemes/${schemeId}/pdf`, {
         headers: { Authorization: `Bearer ${token}` },
         responseType: "blob",
@@ -141,8 +203,11 @@ export default function ViewSchemePage() {
       link.href = url;
 
       // Generate filename
+      const subjectName = scheme.subject_name || scheme.subject || "Scheme";
+      const term = scheme.term || `Term${scheme.term_number}`;
+      const year = scheme.year || scheme.term_year;
       const filename =
-        `${scheme.subject_name}_${scheme.grade}_Term${scheme.term_number}_${scheme.term_year}.pdf`.replace(
+        `${subjectName}_${scheme.grade}_${term}_${year}.pdf`.replace(
           /\s+/g,
           "_"
         );
@@ -169,7 +234,8 @@ export default function ViewSchemePage() {
 
     setChangingStatus(true);
     try {
-      const token = localStorage.getItem("accessToken");
+      const token =
+        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       await axios.put(
         `/api/v1/schemes/${schemeId}`,
         { ...scheme, status: newStatus },
@@ -199,7 +265,8 @@ export default function ViewSchemePage() {
     const loadingToast = toast.loading("Generating lesson plans...");
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const token =
+        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       const response = await axios.post(
         `/api/v1/schemes/${schemeId}/generate-lesson-plans`,
         {},
@@ -227,7 +294,7 @@ export default function ViewSchemePage() {
     }
   };
 
-  if (loading) {
+  if (loading || status === "loading") {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100">
         <div className="text-center">
@@ -251,31 +318,73 @@ export default function ViewSchemePage() {
   return (
     <>
       <style jsx global>{`
+        @page {
+          size: A4 landscape;
+          margin: 5mm;
+        }
+
         @media print {
-          @page {
-            size: A4 landscape;
-            margin: 8mm 5mm;
+          /* Hide navbar and all navigation elements */
+          nav,
+          header,
+          .navbar,
+          [class*="navbar"],
+          [class*="Navbar"],
+          .no-print {
+            display: none !important;
           }
 
           body {
             print-color-adjust: exact;
             -webkit-print-color-adjust: exact;
-          }
-
-          .no-print {
-            display: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
           }
 
           .print-full-width {
             width: 100% !important;
             max-width: 100% !important;
             margin: 0 !important;
-            padding: 0 !important;
+            padding: 0 5mm !important;
+          }
+
+          /* Remove extra spacing reserved for navbar */
+          .pt-24 {
+            padding-top: 0 !important;
+          }
+
+          .py-6 {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+          }
+
+          .mb-2,
+          .mb-3,
+          .mb-4 {
+            margin-bottom: 2mm !important;
+          }
+
+          /* Compact header */
+          .scheme-header {
+            margin-bottom: 2mm !important;
+            padding: 2mm !important;
+          }
+
+          .scheme-title {
+            font-size: 14pt !important;
+            margin-bottom: 1mm !important;
+            padding-bottom: 1mm !important;
+          }
+
+          .scheme-info-grid {
+            font-size: 9pt !important;
+            gap: 1mm !important;
           }
 
           table {
             page-break-inside: auto;
-            font-size: 8.5pt !important;
+            font-size: 9pt !important;
+            width: 100% !important;
           }
 
           tr {
@@ -290,24 +399,33 @@ export default function ViewSchemePage() {
           th,
           td {
             padding: 3px 4px !important;
-            font-size: 8.5pt !important;
-            line-height: 1.2 !important;
+            font-size: 9pt !important;
+            line-height: 1.25 !important;
           }
 
           th {
-            background: #4a5568 !important;
+            background: #4338ca !important;
             color: white !important;
-            font-size: 9pt !important;
+            font-size: 10pt !important;
           }
 
           .learning-experiences {
-            font-size: 8.5pt !important;
-            line-height: 1.3 !important;
+            font-size: 9pt !important;
+            line-height: 1.25 !important;
+          }
+
+          /* Hide glass effects */
+          .glass-card {
+            background: white !important;
+            box-shadow: none !important;
+            border: none !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
           }
         }
       `}</style>
-      <div className="min-h-screen bg-white relative overflow-hidden">
-        <div className="relative z-10 max-w-full mx-auto px-8 py-6 print-full-width">
+      <div className="min-h-screen bg-white relative overflow-hidden pt-24">
+        <div className="relative z-10 max-w-full mx-auto px-8 py-6 print-full-width print-container">
           {/* Action Buttons - Only visible on screen */}
           <div className="mb-4 flex justify-between items-center no-print">
             <button
@@ -328,11 +446,11 @@ export default function ViewSchemePage() {
                 {generatingPlans ? "Generating..." : "Generate Lesson Plans"}
               </button>
               <button
-                onClick={() => window.print()}
+                onClick={handleDownloadPDF}
                 className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-4 py-2 rounded-lg font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300"
               >
                 <FiDownload className="w-4 h-4" />
-                Print
+                Download PDF
               </button>
               <button
                 onClick={() =>
@@ -354,25 +472,33 @@ export default function ViewSchemePage() {
           </div>
 
           {/* Document Header - Scheme of Work Title */}
-          <div className="text-center mb-3 pb-2 border-b-2 border-gray-700">
-            <h1 className="text-3xl font-bold text-blue-700 uppercase">
+          <div className="text-center mb-2 pb-1 border-b-2 border-gray-700">
+            <h1 className="text-2xl font-bold text-blue-700 uppercase scheme-title">
               SCHEME OF WORK
             </h1>
           </div>
 
-          {/* Scheme Info Grid */}
-          <div className="mb-4 p-3 bg-gray-50 border border-gray-300">
-            <div className="grid grid-cols-4 gap-x-4 gap-y-2 text-sm">
+          {/* Scheme Info Grid - Compact */}
+          <div className="mb-3 p-2 bg-gray-50 border border-gray-300 scheme-header">
+            <div className="grid grid-cols-4 gap-x-3 gap-y-1 text-sm scheme-info-grid">
               <div>
-                <span className="font-bold">Teacher:</span> <span>kevin</span>
+                <span className="font-bold">Teacher:</span>{" "}
+                <span>
+                  {scheme.teacher_name ||
+                    (session?.user as any)?.full_name ||
+                    session?.user?.name ||
+                    "N/A"}
+                </span>
               </div>
               <div>
                 <span className="font-bold">School:</span>{" "}
-                <span>lions school</span>
+                <span>
+                  {schoolContext?.school_name || scheme.school || "N/A"}
+                </span>
               </div>
               <div>
                 <span className="font-bold">Subject:</span>{" "}
-                <span>{scheme.subject_name}</span>
+                <span>{scheme.subject || scheme.subject_name || "N/A"}</span>
               </div>
               <div>
                 <span className="font-bold">Grade:</span>{" "}
@@ -384,7 +510,7 @@ export default function ViewSchemePage() {
               </div>
               <div>
                 <span className="font-bold">Year:</span>{" "}
-                <span>{scheme.term_year}</span>
+                <span>{scheme.term_year || new Date().getFullYear()}</span>
               </div>
               <div>
                 <span className="font-bold">Total Weeks:</span>{" "}
@@ -446,6 +572,13 @@ export default function ViewSchemePage() {
                 <input
                   type="text"
                   placeholder="Enter teacher name"
+                  value={
+                    scheme.teacher_name ||
+                    (session?.user as any)?.full_name ||
+                    session?.user?.name ||
+                    ""
+                  }
+                  readOnly
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
@@ -456,6 +589,8 @@ export default function ViewSchemePage() {
                 <input
                   type="text"
                   placeholder="Enter school name"
+                  value={schoolContext?.school_name || scheme.school || ""}
+                  readOnly
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
@@ -465,7 +600,7 @@ export default function ViewSchemePage() {
                 </label>
                 <input
                   type="text"
-                  value={scheme.subject_name}
+                  value={scheme.subject || scheme.subject_name}
                   disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50"
                 />
@@ -487,7 +622,10 @@ export default function ViewSchemePage() {
                 </label>
                 <input
                   type="text"
-                  value={`Term ${scheme.term_number}`}
+                  value={
+                    scheme.term ||
+                    (scheme.term_number ? `Term ${scheme.term_number}` : "")
+                  }
                   disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50"
                 />
@@ -498,7 +636,7 @@ export default function ViewSchemePage() {
                 </label>
                 <input
                   type="text"
-                  value={scheme.term_year}
+                  value={scheme.year || scheme.term_year}
                   disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50"
                 />
@@ -507,91 +645,91 @@ export default function ViewSchemePage() {
           </div>
 
           {/* Scheme of Work Table */}
-          <div className="glass-card bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8 overflow-x-auto">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 no-print">
+          <div className="glass-card bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-4 overflow-x-auto print:p-0">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4 no-print">
               Scheme of Work
             </h2>
 
             <div className="overflow-x-auto">
               <table
                 className="w-full border-collapse border border-gray-400"
-                style={{ width: "100%" }}
+                style={{ width: "100%", tableLayout: "fixed" }}
               >
                 <thead>
                   <tr className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
                     <th
-                      className="border border-gray-400 px-3 py-3 text-left text-sm font-bold"
-                      style={{ width: "3.5%" }}
+                      className="border border-gray-400 px-2 py-2 text-left text-xs font-bold"
+                      style={{ width: "4%" }}
                     >
-                      Week
+                      Wk
                     </th>
                     <th
-                      className="border border-gray-400 px-3 py-3 text-left text-sm font-bold"
-                      style={{ width: "3.5%" }}
+                      className="border border-gray-400 px-2 py-2 text-left text-xs font-bold"
+                      style={{ width: "4%" }}
                     >
-                      Lesson
+                      Ls
                     </th>
                     <th
-                      className="border border-gray-400 px-3 py-3 text-left text-sm font-bold"
-                      style={{ width: "10%" }}
+                      className="border border-gray-400 px-2 py-2 text-left text-xs font-bold"
+                      style={{ width: "9%" }}
                     >
-                      Strand /Theme
+                      Strand/Theme
                     </th>
                     <th
-                      className="border border-gray-400 px-3 py-3 text-left text-sm font-bold"
-                      style={{ width: "10%" }}
+                      className="border border-gray-400 px-2 py-2 text-left text-xs font-bold"
+                      style={{ width: "9%" }}
                     >
                       Sub-strand
                     </th>
                     <th
-                      className="border border-gray-400 px-3 py-3 text-left text-sm font-bold"
-                      style={{ width: "19%" }}
+                      className="border border-gray-400 px-2 py-2 text-left text-xs font-bold"
+                      style={{ width: "15%" }}
                     >
-                      Specific-Learning outcomes
+                      Learning Outcomes
                     </th>
                     <th
-                      className="border border-gray-400 px-3 py-3 text-left text-sm font-bold"
-                      style={{ width: "14%" }}
+                      className="border border-gray-400 px-2 py-2 text-left text-xs font-bold"
+                      style={{ width: "12%" }}
                     >
-                      Key Inquiry Question(S)
+                      Key Inquiry Questions
                     </th>
                     <th
-                      className="border border-gray-400 px-3 py-3 text-left text-sm font-bold"
-                      style={{ width: "24%" }}
+                      className="border border-gray-400 px-2 py-2 text-left text-xs font-bold"
+                      style={{ width: "22%" }}
                     >
-                      Learning/ Teaching Experience
+                      Learning Experiences
                     </th>
                     <th
-                      className="border border-gray-400 px-3 py-3 text-left text-sm font-bold"
+                      className="border border-gray-400 px-2 py-2 text-left text-xs font-bold"
                       style={{ width: "9%" }}
                     >
-                      Learning Resources
+                      Resources
                     </th>
                     <th
-                      className="border border-gray-400 px-3 py-3 text-left text-sm font-bold"
+                      className="border border-gray-400 px-2 py-2 text-left text-xs font-bold"
                       style={{ width: "9%" }}
                     >
-                      Assessment Methods
+                      Assessment
                     </th>
                     <th
-                      className="border border-gray-400 px-3 py-3 text-left text-sm font-bold"
-                      style={{ width: "6%" }}
+                      className="border border-gray-400 px-2 py-2 text-left text-xs font-bold"
+                      style={{ width: "7%" }}
                     >
-                      Reflection
+                      Reflect.
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {scheme.weeks.map((week) =>
                     week.lessons.map((lesson, lessonIdx) => {
-                      // Format specific learning outcomes to ensure it starts with the proper prefix
+                      // Format specific learning outcomes - more compact
                       const formattedOutcomes =
                         lesson.specific_learning_outcomes?.trim()
                           ? lesson.specific_learning_outcomes.startsWith(
-                              "By the end of the sub-strand"
+                              "By the end"
                             )
                             ? lesson.specific_learning_outcomes
-                            : `By the end of the sub-strand, the learner should be able to:\n${lesson.specific_learning_outcomes}`
+                            : `By the end of the sub-strand, the learner should be able to: ${lesson.specific_learning_outcomes}`
                           : "";
 
                       return (
@@ -601,45 +739,39 @@ export default function ViewSchemePage() {
                         >
                           {lessonIdx === 0 && (
                             <td
-                              className="border border-gray-400 px-3 py-3 text-sm font-semibold text-center bg-gray-50 align-middle"
+                              className="border border-gray-400 px-2 py-2 text-xs font-semibold text-center bg-gray-50 align-middle"
                               rowSpan={week.lessons.length}
                             >
                               {week.week_number}
                             </td>
                           )}
-                          <td className="border border-gray-400 px-3 py-3 text-sm font-semibold text-center bg-gray-50">
+                          <td className="border border-gray-400 px-2 py-2 text-xs font-semibold text-center bg-gray-50">
                             {lessonIdx + 1}
                           </td>
-                          <td className="border border-gray-400 px-3 py-3 text-sm">
+                          <td className="border border-gray-400 px-2 py-2 text-xs">
                             {lesson.strand || ""}
                           </td>
-                          <td className="border border-gray-400 px-3 py-3 text-sm">
+                          <td className="border border-gray-400 px-2 py-2 text-xs">
                             {lesson.sub_strand || ""}
                           </td>
-                          <td className="border border-gray-400 px-3 py-3 text-sm whitespace-pre-wrap">
+                          <td className="border border-gray-400 px-2 py-2 text-xs whitespace-pre-wrap">
                             {formattedOutcomes}
                           </td>
-                          <td className="border border-gray-400 px-3 py-3 text-sm whitespace-pre-wrap">
+                          <td className="border border-gray-400 px-2 py-2 text-xs whitespace-pre-wrap">
                             {lesson.key_inquiry_questions || ""}
                           </td>
-                          <td className="border border-gray-400 px-3 py-3 text-sm whitespace-pre-wrap learning-experiences">
+                          <td className="border border-gray-400 px-2 py-2 text-xs whitespace-pre-wrap learning-experiences">
                             {(() => {
                               if (!lesson.learning_experiences) return "";
-
                               const text = lesson.learning_experiences.trim();
-                              // Split by newline if present, otherwise split by period followed by space or end of string
-                              // This handles both paragraph style (sentences) and list style (newlines)
                               let parts = text.includes("\n")
                                 ? text.split("\n")
                                 : text.split(/\.\s+/);
-
                               return parts
                                 .map((p) => p.trim())
                                 .filter((p) => p.length > 0)
                                 .map((p) => {
-                                  // Remove existing bullets if any
                                   const cleanP = p.replace(/^[•\-\*]\s*/, "");
-                                  // Capitalize first letter
                                   return `• ${
                                     cleanP.charAt(0).toUpperCase() +
                                     cleanP.slice(1)
@@ -648,60 +780,37 @@ export default function ViewSchemePage() {
                                 .join("\n");
                             })()}
                           </td>
-                          <td className="border border-gray-400 px-3 py-3 text-sm whitespace-pre-wrap">
-                            <div className="space-y-1">
-                              {lesson.learning_resources
-                                ? lesson.learning_resources
-                                    .split(",")
-                                    .map((r) => r.trim())
-                                    .filter((r) => r.length > 0)
-                                    .map((r, i) => (
-                                      <div key={i}>
-                                        •{" "}
-                                        {r.charAt(0).toUpperCase() + r.slice(1)}
-                                      </div>
-                                    ))
-                                : ""}
-
-                              {lesson.textbook_name && (
-                                <div className="mt-3 pt-2 border-t border-gray-300">
-                                  <div className="font-bold text-gray-900 mb-1">
-                                    Textbook:
-                                  </div>
-                                  <div className="text-gray-800 mb-1">
-                                    {lesson.textbook_name}
-                                  </div>
-                                  {lesson.textbook_teacher_guide_pages && (
-                                    <div className="text-gray-700">
-                                      TG: {lesson.textbook_teacher_guide_pages}
-                                    </div>
-                                  )}
-                                  {lesson.textbook_learner_book_pages && (
-                                    <div className="text-gray-700">
-                                      LB: {lesson.textbook_learner_book_pages}
-                                    </div>
-                                  )}
-                                </div>
-                              )}
-                            </div>
+                          <td className="border border-gray-400 px-2 py-2 text-xs whitespace-pre-wrap">
+                            {lesson.learning_resources
+                              ? lesson.learning_resources
+                                  .split(",")
+                                  .map((r) => r.trim())
+                                  .filter((r) => r.length > 0)
+                                  .map(
+                                    (r) =>
+                                      `• ${
+                                        r.charAt(0).toUpperCase() + r.slice(1)
+                                      }`
+                                  )
+                                  .join("\n")
+                              : ""}
                           </td>
-                          <td className="border border-gray-400 px-3 py-3 text-sm whitespace-pre-wrap">
-                            <div className="space-y-1">
-                              {lesson.assessment_methods
-                                ? lesson.assessment_methods
-                                    .split(",")
-                                    .map((m) => m.trim())
-                                    .filter((m) => m.length > 0)
-                                    .map((m, i) => (
-                                      <div key={i}>
-                                        •{" "}
-                                        {m.charAt(0).toUpperCase() + m.slice(1)}
-                                      </div>
-                                    ))
-                                : ""}
-                            </div>
+                          <td className="border border-gray-400 px-2 py-2 text-xs whitespace-pre-wrap">
+                            {lesson.assessment_methods
+                              ? lesson.assessment_methods
+                                  .split(",")
+                                  .map((m) => m.trim())
+                                  .filter((m) => m.length > 0)
+                                  .map(
+                                    (m) =>
+                                      `• ${
+                                        m.charAt(0).toUpperCase() + m.slice(1)
+                                      }`
+                                  )
+                                  .join("\n")
+                              : ""}
                           </td>
-                          <td className="border border-gray-400 px-3 py-3 text-sm whitespace-pre-wrap">
+                          <td className="border border-gray-400 px-2 py-2 text-xs whitespace-pre-wrap">
                             {lesson.reflection || ""}
                           </td>
                         </tr>

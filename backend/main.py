@@ -19,7 +19,8 @@ from models import (
     SchoolSchedule, TimeSlot, TimetableEntry,
     SchoolSettings, SchoolTerm, CalendarActivity, LessonConfiguration,
     SchemeOfWork, SchemeWeek, SchemeLesson, LessonPlan, RecordOfWork, RecordOfWorkEntry,
-    SystemAnnouncement, SubscriptionType, UserRole, School, SubscriptionStatus
+    SystemAnnouncement, SubscriptionType, UserRole, School, SubscriptionStatus,
+    TeacherProfile, TeacherLessonConfig
 )
 from sqlalchemy import text, func, and_, or_
 from schemas import (
@@ -38,7 +39,7 @@ from schemas import (
     SchoolScheduleCreate, SchoolScheduleUpdate, SchoolScheduleResponse,
     TimeSlotResponse, TimetableEntryCreate, TimetableEntryUpdate, TimetableEntryResponse,
     SchemeOfWorkCreate, SchemeOfWorkUpdate, SchemeOfWorkResponse, SchemeOfWorkSummary,
-    SchemeWeekCreate, SchemeWeekResponse, SchemeLessonCreate, SchemeLessonResponse,
+    SchemeWeekCreate, SchemeWeekResponse, SchemeLessonCreate, SchemeLessonResponse, SchemeLessonUpdate,
     LessonPlanCreate, LessonPlanUpdate, LessonPlanResponse, LessonPlanSummary,
     RecordOfWorkCreate, RecordOfWorkUpdate, RecordOfWorkResponse, RecordOfWorkSummary,
     RecordOfWorkEntryCreate, RecordOfWorkEntryUpdate, RecordOfWorkEntryResponse,
@@ -47,7 +48,8 @@ from schemas import (
     AdminRoleUpdate, ResetProgressRequest,
     TermsResponse, TermResponse, TermUpdate,
     UserSettingsUpdate, UserSettingsResponse,
-    SchoolCreate, SchoolResponse, TeacherInvite, SchoolTeacherResponse
+    SchoolCreate, SchoolResponse, TeacherInvite, SchoolTeacherResponse,
+    TeacherProfileCreate, TeacherProfileUpdate, TeacherProfileResponse, TeacherProfileLogoResponse
 )
 from auth import verify_password, get_password_hash, create_access_token, verify_token
 from config import settings
@@ -549,6 +551,415 @@ def remove_teacher(
     db.commit()
     
     return {"message": "Teacher removed from school"}
+
+# ============================================================================
+# TEACHER PROFILE ENDPOINTS (For Independent Teachers)
+# ============================================================================
+
+def get_user_school_context(user: User, db: Session) -> dict:
+    """
+    Get school context for a user - either from SchoolSettings or TeacherProfile.
+    
+    Returns a dict with standardized fields for use in document generation.
+    - If user is linked to a school (school_id) → Use SchoolSettings
+    - If user is independent (no school_id) → Use TeacherProfile
+    """
+    if user.school_id:
+        # User is linked to a school - try to find SchoolSettings
+        # Note: SchoolSettings might not be linked to School yet, so we get the first one
+        school = db.query(School).filter(School.id == user.school_id).first()
+        school_settings = db.query(SchoolSettings).first()  # For now, get the global one
+        
+        if school_settings:
+            return {
+                "school_name": school_settings.school_name or (school.name if school else None),
+                "school_logo_url": school_settings.school_logo_url,
+                "school_address": school_settings.school_address,
+                "school_phone": school_settings.school_phone,
+                "school_email": school_settings.school_email,
+                "school_motto": school_settings.school_motto,
+                "principal_name": school_settings.principal_name,
+                "deputy_principal_name": school_settings.deputy_principal_name,
+                "county": school_settings.county,
+                "sub_county": school_settings.sub_county,
+                "school_type": school_settings.school_type,
+                "grades_offered": school_settings.grades_offered,
+                "streams_per_grade": school_settings.streams_per_grade,
+                "source": "school_settings"
+            }
+        elif school:
+            # Fallback to just school name
+            return {
+                "school_name": school.name,
+                "school_logo_url": None,
+                "school_address": None,
+                "school_phone": None,
+                "school_email": None,
+                "school_motto": None,
+                "principal_name": None,
+                "deputy_principal_name": None,
+                "county": None,
+                "sub_county": None,
+                "school_type": None,
+                "grades_offered": None,
+                "streams_per_grade": None,
+                "source": "school"
+            }
+    else:
+        # Independent teacher - use TeacherProfile
+        profile = db.query(TeacherProfile).filter(
+            TeacherProfile.user_id == user.id
+        ).first()
+        
+        if profile:
+            return {
+                "school_name": profile.school_name,
+                "school_logo_url": profile.school_logo_url,
+                "school_address": profile.school_address,
+                "school_phone": profile.school_phone,
+                "school_email": profile.school_email,
+                "school_motto": profile.school_motto,
+                "principal_name": profile.principal_name,
+                "deputy_principal_name": profile.deputy_principal_name,
+                "county": profile.county,
+                "sub_county": profile.sub_county,
+                "school_type": profile.school_type,
+                "grades_offered": profile.grades_offered,
+                "streams_per_grade": profile.streams_per_grade,
+                "source": "teacher_profile"
+            }
+    
+    # No settings found - return None
+    return None
+
+
+def get_default_lesson_config(user: User, db: Session) -> dict:
+    """Get default lesson configuration for a user from their TeacherProfile."""
+    
+    # Check TeacherProfile
+    profile = db.query(TeacherProfile).filter(
+        TeacherProfile.user_id == user.id
+    ).first()
+    
+    if profile:
+        return {
+            "lessons_per_week": profile.default_lessons_per_week,
+            "lesson_duration": profile.default_lesson_duration,
+            "double_lesson_duration": profile.default_double_lesson_duration,
+            "double_lessons_per_week": profile.default_double_lessons_per_week,
+            "term_weeks": profile.default_term_weeks
+        }
+    
+    # Return system defaults
+    return {
+        "lessons_per_week": 5,
+        "lesson_duration": 40,
+        "double_lesson_duration": 80,
+        "double_lessons_per_week": 0,
+        "term_weeks": 13
+    }
+
+
+@app.get(f"{settings.API_V1_PREFIX}/profile/settings", response_model=TeacherProfileResponse)
+def get_teacher_profile(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Get the current teacher's profile settings.
+    
+    This endpoint is for independent teachers to retrieve their profile.
+    School-linked teachers should use school settings instead.
+    """
+    
+    # Get existing profile
+    profile = db.query(TeacherProfile).filter(
+        TeacherProfile.user_id == current_user.id
+    ).first()
+    
+    if not profile:
+        raise HTTPException(
+            status_code=404,
+            detail="Profile not found. Please create your profile settings first."
+        )
+    
+    return profile
+
+
+@app.post(f"{settings.API_V1_PREFIX}/profile/settings", response_model=TeacherProfileResponse)
+def create_or_update_teacher_profile(
+    profile_data: TeacherProfileCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Create or update teacher profile settings.
+    
+    This endpoint is for ALL teachers to configure their profile.
+    Even school-linked teachers can have a profile for personal settings.
+    """
+    
+    # Check if profile exists
+    profile = db.query(TeacherProfile).filter(
+        TeacherProfile.user_id == current_user.id
+    ).first()
+    
+    if profile:
+        # Update existing profile
+        update_data = profile_data.dict(exclude_unset=True)
+        for key, value in update_data.items():
+            if hasattr(profile, key):
+                setattr(profile, key, value)
+    else:
+        # Create new profile
+        profile = TeacherProfile(
+            user_id=current_user.id,
+            **profile_data.dict()
+        )
+        db.add(profile)
+    
+    db.commit()
+    db.refresh(profile)
+    
+    return profile
+
+
+@app.post(f"{settings.API_V1_PREFIX}/profile/upload-logo", response_model=TeacherProfileLogoResponse)
+async def upload_profile_logo(
+    file: UploadFile = File(...),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Upload school logo for teacher profile.
+    
+    - Max file size: 2MB
+    - Supported formats: PNG, JPG, JPEG, SVG, GIF
+    """
+    import time
+    
+    # Validate file type
+    allowed_types = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml', 'image/gif']
+    if file.content_type not in allowed_types:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid file type. Allowed types: PNG, JPG, JPEG, SVG, GIF"
+        )
+    
+    # Read file contents
+    contents = await file.read()
+    
+    # Validate file size (max 2MB)
+    max_size = 2 * 1024 * 1024  # 2MB
+    if len(contents) > max_size:
+        raise HTTPException(
+            status_code=400,
+            detail="File size must be less than 2MB"
+        )
+    
+    # Create upload directory if not exists
+    upload_dir = "uploads/profile_logos"
+    os.makedirs(upload_dir, exist_ok=True)
+    
+    # Generate unique filename
+    file_extension = os.path.splitext(file.filename)[1] if file.filename else '.png'
+    unique_filename = f"logo_{current_user.id}_{int(time.time())}{file_extension}"
+    file_path = os.path.join(upload_dir, unique_filename)
+    
+    # Save file
+    with open(file_path, "wb") as f:
+        f.write(contents)
+    
+    # Get or create profile
+    profile = db.query(TeacherProfile).filter(
+        TeacherProfile.user_id == current_user.id
+    ).first()
+    
+    if not profile:
+        profile = TeacherProfile(user_id=current_user.id)
+        db.add(profile)
+    
+    # Delete old logo if exists
+    if profile.school_logo_url:
+        old_path = profile.school_logo_url.lstrip('/')
+        if os.path.exists(old_path):
+            try:
+                os.remove(old_path)
+            except:
+                pass  # Ignore errors when deleting old file
+    
+    # Update logo URL
+    profile.school_logo_url = f"/{upload_dir}/{unique_filename}"
+    db.commit()
+    db.refresh(profile)
+    
+    return TeacherProfileLogoResponse(
+        message="Logo uploaded successfully",
+        logo_url=profile.school_logo_url
+    )
+
+
+@app.delete(f"{settings.API_V1_PREFIX}/profile/logo")
+def delete_profile_logo(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete school logo from teacher profile."""
+    
+    profile = db.query(TeacherProfile).filter(
+        TeacherProfile.user_id == current_user.id
+    ).first()
+    
+    if not profile or not profile.school_logo_url:
+        raise HTTPException(
+            status_code=404,
+            detail="No logo found to delete"
+        )
+    
+    # Delete file from disk
+    file_path = profile.school_logo_url.lstrip('/')
+    if os.path.exists(file_path):
+        try:
+            os.remove(file_path)
+        except Exception as e:
+            print(f"Warning: Could not delete file {file_path}: {e}")
+    
+    # Remove URL from database
+    profile.school_logo_url = None
+    db.commit()
+    
+    return {"message": "Logo deleted successfully"}
+
+
+@app.get(f"{settings.API_V1_PREFIX}/profile/school-context")
+def get_school_context(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Get the school context for the current user.
+    
+    This automatically determines whether to use:
+    - SchoolSettings (if user is linked to a school)
+    - TeacherProfile (if user is independent)
+    
+    Returns standardized fields for document generation.
+    """
+    context = get_user_school_context(current_user, db)
+    
+    if not context:
+        return {
+            "has_context": False,
+            "message": "No school context found. Please configure your profile settings.",
+            "is_school_linked": current_user.school_id is not None
+        }
+    
+    return {
+        "has_context": True,
+        "is_school_linked": current_user.school_id is not None,
+        **context
+    }
+
+
+@app.get(f"{settings.API_V1_PREFIX}/profile/lesson-defaults")
+def get_lesson_defaults(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Get default lesson configuration for the current user.
+    
+    Used when creating new subjects to pre-fill lesson settings.
+    """
+    config = get_default_lesson_config(current_user, db)
+    
+    return {
+        "has_profile": db.query(TeacherProfile).filter(
+            TeacherProfile.user_id == current_user.id
+        ).first() is not None,
+        **config
+    }
+
+
+@app.get(f"{settings.API_V1_PREFIX}/profile/lessons-config")
+def get_teacher_lessons_config(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Get all lesson configurations for the current teacher.
+    
+    Returns teacher-specific configs, or falls back to global/admin configs.
+    """
+    # Get teacher's custom configs
+    teacher_configs = db.query(TeacherLessonConfig).filter(
+        TeacherLessonConfig.user_id == current_user.id
+    ).all()
+    
+    configs = []
+    for config in teacher_configs:
+        configs.append({
+            "subject_name": config.subject_name,
+            "grade": config.grade,
+            "lessons_per_week": config.lessons_per_week,
+            "double_lessons_per_week": config.double_lessons_per_week,
+            "single_lesson_duration": config.single_lesson_duration,
+            "double_lesson_duration": config.double_lesson_duration,
+        })
+    
+    return {"configs": configs}
+
+
+@app.post(f"{settings.API_V1_PREFIX}/profile/lessons-config")
+def save_teacher_lesson_config(
+    config_data: dict,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Save a lesson configuration for a specific subject/grade.
+    
+    Creates or updates the teacher's custom lesson config.
+    """
+    subject_name = config_data.get("subject_name")
+    grade = config_data.get("grade")
+    
+    if not subject_name or not grade:
+        raise HTTPException(
+            status_code=400,
+            detail="subject_name and grade are required"
+        )
+    
+    # Check if config exists
+    existing = db.query(TeacherLessonConfig).filter(
+        TeacherLessonConfig.user_id == current_user.id,
+        TeacherLessonConfig.subject_name == subject_name,
+        TeacherLessonConfig.grade == grade
+    ).first()
+    
+    if existing:
+        # Update existing
+        existing.lessons_per_week = config_data.get("lessons_per_week", 5)
+        existing.double_lessons_per_week = config_data.get("double_lessons_per_week", 0)
+        existing.single_lesson_duration = config_data.get("single_lesson_duration", 40)
+        existing.double_lesson_duration = config_data.get("double_lesson_duration", 80)
+    else:
+        # Create new
+        new_config = TeacherLessonConfig(
+            user_id=current_user.id,
+            subject_name=subject_name,
+            grade=grade,
+            lessons_per_week=config_data.get("lessons_per_week", 5),
+            double_lessons_per_week=config_data.get("double_lessons_per_week", 0),
+            single_lesson_duration=config_data.get("single_lesson_duration", 40),
+            double_lesson_duration=config_data.get("double_lesson_duration", 80),
+        )
+        db.add(new_config)
+    
+    db.commit()
+    
+    return {"message": "Configuration saved successfully"}
+
 
 # ============================================================================
 # SUPER ADMIN ENDPOINTS
@@ -2263,6 +2674,61 @@ def delete_calendar_activity(
     db.commit()
     
     return {"message": "Activity deleted successfully"}
+
+# ============================================================================
+# TEACHER PROFILE ENDPOINTS (For Independent Teachers)
+# ============================================================================
+
+def get_user_school_context(user: User, db: Session) -> Optional[dict]:
+    """
+    Get school context for a user - either from SchoolSettings or TeacherProfile.
+    Returns a dict with standardized fields for use in document generation.
+    
+    Logic:
+    - If user has school_id (linked to a school) → Use SchoolSettings
+    - If user has NO school_id (independent) → Use TeacherProfile
+    """
+    if user.school_id:
+        # User is part of a school - try to get SchoolSettings
+        school_settings = db.query(SchoolSettings).first()  # TODO: Link to specific school
+        if school_settings:
+            return {
+                "school_name": school_settings.school_name,
+                "school_logo_url": school_settings.school_logo_url,
+                "school_address": school_settings.school_address,
+                "school_phone": school_settings.school_phone,
+                "school_email": school_settings.school_email,
+                "school_motto": school_settings.school_motto,
+                "principal_name": school_settings.principal_name,
+                "deputy_principal_name": school_settings.deputy_principal_name,
+                "county": school_settings.county,
+                "sub_county": school_settings.sub_county,
+                "grades_offered": school_settings.grades_offered,
+                "streams_per_grade": school_settings.streams_per_grade,
+                "source": "school_settings"
+            }
+    
+    # Individual teacher - use TeacherProfile
+    profile = db.query(TeacherProfile).filter(TeacherProfile.user_id == user.id).first()
+    if profile:
+        return {
+            "school_name": profile.school_name,
+            "school_logo_url": profile.school_logo_url,
+            "school_address": profile.school_address,
+            "school_phone": profile.school_phone,
+            "school_email": profile.school_email,
+            "school_motto": profile.school_motto,
+            "principal_name": profile.principal_name,
+            "deputy_principal_name": profile.deputy_principal_name,
+            "county": profile.county,
+            "sub_county": profile.sub_county,
+            "grades_offered": profile.grades_offered,
+            "streams_per_grade": profile.streams_per_grade,
+            "source": "teacher_profile"
+        }
+    
+    return None
+
 
 # ============================================================================
 # ADMIN ANALYTICS ENDPOINTS
@@ -4249,18 +4715,7 @@ from pydantic import BaseModel
 from io import BytesIO
 # Defer WeasyPrint import to inside PDF endpoint to avoid startup crash if system libs missing
 
-class SchemeLessonUpdate(BaseModel):
-    strand: Optional[str] = None
-    sub_strand: Optional[str] = None
-    specific_learning_outcomes: Optional[str] = None
-    key_inquiry_questions: Optional[str] = None
-    learning_experiences: Optional[str] = None
-    learning_resources: Optional[str] = None
-    textbook_name: Optional[str] = None
-    textbook_teacher_guide_pages: Optional[str] = None
-    textbook_learner_book_pages: Optional[str] = None
-    assessment_methods: Optional[str] = None
-    reflection: Optional[str] = None
+# SchemeLessonUpdate moved to schemas.py
 
 @app.get(f"{settings.API_V1_PREFIX}/schemes", response_model=List[SchemeOfWorkSummary])
 async def list_schemes(
@@ -4363,9 +4818,37 @@ async def update_scheme(
     if not scheme:
         raise HTTPException(status_code=404, detail="Scheme of work not found")
 
-    for field, value in data.model_dump(exclude_none=True).items():
+    update_data = data.model_dump(exclude_none=True)
+    weeks_data = update_data.pop('weeks', None)
+
+    # Update top-level fields
+    for field, value in update_data.items():
         setattr(scheme, field, value)
-    db.commit(); db.refresh(scheme)
+    
+    # Update nested weeks and lessons if provided
+    if weeks_data:
+        for week_data in weeks_data:
+            week_number = week_data.get('week_number')
+            lessons_data = week_data.get('lessons')
+            
+            if week_number is not None and lessons_data:
+                # Find the week in the existing scheme
+                week = next((w for w in scheme.weeks if w.week_number == week_number), None)
+                if week:
+                    for lesson_data in lessons_data:
+                        # Try to find lesson by ID if provided, or by lesson_number if available in data (though SchemeLessonUpdate might not have it)
+                        # The frontend sends the full object so it likely has IDs.
+                        lesson_id = lesson_data.get('id')
+                        
+                        if lesson_id:
+                             lesson = next((l for l in week.lessons if l.id == lesson_id), None)
+                             if lesson:
+                                 for l_field, l_value in lesson_data.items():
+                                     if l_field != 'id':
+                                         setattr(lesson, l_field, l_value)
+
+    db.commit()
+    db.refresh(scheme)
     return scheme
 
 @app.delete(f"{settings.API_V1_PREFIX}/schemes/{{scheme_id}}")
@@ -4436,7 +4919,7 @@ async def scheme_pdf(
     # Use ReportLab for PDF generation (pure Python, no native deps)
     from reportlab.lib import colors
     from reportlab.lib.pagesizes import A4, landscape
-    from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+    from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, PageBreak
     from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
     from reportlab.lib.units import cm
     from reportlab.lib.enums import TA_CENTER
@@ -4447,36 +4930,65 @@ async def scheme_pdf(
     elements = []
     styles = getSampleStyleSheet()
     
-    # Compact Title
-    title_style = ParagraphStyle('CustomTitle', parent=styles['Heading1'], fontSize=16, textColor=colors.HexColor('#4F46E5'), alignment=TA_CENTER, spaceAfter=0)
-    elements.append(Paragraph("SCHEME OF WORK", title_style))
-    elements.append(Spacer(1, 0.2*cm))
+    # Cover Page
+    elements.append(Spacer(1, 3*cm)) # Vertical centering
     
-    # Compact Header info table
-    header_style_small = ParagraphStyle('SmallHeader', parent=styles['Normal'], fontSize=9, leading=11)
-    header_data = [
-        [Paragraph(f"<b>Teacher:</b> {scheme.teacher_name}", header_style_small), 
-         Paragraph(f"<b>School:</b> {scheme.school}", header_style_small), 
-         Paragraph(f"<b>Subject:</b> {scheme.subject}", header_style_small), 
-         Paragraph(f"<b>Grade:</b> {scheme.grade}", header_style_small)],
-        [Paragraph(f"<b>Term:</b> {scheme.term}", header_style_small), 
-         Paragraph(f"<b>Year:</b> {scheme.year}", header_style_small), 
-         Paragraph(f"<b>Total Weeks:</b> {scheme.total_weeks}", header_style_small), 
-         Paragraph(f"<b>Total Lessons:</b> {scheme.total_lessons}", header_style_small)]
-    ]
-    header_table = Table(header_data, colWidths=[6.5*cm, 6.5*cm, 6.5*cm, 6.5*cm])
-    header_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#fafafa')),
-        ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#ddd')),
-        ('FONTSIZE', (0, 0), (-1, -1), 9),
-        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        ('LEFTPADDING', (0, 0), (-1, -1), 3),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 3),
-        ('TOPPADDING', (0, 0), (-1, -1), 3),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+    # Title Section
+    title_style = ParagraphStyle('CustomTitle', parent=styles['Heading1'], fontName='Helvetica-Bold', fontSize=36, textColor=colors.HexColor('#1e293b'), alignment=TA_CENTER, spaceAfter=12, leading=42)
+    elements.append(Paragraph("SCHEME OF WORK", title_style))
+    
+    subtitle_style = ParagraphStyle('Subtitle', parent=styles['Normal'], fontName='Helvetica', fontSize=18, textColor=colors.HexColor('#64748b'), alignment=TA_CENTER, spaceAfter=30, leading=24)
+    elements.append(Paragraph(f"{scheme.subject} • {scheme.grade}", subtitle_style))
+    
+    # Decorative Divider
+    line_data = [[""]]
+    line_table = Table(line_data, colWidths=[10*cm], rowHeights=[2])
+    line_table.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#4F46E5')),
+        ('ALIGN', (0,0), (-1,-1), 'CENTER'),
     ]))
-    elements.append(header_table)
-    elements.append(Spacer(1, 0.2*cm))
+    elements.append(line_table)
+    elements.append(Spacer(1, 2*cm))
+    
+    # Info Grid Data
+    label_style = ParagraphStyle('Label', parent=styles['Normal'], fontName='Helvetica-Bold', fontSize=9, textColor=colors.HexColor('#64748b'), alignment=TA_CENTER, leading=12)
+    value_style = ParagraphStyle('Value', parent=styles['Normal'], fontName='Helvetica', fontSize=14, textColor=colors.HexColor('#0f172a'), alignment=TA_CENTER, leading=18)
+    
+    cell_1_1 = [Paragraph("TEACHER", label_style), Spacer(1, 3), Paragraph(scheme.teacher_name or "-", value_style)]
+    cell_1_2 = [Paragraph("TERM", label_style), Spacer(1, 3), Paragraph(scheme.term or "-", value_style)]
+    cell_1_3 = [Paragraph("TOTAL WEEKS", label_style), Spacer(1, 3), Paragraph(str(scheme.total_weeks), value_style)]
+    
+    cell_2_1 = [Paragraph("SCHOOL", label_style), Spacer(1, 3), Paragraph(scheme.school or "-", value_style)]
+    cell_2_2 = [Paragraph("YEAR", label_style), Spacer(1, 3), Paragraph(str(scheme.year), value_style)]
+    cell_2_3 = [Paragraph("TOTAL LESSONS", label_style), Spacer(1, 3), Paragraph(str(scheme.total_lessons), value_style)]
+    
+    info_data = [
+        [cell_1_1, cell_1_2, cell_1_3],
+        [cell_2_1, cell_2_2, cell_2_3]
+    ]
+    
+    info_table = Table(info_data, colWidths=[7*cm, 7*cm, 7*cm])
+    info_table.setStyle(TableStyle([
+        ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+        ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+        ('TOPPADDING', (0,0), (-1,-1), 20),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 20),
+        ('LEFTPADDING', (0,0), (-1,-1), 10),
+        ('RIGHTPADDING', (0,0), (-1,-1), 10),
+        
+        # Grid lines
+        ('LINEAFTER', (0,0), (1,-1), 0.5, colors.HexColor('#cbd5e1')), # Vertical lines between cols
+        ('LINEBELOW', (0,0), (-1,0), 0.5, colors.HexColor('#cbd5e1')), # Horizontal line between rows
+        
+        # Outer Border
+        ('BOX', (0,0), (-1,-1), 1.5, colors.HexColor('#94a3b8')),
+        
+        # Background
+        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#f8fafc')),
+    ]))
+    
+    elements.append(info_table)
+    elements.append(PageBreak())
     
     # Helper function to format learning experiences with bullets
     def format_learning_experiences(text):
@@ -4545,39 +5057,42 @@ async def scheme_pdf(
         return "<br/>".join(formatted_parts)
     
     # Main table - use Paragraphs for text wrapping with optimized spacing
-    cell_style = ParagraphStyle('CellStyle', parent=styles['Normal'], fontSize=9, leading=10, spaceBefore=0, spaceAfter=0)
-    header_style = ParagraphStyle('HeaderStyle', parent=styles['Normal'], fontSize=10, textColor=colors.white, fontName='Helvetica-Bold', leading=11)
+    cell_style = ParagraphStyle('CellStyle', parent=styles['Normal'], fontName='Helvetica', fontSize=9, leading=12, spaceBefore=2, spaceAfter=2, textColor=colors.HexColor('#334155'))
+    header_style = ParagraphStyle('HeaderStyle', parent=styles['Normal'], fontSize=9, textColor=colors.white, fontName='Helvetica-Bold', leading=11, alignment=TA_CENTER)
     
+    # Uppercase headers
     table_data = [[
-        Paragraph('Week', header_style),
-        Paragraph('Lesson', header_style),
-        Paragraph('Strand/Theme', header_style),
-        Paragraph('Sub-strand', header_style),
-        Paragraph('Specific-Learning outcomes', header_style),
-        Paragraph('Key Inquiry Question(s)', header_style),
-        Paragraph('Learning/ Teaching Experience', header_style),
-        Paragraph('Learning Resources', header_style),
-        Paragraph('Assessment Methods', header_style),
-        Paragraph('Reflection', header_style)
+        Paragraph('WEEK', header_style),
+        Paragraph('LESSON', header_style),
+        Paragraph('STRAND', header_style),
+        Paragraph('SUB-STRAND', header_style),
+        Paragraph('LEARNING OUTCOMES', header_style),
+        Paragraph('INQUIRY QUESTIONS', header_style),
+        Paragraph('LEARNING EXPERIENCES', header_style),
+        Paragraph('RESOURCES', header_style),
+        Paragraph('ASSESSMENT', header_style),
+        Paragraph('REFLECTION', header_style)
     ]]
     
     # Track row spans for merging week cells
-    row_spans = []
+    # row_spans = [] # Disabled to prevent LayoutError on page breaks
     current_row_index = 1 # Start after header row
+    week_col_lines = [] # Dynamic lines for week column
     
     for week in sorted(scheme.weeks, key=lambda w: w.week_number):
         week_lessons = sorted(week.lessons, key=lambda l: l.lesson_number)
         num_lessons = len(week_lessons)
         
         if num_lessons > 0:
-            # Record span for this week: (col_idx, start_row, end_row)
-            # col_idx is 0 (Week column)
-            # end_row is inclusive in ReportLab logic for some commands, but for SPAN it's (col, row) to (col, row)
-            # So we span from (0, current) to (0, current + num - 1)
-            if num_lessons > 1:
-                row_spans.append(('SPAN', (0, current_row_index), (0, current_row_index + num_lessons - 1)))
+            # Calculate end row for this week to draw the bottom line
+            end_row = current_row_index + num_lessons - 1
+            week_col_lines.append(('LINEBELOW', (0, end_row), (0, end_row), 0.5, colors.HexColor('#94a3b8')))
         
-        for lesson in week_lessons:
+        for i, lesson in enumerate(week_lessons):
+            # Only show week number in the first row of the week
+            # Use bold for week number
+            week_text = f"<b>{week.week_number}</b>" if i == 0 else ""
+            
             outcomes = lesson.specific_learning_outcomes or ""
             if outcomes and not outcomes.startswith("By the end of the sub-strand"):
                 outcomes = f"By the end of the sub-strand, the learner should be able to: {outcomes}"
@@ -4589,7 +5104,7 @@ async def scheme_pdf(
             assessments = format_assessment_methods(lesson.assessment_methods)
 
             table_data.append([
-                Paragraph(str(week.week_number), cell_style),
+                Paragraph(week_text, cell_style),
                 Paragraph(str(lesson.lesson_number), cell_style),
                 Paragraph(lesson.strand or "", cell_style),
                 Paragraph(lesson.sub_strand or "", cell_style),
@@ -4602,27 +5117,38 @@ async def scheme_pdf(
             ])
             current_row_index += 1
     
-    # Optimized column widths to reduce space wastage
+    # Optimized column widths to reduce space wastage and fill landscape A4 (Total ~29.0cm)
     # Week, Lesson, Strand, Sub-strand, Outcomes, Questions, Experiences, Resources, Assessment, Reflection
-    main_table = Table(table_data, colWidths=[0.6*cm, 0.6*cm, 2.2*cm, 2.5*cm, 4.0*cm, 3.0*cm, 4.8*cm, 2.8*cm, 2.3*cm, 1.0*cm], repeatRows=1, splitByRow=1)
+    # Reduced total width slightly to ensure right border is not clipped
+    main_table = Table(table_data, colWidths=[0.8*cm, 0.8*cm, 2.5*cm, 3.0*cm, 5.0*cm, 3.5*cm, 5.8*cm, 3.5*cm, 2.8*cm, 1.3*cm], repeatRows=1, splitByRow=1)
     
     table_style_commands = [
-        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#4F46E5')),
-        ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#666')),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1e293b')), # Dark Slate Header
+        
+        # Grid for columns 1 to end (Lesson onwards) - draws all lines
+        ('GRID', (1, 0), (-1, -1), 0.5, colors.HexColor('#cbd5e1')), # Light Slate Grid
+        
+        # Vertical lines for Week column
+        ('LINEBEFORE', (0, 0), (0, -1), 0.5, colors.HexColor('#cbd5e1')),
+        ('LINEAFTER', (0, 0), (0, -1), 0.5, colors.HexColor('#cbd5e1')),
+        
+        # Top line for Week column header
+        ('LINEABOVE', (0, 0), (0, 0), 0.5, colors.HexColor('#cbd5e1')),
+        # Bottom line for Week column header (separator between header and data)
+        ('LINEBELOW', (0, 0), (0, 0), 0.5, colors.HexColor('#cbd5e1')),
+
         ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-        # Minimal padding to reduce space wastage
-        ('LEFTPADDING', (0, 0), (-1, -1), 1),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 1),
-        ('TOPPADDING', (0, 0), (-1, -1), 1),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 1),
+        # Increased padding for premium feel
+        ('LEFTPADDING', (0, 0), (-1, -1), 4),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 4),
+        ('TOPPADDING', (0, 0), (-1, -1), 4),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
         ('ALIGN', (0, 1), (1, -1), 'CENTER'),
         ('FONTSIZE', (0, 0), (-1, -1), 9),
-        # Center align the Week column vertically when spanned
-        ('VALIGN', (0, 1), (0, -1), 'MIDDLE'),
     ]
     
-    # Add row spans
-    table_style_commands.extend(row_spans)
+    # Add dynamic week lines
+    table_style_commands.extend(week_col_lines)
     
     main_table.setStyle(TableStyle(table_style_commands))
     main_table.hAlign = 'LEFT'
@@ -4753,6 +5279,225 @@ async def bulk_delete_lesson_plans(
     
     db.commit()
     return {"message": f"Successfully deleted {result} lesson plans"}
+
+@app.post(f"{settings.API_V1_PREFIX}/lesson-plans/{{lesson_plan_id}}/auto-generate", response_model=LessonPlanResponse)
+async def auto_generate_lesson_plan(
+    lesson_plan_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Auto-generate lesson plan content from curriculum data"""
+    lesson_plan = db.query(LessonPlan).filter(
+        LessonPlan.id == lesson_plan_id,
+        LessonPlan.user_id == current_user.id
+    ).first()
+    if not lesson_plan:
+        raise HTTPException(status_code=404, detail="Lesson plan not found")
+    
+    # Get the subject to find curriculum data
+    subject = db.query(Subject).filter(Subject.id == lesson_plan.subject_id).first()
+    
+    # Build introduction based on strand/substrand
+    strand = lesson_plan.strand_theme_topic or ""
+    sub_strand = lesson_plan.sub_strand_sub_theme_sub_topic or ""
+    learning_outcomes = lesson_plan.specific_learning_outcomes or ""
+    key_questions = lesson_plan.key_inquiry_questions or ""
+    resources = lesson_plan.learning_resources or ""
+    
+    # Generate Introduction (5 minutes)
+    intro_parts = [
+        "Introduction (5 minutes)",
+        f"• Welcome learners and recap the previous lesson",
+        f"• Introduce today's topic: {sub_strand}" if sub_strand else "• Introduce today's topic",
+        f"• Present the key inquiry question: {key_questions.split(',')[0].strip() if key_questions else 'What will we learn today?'}",
+        "• State the learning objectives for the lesson",
+        "• Activate prior knowledge through quick questions"
+    ]
+    lesson_plan.introduction = "\n".join(intro_parts)
+    
+    # Generate Lesson Development (main body)
+    dev_parts = [
+        "Lesson Development (30 minutes)",
+        "",
+        "Step 1: Explanation (10 minutes)",
+        f"• Explain the concept of {sub_strand}" if sub_strand else "• Explain the main concept",
+        f"• Use {resources.split(',')[0].strip() if resources else 'teaching aids'} to demonstrate",
+        "• Allow learners to ask questions for clarification",
+        "",
+        "Step 2: Guided Practice (10 minutes)", 
+        "• Guide learners through examples together",
+        "• Model the expected process step by step",
+        "• Check for understanding frequently",
+        "",
+        "Step 3: Independent Practice (10 minutes)",
+        "• Learners work individually or in groups",
+        "• Teacher moves around to offer support",
+        "• Provide differentiated tasks for varied abilities"
+    ]
+    lesson_plan.development = "\n".join(dev_parts)
+    
+    # Generate Conclusion (5 minutes)
+    conclusion_parts = [
+        "Conclusion (5 minutes)",
+        f"• Summarize key points about {sub_strand}" if sub_strand else "• Summarize key points",
+        "• Ask learners to share what they learned",
+        "• Give a brief assessment or exit ticket",
+        "• Preview the next lesson",
+        "• Assign homework/extended learning activity"
+    ]
+    lesson_plan.conclusion = "\n".join(conclusion_parts)
+    
+    # Generate Summary
+    lesson_plan.summary = f"In this lesson, learners explored {sub_strand if sub_strand else 'the topic'}. They achieved the following outcomes: {learning_outcomes[:200] if learning_outcomes else 'Understanding of key concepts'}..."
+    
+    db.commit()
+    db.refresh(lesson_plan)
+    return lesson_plan
+
+@app.post(f"{settings.API_V1_PREFIX}/lesson-plans/{{lesson_plan_id}}/enhance", response_model=LessonPlanResponse)
+async def enhance_lesson_plan_with_ai(
+    lesson_plan_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Enhance lesson plan content using AI (or template-based enhancement)"""
+    lesson_plan = db.query(LessonPlan).filter(
+        LessonPlan.id == lesson_plan_id,
+        LessonPlan.user_id == current_user.id
+    ).first()
+    if not lesson_plan:
+        raise HTTPException(status_code=404, detail="Lesson plan not found")
+    
+    # Get context
+    strand = lesson_plan.strand_theme_topic or "the topic"
+    sub_strand = lesson_plan.sub_strand_sub_theme_sub_topic or "the sub-topic"
+    grade = lesson_plan.grade or "learners"
+    learning_area = lesson_plan.learning_area or "the subject"
+    learning_outcomes = lesson_plan.specific_learning_outcomes or ""
+    key_questions = lesson_plan.key_inquiry_questions or ""
+    resources = lesson_plan.learning_resources or "teaching aids"
+    core_competences = lesson_plan.core_competences or "Critical thinking, Communication"
+    values = lesson_plan.values_to_be_developed or "Responsibility, Respect"
+    
+    # Enhanced Introduction
+    intro_parts = [
+        "INTRODUCTION (5 minutes)",
+        "",
+        "1. Greeting & Settling (1 min)",
+        "   • Welcome learners warmly",
+        "   • Ensure classroom is organized and ready",
+        "",
+        "2. Prior Knowledge Activation (2 mins)",
+        f"   • Ask: 'What do you already know about {sub_strand}?'",
+        "   • Use think-pair-share strategy",
+        "   • Note responses on the board",
+        "",
+        "3. Learning Objectives (2 mins)",
+        f"   • Display today's objectives clearly",
+        f"   • By the end of this lesson, learners will be able to:",
+    ]
+    if learning_outcomes:
+        for i, outcome in enumerate(learning_outcomes.split('\n')[:3], 1):
+            if outcome.strip():
+                intro_parts.append(f"     {i}. {outcome.strip()[:100]}")
+    intro_parts.extend([
+        "",
+        f"   • Key Question: {key_questions.split(',')[0].strip() if key_questions else 'What will we discover today?'}"
+    ])
+    lesson_plan.introduction = "\n".join(intro_parts)
+    
+    # Enhanced Lesson Development
+    dev_parts = [
+        "LESSON DEVELOPMENT (30 minutes)",
+        "",
+        "STEP 1: TEACHER EXPOSITION (8 mins)",
+        f"• Introduce {sub_strand} using clear explanations",
+        f"• Use {resources} to demonstrate concepts",
+        "• Write key terms and definitions on the board",
+        "• Use real-life examples relevant to learners' experiences",
+        "",
+        "STEP 2: GUIDED DISCOVERY (10 mins)",
+        "• Engage learners through questioning",
+        "• Model the problem-solving process",
+        "• Work through examples together as a class",
+        f"• Connect to {strand} theme",
+        "",
+        "STEP 3: GROUP ACTIVITY (7 mins)",
+        "• Divide learners into groups of 4-5",
+        "• Assign differentiated tasks based on ability",
+        "• Circulate and provide scaffolding where needed",
+        f"• Encourage development of: {core_competences}",
+        "",
+        "STEP 4: PRESENTATION & FEEDBACK (5 mins)",
+        "• Selected groups share their work",
+        "• Class provides constructive feedback",
+        "• Teacher clarifies misconceptions",
+        f"• Reinforce values: {values}"
+    ]
+    lesson_plan.development = "\n".join(dev_parts)
+    
+    # Enhanced Conclusion
+    conclusion_parts = [
+        "CONCLUSION (5 minutes)",
+        "",
+        "1. Summary (2 mins)",
+        f"   • Review key points about {sub_strand}",
+        "   • Use learner responses to summarize",
+        "",
+        "2. Assessment (2 mins)",
+        "   • Quick oral questions to check understanding",
+        "   • Thumbs up/down for self-assessment",
+        "   • Note learners who need extra support",
+        "",
+        "3. Closure (1 min)",
+        "   • Preview next lesson's topic",
+        "   • Assign homework/extension activity",
+        "   • Dismiss learners in an orderly manner"
+    ]
+    lesson_plan.conclusion = "\n".join(conclusion_parts)
+    
+    # Enhanced Summary
+    lesson_plan.summary = f"""LESSON SUMMARY:
+Topic: {sub_strand}
+Grade: {grade}
+Learning Area: {learning_area}
+
+Key Learning Points:
+• {learning_outcomes[:150] if learning_outcomes else 'Core concepts were covered'}
+
+Competences Developed: {core_competences}
+Values Instilled: {values}
+
+Teaching Methods Used:
+• Direct instruction
+• Guided discovery
+• Collaborative learning
+• Formative assessment"""
+
+    # Enhanced Reflection template
+    lesson_plan.reflection_self_evaluation = """TEACHER'S REFLECTION:
+
+1. Achievement of Objectives:
+   □ Fully achieved  □ Partially achieved  □ Not achieved
+
+2. Learner Engagement:
+   □ Excellent  □ Good  □ Needs improvement
+
+3. Time Management:
+   □ On schedule  □ Rushed  □ Had extra time
+
+4. What worked well:
+   _________________________________
+
+5. Areas for improvement:
+   _________________________________
+
+6. Follow-up actions needed:
+   _________________________________"""
+    
+    db.commit()
+    db.refresh(lesson_plan)
+    return lesson_plan
 
 @app.post(f"{settings.API_V1_PREFIX}/schemes/{{scheme_id}}/generate-lesson-plans")
 async def generate_lesson_plans_from_scheme(
@@ -5045,6 +5790,336 @@ async def generate_lesson_plans_from_scheme(
         "total_plans": len(created_plans),
         "lesson_plans": created_plans
     }
+
+# ============================================================================
+# RECORD OF WORK ENDPOINTS
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/records-of-work", response_model=List[RecordOfWorkSummary])
+async def get_records_of_work(
+    archived: bool = False,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all records of work for the current user"""
+    records = db.query(RecordOfWork).filter(
+        RecordOfWork.user_id == current_user.id,
+        RecordOfWork.is_archived == archived
+    ).order_by(RecordOfWork.created_at.desc()).all()
+    return records
+
+@app.get(f"{settings.API_V1_PREFIX}/records-of-work/{{record_id}}", response_model=RecordOfWorkResponse)
+async def get_record_of_work(
+    record_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get a specific record of work by ID"""
+    record = db.query(RecordOfWork).options(
+        joinedload(RecordOfWork.entries)
+    ).filter(
+        RecordOfWork.id == record_id,
+        RecordOfWork.user_id == current_user.id
+    ).first()
+    
+    if not record:
+        raise HTTPException(status_code=404, detail="Record of work not found")
+    return record
+
+@app.post(f"{settings.API_V1_PREFIX}/records-of-work", response_model=RecordOfWorkResponse, status_code=201)
+async def create_record_of_work(
+    data: RecordOfWorkCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new record of work"""
+    # Get school context for the user
+    school_context = get_user_school_context(current_user.id, db)
+    
+    # Use provided school_name or fallback to school context
+    school_name = data.school_name or school_context.get("school_name", "")
+    teacher_name = data.teacher_name or current_user.name
+    
+    record = RecordOfWork(
+        user_id=current_user.id,
+        subject_id=data.subject_id,
+        school_name=school_name,
+        teacher_name=teacher_name,
+        learning_area=data.learning_area,
+        grade=data.grade,
+        term=data.term,
+        year=data.year
+    )
+    db.add(record)
+    db.flush()
+    
+    # Add entries if provided
+    for entry_data in data.entries:
+        entry = RecordOfWorkEntry(
+            record_id=record.id,
+            week_number=entry_data.week_number,
+            strand=entry_data.strand,
+            topic=entry_data.topic,
+            learning_outcome_a=entry_data.learning_outcome_a,
+            learning_outcome_b=entry_data.learning_outcome_b,
+            learning_outcome_c=entry_data.learning_outcome_c,
+            learning_outcome_d=entry_data.learning_outcome_d,
+            reflection=entry_data.reflection,
+            signature=entry_data.signature
+        )
+        db.add(entry)
+    
+    db.commit()
+    db.refresh(record)
+    return record
+
+@app.post(f"{settings.API_V1_PREFIX}/records-of-work/create-from-scheme/{{scheme_id}}", response_model=RecordOfWorkResponse)
+async def create_record_of_work_from_scheme(
+    scheme_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Create a record of work from an existing scheme of work"""
+    # Get the scheme
+    scheme = db.query(SchemeOfWork).options(
+        joinedload(SchemeOfWork.weeks).joinedload(SchemeWeek.lessons)
+    ).filter(
+        SchemeOfWork.id == scheme_id,
+        SchemeOfWork.user_id == current_user.id
+    ).first()
+    
+    if not scheme:
+        raise HTTPException(status_code=404, detail="Scheme of work not found")
+    
+    # Get school context for the user
+    school_context = get_user_school_context(current_user.id, db)
+    
+    # Create the record of work
+    record = RecordOfWork(
+        user_id=current_user.id,
+        subject_id=scheme.subject_id,
+        school_name=scheme.school or school_context.get("school_name", ""),
+        teacher_name=scheme.teacher_name or current_user.name,
+        learning_area=scheme.subject,
+        grade=scheme.grade,
+        term=scheme.term,
+        year=scheme.year
+    )
+    db.add(record)
+    db.flush()
+    
+    # Create entries from scheme weeks/lessons
+    for week in scheme.weeks:
+        # Group lessons by strand for each week
+        strands = {}
+        for lesson in week.lessons:
+            strand = lesson.strand or "General"
+            if strand not in strands:
+                strands[strand] = {
+                    "topics": [],
+                    "outcomes": []
+                }
+            if lesson.sub_strand:
+                strands[strand]["topics"].append(lesson.sub_strand)
+            if lesson.specific_learning_outcomes:
+                strands[strand]["outcomes"].append(lesson.specific_learning_outcomes)
+        
+        # Create an entry for each strand in the week
+        for strand, data in strands.items():
+            entry = RecordOfWorkEntry(
+                record_id=record.id,
+                week_number=week.week_number,
+                strand=strand,
+                topic="; ".join(data["topics"][:2]) if data["topics"] else None,
+                learning_outcome_a=data["outcomes"][0] if len(data["outcomes"]) > 0 else None,
+                learning_outcome_b=data["outcomes"][1] if len(data["outcomes"]) > 1 else None,
+                learning_outcome_c=data["outcomes"][2] if len(data["outcomes"]) > 2 else None,
+                learning_outcome_d=data["outcomes"][3] if len(data["outcomes"]) > 3 else None
+            )
+            db.add(entry)
+    
+    db.commit()
+    db.refresh(record)
+    return record
+
+@app.put(f"{settings.API_V1_PREFIX}/records-of-work/{{record_id}}", response_model=RecordOfWorkResponse)
+async def update_record_of_work(
+    record_id: int,
+    data: RecordOfWorkUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update a record of work"""
+    record = db.query(RecordOfWork).filter(
+        RecordOfWork.id == record_id,
+        RecordOfWork.user_id == current_user.id
+    ).first()
+    
+    if not record:
+        raise HTTPException(status_code=404, detail="Record of work not found")
+    
+    update_data = data.dict(exclude_unset=True)
+    for field, value in update_data.items():
+        setattr(record, field, value)
+    
+    db.commit()
+    db.refresh(record)
+    return record
+
+@app.delete(f"{settings.API_V1_PREFIX}/records-of-work/{{record_id}}")
+async def delete_record_of_work(
+    record_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete a record of work"""
+    record = db.query(RecordOfWork).filter(
+        RecordOfWork.id == record_id,
+        RecordOfWork.user_id == current_user.id
+    ).first()
+    
+    if not record:
+        raise HTTPException(status_code=404, detail="Record of work not found")
+    
+    db.delete(record)
+    db.commit()
+    return {"message": "Record of work deleted successfully"}
+
+@app.post(f"{settings.API_V1_PREFIX}/records-of-work/{{record_id}}/archive")
+async def archive_record_of_work(
+    record_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Archive a record of work"""
+    record = db.query(RecordOfWork).filter(
+        RecordOfWork.id == record_id,
+        RecordOfWork.user_id == current_user.id
+    ).first()
+    
+    if not record:
+        raise HTTPException(status_code=404, detail="Record of work not found")
+    
+    record.is_archived = True
+    db.commit()
+    return {"message": "Record of work archived successfully"}
+
+@app.post(f"{settings.API_V1_PREFIX}/records-of-work/{{record_id}}/unarchive")
+async def unarchive_record_of_work(
+    record_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Unarchive a record of work"""
+    record = db.query(RecordOfWork).filter(
+        RecordOfWork.id == record_id,
+        RecordOfWork.user_id == current_user.id
+    ).first()
+    
+    if not record:
+        raise HTTPException(status_code=404, detail="Record of work not found")
+    
+    record.is_archived = False
+    db.commit()
+    return {"message": "Record of work unarchived successfully"}
+
+# Entry-level operations
+@app.put(f"{settings.API_V1_PREFIX}/records-of-work/{{record_id}}/entries/{{entry_id}}", response_model=RecordOfWorkEntryResponse)
+async def update_record_entry(
+    record_id: int,
+    entry_id: int,
+    data: RecordOfWorkEntryUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update a specific entry in a record of work"""
+    # Verify ownership of record
+    record = db.query(RecordOfWork).filter(
+        RecordOfWork.id == record_id,
+        RecordOfWork.user_id == current_user.id
+    ).first()
+    
+    if not record:
+        raise HTTPException(status_code=404, detail="Record of work not found")
+    
+    entry = db.query(RecordOfWorkEntry).filter(
+        RecordOfWorkEntry.id == entry_id,
+        RecordOfWorkEntry.record_id == record_id
+    ).first()
+    
+    if not entry:
+        raise HTTPException(status_code=404, detail="Entry not found")
+    
+    update_data = data.dict(exclude_unset=True)
+    for field, value in update_data.items():
+        setattr(entry, field, value)
+    
+    db.commit()
+    db.refresh(entry)
+    return entry
+
+@app.post(f"{settings.API_V1_PREFIX}/records-of-work/{{record_id}}/entries", response_model=RecordOfWorkEntryResponse, status_code=201)
+async def add_record_entry(
+    record_id: int,
+    data: RecordOfWorkEntryCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Add a new entry to a record of work"""
+    # Verify ownership of record
+    record = db.query(RecordOfWork).filter(
+        RecordOfWork.id == record_id,
+        RecordOfWork.user_id == current_user.id
+    ).first()
+    
+    if not record:
+        raise HTTPException(status_code=404, detail="Record of work not found")
+    
+    entry = RecordOfWorkEntry(
+        record_id=record_id,
+        week_number=data.week_number,
+        strand=data.strand,
+        topic=data.topic,
+        learning_outcome_a=data.learning_outcome_a,
+        learning_outcome_b=data.learning_outcome_b,
+        learning_outcome_c=data.learning_outcome_c,
+        learning_outcome_d=data.learning_outcome_d,
+        reflection=data.reflection,
+        signature=data.signature
+    )
+    db.add(entry)
+    db.commit()
+    db.refresh(entry)
+    return entry
+
+@app.delete(f"{settings.API_V1_PREFIX}/records-of-work/{{record_id}}/entries/{{entry_id}}")
+async def delete_record_entry(
+    record_id: int,
+    entry_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete a specific entry from a record of work"""
+    # Verify ownership of record
+    record = db.query(RecordOfWork).filter(
+        RecordOfWork.id == record_id,
+        RecordOfWork.user_id == current_user.id
+    ).first()
+    
+    if not record:
+        raise HTTPException(status_code=404, detail="Record of work not found")
+    
+    entry = db.query(RecordOfWorkEntry).filter(
+        RecordOfWorkEntry.id == entry_id,
+        RecordOfWorkEntry.record_id == record_id
+    ).first()
+    
+    if not entry:
+        raise HTTPException(status_code=404, detail="Entry not found")
+    
+    db.delete(entry)
+    db.commit()
+    return {"message": "Entry deleted successfully"}
 
 # ============================================================================
 # SHARING & COLLABORATION ENDPOINTS

@@ -208,24 +208,45 @@ export default function SchemeGeneratorPage() {
         teacher_name: userRes.data.full_name,
       }));
 
-      // Get school settings and terms
+      // Get school context (uses TeacherProfile for independent teachers, SchoolSettings for school-linked)
       try {
-        const settingsRes = await axios.get("/api/v1/school-settings", {
+        const contextRes = await axios.get("/api/v1/profile/school-context", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        // Handle both object and array responses
-        const settingsData = Array.isArray(settingsRes.data)
-          ? settingsRes.data[0]
-          : settingsRes.data;
-
-        if (settingsData && settingsData.school_name) {
+        const contextData = contextRes.data;
+        if (contextData && contextData.school_name) {
           setFormData((prev) => ({
             ...prev,
-            school: settingsData.school_name,
+            school: contextData.school_name,
           }));
         }
+      } catch (err) {
+        console.log("No school context found, trying legacy school-settings");
+        // Fallback to legacy school-settings endpoint
+        try {
+          const settingsRes = await axios.get("/api/v1/school-settings", {
+            headers: { Authorization: `Bearer ${token}` },
+          });
 
+          // Handle both object and array responses
+          const settingsData = Array.isArray(settingsRes.data)
+            ? settingsRes.data[0]
+            : settingsRes.data;
+
+          if (settingsData && settingsData.school_name) {
+            setFormData((prev) => ({
+              ...prev,
+              school: settingsData.school_name,
+            }));
+          }
+        } catch (e) {
+          console.log("No school settings found");
+        }
+      }
+
+      // Get school terms
+      try {
         // Fetch school terms
         const termsRes = await axios.get("/api/v1/school-terms", {
           headers: { Authorization: `Bearer ${token}` },
