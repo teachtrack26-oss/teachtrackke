@@ -25,6 +25,7 @@ from models import (
 from sqlalchemy import text, func, and_, or_
 from schemas import (
     UserCreate, UserLogin, UserResponse, Token, GoogleAuth,
+    BulkDeleteRequest,
     SubjectCreate, SubjectResponse,
     StrandCreate, StrandResponse,
     SubStrandCreate, SubStrandResponse,
@@ -1105,7 +1106,7 @@ def update_user_role(
     
     return {"message": f"User role updated to {role_update.role}"}
 
-@app.delete(f"{settings.API_V1_PREFIX}/admin/users/{{user_id}}")
+@app.post(f"{settings.API_V1_PREFIX}/admin/users/{{user_id}}/ban")
 def ban_user(
     user_id: int,
     current_user: User = Depends(get_current_super_admin),
@@ -3334,6 +3335,12 @@ def _reset_subject_progress(db: Session, subject: Subject):
 
 @app.get(f"{settings.API_V1_PREFIX}/admin/users", response_model=AdminUsersResponse)
 def list_admin_users(
+    page: int = 1,
+    limit: int = 20,
+    search: Optional[str] = None,
+    role: Optional[str] = None,
+    start_date: Optional[datetime] = None,
+    end_date: Optional[datetime] = None,
     current_user: User = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
@@ -3346,7 +3353,35 @@ def list_admin_users(
     if current_user.role == UserRole.SCHOOL_ADMIN and current_user.school_id:
         query = query.filter(User.school_id == current_user.school_id)
     
-    users = query.order_by(User.created_at.desc()).all()
+    # Apply filters
+    if search:
+        search_term = f"%{search}%"
+        query = query.filter(
+            or_(
+                User.email.ilike(search_term),
+                User.full_name.ilike(search_term),
+                User.school.ilike(search_term)
+            )
+        )
+    
+    if role:
+        if role == "admin":
+            query = query.filter(User.is_admin == True)
+        elif role == "teacher":
+            query = query.filter(User.is_admin == False)
+            
+    if start_date:
+        query = query.filter(User.created_at >= start_date)
+    
+    if end_date:
+        query = query.filter(User.created_at <= end_date)
+
+    # Get total count before pagination
+    total = query.count()
+
+    # Apply pagination
+    skip = (page - 1) * limit
+    users = query.order_by(User.created_at.desc()).offset(skip).limit(limit).all()
 
     user_payload = []
     for user in users:
@@ -3377,7 +3412,25 @@ def list_admin_users(
             )
         )
 
-    return AdminUsersResponse(users=user_payload, total=len(user_payload))
+    return AdminUsersResponse(users=user_payload, total=total, page=page)
+
+
+@app.post(f"{settings.API_V1_PREFIX}/admin/users/bulk-delete")
+def bulk_delete_users(
+    request: BulkDeleteRequest,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    """Bulk delete users."""
+    # Prevent deleting self
+    if current_user.id in request.user_ids:
+        raise HTTPException(status_code=400, detail="You cannot delete your own account")
+        
+    # Perform delete
+    deleted_count = db.query(User).filter(User.id.in_(request.user_ids)).delete(synchronize_session=False)
+    db.commit()
+    
+    return {"message": f"Successfully deleted {deleted_count} users"}
 
 
 @app.patch(f"{settings.API_V1_PREFIX}/admin/users/{{user_id}}/role")

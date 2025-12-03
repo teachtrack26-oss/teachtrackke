@@ -106,6 +106,10 @@ class AdminRoleUpdate(BaseModel):
     role: Optional[str] = None
 
 
+class BulkDeleteRequest(BaseModel):
+    user_ids: List[int]
+
+
 class ResetProgressRequest(BaseModel):
     subject_id: Optional[int] = None
 
