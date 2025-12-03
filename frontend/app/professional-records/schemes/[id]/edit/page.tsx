@@ -158,6 +158,18 @@ export default function EditSchemePage() {
     const updatedWeeks = [...scheme.weeks];
     let startLessonIdx = lessonIndex + 1;
     let updatedCount = 0;
+    let currentUpdated = false;
+
+    // Update current lesson's resources if it contains "Textbooks"
+    const currentLesson = updatedWeeks[weekIndex].lessons[lessonIndex];
+    if (
+      currentLesson.learning_resources &&
+      currentLesson.learning_resources.includes("Textbooks")
+    ) {
+      currentLesson.learning_resources =
+        currentLesson.learning_resources.replace("Textbooks", value);
+      currentUpdated = true;
+    }
 
     for (let w = weekIndex; w < updatedWeeks.length; w++) {
       const week = updatedWeeks[w];
@@ -172,23 +184,36 @@ export default function EditSchemePage() {
           currentLesson.textbook_name.trim() === ""
         ) {
           week.lessons[l].textbook_name = value;
+
+          // Also update resources for these subsequent lessons if they have "Textbooks"
+          if (
+            week.lessons[l].learning_resources &&
+            week.lessons[l].learning_resources.includes("Textbooks")
+          ) {
+            week.lessons[l].learning_resources = week.lessons[
+              l
+            ].learning_resources.replace("Textbooks", value);
+          }
+
           updatedCount++;
         }
       }
     }
 
-    if (updatedCount > 0) {
+    if (updatedCount > 0 || currentUpdated) {
       setScheme({
         ...scheme,
         weeks: updatedWeeks,
       });
-      toast.success(
-        `Textbook name applied to ${updatedCount} subsequent empty lessons`,
-        {
-          id: "textbook-autofill",
-          duration: 2000,
-        }
-      );
+      if (updatedCount > 0) {
+        toast.success(
+          `Textbook name applied to ${updatedCount} subsequent empty lessons`,
+          {
+            id: "textbook-autofill",
+            duration: 2000,
+          }
+        );
+      }
     }
   };
 

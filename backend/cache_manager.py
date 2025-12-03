@@ -19,6 +19,11 @@ class CacheManager:
         self.cache_enabled = os.getenv('CACHE_ENABLED', 'true').lower() == 'true'
         self.default_ttl = int(os.getenv('CACHE_TTL', '3600'))  # 1 hour default
         
+        if not self.cache_enabled:
+            print("[INFO] Redis cache disabled via config")
+            self.redis_client = None
+            return
+
         try:
             self.redis_client = redis.from_url(self.redis_url, decode_responses=True)
             self.redis_client.ping()

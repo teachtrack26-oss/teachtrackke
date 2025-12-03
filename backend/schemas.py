@@ -29,9 +29,32 @@ class UserResponse(UserBase):
     role: str
     subscription_type: str
     created_at: datetime
+    is_trial_active: bool = False
+    trial_days_remaining: int = 0
     
     class Config:
         from_attributes = True
+        use_enum_values = True
+        use_enum_values = True
+
+# Payment Schemas
+class PaymentInitiate(BaseModel):
+    phone_number: str
+    amount: float
+    plan: str # TERMLY or YEARLY
+
+class PaymentResponse(BaseModel):
+    checkout_request_id: str
+    merchant_request_id: str
+    response_code: str
+    response_description: str
+    customer_message: str
+
+class PaymentStatusResponse(BaseModel):
+    status: str
+    transaction_code: Optional[str] = None
+    amount: Optional[float] = None
+    date: Optional[datetime] = None
 
 class Token(BaseModel):
     access_token: str
@@ -527,6 +550,8 @@ class SchemeWeekResponse(SchemeWeekBase):
     id: int
     scheme_id: int
     lessons: List[SchemeLessonResponse]
+    start_date: Optional[datetime] = None
+    end_date: Optional[datetime] = None
     created_at: datetime
     
     class Config:
@@ -546,6 +571,17 @@ class SchemeOfWorkBase(BaseModel):
 
 class SchemeOfWorkCreate(SchemeOfWorkBase):
     weeks: List[SchemeWeekCreate]
+
+class SchemeAutoGenerateRequest(BaseModel):
+    subject_id: int
+    teacher_name: str
+    school: str
+    term: str
+    year: int
+    subject: str
+    grade: str
+    total_weeks: int
+    lessons_per_week: int = 5
 
 class SchemeOfWorkUpdate(BaseModel):
     teacher_name: Optional[str] = None

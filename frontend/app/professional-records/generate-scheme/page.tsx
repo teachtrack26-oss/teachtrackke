@@ -8,12 +8,16 @@ import {
   FiUser,
   FiHome,
   FiCheckCircle,
+  FiCheck,
   FiArrowLeft,
   FiPlus,
   FiTrash2,
   FiSave,
   FiChevronDown,
   FiChevronRight,
+  FiZap,
+  FiEye,
+  FiX,
 } from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -150,6 +154,10 @@ export default function SchemeGeneratorPage() {
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [currentStep, setCurrentStep] = useState(1);
   const [saving, setSaving] = useState(false);
+  const [autoPopulating, setAutoPopulating] = useState(false);
+  const [schemeAlreadySaved, setSchemeAlreadySaved] = useState(false);
+  const [savedSchemeId, setSavedSchemeId] = useState<number | null>(null);
+  const [showPreview, setShowPreview] = useState(false);
 
   // Selection state
   const [expandedStrands, setExpandedStrands] = useState<Set<number>>(
@@ -174,6 +182,7 @@ export default function SchemeGeneratorPage() {
     total_weeks: 14,
     total_lessons: 0,
     lessons_per_week: 5,
+    default_textbook: "", // New field
     status: "draft",
   });
 
@@ -252,6 +261,12 @@ export default function SchemeGeneratorPage() {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log("School terms response:", termsRes.data);
+
+        if (!termsRes.data || termsRes.data.length === 0) {
+          console.warn("Received empty school terms list from API");
+          // Don't show toast error immediately to avoid annoyance, but log it
+        }
+
         setSchoolTerms(termsRes.data || []);
 
         // Auto-select the current active term if available
@@ -501,6 +516,139 @@ export default function SchemeGeneratorPage() {
     );
   };
 
+  const getWeekDateRange = (weekNumber: number) => {
+    // Try exact match first
+    let selectedTerm = schoolTerms.find(
+      (t) => t.term_name === formData.term && t.year === formData.year
+    );
+
+    // Fallback: Try matching by term number if exact match fails
+    if (!selectedTerm && formData.term) {
+      const termNumMatch = formData.term.match(/\d+/);
+      if (termNumMatch) {
+        const termNum = parseInt(termNumMatch[0]);
+        selectedTerm = schoolTerms.find(
+          (t) => t.term_number === termNum && t.year === formData.year
+        );
+      }
+    }
+
+    if (!selectedTerm) return "";
+    if (!selectedTerm.start_date) return " (Dates not set)";
+
+    try {
+      const startDate = new Date(selectedTerm.start_date);
+      const weekStart = new Date(startDate);
+      weekStart.setDate(startDate.getDate() + (weekNumber - 1) * 7);
+
+      const weekEnd = new Date(weekStart);
+      weekEnd.setDate(weekStart.getDate() + 4); // Assuming 5 day week
+
+      const options: Intl.DateTimeFormatOptions = {
+        month: "short",
+        day: "numeric",
+      };
+      return ` (${weekStart.toLocaleDateString(
+        "en-US",
+        options
+      )} - ${weekEnd.toLocaleDateString("en-US", options)})`;
+    } catch (e) {
+      return "";
+    }
+  };
+
+  // Auto-populate from curriculum template (one-click generation)
+  const autoPopulateFromCurriculum = async () => {
+    if (!formData.subject_id) {
+      toast.error("Please select a subject first");
+      return;
+    }
+
+    setAutoPopulating(true);
+    try {
+      const token = localStorage.getItem("accessToken");
+
+      const payload = {
+        subject_id: formData.subject_id,
+        teacher_name: formData.teacher_name,
+        school: formData.school,
+        term: formData.term || "Term 1",
+        year: formData.year,
+        subject: formData.subject,
+        grade: formData.grade,
+        total_weeks: formData.total_weeks,
+        lessons_per_week: formData.lessons_per_week || 5,
+      };
+
+      const response = await axios.post("/api/v1/schemes/generate", payload, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const scheme = response.data;
+
+      // Convert the response to the format expected by this page
+      const generatedWeeks: Week[] = scheme.weeks.map((w: any) => ({
+        week_number: w.week_number,
+        lessons: w.lessons.map((l: any, idx: number) => ({
+          lesson_id: l.id || idx + 1,
+          lesson_number: l.lesson_number || idx + 1,
+          lesson_title: l.sub_strand || `Lesson ${idx + 1}`,
+          strand: l.strand || "",
+          sub_strand: l.sub_strand || "",
+          specific_learning_outcomes: l.specific_learning_outcomes || "",
+          key_inquiry_questions: l.key_inquiry_questions || "",
+          learning_experiences: l.learning_experiences || "",
+          learning_resources: (() => {
+            let resources =
+              l.learning_resources || "Textbooks, digital devices";
+            const tbName = l.textbook_name || formData.default_textbook;
+
+            if (tbName) {
+              // If "Textbooks" exists, replace it with the specific name
+              if (resources.includes("Textbooks")) {
+                resources = resources.replace("Textbooks", tbName);
+              } else if (!resources.includes(tbName)) {
+                // Otherwise append it if not already there
+                resources = `${resources}, ${tbName}`;
+              }
+            }
+            return resources;
+          })(),
+          textbook_name: l.textbook_name || formData.default_textbook || "",
+          textbook_teacher_guide_pages: l.textbook_teacher_guide_pages || "",
+          textbook_learner_book_pages: l.textbook_learner_book_pages || "",
+          assessment_methods:
+            l.assessment_methods || "Oral questions, Observation",
+          reflection: l.reflection || "",
+        })),
+      }));
+
+      setWeeks(generatedWeeks);
+      setFormData((prev) => ({
+        ...prev,
+        total_lessons: scheme.total_lessons,
+      }));
+      setSchemeAlreadySaved(true);
+      setSavedSchemeId(scheme.id);
+      setCurrentStep(3);
+
+      toast.success(
+        `🎉 Auto-populated ${generatedWeeks.length} weeks with ${scheme.total_lessons} lessons from curriculum!`
+      );
+    } catch (error: any) {
+      console.error("Auto-populate failed:", error);
+      if (error.response?.status === 404) {
+        toast.error(
+          `No curriculum template found for ${formData.subject} ${formData.grade}. Please use manual selection.`
+        );
+      } else {
+        toast.error("Failed to auto-populate. Try manual selection.");
+      }
+    } finally {
+      setAutoPopulating(false);
+    }
+  };
+
   const updateLesson = (
     weekIndex: number,
     lessonIndex: number,
@@ -509,6 +657,21 @@ export default function SchemeGeneratorPage() {
   ) => {
     const updatedWeeks = [...weeks];
     updatedWeeks[weekIndex].lessons[lessonIndex][field] = value as never;
+
+    // If updating textbook name, also update resources
+    if (field === "textbook_name") {
+      let resources =
+        updatedWeeks[weekIndex].lessons[lessonIndex].learning_resources;
+      if (resources.includes("Textbooks")) {
+        updatedWeeks[weekIndex].lessons[lessonIndex].learning_resources =
+          resources.replace("Textbooks", value);
+      } else if (!resources.includes(value)) {
+        // If it doesn't have "Textbooks" but also doesn't have the new name, append it?
+        // Maybe safer to just leave it if "Textbooks" isn't there to replace.
+        // But if it was "Textbooks, digital devices", it becomes "Mentor Grade 9, digital devices"
+      }
+    }
+
     setWeeks(updatedWeeks);
   };
 
@@ -523,19 +686,32 @@ export default function SchemeGeneratorPage() {
     let startLessonIdx = lessonIndex + 1;
     let updatedCount = 0;
 
+    // Also update the CURRENT lesson's resources if needed (since blur happens after change)
+    const currentLesson = updatedWeeks[weekIndex].lessons[lessonIndex];
+    if (currentLesson.learning_resources.includes("Textbooks")) {
+      currentLesson.learning_resources =
+        currentLesson.learning_resources.replace("Textbooks", value);
+    }
+
     for (let w = weekIndex; w < updatedWeeks.length; w++) {
       const week = updatedWeeks[w];
       // For subsequent weeks, start from the first lesson
       if (w > weekIndex) startLessonIdx = 0;
 
       for (let l = startLessonIdx; l < week.lessons.length; l++) {
-        const currentLesson = week.lessons[l];
+        const lesson = week.lessons[l];
         // Only update if the textbook name is empty
-        if (
-          !currentLesson.textbook_name ||
-          currentLesson.textbook_name.trim() === ""
-        ) {
-          week.lessons[l].textbook_name = value;
+        if (!lesson.textbook_name || lesson.textbook_name.trim() === "") {
+          lesson.textbook_name = value;
+
+          // Also update resources for these subsequent lessons
+          if (lesson.learning_resources.includes("Textbooks")) {
+            lesson.learning_resources = lesson.learning_resources.replace(
+              "Textbooks",
+              value
+            );
+          }
+
           updatedCount++;
         }
       }
@@ -550,6 +726,9 @@ export default function SchemeGeneratorPage() {
           duration: 2000,
         }
       );
+    } else {
+      // If we only updated the current lesson's resources, we still need to set state
+      setWeeks(updatedWeeks);
     }
   };
 
@@ -604,6 +783,13 @@ export default function SchemeGeneratorPage() {
   };
 
   const saveScheme = async () => {
+    // If scheme was auto-populated, it's already saved - just redirect
+    if (schemeAlreadySaved && savedSchemeId) {
+      toast.success("Scheme of work saved! Redirecting...");
+      router.push(`/professional-records/schemes/${savedSchemeId}`);
+      return;
+    }
+
     if (!formData.subject_id) {
       toast.error("Please select a subject");
       return;
@@ -622,12 +808,12 @@ export default function SchemeGeneratorPage() {
         weeks: weeks,
       };
 
-      await axios.post("/api/v1/schemes", schemeData, {
+      const response = await axios.post("/api/v1/schemes", schemeData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
       toast.success("Scheme of work created successfully!");
-      router.push("/professional-records");
+      router.push(`/professional-records/schemes/${response.data.id}`);
     } catch (error) {
       console.error("Failed to save scheme:", error);
       toast.error("Failed to save scheme of work");
@@ -808,10 +994,10 @@ export default function SchemeGeneratorPage() {
                 >
                   {!schoolTerms || schoolTerms.length === 0 ? (
                     <>
-                      <option value="">Select a term</option>
-                      <option value="Term 1">Term 1</option>
-                      <option value="Term 2">Term 2</option>
-                      <option value="Term 3">Term 3</option>
+                      <option value="">Select a term (Manual Mode)</option>
+                      <option value="Term 1">Term 1 (No dates)</option>
+                      <option value="Term 2">Term 2 (No dates)</option>
+                      <option value="Term 3">Term 3 (No dates)</option>
                     </>
                   ) : (
                     <>
@@ -843,6 +1029,29 @@ export default function SchemeGeneratorPage() {
                   required
                   readOnly
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <FiBookOpen className="inline w-4 h-4 mr-2" />
+                  Default Textbook (Optional)
+                </label>
+                <input
+                  type="text"
+                  value={formData.default_textbook}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      default_textbook: e.target.value,
+                    })
+                  }
+                  placeholder="e.g. Oxford English Grade 7"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  This will be applied to all lessons if no specific textbook is
+                  defined in the curriculum.
+                </p>
               </div>
 
               <div>
@@ -896,6 +1105,58 @@ export default function SchemeGeneratorPage() {
         {/* Step 2: Select Lessons */}
         {currentStep === 2 && (
           <div className="space-y-6">
+            {/* Auto-Populate Card */}
+            <div className="glass-card bg-gradient-to-r from-emerald-50 to-teal-50 backdrop-blur-xl rounded-2xl shadow-xl border border-emerald-200 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-lg font-bold text-emerald-800 flex items-center gap-2">
+                    <FiZap className="w-5 h-5" />
+                    Auto-Populate from Curriculum
+                  </h3>
+                  <p className="text-emerald-700 text-sm mt-1">
+                    Automatically fill in your entire scheme using the CBC
+                    curriculum database. All strands, sub-strands, and learning
+                    outcomes will be populated.
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setShowPreview(true)}
+                    className="bg-white text-emerald-700 border border-emerald-200 px-4 py-3 rounded-xl font-bold shadow-sm hover:shadow-md hover:bg-emerald-50 transition-all duration-300 flex items-center gap-2 whitespace-nowrap"
+                  >
+                    <FiEye className="w-5 h-5" />
+                    Preview Content
+                  </button>
+                  <button
+                    onClick={autoPopulateFromCurriculum}
+                    disabled={autoPopulating}
+                    className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 disabled:opacity-50 whitespace-nowrap"
+                  >
+                    {autoPopulating ? (
+                      <>
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <FiZap className="w-5 h-5" />
+                        Auto-Populate Scheme
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className="flex items-center gap-4">
+              <div className="flex-1 h-px bg-gray-300"></div>
+              <span className="text-gray-500 text-sm font-medium">
+                OR select manually
+              </span>
+              <div className="flex-1 h-px bg-gray-300"></div>
+            </div>
+
             <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">
                 Select Lessons
@@ -1075,20 +1336,47 @@ export default function SchemeGeneratorPage() {
             <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900">
+                  <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
                     Review Scheme of Work
+                    {schemeAlreadySaved && (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 text-sm font-semibold rounded-full border border-green-200">
+                        <FiCheckCircle className="w-4 h-4" />
+                        Auto-Generated & Saved
+                      </span>
+                    )}
                   </h2>
                   <p className="text-gray-600 mt-1">
                     {weeks.length} weeks · {formData.total_lessons} lessons
+                    {schoolTerms.length > 0 ? (
+                      <span className="ml-2 text-xs bg-green-100 px-2 py-1 rounded text-green-700 border border-green-200">
+                        Term Data Loaded ({schoolTerms.length})
+                      </span>
+                    ) : (
+                      <span className="ml-2 text-xs bg-red-100 px-2 py-1 rounded text-red-700 border border-red-200">
+                        No Term Data (0) - Breaks won't be calculated
+                      </span>
+                    )}
                   </p>
                 </div>
                 <button
                   onClick={saveScheme}
                   disabled={saving}
-                  className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 disabled:opacity-50"
+                  className={`${
+                    schemeAlreadySaved
+                      ? "bg-gradient-to-r from-emerald-500 to-green-500"
+                      : "bg-gradient-to-r from-green-600 to-emerald-600"
+                  } text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 disabled:opacity-50`}
                 >
-                  <FiSave className="w-5 h-5" />
-                  {saving ? "Saving..." : "Save Scheme"}
+                  {schemeAlreadySaved ? (
+                    <FiCheck className="w-5 h-5" />
+                  ) : (
+                    <FiSave className="w-5 h-5" />
+                  )}
+                  {saving
+                    ? "Saving..."
+                    : schemeAlreadySaved
+                    ? "View Saved Scheme →"
+                    : "Save Scheme"}
                 </button>
               </div>
 
@@ -1100,6 +1388,9 @@ export default function SchemeGeneratorPage() {
                   >
                     <h3 className="text-lg font-bold text-indigo-600 mb-4">
                       Week {week.week_number}
+                      <span className="text-sm font-normal text-gray-500 ml-2">
+                        {getWeekDateRange(week.week_number)}
+                      </span>
                     </h3>
 
                     <div className="space-y-4">
@@ -1405,6 +1696,98 @@ export default function SchemeGeneratorPage() {
           </div>
         )}
       </div>
+
+      {/* Preview Modal */}
+      {showPreview && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col animate-in fade-in zoom-in duration-200">
+            <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+              <div>
+                <h3 className="text-xl font-bold text-gray-900">
+                  Curriculum Content Preview
+                </h3>
+                <p className="text-sm text-gray-500 mt-1">
+                  The following content will be included in your scheme
+                </p>
+              </div>
+              <button
+                onClick={() => setShowPreview(false)}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <FiX className="w-5 h-5 text-gray-500" />
+              </button>
+            </div>
+
+            <div className="p-6 overflow-y-auto flex-1 space-y-6">
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="bg-indigo-50 p-4 rounded-xl text-center">
+                  <div className="text-2xl font-bold text-indigo-600">
+                    {strands.length}
+                  </div>
+                  <div className="text-xs font-medium text-indigo-800 uppercase tracking-wider">
+                    Strands
+                  </div>
+                </div>
+                <div className="bg-purple-50 p-4 rounded-xl text-center">
+                  <div className="text-2xl font-bold text-purple-600">
+                    {strands.reduce((acc, s) => acc + s.sub_strands.length, 0)}
+                  </div>
+                  <div className="text-xs font-medium text-purple-800 uppercase tracking-wider">
+                    Sub-strands
+                  </div>
+                </div>
+                <div className="bg-emerald-50 p-4 rounded-xl text-center">
+                  <div className="text-2xl font-bold text-emerald-600">
+                    {lessons.length}
+                  </div>
+                  <div className="text-xs font-medium text-emerald-800 uppercase tracking-wider">
+                    Total Lessons
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                {strands.map((strand) => (
+                  <div
+                    key={strand.id}
+                    className="border border-gray-200 rounded-xl overflow-hidden"
+                  >
+                    <div className="bg-gray-50 px-4 py-3 border-b border-gray-200 font-semibold text-gray-800">
+                      {strand.strand_name}
+                    </div>
+                    <div className="divide-y divide-gray-100">
+                      {strand.sub_strands.map((sub) => (
+                        <div
+                          key={sub.id}
+                          className="px-4 py-3 text-sm text-gray-600 flex justify-between items-center hover:bg-gray-50"
+                        >
+                          <span>{sub.substrand_name}</span>
+                          <span className="text-xs bg-gray-100 px-2 py-1 rounded-full text-gray-500">
+                            {
+                              lessons.filter((l) => l.substrand_id === sub.id)
+                                .length
+                            }{" "}
+                            lessons
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="p-6 border-t border-gray-100 bg-gray-50 rounded-b-2xl flex justify-end">
+              <button
+                onClick={() => setShowPreview(false)}
+                className="px-6 py-2 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-colors"
+              >
+                Close Preview
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

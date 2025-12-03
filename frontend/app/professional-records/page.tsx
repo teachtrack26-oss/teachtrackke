@@ -638,7 +638,7 @@ export default function ProfessionalRecordsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gray-50 relative overflow-hidden pt-24">
       {/* Premium Animated Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-400/20 rounded-full blur-[128px] animate-blob"></div>
@@ -646,7 +646,7 @@ export default function ProfessionalRecordsPage() {
         <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-pink-400/20 rounded-full blur-[128px] animate-blob animation-delay-4000"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
         {/* Premium Header */}
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-3">
@@ -1741,6 +1741,13 @@ export default function ProfessionalRecordsPage() {
                       </div>
                       <div className="p-6 flex-1 flex flex-col bg-white">
                         <div className="flex gap-2 mt-auto">
+                          <button
+                            onClick={() => handleExport("records")}
+                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                            title="Download Record"
+                          >
+                            <FiDownload className="w-4 h-4" />
+                          </button>
                           <Link
                             href={`/professional-records/record-of-work/${record.id}`}
                             className={`flex-1 bg-gradient-to-r ${theme.gradient} text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm hover:shadow-lg`}

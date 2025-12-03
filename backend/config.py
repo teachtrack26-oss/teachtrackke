@@ -47,6 +47,14 @@ class Settings(BaseSettings):
     OPENROUTER_API_KEY: str = ""  # Get free API key from https://openrouter.ai/keys
     OPENROUTER_MODEL: str = "google/gemini-2.0-flash-exp:free"  # Free vision model
     
+    # M-Pesa Configuration (Your Sandbox Credentials)
+    MPESA_CONSUMER_KEY: str = "0jKMlR2RRKSBzyOmCAG2cKCAk6oKGTHr5PHUGFcIGOMaRNVv"
+    MPESA_CONSUMER_SECRET: str = "8Rz3KdxtByCKPqdbzyVZ27NAKDBkSGA9u8yYbeTWN9nx0HTYQXqvTNw0U6ImpUo2"
+    MPESA_PASSKEY: str = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
+    MPESA_SHORTCODE: str = "174379"
+    MPESA_CALLBACK_URL: str = "https://rubeolar-jaxon-unintuitively.ngrok-free.dev/api/v1/payments/callback"
+    MPESA_ENV: str = "sandbox"
+
     # Cloudinary Storage
     # You can set either the three fields below OR a single CLOUDINARY_URL.
     CLOUDINARY_URL: str = ""

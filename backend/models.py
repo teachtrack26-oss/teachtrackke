@@ -15,6 +15,7 @@ class UserRole(str, enum.Enum):
     TEACHER = "TEACHER"
 
 class SubscriptionType(str, enum.Enum):
+    FREE = "FREE"
     SCHOOL_SPONSORED = "SCHOOL_SPONSORED"
     INDIVIDUAL_BASIC = "INDIVIDUAL_BASIC"
     INDIVIDUAL_PREMIUM = "INDIVIDUAL_PREMIUM"
@@ -45,6 +46,35 @@ class School(Base):
     # Relationships
     admin = relationship("User", foreign_keys=[admin_id], back_populates="managed_school")
     teachers = relationship("User", foreign_keys="[User.school_id]", back_populates="school_rel")
+
+# ============================================================================
+# PAYMENT MODELS
+# ============================================================================
+
+class PaymentStatus(str, enum.Enum):
+    PENDING = "PENDING"
+    COMPLETED = "COMPLETED"
+    FAILED = "FAILED"
+    CANCELLED = "CANCELLED"
+
+class Payment(Base):
+    __tablename__ = "payments"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    amount = Column(DECIMAL(10, 2), nullable=False)
+    phone_number = Column(String(20), nullable=False)
+    transaction_code = Column(String(50), unique=True, nullable=True) # M-Pesa Receipt Number
+    checkout_request_id = Column(String(100), unique=True, nullable=False) # For STK Push tracking
+    merchant_request_id = Column(String(100), nullable=True)
+    status = Column(SQLEnum(PaymentStatus), default=PaymentStatus.PENDING)
+    description = Column(String(255), nullable=True) # e.g. "Termly Pass Subscription"
+    reference = Column(String(100), nullable=True) # Internal reference
+    
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+
+    user = relationship("User", back_populates="payments")
 
 # ============================================================================
 # TEMPLATE MODELS
@@ -89,6 +119,11 @@ class TemplateSubstrand(Base):
     values = Column(JSON)
     pcis = Column(JSON)
     links_to_other_subjects = Column(JSON)
+    
+    # New fields for Textbook Mapping
+    default_textbook_name = Column(String(255), nullable=True)
+    default_learner_book_pages = Column(String(100), nullable=True)
+    default_teacher_guide_pages = Column(String(100), nullable=True)
     
     sequence_order = Column(Integer, default=0)
     created_at = Column(TIMESTAMP, server_default=func.now())
@@ -142,6 +177,50 @@ class User(Base):
     
     # SaaS Relationships
     school_rel = relationship("School", foreign_keys=[school_id], back_populates="teachers")
+    payments = relationship("Payment", back_populates="user", cascade="all, delete-orphan")
+
+    @property
+    def is_trial_active(self):
+        """Check if the user is in the 14-day trial period."""
+        if self.subscription_type != SubscriptionType.FREE:
+            return False  # Paid users are not in "trial" mode (they have full access)
+        
+        if not self.created_at:
+            return False
+            
+        from datetime import datetime, timedelta
+        # Handle potential string format if not converted by ORM
+        created = self.created_at
+        if isinstance(created, str):
+            try:
+                created = datetime.fromisoformat(str(created))
+            except:
+                return False
+
+        trial_end = created + timedelta(days=14)
+        return datetime.now() < trial_end
+
+    @property
+    def trial_days_remaining(self):
+        """Return number of days remaining in trial."""
+        if self.subscription_type != SubscriptionType.FREE:
+            return 0
+            
+        if not self.created_at:
+            return 0
+            
+        from datetime import datetime, timedelta
+        # Handle potential string format
+        created = self.created_at
+        if isinstance(created, str):
+            try:
+                created = datetime.fromisoformat(str(created))
+            except:
+                return 0
+
+        trial_end = created + timedelta(days=14)
+        remaining = trial_end - datetime.now()
+        return max(0, remaining.days)
     managed_school = relationship("School", foreign_keys="[School.admin_id]", back_populates="admin", uselist=False)
     
     # Teacher Profile (for independent teachers)

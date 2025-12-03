@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import {
   FiArrowLeft,
   FiDownload,
@@ -53,6 +54,7 @@ export default function ViewLessonPlanPage() {
   const router = useRouter();
   const params = useParams();
   const planId = params?.id as string;
+  const { data: session } = useSession();
 
   const [loading, setLoading] = useState(true);
   const [plan, setPlan] = useState<LessonPlan | null>(null);
@@ -260,11 +262,31 @@ export default function ViewLessonPlanPage() {
 
             <div className="flex gap-2">
               <button
-                onClick={() => window.print()}
-                className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-4 py-2 rounded-lg font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300"
+                onClick={() => {
+                  const user = session?.user as any;
+                  if (user?.subscription_type === "FREE") {
+                    toast.error(
+                      "Printing/Downloading is available on Premium plans only."
+                    );
+                    return;
+                  }
+                  window.print();
+                }}
+                className={`px-4 py-2 rounded-lg font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 ${
+                  (session?.user as any)?.subscription_type === "FREE"
+                    ? "bg-gray-400 text-white cursor-not-allowed"
+                    : "bg-gradient-to-r from-blue-600 to-cyan-600 text-white"
+                }`}
+                title={
+                  (session?.user as any)?.subscription_type === "FREE"
+                    ? "Upgrade to print"
+                    : "Print"
+                }
               >
                 <FiDownload className="w-4 h-4" />
-                Print
+                {(session?.user as any)?.subscription_type === "FREE"
+                  ? "Preview Only"
+                  : "Print"}
               </button>
               <button
                 onClick={() =>

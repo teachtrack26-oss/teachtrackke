@@ -13,13 +13,15 @@ import {
   FiClock,
   FiCheckCircle,
   FiFileText,
+  FiFilePlus,
+  FiClipboard,
 } from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
 
 interface WeekLesson {
-  lesson_id: number;
-  lesson_title: string;
+  id: number;
+  lesson_number: number;
   strand: string;
   sub_strand: string;
   specific_learning_outcomes: string;
@@ -44,6 +46,8 @@ interface WeekLesson {
 interface Week {
   week_number: number;
   lessons: WeekLesson[];
+  start_date?: string;
+  end_date?: string;
 }
 
 interface SchemeOfWork {
@@ -88,6 +92,7 @@ export default function ViewSchemePage() {
   const [expandedWeeks, setExpandedWeeks] = useState<Set<number>>(new Set());
   const [changingStatus, setChangingStatus] = useState(false);
   const [generatingPlans, setGeneratingPlans] = useState(false);
+  const [generatingRecord, setGeneratingRecord] = useState(false);
 
   // Sync session token to localStorage on mount
   useEffect(() => {
@@ -184,8 +189,60 @@ export default function ViewSchemePage() {
     }
   };
 
-  const handleDownloadPDF = async () => {
+  const handleCreateLessonPlan = async (lessonId: number) => {
+    try {
+      setGeneratingPlans(true);
+      const token =
+        localStorage.getItem("accessToken") || (session as any)?.accessToken;
+
+      const response = await axios.post(
+        `/api/v1/lesson-plans/from-scheme/${lessonId}`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      toast.success("Lesson plan created!");
+      // Redirect to edit page
+      router.push(
+        `/professional-records/lesson-plans/${response.data.id}/edit`
+      );
+    } catch (error) {
+      console.error("Failed to create lesson plan:", error);
+      toast.error("Failed to create lesson plan");
+    } finally {
+      setGeneratingPlans(false);
+    }
+  };
+
+  const handleMarkTaught = async (lessonId: number) => {
+    try {
+      const token =
+        localStorage.getItem("accessToken") || (session as any)?.accessToken;
+
+      await axios.post(
+        `/api/v1/records-of-work/mark-taught/${lessonId}`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      toast.success("Marked as taught!");
+    } catch (error) {
+      console.error("Failed to mark as taught:", error);
+      toast.error("Failed to mark as taught");
+    }
+  };
+
+  const handleDownloadPdf = async () => {
     if (!scheme) return;
+
+    // Check for Free Plan
+    const user = session?.user as any;
+    if (user?.subscription_type === "FREE") {
+      toast.error(
+        "Downloads are available on Premium plans only. Please upgrade to download."
+      );
+      return;
+    }
 
     const loadingToast = toast.loading("Generating PDF...");
 
@@ -291,6 +348,43 @@ export default function ViewSchemePage() {
       }
     } finally {
       setGeneratingPlans(false);
+    }
+  };
+
+  const handleGenerateRecordOfWork = async () => {
+    if (!scheme) return;
+
+    const confirmGenerate = confirm(
+      "This will create a Record of Work from this scheme. Continue?"
+    );
+
+    if (!confirmGenerate) return;
+
+    setGeneratingRecord(true);
+    const loadingToast = toast.loading("Generating Record of Work...");
+
+    try {
+      const token =
+        localStorage.getItem("accessToken") || (session as any)?.accessToken;
+      const response = await axios.post(
+        `/api/v1/records-of-work/create-from-scheme/${schemeId}`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      toast.dismiss(loadingToast);
+      toast.success("Record of Work generated successfully!");
+      router.push(`/professional-records/record-of-work/${response.data.id}`);
+    } catch (error: any) {
+      toast.dismiss(loadingToast);
+      console.error("Failed to generate record:", error);
+      if (error.response?.data?.detail) {
+        toast.error(error.response.data.detail);
+      } else {
+        toast.error("Failed to generate Record of Work");
+      }
+    } finally {
+      setGeneratingRecord(false);
     }
   };
 
@@ -438,6 +532,14 @@ export default function ViewSchemePage() {
 
             <div className="flex gap-2">
               <button
+                onClick={handleGenerateRecordOfWork}
+                disabled={generatingRecord}
+                className="bg-gradient-to-r from-orange-600 to-amber-600 text-white px-4 py-2 rounded-lg font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 disabled:opacity-50"
+              >
+                <FiClipboard className="w-4 h-4" />
+                {generatingRecord ? "Generating..." : "Generate Record of Work"}
+              </button>
+              <button
                 onClick={handleGenerateLessonPlans}
                 disabled={generatingPlans}
                 className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-4 py-2 rounded-lg font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 disabled:opacity-50"
@@ -446,11 +548,22 @@ export default function ViewSchemePage() {
                 {generatingPlans ? "Generating..." : "Generate Lesson Plans"}
               </button>
               <button
-                onClick={handleDownloadPDF}
-                className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-4 py-2 rounded-lg font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300"
+                onClick={handleDownloadPdf}
+                className={`px-4 py-2 rounded-lg font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 ${
+                  (session?.user as any)?.subscription_type === "FREE"
+                    ? "bg-gray-400 text-white cursor-not-allowed"
+                    : "bg-gradient-to-r from-blue-600 to-cyan-600 text-white"
+                }`}
+                title={
+                  (session?.user as any)?.subscription_type === "FREE"
+                    ? "Upgrade to download"
+                    : "Download PDF"
+                }
               >
                 <FiDownload className="w-4 h-4" />
-                Download PDF
+                {(session?.user as any)?.subscription_type === "FREE"
+                  ? "Preview Only"
+                  : "Download PDF"}
               </button>
               <button
                 onClick={() =>
@@ -717,20 +830,90 @@ export default function ViewSchemePage() {
                     >
                       Reflect.
                     </th>
+                    <th
+                      className="border border-gray-400 px-2 py-2 text-left text-xs font-bold no-print"
+                      style={{ width: "5%" }}
+                    >
+                      Act.
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {scheme.weeks.map((week) =>
                     week.lessons.map((lesson, lessonIdx) => {
-                      // Format specific learning outcomes - more compact
-                      const formattedOutcomes =
-                        lesson.specific_learning_outcomes?.trim()
-                          ? lesson.specific_learning_outcomes.startsWith(
-                              "By the end"
+                      const isBreakLesson = (lesson.strand || "")
+                        .toUpperCase()
+                        .includes("BREAK");
+
+                      const formattedOutcomes = (() => {
+                        if (isBreakLesson) {
+                          return "Mid Term Break";
+                        }
+                        if (!lesson.specific_learning_outcomes?.trim()) {
+                          return "";
+                        }
+                        return lesson.specific_learning_outcomes.startsWith(
+                          "By the end"
+                        )
+                          ? lesson.specific_learning_outcomes
+                          : `By the end of the sub-strand, the learner should be able to: ${lesson.specific_learning_outcomes}`;
+                      })();
+
+                      const formattedInquiry = isBreakLesson
+                        ? ""
+                        : lesson.key_inquiry_questions || "";
+
+                      const formattedExperiences = (() => {
+                        if (isBreakLesson || !lesson.learning_experiences) {
+                          return "";
+                        }
+                        const text = lesson.learning_experiences.trim();
+                        const parts = text.includes("\n")
+                          ? text.split("\n")
+                          : text.split(/\.\s+/);
+                        return parts
+                          .map((p) => p.trim())
+                          .filter((p) => p.length > 0)
+                          .map((p) => {
+                            const cleanP = p.replace(/^[•\-*]\s*/, "");
+                            return `• ${
+                              cleanP.charAt(0).toUpperCase() + cleanP.slice(1)
+                            }`;
+                          })
+                          .join("\n");
+                      })();
+
+                      const formattedResources = isBreakLesson
+                        ? ""
+                        : lesson.learning_resources
+                        ? lesson.learning_resources
+                            .split(",")
+                            .map((r) => r.trim())
+                            .filter((r) => r.length > 0)
+                            .map(
+                              (r) =>
+                                `• ${r.charAt(0).toUpperCase() + r.slice(1)}`
                             )
-                            ? lesson.specific_learning_outcomes
-                            : `By the end of the sub-strand, the learner should be able to: ${lesson.specific_learning_outcomes}`
-                          : "";
+                            .join("\n")
+                        : "";
+
+                      const formattedAssessments = isBreakLesson
+                        ? ""
+                        : lesson.assessment_methods
+                        ? lesson.assessment_methods
+                            .split(",")
+                            .map((m) => m.trim())
+                            .filter((m) => m.length > 0)
+                            .map(
+                              (m) =>
+                                `• ${m.charAt(0).toUpperCase() + m.slice(1)}`
+                            )
+                            .join("\n")
+                        : "";
+
+                      const formattedReflection = isBreakLesson
+                        ? ""
+                        : lesson.reflection || "";
 
                       return (
                         <tr
@@ -742,7 +925,24 @@ export default function ViewSchemePage() {
                               className="border border-gray-400 px-2 py-2 text-xs font-semibold text-center bg-gray-50 align-middle"
                               rowSpan={week.lessons.length}
                             >
-                              {week.week_number}
+                              <div className="font-bold">
+                                {week.week_number}
+                              </div>
+                              {week.start_date && week.end_date && (
+                                <div className="text-[9px] text-gray-600 mt-1 leading-tight">
+                                  {new Date(week.start_date).toLocaleDateString(
+                                    "en-GB",
+                                    { day: "numeric", month: "short" }
+                                  )}
+                                  <br />
+                                  to
+                                  <br />
+                                  {new Date(week.end_date).toLocaleDateString(
+                                    "en-GB",
+                                    { day: "numeric", month: "short" }
+                                  )}
+                                </div>
+                              )}
                             </td>
                           )}
                           <td className="border border-gray-400 px-2 py-2 text-xs font-semibold text-center bg-gray-50">
@@ -758,60 +958,40 @@ export default function ViewSchemePage() {
                             {formattedOutcomes}
                           </td>
                           <td className="border border-gray-400 px-2 py-2 text-xs whitespace-pre-wrap">
-                            {lesson.key_inquiry_questions || ""}
+                            {formattedInquiry}
                           </td>
                           <td className="border border-gray-400 px-2 py-2 text-xs whitespace-pre-wrap learning-experiences">
-                            {(() => {
-                              if (!lesson.learning_experiences) return "";
-                              const text = lesson.learning_experiences.trim();
-                              let parts = text.includes("\n")
-                                ? text.split("\n")
-                                : text.split(/\.\s+/);
-                              return parts
-                                .map((p) => p.trim())
-                                .filter((p) => p.length > 0)
-                                .map((p) => {
-                                  const cleanP = p.replace(/^[•\-\*]\s*/, "");
-                                  return `• ${
-                                    cleanP.charAt(0).toUpperCase() +
-                                    cleanP.slice(1)
-                                  }`;
-                                })
-                                .join("\n");
-                            })()}
+                            {formattedExperiences}
                           </td>
                           <td className="border border-gray-400 px-2 py-2 text-xs whitespace-pre-wrap">
-                            {lesson.learning_resources
-                              ? lesson.learning_resources
-                                  .split(",")
-                                  .map((r) => r.trim())
-                                  .filter((r) => r.length > 0)
-                                  .map(
-                                    (r) =>
-                                      `• ${
-                                        r.charAt(0).toUpperCase() + r.slice(1)
-                                      }`
-                                  )
-                                  .join("\n")
-                              : ""}
+                            {formattedResources}
                           </td>
                           <td className="border border-gray-400 px-2 py-2 text-xs whitespace-pre-wrap">
-                            {lesson.assessment_methods
-                              ? lesson.assessment_methods
-                                  .split(",")
-                                  .map((m) => m.trim())
-                                  .filter((m) => m.length > 0)
-                                  .map(
-                                    (m) =>
-                                      `• ${
-                                        m.charAt(0).toUpperCase() + m.slice(1)
-                                      }`
-                                  )
-                                  .join("\n")
-                              : ""}
+                            {formattedAssessments}
                           </td>
                           <td className="border border-gray-400 px-2 py-2 text-xs whitespace-pre-wrap">
-                            {lesson.reflection || ""}
+                            {formattedReflection}
+                          </td>
+                          <td className="border border-gray-400 px-2 py-2 text-xs whitespace-pre-wrap no-print text-center">
+                            <div className="flex justify-center gap-2">
+                              <button
+                                onClick={() =>
+                                  handleCreateLessonPlan(lesson.id)
+                                }
+                                disabled={generatingPlans}
+                                className="p-2 text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors"
+                                title="Create Lesson Plan"
+                              >
+                                <FiFilePlus className="w-4 h-4" />
+                              </button>
+                              <button
+                                onClick={() => handleMarkTaught(lesson.id)}
+                                className="p-2 text-green-600 hover:bg-green-50 rounded-full transition-colors"
+                                title="Mark as Taught"
+                              >
+                                <FiCheckCircle className="w-4 h-4" />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       );
