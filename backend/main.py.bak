@@ -7159,6 +7159,1934 @@ def duplicate_resource(
         db.refresh(new_plan)
         return new_plan
 
+@app.post(f"{settings.API_V1_PREFIX}/admin/users/{{user_id}}/impersonate", response_model=Token)
+def impersonate_user(
+    user_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Impersonate a user (Admin only)"""
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+        
+    # Create access token for the target user
+    access_token = create_access_token(data={"sub": user.email})
+    return {"access_token": access_token, "token_type": "bearer"}
+
+# ============================================================================
+# SYSTEM ANNOUNCEMENTS ENDPOINTS
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/announcements", response_model=List[SystemAnnouncementResponse])
+def get_active_announcements(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all active announcements for users"""
+    now = datetime.utcnow()
+    announcements = db.query(SystemAnnouncement).filter(
+        SystemAnnouncement.is_active == True,
+        (SystemAnnouncement.expires_at == None) | (SystemAnnouncement.expires_at > now)
+    ).order_by(SystemAnnouncement.created_at.desc()).all()
+    
+    return announcements
+
+@app.get(f"{settings.API_V1_PREFIX}/admin/announcements", response_model=List[SystemAnnouncementResponse])
+def get_all_announcements(
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Get all announcements (Admin only)"""
+    announcements = db.query(SystemAnnouncement).order_by(SystemAnnouncement.created_at.desc()).all()
+    return announcements
+
+@app.post(f"{settings.API_V1_PREFIX}/admin/announcements", response_model=SystemAnnouncementResponse)
+def create_announcement(
+    announcement: SystemAnnouncementCreate,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new announcement (Admin only)"""
+    new_announcement = SystemAnnouncement(
+        **announcement.dict(),
+        created_by=current_user.id
+    )
+    db.add(new_announcement)
+    db.commit()
+    db.refresh(new_announcement)
+    return new_announcement
+
+@app.delete(f"{settings.API_V1_PREFIX}/admin/announcements/{{announcement_id}}")
+def delete_announcement(
+    announcement_id: int,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Delete an announcement (Admin only)"""
+    announcement = db.query(SystemAnnouncement).filter(SystemAnnouncement.id == announcement_id).first()
+    if not announcement:
+        raise HTTPException(status_code=404, detail="Announcement not found")
+    
+    db.delete(announcement)
+    db.commit()
+    return {"message": "Announcement deleted successfully"}
+
+@app.patch(f"{settings.API_V1_PREFIX}/admin/announcements/{{announcement_id}}/toggle")
+def toggle_announcement_status(
+    announcement_id: int,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Toggle active status of an announcement (Admin only)"""
+    announcement = db.query(SystemAnnouncement).filter(SystemAnnouncement.id == announcement_id).first()
+    if not announcement:
+        raise HTTPException(status_code=404, detail="Announcement not found")
+    
+    announcement.is_active = not announcement.is_active
+    db.commit()
+    db.refresh(announcement)
+    return announcement
+
+# ============================================================================
+# FILE DOWNLOAD ENDPOINT
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/download")
+async def download_note_file(
+    note_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Stream file download from Cloudinary with correct file type and name."""
+    # Enforce Download Limits
+    # Only PREMIUM or SCHOOL_SPONSORED users can download
+    is_school_linked = current_user.school_id is not None
+    is_premium = current_user.subscription_type == SubscriptionType.INDIVIDUAL_PREMIUM
+    is_school_sponsored = current_user.subscription_type == SubscriptionType.SCHOOL_SPONSORED
+    
+    if not (is_premium or is_school_sponsored or is_school_linked):
+        raise HTTPException(
+            status_code=403,
+            detail="Downloads are available on Premium plans only. Please upgrade to download."
+        )
+
+    import httpx
+    
+    # Get note and verify ownership
+    note = db.query(Note).filter(
+        Note.id == note_id,
+        Note.user_id == current_user.id
+    ).first()
+    
+    if not note or not note.file_url:
+        raise HTTPException(status_code=404, detail="Note or file not found")
+    
+    # DEBUG: Log what we're working with
+    print(f"\n{'='*80}")
+    print(f"DOWNLOAD REQUEST - Note ID: {note_id}")
+    print(f"  Title: {note.title}")
+    print(f"  Stored file_type: '{note.file_type}'")
+    print(f"  Cloudinary URL: {note.file_url}")
+    print(f"{'='*80}\n")
+    
+    # Extract public_id from URL and generate authenticated download URL
+    try:
+        print(f"Extracting public_id from URL...")
+        public_id = cloudinary_storage.extract_public_id_from_url(note.file_url)
+        
+        if not public_id:
+            print(f"ERROR: Could not extract public_id from URL")
+            raise HTTPException(
+                status_code=500,
+                detail="Invalid file URL format"
+            )
+        
+        print(f"  Public ID: {public_id}")
+        
+        # Determine resource type based on file extension
+        resource_type = "raw" if note.file_type in ['pdf', 'docx', 'pptx', 'xlsx'] else "image"
+        print(f"  Resource Type: {resource_type}")
+        
+        # Generate a fresh authenticated URL using Cloudinary SDK
+        import cloudinary.utils
+        
+        # For raw files, we need to use the 'raw' resource type and specify delivery type
+        if resource_type == "raw":
+            # Build URL with authentication - Cloudinary handles signing automatically
+            download_url = cloudinary.utils.cloudinary_url(
+                public_id,
+                resource_type="raw",
+                secure=True,
+                sign_url=True,  # Important: Sign the URL
+                type="upload"
+            )[0]
+        else:
+            # For images/videos, use standard URL
+            download_url = cloudinary.utils.cloudinary_url(
+                public_id,
+                resource_type=resource_type,
+                secure=True,
+                sign_url=True
+            )[0]
+        
+        print(f"  Generated authenticated URL: {download_url[:80]}...")
+        
+        # Fetch file from Cloudinary with the authenticated URL
+        async with httpx.AsyncClient(timeout=60.0) as client:
+            print(f"Fetching file from Cloudinary...")
+            response = await client.get(download_url)
+            
+            if response.status_code != 200:
+                print(f"ERROR: Cloudinary returned status {response.status_code}")
+                print(f"  Response: {response.text[:200]}")
+                raise HTTPException(
+                    status_code=500, 
+                    detail=f"Failed to fetch file from storage (status: {response.status_code})"
+                )
+            
+            # Log what Cloudinary returned
+            cloudinary_content_type = response.headers.get('content-type', 'unknown')
+            print(f"Cloudinary Response:")
+            print(f"  Content-Type: {cloudinary_content_type}")
+            print(f"  Content-Length: {len(response.content)} bytes")
+            
+    except httpx.TimeoutException as e:
+        print(f"ERROR: Timeout fetching file from Cloudinary: {str(e)}")
+        raise HTTPException(
+            status_code=504,
+            detail="Timeout fetching file from cloud storage"
+        )
+    except httpx.HTTPError as e:
+        print(f"ERROR: HTTP error fetching file: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to fetch file: {str(e)}"
+        )
+    except Exception as e:
+        print(f"ERROR: Unexpected error fetching file: {type(e).__name__}: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Unexpected error: {str(e)}"
+        )
+    
+    # Clean filename and ensure it has the correct extension
+    # Use the stored file_type to ensure correct extension
+    filename = note.title.strip()
+    file_ext = note.file_type.lower().strip() if note.file_type else ''
+    
+    # Remove any existing extension from title
+    if '.' in filename:
+        name_parts = filename.rsplit('.', 1)
+        filename = name_parts[0]
+    
+    # Add the correct extension from database
+    if file_ext:
+        filename = f"{filename}.{file_ext}"
+    else:
+        # Fallback: try to get extension from URL
+        print(f"WARNING: No file_type in database, trying to extract from URL")
+        url_parts = note.file_url.split('.')
+        if len(url_parts) > 1:
+            file_ext = url_parts[-1].lower()
+            filename = f"{filename}.{file_ext}"
+    
+    # Comprehensive MIME type mapping based on stored file_type
+    mime_type_map = {
+            'pdf': 'application/pdf',
+            'doc': 'application/msword',
+            'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'ppt': 'application/vnd.ms-powerpoint',
+            'pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+            'xls': 'application/vnd.ms-excel',
+            'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'jpg': 'image/jpeg',
+            'jpeg': 'image/jpeg',
+            'png': 'image/png',
+            'gif': 'image/gif',
+            'webp': 'image/webp',
+            'mp4': 'video/mp4',
+            'mov': 'video/quicktime',
+            'avi': 'video/x-msvideo',
+            'mkv': 'video/x-matroska',
+            'mp3': 'audio/mpeg',
+            'wav': 'audio/wav',
+            'txt': 'text/plain',
+            'csv': 'text/csv',
+            'zip': 'application/zip',
+            'rar': 'application/x-rar-compressed',
+    }
+    
+    # Use the file type from database, not from Cloudinary response
+    media_type = mime_type_map.get(file_ext, 'application/octet-stream')
+    
+    print(f"\nDownload Response:")
+    print(f"  Filename: {filename}")
+    print(f"  Extension: {file_ext}")
+    print(f"  MIME Type: {media_type}")
+    print(f"{'='*80}\n")
+    
+    # Return streaming response with proper headers
+    # CRITICAL: Use the stored file_type to ensure correct download
+    return StreamingResponse(
+        iter([response.content]),
+        media_type=media_type,
+        headers={
+            "Content-Disposition": f'attachment; filename="{filename}"',
+            "Content-Type": media_type,
+            "Content-Length": str(len(response.content)),
+            "Cache-Control": "no-cache"
+        }
+    )
+
+
+# ============================================================================
+# TIMETABLE MANAGEMENT ENDPOINTS
+# ============================================================================
+
+@app.post(f"{settings.API_V1_PREFIX}/timetable/schedules", response_model=SchoolScheduleResponse)
+async def create_school_schedule(
+    schedule: SchoolScheduleCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new school schedule configuration and auto-generate time slots"""
+    
+    # SaaS: Check Schedule Limits for Individual Basic/Free Plan
+    # Limit to 1 active schedule
+    if current_user.subscription_type in [SubscriptionType.INDIVIDUAL_BASIC, SubscriptionType.FREE]:
+        schedule_count = db.query(SchoolSchedule).filter(
+            SchoolSchedule.user_id == current_user.id,
+            SchoolSchedule.is_active == True
+        ).count()
+        if schedule_count >= 1:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Basic Plan is limited to 1 active schedule. Please upgrade to Premium to create more."
+            )
+
+    # Check if user already has an active schedule for this level
+    query = db.query(SchoolSchedule).filter(
+        SchoolSchedule.user_id == current_user.id,
+        SchoolSchedule.is_active == True
+    )
+    
+    if schedule.education_level:
+        query = query.filter(SchoolSchedule.education_level == schedule.education_level)
+    else:
+        # If no level specified, check if any schedule exists without level (legacy)
+        # or just check if ANY active schedule exists if we want to enforce one per user when no level
+        pass 
+        
+    existing = query.first()
+    
+    if existing:
+        level_msg = f" for {schedule.education_level}" if schedule.education_level else ""
+        raise HTTPException(
+            status_code=400,
+            detail=f"You already have an active schedule{level_msg}. Deactivate it first or update it."
+        )
+    
+    # Create schedule
+    db_schedule = SchoolSchedule(
+        user_id=current_user.id,
+        **schedule.dict()
+    )
+    db.add(db_schedule)
+    db.commit()
+    db.refresh(db_schedule)
+    
+    # Auto-generate time slots
+    generate_time_slots(db_schedule, db)
+    
+    return db_schedule
+
+
+def generate_time_slots(schedule: SchoolSchedule, db: Session):
+    """Generate time slots based on schedule configuration"""
+    from datetime import datetime, timedelta
+    
+    # Parse times
+    def parse_time(time_str: str) -> datetime:
+        return datetime.strptime(time_str, "%H:%M")
+    
+    current_time = parse_time(schedule.school_start_time)
+    slot_number = 1
+    sequence = 1
+    
+    # Session 1 (Before first break)
+    for i in range(schedule.lessons_before_first_break):
+        duration = schedule.single_lesson_duration if i % 2 == 0 else schedule.double_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    # First Break
+    if schedule.first_break_duration > 0:
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=0,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=schedule.first_break_duration)).strftime("%H:%M"),
+            slot_type="break",
+            label="First Break",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        current_time += timedelta(minutes=schedule.first_break_duration)
+        sequence += 1
+    
+    # Session 2 (Before second break)
+    for i in range(schedule.lessons_before_second_break):
+        duration = schedule.single_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    # Second Break (Tea Break)
+    if schedule.second_break_duration > 0:
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=0,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=schedule.second_break_duration)).strftime("%H:%M"),
+            slot_type="break",
+            label="Second Break",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        current_time += timedelta(minutes=schedule.second_break_duration)
+        sequence += 1
+    
+    # Session 3 (Before lunch)
+    for i in range(schedule.lessons_before_lunch):
+        duration = schedule.single_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    # Lunch Break
+    if schedule.lunch_break_duration > 0:
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=0,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=schedule.lunch_break_duration)).strftime("%H:%M"),
+            slot_type="lunch",
+            label="Lunch Break",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        current_time += timedelta(minutes=schedule.lunch_break_duration)
+        sequence += 1
+    
+    # Session 4 (After lunch)
+    for i in range(schedule.lessons_after_lunch):
+        duration = schedule.single_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    db.commit()
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/schedules", response_model=List[SchoolScheduleResponse])
+async def get_school_schedules(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all school schedules for current user"""
+    schedules = db.query(SchoolSchedule).filter(
+        SchoolSchedule.user_id == current_user.id
+    ).order_by(SchoolSchedule.is_active.desc(), SchoolSchedule.created_at.desc()).all()
+    
+    return schedules
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/schedules/active", response_model=SchoolScheduleResponse)
+async def get_active_schedule(
+    education_level: Optional[str] = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get the active schedule, falling back to a generic one when needed."""
+    schedule = get_active_schedule_or_fallback(db, current_user, education_level)
+    if not schedule:
+        detail = f"No active schedule found for {education_level}" if education_level else "No active schedule found"
+        raise HTTPException(status_code=404, detail=f"{detail}. Please create one.")
+
+    return schedule
+
+
+@app.put(f"{settings.API_V1_PREFIX}/timetable/schedules/{{schedule_id}}", response_model=SchoolScheduleResponse)
+async def update_school_schedule(
+    schedule_id: int,
+    schedule_update: SchoolScheduleUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update a school schedule and regenerate time slots"""
+    schedule = db.query(SchoolSchedule).filter(
+        SchoolSchedule.id == schedule_id,
+        SchoolSchedule.user_id == current_user.id
+    ).first()
+    
+    if not schedule:
+        raise HTTPException(status_code=404, detail="Schedule not found")
+    
+    # Update fields
+    update_data = schedule_update.dict(exclude_unset=True)
+    for key, value in update_data.items():
+        setattr(schedule, key, value)
+    
+    db.commit()
+    db.refresh(schedule)
+    
+    # Regenerate time slots if timing changed
+    if any(key in update_data for key in ['school_start_time', 'single_lesson_duration', 
+                                            'double_lesson_duration', 'lessons_before_first_break',
+                                            'lessons_before_second_break', 'lessons_before_lunch',
+                                            'lessons_after_lunch', 'first_break_duration',
+                                            'second_break_duration', 'lunch_break_duration']):
+        # Get existing time slots to preserve lesson mappings
+        existing_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule_id
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        # Get existing entries to remap later
+        existing_entries = db.query(TimetableEntry).filter(
+            TimetableEntry.schedule_id == schedule_id
+        ).all()
+        
+        # Create mapping of old slot details (sequence_order, slot_type) to entry details
+        entry_mappings = {}
+        for entry in existing_entries:
+            old_slot = next((s for s in existing_slots if s.id == entry.time_slot_id), None)
+            if old_slot:
+                # Map by sequence order and slot type to preserve lesson positions
+                key = (old_slot.sequence_order, old_slot.slot_type)
+                if key not in entry_mappings:
+                    entry_mappings[key] = []
+                entry_mappings[key].append({
+                    'subject_id': entry.subject_id,
+                    'day_of_week': entry.day_of_week,
+                    'room_number': entry.room_number,
+                    'grade_section': entry.grade_section,
+                    'notes': entry.notes,
+                    'is_double_lesson': entry.is_double_lesson,
+                    'strand_id': entry.strand_id,
+                    'substrand_id': entry.substrand_id,
+                    'lesson_id': entry.lesson_id
+                })
+        
+        # Delete old entries and slots
+        db.query(TimetableEntry).filter(TimetableEntry.schedule_id == schedule_id).delete()
+        db.query(TimeSlot).filter(TimeSlot.schedule_id == schedule_id).delete()
+        db.commit()
+        
+        # Generate new time slots
+        generate_time_slots(schedule, db)
+        
+        # Get newly created time slots
+        new_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule_id
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        # Recreate entries with new time slot IDs
+        for new_slot in new_slots:
+            key = (new_slot.sequence_order, new_slot.slot_type)
+            if key in entry_mappings:
+                for entry_data in entry_mappings[key]:
+                    new_entry = TimetableEntry(
+                        user_id=current_user.id,
+                        schedule_id=schedule_id,
+                        time_slot_id=new_slot.id,
+                        **entry_data
+                    )
+                    db.add(new_entry)
+        
+        db.commit()
+    
+    return schedule
+
+
+@app.delete(f"{settings.API_V1_PREFIX}/timetable/schedules/{{schedule_id}}")
+async def delete_school_schedule(
+    schedule_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete a school schedule (soft delete by deactivating)"""
+    schedule = db.query(SchoolSchedule).filter(
+        SchoolSchedule.id == schedule_id,
+        SchoolSchedule.user_id == current_user.id
+    ).first()
+    
+    if not schedule:
+        raise HTTPException(status_code=404, detail="Schedule not found")
+    
+    # Soft delete
+    schedule.is_active = False
+    db.commit()
+    
+    return {"message": "Schedule deactivated successfully"}
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/time-slots", response_model=List[TimeSlotResponse])
+async def get_time_slots(
+    education_level: Optional[str] = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Return time slots for the active (or fallback) schedule."""
+    schedule = resolve_schedule_for_context(db, current_user, education_level)
+    
+    if not schedule:
+        detail = (
+            f"No active schedule found for {education_level}"
+            if education_level else "No active schedule found"
+        )
+        raise HTTPException(
+            status_code=404,
+            detail=f"{detail}. Please create one."
+        )
+    
+    time_slots = db.query(TimeSlot).filter(
+        TimeSlot.schedule_id == schedule.id
+    ).order_by(TimeSlot.sequence_order).all()
+    
+    return time_slots
+
+
+@app.post(f"{settings.API_V1_PREFIX}/timetable/entries", response_model=TimetableEntryResponse)
+async def create_timetable_entry(
+    entry: TimetableEntryCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new timetable entry (assign subject to time slot on specific day)"""
+    
+    # Verify time slot exists and belongs to a schedule owned by the user
+    time_slot = db.query(TimeSlot).join(SchoolSchedule).filter(
+        TimeSlot.id == entry.time_slot_id,
+        SchoolSchedule.user_id == current_user.id
+    ).first()
+    
+    if not time_slot:
+        raise HTTPException(status_code=404, detail="Time slot not found or access denied")
+        
+    schedule = time_slot.schedule
+    
+    if time_slot.slot_type != "lesson":
+        raise HTTPException(status_code=400, detail="Cannot assign subject to break/lunch slot")
+    
+    # Log what we received
+    print(f"\n=== CREATE TIMETABLE ENTRY ===")
+    print(f"Received subject_id: {entry.subject_id}")
+    print(f"Time slot: {entry.time_slot_id}")
+    print(f"Day: {entry.day_of_week}")
+    
+    # Try to find subject in user's subjects, or check if it's a curriculum template
+    subject = db.query(Subject).filter(
+        Subject.id == entry.subject_id,
+        Subject.user_id == current_user.id
+    ).first()
+    
+    print(f"Found in user's subjects: {subject.subject_name if subject else 'No'}")
+    
+    # If not found in user's subjects, check if it's a curriculum template
+    if not subject:
+        curriculum_template = db.query(CurriculumTemplate).filter(
+            CurriculumTemplate.id == entry.subject_id,
+            CurriculumTemplate.is_active == True
+        ).first()
+        
+        if not curriculum_template:
+            raise HTTPException(status_code=404, detail="Subject or curriculum template not found")
+        
+        print(f"Found curriculum template: {curriculum_template.subject} - {curriculum_template.grade}")
+        
+        # Check if user already has this subject with EXACT template match
+        existing_subject = db.query(Subject).filter(
+            Subject.user_id == current_user.id,
+            Subject.template_id == curriculum_template.id
+        ).first()
+        
+        print(f"Found existing subject from template: {existing_subject.subject_name if existing_subject else 'No'}")
+        
+        if existing_subject:
+            # Use the existing subject
+            subject = existing_subject
+            entry.subject_id = subject.id
+        else:
+            # Create a new subject from the template for this user
+            new_subject = Subject(
+                user_id=current_user.id,
+                template_id=curriculum_template.id,
+                subject_name=curriculum_template.subject,
+                grade=curriculum_template.grade,
+                total_lessons=0,
+                lessons_completed=0,
+                progress_percentage=0.0
+            )
+            db.add(new_subject)
+            db.flush()  # Get the ID without committing
+            subject = new_subject
+            entry.subject_id = subject.id
+            print(f"Created new subject: {subject.subject_name} - {subject.grade} (ID: {subject.id})")
+    
+    # Time slot verification moved to start of function
+    # Verify time slot exists and is a lesson slot
+    # (Already verified above)
+    
+    # Check for duplicate entry (same user, time slot, and day)
+    existing = db.query(TimetableEntry).filter(
+        TimetableEntry.user_id == current_user.id,
+        TimetableEntry.time_slot_id == entry.time_slot_id,
+        TimetableEntry.day_of_week == entry.day_of_week
+    ).first()
+    
+    if existing:
+        raise HTTPException(
+            status_code=400,
+            detail="This time slot is already occupied on this day"
+        )
+    
+    # Handle double lesson - need to occupy next slot
+    if entry.is_double_lesson:
+        # Find all lesson slots for this schedule, ordered by sequence
+        all_lesson_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule.id,
+            TimeSlot.slot_type == "lesson"
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        # Find current slot's position
+        current_slot_index = next((i for i, slot in enumerate(all_lesson_slots) if slot.id == entry.time_slot_id), None)
+        
+        if current_slot_index is None or current_slot_index >= len(all_lesson_slots) - 1:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot create double lesson: no consecutive slot available"
+            )
+        
+        next_slot = all_lesson_slots[current_slot_index + 1]
+        
+        # Check if next slot is already occupied
+        next_slot_occupied = db.query(TimetableEntry).filter(
+            TimetableEntry.user_id == current_user.id,
+            TimetableEntry.time_slot_id == next_slot.id,
+            TimetableEntry.day_of_week == entry.day_of_week
+        ).first()
+        
+        if next_slot_occupied:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot create double lesson: next time slot is already occupied"
+            )
+        
+        print(f"Creating double lesson: slot {entry.time_slot_id} + {next_slot.id}")
+        
+        # Create entry for FIRST slot
+        db_entry = TimetableEntry(
+            user_id=current_user.id,
+            schedule_id=schedule.id,
+            **entry.dict()
+        )
+        db.add(db_entry)
+        db.flush()  # Get the ID
+        
+        # Create entry for SECOND slot (consecutive)
+        db_entry_2 = TimetableEntry(
+            user_id=current_user.id,
+            schedule_id=schedule.id,
+            subject_id=entry.subject_id,
+            time_slot_id=next_slot.id,
+            day_of_week=entry.day_of_week,
+            room_number=entry.room_number,
+            grade_section=entry.grade_section,
+            notes=f"(Part 2 of double lesson)",
+            is_double_lesson=True
+        )
+        db.add(db_entry_2)
+        db.commit()
+        db.refresh(db_entry)
+        
+        return db_entry
+    else:
+        # Single lesson - create only one entry
+        db_entry = TimetableEntry(
+            user_id=current_user.id,
+            schedule_id=schedule.id,
+            **entry.dict()
+        )
+        db.add(db_entry)
+        db.commit()
+        db.refresh(db_entry)
+        
+        return db_entry
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/entries", response_model=List[TimetableEntryResponse])
+async def get_timetable_entries(
+    day_of_week: Optional[int] = None,
+    education_level: Optional[str] = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all timetable entries, optionally filtered by day or education level."""
+    schedule = resolve_schedule_for_context(db, current_user, education_level, day_of_week)
+    if not schedule:
+        return []
+    query = db.query(TimetableEntry).filter(
+        TimetableEntry.user_id == current_user.id,
+        TimetableEntry.schedule_id == schedule.id
+    )
+    if day_of_week:
+        query = query.filter(TimetableEntry.day_of_week == day_of_week)
+    entries = query.order_by(TimetableEntry.day_of_week, TimetableEntry.time_slot_id).all()
+    return entries
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/entries/today")
+async def get_today_entries(
+    education_level: Optional[str] = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get today's timetable with curriculum content"""
+    from datetime import datetime
+    
+    # Get current day (1=Monday, 5=Friday)
+    today = datetime.now().isoweekday()
+    
+    if today > 5:  # Weekend
+        return {
+            "day": today,
+            "day_name": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][today - 1],
+            "is_weekend": True,
+            "entries": []
+        }
+    
+    schedule = resolve_schedule_for_context(db, current_user, education_level, today)
+    if not schedule:
+        detail = (
+            f"No active schedule found for {education_level}"
+            if education_level else "No active schedule found"
+        )
+        raise HTTPException(status_code=404, detail=f"{detail}. Please create one.")
+    
+    # Get today's entries with subject and curriculum info
+    entries = db.query(
+        TimetableEntry,
+        TimeSlot,
+        Subject,
+        Lesson
+    ).join(
+        TimeSlot, TimetableEntry.time_slot_id == TimeSlot.id
+    ).join(
+        Subject, TimetableEntry.subject_id == Subject.id
+    ).outerjoin(
+        Lesson, TimetableEntry.lesson_id == Lesson.id
+    ).filter(
+        TimetableEntry.user_id == current_user.id,
+        TimetableEntry.schedule_id == schedule.id,
+        TimetableEntry.day_of_week == today
+    ).order_by(TimeSlot.sequence_order).all()
+    
+    result = []
+    for entry, slot, subject, lesson in entries:
+        entry_data = {
+            "id": entry.id,
+            "time_slot": {
+                "id": slot.id,
+                "start_time": slot.start_time,
+                "end_time": slot.end_time,
+                "label": slot.label
+            },
+            "subject": {
+                "id": subject.id,
+                "subject_name": subject.subject_name,
+                "grade": subject.grade
+            },
+            "room_number": entry.room_number,
+            "grade_section": entry.grade_section,
+            "notes": entry.notes,
+            "is_double_lesson": entry.is_double_lesson
+        }
+        
+        # Add curriculum content if linked
+        if lesson:
+            entry_data["lesson"] = {
+                "id": lesson.id,
+                "lesson_title": lesson.lesson_title,
+                "learning_outcomes": lesson.learning_outcomes,
+                "is_completed": lesson.is_completed
+            }
+        
+        result.append(entry_data)
+    
+    day_names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    
+    return {
+        "day": today,
+        "day_name": day_names[today - 1],
+        "is_weekend": False,
+        "entries": result
+    }
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/entries/next")
+async def get_next_lesson(
+    education_level: Optional[str] = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get the next upcoming lesson"""
+    from datetime import datetime
+    
+    current_time = datetime.now()
+    current_day = current_time.isoweekday()
+    current_time_str = current_time.strftime("%H:%M")
+    
+    schedule = resolve_schedule_for_context(db, current_user, education_level)
+    if not schedule:
+        detail = (
+            f"No active schedule found for {education_level}"
+            if education_level else "No active schedule found"
+        )
+        return {
+            "has_next_lesson": False,
+            "message": f"{detail}. Please create one."
+        }
+    print(f"[get_next_lesson] Current time: {current_time_str}, Current day: {current_day}")
+    
+    # Find next lesson today or on following days (check up to 8 days to cover full week)
+    for day_offset in range(8):
+        check_day = ((current_day - 1 + day_offset) % 7) + 1  # Properly wrap 1-7 (1=Mon, 7=Sun)
+        
+        if check_day > 5:  # Skip weekends (6=Saturday, 7=Sunday)
+            continue
+        
+        # Get entries for this day
+        entries = db.query(
+            TimetableEntry,
+            TimeSlot,
+            Subject,
+            Lesson
+        ).join(
+            TimeSlot, TimetableEntry.time_slot_id == TimeSlot.id
+        ).join(
+            Subject, TimetableEntry.subject_id == Subject.id
+        ).outerjoin(
+            Lesson, TimetableEntry.lesson_id == Lesson.id
+        ).filter(
+            TimetableEntry.user_id == current_user.id,
+            TimetableEntry.schedule_id == schedule.id,
+            TimetableEntry.day_of_week == check_day,
+            TimeSlot.slot_type == "lesson"
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        for entry, slot, subject, lesson in entries:
+            # If checking today, only consider future time slots
+            if day_offset == 0 and slot.start_time <= current_time_str:
+                continue
+            
+            # Found next lesson!
+            result = {
+                "has_next_lesson": True,
+                "is_today": day_offset == 0,
+                "day_of_week": check_day,
+                "day_name": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"][check_day - 1],
+                "time_slot": {
+                    "id": slot.id,
+                    "start_time": slot.start_time,
+                    "end_time": slot.end_time,
+                    "label": slot.label
+                },
+                "subject": {
+                    "id": subject.id,
+                    "subject_name": subject.subject_name,
+                    "grade": subject.grade
+                },
+                "room_number": entry.room_number,
+                "grade_section": entry.grade_section,
+                "is_double_lesson": entry.is_double_lesson
+            }
+            
+            if lesson:
+                result["lesson"] = {
+                    "id": lesson.id,
+                    "lesson_title": lesson.lesson_title,
+                    "learning_outcomes": lesson.learning_outcomes,
+                    "is_completed": lesson.is_completed
+                }
+            
+            return result
+    
+    return {
+        "has_next_lesson": False,
+        "message": "No upcoming lessons in the next week"
+    }
+
+
+@app.put(f"{settings.API_V1_PREFIX}/timetable/entries/{{entry_id}}", response_model=TimetableEntryResponse)
+async def update_timetable_entry(
+    entry_id: int,
+    entry_update: TimetableEntryUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update a timetable entry"""
+    entry = db.query(TimetableEntry).filter(
+        TimetableEntry.id == entry_id,
+        TimetableEntry.user_id == current_user.id
+    ).first()
+    
+    if not entry:
+        raise HTTPException(status_code=404, detail="Timetable entry not found")
+    
+    # Update fields
+    update_data = entry_update.dict(exclude_unset=True)
+    
+    # Validate subject if being updated
+    if "subject_id" in update_data:
+        subject = db.query(Subject).filter(
+            Subject.id == update_data["subject_id"],
+            Subject.user_id == current_user.id
+        ).first()
+        
+        if not subject:
+            raise HTTPException(status_code=404, detail="Subject not found")
+    
+    # Handle double lesson changes
+    was_double = entry.is_double_lesson
+    becoming_double = update_data.get("is_double_lesson", was_double)
+    
+    if becoming_double and not was_double:
+        # Converting to double lesson - need to occupy next slot
+        schedule = db.query(SchoolSchedule).filter(
+            SchoolSchedule.user_id == current_user.id,
+            SchoolSchedule.is_active == True
+        ).first()
+        
+        all_lesson_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule.id,
+            TimeSlot.slot_type == "lesson"
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        current_slot_index = next((i for i, slot in enumerate(all_lesson_slots) if slot.id == entry.time_slot_id), None)
+        
+        if current_slot_index is None or current_slot_index >= len(all_lesson_slots) - 1:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot convert to double lesson: no consecutive slot available"
+            )
+        
+        next_slot = all_lesson_slots[current_slot_index + 1]
+        
+        # Check if next slot is already occupied
+        next_slot_occupied = db.query(TimetableEntry).filter(
+            TimetableEntry.user_id == current_user.id,
+            TimetableEntry.time_slot_id == next_slot.id,
+            TimetableEntry.day_of_week == entry.day_of_week
+        ).first()
+        
+        if next_slot_occupied:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot convert to double lesson: next time slot is already occupied"
+            )
+        
+        # Create second slot entry
+        db_entry_2 = TimetableEntry(
+            user_id=current_user.id,
+            schedule_id=entry.schedule_id,
+            subject_id=update_data.get("subject_id", entry.subject_id),
+            time_slot_id=next_slot.id,
+            day_of_week=entry.day_of_week,
+            room_number=update_data.get("room_number", entry.room_number),
+            grade_section=update_data.get("grade_section", entry.grade_section),
+            notes=f"(Part 2 of double lesson)",
+            is_double_lesson=True
+        )
+        db.add(db_entry_2)
+    
+    elif not becoming_double and was_double:
+        # Converting from double to single - need to remove next slot entry
+        schedule = db.query(SchoolSchedule).filter(
+            SchoolSchedule.user_id == current_user.id,
+            SchoolSchedule.is_active == True
+        ).first()
+        
+        all_lesson_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule.id,
+            TimeSlot.slot_type == "lesson"
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        current_slot_index = next((i for i, slot in enumerate(all_lesson_slots) if slot.id == entry.time_slot_id), None)
+        
+        if current_slot_index is not None and current_slot_index < len(all_lesson_slots) - 1:
+            next_slot = all_lesson_slots[current_slot_index + 1]
+            
+            # Find and delete the second part of double lesson
+            second_entry = db.query(TimetableEntry).filter(
+                TimetableEntry.user_id == current_user.id,
+                TimetableEntry.time_slot_id == next_slot.id,
+                TimetableEntry.day_of_week == entry.day_of_week,
+                TimetableEntry.subject_id == entry.subject_id,
+                TimetableEntry.is_double_lesson == True
+            ).first()
+            
+            if second_entry:
+                db.delete(second_entry)
+    
+    # Apply updates
+    for key, value in update_data.items():
+        setattr(entry, key, value)
+    
+    db.commit()
+    db.refresh(entry)
+    
+    return entry
+
+
+@app.delete(f"{settings.API_V1_PREFIX}/timetable/entries/{{entry_id}}")
+async def delete_timetable_entry(
+    entry_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete a timetable entry (and its paired slot if it's a double lesson)"""
+    entry = db.query(TimetableEntry).filter(
+        TimetableEntry.id == entry_id,
+        TimetableEntry.user_id == current_user.id
+    ).first()
+    
+    if not entry:
+        raise HTTPException(status_code=404, detail="Timetable entry not found")
+    
+    # If this is a double lesson, delete the paired entry too
+    if entry.is_double_lesson:
+        schedule = db.query(SchoolSchedule).filter(
+            SchoolSchedule.user_id == current_user.id,
+            SchoolSchedule.is_active == True
+        ).first()
+        
+        all_lesson_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule.id,
+            TimeSlot.slot_type == "lesson"
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        current_slot_index = next((i for i, slot in enumerate(all_lesson_slots) if slot.id == entry.time_slot_id), None)
+        
+        if current_slot_index is not None and current_slot_index < len(all_lesson_slots) - 1:
+            next_slot = all_lesson_slots[current_slot_index + 1]
+            
+            # Find and delete the second part
+            second_entry = db.query(TimetableEntry).filter(
+                TimetableEntry.user_id == current_user.id,
+                TimetableEntry.time_slot_id == next_slot.id,
+                TimetableEntry.day_of_week == entry.day_of_week,
+                TimetableEntry.subject_id == entry.subject_id,
+                TimetableEntry.is_double_lesson == True
+            ).first()
+            
+            if second_entry:
+                db.delete(second_entry)
+    
+    db.delete(entry)
+    db.commit()
+    
+    return {"message": "Timetable entry deleted successfully"}
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/dashboard")
+async def get_timetable_dashboard(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get comprehensive timetable dashboard data (today's lessons + next lesson)"""
+    
+    # Get today's schedule
+    today_data = await get_today_entries(current_user, db)
+    
+    # Get next lesson
+    next_lesson = await get_next_lesson(current_user, db)
+    
+    return {
+        "today": today_data,
+        "next_lesson": next_lesson
+    }
+
+# ============================================================================
+# SYSTEM ANNOUNCEMENTS ENDPOINTS
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/announcements", response_model=List[SystemAnnouncementResponse])
+def get_active_announcements(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all active announcements for users"""
+    now = datetime.utcnow()
+    announcements = db.query(SystemAnnouncement).filter(
+        SystemAnnouncement.is_active == True,
+        (SystemAnnouncement.expires_at == None) | (SystemAnnouncement.expires_at > now)
+    ).order_by(SystemAnnouncement.created_at.desc()).all()
+    
+    return announcements
+
+@app.get(f"{settings.API_V1_PREFIX}/admin/announcements", response_model=List[SystemAnnouncementResponse])
+def get_all_announcements(
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Get all announcements (Admin only)"""
+    announcements = db.query(SystemAnnouncement).order_by(SystemAnnouncement.created_at.desc()).all()
+    return announcements
+
+@app.post(f"{settings.API_V1_PREFIX}/admin/announcements", response_model=SystemAnnouncementResponse)
+def create_announcement(
+    announcement: SystemAnnouncementCreate,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new announcement (Admin only)"""
+    new_announcement = SystemAnnouncement(
+        **announcement.dict(),
+        created_by=current_user.id
+    )
+    db.add(new_announcement)
+    db.commit()
+    db.refresh(new_announcement)
+    return new_announcement
+
+@app.delete(f"{settings.API_V1_PREFIX}/admin/announcements/{{announcement_id}}")
+def delete_announcement(
+    announcement_id: int,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Delete an announcement (Admin only)"""
+    announcement = db.query(SystemAnnouncement).filter(SystemAnnouncement.id == announcement_id).first()
+    if not announcement:
+        raise HTTPException(status_code=404, detail="Announcement not found")
+    
+    db.delete(announcement)
+    db.commit()
+    return {"message": "Announcement deleted successfully"}
+
+@app.patch(f"{settings.API_V1_PREFIX}/admin/announcements/{{announcement_id}}/toggle")
+def toggle_announcement_status(
+    announcement_id: int,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Toggle active status of an announcement (Admin only)"""
+    announcement = db.query(SystemAnnouncement).filter(SystemAnnouncement.id == announcement_id).first()
+    if not announcement:
+        raise HTTPException(status_code=404, detail="Announcement not found")
+    
+    announcement.is_active = not announcement.is_active
+    db.commit()
+    db.refresh(announcement)
+    return announcement
+
+# ============================================================================
+# FILE DOWNLOAD ENDPOINT
+# ============================================================================
+
+@app.get(f"{settings.API_V1_PREFIX}/notes/{{note_id}}/download")
+async def download_note_file(
+    note_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Stream file download from Cloudinary with correct file type and name."""
+    # Enforce Download Limits
+    # Only PREMIUM or SCHOOL_SPONSORED users can download
+    is_school_linked = current_user.school_id is not None
+    is_premium = current_user.subscription_type == SubscriptionType.INDIVIDUAL_PREMIUM
+    is_school_sponsored = current_user.subscription_type == SubscriptionType.SCHOOL_SPONSORED
+    
+    if not (is_premium or is_school_sponsored or is_school_linked):
+        raise HTTPException(
+            status_code=403,
+            detail="Downloads are available on Premium plans only. Please upgrade to download."
+        )
+
+    import httpx
+    
+    # Get note and verify ownership
+    note = db.query(Note).filter(
+        Note.id == note_id,
+        Note.user_id == current_user.id
+    ).first()
+    
+    if not note or not note.file_url:
+        raise HTTPException(status_code=404, detail="Note or file not found")
+    
+    # DEBUG: Log what we're working with
+    print(f"\n{'='*80}")
+    print(f"DOWNLOAD REQUEST - Note ID: {note_id}")
+    print(f"  Title: {note.title}")
+    print(f"  Stored file_type: '{note.file_type}'")
+    print(f"  Cloudinary URL: {note.file_url}")
+    print(f"{'='*80}\n")
+    
+    # Extract public_id from URL and generate authenticated download URL
+    try:
+        print(f"Extracting public_id from URL...")
+        public_id = cloudinary_storage.extract_public_id_from_url(note.file_url)
+        
+        if not public_id:
+            print(f"ERROR: Could not extract public_id from URL")
+            raise HTTPException(
+                status_code=500,
+                detail="Invalid file URL format"
+            )
+        
+        print(f"  Public ID: {public_id}")
+        
+        # Determine resource type based on file extension
+        resource_type = "raw" if note.file_type in ['pdf', 'docx', 'pptx', 'xlsx'] else "image"
+        print(f"  Resource Type: {resource_type}")
+        
+        # Generate a fresh authenticated URL using Cloudinary SDK
+        import cloudinary.utils
+        
+        # For raw files, we need to use the 'raw' resource type and specify delivery type
+        if resource_type == "raw":
+            # Build URL with authentication - Cloudinary handles signing automatically
+            download_url = cloudinary.utils.cloudinary_url(
+                public_id,
+                resource_type="raw",
+                secure=True,
+                sign_url=True,  # Important: Sign the URL
+                type="upload"
+            )[0]
+        else:
+            # For images/videos, use standard URL
+            download_url = cloudinary.utils.cloudinary_url(
+                public_id,
+                resource_type=resource_type,
+                secure=True,
+                sign_url=True
+            )[0]
+        
+        print(f"  Generated authenticated URL: {download_url[:80]}...")
+        
+        # Fetch file from Cloudinary with the authenticated URL
+        async with httpx.AsyncClient(timeout=60.0) as client:
+            print(f"Fetching file from Cloudinary...")
+            response = await client.get(download_url)
+            
+            if response.status_code != 200:
+                print(f"ERROR: Cloudinary returned status {response.status_code}")
+                print(f"  Response: {response.text[:200]}")
+                raise HTTPException(
+                    status_code=500, 
+                    detail=f"Failed to fetch file from storage (status: {response.status_code})"
+                )
+            
+            # Log what Cloudinary returned
+            cloudinary_content_type = response.headers.get('content-type', 'unknown')
+            print(f"Cloudinary Response:")
+            print(f"  Content-Type: {cloudinary_content_type}")
+            print(f"  Content-Length: {len(response.content)} bytes")
+            
+    except httpx.TimeoutException as e:
+        print(f"ERROR: Timeout fetching file from Cloudinary: {str(e)}")
+        raise HTTPException(
+            status_code=504,
+            detail="Timeout fetching file from cloud storage"
+        )
+    except httpx.HTTPError as e:
+        print(f"ERROR: HTTP error fetching file: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to fetch file: {str(e)}"
+        )
+    except Exception as e:
+        print(f"ERROR: Unexpected error fetching file: {type(e).__name__}: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Unexpected error: {str(e)}"
+        )
+    
+    # Clean filename and ensure it has the correct extension
+    # Use the stored file_type to ensure correct extension
+    filename = note.title.strip()
+    file_ext = note.file_type.lower().strip() if note.file_type else ''
+    
+    # Remove any existing extension from title
+    if '.' in filename:
+        name_parts = filename.rsplit('.', 1)
+        filename = name_parts[0]
+    
+    # Add the correct extension from database
+    if file_ext:
+        filename = f"{filename}.{file_ext}"
+    else:
+        # Fallback: try to get extension from URL
+        print(f"WARNING: No file_type in database, trying to extract from URL")
+        url_parts = note.file_url.split('.')
+        if len(url_parts) > 1:
+            file_ext = url_parts[-1].lower()
+            filename = f"{filename}.{file_ext}"
+    
+    # Comprehensive MIME type mapping based on stored file_type
+    mime_type_map = {
+            'pdf': 'application/pdf',
+            'doc': 'application/msword',
+            'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'ppt': 'application/vnd.ms-powerpoint',
+            'pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+            'xls': 'application/vnd.ms-excel',
+            'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'jpg': 'image/jpeg',
+            'jpeg': 'image/jpeg',
+            'png': 'image/png',
+            'gif': 'image/gif',
+            'webp': 'image/webp',
+            'mp4': 'video/mp4',
+            'mov': 'video/quicktime',
+            'avi': 'video/x-msvideo',
+            'mkv': 'video/x-matroska',
+            'mp3': 'audio/mpeg',
+            'wav': 'audio/wav',
+            'txt': 'text/plain',
+            'csv': 'text/csv',
+            'zip': 'application/zip',
+            'rar': 'application/x-rar-compressed',
+    }
+    
+    # Use the file type from database, not from Cloudinary response
+    media_type = mime_type_map.get(file_ext, 'application/octet-stream')
+    
+    print(f"\nDownload Response:")
+    print(f"  Filename: {filename}")
+    print(f"  Extension: {file_ext}")
+    print(f"  MIME Type: {media_type}")
+    print(f"{'='*80}\n")
+    
+    # Return streaming response with proper headers
+    # CRITICAL: Use the stored file_type to ensure correct download
+    return StreamingResponse(
+        iter([response.content]),
+        media_type=media_type,
+        headers={
+            "Content-Disposition": f'attachment; filename="{filename}"',
+            "Content-Type": media_type,
+            "Content-Length": str(len(response.content)),
+            "Cache-Control": "no-cache"
+        }
+    )
+
+
+# ============================================================================
+# TIMETABLE MANAGEMENT ENDPOINTS
+# ============================================================================
+
+@app.post(f"{settings.API_V1_PREFIX}/timetable/schedules", response_model=SchoolScheduleResponse)
+async def create_school_schedule(
+    schedule: SchoolScheduleCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new school schedule configuration and auto-generate time slots"""
+    
+    # SaaS: Check Schedule Limits for Individual Basic/Free Plan
+    # Limit to 1 active schedule
+    if current_user.subscription_type in [SubscriptionType.INDIVIDUAL_BASIC, SubscriptionType.FREE]:
+        schedule_count = db.query(SchoolSchedule).filter(
+            SchoolSchedule.user_id == current_user.id,
+            SchoolSchedule.is_active == True
+        ).count()
+        if schedule_count >= 1:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Basic Plan is limited to 1 active schedule. Please upgrade to Premium to create more."
+            )
+
+    # Check if user already has an active schedule for this level
+    query = db.query(SchoolSchedule).filter(
+        SchoolSchedule.user_id == current_user.id,
+        SchoolSchedule.is_active == True
+    )
+    
+    if schedule.education_level:
+        query = query.filter(SchoolSchedule.education_level == schedule.education_level)
+    else:
+        # If no level specified, check if any schedule exists without level (legacy)
+        # or just check if ANY active schedule exists if we want to enforce one per user when no level
+        pass 
+        
+    existing = query.first()
+    
+    if existing:
+        level_msg = f" for {schedule.education_level}" if schedule.education_level else ""
+        raise HTTPException(
+            status_code=400,
+            detail=f"You already have an active schedule{level_msg}. Deactivate it first or update it."
+        )
+    
+    # Create schedule
+    db_schedule = SchoolSchedule(
+        user_id=current_user.id,
+        **schedule.dict()
+    )
+    db.add(db_schedule)
+    db.commit()
+    db.refresh(db_schedule)
+    
+    # Auto-generate time slots
+    generate_time_slots(db_schedule, db)
+    
+    return db_schedule
+
+
+def generate_time_slots(schedule: SchoolSchedule, db: Session):
+    """Generate time slots based on schedule configuration"""
+    from datetime import datetime, timedelta
+    
+    # Parse times
+    def parse_time(time_str: str) -> datetime:
+        return datetime.strptime(time_str, "%H:%M")
+    
+    current_time = parse_time(schedule.school_start_time)
+    slot_number = 1
+    sequence = 1
+    
+    # Session 1 (Before first break)
+    for i in range(schedule.lessons_before_first_break):
+        duration = schedule.single_lesson_duration if i % 2 == 0 else schedule.double_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    # First Break
+    if schedule.first_break_duration > 0:
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=0,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=schedule.first_break_duration)).strftime("%H:%M"),
+            slot_type="break",
+            label="First Break",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        current_time += timedelta(minutes=schedule.first_break_duration)
+        sequence += 1
+    
+    # Session 2 (Before second break)
+    for i in range(schedule.lessons_before_second_break):
+        duration = schedule.single_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    # Second Break (Tea Break)
+    if schedule.second_break_duration > 0:
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=0,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=schedule.second_break_duration)).strftime("%H:%M"),
+            slot_type="break",
+            label="Second Break",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        current_time += timedelta(minutes=schedule.second_break_duration)
+        sequence += 1
+    
+    # Session 3 (Before lunch)
+    for i in range(schedule.lessons_before_lunch):
+        duration = schedule.single_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    # Lunch Break
+    if schedule.lunch_break_duration > 0:
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=0,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=schedule.lunch_break_duration)).strftime("%H:%M"),
+            slot_type="lunch",
+            label="Lunch Break",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        current_time += timedelta(minutes=schedule.lunch_break_duration)
+        sequence += 1
+    
+    # Session 4 (After lunch)
+    for i in range(schedule.lessons_after_lunch):
+        duration = schedule.single_lesson_duration
+        
+        time_slot = TimeSlot(
+            schedule_id=schedule.id,
+            slot_number=slot_number,
+            start_time=current_time.strftime("%H:%M"),
+            end_time=(current_time + timedelta(minutes=duration)).strftime("%H:%M"),
+            slot_type="lesson",
+            label=f"Lesson {slot_number}",
+            sequence_order=sequence
+        )
+        db.add(time_slot)
+        
+        current_time += timedelta(minutes=duration)
+        slot_number += 1
+        sequence += 1
+    
+    db.commit()
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/schedules", response_model=List[SchoolScheduleResponse])
+async def get_school_schedules(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get all school schedules for current user"""
+    schedules = db.query(SchoolSchedule).filter(
+        SchoolSchedule.user_id == current_user.id
+    ).order_by(SchoolSchedule.is_active.desc(), SchoolSchedule.created_at.desc()).all()
+    
+    return schedules
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/schedules/active", response_model=SchoolScheduleResponse)
+async def get_active_schedule(
+    education_level: Optional[str] = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get the active schedule, falling back to a generic one when needed."""
+    schedule = get_active_schedule_or_fallback(db, current_user, education_level)
+    if not schedule:
+        detail = f"No active schedule found for {education_level}" if education_level else "No active schedule found"
+        raise HTTPException(status_code=404, detail=f"{detail}. Please create one.")
+
+    return schedule
+
+
+@app.put(f"{settings.API_V1_PREFIX}/timetable/schedules/{{schedule_id}}", response_model=SchoolScheduleResponse)
+async def update_school_schedule(
+    schedule_id: int,
+    schedule_update: SchoolScheduleUpdate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update a school schedule and regenerate time slots"""
+    schedule = db.query(SchoolSchedule).filter(
+        SchoolSchedule.id == schedule_id,
+        SchoolSchedule.user_id == current_user.id
+    ).first()
+    
+    if not schedule:
+        raise HTTPException(status_code=404, detail="Schedule not found")
+    
+    # Update fields
+    update_data = schedule_update.dict(exclude_unset=True)
+    for key, value in update_data.items():
+        setattr(schedule, key, value)
+    
+    db.commit()
+    db.refresh(schedule)
+    
+    # Regenerate time slots if timing changed
+    if any(key in update_data for key in ['school_start_time', 'single_lesson_duration', 
+                                            'double_lesson_duration', 'lessons_before_first_break',
+                                            'lessons_before_second_break', 'lessons_before_lunch',
+                                            'lessons_after_lunch', 'first_break_duration',
+                                            'second_break_duration', 'lunch_break_duration']):
+        # Get existing time slots to preserve lesson mappings
+        existing_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule_id
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        # Get existing entries to remap later
+        existing_entries = db.query(TimetableEntry).filter(
+            TimetableEntry.schedule_id == schedule_id
+        ).all()
+        
+        # Create mapping of old slot details (sequence_order, slot_type) to entry details
+        entry_mappings = {}
+        for entry in existing_entries:
+            old_slot = next((s for s in existing_slots if s.id == entry.time_slot_id), None)
+            if old_slot:
+                # Map by sequence order and slot type to preserve lesson positions
+                key = (old_slot.sequence_order, old_slot.slot_type)
+                if key not in entry_mappings:
+                    entry_mappings[key] = []
+                entry_mappings[key].append({
+                    'subject_id': entry.subject_id,
+                    'day_of_week': entry.day_of_week,
+                    'room_number': entry.room_number,
+                    'grade_section': entry.grade_section,
+                    'notes': entry.notes,
+                    'is_double_lesson': entry.is_double_lesson,
+                    'strand_id': entry.strand_id,
+                    'substrand_id': entry.substrand_id,
+                    'lesson_id': entry.lesson_id
+                })
+        
+        # Delete old entries and slots
+        db.query(TimetableEntry).filter(TimetableEntry.schedule_id == schedule_id).delete()
+        db.query(TimeSlot).filter(TimeSlot.schedule_id == schedule_id).delete()
+        db.commit()
+        
+        # Generate new time slots
+        generate_time_slots(schedule, db)
+        
+        # Get newly created time slots
+        new_slots = db.query(TimeSlot).filter(
+            TimeSlot.schedule_id == schedule_id
+        ).order_by(TimeSlot.sequence_order).all()
+        
+        # Recreate entries with new time slot IDs
+        for new_slot in new_slots:
+            key = (new_slot.sequence_order, new_slot.slot_type)
+            if key in entry_mappings:
+                for entry_data in entry_mappings[key]:
+                    new_entry = TimetableEntry(
+                        user_id=current_user.id,
+                        schedule_id=schedule_id,
+                        time_slot_id=new_slot.id,
+                        **entry_data
+                    )
+                    db.add(new_entry)
+        
+        db.commit()
+    
+    return schedule
+
+
+@app.delete(f"{settings.API_V1_PREFIX}/timetable/schedules/{{schedule_id}}")
+async def delete_school_schedule(
+    schedule_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete a school schedule (soft delete by deactivating)"""
+    schedule = db.query(SchoolSchedule).filter(
+        SchoolSchedule.id == schedule_id,
+        SchoolSchedule.user_id == current_user.id
+    ).first()
+    
+    if not schedule:
+        raise HTTPException(status_code=404, detail="Schedule not found")
+    
+    # Soft delete
+    schedule.is_active = False
+    db.commit()
+    
+    return {"message": "Schedule deactivated successfully"}
+
+
+@app.get(f"{settings.API_V1_PREFIX}/timetable/time-slots", response_model=List[TimeSlotResponse])
+async def get_time_slots(
+    education_level: Optional[str] = None,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Return time slots for the active (or fallback) schedule."""
+    schedule = resolve_schedule_for_context(db, current_user, education_level)
+    
+    if not schedule:
+        detail = (
+            f"No active schedule found for {education_level}"
+            if education_level else "No active schedule found"
+        )
+        raise HTTPException(
+            status_code=404,
+            detail=f"{detail}. Please create one."
+        )
+    
+    time_slots = db.query(TimeSlot).filter(
+        TimeSlot.schedule_id == schedule.id
+    ).order_by(TimeSlot.sequence_order).all()
+    
+    return time_slots
+
+
+@app.post(f"{settings.API_V1_PREFIX}/timetable/entries", response_model=TimetableEntryResponse)
+async def create_timetable_entry(
+    entry: TimetableEntryCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new timetable entry (assign subject to time slot on specific day)"""
+    
+    # Verify time slot exists and belongs to a schedule owned by the user
+    time_slot = db.query(TimeSlot).join(SchoolSchedule).filter(
+        TimeSlot.id == entry.time_slot_id,
+        SchoolSchedule.user_id == current_user.id
+    ).first()
+    
+    if not time_slot:
+        raise HTTPException(status_code=404, detail="Time slot not found or access denied")
+        
+    schedule = time_slot.schedule
+    
+    if time_slot.slot_type != "lesson":
+        raise HTTPException(status_code=400, detail="Cannot assign subject to break/lunch slot")
+    
+    # Log what we received
+    print(f"\n=== CREATE TIMETABLE ENTRY ===")
+    print(f"Received subject_id: {entry.subject_id}")
+    print(f"Time slot: {entry.time_slot_id}")
+    print(f"Day: {entry.day_of_week}")
+    
+    # Try to find subject in user's subjects, or check if it's a curriculum template
+    subject = db.query(Subject).filter(
+        Subject.id == entry.subject_id,
+        Subject.user_id == current_user.id
+    ).first()
+    
+    print(f"Found in user's subjects: {subject.subject_name if subject else 'No'}")
+    
+    # If not found in user's subjects, check if it's a curriculum template
+    if not subject:
+        curriculum_template = db.query(CurriculumTemplate).filter(
+            CurriculumTemplate.id == entry.subject_id,
+            CurriculumTemplate.is_active == True
+        ).first()
+        
+        if not curriculum_template:
+            raise HTTPException(status_code=404, detail="Subject or curriculum template not found")
+        
+        print(f"Found curriculum template: {curriculum_template.subject} - {curriculum_template.grade}")
+        
+        # Check if user already has this subject with EXACT template match
+        existing_subject = db.query(Subject).filter(
+            Subject.user_id == current_user.id,
+            Subject.template_id == curriculum_template.id
+        ).first()
+        
+        print(f"Found existing subject from template: {existing_subject.subject_name if existing_subject else 'No'}")
+        
+        if existing_subject:
+            # Use the existing subject
+            subject = existing_subject
+            entry.subject_id = subject.id
+        else:
+            # SaaS: Check Subject Limits for Individual Basic/Free Plan
+            if current_user.subscription_type in [SubscriptionType.INDIVIDUAL_BASIC, SubscriptionType.FREE]:
+                subject_count = db.query(Subject).filter(Subject.user_id == current_user.id).count()
+                if subject_count >= 2:
+                    raise HTTPException(
+                        status_code=status.HTTP_403_FORBIDDEN,
+                        detail="Basic Plan is limited to 2 subjects. Please upgrade to Premium to add more."
+                    )
+
+            # Create a new subject from the template for this user
+            new_subject = Subject(
+                user_id=current_user.id,
+                template_id=curriculum_template.id,
+                subject_name=curriculum_template.subject,
+                grade=curriculum_template.grade,
+                total_lessons=0,
+                lessons_completed=0,
+                progress_percentage=0.0
+            )
+            db.add(new_subject)
+            db.flush()  # Get the ID without committing
+            subject = new_subject
+            entry.subject_id = subject.id
+            print(f"Created new subject: {subject.subject_name} - {subject.grade} (ID: {subject.id})")
+            
 
 if __name__ == "__main__":
     port = int(os.getenv("API_PORT", os.getenv("PORT", 8000)))

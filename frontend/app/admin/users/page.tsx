@@ -69,7 +69,7 @@ export default function AdminUsersPage() {
         limit,
         role: roleFilter || undefined,
       };
-      
+
       if (search) params.search = search;
       if (startDate) params.start_date = startDate;
       if (endDate) params.end_date = endDate;
@@ -262,7 +262,10 @@ export default function AdminUsersPage() {
         <div className="bg-white rounded-lg shadow p-4 mb-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             {/* Search & Filters */}
-            <form onSubmit={handleSearch} className="flex flex-1 gap-4 flex-wrap">
+            <form
+              onSubmit={handleSearch}
+              className="flex flex-1 gap-4 flex-wrap"
+            >
               <div className="relative flex-1 min-w-[200px]">
                 <FaSearch className="absolute left-3 top-3 text-gray-400" />
                 <input
@@ -273,7 +276,7 @@ export default function AdminUsersPage() {
                   onChange={(e) => setSearch(e.target.value)}
                 />
               </div>
-              
+
               <div className="relative min-w-[150px]">
                 <FaFilter className="absolute left-3 top-3 text-gray-400" />
                 <select
@@ -341,7 +344,10 @@ export default function AdminUsersPage() {
                         <input
                           type="checkbox"
                           className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                          checked={users.length > 0 && selectedUsers.length === users.length}
+                          checked={
+                            users.length > 0 &&
+                            selectedUsers.length === users.length
+                          }
                           onChange={toggleSelectAll}
                         />
                       </th>
@@ -365,7 +371,10 @@ export default function AdminUsersPage() {
                   <tbody className="bg-white divide-y divide-gray-200">
                     {users.length === 0 ? (
                       <tr>
-                        <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
+                        <td
+                          colSpan={6}
+                          className="px-6 py-12 text-center text-gray-500"
+                        >
                           No users found matching your criteria
                         </td>
                       </tr>
@@ -391,7 +400,10 @@ export default function AdminUsersPage() {
                                     {user.email}
                                   </div>
                                   <div className="text-xs text-gray-400 mt-1">
-                                    Joined: {new Date(user.created_at).toLocaleDateString()}
+                                    Joined:{" "}
+                                    {new Date(
+                                      user.created_at
+                                    ).toLocaleDateString()}
                                   </div>
                                 </div>
                               </div>
@@ -449,20 +461,26 @@ export default function AdminUsersPage() {
                                   }
                                   className="text-blue-600 hover:text-blue-900"
                                   title={
-                                    user.is_admin ? "Remove admin" : "Make admin"
+                                    user.is_admin
+                                      ? "Remove admin"
+                                      : "Make admin"
                                   }
                                 >
                                   <FaUserShield />
                                 </button>
                                 <button
-                                  onClick={() => resetProgress(user.id, user.email)}
+                                  onClick={() =>
+                                    resetProgress(user.id, user.email)
+                                  }
                                   className="text-yellow-600 hover:text-yellow-900"
                                   title="Reset all progress"
                                 >
                                   <FaSync />
                                 </button>
                                 <button
-                                  onClick={() => deleteUser(user.id, user.email)}
+                                  onClick={() =>
+                                    deleteUser(user.id, user.email)
+                                  }
                                   className="text-red-600 hover:text-red-900"
                                   title="Delete user"
                                 >
@@ -473,64 +491,71 @@ export default function AdminUsersPage() {
                           </tr>
 
                           {/* Expanded subjects row */}
-                          {expandedUser === user.id && user.subjects.length > 0 && (
-                            <tr>
-                              <td colSpan={6} className="px-6 py-4 bg-gray-50">
-                                <div className="space-y-2">
-                                  <h4 className="font-semibold text-gray-700 mb-3">
-                                    Subjects & Progress:
-                                  </h4>
-                                  {user.subjects.map((subject) => (
-                                    <div
-                                      key={subject.id}
-                                      className="bg-white p-4 rounded border border-gray-200"
-                                    >
-                                      <div className="flex items-center justify-between mb-2">
-                                        <div>
-                                          <span className="font-medium text-gray-900">
-                                            {subject.subject_name}
-                                          </span>
-                                          <span className="text-sm text-gray-500 ml-2">
-                                            ({subject.grade})
-                                          </span>
-                                        </div>
-                                        <button
-                                          onClick={() =>
-                                            resetProgress(
-                                              user.id,
-                                              user.email,
-                                              subject.id
-                                            )
-                                          }
-                                          className="text-sm text-yellow-600 hover:text-yellow-800 flex items-center"
-                                        >
-                                          <FaSync className="mr-1" />
-                                          Reset
-                                        </button>
-                                      </div>
-                                      <div className="flex items-center">
-                                        <div className="flex-1">
-                                          <div className="w-full bg-gray-200 rounded-full h-2">
-                                            <div
-                                              className="bg-blue-600 h-2 rounded-full"
-                                              style={{
-                                                width: `${subject.progress_percentage}%`,
-                                              }}
-                                            ></div>
+                          {expandedUser === user.id &&
+                            user.subjects.length > 0 && (
+                              <tr>
+                                <td
+                                  colSpan={6}
+                                  className="px-6 py-4 bg-gray-50"
+                                >
+                                  <div className="space-y-2">
+                                    <h4 className="font-semibold text-gray-700 mb-3">
+                                      Subjects & Progress:
+                                    </h4>
+                                    {user.subjects.map((subject) => (
+                                      <div
+                                        key={subject.id}
+                                        className="bg-white p-4 rounded border border-gray-200"
+                                      >
+                                        <div className="flex items-center justify-between mb-2">
+                                          <div>
+                                            <span className="font-medium text-gray-900">
+                                              {subject.subject_name}
+                                            </span>
+                                            <span className="text-sm text-gray-500 ml-2">
+                                              ({subject.grade})
+                                            </span>
                                           </div>
+                                          <button
+                                            onClick={() =>
+                                              resetProgress(
+                                                user.id,
+                                                user.email,
+                                                subject.id
+                                              )
+                                            }
+                                            className="text-sm text-yellow-600 hover:text-yellow-800 flex items-center"
+                                          >
+                                            <FaSync className="mr-1" />
+                                            Reset
+                                          </button>
                                         </div>
-                                        <span className="ml-4 text-sm font-medium text-gray-700">
-                                          {subject.lessons_completed}/
-                                          {subject.total_lessons} lessons (
-                                          {subject.progress_percentage.toFixed(1)}%)
-                                        </span>
+                                        <div className="flex items-center">
+                                          <div className="flex-1">
+                                            <div className="w-full bg-gray-200 rounded-full h-2">
+                                              <div
+                                                className="bg-blue-600 h-2 rounded-full"
+                                                style={{
+                                                  width: `${subject.progress_percentage}%`,
+                                                }}
+                                              ></div>
+                                            </div>
+                                          </div>
+                                          <span className="ml-4 text-sm font-medium text-gray-700">
+                                            {subject.lessons_completed}/
+                                            {subject.total_lessons} lessons (
+                                            {subject.progress_percentage.toFixed(
+                                              1
+                                            )}
+                                            %)
+                                          </span>
+                                        </div>
                                       </div>
-                                    </div>
-                                  ))}
-                                </div>
-                              </td>
-                            </tr>
-                          )}
+                                    ))}
+                                  </div>
+                                </td>
+                              </tr>
+                            )}
                         </React.Fragment>
                       ))
                     )}
@@ -559,7 +584,11 @@ export default function AdminUsersPage() {
                 <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                   <div>
                     <p className="text-sm text-gray-700">
-                      Showing <span className="font-medium">{(page - 1) * limit + 1}</span> to{" "}
+                      Showing{" "}
+                      <span className="font-medium">
+                        {(page - 1) * limit + 1}
+                      </span>{" "}
+                      to{" "}
                       <span className="font-medium">
                         {Math.min(page * limit, total)}
                       </span>{" "}
@@ -587,7 +616,7 @@ export default function AdminUsersPage() {
                         if (page < 3) p = i + 1;
                         if (p > totalPages) return null;
                         if (p < 1) return null;
-                        
+
                         return (
                           <button
                             key={p}
