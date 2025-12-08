@@ -31,6 +31,7 @@ class UserResponse(UserBase):
     created_at: datetime
     is_trial_active: bool = False
     trial_days_remaining: int = 0
+    has_subjects: bool = False
     
     class Config:
         from_attributes = True
@@ -92,6 +93,9 @@ class AdminUserSummary(BaseModel):
     subjects_count: Optional[int] = 0
     subjects: Optional[List[AdminSubjectSummary]] = []
     created_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
 
 
 class AdminUsersResponse(BaseModel):
@@ -313,6 +317,9 @@ class CurriculumTemplateResponse(CurriculumTemplateBase):
     class Config:
         from_attributes = True
 
+class BulkCurriculumUseRequest(BaseModel):
+    template_ids: List[int]
+
 # Presentation Feature Schemas
 class NoteAnnotationBase(BaseModel):
     note_id: int
@@ -448,7 +455,7 @@ class TimeSlotResponse(BaseModel):
     start_time: str
     end_time: str
     slot_type: str  # lesson, break, lunch
-    label: str
+    label: Optional[str] = None
     sequence_order: int
     
     class Config:

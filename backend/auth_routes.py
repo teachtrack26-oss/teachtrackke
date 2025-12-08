@@ -12,15 +12,40 @@ from typing import Optional
 from database import get_db
 from models import User
 from schemas import UserCreate, UserLogin, UserResponse, Token, GoogleAuth
-from auth import get_password_hash, verify_password, create_access_token
+from auth import get_password_hash, verify_password, create_access_token, verify_token
 from config import settings
 from google_auth import verify_google_token
 from email_utils import send_verification_email, send_welcome_email
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import logging
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1/auth", tags=["Authentication"])
+
+security = HTTPBearer()
+
+
+def get_current_user_from_token(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+    db: Session = Depends(get_db)
+):
+    """Extract and verify the current user from JWT token"""
+    token = credentials.credentials
+    email = verify_token(token)
+    if email is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials"
+        )
+    
+    user = db.query(User).filter(User.email == email).first()
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="User not found"
+        )
+    return user
 
 
 def generate_verification_token() -> str:
@@ -140,6 +165,15 @@ def login(user_credentials: UserLogin, db: Session = Depends(get_db)):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Login failed"
         )
+
+
+@router.get("/me", response_model=UserResponse)
+def get_current_user_info(current_user: User = Depends(get_current_user_from_token)):
+    """
+    Get current user information
+    Requires valid JWT token
+    """
+    return current_user
 
 
 @router.post("/google", response_model=Token)

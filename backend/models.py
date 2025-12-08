@@ -221,6 +221,22 @@ class User(Base):
         trial_end = created + timedelta(days=14)
         remaining = trial_end - datetime.now()
         return max(0, remaining.days)
+
+    @property
+    def has_subjects(self):
+        """Check if user has any subjects."""
+        return len(self.subjects) > 0
+
+    @property
+    def subject_count(self):
+        """Return number of subjects."""
+        return len(self.subjects)
+
+    @property
+    def subjects_count(self):
+        """Alias for subject_count."""
+        return len(self.subjects)
+
     managed_school = relationship("School", foreign_keys="[School.admin_id]", back_populates="admin", uselist=False)
     
     # Teacher Profile (for independent teachers)

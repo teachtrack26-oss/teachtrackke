@@ -256,3 +256,27 @@ The TeachTrack Team
         html_content=html_content,
         text_content=text_content
     )
+
+
+async def send_invitation_email(email: str, school_name: str, password: str):
+    """
+    Send an invitation email to a new user
+    
+    Args:
+        email: Recipient email address
+        school_name: Name of the school
+        password: Temporary password for the user
+    
+    Returns:
+        bool: True if email sent successfully, False otherwise
+    """
+    subject = f"Invitation to join {school_name} on TeachTrack"
+    html_content = f"""
+    <h1>You have been invited!</h1>
+    <p>You have been invited to join <b>{school_name}</b> on TeachTrack.</p>
+    <p>Your temporary password is: <b>{password}</b></p>
+    <p>Please login and change your password.</p>
+    """
+    text_content = f"You have been invited to join {school_name} on TeachTrack. Your temporary password is: {password}"
+    
+    return await send_email(email, subject, html_content, text_content)

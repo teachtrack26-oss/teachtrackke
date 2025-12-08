@@ -125,3 +125,70 @@ Return ONLY the JSON.
         except json.JSONDecodeError:
             print(f"[ERROR] Failed to parse JSON: {cleaned[:100]}...")
             return None
+
+async def generate_scheme_of_work(data, current_user, db):
+    """
+    Generate a scheme of work using AI.
+    """
+    # Placeholder implementation
+    # In a real implementation, this would query the LLM to generate the scheme
+    # based on the curriculum and user inputs.
+    
+    # Import models here to avoid circular imports if any
+    from models import SchemeOfWork
+    
+    # Create a basic shell
+    scheme = SchemeOfWork(
+        user_id=current_user.id,
+        subject_id=data.subject_id,
+        teacher_name=current_user.full_name,
+        school=current_user.school.name if current_user.school else "My School",
+        term=data.term,
+        year=data.year,
+        subject=data.subject,
+        grade=data.grade,
+        total_weeks=data.total_weeks,
+        total_lessons=data.total_lessons,
+        status="draft"
+    )
+    db.add(scheme)
+    db.commit()
+    db.refresh(scheme)
+    
+    return scheme
+
+async def generate_lesson_plan(plan):
+    """
+    Generate or enhance a lesson plan using AI.
+    """
+    planner = AILessonPlanner()
+    
+    # Convert plan model to dict for the planner
+    lesson_data = {
+        "topic": plan.topic,
+        "sub_topic": plan.sub_topic,
+        "grade": getattr(plan, 'grade', "Unknown"),
+        "subject": getattr(plan, 'subject', "Unknown"),
+        "objectives": plan.objectives,
+        "duration": "40 minutes" # Default
+    }
+    
+    # Note: generate_detailed_plan is synchronous in the class currently
+    # We might need to run it in executor if it blocks (it calls OpenAI sync client)
+    # But for now let's just call it.
+    
+    result = planner.generate_detailed_plan(lesson_data)
+    
+    if result and "error" not in result:
+        # Update plan with generated content
+        # Mapping result fields to plan fields
+        if "introduction" in result:
+            plan.introduction = result["introduction"]
+        if "development" in result:
+            plan.learning_activities = str(result["development"])
+        if "conclusion" in result:
+            plan.conclusion = result["conclusion"]
+        if "resources" in result:
+            plan.resources = str(result["resources"])
+            
+    return plan

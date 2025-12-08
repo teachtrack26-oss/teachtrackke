@@ -4,6 +4,9 @@ import cloudinary.api
 import cloudinary.utils
 import os
 from config import settings
+from fastapi import UploadFile
+import asyncio
+from functools import partial
 
 # ============================================================================
 # CLOUDINARY CONFIGURATION
@@ -93,6 +96,46 @@ def upload_file(file_content, public_id: str, folder: str = "notes"):
         file_content,
         **upload_options
     )
+    return result
+
+async def upload_file_to_cloudinary(file: UploadFile, folder: str = "uploads"):
+    """
+    Uploads a FastAPI UploadFile to Cloudinary.
+    """
+    if not IS_CONFIGURED:
+         raise ConnectionError("Cloudinary is not configured.")
+
+    content = await file.read()
+    # Reset cursor just in case
+    await file.seek(0)
+    
+    # Determine resource type
+    filename = file.filename
+    file_extension = filename.split('.')[-1].lower() if '.' in filename else ""
+    
+    resource_type = "auto"
+    if file_extension in ['pdf', 'docx', 'pptx', 'xlsx', 'doc', 'ppt', 'xls']:
+        resource_type = "raw"
+    elif file_extension in ['jpg', 'jpeg', 'png', 'gif', 'webp']:
+        resource_type = "image"
+    elif file_extension in ['mp4', 'mov', 'avi', 'mkv']:
+        resource_type = "video"
+        
+    upload_options = {
+        "folder": folder,
+        "resource_type": resource_type,
+        "overwrite": True,
+        "use_filename": True,
+        "unique_filename": True
+    }
+    
+    # Run synchronous upload in thread pool
+    loop = asyncio.get_event_loop()
+    result = await loop.run_in_executor(
+        None, 
+        partial(cloudinary.uploader.upload, content, **upload_options)
+    )
+    
     return result
 
 # ============================================================================
