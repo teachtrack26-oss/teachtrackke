@@ -23,6 +23,23 @@ export const lessonsResponseSchema = z.object({
 
 // Parse lessons with logging + basic assertions
 export function parseLessons(raw: unknown): Lesson[] {
+  // Handle direct array response (common from FastAPI without response_model)
+  if (Array.isArray(raw)) {
+    const arrayResult = z.array(lessonSchema).safeParse(raw);
+    if (arrayResult.success) {
+      return arrayResult.data;
+    }
+    console.warn(
+      "[curriculum] Invalid lessons array",
+      arrayResult.error.format()
+    );
+    // Try to return valid items even if some fail
+    return raw.filter((item) => {
+      const parsed = lessonSchema.safeParse(item);
+      return parsed.success;
+    }) as Lesson[];
+  }
+
   const result = lessonsResponseSchema.safeParse(raw);
   if (!result.success) {
     console.warn(

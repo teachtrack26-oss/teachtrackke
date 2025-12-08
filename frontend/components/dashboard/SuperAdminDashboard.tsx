@@ -3,9 +3,17 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { 
-  FiUsers, FiTrendingUp, FiBriefcase, FiBook, FiShield, 
-  FiZap, FiSearch, FiFilter, FiCheck, FiX 
+import {
+  FiUsers,
+  FiTrendingUp,
+  FiBriefcase,
+  FiBook,
+  FiShield,
+  FiZap,
+  FiSearch,
+  FiFilter,
+  FiCheck,
+  FiX,
 } from "react-icons/fi";
 
 interface PlatformStats {
@@ -48,7 +56,9 @@ export default function SuperAdminDashboard() {
   const [users, setUsers] = useState<User[]>([]);
   const [schools, setSchools] = useState<School[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<"overview" | "users" | "schools">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "users" | "schools">(
+    "overview"
+  );
   const [searchTerm, setSearchTerm] = useState("");
   const [roleFilter, setRoleFilter] = useState<string>("all");
 
@@ -59,7 +69,7 @@ export default function SuperAdminDashboard() {
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      
+
       // Fetch stats
       const statsRes = await axios.get("/api/v1/admin/stats", {
         headers: { Authorization: `Bearer ${token}` },
@@ -88,9 +98,13 @@ export default function SuperAdminDashboard() {
     if (!confirm("Upgrade this user to Premium?")) return;
     try {
       const token = localStorage.getItem("accessToken");
-      await axios.put(`/api/v1/admin/users/${userId}/upgrade`, {}, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.put(
+        `/api/v1/admin/users/${userId}/upgrade`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       toast.success("User upgraded to Premium!");
       fetchData();
     } catch (error: any) {
@@ -120,9 +134,10 @@ export default function SuperAdminDashboard() {
     );
   }
 
-  const filteredUsers = users.filter(user => {
-    const matchesSearch = user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.full_name.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredUsers = users.filter((user) => {
+    const matchesSearch =
+      user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.full_name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRole = roleFilter === "all" || user.role === roleFilter;
     return matchesSearch && matchesRole;
   });
@@ -136,7 +151,9 @@ export default function SuperAdminDashboard() {
             <FiShield className="w-8 h-8 text-red-600" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Super Admin Dashboard</h1>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Super Admin Dashboard
+            </h1>
             <p className="text-gray-600">Platform oversight and management</p>
           </div>
         </div>
@@ -151,7 +168,9 @@ export default function SuperAdminDashboard() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Total Users</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.total_users}</p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {stats.total_users}
+                  </p>
                 </div>
               </div>
             </div>
@@ -163,7 +182,9 @@ export default function SuperAdminDashboard() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Schools</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.total_schools}</p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {stats.total_schools}
+                  </p>
                 </div>
               </div>
             </div>
@@ -175,7 +196,9 @@ export default function SuperAdminDashboard() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Subjects</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.total_subjects}</p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {stats.total_subjects}
+                  </p>
                 </div>
               </div>
             </div>
@@ -187,7 +210,9 @@ export default function SuperAdminDashboard() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Premium Users</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.subscriptions.premium}</p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {stats.subscriptions.premium}
+                  </p>
                 </div>
               </div>
             </div>
@@ -197,19 +222,27 @@ export default function SuperAdminDashboard() {
         {/* Subscription Breakdown */}
         {stats && (
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-8">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">Subscription Distribution</h3>
+            <h3 className="text-lg font-bold text-gray-900 mb-4">
+              Subscription Distribution
+            </h3>
             <div className="grid md:grid-cols-3 gap-4">
               <div className="p-4 bg-orange-50 rounded-xl">
                 <p className="text-sm text-gray-600">Individual Basic</p>
-                <p className="text-3xl font-bold text-orange-600">{stats.subscriptions.basic}</p>
+                <p className="text-3xl font-bold text-orange-600">
+                  {stats.subscriptions.basic}
+                </p>
               </div>
               <div className="p-4 bg-purple-50 rounded-xl">
                 <p className="text-sm text-gray-600">Individual Premium</p>
-                <p className="text-3xl font-bold text-purple-600">{stats.subscriptions.premium}</p>
+                <p className="text-3xl font-bold text-purple-600">
+                  {stats.subscriptions.premium}
+                </p>
               </div>
               <div className="p-4 bg-blue-50 rounded-xl">
                 <p className="text-sm text-gray-600">School Sponsored</p>
-                <p className="text-3xl font-bold text-blue-600">{stats.subscriptions.school_sponsored}</p>
+                <p className="text-3xl font-bold text-blue-600">
+                  {stats.subscriptions.school_sponsored}
+                </p>
               </div>
             </div>
           </div>
@@ -283,9 +316,15 @@ export default function SuperAdminDashboard() {
                   <tr>
                     <th className="px-6 py-4 text-left font-medium">User</th>
                     <th className="px-6 py-4 text-left font-medium">Role</th>
-                    <th className="px-6 py-4 text-left font-medium">Subscription</th>
-                    <th className="px-6 py-4 text-left font-medium">Subjects</th>
-                    <th className="px-6 py-4 text-right font-medium">Actions</th>
+                    <th className="px-6 py-4 text-left font-medium">
+                      Subscription
+                    </th>
+                    <th className="px-6 py-4 text-left font-medium">
+                      Subjects
+                    </th>
+                    <th className="px-6 py-4 text-right font-medium">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -293,29 +332,55 @@ export default function SuperAdminDashboard() {
                     <tr key={user.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4">
                         <div>
-                          <p className="font-medium text-gray-900">{user.full_name}</p>
+                          <p className="font-medium text-gray-900">
+                            {user.full_name}
+                          </p>
                           <p className="text-sm text-gray-500">{user.email}</p>
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          user.role === "SUPER_ADMIN" ? "bg-red-100 text-red-700" :
-                          user.role === "SCHOOL_ADMIN" ? "bg-blue-100 text-blue-700" :
-                          "bg-gray-100 text-gray-700"
-                        }`}>
-                          {user.role}
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            user.role === "SUPER_ADMIN"
+                              ? "bg-red-100 text-red-700"
+                              : user.role === "SCHOOL_ADMIN"
+                              ? "bg-blue-100 text-blue-700"
+                              : "bg-gray-100 text-gray-700"
+                          }`}
+                        >
+                          {user.role === "SUPER_ADMIN"
+                            ? "Super Admin"
+                            : user.role === "SCHOOL_ADMIN"
+                            ? "School Admin"
+                            : user.role === "TEACHER"
+                            ? "Teacher"
+                            : user.role}
                         </span>
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          user.subscription_type === "INDIVIDUAL_PREMIUM" ? "bg-purple-100 text-purple-700" :
-                          user.subscription_type === "SCHOOL_SPONSORED" ? "bg-blue-100 text-blue-700" :
-                          "bg-orange-100 text-orange-700"
-                        }`}>
-                          {user.subscription_type}
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            user.subscription_type === "INDIVIDUAL_PREMIUM"
+                              ? "bg-purple-100 text-purple-700"
+                              : user.subscription_type === "SCHOOL_SPONSORED"
+                              ? "bg-blue-100 text-blue-700"
+                              : "bg-orange-100 text-orange-700"
+                          }`}
+                        >
+                          {user.subscription_type === "INDIVIDUAL_PREMIUM"
+                            ? "Premium"
+                            : user.subscription_type === "SCHOOL_SPONSORED"
+                            ? "School Sponsored"
+                            : user.subscription_type === "INDIVIDUAL_BASIC"
+                            ? "Basic"
+                            : user.subscription_type === "FREE"
+                            ? "Free"
+                            : user.subscription_type}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-gray-900">{user.subject_count}</td>
+                      <td className="px-6 py-4 text-gray-900">
+                        {user.subject_count}
+                      </td>
                       <td className="px-6 py-4">
                         <div className="flex justify-end gap-2">
                           {user.subscription_type === "INDIVIDUAL_BASIC" && (
@@ -353,20 +418,33 @@ export default function SuperAdminDashboard() {
               <table className="w-full">
                 <thead className="bg-gray-50 text-gray-500 text-sm uppercase">
                   <tr>
-                    <th className="px-6 py-4 text-left font-medium">School Name</th>
+                    <th className="px-6 py-4 text-left font-medium">
+                      School Name
+                    </th>
                     <th className="px-6 py-4 text-left font-medium">Admin</th>
-                    <th className="px-6 py-4 text-left font-medium">Teachers</th>
+                    <th className="px-6 py-4 text-left font-medium">
+                      Teachers
+                    </th>
                     <th className="px-6 py-4 text-left font-medium">Status</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {schools.map((school) => (
                     <tr key={school.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 font-medium text-gray-900">{school.name}</td>
-                      <td className="px-6 py-4 text-gray-600">{school.admin_email}</td>
+                      <td className="px-6 py-4 font-medium text-gray-900">
+                        {school.name}
+                      </td>
+                      <td className="px-6 py-4 text-gray-600">
+                        {school.admin_email}
+                      </td>
                       <td className="px-6 py-4">
-                        <span className="text-gray-900 font-medium">{school.teacher_count}</span>
-                        <span className="text-gray-500"> / {school.max_teachers}</span>
+                        <span className="text-gray-900 font-medium">
+                          {school.teacher_count}
+                        </span>
+                        <span className="text-gray-500">
+                          {" "}
+                          / {school.max_teachers}
+                        </span>
                       </td>
                       <td className="px-6 py-4">
                         <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">

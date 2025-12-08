@@ -125,7 +125,11 @@ export default function PricingPage() {
             }
           );
           toast.success("Plan downgraded to Free");
-          window.location.reload();
+          if (localUser && localUser.has_subjects === false) {
+            router.push("/curriculum/select");
+          } else {
+            window.location.reload();
+          }
         } catch (error) {
           console.error("Downgrade error:", error);
           toast.error("Failed to downgrade plan");
@@ -216,7 +220,11 @@ export default function PricingPage() {
         setTimeout(() => {
           setIsModalOpen(false);
           setCheckoutRequestId(null);
-          window.location.reload();
+          if (localUser && localUser.has_subjects === false) {
+            router.push("/curriculum/select");
+          } else {
+            window.location.reload();
+          }
         }, 4000);
       } else if (status === "FAILED" || status === "CANCELLED") {
         toast.error(
@@ -272,7 +280,11 @@ export default function PricingPage() {
           setTimeout(() => {
             setIsModalOpen(false);
             setCheckoutRequestId(null);
-            window.location.reload();
+            if (localUser && localUser.has_subjects === false) {
+              router.push("/curriculum/select");
+            } else {
+              window.location.reload();
+            }
           }, 4000);
           return;
         } else if (status === "FAILED" || status === "CANCELLED") {
@@ -569,18 +581,33 @@ export default function PricingPage() {
             </div>
             <div className="p-8 bg-gray-50 rounded-b-2xl">
               <button
-                onClick={() => handleSubscribe("FREE")}
+                onClick={() => {
+                  if (
+                    currentPlan === "FREE" &&
+                    localUser?.has_subjects === false
+                  ) {
+                    router.push("/curriculum/select");
+                  } else {
+                    handleSubscribe("FREE");
+                  }
+                }}
                 disabled={
-                  currentPlan === "FREE" || currentPlan === "SCHOOL_SPONSORED"
+                  (currentPlan === "FREE" &&
+                    localUser?.has_subjects !== false) ||
+                  currentPlan === "SCHOOL_SPONSORED"
                 }
                 className={`w-full block border rounded-md py-3 text-sm font-semibold text-center ${
-                  currentPlan === "FREE" || currentPlan === "SCHOOL_SPONSORED"
+                  (currentPlan === "FREE" &&
+                    localUser?.has_subjects !== false) ||
+                  currentPlan === "SCHOOL_SPONSORED"
                     ? "bg-gray-100 text-gray-400 border-gray-200 cursor-default"
                     : "bg-white text-gray-900 border-gray-300 hover:bg-gray-50"
                 }`}
               >
                 {currentPlan === "FREE"
-                  ? "Current Plan"
+                  ? localUser?.has_subjects === false
+                    ? "Continue with Free"
+                    : "Current Plan"
                   : currentPlan === "SCHOOL_SPONSORED"
                   ? "Included in School Plan"
                   : "Downgrade to Free"}

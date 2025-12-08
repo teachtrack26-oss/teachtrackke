@@ -9,6 +9,7 @@
         {
           "subStrandId": "1.1",
           "subStrandTitle": "Our Living Environment",
+          "numberOfLessons": 12,
           "specificLearningOutcomes": [
             "identify locally available things used as bedding",
             "carry out hygiene practises in sleeping areas for a healthy environment",
@@ -26,11 +27,28 @@
           ],
           "keyInquiryQuestions": [
             "Why is personal hygiene important in your sleeping area?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Self-efficacy",
+            "Critical thinking and problem solving"
+          ],
+          "values": ["Respect", "Responsibility", "Peace"],
+          "pcis": [
+            "Life skills",
+            "Parenting skills",
+            "Environmental education"
+          ],
+          "linkToOtherSubjects": [
+            "English Activities",
+            "Kiswahili Activities",
+            "Mathematics Activities"
           ]
         },
         {
           "subStrandId": "1.2",
           "subStrandTitle": "Family Needs",
+          "numberOfLessons": 10,
           "specificLearningOutcomes": [
             "describe how people express feelings in real- life",
             "describe ways in which emotional needs are met in real-life situations",
@@ -48,13 +66,24 @@
             "sing songs or read stories involving feelings expressed by people",
             "make posters showing different ways of expressing emotions"
           ],
-          "keyInquiryQuestions": [
-            "How do people express their emotions?"
+          "keyInquiryQuestions": ["How do people express their emotions?"],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Self-efficacy",
+            "Critical thinking and problem solving"
+          ],
+          "values": ["Love", "Unity", "Social justice"],
+          "pcis": ["Life skills", "Parenting skills", "Mental health"],
+          "linkToOtherSubjects": [
+            "English Activities",
+            "Kiswahili Activities",
+            "Creative Arts"
           ]
         },
         {
           "subStrandId": "1.3",
           "subStrandTitle": "Food in Our Environment",
+          "numberOfLessons": 8,
           "specificLearningOutcomes": [
             "identify common food items found in the immediate environment",
             "classify food items into three food groups",
@@ -74,11 +103,24 @@
           "keyInquiryQuestions": [
             "Why do we have different food items in the locality?",
             "What activities do you engage in while eating?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Self-efficacy",
+            "Learning to learn"
+          ],
+          "values": ["Responsibility", "Respect", "Peace"],
+          "pcis": ["Life skills", "Health education", "Nutrition education"],
+          "linkToOtherSubjects": [
+            "Mathematics Activities",
+            "English Activities",
+            "Kiswahili Activities"
           ]
         },
         {
           "subStrandId": "1.4",
           "subStrandTitle": "Our Community",
+          "numberOfLessons": 10,
           "specificLearningOutcomes": [
             "identify ways of keeping safe in the community",
             "classify places in the community as safe and unsafe",
@@ -97,13 +139,28 @@
             "role play on how to use basic road signs for personal safety (pedestrian crossing, traffic light signs)",
             "take a safety walk around the neighbourhood to identify safe and unsafe places and share findings with peers"
           ],
-          "keyInquiryQuestions": [
-            "How do you keep safe in the community?"
+          "keyInquiryQuestions": ["How do you keep safe in the community?"],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Self-efficacy",
+            "Critical thinking and problem solving"
+          ],
+          "values": ["Responsibility", "Respect", "Peace"],
+          "pcis": [
+            "Safety and security education",
+            "Life skills",
+            "Community service learning"
+          ],
+          "linkToOtherSubjects": [
+            "English Activities",
+            "Kiswahili Activities",
+            "Mathematics Activities"
           ]
         },
         {
           "subStrandId": "1.5",
           "subStrandTitle": "Cultural Events",
+          "numberOfLessons": 8,
           "specificLearningOutcomes": [
             "identify cultural events carried out in the community",
             "recognise cultural events that promote social well- being in the community",
@@ -119,6 +176,22 @@
           ],
           "keyInquiryQuestions": [
             "How are cultural events carried out in your community?"
+          ],
+          "coreCompetencies": [
+            "Communication and collaboration",
+            "Citizenship",
+            "Critical thinking and problem solving"
+          ],
+          "values": ["Unity", "Respect", "Patriotism"],
+          "pcis": [
+            "Social cohesion and national unity",
+            "Environmental education",
+            "Community service learning"
+          ],
+          "linkToOtherSubjects": [
+            "Creative Arts",
+            "English Activities",
+            "Kiswahili Activities"
           ]
         }
       ]
@@ -130,6 +203,7 @@
         {
           "subStrandId": "2.1",
           "subStrandTitle": "Weather",
+          "numberOfLessons": 10,
           "specificLearningOutcomes": [
             "describe unfavourable weather conditions",
             "explain the dangers of unfavourable weather conditions on people",
@@ -149,11 +223,16 @@
           ],
           "keyInquiryQuestions": [
             "How can you keep safe during unfavourable weather conditions?"
-          ]
+          ],
+          "coreCompetencies": ["Communication and Collaboration"],
+          "values": ["Social Justice"],
+          "pcis": ["Life Skills"],
+          "linkToOtherSubjects": ["English Language Activities"]
         },
         {
           "subStrandId": "2.2",
           "subStrandTitle": "Soil",
+          "numberOfLessons": 8,
           "specificLearningOutcomes": [
             "list characteristics of different types of soil",
             "carry out basic soil conservation activities in the environment",
@@ -171,11 +250,16 @@
           "keyInquiryQuestions": [
             "How can we care for soil?",
             "What should be done to protect soil?"
-          ]
+          ],
+          "coreCompetencies": ["Collaboration"],
+          "values": ["Patriotism"],
+          "pcis": ["Health promotion issues"],
+          "linkToOtherSubjects": ["Creative Activities"]
         },
         {
           "subStrandId": "2.3",
           "subStrandTitle": "Heat",
+          "numberOfLessons": 10,
           "specificLearningOutcomes": [
             "list sources of heat in the environment",
             "identify uses of heat in the environment",
@@ -192,9 +276,11 @@
             "share with peers on how to keep safe when dealing with heat from various sources of heat",
             "reflect on experiences of conserving heat at home and share with others"
           ],
-          "keyInquiryQuestions": [
-            "Why is heat important in our daily life?"
-          ]
+          "keyInquiryQuestions": ["Why is heat important in our daily life?"],
+          "coreCompetencies": ["Learning to Learn"],
+          "values": ["Respect"],
+          "pcis": ["Socio-economic and Environmental Issues"],
+          "linkToOtherSubjects": ["Creative Activities"]
         }
       ]
     },
@@ -205,6 +291,7 @@
         {
           "subStrandId": "3.1",
           "subStrandTitle": "Water",
+          "numberOfLessons": 12,
           "specificLearningOutcomes": [
             "name ways in which water can be contaminated in the environment",
             "carry out activities to make water clean and safe",
@@ -221,13 +308,16 @@
             "discuss ways in which water can be reused",
             "make posters on ways of conserving water in the environment"
           ],
-          "keyInquiryQuestions": [
-            "How can you keep water clean and safe?"
-          ]
+          "keyInquiryQuestions": ["How can you keep water clean and safe?"],
+          "coreCompetencies": ["Creativity and Imagination"],
+          "values": ["Unity"],
+          "pcis": ["Life Skills"],
+          "linkToOtherSubjects": ["Mathematical Activities"]
         },
         {
           "subStrandId": "3.2",
           "subStrandTitle": "Plants",
+          "numberOfLessons": 12,
           "specificLearningOutcomes": [
             "identify safety measures to observe when handling plants",
             "classify plants in the environment into edible and non-edible",
@@ -247,11 +337,16 @@
           ],
           "keyInquiryQuestions": [
             "How are plants important in the environment?"
-          ]
+          ],
+          "coreCompetencies": ["Digital Literacy"],
+          "values": ["Responsibility"],
+          "pcis": ["Safety"],
+          "linkToOtherSubjects": ["Mathematical Activities"]
         },
         {
           "subStrandId": "3.3",
           "subStrandTitle": "Animals",
+          "numberOfLessons": 8,
           "specificLearningOutcomes": [
             "explain the importance of domestic animals to human beings",
             "determine ways of caring for domestic animals",
@@ -268,11 +363,16 @@
           ],
           "keyInquiryQuestions": [
             "How can you care for animals at home or school?"
-          ]
+          ],
+          "coreCompetencies": ["Learning to Learn"],
+          "values": ["Love"],
+          "pcis": ["Socio-economic and Environmental Issues"],
+          "linkToOtherSubjects": ["Religious Activities"]
         },
         {
           "subStrandId": "3.4",
           "subStrandTitle": "Waste Materials",
+          "numberOfLessons": 12,
           "specificLearningOutcomes": [
             "identify waste materials that can be used to generate income",
             "describe ways in which waste materials can generate income",
@@ -290,7 +390,11 @@
           ],
           "keyInquiryQuestions": [
             "How can waste materials be used to generate income?"
-          ]
+          ],
+          "coreCompetencies": ["Creativity and Imagination"],
+          "values": ["Integrity"],
+          "pcis": ["Health promotion issues"],
+          "linkToOtherSubjects": ["Mathematical Activities"]
         }
       ]
     }

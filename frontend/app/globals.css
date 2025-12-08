@@ -181,3 +181,38 @@
 .glass-lesson:hover .pattern-zigzag {
   animation: pulse-gentle 2s ease-in-out infinite;
 }
+
+/* Security & Print Protection */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-safe,
+  .print-safe * {
+    visibility: visible;
+  }
+  .print-safe {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  /* Hide everything by default if not explicitly safe */
+  body:not(:has(.print-safe))::after {
+    content: "Printing is disabled for this content.";
+    visibility: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 24px;
+    color: #ef4444;
+  }
+}
+
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

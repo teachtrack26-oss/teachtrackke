@@ -63,6 +63,12 @@ export default function CurriculumTrackingPage() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Filters and Pagination State
+  const [educationLevelFilter, setEducationLevelFilter] = useState("All");
+  const [gradeFilter, setGradeFilter] = useState("All");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
@@ -107,6 +113,50 @@ export default function CurriculumTrackingPage() {
       year: "numeric",
     });
   };
+
+  // Helper to determine education level from grade
+  const getEducationLevel = (grade: string) => {
+    const normalizedGrade = grade.toLowerCase();
+    if (normalizedGrade.includes("pp")) return "Pre-Primary";
+    if (
+      ["grade 1", "grade 2", "grade 3"].some((g) => normalizedGrade.includes(g))
+    )
+      return "Lower Primary";
+    if (
+      ["grade 4", "grade 5", "grade 6"].some((g) => normalizedGrade.includes(g))
+    )
+      return "Upper Primary";
+    if (
+      ["grade 7", "grade 8", "grade 9"].some((g) => normalizedGrade.includes(g))
+    )
+      return "Junior Secondary";
+    return "Other";
+  };
+
+  // Filter Logic
+  const filteredSubjects =
+    data?.subjects.filter((subject) => {
+      const matchesEducationLevel =
+        educationLevelFilter === "All" ||
+        getEducationLevel(subject.grade) === educationLevelFilter;
+
+      const matchesGrade =
+        gradeFilter === "All" || subject.grade === gradeFilter;
+
+      return matchesEducationLevel && matchesGrade;
+    }) || [];
+
+  // Pagination Logic
+  const totalPages = Math.ceil(filteredSubjects.length / itemsPerPage);
+  const paginatedSubjects = filteredSubjects.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  // Reset pagination when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [educationLevelFilter, gradeFilter]);
 
   if (loading) {
     return (
@@ -207,111 +257,182 @@ export default function CurriculumTrackingPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Subject Progress */}
           <div className="lg:col-span-2 space-y-6">
-            <h2 className="text-xl font-semibold text-gray-900">
-              Subject Progress
-            </h2>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+              <h2 className="text-xl font-semibold text-gray-900">
+                Subject Progress
+              </h2>
 
-            {data.subjects.map((subject) => (
-              <div
-                key={subject.id}
-                className="bg-white rounded-lg shadow-md p-6"
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {subject.subject_name}
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      Grade {subject.grade}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => router.push(`/curriculum/${subject.id}`)}
-                    className="text-indigo-600 hover:text-indigo-700 text-sm font-medium"
-                  >
-                    View Details →
-                  </button>
-                </div>
+              {/* Filters */}
+              <div className="flex flex-wrap gap-2">
+                <select
+                  value={educationLevelFilter}
+                  onChange={(e) => setEducationLevelFilter(e.target.value)}
+                  className="text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                >
+                  <option value="All">All Levels</option>
+                  <option value="Pre-Primary">Pre-Primary</option>
+                  <option value="Lower Primary">Lower Primary</option>
+                  <option value="Upper Primary">Upper Primary</option>
+                  <option value="Junior Secondary">Junior Secondary</option>
+                </select>
 
-                {/* Overall Progress */}
-                <div className="mb-4">
-                  <div className="flex justify-between text-sm text-gray-600 mb-2">
-                    <span>Overall Progress</span>
-                    <span>{subject.progress_percentage.toFixed(1)}%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-3">
-                    <div
-                      className={`${getProgressColor(
-                        subject.progress_percentage
-                      )} h-3 rounded-full transition-all duration-300`}
-                      style={{ width: `${subject.progress_percentage}%` }}
-                    />
-                  </div>
-                  <div className="text-xs text-gray-500 mt-1">
-                    {subject.completed_lessons} / {subject.total_lessons}{" "}
-                    lessons completed
-                  </div>
-                </div>
-
-                {/* Strand Progress */}
-                <div className="space-y-3">
-                  <h4 className="text-sm font-medium text-gray-700">
-                    Strand Progress
-                  </h4>
-                  {subject.strands.map((strand) => (
-                    <div key={strand.strand_code} className="mb-4">
-                      <div className="flex justify-between text-xs text-gray-600 mb-1">
-                        <span className="font-medium">
-                          {strand.strand_code}. {strand.strand_name}
-                        </span>
-                        <span>{strand.progress.toFixed(0)}%</span>
-                      </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div
-                          className={`${getProgressColor(
-                            strand.progress
-                          )} h-2 rounded-full transition-all duration-300`}
-                          style={{ width: `${strand.progress}%` }}
-                        />
-                      </div>
-                      <div className="text-xs text-gray-500 mt-0.5">
-                        {strand.completed_lessons} / {strand.total_lessons}{" "}
-                        lessons
-                      </div>
-
-                      {/* Substrand Progress - Only show if there are completed lessons */}
-                      {strand.substrands && strand.substrands.length > 0 && (
-                        <div className="mt-2 ml-4 space-y-2 border-l-2 border-gray-200 pl-3">
-                          {strand.substrands.map((substrand) => (
-                            <div key={substrand.substrand_code}>
-                              <div className="flex justify-between text-xs text-gray-500 mb-1">
-                                <span className="flex items-center">
-                                  <span className="inline-block w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2"></span>
-                                  {substrand.substrand_code}.{" "}
-                                  {substrand.substrand_name}
-                                </span>
-                                <span className="text-green-600 font-medium">
-                                  {substrand.completed_lessons}/
-                                  {substrand.total_lessons}
-                                </span>
-                              </div>
-                              <div className="w-full bg-gray-100 rounded-full h-1.5">
-                                <div
-                                  className="bg-green-500 h-1.5 rounded-full transition-all duration-300"
-                                  style={{
-                                    width: `${substrand.progress}%`,
-                                  }}
-                                />
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
+                <select
+                  value={gradeFilter}
+                  onChange={(e) => setGradeFilter(e.target.value)}
+                  className="text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                >
+                  <option value="All">All Grades</option>
+                  {Array.from(new Set(data.subjects.map((s) => s.grade)))
+                    .sort()
+                    .map((grade) => (
+                      <option key={grade} value={grade}>
+                        {grade}
+                      </option>
+                    ))}
+                </select>
               </div>
-            ))}
+            </div>
+
+            {paginatedSubjects.length === 0 ? (
+              <div className="bg-white rounded-lg shadow-md p-8 text-center text-gray-500">
+                No subjects found matching the selected filters.
+              </div>
+            ) : (
+              paginatedSubjects.map((subject) => (
+                <div
+                  key={subject.id}
+                  className="bg-white rounded-lg shadow-md p-6"
+                >
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        {subject.subject_name}
+                      </h3>
+                      <p className="text-sm text-gray-600">
+                        Grade {subject.grade}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => router.push(`/curriculum/${subject.id}`)}
+                      className="text-indigo-600 hover:text-indigo-700 text-sm font-medium"
+                    >
+                      View Details →
+                    </button>
+                  </div>
+
+                  {/* Overall Progress */}
+                  <div className="mb-4">
+                    <div className="flex justify-between text-sm text-gray-600 mb-2">
+                      <span>Overall Progress</span>
+                      <span>{subject.progress_percentage.toFixed(1)}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-3">
+                      <div
+                        className={`${getProgressColor(
+                          subject.progress_percentage
+                        )} h-3 rounded-full transition-all duration-300`}
+                        style={{ width: `${subject.progress_percentage}%` }}
+                      />
+                    </div>
+                    <div className="text-xs text-gray-500 mt-1">
+                      {subject.completed_lessons} / {subject.total_lessons}{" "}
+                      lessons completed
+                    </div>
+                  </div>
+
+                  {/* Strand Progress */}
+                  <div className="space-y-3">
+                    <h4 className="text-sm font-medium text-gray-700">
+                      Strand Progress
+                    </h4>
+                    {subject.strands.map((strand) => (
+                      <div key={strand.strand_code} className="mb-4">
+                        <div className="flex justify-between text-xs text-gray-600 mb-1">
+                          <span className="font-medium">
+                            {strand.strand_code}. {strand.strand_name}
+                          </span>
+                          <span>{strand.progress.toFixed(0)}%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div
+                            className={`${getProgressColor(
+                              strand.progress
+                            )} h-2 rounded-full transition-all duration-300`}
+                            style={{ width: `${strand.progress}%` }}
+                          />
+                        </div>
+                        <div className="text-xs text-gray-500 mt-0.5">
+                          {strand.completed_lessons} / {strand.total_lessons}{" "}
+                          lessons
+                        </div>
+
+                        {/* Substrand Progress - Only show if there are completed lessons */}
+                        {strand.substrands && strand.substrands.length > 0 && (
+                          <div className="mt-2 ml-4 space-y-2 border-l-2 border-gray-200 pl-3">
+                            {strand.substrands.map((substrand) => (
+                              <div key={substrand.substrand_code}>
+                                <div className="flex justify-between text-xs text-gray-500 mb-1">
+                                  <span className="flex items-center">
+                                    <span className="inline-block w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2"></span>
+                                    {substrand.substrand_code}.{" "}
+                                    {substrand.substrand_name}
+                                  </span>
+                                  <span className="text-green-600 font-medium">
+                                    {substrand.completed_lessons}/
+                                    {substrand.total_lessons}
+                                  </span>
+                                </div>
+                                <div className="w-full bg-gray-100 rounded-full h-1.5">
+                                  <div
+                                    className="bg-green-500 h-1.5 rounded-full transition-all duration-300"
+                                    style={{
+                                      width: `${substrand.progress}%`,
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))
+            )}
+
+            {/* Pagination Controls */}
+            {filteredSubjects.length > 0 && (
+              <div className="flex justify-center items-center space-x-2 mt-6">
+                <button
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className={`px-3 py-1 rounded-md text-sm font-medium ${
+                    currentPage === 1
+                      ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-300"
+                  }`}
+                >
+                  Previous
+                </button>
+                <span className="text-sm text-gray-600">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button
+                  onClick={() =>
+                    setCurrentPage((p) => Math.min(totalPages, p + 1))
+                  }
+                  disabled={currentPage === totalPages}
+                  className={`px-3 py-1 rounded-md text-sm font-medium ${
+                    currentPage === totalPages
+                      ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-300"
+                  }`}
+                >
+                  Next
+                </button>
+              </div>
+            )}
 
             {data.subjects.length === 0 && (
               <div className="bg-white rounded-lg shadow-md p-12 text-center">

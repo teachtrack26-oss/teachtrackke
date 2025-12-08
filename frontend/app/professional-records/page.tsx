@@ -180,14 +180,48 @@ export default function ProfessionalRecordsPage() {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      // Fetch dashboard stats
+      // Fetch dashboard stats and charts data
       try {
-        const dashboardRes = await axios.get("/api/v1/dashboard/stats", {
-          headers: { Authorization: `Bearer ${token}` },
+        const [progressRes, insightsRes] = await Promise.all([
+          axios.get("/api/v1/dashboard/curriculum-progress", {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+          axios.get("/api/v1/dashboard/insights", {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+        ]);
+
+        // Process progress data
+        const subjectsList = Array.isArray(progressRes.data)
+          ? progressRes.data
+          : progressRes.data.subjects || [];
+
+        const subjectProgress = subjectsList.map((s: any) => ({
+          subject: s.subject_name,
+          grade: s.grade,
+          progress: s.progress_percentage,
+        }));
+
+        // Process weekly activity
+        const weeklyActivity = (insightsRes.data.weeklyComparison || []).map(
+          (w: any) => ({
+            name: w.week,
+            lessons: w.lessons,
+          })
+        );
+
+        setDashboardData({
+          weekly_activity: weeklyActivity,
+          subject_progress: subjectProgress,
         });
-        setDashboardData(dashboardRes.data);
       } catch (error) {
-        console.log("Dashboard stats not available");
+        console.log("Dashboard charts data not available", error);
+        // Keep default empty state but ensure structure exists
+        setDashboardData((prev) => ({
+          ...prev,
+          subject_progress: prev.subject_progress || [],
+          weekly_activity: prev.weekly_activity || [],
+        }));
       }
 
       // Fetch lesson plans
@@ -787,7 +821,7 @@ export default function ProfessionalRecordsPage() {
                 Subject Progress
               </h3>
               <div className="space-y-4 overflow-y-auto h-64 pr-2 custom-scrollbar">
-                {dashboardData.subject_progress.map(
+                {dashboardData.subject_progress?.map(
                   (subject: any, index: number) => (
                     <div key={index} className="bg-white/50 p-3 rounded-lg">
                       <div className="flex justify-between text-sm mb-1">

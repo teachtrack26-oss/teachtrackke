@@ -27,6 +27,22 @@
           "keyInquiryQuestions": [
             "How can we group objects?",
             "How can we arrange objects?"
+          ],
+          "numberOfLessons": 20,
+          "coreCompetencies": [
+            "Creativity: learner makes patterns of different shapes and sizes using real objects.",
+            "Self-efficacy: learner assists in arranging items according to size, colour, shape, and storage at home."
+          ],
+          "values": [
+            "Unity: in teams, learner matches objects according to size, colour, and shape.",
+            "Responsibility: learner assists in arranging items according to size, colour, shape, and storage at home."
+          ],
+          "pcis": [
+            "Safety: learner observes safety as they collect objects from the immediate environment.",
+            "Social Cohesion: learner works with peers as they pair and match objects according to size, colour and shape."
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the skills used in creating patterns to the concept of patterns in Creative Activities."
           ]
         },
         {
@@ -43,7 +59,7 @@
           ],
           "suggestedLearningExperiences": [
             "collect concrete objects from the immediate environment to use in counting activities",
-            "count by 1’s and 2’s up to 20 starting from any point using concrete objects such as number cards, as well as body parts",
+            "count by 1\u2019s and 2\u2019s up to 20 starting from any point using concrete objects such as number cards, as well as body parts",
             "take turns in counting numbers forward up to 50",
             "count numbers backward from 30",
             "play games that involve representing numbers 1 to 30 using concrete objects",
@@ -53,7 +69,25 @@
             "create patterns with numbers up to 20 and share them with other groups",
             "play games involving whole numbers using digital devices or other resources"
           ],
-          "keyInquiryQuestions": ["In what ways can we count from 1 to 20?"]
+          "keyInquiryQuestions": [
+            "In what ways can we count from 1 to 20?"
+          ],
+          "numberOfLessons": 25,
+          "coreCompetencies": [
+            "Digital Literacy: learner uses digital devices to play games involving numbers 1 to 50.",
+            "Creativity: learner creates patterns with numbers up to 20."
+          ],
+          "values": [
+            "Respect: learner appreciates peers as they take turns in counting numbers forward up to 50."
+          ],
+          "pcis": [
+            "Social Cohesion: learner takes turns counting numbers forward up to 50.",
+            "Environmental Safety: learner observes safety when collecting concrete objects from the immediate environment."
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the skills used in the concept of reading and writing numbers in words and symbols to functional reading and writing in English Language Activities.",
+            "The learner can relate the skills used in creating number patterns to the concept of patterns in Creative Activities."
+          ]
         },
         {
           "subStrandId": "1.3",
@@ -78,6 +112,21 @@
           ],
           "keyInquiryQuestions": [
             "How can you add a 2-digit number to a 1-digit number?"
+          ],
+          "numberOfLessons": 25,
+          "coreCompetencies": [
+            "Creativity: learner makes number patterns involving addition.",
+            "Collaboration: learner plays games involving addition with peers."
+          ],
+          "values": [
+            "Social Justice: learner accommodates others as they play games involving addition."
+          ],
+          "pcis": [
+            "Safety Issues: learner safely puts two groups of objects together and counts to get the total.",
+            "Creative thinking: learner creatively makes number patterns involving addition with numbers up to 50."
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the skills used in writing addition sentences to functional writing in English Language Activities."
           ]
         },
         {
@@ -102,6 +151,22 @@
           ],
           "keyInquiryQuestions": [
             "How do you subtract a one- digit number from a two-digit number?"
+          ],
+          "numberOfLessons": 20,
+          "coreCompetencies": [
+            "Learning to Learn: learner learns the subtraction of numbers by counting backwards.",
+            "Creativity: learner creates patterns involving subtraction."
+          ],
+          "values": [
+            "Responsibility: learner takes care of concrete objects used in subtraction.",
+            "Unity: learner shares number cards or charts as they work out subtraction."
+          ],
+          "pcis": [
+            "Social Cohesion: learner works with peers to create patterns involving subtraction.",
+            "Critical thinking: learner works out subtraction by counting backward."
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the skills of writing subtraction sentences to functional writing in English Language Activities."
           ]
         }
       ]
@@ -127,7 +192,21 @@
           ],
           "keyInquiryQuestions": [
             "How do you compare the length of two objects?",
-            "What can be used to measure the length of the teacher’s table?"
+            "What can be used to measure the length of the teacher\u2019s table?"
+          ],
+          "numberOfLessons": 10,
+          "coreCompetencies": [
+            "Self-efficacy: learner measures the length of different objects in their immediate environment.",
+            "Communication and collaboration: learner takes turns measuring the length of objects using arbitrary units."
+          ],
+          "values": [
+            "Responsibility: learner takes care of objects collected from the environment for learning."
+          ],
+          "pcis": [
+            "Social Cohesion: learner works harmoniously in teams as they measure lengths using arbitrary units."
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the concept of using objects from the environment for learning to the concept of resources in the environment in Environmental Activities."
           ]
         },
         {
@@ -148,6 +227,22 @@
           "keyInquiryQuestions": [
             "How can you compare the mass of two or more objects?",
             "How can you show that an object is heavier than, lighter than, or the same as your mathematics textbook?"
+          ],
+          "numberOfLessons": 10,
+          "coreCompetencies": [
+            "Communication and Collaboration: learner discusses objects that are heavier, lighter, or have the same mass.",
+            "Digital Literacy: learner uses digital devices to play games involving mass."
+          ],
+          "values": [
+            "Unity: learner appreciates the effort of others as they measure the mass of different items.",
+            "Respect: learner gives others equal opportunity as they use safe objects to identify heavier, lighter, or objects of the same mass."
+          ],
+          "pcis": [
+            "Safety issues: learner observes safety as they collect objects of different mass from their immediate environment.",
+            "Effective communication: learner listens and contributes to discussions on objects that are heavier, lighter, or have the same mass."
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the concept of safe objects from the environment to the concept of safety in the school environment in Environmental Activities."
           ]
         },
         {
@@ -167,6 +262,22 @@
           ],
           "keyInquiryQuestions": [
             "How can we find out which of two containers holds more, less, or same as?"
+          ],
+          "numberOfLessons": 12,
+          "coreCompetencies": [
+            "Learning to Learn: learner determines the capacity of containers by filling bigger containers with water basins from smaller containers.",
+            "Problem-solving: learner reuses containers of different capacities at home and school."
+          ],
+          "values": [
+            "Responsibility: learner re-uses containers to keep items at home and school.",
+            "Unity: learner jointly with others fills bigger containers with water using different small containers."
+          ],
+          "pcis": [
+            "Safety issues: learner collects safe containers of different sizes from the environment.",
+            "Sustainable consumption: learner reuses of containers at home and school."
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the skill of reusing empty containers to the skills of waste management in Environmental Activities."
           ]
         },
         {
@@ -188,6 +299,22 @@
           "keyInquiryQuestions": [
             "Which day of the week do you raise the school flag?",
             "Which day of the week do you worship?"
+          ],
+          "numberOfLessons": 8,
+          "coreCompetencies": [
+            "Self-efficacy: learner confidently sings songs/ rhymes related to days of the week.",
+            "Communication and Collaboration: learner discusses and tells his/her birth month to peers."
+          ],
+          "values": [
+            "Peace: learner harmoniously sings songs/ rhymes related to days of the week together.",
+            "Patriotism: learner is aware of his/her own culture as they name activities that take place during the days of the week."
+          ],
+          "pcis": [
+            "Citizenship: learner names activities that take place during the days of the week such as raising of the flag.",
+            "Social Cohesion: learner collaboratively sings songs/ rhymes related to days of the week together."
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the concept of time to the concept of weather and the sky, and day and night in Environmental Activities."
           ]
         },
         {
@@ -209,6 +336,21 @@
           ],
           "keyInquiryQuestions": [
             "How can you identify Kenyan currency coins and notes?"
+          ],
+          "numberOfLessons": 8,
+          "coreCompetencies": [
+            "Citizenship: learner recognises and sorts out different Kenyan currency coins and notes according to their value.",
+            "Self-efficacy: learner role plays buying up to 2 items from the model classroom shop."
+          ],
+          "values": [
+            "Integrity: learner displays honesty as they role play selling and buying of items from the model classroom shop.",
+            "Patriotism: learner is aware of own culture as they recognise different Kenyan currency coins and notes."
+          ],
+          "pcis": [
+            "Financial literacy: learner recognises and sorts out different Kenyan currency coins according to their value."
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the skill of using money to the concept of our market in Environmental Activities."
           ]
         }
       ]
@@ -235,7 +377,25 @@
             "practise drawing curved lines on the ground and in their books",
             "observe and name lines from different objects in the environment"
           ],
-          "keyInquiryQuestions": ["How do you make a line?"]
+          "keyInquiryQuestions": [
+            "How do you make a line?"
+          ],
+          "numberOfLessons": 6,
+          "coreCompetencies": [
+            "Learning to Learn: learner discovers ways of drawing straight lines as they mark two points on the ground and using a stick to join the two points.",
+            "Self-efficacy: learner recognises straight and curved lines from real objects in the environment"
+          ],
+          "values": [
+            "Respect: learner appreciates the effort of peers as they work in teams to observe and identify lines from different objects in the environment.",
+            "Responsibility: learner follows instructions as they stand behind one another facing the same side to form a straight line."
+          ],
+          "pcis": [
+            "Social Cohesion: learner works harmoniously in teams as they draw straight and curved lines.",
+            "Environmental Awareness: learner observes and names lines from different objects in the environment."
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the concept of drawing straight and curved lines to the concept of drawing in Creative Activities."
+          ]
         },
         {
           "subStrandId": "3.2",
@@ -250,7 +410,26 @@
             "make patterns of their choice using the three shapes",
             "make patterns, colour them and share with classmates"
           ],
-          "keyInquiryQuestions": ["What shapes can you identify in your class?"]
+          "keyInquiryQuestions": [
+            "What shapes can you identify in your class?"
+          ],
+          "numberOfLessons": 6,
+          "coreCompetencies": [
+            "Creativity and Imagination: learner makes patterns of their choice using rectangles, triangles, circles, and ovals.",
+            "Learning to Learn: learner uses safe objects from the environment to recognise different shapes such as rectangles, triangles, circles, and ovals."
+          ],
+          "values": [
+            "Peace: learner displays tolerance as they make patterns, colour them and share with classmates.",
+            "Responsibility: learner is committed to duty as they work individually to make patterns of their choice using shapes."
+          ],
+          "pcis": [
+            "Safety in the learning environment: learner uses safe objects from the environment for learning.",
+            "Creative thinking: learner makes patterns of their choice using shapes."
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the skills used in making and colouring patterns to drawing and decoration skills in Creative Activities.",
+            "The learner can relate the concept of using safe objects from the environment to the concept of safety in the school environmental in Environmental Activities."
+          ]
         }
       ]
     }

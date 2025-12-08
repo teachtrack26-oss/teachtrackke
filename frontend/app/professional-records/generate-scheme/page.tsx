@@ -937,7 +937,7 @@ export default function SchemeGeneratorPage() {
                 <select
                   value={formData.subject_id}
                   onChange={(e) => handleSubjectChange(Number(e.target.value))}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
                   required
                 >
                   <option value={0}>Select a subject</option>
@@ -960,7 +960,7 @@ export default function SchemeGeneratorPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, teacher_name: e.target.value })
                   }
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
                   required
                 />
               </div>
@@ -976,7 +976,7 @@ export default function SchemeGeneratorPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, school: e.target.value })
                   }
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50 text-gray-900"
                   required
                   readOnly
                 />
@@ -990,7 +990,7 @@ export default function SchemeGeneratorPage() {
                 <select
                   value={formData.term}
                   onChange={(e) => handleTermChange(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
                 >
                   {!schoolTerms || schoolTerms.length === 0 ? (
                     <>
@@ -1023,7 +1023,7 @@ export default function SchemeGeneratorPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, year: Number(e.target.value) })
                   }
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50 text-gray-900"
                   min={2020}
                   max={2030}
                   required
@@ -1046,7 +1046,7 @@ export default function SchemeGeneratorPage() {
                     })
                   }
                   placeholder="e.g. Oxford English Grade 7"
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
                 />
                 <p className="text-xs text-gray-500 mt-1">
                   This will be applied to all lessons if no specific textbook is
@@ -1072,7 +1072,7 @@ export default function SchemeGeneratorPage() {
                       total_weeks: Number(e.target.value),
                     })
                   }
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50 text-gray-900"
                   min={1}
                   max={20}
                   required

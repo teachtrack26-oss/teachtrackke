@@ -345,163 +345,96 @@ export default function DashboardPage() {
       },
     ]);
 
-    // Mock curriculum progress data
-    setSubjectProgress([
-      {
-        id: 1,
-        subjectName: "Mathematics",
-        grade: "Grade 7",
-        completedLessons: 28,
-        totalLessons: 40,
-        progressPercentage: 70,
-        estimatedCompletionDate: new Date("2025-12-15"),
-        status: "on-track",
-      },
-      {
-        id: 2,
-        subjectName: "English",
-        grade: "Grade 7",
-        completedLessons: 35,
-        totalLessons: 40,
-        progressPercentage: 87.5,
-        estimatedCompletionDate: new Date("2025-12-08"),
-        status: "ahead",
-      },
-      {
-        id: 3,
-        subjectName: "Science",
-        grade: "Grade 8",
-        completedLessons: 18,
-        totalLessons: 35,
-        progressPercentage: 51.4,
-        estimatedCompletionDate: new Date("2026-01-10"),
-        status: "behind",
-      },
-    ]);
+    // Fetch real dashboard data
+    const fetchDashboardData = async () => {
+      const token = localStorage.getItem("accessToken");
+      if (!token) return;
 
-    // Mock deadlines
-    const today = new Date("2025-11-22");
-    setDeadlines([
-      {
-        id: 1,
-        title: "Scheme of Work Due",
-        date: new Date("2025-12-05"),
-        type: "scheme",
-        daysUntil: Math.ceil(
-          (new Date("2025-12-05").getTime() - today.getTime()) /
-            (1000 * 60 * 60 * 24)
-        ),
-      },
-      {
-        id: 2,
-        title: "Assessment Period",
-        date: new Date("2025-12-10"),
-        type: "assessment",
-        daysUntil: Math.ceil(
-          (new Date("2025-12-10").getTime() - today.getTime()) /
-            (1000 * 60 * 60 * 24)
-        ),
-      },
-      {
-        id: 3,
-        title: "Progress Reports",
-        date: new Date("2025-12-20"),
-        type: "report",
-        daysUntil: Math.ceil(
-          (new Date("2025-12-20").getTime() - today.getTime()) /
-            (1000 * 60 * 60 * 24)
-        ),
-      },
-      {
-        id: 4,
-        title: "Parent-Teacher Conference",
-        date: new Date("2025-11-25"),
-        type: "other",
-        daysUntil: Math.ceil(
-          (new Date("2025-11-25").getTime() - today.getTime()) /
-            (1000 * 60 * 60 * 24)
-        ),
-      },
-    ]);
+      try {
+        // 1. Curriculum Progress
+        const progressRes = await axios.get(
+          `${API_BASE_URL}/dashboard/curriculum-progress`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
 
-    // Mock teaching insights
-    setTeachingInsights({
-      mostTaughtSubjects: [
-        { subject: "Mathematics", count: 18, color: "#6366f1" },
-        { subject: "English", count: 15, color: "#8b5cf6" },
-        { subject: "Science", count: 12, color: "#ec4899" },
-        { subject: "Kiswahili", count: 10, color: "#f59e0b" },
-        { subject: "Social Studies", count: 8, color: "#10b981" },
-      ],
-      averageLessonDuration: 45,
-      peakTeachingHours: [
-        { hour: "08:00", count: 12 },
-        { hour: "09:00", count: 15 },
-        { hour: "10:00", count: 18 },
-        { hour: "11:00", count: 14 },
-        { hour: "14:00", count: 10 },
-      ],
-      weeklyComparison: [
-        { week: "Week 1", lessons: 12 },
-        { week: "Week 2", lessons: 15 },
-        { week: "Week 3", lessons: 13 },
-        { week: "This Week", lessons: 15 },
-      ],
-    });
+        // Transform to match SubjectProgress interface
+        // Backend returns { subjects: [...], overview: {...} }
+        const subjectsList = Array.isArray(progressRes.data)
+          ? progressRes.data
+          : progressRes.data.subjects || [];
 
-    // Mock resources data
-    setResources([
-      {
-        id: 1,
-        title: "Grade 7 Mathematics - Algebra Basics",
-        type: "lesson-plan",
-        lastAccessed: new Date("2025-11-22"),
-        icon: "📄",
-      },
-      {
-        id: 2,
-        title: "Term 3 Science Scheme of Work",
-        type: "scheme",
-        lastAccessed: new Date("2025-11-21"),
-        icon: "📚",
-      },
-      {
-        id: 3,
-        title: "English Grammar Worksheets",
-        type: "material",
-        lastAccessed: new Date("2025-11-20"),
-        icon: "📥",
-      },
-      {
-        id: 4,
-        title: "Kiswahili Reading Comprehension",
-        type: "shared",
-        lastAccessed: new Date("2025-11-19"),
-        icon: "🔗",
-      },
-      {
-        id: 5,
-        title: "Grade 8 Geography - Climate Zones",
-        type: "lesson-plan",
-        lastAccessed: new Date("2025-11-18"),
-        icon: "📄",
-      },
-      {
-        id: 6,
-        title: "Mathematics Assessment Templates",
-        type: "material",
-        lastAccessed: new Date("2025-11-17"),
-        icon: "📥",
-      },
-    ]);
+        const progressData = subjectsList.map((s: any) => ({
+          id: s.id,
+          subjectName: s.subject_name,
+          grade: s.grade,
+          completedLessons: s.completed_lessons,
+          totalLessons: s.total_lessons,
+          progressPercentage: s.progress_percentage,
+          estimatedCompletionDate: new Date(
+            new Date().setDate(new Date().getDate() + 30)
+          ), // Mock estimate for now
+          status:
+            s.progress_percentage > 50
+              ? "ahead"
+              : s.progress_percentage > 20
+              ? "on-track"
+              : "behind",
+        }));
+        setSubjectProgress(progressData);
 
-    // Mock performance summary
-    setPerformanceSummary({
-      lessonsCompleted: 45,
-      totalLessons: 60,
-      attendanceAverage: 92,
-      assessmentsCreated: 12,
-    });
+        // 2. Stats / Performance Summary
+        const statsRes = await axios.get(`${API_BASE_URL}/dashboard/stats`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setPerformanceSummary(statsRes.data);
+
+        // 3. Teaching Insights
+        const insightsRes = await axios.get(
+          `${API_BASE_URL}/dashboard/insights`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setTeachingInsights(insightsRes.data);
+
+        // Use weeklyComparison for TrendGraph as well
+        if (insightsRes.data.weeklyComparison) {
+          setTrendData(insightsRes.data.weeklyComparison);
+        }
+
+        // 4. Upcoming Deadlines
+        const deadlinesRes = await axios.get(
+          `${API_BASE_URL}/dashboard/deadlines`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        // Ensure dates are Date objects
+        const deadlinesData = deadlinesRes.data.map((d: any) => ({
+          ...d,
+          date: new Date(d.date),
+        }));
+        setDeadlines(deadlinesData);
+
+        // 5. Resources
+        const resourcesRes = await axios.get(
+          `${API_BASE_URL}/dashboard/resources`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        const resourcesData = resourcesRes.data.map((r: any) => ({
+          ...r,
+          lastAccessed: new Date(r.lastAccessed),
+        }));
+        setResources(resourcesData);
+      } catch (error) {
+        console.error("Failed to fetch dashboard data:", error);
+        // Fallback to empty states or keep loading state
+      }
+    };
+
+    fetchDashboardData();
   }, []);
 
   const saveWidgetPreferences = (prefs: WidgetPreferences) => {
@@ -584,6 +517,21 @@ export default function DashboardPage() {
         // Now fetch today's lessons with the correct education level
         fetchTodayLessons(token, level);
       } else {
+        // No subjects yet - redirect to curriculum selection for onboarding
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+          try {
+            const userObj = JSON.parse(storedUser);
+            // Redirect teachers to curriculum selection if they have no subjects
+            if (userObj.role === "TEACHER" || userObj.role === "SCHOOL_ADMIN") {
+              router.push("/curriculum/select");
+              return;
+            }
+          } catch (e) {
+            console.error("Error parsing user object", e);
+          }
+        }
+
         // No subjects yet, still try to fetch lessons without education level filter
         fetchTodayLessons(token, "");
       }
@@ -1053,28 +1001,43 @@ export default function DashboardPage() {
 
               {/* SaaS Limit Indicator */}
               {(user?.subscription_type === "INDIVIDUAL_BASIC" ||
+                user?.subscription_type === "FREE" ||
                 !user?.subscription_type) && (
                 <div className="flex items-center gap-3 bg-orange-50 px-4 py-2 rounded-lg border border-orange-200">
                   <div className="flex items-center gap-2">
                     <div className="w-24 h-2 bg-orange-200 rounded-full overflow-hidden">
                       <div
                         className={`h-full rounded-full ${
-                          subjects.length >= 4 ? "bg-red-500" : "bg-orange-500"
+                          subjects.length >=
+                          (user?.subscription_type === "INDIVIDUAL_BASIC"
+                            ? 6
+                            : 2)
+                            ? "bg-red-500"
+                            : "bg-orange-500"
                         }`}
                         style={{
                           width: `${Math.min(
-                            (subjects.length / 4) * 100,
+                            (subjects.length /
+                              (user?.subscription_type === "INDIVIDUAL_BASIC"
+                                ? 6
+                                : 2)) *
+                              100,
                             100
                           )}%`,
                         }}
                       />
                     </div>
                     <span className="text-sm font-medium text-orange-800">
-                      {subjects.length}/4 Used
+                      {subjects.length}/
+                      {user?.subscription_type === "INDIVIDUAL_BASIC" ? 6 : 2}{" "}
+                      Used
                     </span>
                   </div>
 
-                  {subjects.length >= 4 && (
+                  {subjects.length >=
+                    (user?.subscription_type === "INDIVIDUAL_BASIC"
+                      ? 6
+                      : 2) && (
                     <button
                       onClick={() =>
                         toast.success("Premium features coming soon!")

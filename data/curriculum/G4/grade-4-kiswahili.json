@@ -27,7 +27,8 @@
           ],
           "keyInquiryQuestions": [
             "Matamshi bora yana umuhimu gani katika mawasiliano?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "1.2.1",
@@ -49,7 +50,8 @@
           ],
           "keyInquiryQuestions": [
             "Unazingatia nini ili kupata ujumbe katika kifungu cha hadithi?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "1.3.1",
@@ -69,7 +71,8 @@
           ],
           "keyInquiryQuestions": [
             "Je, unazingatia mambo gani unapoandika insha nzuri ya wasifu?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "1.4.1",
@@ -90,7 +93,8 @@
           ],
           "keyInquiryQuestions": [
             "Je, ni vitu gani unavyoweza kupata katika mazingira yako?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "1.4.2",
@@ -110,7 +114,10 @@
             "kutumia vitenzi mbalimbali kutunga sentensi daftarini au mtandaoni kwa kuzingatia suala lengwa na masuala mtambuko mbalimbali",
             "kuwashirikisha wenzake katika kuzisahihisha sentensi zake na kumpa maoni kwa heshima"
           ],
-          "keyInquiryQuestions": ["Ni shughuli gani unazofanya kila siku?"]
+          "keyInquiryQuestions": [
+            "Ni shughuli gani unazofanya kila siku?"
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "1.4.3",
@@ -132,7 +139,8 @@
           ],
           "keyInquiryQuestions": [
             "Ni sifa zipi unazoweza kutambua katika nomino mbalimbali?"
-          ]
+          ],
+          "numberOfLessons": 2
         }
       ]
     },
@@ -160,7 +168,8 @@
           "keyInquiryQuestions": [
             "Je, watu husalimiana na kuagana vipi katika jamii yako?",
             "Kuamkua na kuaga watu kuna umuhimu gani?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "2.2.1",
@@ -178,7 +187,8 @@
           ],
           "keyInquiryQuestions": [
             "Unazingatia nini unapotafuta maneno katika kamusi?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "2.3.1",
@@ -198,7 +208,8 @@
           "keyInquiryQuestions": [
             "Insha ya masimulizi inahusu nini?",
             "Je, unazingatia nini unapoandika insha ya masimulizi?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "2.4.1",
@@ -219,7 +230,8 @@
           ],
           "keyInquiryQuestions": [
             "Ni maneno gani yanayoweza kutumika badala ya nomino?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "2.4.2",
@@ -239,7 +251,10 @@
             "kutumia vielezi kutunga sentensi daftarini au kwenye kifaa cha kidijitali akizingatia suala lengwa na masuala mtambuko mbalimbali",
             "kuwasomea au kuwasambazia wenzake na mwalimu sentensi zake ili kuzitolea maoni"
           ],
-          "keyInquiryQuestions": ["Unafanyaje shughuli zako za kila siku?"]
+          "keyInquiryQuestions": [
+            "Unafanyaje shughuli zako za kila siku?"
+          ],
+          "numberOfLessons": 2
         }
       ]
     },
@@ -264,7 +279,8 @@
           ],
           "keyInquiryQuestions": [
             "Je, unazingatia nini unapotega na kutegua vitendawili?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "3.2.1",
@@ -289,7 +305,8 @@
           ],
           "keyInquiryQuestions": [
             "Unazingatia nini ili kuweza kusoma kifungu cha hadithi ipasavyo?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "3.3.1",
@@ -312,7 +329,8 @@
           ],
           "keyInquiryQuestions": [
             "Je, unazingatia nini unapoandika kwa kutumia tarakilishi?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "3.4.1",
@@ -333,7 +351,8 @@
           ],
           "keyInquiryQuestions": [
             "Je, kwa nini ni muhimu kutumia viunganishi katika mawasiliano?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "3.4.2",
@@ -353,7 +372,8 @@
           ],
           "keyInquiryQuestions": [
             "Vihusishi vina umuhimu gani katika mawasiliano?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "3.4.3",
@@ -374,7 +394,8 @@
           ],
           "keyInquiryQuestions": [
             "Kutumia vihisishi katika mawasiliano kuna umuhimu gani?"
-          ]
+          ],
+          "numberOfLessons": 2
         }
       ]
     },
@@ -399,7 +420,8 @@
           ],
           "keyInquiryQuestions": [
             "Kutumia maneno ya upole kuna umuhimu gani katika mawasiliano?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "4.2.1",
@@ -422,7 +444,8 @@
           ],
           "keyInquiryQuestions": [
             "Ni hatua zipi za kiusalama unazofaa kuzingatia unapotumia mtandao?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "4.3.1",
@@ -444,7 +467,8 @@
           "keyInquiryQuestions": [
             "Je, unazingatia nini ili kuandika barua nzuri ya kirafiki?",
             "Barua za kirafiki inashughulikia masuala gani?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "4.4.1",
@@ -468,7 +492,8 @@
           ],
           "keyInquiryQuestions": [
             "Ni nini kinakuwezesha kutambua nomino za ngeli ya A-WA?"
-          ]
+          ],
+          "numberOfLessons": 4
         }
       ]
     },
@@ -495,7 +520,8 @@
           "keyInquiryQuestions": [
             "Ni methali gani zinazohusu malezi?",
             "Methali hutumiwa kufanya nini?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "5.2.1",
@@ -519,7 +545,8 @@
           "keyInquiryQuestions": [
             "Unaufahamu msamiati gani wa ushairi?",
             "Mashairi yanaweza kuwasilisha ujumbe gani?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "5.3.1",
@@ -539,7 +566,8 @@
           "keyInquiryQuestions": [
             "Insha ya maelezo inahusu nini?",
             "Unazingatia nini unapoandika insha ya maelezo?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "5.4.1",
@@ -561,7 +589,8 @@
           ],
           "keyInquiryQuestions": [
             "Nomino zinazorejelea mimea na vitu vya kimaumbile ni zipi?"
-          ]
+          ],
+          "numberOfLessons": 4
         }
       ]
     },
@@ -587,7 +616,10 @@
             "kushirikiana na wenzake kujadili ujumbe katika shairi",
             "kujibu maswali yanayotokana na shairi alilosikiliza, aliloimba au kukariri"
           ],
-          "keyInquiryQuestions": ["Mashairi yana umuhimu gani katika jamii?"]
+          "keyInquiryQuestions": [
+            "Mashairi yana umuhimu gani katika jamii?"
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "6.2.1",
@@ -602,7 +634,10 @@
             "kujadiliana na wenzake kuhusu makala aliyoyasoma na umuhimu wake",
             "kutumia kamusi kupata maana za msamiati uliotumika katika makala"
           ],
-          "keyInquiryQuestions": ["Kusoma hadithi kuna umuhimu gani?"]
+          "keyInquiryQuestions": [
+            "Kusoma hadithi kuna umuhimu gani?"
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "6.3.1",
@@ -620,7 +655,10 @@
             "kuandika insha ya wasifu mtandaoni na kuisambaza kwa wenzake na mwalimu ili waisome na kuitathmini",
             "kuwasomea wenzake insha aliyoandika ili waitathmini"
           ],
-          "keyInquiryQuestions": ["Insha ya wasifu inahusu nini?"]
+          "keyInquiryQuestions": [
+            "Insha ya wasifu inahusu nini?"
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "6.4.1",
@@ -642,7 +680,8 @@
           ],
           "keyInquiryQuestions": [
             "Unazingatia nini ili kuweza kutambua na kutumia nomino katika ngeli ya LI-YA?"
-          ]
+          ],
+          "numberOfLessons": 4
         }
       ]
     },
@@ -668,7 +707,8 @@
           ],
           "keyInquiryQuestions": [
             "Je, nahau huchangia vipi katika kukuza maadili na uraia?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "7.2.1",
@@ -686,7 +726,8 @@
           ],
           "keyInquiryQuestions": [
             "Kusoma matini mbalimbali kunachangia vipi ukuzaji wa lugha?"
-          ]
+          ],
+          "numberOfLessons": 3
         },
         {
           "subStrandId": "7.3.1",
@@ -707,7 +748,8 @@
           ],
           "keyInquiryQuestions": [
             "Je, ni vitu gani vinavyoweza kuandikiwa insha ya maelezo?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "7.4.1",
@@ -729,7 +771,8 @@
           ],
           "keyInquiryQuestions": [
             "Unazingatia nini ili kuweza kutambua na kutumia nomino katika ngeli ya KI- VI?"
-          ]
+          ],
+          "numberOfLessons": 4
         },
         {
           "subStrandId": "7.4.2",
@@ -752,7 +795,8 @@
           ],
           "keyInquiryQuestions": [
             "Unazingatia nini ili kuweza kutambua na kutumia nomino katika ngeli ya LI-LI?"
-          ]
+          ],
+          "numberOfLessons": 4
         }
       ]
     },
@@ -778,7 +822,8 @@
           ],
           "keyInquiryQuestions": [
             "Maneno yenye maana sawa yanasaidia vipi katika mawasiliano?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "8.2.1",
@@ -801,7 +846,8 @@
           ],
           "keyInquiryQuestions": [
             "Je, wahusika huchangia nini katika mchezo wa kuigiza?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "8.3.1",
@@ -822,7 +868,8 @@
           "keyInquiryQuestions": [
             "Insha ya masimulizi inahusu nini?",
             "Je, unazingatia nini ili kuandika insha nzuri ya masimulizi?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "8.4.1",
@@ -844,7 +891,8 @@
           ],
           "keyInquiryQuestions": [
             "Je, vitenzi vinaweza kubadilika vipi mwishoni ili kuleta maana mbalimbali?"
-          ]
+          ],
+          "numberOfLessons": 4
         }
       ]
     },
@@ -866,7 +914,10 @@
             "kutambua umuhimu wa nidhamu ya lugha katika mazingira yasiyo rasmi (k.m kutumia lugha ya upole, heshima na kumpa mwenzake nafasi ya kuzungumza na kusikiliza kwa makini anaposhiriki katika mazungumzo)",
             "kuigiza mazungumzo katika miktadha isiyo rasmi (k.m akicheza na wenzake, akizungumza na wazazi, ndugu, nyanya au babu nyumbani) akiwa na wenzake"
           ],
-          "keyInquiryQuestions": ["Ni lini tunatumia lugha isiyo rasmi?"]
+          "keyInquiryQuestions": [
+            "Ni lini tunatumia lugha isiyo rasmi?"
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "9.2.1",
@@ -882,7 +933,10 @@
             "kuwasimulia wenzake kuhusu matini aliyosoma ili kupashana ujumbe na kuchocheana kusoma zaidi kwa ajili ya kujifurahisha",
             "kujadiliana na wenzake matini ambayo wamesoma"
           ],
-          "keyInquiryQuestions": ["Kusoma matini mbalimbali kuna umuhimu gani?"]
+          "keyInquiryQuestions": [
+            "Kusoma matini mbalimbali kuna umuhimu gani?"
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "9.3.1",
@@ -904,7 +958,8 @@
           "keyInquiryQuestions": [
             "Je, ni vitu gani vinavyoweza kutungiwa insha ya maelezo?",
             "Ni mambo gani unayostahili kuzingatia unapoandika insha ya maelezo?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "9.4.1",
@@ -924,7 +979,8 @@
           ],
           "keyInquiryQuestions": [
             "Matumizi ya vinyume vya nomino huchangia vipi katika ukuzaji wa lugha?"
-          ]
+          ],
+          "numberOfLessons": 3
         }
       ]
     },
@@ -951,7 +1007,8 @@
           ],
           "keyInquiryQuestions": [
             "Matumizi ya tashbihi yana umuhimu gani katika mawasiliano?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "10.2.1",
@@ -976,7 +1033,8 @@
           "keyInquiryQuestions": [
             "Unazingatia nini unaposoma matini ya kidijitali?",
             "Kusoma matini ya kidijitali kuna umuhimu gani?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "10.3.1",
@@ -996,7 +1054,8 @@
           ],
           "keyInquiryQuestions": [
             "Je, unazingatia nini ili kuandika insha nzuri ya masimulizi?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "10.4.1",
@@ -1017,7 +1076,8 @@
           ],
           "keyInquiryQuestions": [
             "Ni viambishi vipi hutumika kuwakilisha nyakati mbalimbali katika vitenzi?"
-          ]
+          ],
+          "numberOfLessons": 3
         }
       ]
     },
@@ -1045,7 +1105,8 @@
           ],
           "keyInquiryQuestions": [
             "Je, ni nini unachozingatia unapotoa simulizi?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "11.2.1",
@@ -1066,7 +1127,10 @@
             "kusoma kifungu kwa kuambatanisha ishara zifaazo panapofaa anaposoma (k.v ishara za uso na mikono)",
             "kusoma hadithi kuhusu masuala mtambuko mbalimbali kutoka kwenye vitabu, vifaa vya kidijtali, n.k akizingatia matamshi bora, kasi ifaayo na kiwango kifaacho cha sauti"
           ],
-          "keyInquiryQuestions": ["Kusoma kwa ufasaha kuna umuhimu gani?"]
+          "keyInquiryQuestions": [
+            "Kusoma kwa ufasaha kuna umuhimu gani?"
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "11.3.1",
@@ -1089,7 +1153,8 @@
           "keyInquiryQuestions": [
             "Je, unazingatia nini ili kuandika barua nzuri ya kirafiki?",
             "Barua za kirafiki zina umuhimu gani?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "11.4.1",
@@ -1110,7 +1175,8 @@
           ],
           "keyInquiryQuestions": [
             "Unazingatia nini unapokanusha sentensi kwa kuzingatia nafsi na wakati?"
-          ]
+          ],
+          "numberOfLessons": 3
         },
         {
           "subStrandId": "11.4.2",
@@ -1132,7 +1198,8 @@
           ],
           "keyInquiryQuestions": [
             "Kutaja nomino katika ukubwa wake kuna umuhimu gani?"
-          ]
+          ],
+          "numberOfLessons": 2
         },
         {
           "subStrandId": "11.4.3",
@@ -1154,7 +1221,8 @@
           ],
           "keyInquiryQuestions": [
             "Kutaja nomino katika udogo wake kuna umuhimu gani?"
-          ]
+          ],
+          "numberOfLessons": 2
         }
       ]
     }

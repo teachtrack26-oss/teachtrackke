@@ -33,6 +33,7 @@ interface User {
   school: string;
   grade_level: string;
   is_admin: boolean;
+  role: string; // Added role field
   auth_provider: string;
   created_at: string;
   subjects_count: number;
@@ -438,12 +439,24 @@ export default function AdminUsersPage() {
                             <td className="px-6 py-4 whitespace-nowrap">
                               <span
                                 className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                  user.is_admin
+                                  user.role === "SUPER_ADMIN"
+                                    ? "bg-red-100 text-red-800"
+                                    : user.role === "SCHOOL_ADMIN"
+                                    ? "bg-blue-100 text-blue-800"
+                                    : user.is_admin
                                     ? "bg-green-100 text-green-800"
                                     : "bg-gray-100 text-gray-800"
                                 }`}
                               >
-                                {user.is_admin ? "Admin" : "Teacher"}
+                                {user.role === "SUPER_ADMIN"
+                                  ? "Super Admin"
+                                  : user.role === "SCHOOL_ADMIN"
+                                  ? "School Admin"
+                                  : user.role === "TEACHER"
+                                  ? "Teacher"
+                                  : user.is_admin
+                                  ? "Admin"
+                                  : "Teacher"}
                               </span>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { toast } from "react-hot-toast";
 import {
@@ -15,24 +16,41 @@ import {
   FiPause,
   FiChevronDown,
 } from "react-icons/fi";
-import { DndContext, useDraggable, useDroppable, DragEndEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  useDraggable,
+  useDroppable,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import AllLevelsListView from "@/components/timetable/AllLevelsListView";
 
-const DraggableLesson = ({ entry, theme, subjectName, onEdit, onDelete }: any) => {
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id: `lesson-${entry.id}`,
-    data: entry,
-  });
-  
-  const style = transform ? {
-    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-    zIndex: 999,
-  } : undefined;
+const DraggableLesson = ({
+  entry,
+  theme,
+  subjectName,
+  onEdit,
+  onDelete,
+}: any) => {
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: `lesson-${entry.id}`,
+      data: entry,
+    });
+
+  const style = transform
+    ? {
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+        zIndex: 999,
+      }
+    : undefined;
 
   if (isDragging) {
     return (
       <div ref={setNodeRef} style={style} className="opacity-50">
-        <div className={`p-4 rounded-xl bg-gradient-to-br ${theme.gradient} border-l-4 ${theme.border} shadow-lg`}>
-           <div className="font-bold text-sm text-white">{subjectName}</div>
+        <div
+          className={`p-4 rounded-xl bg-gradient-to-br ${theme.gradient} border-l-4 ${theme.border} shadow-lg`}
+        >
+          <div className="font-bold text-sm text-white">{subjectName}</div>
         </div>
       </div>
     );
@@ -48,7 +66,9 @@ const DraggableLesson = ({ entry, theme, subjectName, onEdit, onDelete }: any) =
       onClick={onEdit}
     >
       {/* Pattern overlay */}
-      <div className={`absolute inset-0 ${theme.pattern} opacity-20 pointer-events-none`}></div>
+      <div
+        className={`absolute inset-0 ${theme.pattern} opacity-20 pointer-events-none`}
+      ></div>
 
       {/* Double lesson badge */}
       {entry.is_double_lesson && (
@@ -60,7 +80,9 @@ const DraggableLesson = ({ entry, theme, subjectName, onEdit, onDelete }: any) =
       <div className="relative z-10 flex justify-between items-start">
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-2">
-            <div className={`w-10 h-10 ${theme.iconBg} rounded-lg flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-200`}>
+            <div
+              className={`w-10 h-10 ${theme.iconBg} rounded-lg flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-200`}
+            >
               <span className="text-2xl">{theme.icon}</span>
             </div>
             <div className="font-bold text-sm text-white drop-shadow-md">
@@ -84,7 +106,7 @@ const DraggableLesson = ({ entry, theme, subjectName, onEdit, onDelete }: any) =
         </div>
         <div className="flex flex-col space-y-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
           <button
-            onPointerDown={(e) => e.stopPropagation()} 
+            onPointerDown={(e) => e.stopPropagation()}
             onClick={onEdit}
             className="p-2 bg-white/90 backdrop-blur-sm text-blue-600 rounded-lg hover:bg-white shadow-md transition-all duration-200 hover:scale-110"
             title="Edit"
@@ -112,13 +134,21 @@ const DroppableCell = ({ id, dayIndex, slotId, children, onClick }: any) => {
   });
 
   return (
-    <td 
-      ref={setNodeRef} 
-      className={`p-3 align-top transition-colors duration-200 ${isOver ? 'bg-indigo-100/50 ring-2 ring-indigo-400 ring-inset rounded-lg' : ''}`}
+    <td
+      ref={setNodeRef}
+      className={`p-3 align-top transition-colors duration-200 ${
+        isOver
+          ? "bg-indigo-100/50 dark:bg-indigo-900/30 ring-2 ring-indigo-400 ring-inset rounded-lg"
+          : ""
+      }`}
     >
-      <div 
+      <div
         onClick={onClick}
-        className={`w-full min-h-[110px] rounded-xl border-2 border-dashed ${isOver ? 'border-indigo-400 bg-indigo-50/30' : 'border-gray-300 bg-gradient-to-br from-gray-100/80 to-slate-100/80 hover:from-indigo-100/60 hover:to-purple-100/60 hover:border-indigo-400'} backdrop-blur-sm transition-all duration-300 flex flex-col items-center justify-center group cursor-pointer`}
+        className={`w-full min-h-[110px] rounded-xl border-2 border-dashed ${
+          isOver
+            ? "border-indigo-400 bg-indigo-50/30 dark:bg-indigo-900/20"
+            : "border-gray-300 dark:border-gray-700 bg-gradient-to-br from-gray-100/80 to-slate-100/80 dark:from-gray-800/80 dark:to-slate-800/80 hover:from-indigo-100/60 hover:to-purple-100/60 dark:hover:from-indigo-900/40 dark:hover:to-purple-900/40 hover:border-indigo-400"
+        } backdrop-blur-sm transition-all duration-300 flex flex-col items-center justify-center group cursor-pointer`}
       >
         {children}
       </div>
@@ -367,8 +397,8 @@ const TimetablePage = () => {
     progress?: number;
   } | null>(null);
 
-  const [selectedViewLevel, setSelectedViewLevel] =
-    useState("Junior Secondary");
+  const [selectedViewLevel, setSelectedViewLevel] = useState("All Levels");
+  const [allTimeSlots, setAllTimeSlots] = useState<any[]>([]); // All time slots from all levels for list view
 
   // Education levels and their grades
   const educationLevels = {
@@ -380,7 +410,8 @@ const TimetablePage = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
+    const token =
+      localStorage.getItem("accessToken") || (session as any)?.accessToken;
     if (!token) {
       // Wait for session to load
       if (session === undefined) return;
@@ -400,69 +431,143 @@ const TimetablePage = () => {
 
   const loadData = async () => {
     try {
-      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
+      const token =
+        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       const headers = { Authorization: `Bearer ${token}` };
 
-      const scheduleRes = await fetch(
-        `http://localhost:8000/api/v1/timetable/schedules/active?education_level=${encodeURIComponent(
-          selectedViewLevel
-        )}`,
-        { headers }
-      );
-      if (!scheduleRes.ok) {
-        // If no schedule for this level, clear state but don't redirect immediately if they might want to switch levels
-        // But if it's the initial load, maybe we should warn.
-        // For now, let's just clear the schedule so the UI shows "No schedule"
-        setSchedule(null);
-        setTimeSlots([]);
-        setEntries([]);
-        // toast.error(`No schedule found for ${selectedViewLevel}`);
-        setIsLoading(false);
-        return;
+      // Handle "All Levels" view differently
+      if (selectedViewLevel === "All Levels") {
+        // For "All Levels", we fetch ALL entries and ALL time slots from all levels
+
+        // Fetch all entries (no level filter)
+        let fetchedEntries: any[] = [];
+        const entriesRes = await fetch(
+          "http://localhost:8000/api/v1/timetable/entries",
+          { headers }
+        );
+        if (entriesRes.ok) {
+          const data = await entriesRes.json();
+          fetchedEntries = Array.isArray(data) ? data : [];
+          setEntries(fetchedEntries);
+        } else {
+          setEntries([]);
+        }
+
+        // Fetch time slots from ALL education levels
+        const allLevels = [
+          "Pre-Primary",
+          "Lower Primary",
+          "Upper Primary",
+          "Junior Secondary",
+          "Senior Secondary",
+        ];
+        const allSlotsPromises = allLevels.map((level) =>
+          fetch(
+            `http://localhost:8000/api/v1/timetable/time-slots?education_level=${encodeURIComponent(
+              level
+            )}`,
+            { headers }
+          )
+            .then((res) => (res.ok ? res.json() : []))
+            .then((slots) =>
+              slots.map((s: any) => ({ ...s, education_level: level }))
+            )
+            .catch(() => [])
+        );
+
+        const allSlotsArrays = await Promise.all(allSlotsPromises);
+        const combinedSlots = allSlotsArrays.flat();
+        setAllTimeSlots(combinedSlots);
+
+        // Deduplicate slots by ID to prevent React key errors
+        // This handles cases where the backend returns the same fallback schedule for multiple levels
+        const uniqueSlotsMap = new Map();
+        combinedSlots.forEach((slot: any) => {
+          if (!uniqueSlotsMap.has(slot.id)) {
+            uniqueSlotsMap.set(slot.id, slot);
+          }
+        });
+        const uniqueSlots = Array.from(uniqueSlotsMap.values());
+
+        // Sort and filter for the grid view
+        const sortedSlots = uniqueSlots
+          .filter((s: any) => {
+            if (s.slot_type !== "lesson") return false;
+            // Only show slots that have lessons
+            return fetchedEntries.some((e: any) => e.time_slot_id === s.id);
+          })
+          .sort((a: any, b: any) => a.start_time.localeCompare(b.start_time))
+          .map((s: any) => ({
+            ...s,
+            label: s.education_level, // Use level as label
+          }));
+
+        setTimeSlots(sortedSlots);
+
+        // Create a dummy schedule object for the header stats
+        setSchedule({
+          schedule_name: "All Levels Overview",
+          school_start_time: "08:00",
+          school_end_time: "16:00",
+          single_lesson_duration: "Var",
+          double_lesson_duration: "Var",
+          first_break_duration: 0,
+          second_break_duration: 0,
+          lunch_break_duration: 0,
+        });
+      } else {
+        // Level-specific view (existing code)
+        const scheduleRes = await fetch(
+          `http://localhost:8000/api/v1/timetable/schedules/active?education_level=${encodeURIComponent(
+            selectedViewLevel
+          )}`,
+          { headers }
+        );
+        if (!scheduleRes.ok) {
+          setSchedule(null);
+          setTimeSlots([]);
+          setEntries([]);
+          setIsLoading(false);
+          return;
+        }
+        const scheduleData = await scheduleRes.json();
+        setSchedule(scheduleData);
+
+        const slotsRes = await fetch(
+          `http://localhost:8000/api/v1/timetable/time-slots?education_level=${encodeURIComponent(
+            selectedViewLevel
+          )}`,
+          { headers }
+        );
+        const slotsData = await slotsRes.json();
+
+        console.log("Raw time slots from API:", slotsData);
+
+        // Filter lesson slots and add labels
+        const lessonSlots = slotsData
+          .filter((s: any) => s.slot_type === "lesson")
+          .map((s: any, index: number) => ({
+            ...s,
+            label: `Lesson ${index + 1}`,
+          }));
+
+        console.log("Filtered lesson slots:", lessonSlots);
+        console.log("Number of lesson slots:", lessonSlots.length);
+
+        setTimeSlots(lessonSlots);
+        console.log("Time slots set to state:", lessonSlots);
+
+        const levelEntriesRes = await fetch(
+          "http://localhost:8000/api/v1/timetable/entries",
+          { headers }
+        );
+        if (levelEntriesRes.ok) {
+          const data = await levelEntriesRes.json();
+          setEntries(Array.isArray(data) ? data : []);
+        } else {
+          setEntries([]);
+        }
       }
-      const scheduleData = await scheduleRes.json();
-      setSchedule(scheduleData);
-
-      // Fetch time slots for this schedule
-      // Note: The backend time-slots endpoint currently returns ALL slots for the user's active schedule.
-      // If we have multiple active schedules (one per level), we need to make sure we get the slots for THIS schedule.
-      // The backend `get_time_slots` uses `get_active_schedule` internally.
-      // We should update `get_time_slots` to accept `education_level` or `schedule_id`.
-      // Let's check backend `get_time_slots` implementation.
-
-      // Assuming I need to update backend `get_time_slots` as well.
-      // For now, let's try passing the param if the backend supports it, or rely on the backend finding the correct one.
-      // Wait, I haven't updated `get_time_slots` in backend yet!
-
-      const slotsRes = await fetch(
-        `http://localhost:8000/api/v1/timetable/time-slots?education_level=${encodeURIComponent(
-          selectedViewLevel
-        )}`,
-        { headers }
-      );
-      const slotsData = await slotsRes.json();
-
-      console.log("Raw time slots from API:", slotsData);
-
-      // Filter lesson slots and add labels
-      const lessonSlots = slotsData
-        .filter((s: any) => s.slot_type === "lesson")
-        .map((s: any, index: number) => ({
-          ...s,
-          label: `Lesson ${index + 1}`,
-        }));
-
-      console.log("Filtered lesson slots:", lessonSlots);
-      console.log("Number of lesson slots:", lessonSlots.length);
-
-      setTimeSlots(lessonSlots);
-      console.log("Time slots set to state:", lessonSlots);
-
-      const entriesRes = await fetch(
-        "http://localhost:8000/api/v1/timetable/entries",
-        { headers }
-      );
-      setEntries(await entriesRes.json());
 
       // Fetch USER'S SUBJECTS (for displaying in timetable)
       const userSubjectsRes = await fetch(
@@ -605,7 +710,10 @@ const TimetablePage = () => {
     if (!entry) return;
 
     // If position hasn't changed, do nothing
-    if (entry.day_of_week === newDayOfWeek && entry.time_slot_id === newTimeSlotId) {
+    if (
+      entry.day_of_week === newDayOfWeek &&
+      entry.time_slot_id === newTimeSlotId
+    ) {
       return;
     }
 
@@ -624,7 +732,7 @@ const TimetablePage = () => {
       // We need to send the full payload required by the API
       // We'll fetch the current entry data first or just construct it from what we have
       // The API expects: subject_id, time_slot_id, day_of_week, etc.
-      
+
       const payload = {
         subject_id: entry.subject_id,
         time_slot_id: newTimeSlotId,
@@ -632,7 +740,7 @@ const TimetablePage = () => {
         room_number: entry.room_number,
         grade_section: entry.grade_section,
         notes: entry.notes,
-        is_double_lesson: entry.is_double_lesson
+        is_double_lesson: entry.is_double_lesson,
       };
 
       const response = await fetch(
@@ -650,8 +758,8 @@ const TimetablePage = () => {
       if (!response.ok) {
         throw new Error("Failed to update lesson position");
       }
-      
-      toast.success("Lesson moved", { duration: 1500, icon: '👌' });
+
+      toast.success("Lesson moved", { duration: 1500, icon: "👌" });
     } catch (error) {
       console.error("Drag update failed:", error);
       toast.error("Failed to move lesson");
@@ -667,7 +775,17 @@ const TimetablePage = () => {
 
     setEditingEntry(null);
     setSelectedSubject(null);
-    setSelectedEducationLevel("");
+
+    // Try to find the slot to pre-fill education level
+    let preSelectedLevel = "";
+    if (timeSlotId) {
+      const slot = timeSlots.find((s) => s.id === timeSlotId);
+      if (slot && slot.education_level) {
+        preSelectedLevel = slot.education_level;
+      }
+    }
+
+    setSelectedEducationLevel(preSelectedLevel);
     setSelectedGrade("");
     setFilteredSubjects([]);
     setFormData({
@@ -921,7 +1039,7 @@ const TimetablePage = () => {
         <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-pink-400/20 rounded-full blur-[128px] animate-blob animation-delay-4000"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
         {/* Header with Schedule Info */}
         <div className="mb-8">
           {/* Live Status Timer */}
@@ -1051,6 +1169,7 @@ const TimetablePage = () => {
                   onChange={(e) => setSelectedViewLevel(e.target.value)}
                   className="appearance-none bg-white border border-gray-200 px-4 py-3 pr-10 rounded-xl text-gray-700 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer transition-all font-medium"
                 >
+                  <option value="All Levels">All Levels</option>
                   {Object.keys(educationLevels).map((level) => (
                     <option key={level} value={level}>
                       {level}
@@ -1096,47 +1215,47 @@ const TimetablePage = () => {
 
           {/* Schedule Information Card */}
           {schedule && (
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8 hover:shadow-lg transition-all duration-300">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 mb-8 hover:shadow-lg transition-all duration-300">
               <div className="flex items-start">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md">
                   <FiInfo className="w-6 h-6 text-white" />
                 </div>
                 <div className="flex-1 ml-4">
-                  <h3 className="font-bold text-gray-900 mb-4 text-lg">
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-4 text-lg">
                     {schedule.schedule_name}
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-3 border border-indigo-100">
-                      <span className="text-gray-600 block text-xs font-medium mb-1">
+                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-3 border border-indigo-100 dark:border-indigo-800">
+                      <span className="text-gray-600 dark:text-gray-300 block text-xs font-medium mb-1">
                         School Hours
                       </span>
-                      <p className="font-bold text-indigo-700">
+                      <p className="font-bold text-indigo-700 dark:text-indigo-300">
                         {schedule.school_start_time} -{" "}
                         {schedule.school_end_time}
                       </p>
                     </div>
-                    <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl p-3 border border-purple-100">
-                      <span className="text-gray-600 block text-xs font-medium mb-1">
+                    <div className="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 rounded-xl p-3 border border-purple-100 dark:border-purple-800">
+                      <span className="text-gray-600 dark:text-gray-300 block text-xs font-medium mb-1">
                         Lesson Duration
                       </span>
-                      <p className="font-bold text-purple-700">
+                      <p className="font-bold text-purple-700 dark:text-purple-300">
                         {schedule.single_lesson_duration} min /{" "}
                         {schedule.double_lesson_duration} min
                       </p>
                     </div>
-                    <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-xl p-3 border border-emerald-100">
-                      <span className="text-gray-600 block text-xs font-medium mb-1">
+                    <div className="bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 rounded-xl p-3 border border-emerald-100 dark:border-emerald-800">
+                      <span className="text-gray-600 dark:text-gray-300 block text-xs font-medium mb-1">
                         Total Lessons
                       </span>
-                      <p className="font-bold text-emerald-700">
+                      <p className="font-bold text-emerald-700 dark:text-emerald-300">
                         {timeSlots.length} per day
                       </p>
                     </div>
-                    <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl p-3 border border-orange-100">
-                      <span className="text-gray-600 block text-xs font-medium mb-1">
+                    <div className="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 rounded-xl p-3 border border-orange-100 dark:border-orange-800">
+                      <span className="text-gray-600 dark:text-gray-300 block text-xs font-medium mb-1">
                         Breaks
                       </span>
-                      <p className="font-bold text-orange-700">
+                      <p className="font-bold text-orange-700 dark:text-orange-300">
                         {schedule.first_break_duration +
                           schedule.second_break_duration +
                           schedule.lunch_break_duration}{" "}
@@ -1150,32 +1269,32 @@ const TimetablePage = () => {
           )}
         </div>
 
-        {/* Timetable Grid */}
+        {/* Timetable Content */}
         <DndContext onDragEnd={handleDragEnd}>
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-violet-500/10 border-b border-white/40">
-                    <th className="p-5 text-left font-bold text-gray-800 sticky left-0 bg-gradient-to-r from-indigo-50/80 via-purple-50/80 to-violet-50/80 backdrop-blur-xl z-10 border-r border-white/40">
+                  <tr className="bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-violet-500/10 dark:from-indigo-900/20 dark:via-purple-900/20 dark:to-violet-900/20 border-b border-white/40 dark:border-gray-700">
+                    <th className="p-5 text-left font-bold text-gray-800 dark:text-gray-100 sticky left-0 bg-gradient-to-r from-indigo-50/80 via-purple-50/80 to-violet-50/80 dark:from-gray-800/90 dark:via-gray-800/90 dark:to-gray-800/90 backdrop-blur-xl z-10 border-r border-white/40 dark:border-gray-700">
                       <div className="flex items-center space-x-2">
-                        <FiClock className="w-5 h-5 text-indigo-600" />
+                        <FiClock className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                         <span>Time</span>
                       </div>
                     </th>
                     {DAYS.map((day, idx) => (
                       <th
                         key={day}
-                        className={`p-5 min-w-[220px] font-bold text-gray-800 ${
+                        className={`p-5 min-w-[220px] font-bold text-gray-800 dark:text-gray-100 ${
                           idx === 0
-                            ? "text-blue-700"
+                            ? "text-blue-700 dark:text-blue-400"
                             : idx === 1
-                            ? "text-indigo-700"
+                            ? "text-indigo-700 dark:text-indigo-400"
                             : idx === 2
-                            ? "text-purple-700"
+                            ? "text-purple-700 dark:text-purple-400"
                             : idx === 3
-                            ? "text-violet-700"
-                            : "text-pink-700"
+                            ? "text-violet-700 dark:text-violet-400"
+                            : "text-pink-700 dark:text-pink-400"
                         }`}
                       >
                         {day}
@@ -1187,9 +1306,9 @@ const TimetablePage = () => {
                   {timeSlots.map((slot, slotIdx) => (
                     <tr
                       key={slot.id}
-                      className="border-b border-white/30 hover:bg-white/20 transition-colors duration-200"
+                      className="border-b border-white/30 dark:border-gray-700 hover:bg-white/20 dark:hover:bg-gray-700/20 transition-colors duration-200"
                     >
-                      <td className="p-5 bg-gradient-to-r from-indigo-50/80 via-purple-50/80 to-violet-50/80 backdrop-blur-xl sticky left-0 z-10 border-r border-white/40">
+                      <td className="p-5 bg-gradient-to-r from-indigo-50/80 via-purple-50/80 to-violet-50/80 dark:from-gray-800/90 dark:via-gray-800/90 dark:to-gray-800/90 backdrop-blur-xl sticky left-0 z-10 border-r border-white/40 dark:border-gray-700">
                         <div className="flex items-center space-x-3">
                           <div
                             className={`w-10 h-10 rounded-lg flex items-center justify-center shadow-md ${
@@ -1203,10 +1322,10 @@ const TimetablePage = () => {
                             <FiClock className="w-5 h-5 text-white" />
                           </div>
                           <div>
-                            <div className="font-bold text-sm text-gray-900">
+                            <div className="font-bold text-sm text-gray-900 dark:text-white">
                               {slot.label}
                             </div>
-                            <div className="text-xs text-gray-600 font-medium">
+                            <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">
                               {slot.start_time} - {slot.end_time}
                             </div>
                           </div>
@@ -1218,10 +1337,10 @@ const TimetablePage = () => {
                             e.time_slot_id === slot.id &&
                             e.day_of_week === dayIndex + 1
                         );
-                        
+
                         return (
-                          <DroppableCell 
-                            key={`${dayIndex}-${slot.id}`} 
+                          <DroppableCell
+                            key={`${dayIndex}-${slot.id}`}
                             id={`cell-${dayIndex + 1}-${slot.id}`}
                             dayIndex={dayIndex}
                             slotId={slot.id}
@@ -1241,10 +1360,10 @@ const TimetablePage = () => {
                                 );
 
                                 return (
-                                  <DraggableLesson 
-                                    key={entry.id} 
-                                    entry={entry} 
-                                    theme={theme} 
+                                  <DraggableLesson
+                                    key={entry.id}
+                                    entry={entry}
+                                    theme={theme}
                                     subjectName={subject?.subject_name}
                                     onEdit={(e) => {
                                       e.stopPropagation();
@@ -1260,7 +1379,9 @@ const TimetablePage = () => {
                             ) : (
                               <div className="h-full w-full flex flex-col items-center justify-center opacity-60 hover:opacity-100 transition-opacity">
                                 <div className="text-2xl mb-1">☕</div>
-                                <div className="text-xs font-medium text-gray-500">Free</div>
+                                <div className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                                  Free
+                                </div>
                               </div>
                             )}
                           </DroppableCell>
@@ -1277,7 +1398,7 @@ const TimetablePage = () => {
         {/* Add/Edit Lesson Modal */}
         {isAddModalOpen && (
           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-            <div className="glass-modal bg-white/95 backdrop-blur-2xl rounded-2xl max-w-lg w-full p-8 max-h-[90vh] overflow-y-auto border border-white/60 shadow-2xl">
+            <div className="glass-modal bg-white/95 dark:bg-gray-800/95 backdrop-blur-2xl rounded-2xl max-w-lg w-full p-8 max-h-[90vh] overflow-y-auto border border-white/60 dark:border-gray-700 shadow-2xl">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                   {editingEntry ? "Edit Lesson" : "Add New Lesson"}
@@ -1291,7 +1412,7 @@ const TimetablePage = () => {
                     setSelectedGrade("");
                     setFilteredSubjects([]);
                   }}
-                  className="text-gray-400 hover:text-gray-600 text-3xl leading-none hover:rotate-90 transition-transform duration-300"
+                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-3xl leading-none hover:rotate-90 transition-transform duration-300"
                 >
                   ×
                 </button>
@@ -1300,18 +1421,24 @@ const TimetablePage = () => {
               <form onSubmit={handleSubmit} className="space-y-5">
                 {/* Education Level Selection */}
                 <div>
-                  <label className="block text-sm font-bold text-gray-800 mb-2">
+                  <label className="block text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
                     Education Level <span className="text-red-500">*</span>
                   </label>
                   <select
                     value={selectedEducationLevel}
                     onChange={(e) => handleEducationLevelChange(e.target.value)}
-                    className="w-full bg-white/60 backdrop-blur-sm border-2 border-indigo-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400 transition-all duration-200 font-medium"
+                    className="w-full bg-white/60 dark:bg-gray-700/60 backdrop-blur-sm border-2 border-indigo-200 dark:border-indigo-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400 transition-all duration-200 font-medium dark:text-white"
                     required
                   >
-                    <option value="">Select education level</option>
+                    <option value="" className="dark:bg-gray-800">
+                      Select education level
+                    </option>
                     {Object.keys(educationLevels).map((level) => (
-                      <option key={level} value={level}>
+                      <option
+                        key={level}
+                        value={level}
+                        className="dark:bg-gray-800"
+                      >
                         {level}
                       </option>
                     ))}
@@ -1321,20 +1448,26 @@ const TimetablePage = () => {
                 {/* Grade Selection */}
                 {selectedEducationLevel && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Grade <span className="text-red-500">*</span>
                     </label>
                     <select
                       value={selectedGrade}
                       onChange={(e) => handleGradeChange(e.target.value)}
-                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                       required
                     >
-                      <option value="">Select grade</option>
+                      <option value="" className="dark:bg-gray-800">
+                        Select grade
+                      </option>
                       {educationLevels[
                         selectedEducationLevel as keyof typeof educationLevels
                       ]?.map((grade) => (
-                        <option key={grade} value={grade}>
+                        <option
+                          key={grade}
+                          value={grade}
+                          className="dark:bg-gray-800"
+                        >
                           {grade}
                         </option>
                       ))}
@@ -1345,7 +1478,7 @@ const TimetablePage = () => {
                 {/* Subject Selection (only show when grade is selected) */}
                 {selectedGrade && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Learning Area / Subject{" "}
                       <span className="text-red-500">*</span>
                     </label>
@@ -1354,12 +1487,18 @@ const TimetablePage = () => {
                       onChange={(e) =>
                         handleSubjectChange(parseInt(e.target.value))
                       }
-                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                       required
                     >
-                      <option value="">Select learning area</option>
+                      <option value="" className="dark:bg-gray-800">
+                        Select learning area
+                      </option>
                       {filteredSubjects.map((subject) => (
-                        <option key={subject.id} value={subject.id}>
+                        <option
+                          key={subject.id}
+                          value={subject.id}
+                          className="dark:bg-gray-800"
+                        >
                           {subject.subject_name}
                         </option>
                       ))}
@@ -1376,7 +1515,7 @@ const TimetablePage = () => {
                 {/* Day and Time Selection */}
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Day <span className="text-red-500">*</span>
                     </label>
                     <select
@@ -1506,7 +1645,7 @@ const TimetablePage = () => {
                   />
                   <label
                     htmlFor="double"
-                    className="ml-2 text-sm font-medium text-gray-700"
+                    className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300"
                   >
                     This is a double lesson (80 minutes)
                   </label>
@@ -1514,7 +1653,7 @@ const TimetablePage = () => {
 
                 {/* Notes */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Notes (Optional)
                   </label>
                   <textarea
@@ -1524,12 +1663,12 @@ const TimetablePage = () => {
                     }
                     rows={3}
                     placeholder="Additional information about this lesson..."
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
                   />
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex space-x-4 pt-6 border-t border-gray-200">
+                <div className="flex space-x-4 pt-6 border-t border-gray-200 dark:border-gray-700">
                   <button
                     type="button"
                     onClick={() => {
@@ -1537,7 +1676,7 @@ const TimetablePage = () => {
                       setEditingEntry(null);
                       setSelectedSubject(null);
                     }}
-                    className="flex-1 px-6 py-3 bg-white/60 backdrop-blur-sm border-2 border-gray-300 rounded-xl text-gray-700 hover:bg-gray-100 hover:border-gray-400 font-bold transition-all duration-200 shadow-md hover:shadow-lg"
+                    className="flex-1 px-6 py-3 bg-white/60 dark:bg-gray-700/60 backdrop-blur-sm border-2 border-gray-300 dark:border-gray-600 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 hover:border-gray-400 dark:hover:border-gray-500 font-bold transition-all duration-200 shadow-md hover:shadow-lg"
                   >
                     Cancel
                   </button>
@@ -1556,13 +1695,13 @@ const TimetablePage = () => {
         {/* Bulk Add Modal */}
         {isBulkModalOpen && (
           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-            <div className="glass-modal bg-white/95 backdrop-blur-2xl rounded-2xl max-w-3xl w-full p-8 max-h-[90vh] overflow-y-auto border border-white/60 shadow-2xl">
+            <div className="glass-modal bg-white/95 dark:bg-gray-800/95 backdrop-blur-2xl rounded-2xl max-w-3xl w-full p-8 max-h-[90vh] overflow-y-auto border border-white/60 dark:border-gray-700 shadow-2xl">
               <div className="flex justify-between items-center mb-6">
                 <div>
                   <h3 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">
                     Bulk Add Lessons
                   </h3>
-                  <p className="text-sm text-gray-700 mt-2 font-medium">
+                  <p className="text-sm text-gray-700 dark:text-gray-300 mt-2 font-medium">
                     Add the same subject at different times throughout the week
                   </p>
                 </div>
@@ -1574,7 +1713,7 @@ const TimetablePage = () => {
                     setSelectedGrade("");
                     setFilteredSubjects([]);
                   }}
-                  className="text-gray-400 hover:text-gray-600 text-3xl leading-none hover:rotate-90 transition-transform duration-300"
+                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-3xl leading-none hover:rotate-90 transition-transform duration-300"
                 >
                   ×
                 </button>
@@ -1582,8 +1721,8 @@ const TimetablePage = () => {
 
               <form onSubmit={handleBulkSubmit} className="space-y-6">
                 {/* Common Subject Information */}
-                <div className="bg-gradient-to-br from-indigo-50/70 to-purple-50/70 backdrop-blur-sm p-6 rounded-2xl border-2 border-indigo-200/60 shadow-lg">
-                  <h4 className="font-bold text-gray-900 mb-4 text-lg flex items-center">
+                <div className="bg-gradient-to-br from-indigo-50/70 to-purple-50/70 dark:from-indigo-900/30 dark:to-purple-900/30 backdrop-blur-sm p-6 rounded-2xl border-2 border-indigo-200/60 dark:border-indigo-700/60 shadow-lg">
+                  <h4 className="font-bold text-gray-900 dark:text-white mb-4 text-lg flex items-center">
                     <span className="w-2 h-2 bg-indigo-600 rounded-full mr-2"></span>
                     Common Information (applies to all lessons)
                   </h4>
@@ -1591,7 +1730,7 @@ const TimetablePage = () => {
                   <div className="space-y-4">
                     {/* Education Level Selection */}
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Education Level <span className="text-red-500">*</span>
                       </label>
                       <select
@@ -1599,12 +1738,18 @@ const TimetablePage = () => {
                         onChange={(e) =>
                           handleEducationLevelChange(e.target.value)
                         }
-                        className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                        className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
                         required
                       >
-                        <option value="">Select education level</option>
+                        <option value="" className="dark:bg-gray-800">
+                          Select education level
+                        </option>
                         {Object.keys(educationLevels).map((level) => (
-                          <option key={level} value={level}>
+                          <option
+                            key={level}
+                            value={level}
+                            className="dark:bg-gray-800"
+                          >
                             {level}
                           </option>
                         ))}
@@ -1614,20 +1759,26 @@ const TimetablePage = () => {
                     {/* Grade Selection */}
                     {selectedEducationLevel && (
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Grade <span className="text-red-500">*</span>
                         </label>
                         <select
                           value={selectedGrade}
                           onChange={(e) => handleGradeChange(e.target.value)}
-                          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                          className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
                           required
                         >
-                          <option value="">Select grade</option>
+                          <option value="" className="dark:bg-gray-800">
+                            Select grade
+                          </option>
                           {educationLevels[
                             selectedEducationLevel as keyof typeof educationLevels
                           ]?.map((grade) => (
-                            <option key={grade} value={grade}>
+                            <option
+                              key={grade}
+                              value={grade}
+                              className="dark:bg-gray-800"
+                            >
                               {grade}
                             </option>
                           ))}
@@ -1638,7 +1789,7 @@ const TimetablePage = () => {
                     {/* Subject Selection (only show when grade is selected) */}
                     {selectedGrade && (
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Learning Area / Subject{" "}
                           <span className="text-red-500">*</span>
                         </label>
@@ -1647,12 +1798,18 @@ const TimetablePage = () => {
                           onChange={(e) =>
                             handleSubjectChange(parseInt(e.target.value))
                           }
-                          className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                          className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
                           required
                         >
-                          <option value="">Select learning area</option>
+                          <option value="" className="dark:bg-gray-800">
+                            Select learning area
+                          </option>
                           {filteredSubjects.map((subject) => (
-                            <option key={subject.id} value={subject.id}>
+                            <option
+                              key={subject.id}
+                              value={subject.id}
+                              className="dark:bg-gray-800"
+                            >
                               {subject.subject_name}
                             </option>
                           ))}
@@ -1669,7 +1826,7 @@ const TimetablePage = () => {
                     {/* Grade/Stream and Room */}
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Stream/Section <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -1686,7 +1843,7 @@ const TimetablePage = () => {
                               ? `e.g., ${selectedGrade} A, ${selectedGrade} East`
                               : "e.g., Grade 5A"
                           }
-                          className="w-full border border-gray-300 rounded-lg px-4 py-2.5"
+                          className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
                           required
                         />
                       </div>
@@ -1705,7 +1862,7 @@ const TimetablePage = () => {
                             })
                           }
                           placeholder="e.g., Lab 1, Room 204"
-                          className="w-full border border-gray-300 rounded-lg px-4 py-2.5"
+                          className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
                         />
                       </div>
                     </div>
@@ -1722,11 +1879,11 @@ const TimetablePage = () => {
                             is_double_lesson: e.target.checked,
                           })
                         }
-                        className="w-4 h-4 text-indigo-600 border-gray-300 rounded"
+                        className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                       />
                       <label
                         htmlFor="bulk-double"
-                        className="ml-2 text-sm font-medium text-gray-700"
+                        className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300"
                       >
                         All are double lessons (80 minutes)
                       </label>
@@ -1737,7 +1894,7 @@ const TimetablePage = () => {
                 {/* Lesson Schedule (Day & Time Combinations) */}
                 <div>
                   <div className="flex justify-between items-center mb-4">
-                    <h4 className="font-bold text-gray-900 text-lg flex items-center">
+                    <h4 className="font-bold text-gray-900 dark:text-white text-lg flex items-center">
                       <span className="w-2 h-2 bg-emerald-600 rounded-full mr-2"></span>
                       Lesson Schedule{" "}
                       <span className="text-red-500 ml-1">*</span>
@@ -1756,11 +1913,11 @@ const TimetablePage = () => {
                     {bulkLessons.map((lesson, index) => (
                       <div
                         key={index}
-                        className="flex gap-3 items-start p-4 bg-gradient-to-r from-white/70 to-indigo-50/70 backdrop-blur-sm rounded-xl border-2 border-indigo-200/50 shadow-md hover:shadow-lg transition-all duration-200"
+                        className="flex gap-3 items-start p-4 bg-gradient-to-r from-white/70 to-indigo-50/70 dark:from-gray-800/70 dark:to-indigo-900/30 backdrop-blur-sm rounded-xl border-2 border-indigo-200/50 dark:border-indigo-700/50 shadow-md hover:shadow-lg transition-all duration-200"
                       >
                         <div className="flex-1 grid grid-cols-2 gap-3">
                           <div>
-                            <label className="block text-xs font-medium text-gray-600 mb-1">
+                            <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
                               Day
                             </label>
                             <select
@@ -1772,11 +1929,15 @@ const TimetablePage = () => {
                                   parseInt(e.target.value)
                                 )
                               }
-                              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                              className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500"
                               required
                             >
                               {DAYS.map((day, dayIndex) => (
-                                <option key={day} value={dayIndex + 1}>
+                                <option
+                                  key={day}
+                                  value={dayIndex + 1}
+                                  className="dark:bg-gray-800"
+                                >
                                   {day}
                                 </option>
                               ))}
@@ -1784,7 +1945,7 @@ const TimetablePage = () => {
                           </div>
 
                           <div>
-                            <label className="block text-xs font-medium text-gray-600 mb-1">
+                            <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
                               Time Slot{" "}
                               {timeSlots.length === 0 && (
                                 <span className="text-red-500">
@@ -1806,17 +1967,27 @@ const TimetablePage = () => {
                                   parseInt(e.target.value)
                                 );
                               }}
-                              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                              className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500"
                               required
                             >
-                              <option value="0">Select time</option>
+                              <option value="0" className="dark:bg-gray-800">
+                                Select time
+                              </option>
                               {timeSlots.length === 0 ? (
-                                <option value="" disabled>
+                                <option
+                                  value=""
+                                  disabled
+                                  className="dark:bg-gray-800"
+                                >
                                   No time slots available
                                 </option>
                               ) : (
                                 timeSlots.map((slot) => (
-                                  <option key={slot.id} value={slot.id}>
+                                  <option
+                                    key={slot.id}
+                                    value={slot.id}
+                                    className="dark:bg-gray-800"
+                                  >
                                     {slot.label || `Lesson ${slot.id}`}:{" "}
                                     {slot.start_time} - {slot.end_time}
                                   </option>

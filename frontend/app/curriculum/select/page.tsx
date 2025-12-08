@@ -38,16 +38,21 @@ export default function CurriculumSelectPage() {
     CurriculumTemplate[]
   >([]);
   const [selectedGrade, setSelectedGrade] = useState("");
-  const [selectedTemplate, setSelectedTemplate] = useState<number | null>(null);
+  const [selectedTemplates, setSelectedTemplates] = useState<number[]>([]);
   const [addingTemplate, setAddingTemplate] = useState(false);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     // Check authentication
     const token = localStorage.getItem("accessToken");
+    const userData = localStorage.getItem("user");
     if (!token) {
       toast.error("Please login to select curriculum");
       router.push("/login");
       return;
+    }
+    if (userData) {
+      setUser(JSON.parse(userData));
     }
     setIsAuthenticated(true);
     fetchTemplates();
@@ -58,7 +63,7 @@ export default function CurriculumSelectPage() {
     if (selectedGrade) {
       const filtered = templates.filter((t) => t.grade === selectedGrade);
       setFilteredTemplates(filtered);
-      setSelectedTemplate(null);
+      // Don't clear selection when changing grades to allow multi-grade selection
     } else {
       setFilteredTemplates([]);
     }
@@ -73,7 +78,26 @@ export default function CurriculumSelectPage() {
           Authorization: `Bearer ${token}`,
         },
       });
-      setTemplates(response.data.templates || []);
+      // Backend returns a list directly, or check if it's wrapped
+      const data = response.data;
+      let rawTemplates = [];
+
+      if (Array.isArray(data)) {
+        rawTemplates = data;
+      } else if (data.templates && Array.isArray(data.templates)) {
+        rawTemplates = data.templates;
+      }
+
+      // Map backend snake_case to frontend camelCase
+      const mappedTemplates = rawTemplates.map((t: any) => ({
+        id: t.id,
+        subject: t.subject,
+        grade: t.grade,
+        educationLevel: t.education_level || t.educationLevel,
+        createdAt: t.created_at || t.createdAt,
+      }));
+
+      setTemplates(mappedTemplates);
     } catch (error: any) {
       console.error("Failed to fetch templates:", error);
       toast.error("Failed to load curriculum templates");
@@ -82,9 +106,49 @@ export default function CurriculumSelectPage() {
     }
   };
 
+  const toggleTemplate = (id: number) => {
+    setSelectedTemplates((prev) =>
+      prev.includes(id) ? prev.filter((tid) => tid !== id) : [...prev, id]
+    );
+  };
+
+  const toggleSelectAll = () => {
+    const visibleIds = filteredTemplates.map((t) => t.id);
+    const allVisibleSelected =
+      visibleIds.length > 0 &&
+      visibleIds.every((id) => selectedTemplates.includes(id));
+
+    if (allVisibleSelected) {
+      // Deselect all visible
+      setSelectedTemplates((prev) =>
+        prev.filter((id) => !visibleIds.includes(id))
+      );
+    } else {
+      // Select all visible (merge unique)
+      setSelectedTemplates((prev) => [...new Set([...prev, ...visibleIds])]);
+    }
+  };
+
   const handleAddCurriculum = async () => {
-    if (!selectedTemplate) {
-      toast.error("Please select a curriculum template");
+    if (selectedTemplates.length === 0) {
+      toast.error("Please select at least one curriculum template");
+      return;
+    }
+
+    // Check Free Plan Limit
+    if (user?.subscription_type === "FREE" && selectedTemplates.length > 2) {
+      toast.error(
+        "Free plan is limited to 2 subjects total. Please upgrade to add more.",
+        {
+          duration: 5000,
+          icon: "🔒",
+          style: {
+            border: "1px solid #EAB308",
+            padding: "16px",
+            color: "#713F12",
+          },
+        }
+      );
       return;
     }
 
@@ -93,8 +157,8 @@ export default function CurriculumSelectPage() {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.post(
-        `/api/v1/curriculum-templates/${selectedTemplate}/use`,
-        {},
+        `/api/v1/curriculum-templates/bulk-use`,
+        { template_ids: selectedTemplates },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -102,8 +166,26 @@ export default function CurriculumSelectPage() {
         }
       );
 
-      toast.success(response.data.message || "Curriculum added successfully!");
-      router.push("/dashboard");
+      const result = response.data;
+      const successCount = result.results.success.length;
+      const skippedCount = result.results.skipped.length;
+      const failedCount = result.results.failed.length;
+
+      if (successCount > 0) {
+        toast.success(`Successfully added ${successCount} subjects!`);
+      }
+      if (skippedCount > 0) {
+        toast(`Skipped ${skippedCount} subjects (already exist)`, {
+          icon: "ℹ️",
+        });
+      }
+      if (failedCount > 0) {
+        toast.error(`Failed to add ${failedCount} subjects`);
+      }
+
+      if (successCount > 0) {
+        router.push("/dashboard");
+      }
     } catch (error: any) {
       console.error("Add curriculum error:", error);
       const errorMessage =
@@ -124,7 +206,7 @@ export default function CurriculumSelectPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-6 pb-12">
+    <div className="min-h-screen bg-gray-50 pt-24 pb-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
@@ -171,12 +253,35 @@ export default function CurriculumSelectPage() {
           {/* Subject Selection */}
           {selectedGrade && (
             <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                <span className="flex items-center justify-center w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full mr-3 font-bold text-sm">
-                  2
-                </span>
-                Select Subject Curriculum
+              <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center justify-between">
+                <div className="flex items-center">
+                  <span className="flex items-center justify-center w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full mr-3 font-bold text-sm">
+                    2
+                  </span>
+                  Select Subject Curriculum
+                </div>
+                {user?.subscription_type === "FREE" && (
+                  <span className="text-xs font-medium px-2.5 py-0.5 rounded bg-yellow-100 text-yellow-800">
+                    Free Plan: Max 2 Subjects
+                  </span>
+                )}
               </h2>
+
+              {filteredTemplates.length > 0 && (
+                <div className="mb-4 flex justify-end">
+                  <button
+                    onClick={toggleSelectAll}
+                    className="text-sm font-medium text-indigo-600 hover:text-indigo-800"
+                  >
+                    {filteredTemplates.length > 0 &&
+                    filteredTemplates.every((t) =>
+                      selectedTemplates.includes(t.id)
+                    )
+                      ? "Deselect All"
+                      : "Select All"}
+                  </button>
+                </div>
+              )}
 
               {loading ? (
                 <div className="flex items-center justify-center py-12">
@@ -202,21 +307,29 @@ export default function CurriculumSelectPage() {
                     <button
                       key={template.id}
                       type="button"
-                      onClick={() => setSelectedTemplate(template.id)}
+                      onClick={() => toggleTemplate(template.id)}
                       className={`relative p-5 border-2 rounded-lg text-left transition-all ${
-                        selectedTemplate === template.id
+                        selectedTemplates.includes(template.id)
                           ? "border-indigo-600 bg-indigo-50"
                           : "border-gray-200 hover:border-indigo-300 bg-white"
                       }`}
                     >
                       <div className="flex items-start space-x-3">
-                        <FiBook
-                          className={`w-6 h-6 flex-shrink-0 mt-1 ${
-                            selectedTemplate === template.id
+                        <div
+                          className={`mt-1 ${
+                            selectedTemplates.includes(template.id)
                               ? "text-indigo-600"
                               : "text-gray-400"
                           }`}
-                        />
+                        >
+                          {selectedTemplates.includes(template.id) ? (
+                            <div className="w-5 h-5 bg-indigo-600 rounded flex items-center justify-center">
+                              <FiCheck className="w-3 h-3 text-white" />
+                            </div>
+                          ) : (
+                            <div className="w-5 h-5 border-2 border-gray-300 rounded"></div>
+                          )}
+                        </div>
                         <div className="flex-1">
                           <h3 className="font-semibold text-gray-900 mb-1">
                             {template.subject}
@@ -228,13 +341,6 @@ export default function CurriculumSelectPage() {
                             Official CBC Curriculum
                           </p>
                         </div>
-                        {selectedTemplate === template.id && (
-                          <div className="absolute top-3 right-3">
-                            <div className="w-6 h-6 bg-indigo-600 rounded-full flex items-center justify-center">
-                              <FiCheck className="w-4 h-4 text-white" />
-                            </div>
-                          </div>
-                        )}
                       </div>
                     </button>
                   ))}
@@ -244,12 +350,44 @@ export default function CurriculumSelectPage() {
           )}
 
           {/* Action Buttons */}
-          {selectedTemplate && (
+          {selectedTemplates.length > 0 && (
             <div className="bg-white rounded-lg shadow-md p-6">
+              {/* Selection Summary */}
+              <div className="mb-4 pb-4 border-b border-gray-100">
+                <h4 className="text-sm font-medium text-gray-700 mb-2">
+                  Selected Subjects Summary:
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {Array.from(
+                    new Set(
+                      templates
+                        .filter((t) => selectedTemplates.includes(t.id))
+                        .map((t) => t.grade)
+                    )
+                  )
+                    .sort()
+                    .map((grade) => {
+                      const count = templates.filter(
+                        (t) =>
+                          t.grade === grade && selectedTemplates.includes(t.id)
+                      ).length;
+                      return (
+                        <span
+                          key={grade}
+                          className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800"
+                        >
+                          {grade}: {count} subject{count !== 1 ? "s" : ""}
+                        </span>
+                      );
+                    })}
+                </div>
+              </div>
+
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">
-                    Ready to add this curriculum?
+                    Ready to add {selectedTemplates.length} subject
+                    {selectedTemplates.length !== 1 ? "s" : ""}?
                   </h3>
                   <p className="text-sm text-gray-600">
                     This will add all strands, sub-strands, and lessons to your
@@ -259,7 +397,12 @@ export default function CurriculumSelectPage() {
                 <button
                   onClick={handleAddCurriculum}
                   disabled={addingTemplate}
-                  className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2 ml-4"
+                  className={`px-6 py-3 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2 ml-4 ${
+                    user?.subscription_type === "FREE" &&
+                    selectedTemplates.length > 2
+                      ? "bg-gray-400 text-white cursor-not-allowed"
+                      : "bg-indigo-600 text-white hover:bg-indigo-700"
+                  }`}
                 >
                   {addingTemplate ? (
                     <>
@@ -268,8 +411,20 @@ export default function CurriculumSelectPage() {
                     </>
                   ) : (
                     <>
-                      <FiCheck className="w-5 h-5" />
-                      <span>Add to My Subjects</span>
+                      {user?.subscription_type === "FREE" &&
+                      selectedTemplates.length > 2 ? (
+                        <FiAlertCircle className="w-5 h-5" />
+                      ) : (
+                        <FiCheck className="w-5 h-5" />
+                      )}
+                      <span>
+                        {user?.subscription_type === "FREE" &&
+                        selectedTemplates.length > 2
+                          ? "Limit Exceeded (Max 2)"
+                          : `Add ${selectedTemplates.length} Subject${
+                              selectedTemplates.length !== 1 ? "s" : ""
+                            }`}
+                      </span>
                     </>
                   )}
                 </button>

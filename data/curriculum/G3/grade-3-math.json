@@ -8,7 +8,7 @@
       "subStrands": [
         {
           "subStrandId": "1.1",
-          "subStrandTitle": "Number Activities",
+          "subStrandTitle": "Pre-Number Activities",
           "specificLearningOutcomes": [
             "order objects according to size",
             "identify the position of objects from 1st to 20th",
@@ -24,6 +24,22 @@
           ],
           "keyInquiryQuestions": [
             "How do we tell our positions in a competition?"
+          ],
+          "numberOfLessons": 20,
+          "coreCompetencies": [
+            "Communication and Collaboration: the learner discusses and arranges real objects collected from the environment according to size",
+            "Digital Literacy: learner plays games involving the position of items from 1 to 20 using digital devices"
+          ],
+          "values": [
+            "Integrity: learner displays honesty as they assign each other the rightful positions after a timed race",
+            "Unity: the learner plays games with peers involving the position of items from 1 to 20 using digital devices"
+          ],
+          "pcis": [
+            "Sports and Games: learner participates in a race and assigns each other the correct position",
+            "Friendship formation: the learner plays games with peers involving positions 1 to 20 using digital devices and other resources"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the skills used in writing the position of objects in number symbols and words to functional writing in English Language Activities"
           ]
         },
         {
@@ -39,7 +55,7 @@
             "play games involving number patterns up to 1000"
           ],
           "suggestedLearningExperiences": [
-            "count forward in 1’s, 10’s, and 100’s starting from any point up to 1000 using a rope skipping game in a safe environment",
+            "count forward in 1's, 10's, and 100's starting from any point up to 1000 using a rope skipping game in a safe environment",
             "practise through play using number cards counting numbers backward in multiples of 100 from 1000",
             "discuss place value up to hundreds using place value apparatus in class",
             "read numbers 1 to 1000 in symbols starting from any point",
@@ -50,6 +66,22 @@
           "keyInquiryQuestions": [
             "How would you get the total number of people in a group?",
             "How do you tell the place value of a digit in a number?"
+          ],
+          "numberOfLessons": 25,
+          "coreCompetencies": [
+            "Learning to Learn: the learner counts numbers backward in multiples of 100 from 1000",
+            "Creativity and Imagination: learners create patterns of numbers up to 1000"
+          ],
+          "values": [
+            "Respect: the learner gives peers equal opportunity as they take turns to read and write numbers",
+            "Unity: the learner plays games involving whole numbers up to 1000 using digital devices and other resources with peers"
+          ],
+          "pcis": [
+            "Friendship formation: the learner plays games involving whole numbers up to 1000 using digital devices and other resources with peers",
+            "Social Cohesion: learner discusses place value up to hundreds using place value apparatus in class"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate discussion skills to speaking and listening skills in English and Kiswahili Language Activities"
           ]
         },
         {
@@ -66,14 +98,28 @@
           "suggestedLearningExperiences": [
             "add a 3-digit number to up to a 2-digit number without regrouping with a sum not exceeding 1000 using place value apparatus",
             "practise addition horizontally and vertically using place value apparatus",
-            "work with peers to practise adding a 3- digit number to up to a 2-digit number with single regrouping with a sum not exceeding 1000",
-            "practise adding two 3- digit numbers without regrouping with a sum not exceeding 1000 using place value apparatus (abacus and place value tins)",
+            "work with peers to practise adding a 3-digit number to up to a 2-digit number with single regrouping with a sum not exceeding 1000",
+            "practise adding two 3-digit numbers without regrouping with a sum not exceeding 1000 using place value apparatus (abacus and place value tins)",
             "create and work out missing numbers in patterns involving addition up to 1000",
             "use digital devices or other resources for activities involving additions"
           ],
           "keyInquiryQuestions": [
             "How do you arrange numbers when adding downwards?",
             "How can you get the next number in a given pattern?"
+          ],
+          "numberOfLessons": 25,
+          "coreCompetencies": [
+            "Imagination and Creativity: the learner creates patterns involving addition up to a sum of 1000",
+            "Learning to Learn: learner practises addition horizontally and vertically using place value apparatus"
+          ],
+          "values": [
+            "Respect: learner portrays patience as he/she works with peers to practise addition horizontally and vertically using place value apparatus"
+          ],
+          "pcis": [
+            "Sustainable consumption: the learner improvises place value apparatus such as an abacus, place value tins, or pockets using locally available materials"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the skills used in creating patterns to the pattern-making skills in Creative Activities"
           ]
         },
         {
@@ -81,7 +127,7 @@
           "subStrandTitle": "Subtraction",
           "specificLearningOutcomes": [
             "subtract a 2-digit number from a 3-digit number without regrouping",
-            "subtract a 2-digit number from a three- digit number with single regrouping",
+            "subtract a 2-digit number from a three-digit number with single regrouping",
             "subtract a 3-digit number from a 3-digit number with single regrouping",
             "subtract up to 3-digit numbers involving missing numbers with single regrouping",
             "work out missing numbers in number patterns involving subtraction up to 1000",
@@ -89,7 +135,7 @@
           ],
           "suggestedLearningExperiences": [
             "work out subtraction of up to 3-digit numbers without regrouping using place value apparatus and share findings with others",
-            "jointly work out subtraction of up to 3- digit numbers with single regrouping using a place value chart",
+            "jointly work out subtraction of up to 3-digit numbers with single regrouping using a place value chart",
             "work out missing numbers in subtraction of up to 3-digit numbers with single regrouping using a variety of strategies",
             "play games involving subtraction using digital devices and other resources with peers",
             "work out missing numbers in patterns involving subtraction up to 1000"
@@ -97,70 +143,21 @@
           "keyInquiryQuestions": [
             "When do you regroup during subtraction?",
             "How do you identify the missing number in a number pattern involving subtraction?"
-          ]
-        },
-        {
-          "subStrandId": "1.5",
-          "subStrandTitle": "Multiplication",
-          "specificLearningOutcomes": [
-            "model multiplication as repeated addition using numbers 1,2,3,4, and 5 by 4 and 5",
-            "multiply a single-digit number by a single- digit number",
-            "multiply single-digit numbers by 10",
-            "appreciate multiplication of numbers as repeated addition"
           ],
-          "suggestedLearningExperiences": [
-            "model multiplication as repeated addition of numbers 1, 2, 3, 4, and 5 by 4 and 5 using counters",
-            "multiply a single-digit number by a single-digit number using a multiplication chart",
-            "in turn, practise multiplication of single digit numbers by 10 using multiplication tables",
-            "play games involving multiplication using digital or other resources with peers"
+          "numberOfLessons": 20,
+          "coreCompetencies": [
+            "Digital Literacy: learner plays games involving subtraction using digital devices",
+            "Creativity and Imagination: the learner comes up with ideas to create number patterns involving subtraction"
           ],
-          "keyInquiryQuestions": [
-            "How can you work out multiplication using repeated addition?",
-            "How do we model multiplication as repeated addition?"
-          ]
-        },
-        {
-          "subStrandId": "1.6",
-          "subStrandTitle": "Division",
-          "specificLearningOutcomes": [
-            "represent the division of numbers up to 50 by 4 and 5 as repeated subtraction",
-            "divide a 2-digit number by a single- digit number without a remainder",
-            "divide a 2-digit number by 10 without a remainder",
-            "appreciate division as repeated subtraction in real-life situations"
+          "values": [
+            "Unity: learner jointly works out subtraction of up to 3-digit numbers without regrouping using place value pockets",
+            "Respect: learner accommodates diverse opinions as they discuss how to work out missing numbers in patterns"
           ],
-          "suggestedLearningExperiences": [
-            "take away from a group a specific number of objects at a time until all are finished and then count the number of small groups formed and share their findings with peers",
-            "discuss and model division as repeated subtraction of numbers up to 50 by 4 and 5 using counters and share their findings with peers",
-            "in teams, practise division of multiples of ten from 90 by 10 using multiplication tables",
-            "work out the division of a 2-digit number by a single-digit number without a remainder",
-            "carry out the division of a 2-digit number by 10 without a remainder",
-            "play video games involving division with peers"
+          "pcis": [
+            "Problem-solving skills: learner works out missing numbers in subtraction of up to 3-digit numbers with single regrouping using a variety of strategies"
           ],
-          "keyInquiryQuestions": [
-            "How can you represent division as repeated subtraction?",
-            "How can we use the multiplication table to work out division questions?"
-          ]
-        },
-        {
-          "subStrandId": "1.7",
-          "subStrandTitle": "Fractions",
-          "specificLearningOutcomes": [
-            "identity, 1/2 and 1/4 as part of a whole",
-            "identify 1/8 as part of a group",
-            "appreciate fractions as part of a whole in daily activities"
-          ],
-          "suggestedLearningExperiences": [
-            "safely make circular cut-outs from manila paper",
-            "fold circular cut-outs into 2 equal parts and identify one part as the whole",
-            "make rectangular cut-outs and fold them into 4 equal parts to get a quarter of a whole and identify each part as the whole",
-            "make rectangular cut-outs and fold to get 8 equal parts and identify one part as the whole",
-            "work out the division of several objects into 2 equal groups and identify each of the small groups as the whole group",
-            "work out the division of several objects into 4 equal groups and identify each of the small groups as the whole group",
-            "work out the division of several objects into 8 equal groups and identify each of the small groups as the whole group",
-            "play games involving 1/2, 1/4, and 1/8 use digital devices or other resources with peers"
-          ],
-          "keyInquiryQuestions": [
-            "How can you represent a half, a quarter, or an eighth of a group?"
+          "linkToOtherSubjects": [
+            "The learner can relate skills used in discussion to speaking and listening skills in English and Kiswahili Language Activities"
           ]
         }
       ]
@@ -183,7 +180,7 @@
             "jointly use metre sticks to measure various distances and record their results",
             "prepare 5 metre long strings with knots at intervals of one metre to measure long distances",
             "in teams, measure the lengths of the 4 walls in their classroom and add the lengths",
-            "measure the length of the chalkboard and the teacher’s table in metres and work out the difference in length",
+            "measure the length of the chalkboard and the teacher's table in metres and work out the difference in length",
             "work out questions involving the addition of length in real-life situations",
             "work out subtraction of length in metres based on real-life situations",
             "work with peers to estimate distances around the school compound up to 10 metres, measure and compare results",
@@ -192,6 +189,21 @@
           "keyInquiryQuestions": [
             "How can the length of a chalkboard be measured using a metre stick?",
             "How can the distance between the flag post and the staffroom be measured using a 5 metres long string?"
+          ],
+          "numberOfLessons": 10,
+          "coreCompetencies": [
+            "Digital Literacy: the learner uses digital devices to record videos of classmates measuring length",
+            "Critical thinking and Problem-solving: learner works out questions involving the addition of length in real-life situations"
+          ],
+          "values": [
+            "Unity: the learner appreciates peers' effort as they measure the lengths of various objects in and around the classroom"
+          ],
+          "pcis": [
+            "Self-efficacy: the learner estimates distances around the school compound up to 10 metres, measures the actual distances, and compares results",
+            "Social Cohesion: learner works harmoniously with peers to estimate distances around the school compound"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate skills used in preparing 5-metres long strings with knots at intervals of one metre to weaving skills in Creative Activities"
           ]
         },
         {
@@ -217,6 +229,21 @@
           ],
           "keyInquiryQuestions": [
             "How can you make a 1kg mass using a beam balance?"
+          ],
+          "numberOfLessons": 10,
+          "coreCompetencies": [
+            "Self-efficacy: the learner role plays the addition of mass in kilograms using items in the classroom model shop",
+            "Critical thinking and Problem-solving: learner makes masses of 1kg using sand or soil by measuring against the kilogram standard unit"
+          ],
+          "values": [
+            "Respect: the learner shares experiences on measuring the mass of different objects",
+            "Unity: learner shares resources amicably as they make masses of objects to use in learning"
+          ],
+          "pcis": [
+            "Safety: learner safely collects materials needed for learning from their immediate environment"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate skills used in preparing a mass of different objects to moulding in Creative Activities"
           ]
         },
         {
@@ -240,6 +267,21 @@
           ],
           "keyInquiryQuestions": [
             "How can the capacity of a container be measured?"
+          ],
+          "numberOfLessons": 12,
+          "coreCompetencies": [
+            "Self-efficacy: the learner estimates the capacity of containers up to 5 litres, measures the actual capacities of the containers, and compares the measurements",
+            "Communication and Collaboration: learner discusses and measures the capacity of different containers using 1-litre containers"
+          ],
+          "values": [
+            "Unity: learner in turn, practises the addition of capacity in litres in real-life situations",
+            "Responsibility: learner cares for the items for measuring capacity"
+          ],
+          "pcis": [
+            "Social Cohesion: learner plays digital games involving capacity in real-life situations with peers"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the collection of safe materials in their immediate environment for learning to waste management in Environmental Activities"
           ]
         },
         {
@@ -247,9 +289,9 @@
           "subStrandTitle": "Time",
           "specificLearningOutcomes": [
             "identify the minute as a unit of measuring time",
-            "read and tell time using ‘past’ and ‘to’ the hour using the clock face",
+            "read and tell time using 'past' and 'to' the hour using the clock face",
             "read and tell time using the digital clock or analogue clock",
-            "write time using ‘past’ and ‘to’ the hour",
+            "write time using 'past' and 'to' the hour",
             "estimate time in hours",
             "add time involving hours and minutes without conversion in real-life situations",
             "subtract time involving hours and minutes without conversion in real-life situations",
@@ -259,7 +301,7 @@
             "draw a clock face on a manila paper or any other resource, divide the clock face into two equal parts using a line passing through the centre, and discuss what each division represents",
             "discuss the divisions on the clock face",
             "locate a minute on the clock face and discuss it as a unit of measuring time",
-            "discuss how to tell time on the clock face using “past” and “to” the hour",
+            "discuss how to tell time on the clock face using 'past' and 'to' the hour",
             "in turns, read and tell time on an analogue clock",
             "discuss how the digital clock operates and share their findings with others",
             "in turns, read and tell time on a digital clock",
@@ -270,6 +312,21 @@
           ],
           "keyInquiryQuestions": [
             "How do we read and tell time using digital and analogue clocks?"
+          ],
+          "numberOfLessons": 8,
+          "coreCompetencies": [
+            "Communication and Collaboration: the learner discusses how to tell time on the clock face using 'past' and 'to' the hour",
+            "Learning to Learn: the learner reads and tells time on analogue and digital clocks"
+          ],
+          "values": [
+            "Respect: learner accommodates diverse opinions as they discuss the importance of keeping time in real-life situations",
+            "Peace: learner displays tolerance as they in turn read and tell time on a digital clock"
+          ],
+          "pcis": [
+            "Social Cohesion: learner takes turns in activities and conversations as they read and tell time on analogue and digital clocks"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the skills used in drawing the clock face to drawing skills in Creative Activities"
           ]
         },
         {
@@ -290,7 +347,7 @@
             "sort Kenyan currency notes according to their value up to sh.1000",
             "count Kenyan currency notes in different denominations up to sh1000",
             "subtract money up to sh.1000 in real-life situations",
-            "add money up to sh.1000 in real- life situations",
+            "add money up to sh.1000 in real-life situations",
             "role play changing money into different denominations up to sh. 1000 in the classroom model shop",
             "role play buying up to 3 items involving balance using the money models up to sh.1000 in the classroom model shop",
             "share their own experiences with shopping activities",
@@ -298,6 +355,22 @@
           ],
           "keyInquiryQuestions": [
             "How can money be represented in different denominations?"
+          ],
+          "numberOfLessons": 8,
+          "coreCompetencies": [
+            "Citizenship: learner counts Kenyan currency notes in different denominations up to sh. 1000",
+            "Digital Literacy: learner uses digital devices to play games involving money"
+          ],
+          "values": [
+            "Patriotism: learner exhibit honesty as they sort out Kenyan currency notes according to their value up to sh.1000",
+            "Responsibility: learner engages in assigned roles and duties as they role play buying and selling in the classroom model shop"
+          ],
+          "pcis": [
+            "Financial Literacy: learner role plays buying and selling items in the classroom model shop",
+            "Sustainable consumption: the learner uses locally available materials from the environment to model Kenyan currency"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the skills used in modelling the Kenyan currency denominations to modelling skills in Creative Activities"
           ]
         }
       ]
@@ -325,7 +398,23 @@
             "play digital games with peers involving movement on straight lines and turning to the left and right"
           ],
           "keyInquiryQuestions": [
-            "What is the importance of directions in real- life situations?"
+            "What is the importance of directions in real-life situations?"
+          ],
+          "numberOfLessons": 6,
+          "coreCompetencies": [
+            "Digital Literacy: the learner uses digital devices to play games involving movement on straight lines, to the right and left",
+            "Collaboration: the learner teams up with others to move along a straight line from a given point outside the classroom"
+          ],
+          "values": [
+            "Unity: the learner plays games involving moving along a straight line and then turning left or right peers",
+            "Respect: the learner takes turns in activities as they move straight outside the classroom and then turn to the left"
+          ],
+          "pcis": [
+            "Positive discipline: learner follows laid down procedures to carry out activities as they move along a straight line from a given point outside the classroom",
+            "Social Cohesion: the learner gives others equal opportunities to share responsibilities as they play games"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the concept of position and direction to the concept of location in Environmental Activities"
           ]
         },
         {
@@ -348,6 +437,21 @@
           ],
           "keyInquiryQuestions": [
             "What shapes can you identify in your school?"
+          ],
+          "numberOfLessons": 6,
+          "coreCompetencies": [
+            "Creativity: the learner draws combined shapes found in the environment that are made of 2 different shapes",
+            "Digital Literacy: learner plays digital games involving shapes with peers"
+          ],
+          "values": [
+            "Social Justice: the learner accommodates peers' opinion as they name the different shapes made from the paper cut-outs",
+            "Responsibility: learner uses locally available resources sparingly as they model a combined shape made of 2 different shapes"
+          ],
+          "pcis": [
+            "Creative thinking: the learner uses locally available materials to model combined shapes"
+          ],
+          "linkToOtherSubjects": [
+            "The learner can relate the skills used in drawing combined shapes to drawing skills in Creative Activities"
           ]
         }
       ]

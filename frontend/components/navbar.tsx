@@ -12,6 +12,9 @@ import {
   FiSettings,
   FiChevronDown,
   FiBell,
+  FiMoon,
+  FiSun,
+  FiCreditCard,
 } from "react-icons/fi";
 import toast from "react-hot-toast";
 
@@ -26,7 +29,29 @@ export default function Navbar() {
   const [nextLesson, setNextLesson] = useState<any>(null);
   const [countdown, setCountdown] = useState<string>("");
   const [scrolled, setScrolled] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const toggleTheme = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    if (newMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+      toast.success("Dark mode enabled");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+      toast.success("Light mode enabled");
+    }
+  };
+
+  useEffect(() => {
+    // Force light mode
+    setIsDarkMode(false);
+    document.documentElement.classList.remove("dark");
+    localStorage.setItem("theme", "light");
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -168,11 +193,6 @@ export default function Navbar() {
     {
       name: "Professional Records",
       href: "/professional-records",
-      public: false,
-    },
-    {
-      name: "Settings",
-      href: "/settings/profile",
       public: false,
     },
     // Admin link - only visible to admins
@@ -317,6 +337,25 @@ export default function Navbar() {
                           <p className="text-xs text-gray-500 truncate">
                             {user?.email}
                           </p>
+                          <div className="mt-2 flex items-center">
+                            <span
+                              className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide ${
+                                user?.subscription_type === "INDIVIDUAL_PREMIUM"
+                                  ? "bg-gradient-to-r from-amber-200 to-yellow-400 text-yellow-900 shadow-sm"
+                                  : user?.subscription_type ===
+                                    "SCHOOL_SPONSORED"
+                                  ? "bg-blue-100 text-blue-700"
+                                  : user?.subscription_type ===
+                                    "INDIVIDUAL_BASIC"
+                                  ? "bg-green-100 text-green-700"
+                                  : "bg-gray-200 text-gray-700"
+                              }`}
+                            >
+                              {user?.subscription_type
+                                ? user.subscription_type.replace(/_/g, " ")
+                                : "FREE PLAN"}
+                            </span>
+                          </div>
                         </div>
 
                         {/* Next Lesson Info */}
@@ -342,6 +381,54 @@ export default function Navbar() {
 
                         {/* Menu Items */}
                         <div className="px-2 py-2">
+                          {/* Billing / My Plan */}
+                          <Link
+                            href="/pricing"
+                            className="flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-xl transition-all duration-200 group"
+                            onClick={() => setIsAccountDropdownOpen(false)}
+                          >
+                            <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-indigo-100 group-hover:text-indigo-600 transition-colors">
+                              <FiCreditCard className="w-4 h-4" />
+                            </div>
+                            <div className="flex-1">
+                              <span className="font-medium block">My Plan</span>
+                              {user?.created_at &&
+                                user?.subscription_type === "FREE" && (
+                                  <span className="text-[10px] text-gray-500 block leading-tight">
+                                    Trial ends{" "}
+                                    {new Date(
+                                      new Date(user.created_at).getTime() +
+                                        14 * 24 * 60 * 60 * 1000
+                                    ).toLocaleDateString()}
+                                  </span>
+                                )}
+                              {user?.subscription_type !== "FREE" && (
+                                <span className="text-[10px] text-gray-500 block leading-tight">
+                                  Manage subscription
+                                </span>
+                              )}
+                            </div>
+                          </Link>
+
+                          {/* Theme Toggle - Disabled */}
+                          {/* <button
+                            onClick={toggleTheme}
+                            className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-xl transition-all duration-200 group text-left"
+                          >
+                            <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-indigo-100 group-hover:text-indigo-600 transition-colors">
+                              {isDarkMode ? (
+                                <FiSun className="w-4 h-4" />
+                              ) : (
+                                <FiMoon className="w-4 h-4" />
+                              )}
+                            </div>
+                            <span className="font-medium">
+                              {isDarkMode ? "Light Mode" : "Dark Mode"}
+                            </span>
+                          </button> */}
+
+                          <div className="my-1 border-t border-gray-100"></div>
+
                           <Link
                             href="/dashboard"
                             className="flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-xl transition-all duration-200 group"
@@ -354,7 +441,7 @@ export default function Navbar() {
                           </Link>
 
                           <Link
-                            href="/settings"
+                            href="/settings/profile"
                             className="flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-xl transition-all duration-200 group"
                             onClick={() => setIsAccountDropdownOpen(false)}
                           >

@@ -88,6 +88,7 @@ export default function LoginPage() {
             is_admin: user.is_admin,
             role: user.role,
             subscription_type: user.subscription_type,
+            has_subjects: user.has_subjects,
           })
         );
 
@@ -99,7 +100,13 @@ export default function LoginPage() {
         } else if (user.role === "SCHOOL_ADMIN") {
           router.push("/dashboard"); // School Admin sees School Admin Dashboard
         } else {
-          router.push("/dashboard"); // Teachers see Teacher Dashboard
+          // Check if teacher has subjects
+          if (user.has_subjects === false) {
+            toast("Welcome! Please select a plan to continue.", { icon: "👋" });
+            router.push("/pricing");
+          } else {
+            router.push("/dashboard"); // Teachers see Teacher Dashboard
+          }
         }
       } else {
         toast.success("Login successful!");

@@ -9,7 +9,7 @@
         {
           "subStrandId": "1.1",
           "subStrandTitle": "Kusikiliza na Kuzungumza: Maamkuzi na Maagano",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua maamkuzi na maagano mbalimbali yatumiwayo katika jamii",
             "kutumia ipasavyo maamkuzi na maagano mbalimbali yatumiwayo katika jamii",
@@ -21,14 +21,31 @@
             "kuigiza maamkuzi na maagano akiwa na wenzake ili kujenga umilisi wa kutumia maneno haya",
             "kujadiliana na mzazi au mlezi wake maamkuzi na maagano kutoka kwa jamii yake"
           ],
-          "keyInquiryQuestions": [
-            "Je, unajua maamkuzi na maagano yapi?"
+          "keyInquiryQuestions": ["Je, unajua maamkuzi na maagano yapi?"],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapofanya mazoezi ya maamkuzi pamoja na wenzake.",
+            "Kujiamini: mwanafunzi anapojieleza kwa sauti thabiti anapotoa maagano mbele ya kundi.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kutazama video za maamkuzi kutoka jamii mbalimbali.",
+            "Hamu ya ujifunzaji: mwanafunzi anapotafuta mifano zaidi ya maamkuzi kutoka katika jamii yake na kuwasilisha darasani."
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapowajibu walimu na wenzake kwa maamkuzi yanayofaa.",
+            "Uaminifu: mwanafunzi anapozingatia maagano anayofanya na wenzake.",
+            "Upendo: mwanafunzi anapowakaribisha wenzake kwa maneno yenye staha."
+          ],
+          "pcis": [
+            "Uraia: mwanafunzi anapojadili maamkuzi yanayoboresha umoja wa jamii.",
+            "Maadili: mwanafunzi anapotambua thamani ya lugha yenye staha katika mahusiano."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya kuwasiliana anayojifunza katika somo la Kiswahili na somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha dhana ya umoja na anayojifunza katika somo la Social Studies."
           ]
         },
         {
           "subStrandId": "1.2",
           "subStrandTitle": "Kusoma: Kusoma kwa Ufahamu",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua msamiati kuhusu suala lengwa katika kifungu chepesi cha ufahamu",
             "kueleza ujumbe wa kifungu chepesi cha ufahamu",
@@ -48,12 +65,31 @@
           "keyInquiryQuestions": [
             "Je, unapenda kusoma hadithi za aina gani?",
             "Je, ni mambo gani unayoweza kujifunza kutokana na hadithi?"
+          ],
+          "coreCompetencies": [
+            "Uwazaji wa kina na utatuzi wa matatizo: mwanafunzi anapochanganua ujumbe wa kifungu na kutoa mafunzo.",
+            "Mawasiliano na ushirikiano: mwanafunzi anapozungumza na wenzake kuhusu kifungu alichosoma.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kusoma hadithi au msamiati mpya.",
+            "Hamu ya ujifunzaji: mwanafunzi anapojisomea hadithi zaidi nyumbani ili kuimarisha stadi."
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapofuata mpangilio wa kusoma aliopewa.",
+            "Uvumilivu: mwanafunzi anaposoma kifungu kwa makini hadi aelewe ujumbe.",
+            "Heshima: mwanafunzi anapowaruhusu wenzake wasome au kueleza maoni yao darasani."
+          ],
+          "pcis": [
+            "Uraia: mwanafunzi anapojadili hadithi zinazoendeleza uzalendo na undugu.",
+            "Elimu ya mazingira: mwanafunzi anaposoma kifungu kinachoeleza namna ya kuhifadhi mazingira yake."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha ujuzi wa kusoma kwa ufahamu na anayojifunza katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha ujumbe wa hadithi unaohusu maadili na somo la Christian Religious Education (CRE) au Islamic Religious Education (IRE)."
           ]
         },
         {
           "subStrandId": "1.3",
           "subStrandTitle": "Kuandika: Hati Nadhifu: Kifungu",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua mambo yanayozingatiwa kufanikisha hati nadhifu",
             "kuandika kifungu cha maneno kati ya 25-30 kwa hati nadhifu",
@@ -66,12 +102,31 @@
           ],
           "keyInquiryQuestions": [
             "Unazingatia mambo gani unapoandika kifungu?"
+          ],
+          "coreCompetencies": [
+            "Uwajibikaji wa kibinafsi: mwanafunzi anapofuata hatua za uandishi hadi kukamilisha nakala safi.",
+            "Ubunifu: mwanafunzi anapopanga maneno kwa mtiririko unaovutia akizingatia hati nadhifu.",
+            "Mawasiliano na ushirikiano: mwanafunzi anapobadilishana kazi na wenzake kwa ajili ya maoni.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kuiga mwandiko au kuhariri kazi yake."
+          ],
+          "values": [
+            "Usafi: mwanafunzi anaposomeka vizuri kwa kuzingatia hati nadhifu.",
+            "Uvumilivu: mwanafunzi anapojirekebisha mara kadhaa hadi afikie kiwango kinachotarajiwa.",
+            "Heshima: mwanafunzi anapokubali mrejesho kutoka kwa walimu na wenzake."
+          ],
+          "pcis": [
+            "Maadili: mwanafunzi anapojifunza kuwa mwangalifu na mpole katika uandishi.",
+            "Ubunifu na uvumbuzi: mwanafunzi anapotengeneza kadi au kifungu kinachoonyesha dhamira ya uzalendo."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha hati nadhifu anayojifunza katika somo la Kiswahili na inavyohitajika katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha maudhui ya uzalendo na somo la Social Studies."
           ]
         },
         {
           "subStrandId": "1.4",
           "subStrandTitle": "Sarufi: Matumizi ya Yeye na Wao",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua neno yeye na wao katika sentensi",
             "kutumia neno yeye na wao ipasavyo katika sentensi",
@@ -86,6 +141,25 @@
           ],
           "keyInquiryQuestions": [
             "Ni maneno gani unayoyatumia kuwataja wenzako bila kutumia majina yao halisi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake katika kutunga sentensi kwa kutumia yeye na wao.",
+            "Uwazaji wa kina: mwanafunzi anapotofautisha matumizi ya nafsi ya umoja na wingi katika sentensi.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kusikiliza kifungu chenye viwakilishi hivi.",
+            "Kujiamini: mwanafunzi anapowasilisha sentensi zake mbele ya darasa."
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapotumia viwakilishi vinavyofaa kuwatambua watu wengine.",
+            "Uwajibikaji: mwanafunzi anapofuata maagizo ya kazi anapotumia yeye na wao.",
+            "Umoja: mwanafunzi anapofanya kazi ya kikundi bila kubeza michango ya wengine."
+          ],
+          "pcis": [
+            "Uraia: mwanafunzi anapojadili watu mashuhuri wa taifa kwa kutumia viwakilishi sahihi.",
+            "Elimu ya kijamii: mwanafunzi anapotumia sentensi kuelezea tabia njema za wana jamii."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha dhana ya viwakilishi na anayojifunza katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kutumia sentensi hizo kuelezea masomo mengine kama Environmental Activities au Religious Education."
           ]
         }
       ]
@@ -97,7 +171,7 @@
         {
           "subStrandId": "2.1",
           "subStrandTitle": "Kusikiliza na Kuzungumza: Matamshi Bora: Vokali na Konsonanti za Kiswahili",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua vokali za Kiswahili katika matini",
             "kutamka ipasavyo vokali za Kiswahili katika matini",
@@ -118,37 +192,72 @@
           ],
           "keyInquiryQuestions": [
             "Je, kwa nini ni muhimu kutambua sauti za lugha fulani?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kutamka vokali na konsonanti mbalimbali.",
+            "Kujiamini: mwanafunzi anapojieleza kwa sauti thabiti akifanya mazoezi ya matamshi bora.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kurekodi na kutathmini matamshi yake.",
+            "Hamu ya ujifunzaji: mwanafunzi anapojituma kufanya mazoezi ya sauti za Kiswahili nyumbani."
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapofanya mazoezi ya matamshi mara kwa mara.",
+            "Uvumilivu: mwanafunzi anapojaribu mara nyingi hadi afanikiwe kutamka sauti gumu.",
+            "Heshima: mwanafunzi anapowasikiliza wenzake wakitamka na kutoa mrejesho kwa staha."
+          ],
+          "pcis": [
+            "Maadili: mwanafunzi anapotumia lugha yenye staha na matamshi bora anaposalimu watu katika jamii.",
+            "Ubunifu na uvumbuzi: mwanafunzi anapotengeneza michezo ya lugha ili kuonyesha uelewa wa vokali na konsonanti."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya matamshi anayojifunza katika somo la Kiswahili na stadi sawia katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha mazungumzo kuhusu sauti za wanyama au mazingira na somo la Environmental Activities."
           ]
         },
         {
           "subStrandId": "2.2",
           "subStrandTitle": "Kusoma: Kusoma kwa Ufasaha Sauti /bw/, /fy/ na /kw/",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua sauti lengwa katika kifungu chepesi cha hadithi",
-            "kusoma kifungu chepesi cha hadithi kwa kuzingatia matamshi bora",
-            "kusoma kifungu chepesi cha hadithi kwa sauti inayosikika",
-            "kusoma kifungu chepesi cha hadithi kwa kuzingatia kasi ifaayo",
-            "kusoma kifungu chepesi cha hadithi kwa kuzingatia ishara zifaazo",
+            "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia matamshi bora",
+            "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa sauti inayosikika",
+            "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia kasi ifaayo",
+            "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia ishara zifaazo",
             "kuchangamkia kusoma kwa ufasaha ili kufanikisha mawasiliano"
           ],
           "suggestedLearningExperiences": [
-            "kutambua sauti lengwa (/bw/, /fy/, /kw/) katika kifungu chepesi kuhusu suala lengwa akiwa na wenzake",
+            "kutambua sauti lengwa (/mbw, /nd/, /ny/) katika kifungu chepesi kuhusu suala lengwa akiwa na wenzake",
             "kusoma kifungu chepesi cha maneno chenye sauti lengwa kwa kuzingatia matamshi bora akiwa na wenzake",
             "kusoma kifungu chepesi cha maneno chenye sauti lengwa kwa sauti inayosikika akiwa na wenzake",
-            "kusoma kifungu chepesi cha maneno chenye sauti lengwa kwa kuzingatia kasi ifaayo (maneno 47 kwa dakika na kwa kuzingatia viakifishi) akiwa na wenzake",
+            "kusoma kifungu chepesi cha maneno chenye sauti lengwa kwa kuzingatia kasi ifaayo (maneno 53 kwa dakika na kwa kuzingatia viakifishi)",
             "kusoma kifungu chepesi chenye sauti lengwa kwa kuzingatia ishara zifaazo akiwa na wenzake",
-            "kusoma hadithi kutoka kwenye kitabu, kifaa cha kidijtali, n.k. akiwa na wenzake akizingatia sauti inayosikika, matamshi bora, kasi ifaayo na ishara zifaazo",
-            "kumsomea mzazi au mlezi kifungu chepesi chenye sauti lengwa akizingatia matamshi bora,sauti inayosikika, kasi ifaayo na ishara zifaazo"
+            "kumsomea mzazi au mlezi kifungu chepesi chenye sauti lengwa akizingatia matamshi bora, sauti inayosikika, kasi ifaayo na ishara zifaazo kwa ufasaha"
           ],
-          "keyInquiryQuestions": [
-            "Je, utafanya mambo gani unaposoma ili uweze kusikika vizuri?"
+          "keyInquiryQuestions": ["Je, ni kwa nini tunasoma kwa ufasaha?"],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kusoma kwa ufasaha.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kusoma hadithi kwa ufasaha.",
+            "Hamu ya ujifunzaji: mwanafunzi anaposoma majarida na magazeti kuimarisha stadi ya kusoma.",
+            "Ubunifu: mwanafunzi anapojadiliana na wenzake na kusoma kifungu chepesi kwa ufasaha."
+          ],
+          "values": [
+            "Umoja: mwanafunzi anaposhirikiana na wenzake kwa kikundi.",
+            "Upendo: mwanafunzi anapowashirikisha wengine katika matumizi ya vifaa vya kidijitali darasani.",
+            "Uwajibikaji: mwanafunzi anapotunza vifaa vya kidijitali anavyovitumia."
+          ],
+          "pcis": [
+            "Elimu ya mazingira na tabia nchi: mwanafunzi anaposoma kifungu chepesi kuhusu suala lengwa akizingatia matamshi bora, sauti inayosikika, kasi ifaayo na ishara zifaazo.",
+            "Elimu ya utunzaji wa wanyama: mwanafunzi anaposoma kifungu kuhusu suala lengwa."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya kusoma kwa ufasaha na anayojifunza katika somo la Kiswahili na ujifunzaji wa stadi hiyo katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha suala la ndege nimpendaye na yanayofundishwa katika somo la Environmental Activities."
           ]
         },
         {
           "subStrandId": "2.3",
           "subStrandTitle": "Kuandika: Hati Nadhifu",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua herufi kubwa katika matini",
             "kuandika kifungu cha hadithi akitumia herufi kubwa ifaavyo",
@@ -163,12 +272,32 @@
           ],
           "keyInquiryQuestions": [
             "Kwa nini tunatumia hati nadhifu katika uandishi?"
+          ],
+          "coreCompetencies": [
+            "Uwajibikaji wa kibinafsi: mwanafunzi anapofuata hatua za uandishi hadi kukamilisha kazi nadhifu.",
+            "Ubunifu: mwanafunzi anapopanga maumbo ya herufi kubwa ili kifungu kipendeze na kusomeka.",
+            "Mawasiliano na ushirikiano: mwanafunzi anapobadilishana kazi na wenzake kwa ajili ya mrejesho wa uandishi.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kunakili au kuhariri kazi kwa hati nadhifu."
+          ],
+          "values": [
+            "Usafi: mwanafunzi anapowasilisha nakala safi bila madoa.",
+            "Uvumilivu: mwanafunzi anapokubali kuanza upya anapokosea hati yake.",
+            "Heshima: mwanafunzi anapohifadhi vitabu na vifaa baada ya shughuli.",
+            "Uwajibikaji: mwanafunzi anapofuata maelekezo ya mwalimu kuhusu mpangilio wa maumbo ya herufi."
+          ],
+          "pcis": [
+            "Maadili: mwanafunzi anapojifunza kuwa makini na mwenye nidhamu katika kazi ya maandishi.",
+            "Ubunifu na uvumbuzi: mwanafunzi anapotengeneza kadi au bango la kilimo kuhusu mada ya shambani."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha hati nadhifu na uchoraji unaofundishwa katika somo la Creative Arts.",
+            "Mwanafunzi anaweza kuhusisha maudhui ya shambani na somo la Environmental Activities."
           ]
         },
         {
           "subStrandId": "2.4",
           "subStrandTitle": "Sarufi: Umoja na Wingi wa Sentensi",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua sentensi katika umoja na wingi",
             "kutunga sentensi katika umoja na wingi",
@@ -185,6 +314,26 @@
           ],
           "keyInquiryQuestions": [
             "Je, kwa nini unahitaji kutaja vitu katika hali ya umoja na wingi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kubadilisha sentensi kutoka umoja hadi wingi.",
+            "Uwazaji wa kina: mwanafunzi anapotambua mabadiliko ya maana yanayotokana na kubadilisha umoja na wingi.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia programu za mazoezi kutofautisha sentensi za umoja na wingi.",
+            "Kujiamini: mwanafunzi anapowasilisha sentensi alizounda mbele ya darasa."
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapotumia lugha inayowatambua watu kwa njia inayofaa.",
+            "Uwajibikaji: mwanafunzi anapotekeleza mazoezi ya sarufi kwa makini.",
+            "Umoja: mwanafunzi anaposhirikisha wenzake katika kujadili sentensi walizounda.",
+            "Uadilifu: mwanafunzi anapotumia mifano ya kweli kutoka maisha ya shambani."
+          ],
+          "pcis": [
+            "Uraia: mwanafunzi anapotumia sentensi kueleza majukumu ya raia mmoja mmoja na kwa pamoja.",
+            "Elimu ya utunzaji wa wanyama: mwanafunzi anapotaja mifugo mmoja mmoja na kwa wingi kulingana na mada ya shambani."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha dhana ya umoja na wingi na inayofundishwa katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha mifano ya shambani na somo la Environmental Activities."
           ]
         }
       ]
@@ -196,7 +345,7 @@
         {
           "subStrandId": "3.1",
           "subStrandTitle": "Kusikiliza na Kuzungumza: Maneno ya Heshima na Adabu",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua maneno ya heshima na adabu katika matini",
             "kutumia maneno ya heshima na adabu katika mawasiliano",
@@ -210,12 +359,32 @@
           ],
           "keyInquiryQuestions": [
             "Je, ni kwa nini tunatumia maneno ya heshima na adabu katika mawasiliano?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kuigiza mazungumzo ya heshima.",
+            "Kujiamini: mwanafunzi anapoongea mbele ya darasa akitumia lugha yenye staha.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kutazama video za mienendo ya adabu.",
+            "Hamu ya ujifunzaji: mwanafunzi anapotafuta methali au semi za heshima kutoka kwa jamii mbalimbali."
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapowasalimia watu kwa taratibu zinazofaa.",
+            "Ustaarabu: mwanafunzi anapotumia maneno ya adabu katika kila mazungumzo.",
+            "Umoja: mwanafunzi anapojenga amani kupitia lugha ya staha.",
+            "Uwajibikaji: mwanafunzi anapotumia lugha ya heshima hata bila kusimamiwa."
+          ],
+          "pcis": [
+            "Uraia: mwanafunzi anapoonyesha maadili bora ya kuishi pamoja katika jamii.",
+            "Utunzaji wa mazingira: mwanafunzi anapotumia lugha ya staha kuhamasisha wengine kulinda mazingira ya jamii."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya mazungumzo yenye heshima na anayojifunza katika somo la Christian Religious Education (CRE) au Islamic Religious Education (IRE).",
+            "Mwanafunzi anaweza kueleza maadili ya heshima kwa kutumia lugha ya Kiingereza au lugha za asili katika somo la English Language Activities na Indigenous Language Activities."
           ]
         },
         {
           "subStrandId": "3.2",
           "subStrandTitle": "Kusoma: Kusoma kwa Ufahamu",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua msamiati kuhusu suala lengwa katika kifungu chepesi cha ufahamu",
             "kueleza ujumbe wa kifungu chepesi cha ufahamu",
@@ -234,12 +403,32 @@
           ],
           "keyInquiryQuestions": [
             "Je, ni mambo yapi unaweza kujifunza kutokana na unachokisoma?"
+          ],
+          "coreCompetencies": [
+            "Uwazaji wa kina na utatuzi wa matatizo: mwanafunzi anapochanganua ujumbe wa kifungu kuhusu miezi ya mwaka.",
+            "Mawasiliano na ushirikiano: mwanafunzi anapojadili msamiati wa miezi na wenzake.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kusoma majina ya miezi katika kalenda za kimtandao.",
+            "Hamu ya ujifunzaji: mwanafunzi anapojisomea hadithi zaidi kuhusu shughuli za kila mwezi."
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapofuata ratiba ya kusoma aliyopewa.",
+            "Heshima: mwanafunzi anapowasikiliza wenzake wanaposhirikisha mafunzo waliyopata.",
+            "Uvumilivu: mwanafunzi anapochukua muda kuelewa mafunzo tofauti ya miezi.",
+            "Uadilifu: mwanafunzi anapotoa taarifa za kweli kuhusu shughuli za jamii yake katika miezi mbalimbali."
+          ],
+          "pcis": [
+            "Elimu ya mazingira na tabia nchi: mwanafunzi anapojadili hali ya hewa ya miezi mbalimbali na namna ya kuhifadhi mazingira.",
+            "Uraia: mwanafunzi anapojadili tamaduni za jamii zinazoonekana katika miezi tofauti ya mwaka."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha mada ya miezi ya mwaka na somo la Environmental Activities.",
+            "Mwanafunzi anaweza kutumia uelewa wa miezi kuunda kalenda katika somo la Mathematical Activities."
           ]
         },
         {
           "subStrandId": "3.3",
           "subStrandTitle": "Kuandika: Hati Nadhifu",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua herufi ndogo zilizoandikwa ipasavyo katika kifungu",
             "kuandika kifungu akitumia herufi ndogo ifaavyo",
@@ -255,12 +444,31 @@
           ],
           "keyInquiryQuestions": [
             "Je, unazingatia mambo gani unapoandika herufi ndogo ifaavyo?"
+          ],
+          "coreCompetencies": [
+            "Uwajibikaji wa kibinafsi: mwanafunzi anapotilia mkazo mwendelezo wa herufi ndogo hadi kazi ikamilike.",
+            "Ubunifu: mwanafunzi anapopanga aya kwa mtiririko unaovutia.",
+            "Mawasiliano na ushirikiano: mwanafunzi anapobadilishana kazi na kutoa mrejesho wa hati nadhifu.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kunakili kifungu kwa muundo ulionyooka."
+          ],
+          "values": [
+            "Usafi: mwanafunzi anapowasilisha kazi isiyo na makosa ya uchafu.",
+            "Ustahimilivu: mwanafunzi anapoendelea kuandika kwa uangalifu hadi herufi zote ziwe sawa.",
+            "Heshima: mwanafunzi anapokubali mrejesho wa maboresho kutoka kwa wenzao au mwalimu."
+          ],
+          "pcis": [
+            "Maadili: mwanafunzi anapojifunza nidhamu ya maandishi.",
+            "Ubunifu na uvumbuzi: mwanafunzi anapotengeneza kalenda ya miezi kwa hati nadhifu inayoweza kutumika nyumbani."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha uandishi nadhifu na somo la Creative Arts, hasa katika kubuni kadi za miezi.",
+            "Mwanafunzi anaweza kutumia hati nadhifu kutayarisha maelezo ya majaribio ya somo la Science and Technology."
           ]
         },
         {
           "subStrandId": "3.4",
           "subStrandTitle": "Sarufi: Matumizi ya Maneno Yule na Wale",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua matumizi ya neno yule na wale katika kifungu",
             "kutumia neno yule na wale katika sentensi",
@@ -277,6 +485,25 @@
           ],
           "keyInquiryQuestions": [
             "Unaweza kutunga sentensi zipi ukitumia maneno yule na wale?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapojadili na wenzake namna ya kutumia neno yule na wale katika sentensi.",
+            "Uwazaji wa kina: mwanafunzi anapotambua tofauti ya kumbainisha mtu mmoja na kikundi.",
+            "Kujiamini: mwanafunzi anapotoa mifano yake mbele ya darasa bila kusitasita.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kufanya mazoezi ya vionyeshi."
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapotumia lugha inayowaashiria watu kwa staha.",
+            "Uwajibikaji: mwanafunzi anapofuata sheria za sarufi katika kazi zake.",
+            "Umoja: mwanafunzi anaposhirikiana na wenzake kuigiza matukio ya kutumia yule na wale."
+          ],
+          "pcis": [
+            "Uraia: mwanafunzi anapowaashiria viongozi wa jamii kwa kutumia maneno sahihi yule na wale.",
+            "Elimu ya kijamii: mwanafunzi anapojadili makundi ya watu katika tamaduni mbalimbali za miezi ya mwaka."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha dhana ya vionyeshi na somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kutumia ujuzi huu kuelezea watu wanaofanya shughuli tofauti katika somo la Social Studies."
           ]
         }
       ]
@@ -288,7 +515,7 @@
         {
           "subStrandId": "4.1",
           "subStrandTitle": "Kusikiliza na Kuzungumza: Matamshi Bora (Silabi za sauti /py/, /vy/ na /sh/)",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "Kutambua silabi za sauti lengwa katika kifungu",
             "kutamka maneno yenye silabi za sauti lengwa kwa ufasaha",
@@ -305,12 +532,31 @@
           ],
           "keyInquiryQuestions": [
             "Unazingatia mambo gani unapotamka maneno mbalimbali katika kifungu?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapojadili na wenzake juu ya silabi za sauti lengwa.",
+            "Kujiamini: mwanafunzi anapowasilisha matamshi yake mbele ya darasa.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia programu za usomaji kurudia sauti /py/, /vy/, /sh/.",
+            "Ubunifu: mwanafunzi anapotunga tungo fupi zinazoonyesha sauti lengwa."
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapofanya mazoezi ya mara kwa mara ya matamshi bora.",
+            "Heshima: mwanafunzi anapotoa mrejesho kwa wenzake bila kuwakejeli.",
+            "Uvumilivu: mwanafunzi anapojaribu matamshi magumu hadi afanikiwe."
+          ],
+          "pcis": [
+            "Maadili: mwanafunzi anapotumia lugha yenye staha kuonyesha kazi mbalimbali.",
+            "Ubunifu na uvumbuzi: mwanafunzi anapotumia vifaa vya teknolojia kurekodi na kuchambua sauti."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya matamshi bora na somo la Music and Movement linapoangazia sauti.",
+            "Mwanafunzi anaweza kutumia uelewa wa kazi mbalimbali anapojadili somo la Social Studies."
           ]
         },
         {
           "subStrandId": "4.2",
           "subStrandTitle": "Kusoma: Kusoma kwa Ufasaha. Sauti /py/, /vy/, /sh/)",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua sauti lengwa katika kifungu chepesi cha hadithi",
             "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia matamshi bora",
@@ -329,12 +575,31 @@
           ],
           "keyInquiryQuestions": [
             "Je, unahakikishaje umesoma kifungu kwa ufasaha?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapojadili namna ya kusoma kwa ufasaha na kikundi.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kurekodi na kujitathmini akisoma.",
+            "Hamu ya ujifunzaji: mwanafunzi anaposoma vitabu zaidi kuhusu kazi mbalimbali.",
+            "Uwazaji wa kina: mwanafunzi anapotambua athari ya sauti lengwa kwenye maana ya kifungu."
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapojirudia kusoma hadi afikie ufasaha.",
+            "Heshima: mwanafunzi anapotoa mrejesho kwa wengine kuhusu usomaji kwa njia ya kujenga.",
+            "Uvumilivu: mwanafunzi anapofanya mazoezi ya kasi na sauti mara nyingi."
+          ],
+          "pcis": [
+            "Elimu ya kazi za jamii: mwanafunzi anaposoma kifungu kinachoeleza taaluma mbalimbali.",
+            "Usalama wa mtandao: mwanafunzi anapotumia vifaa vya kidijitali kusoma kwa kuzingatia taratibu."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha kusoma kwa ufasaha na somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha mada za kazi na somo la Social Studies au Career Pathways."
           ]
         },
         {
           "subStrandId": "4.3",
           "subStrandTitle": "Kuandika: Nafasi ya Pambizo katika Uandishi",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua nafasi ya pambizo na nafasi ya kuzingatia anapoandika aya",
             "kuandika kifungu cha maneno yasiyozidi 60 akizingatia pambizo na aya",
@@ -349,12 +614,31 @@
           ],
           "keyInquiryQuestions": [
             "Je, kwa nini tuzingatie nafasi za pambizo tunapoandika?"
+          ],
+          "coreCompetencies": [
+            "Uwajibikaji wa kibinafsi: mwanafunzi anapopanga aya na pambizo kwa kuzingatia mwongozo.",
+            "Ubunifu: mwanafunzi anapounda kijarida kinachoonyesha kazi mbalimbali kwa mpangilio maridadi.",
+            "Mawasiliano na ushirikiano: mwanafunzi anapobadilishana kazi na wenzake ili kupeana mrejesho wa muundo wa aya.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia programu ya kuhariri maandishi kuweka pambizo sawasawa."
+          ],
+          "values": [
+            "Usafi: mwanafunzi anapoweka kazi yake iwasomeke kwa kutumia nafasi zinazofaa.",
+            "Uvumilivu: mwanafunzi anapohariri aya mara kadhaa ili zipangike vizuri.",
+            "Uwajibikaji: mwanafunzi anapofuata maagizo ya mwalimu kuhusu mpangilio wa kazi yazionyeshe taaluma mbalimbali."
+          ],
+          "pcis": [
+            "Maadili ya kikazi: mwanafunzi anapojifunza kuwa na nidhamu katika uandishi kama wafanyakazi binafsi.",
+            "Ubunifu na uvumbuzi: mwanafunzi anapochapisha bango la kazi mbalimbali kwa kutumia pambizo na aya zilizo wazi."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha uandishi wa aya na somo la Creative Arts kwa kutengeneza vijarida vya kazi.",
+            "Mwanafunzi anaweza kutumia ujuzi huu kuandika ripoti fupi katika somo la Science and Technology."
           ]
         },
         {
           "subStrandId": "4.4",
           "subStrandTitle": "Sarufi: Umoja na Wingi wa Sentensi",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua sentensi katika umoja na wingi",
             "kuandika sentensi katika umoja na wingi",
@@ -370,6 +654,25 @@
           ],
           "keyInquiryQuestions": [
             "Je, utajua vipi kama sentensi imeandikwa katika umoja au wingi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapofanya kazi ya kikundi kubadilisha sentensi za kazi mbalimbali kutoka umoja hadi wingi.",
+            "Uwazaji wa kina: mwanafunzi anapotambua athari ya kubadilisha idadi ya wahusika katika sentensi.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia programu za ujifunzaji kuoanisha umoja na wingi.",
+            "Kujiamini: mwanafunzi anapotoa mifano yake mbele ya darasa."
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapotumia lugha inayowatambua watu kwa usahihi.",
+            "Uwajibikaji: mwanafunzi anapokamilisha mazoezi na kuyakagua mara mbili.",
+            "Umoja: mwanafunzi anapowahusisha wenzake kwa kushirikiana katika kuandika sentensi."
+          ],
+          "pcis": [
+            "Uraia: mwanafunzi anapowataja watu wanaofanya kazi tofauti katika jamii mmoja mmoja na kwa vikundi.",
+            "Elimu ya kazi: mwanafunzi anapotumia sentensi kueleza taaluma nyingi."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha dhana ya umoja na wingi na somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kutumia ujuzi huu kuelezea makundi ya viumbe kwenye somo la Environmental Activities."
           ]
         }
       ]
@@ -381,7 +684,7 @@
         {
           "subStrandId": "5.1",
           "subStrandTitle": "Kusikiliza na Kuzungumza: Ufahamu wa Kusikiliza",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua ujumbe unaowasilishwa katika kifungu",
             "kutambua msamiati uliotumiwa katika kifungu alichosikiliza",
@@ -398,12 +701,31 @@
           ],
           "keyInquiryQuestions": [
             "Je, unazingatia mambo gani ili kuelewa mambo unayoelezewa?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapojadili ujumbe wa usalama pamoja na wenzake.",
+            "Uwazaji wa kina: mwanafunzi anapotambua hoja kuu na msamiati muhimu kuhusu usalama.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kusikiliza rekodi ya tahadhari za usalama.",
+            "Kujiamini: mwanafunzi anaporudia ujumbe wa usalama kwa sauti thabiti."
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapotekeleza maagizo ya usalama aliyopewa.",
+            "Uaminifu: mwanafunzi anaporipoti taarifa sahihi baada ya kusikiliza maelekezo ya usalama.",
+            "Heshima: mwanafunzi anapowasikiliza walimu na wenzake bila kuingilia mazungumzo."
+          ],
+          "pcis": [
+            "Utetezi wa haki za mtoto: mwanafunzi anapojadili haki ya kuwa salama shuleni.",
+            "Usalama barabarani: mwanafunzi anaposikiliza hadithi kuhusu taratibu za barabarani."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha ujumbe wa usalama na somo la Social Studies au Life Skills Education.",
+            "Mwanafunzi anaweza kueleza taratibu za usalama anapojifunza katika somo la Religious Education."
           ]
         },
         {
           "subStrandId": "5.2",
           "subStrandTitle": "Kusoma: Kusoma kwa Ufahamu",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua msamiati kuhusu suala lengwa katika kifungu chepesi cha ufahamu",
             "kueleza ujumbe wa kifungu chepesi cha ufahamu",
@@ -422,12 +744,31 @@
           ],
           "keyInquiryQuestions": [
             "Je, ni mambo gani unapaswa kuzingatia ili kufanikisha usomaji bora?"
+          ],
+          "coreCompetencies": [
+            "Uwazaji wa kina na utatuzi wa matatizo: mwanafunzi anapochanganua hatua za usalama katika kifungu.",
+            "Mawasiliano na ushirikiano: mwanafunzi anapojadili msamiati wa usalama na wenzake.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kusoma hadithi za usalama barabarani.",
+            "Hamu ya ujifunzaji: mwanafunzi anapojisomea vitabu zaidi kuhusu kinga binafsi."
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapotekeleza maagizo ya usalama aliyoyasoma.",
+            "Uaminifu: mwanafunzi anapotoa taarifa sahihi kuhusu maudhui ya kifungu.",
+            "Ujasiri: mwanafunzi anaposhiriki kusoma hadithi ya usalama mbele ya wenzake."
+          ],
+          "pcis": [
+            "Utunzaji wa mazingira: mwanafunzi anaposoma kifungu kinachoelezea maeneo salama ya kuchezea.",
+            "Afya na lishe: mwanafunzi anaposoma kuhusu usafi wa kibinafsi kwa ajili ya usalama wa mwili."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha maudhui ya usalama na somo la Life Skills Education.",
+            "Mwanafunzi anaweza kuhusisha uelewa wa usalama barabarani na somo la Social Studies."
           ]
         },
         {
           "subStrandId": "5.3",
           "subStrandTitle": "Kuandika: Matumizi ya Kiulizi",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua alama ya kiulizi katika maandishi",
             "kueleza matumizi ya alama ya kiulizi katika maandishi",
@@ -442,12 +783,31 @@
           ],
           "keyInquiryQuestions": [
             "Je, alama ya kiulizi inatumika vipi katika uandishi?"
+          ],
+          "coreCompetencies": [
+            "Uwazaji wa kina: mwanafunzi anapotambua mahali pa kuweka alama ya kiulizi ili kuimarisha maana.",
+            "Mawasiliano na ushirikiano: mwanafunzi anapowasilisha kifungu chake kuhusu usalama na kupata maoni.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kuhariri maswali ya usalama.",
+            "Ubunifu: mwanafunzi anapotunga maswali bunifu yanayohusu tahadhari mbalimbali."
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapokagua kazi yake kuhakikisha alama ya kiulizi ipo mahali panapofaa.",
+            "Uadilifu: mwanafunzi anapoandika maswali ya kweli kuhusu mazingira salama.",
+            "Ustahimilivu: mwanafunzi anapoendelea kuhariri kazi hadi iwe sahihi."
+          ],
+          "pcis": [
+            "Afya na lishe: mwanafunzi anapotunga maswali kuhusu usalama wa chakula shuleni.",
+            "Usalama wa mtandao: mwanafunzi anapouliza maswali kuhusu jinsi ya kujilinda mtandaoni."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha uandishi wa maswali na somo la Science and Technology anapopanga utafiti wa usalama.",
+            "Mwanafunzi anaweza kutumia maswali haya katika somo la Social Studies kujadili huduma za uokoaji."
           ]
         },
         {
           "subStrandId": "5.4",
           "subStrandTitle": "Sarufi: Matumizi ya -ake na -ao",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua matumizi ya -ake na -ao katika mawasiliano",
             "kutumia -ake na -ao katika sentensi ili kuimarisha mawasiliano",
@@ -464,6 +824,26 @@
           ],
           "keyInquiryQuestions": [
             "Je, -ake na -ao hutumiwa vipi katika mawasiliano?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na kikundi kuigiza hali za usalama akitumia -ake na -ao.",
+            "Uwazaji wa kina: mwanafunzi anapotambua uhusiano wa umiliki kati ya mtu mmoja na kikundi katika sentensi.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kufanya mazoezi ya viambishi hivi.",
+            "Kujiamini: mwanafunzi anapowasilisha sentensi zake kuhusu vifaa vya usalama."
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapotumia lugha inayotambua mali ya wengine kwa staha.",
+            "Uwajibikaji: mwanafunzi anapozingatia utumiaji sahihi wa -ake na -ao katika mawasiliano.",
+            "Umoja: mwanafunzi anaposhirikiana na kikundi kutaja vifaa vya usalama vyao.",
+            "Uaminifu: mwanafunzi anapotaja mali yake au yao bila kudanganya."
+          ],
+          "pcis": [
+            "Usalama wa shule: mwanafunzi anapotumia -ake na -ao kutaja vifaa vya kinga na wamiliki wake.",
+            "Utunzaji wa mazingira: mwanafunzi anapotaja majukumu ya kila mtu katika kuhifadhi mazingira yao."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha dhana ya umilikaji na somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kutumia sentensi hizi kuelezea vifaa vya usalama katika somo la Environmental Activities."
           ]
         }
       ]
@@ -475,7 +855,7 @@
         {
           "subStrandId": "6.1",
           "subStrandTitle": "Kusikiliza na Kuzungumza: Matamshi Bora (silabi za sauti /dh/, /th/ na /ch/)",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua silabi za sauti lengwa katika kifungu",
             "kutamka maneno yenye silabi za sauti lengwa kwenye kifungu kwa ufasaha",
@@ -494,12 +874,30 @@
           "keyInquiryQuestions": [
             "Je, matamshi bora hufanikisha vipi mawasiliano?",
             "Je, ni mambo gani yanayozingatiwa ili kuboresha matamshi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kutambua na kutamka maneno yenye sauti lengwa.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kujirekodi akisoma kifungu na kutambua jinsi alivyotamka sauti lengwa.",
+            "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapoambatanisha silabi na kusoma maneno yanayotokana na sauti lengwa."
+          ],
+          "values": [
+            "Haki za jamii: mwanafunzi aposhirikiana na wenzake katika kutamka maneno ya silabi za sauti lengwa.",
+            "Heshima: mwanafunzi anapoheshimu matamshi ya wenzake katika shughuli za kikundi.",
+            "Amani: mwanafunzi anaposhirikiana na wenzake kwa utulivu kupotambua silabi za sauti lengwa."
+          ],
+          "pcis": [
+            "Elimu ya mazingira na tabia nchi: mwanafunzi anaposoma kifungu kifupi kinachohusu usafi wa mazingira akizingatia silabi za sauti lengwa na matamshi bora.",
+            "Usalama mtandaoni: mwanafunzi anapotambua na kutamka maneno yenye silabi za sauti lengwa kwenye kifaa cha kidijitali akizingatia hatua za kiusalama."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya kusikiliza na kuzungumza anayojifunza katika somo la Kiswahili na ujifunzaji wa stadi hiyo katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha suala la usafi wa mazingira na yanayofundishwa katika somo la Environmental Activities."
           ]
         },
         {
           "subStrandId": "6.2",
           "subStrandTitle": "Kusoma: Kusoma kwa Ufasaha (Sauti /dh/, /th/ na /ch/)",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua sauti lengwa katika kifungu chepesi cha hadithi",
             "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia matamshi bora",
@@ -518,12 +916,31 @@
           ],
           "keyInquiryQuestions": [
             "Je, utafanya nini ili kusikika vizuri unaposoma?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake katika kikundi na kuchangia katika kutambua sauti na kusoma kifungu.",
+            "Uraia: mwanafunzi anaposhirikiana na wenzake katika shughuli za kikundi bila ubaguzi.",
+            "Kujiamini: mwanafunzi anapomsomea mzazi au mlezi kifungu cha maneno kuhusu suala lengwa.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kusoma hadithi kwa kutumia matamshi bora."
+          ],
+          "values": [
+            "Upendo: mwanafunzi anapowashirikisha wengine katika matumizi ya vifaa vya kidijitali kusoma hadithi.",
+            "Uwajibikaji: mwanafunzi anapotunza vifaa vya kidijitali anavyotumia.",
+            "Uvumilivu: mwanafunzi anapojirudia kusoma hadi usomaji wake usikike vizuri."
+          ],
+          "pcis": [
+            "Elimu ya mazingira na tabia nchi: mwanafunzi anaposoma hadithi kuhusu usafi wa mazingira akizingatia sauti lengwa.",
+            "Afya na lishe: mwanafunzi anaposoma kifungu kinachoeleza namna ya kudumisha usafi wa mwili."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya kusoma kwa ufasaha anayojifunza katika somo la Kiswahili na ujifunzaji wa stadi hiyo katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha suala la usafi wa mazingira na yanayofundishwa katika somo la Environmental Activities."
           ]
         },
         {
           "subStrandId": "6.3",
           "subStrandTitle": "Kuandika: Imla",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua maneno yanayotamkwa kwenye imla ili kuyaandika ipasavyo",
             "kuandika kifungu cha maneno 55-60 yanayotamkwa kwenye imla akizingatia kanuni za uandishi zifaazo",
@@ -538,12 +955,30 @@
           ],
           "keyInquiryQuestions": [
             "Unaposomewa chochote ili ukiandike, utafanya nini ili uandike ifaavyo?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapowaeleza wenzake maneno katika kifungu cha imla.",
+            "Ujuzi wa kidijitali: mwanafunzi anapofaulu kuandika kifungu cha imla akitumia kifaa cha kidijitali.",
+            "Hamu ya ujifunzaji: mwanafunzi anaposhiriki katika shughuli za kuandika maneno na kifungu cha imla.",
+            "Kujiamini: mwanafunzi anapofaulu kuandika imla kwa kutumia maneno yenye sauti lengwa."
+          ],
+          "values": [
+            "Heshima: mwanafunzi anaposhirikiana na wenzake na kuheshimu maoni yao.",
+            "Upendo: mwanafunzi anapowatambua na kuwathamini wenzake wakati wa kushiriki katika shughuli za kuandika.",
+            "Uwajibikaji: mwanafunzi anapoandika kifungu cha maneno 55-60 yatakayotamkwa."
+          ],
+          "pcis": [
+            "Elimu ya mazingira na tabianchi: mwanafunzi anapoandika kifungu cha maneno yatakayotamkwa kuhusu suala lengwa kwa kuzingatia kanuni zifaazo za maandishi."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya kuandika imla anayojifunza katika somo la Kiswahili na ujifunzaji wa stadi hiyo katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha suala la usafi wa mazingira na yanayofundishwa katika somo la Environmental Activities."
           ]
         },
         {
           "subStrandId": "6.4",
           "subStrandTitle": "Sarufi: Matumizi ya -eupe, -eusi na -ekundu",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua maneno yenye -eupe, -eusi na -ekundu ili kuyatumia ipasavyo katika mawasiliano",
             "kutumia -eupe, -eusi, -ekundu katika sentensi ili kuimarisha mawasiliano",
@@ -559,6 +994,24 @@
           ],
           "keyInquiryQuestions": [
             "Je, vitu katika mazingira yako yana rangi gani?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapotumia -eupe, -eusi, -ekundu akiwa na wenzake kutunga sentensi.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kusikiliza matumizi ya -eupe, -eusi, -ekundu.",
+            "Hamu ya ujifunzaji: mwanafunzi anapomsomea mzazi au mlezi wake sentensi alizotunga akitumia -eupe, -eusi, -ekundu.",
+            "Ubunifu: mwanafunzi anapotumia maneno yenye -eupe, -eusi, -ekundu kutunga sentensi."
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapotangamana na wenzake kwa heshima katika shughuli za kikundi.",
+            "Umoja: mwanafunzi anaposhirikiana na wenzake katika shughuli za kikundi.",
+            "Uwajibikaji: mwanafunzi anapotekeleza shughuli za darasani."
+          ],
+          "pcis": [
+            "Elimu ya mazingira na tabia nchi: mwanafunzi anapotunga sentensi na kifungu kuhusu suala lengwa."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha dhana ya vivumishi anayojifunza katika somo la Kiswahili na ujifunzaji wa dhana hiyo katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha suala la usafi wa mazingira na yanayofundishwa katika somo la Environmental Activities."
           ]
         }
       ]
@@ -570,7 +1023,7 @@
         {
           "subStrandId": "7.1",
           "subStrandTitle": "Kusikiliza na Kuzungumza: Maagizo",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua maagizo mepesi yanapotolewa darasani",
             "kutoa na kufuata maagizo mepesi yanayotumiwa darasani",
@@ -585,12 +1038,30 @@
           ],
           "keyInquiryQuestions": [
             "Je,ni kwa nini mtu hufuata yale anayoambiwa?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika masimulizi na wenzake ya kufuata na kutofuata maagizo.",
+            "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapotoa maoni katika majadiliano kuhusu jinsi ya kufuata maagizo.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kujifunzia.",
+            "Ubunifu: mwanafunzi anapoigiza maagizo mepesi akishirikiana na wenzake."
+          ],
+          "values": [
+            "Amani: mwanafunzi anapofanya kazi katika kikundi na wenzake kwa utulivu.",
+            "Uwajibikaji: mwanafunzi anapotumia na kutunza vifaa vya kidijitali.",
+            "Uadilifu: mwanafunzi anapotazama video ya jinsi ya kutoa na kufuata maagizo kutoka kwenye kifaa cha kidijitali bila usimamizi."
+          ],
+          "pcis": [
+            "Elimu ya kifedha: mwanafunzi anaposhiriki katika mazungumzo kuhusu matumizi ya pesa dukani."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya kusikiliza na kuzungumza anayojifunza katika somo la Kiswahili na ujifunzaji wa stadi hiyo katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha suala la dukani na yanayofundishwa katika somo la Mathematics Activities."
           ]
         },
         {
           "subStrandId": "7.2",
           "subStrandTitle": "Kusoma: Kusoma kwa Ufahamu",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua msamiati kuhusu suala lengwa katika kifungu chepesi cha ufahamu",
             "kueleza ujumbe wa kifungu chepesi cha ufahamu",
@@ -609,12 +1080,30 @@
           ],
           "keyInquiryQuestions": [
             "Je, unazingatia mambo gani unaposoma kifungu cha hadithi?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki katika kazi ya kikundi na kushiriki kikamilifu wanapotabiri na kujadili ujumbe katika kifungu.",
+            "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapotoa na kuthibitisha utabiri wake kuhusu kitakachotokea katika hadithi.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kujifunzia.",
+            "Hamu ya ujifunzaji: mwanafunzi anaposoma majarida na magazeti kuimarisha stadi ya kusoma."
+          ],
+          "values": [
+            "Umoja: mwanafunzi anaposhirikiana na wenzake katika kikundi kujadili picha na kutabiri kitakachotokea katika hadithi.",
+            "Haki za kijamii: mwanafunzi anapowapa wenzake fursa ya kujieleza katika shughuli za kikundi.",
+            "Uwajibikaji: mwanafunzi anapotabiri kilichotokea katika kifungu alichokisoma."
+          ],
+          "pcis": [
+            "Elimu ya kifedha: mwanafunzi anaposoma kifungu kuhusu masuala yanayohusiana na shughuli za dukani."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya kusikiliza na kuzungumza anayojifunza katika somo la Kiswahili na ujifunzaji wa stadi hiyo katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha suala la dukani na yanayofundishwa katika somo la Mathematics Activities."
           ]
         },
         {
           "subStrandId": "7.3",
           "subStrandTitle": "Kuandika: Uandishi wa Insha",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua mambo ya kuzingatia katika uandishi wa insha",
             "kuandika kisa cha kati ya maneno 85-90 kuhusu suala lengwa akizingatia kanuni za uandishi",
@@ -630,12 +1119,30 @@
           ],
           "keyInquiryQuestions": [
             "Je, ni mambo gani tunazingatia katika uandishi wa insha?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki na kujadili na wenzake kutambua vipengele vya uandishi wa insha.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kuandika insha.",
+            "Hamu ya ujifunzaji: mwanafunzi anaposhiriki katika shughuli ya kuandika kifungu.",
+            "Ubunifu: mwanafunzi anapoandika kisa kifupi kuhusu suala lengwa na kujadili na wenzake."
+          ],
+          "values": [
+            "Upendo: mwanafunzi anaposhirikiana na wenzake na kuheshimu maoni yao.",
+            "Umoja: mwanafunzi anaposhirikiana na wenzake katika ujifunzaji."
+          ],
+          "pcis": [
+            "Mahusiano ya kijamii: mwanafunzi anapowathamini wenzake na kushirikiana katika shughuli za uhariri.",
+            "Masuala ya kifedha: mwanafunzi anapoandika ufahamu kuhusu suala lengwa."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya uandishi wa insha anayojifunza katika somo la Kiswahili na ujifunzaji wa stadi hiyo katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha suala la dukani na yanayofundishwa katika somo la Mathematics Activities."
           ]
         },
         {
           "subStrandId": "7.4",
           "subStrandTitle": "Sarufi: Ukanushaji wa nafsi ya tatu",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua ukanushaji wa nafsi ya tatu umoja na wingi katika sentensi",
             "kutumia ukanushaji wa nafsi ya tatu umoja na wingi katika sentensi kwa usahihi",
@@ -651,6 +1158,24 @@
           ],
           "keyInquiryQuestions": [
             "Unafikiri mwalimu wako alifanya nini jana? Iwapo hakufanya mambo uliyotaja ungesemaje?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki kutunga sentensi kwa kutumia nafsi ya tatu umoja na wingi na ukanushaji wake.",
+            "Ujuzi wa kidijitali: wanafunzi anapotumia kifaa cha kidijitali kusikiliza wimbo au kifungu kuhusu ukanushaji wa nafsi ya tatu umoja.",
+            "Hamu ya ujifunzaji: mwanafunzi anapomsomea mzazi au mlezi kutumia ukanushaji wa nafsi ya tatu umoja."
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapotumia kifaa cha kidijitali kusikiliza wimbo au kifungu kuhusu ukanushaji wa nafsi ya tatu.",
+            "Umoja: mwanafunzi anaposhirikiana na wenzake kutunga sentensi kwa kutumia nafsi ya tatu katika shughuli za kikundi.",
+            "Haki za jamii: mwanafunzi anapokanusha sentensi za nafsi ya tatu kuashiria vitendo vya watu mbalimbali nyumbani."
+          ],
+          "pcis": [
+            "Mshikamano wa kijamii: mwanafunzi anapowathamini wenzake wanaposhirikiana katika shughuli za ukanushaji.",
+            "Masuala ya kifedha: mwanafunzi anapotumia ukanushaji katika sentensi zinazolenga masuala ya dukani."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya uandishi wa insha anayojifunza katika somo la Kiswahili na ujifunzaji wa stadi hiyo katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha suala la dukani na yanayofundishwa katika somo la Mathematics Activities."
           ]
         }
       ]
@@ -662,7 +1187,7 @@
         {
           "subStrandId": "8.1",
           "subStrandTitle": "Kusikiliza na Kuzungumza: Matamshi Bora (Silabi za sauti /mbw, /nd/ na /ny/)",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua silabi za sauti lengwa katika maneno",
             "kutamka maneno yenye silabi za sauti lengwa kwa ufasaha",
@@ -678,14 +1203,31 @@
             "kusoma kwa sauti kifungu kilicho na sauti lengwa kwa kuzingatia matamshi bora",
             "kujirekodi akisoma hadithi zilizo na maneno yenye sauti lengwa na kujisikiliza na wenzake ili kutathmini matamshi"
           ],
-          "keyInquiryQuestions": [
-            "Je, matamshi bora hukuzwa kwa njia gani?"
+          "keyInquiryQuestions": ["Je, matamshi bora hukuzwa kwa njia gani?"],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapojadili na wenzake sauti za ndege mbalimbali na kuzitamka kwa ufasaha.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kurekodi matamshi yake ya sauti lengwa.",
+            "Kujiamini: mwanafunzi anapowasilisha matamshi mbele ya darasa bila kusitasita.",
+            "Hamu ya ujifunzaji: mwanafunzi anapotafuta hadithi zaidi kuhusu ndege nimpendeaye ili kuimarisha matamshi."
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapofanya mazoezi ya mara kwa mara ya matamshi bora.",
+            "Heshima: mwanafunzi anapowasikiliza wengine wakitamka sauti na kutoa mrejesho sahihi.",
+            "Upendo kwa viumbe: mwanafunzi anapokubali umuhimu wa kuhifadhi ndege katika mazingira yake."
+          ],
+          "pcis": [
+            "Elimu ya mazingira na tabia nchi: mwanafunzi anapojadili namna ya kuwalinda ndege na makazi yao.",
+            "Usalama wa mtandao: mwanafunzi anapotumia vifaa vya kidijitali kurekodi sauti akizingatia taratibu za usalama."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha mada ya ndege na somo la Environmental Activities.",
+            "Mwanafunzi anaweza kuoanisha tamshi la sauti lengwa na stadi zinazofunzwa katika somo la Music and Movement."
           ]
         },
         {
           "subStrandId": "8.2",
           "subStrandTitle": "Kusoma: Kusoma kwa Ufasaha (Sauti /mbw/, /nd/ na /ny/)",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua sauti lengwa katika kifungu chepesi cha hadithi",
             "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia matamshi bora",
@@ -702,14 +1244,31 @@
             "kusoma kifungu chepesi chenye sauti lengwa kwa kuzingatia ishara zifaazo akiwa na wenzake",
             "kumsomea mzazi au mlezi kifungu chepesi chenye sauti lengwa akizingatia matamshi bora, sauti inayosikika, kasi ifaayo na ishara zifaazo kwa ufasaha"
           ],
-          "keyInquiryQuestions": [
-            "Je, ni kwa nini tunasoma kwa ufasaha?"
+          "keyInquiryQuestions": ["Je, ni kwa nini tunasoma kwa ufasaha?"],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na kikundi kusoma kifungu kuhusu ndege kwa ufasaha.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kusoma na kujirekodi akisoma hadithi ya ndege.",
+            "Hamu ya ujifunzaji: mwanafunzi anapotafuta habari za ziada kuhusu aina za ndege.",
+            "Uwazaji wa kina: mwanafunzi anapochanganua namna sauti lengwa zinavyosaidia kueleza tabia za ndege."
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapojitayarisha kusoma kwa ufasaha kilichopewa.",
+            "Uvumilivu: mwanafunzi anapojirudia kusoma hadi matamshi na kasi vifanikiwe.",
+            "Upendo kwa viumbe: mwanafunzi anapothamini ndege wanaotajwa kwenye kifungu."
+          ],
+          "pcis": [
+            "Elimu ya mazingira: mwanafunzi anaposoma kuhusu ulinzi wa makazi ya ndege.",
+            "Afya na lishe: mwanafunzi anapojadili manufaa ya kutunza mazingira safi ili ndege wapate chakula."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha somo la Environmental Activities kupitia mada ya ndege.",
+            "Mwanafunzi anaweza kutumia maudhui haya kuunda takwimu rahisi katika somo la Mathematical Activities (k.v. kuhesabu ndege)."
           ]
         },
         {
           "subStrandId": "8.3",
           "subStrandTitle": "Kuandika: Tahajia",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua tahajia sahihi za maneno katika insha",
             "kuandika insha akizingatia tahajia sahihi za maneno",
@@ -724,12 +1283,29 @@
           ],
           "keyInquiryQuestions": [
             "Kwa nini ni muhimu kuendeleza maneno ipasavyo unapoandika chochote?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake katika shughuli za ujifunzaji.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kujifunza tahajia sahihi za maneno katika insha.",
+            "Hamu ya ujifunzaji: mwanafunzi anaposhiriki katika shughuli za ujifunzaji wa tahajia sahihi za maneno katika insha.",
+            "Ubunifu: mwanafunzi anapofaulu kuandika insha kwa kuzingatia tahajia za maneno."
+          ],
+          "values": [
+            "Upendo: mwanafunzi anaposhirikiana na wenzake katika kikundi.",
+            "Uwajibikaji: mwanafunzi anapoandika insha akizingatia tahajia sahihi."
+          ],
+          "pcis": [
+            "Elimu ya utunzaji wa wanyama: mwanafunzi anapojifunza kuandika insha kuhusu suala lengwa akizingatia kanuni za uandishi na tahajia sahihi."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya kuandika kuhusu tahajia anayojifunza katika somo la Kiswahili na ujifunzaji wa stadi hiyo katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha suala la ndege nimpendaye na yanayofundishwa katika somo la Environmental Activities."
           ]
         },
         {
           "subStrandId": "8.4",
           "subStrandTitle": "Sarufi: Matumizi ya Maneno Hili na Haya",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua matumizi ya neno hili na haya katika kifungu",
             "kutumia neno hili na haya katika kifungu ili kuboresha mawasiliano",
@@ -744,6 +1320,24 @@
           ],
           "keyInquiryQuestions": [
             "Ni maneno yapi yanayoambatanishwa na maneno hili na haya?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake na kuchangia kikamilifu katika shughuli za kikundi.",
+            "Hamu ya ujifunzaji: mwanafunzi anapojenga msingi wa kujifunza zaidi kuhusu neno hili na haya.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia vifaa vya kidijitali kujifunzia matumizi ya neno hili na haya.",
+            "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapotumia neno hili na haya kurejelea vitu katika mazingira yake."
+          ],
+          "values": [
+            "Umoja: mwanafunzi anaposhirikiana na wenzake kutunga sentensi akitumia neno hili na haya ipasavyo.",
+            "Amani: mwanafunzi anapotumia kifaa cha kidijitali na wenzake ili kutambua na kutunga sentensi akitumia hili na haya kwa utulivu."
+          ],
+          "pcis": [
+            "Elimu ya utunzaji wa wanyama: mwanafunzi anapotunga sentensi kuhusu suala lengwa kwa kutumia maneno lengwa.",
+            "Mshikamano wa kijamii na kitaifa: mwanafunzi anapotangamana na wenzake kutoka jamii mbalimbali kutambua matumizi ya hili na haya."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha dhana ya vionyeshi na anayojifunza katika somo la Kiswahili na ujifunzaji wa stadi hiyo katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha suala la ndege nimpendaye na yanayofundishwa katika somo la Environmental Activities."
           ]
         }
       ]
@@ -755,7 +1349,7 @@
         {
           "subStrandId": "9.1",
           "subStrandTitle": "Kusikiliza na Kuzungumza: Mazungumzo",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua suala lengwa linalozungumziwa",
             "kuzingatia matamshi bora katika mazungumzo",
@@ -775,12 +1369,30 @@
           ],
           "keyInquiryQuestions": [
             "Je, unazingatia nini unapozungumza kuhusu masuala mbalimbali?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhiriki mazungumzo na wenzake katika kikundi.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kusikiliza mazungumzo.",
+            "Hamu ya ujifunzaji: mwanafunzi anaposhiriki mazungumzo ya kila siku ili kuimarisha mawasiliano.",
+            "Kujiamini: mwanafunzi anapojieleza kwa ufasaha mbele ya wenzake."
+          ],
+          "values": [
+            "Umoja: mwanafunzi anaposhirikiana na wenzake kwenye kikundi.",
+            "Uwajibikaji: mwanafunzi anapotunza vifaa vya kidijitali na nyenzo nyinginezo anazotumia kujifunzia.",
+            "Heshima: mwanafunzi anapowasikiliza wenzake darasani na kuheshimu maoni yao."
+          ],
+          "pcis": [
+            "Elimu ya kifedha: mwanafunzi anaposikiliza mazungumzo kuhusu suala lengwa."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya mazungumzo na anayojifunza katika somo la Kiswahili na ujifunzaji wa stadi hiyo katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha suala la sokoni na yanayofundishwa katika somo la Mathematical Activities."
           ]
         },
         {
           "subStrandId": "9.2",
           "subStrandTitle": "Kusoma: Kusoma kwa ufahamu",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua msamiati kuhusu suala lengwa katika kifungu chepesi cha hadithi",
             "kueleza ujumbe wa kifungu chepesi cha hadithi",
@@ -799,12 +1411,29 @@
           ],
           "keyInquiryQuestions": [
             "Je, ni mambo yapi unayozingatia unaposoma kifungu chochote?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapojadiliana na wenzake katika kikundi.",
+            "Uwazaji kina na utatuzi wa matatizo: mwanafunzi anapofanya utabiri kutokana na picha.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kusoma hadithi.",
+            "Hamu ya ujifunzaji: mwanafunzi anaposoma majarida na magazeti kuimarisha stadi ya kusoma."
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapowaheshimu wenzake kushirikiana katika kusoma kifungu darasani.",
+            "Upendo: mwanafunzi anapowashirikisha wengine katika matumizi ya kifaa cha kidijitali darasani."
+          ],
+          "pcis": [
+            "Elimu ya fedha: mwanafunzi anaposoma kifungu kuhusu suala lengwa."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya matamshi bora na anayojifunza katika somo la Kiswahili na ujifunzaji wa stadi hiyo katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha suala la sokoni na yanayofundishwa katika somo la Mathematical Activities."
           ]
         },
         {
           "subStrandId": "9.3",
           "subStrandTitle": "Kuandika: Insha ya Masimulizi",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua mambo ya kuzingatia katika uandishi wa insha",
             "kuandika insha ya masimulizi kati ya maneno 85-90 akizingatia kanuni za uandishi",
@@ -820,13 +1449,31 @@
           ],
           "keyInquiryQuestions": [
             "Je, unapenda kusimulia kuhusu nini?",
-            "Je,kisa ulichowahi kusimuliwa kilikuwa na mafunzo gani?"
+            "Je, kisa ulichowahi kusimuliwa kilikuwa na mafunzo gani?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake katika kikundi kujadili vipengele vya uandishi wa insha.",
+            "Ujuzi wa kidijitali: mwanafunzi anapoandika kifungu cha masimulizi akitumia kifaa cha kidijitali.",
+            "Uwazaji wa kina: mwanafunzi anapotambua mambo yanayotakikana katika uandishi wa insha ya masimulizi.",
+            "Ubunifu: mwanafunzi anapofaulu kuandika insha ya masimulizi kwa kuzingatia vipengele husika."
+          ],
+          "values": [
+            "Umoja: mwanafunzi anaposhirikiana na wenzake katika shughuli ya kikundi.",
+            "Uwajibikaji: mwanafunzi anapotunza vifaa vya kidijitali anavyotumia."
+          ],
+          "pcis": [
+            "Elimu ya kifedha: mwanafunzi anapoandika insha kuhusu suala lengwa.",
+            "Matumizi ya dawa za kulevya: mwanafunzi anapoandika kisa kifupi kuhusu matumizi ya dawa za kulevya zinazopatikana sokoni."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya uandishi wa insha na anayojifunza katika somo la Kiswahili na ujifunzaji wa stadi hiyo katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha suala la sokoni na yanayofundishwa katika somo la Mathematical Activities."
           ]
         },
         {
           "subStrandId": "9.4",
           "subStrandTitle": "Sarufi: Matumizi ya: Juu ya, Ndani ya na Mbele ya",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua matumizi ya juu ya, ndani ya na mbele ya katika kifungu",
             "kutumia juu ya, ndani ya na mbele ya katika sentensi",
@@ -844,6 +1491,24 @@
           ],
           "keyInquiryQuestions": [
             "Je, ni maneno yapi unayoweza kutumia kurejelea kitu/mtu aliye mahali fulani?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapotoa mchango wake katika shughuli za kikundi wanapotungiana sentensi kwa kutumia juu ya, ndani ya na mbele ya.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kusikiliza kifungu au wimbo na vilevile anapofanya zoezi kwa kutumia tarakilishi.",
+            "Kujiamini: mwanafunzi anapowatungia wenzake sentensi kwa kutumia juu ya, ndani ya na mbele ya."
+          ],
+          "values": [
+            "Heshima: mwanafunzi anaposhiriki katika shughuli za kikundi huku akiyathamini maoni na michango ya wenzake.",
+            "Uwajibikaji: mwanafunzi anapotoa mchango wake katika kikundi na pia anapotangamana na vifaa vya kidijitali.",
+            "Upendo: mwanafunzi anaposhirikiana na wenzake katika shughuli za kikundi.",
+            "Amani: mwanafunzi anaposhiriki katika shughuli za kikundi kwa utulivu."
+          ],
+          "pcis": [
+            "Elimu ya kifedha: mwanafunzi anapoigiza uuzaji na ununuzi akitumia juu ya, ndani ya na mbele ya."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha dhana ya vivumishi na anayojifunza katika somo la Kiswahili na ujifunzaji wa stadi hiyo katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha suala la sokoni na yanayofundishwa katika somo la Mathematical Activities."
           ]
         }
       ]
@@ -855,7 +1520,7 @@
         {
           "subStrandId": "10.1",
           "subStrandTitle": "Kusikiliza na Kuzungumza: Matamshi Bora (Sauti /mb/, /nz/ na /tw/)",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua silabi za sauti lengwa katika maneno na kifungu",
             "kutamka maneno yenye silabi za sauti lengwa kwa ufasaha",
@@ -874,12 +1539,31 @@
           ],
           "keyInquiryQuestions": [
             "Je, ni kwa nini tunatumia matamshi bora tunapozungumza?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapojadili matamshi bora na wenzake.",
+            "Kujiamini: mwanafunzi anapojitokeza kusoma kifungu mbele ya darasa kwa matamshi bora.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kurekodi na kutathmini matamshi yake.",
+            "Ubunifu: mwanafunzi anapounda mchezo au kifungu kifupi ili kuonyesha matamshi lengwa."
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapofanya mazoezi ya matamshi mara kwa mara.",
+            "Heshima: mwanafunzi anapowasikiliza wenzake wanapotoa maoni kuhusu matamshi yake.",
+            "Umoja: mwanafunzi anaposhirikiana na wenzake kurekebishana matamshi kwa heshima."
+          ],
+          "pcis": [
+            "Elimu ya lugha: mwanafunzi anapofahamu umuhimu wa sauti katika mawasiliano.",
+            "Usalama wa mtandao: mwanafunzi anapotumia kifaa cha kidijitali kurekodi matamshi kwa njia salama."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya matamshi anayojifunza katika somo la Kiswahili na somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha matumizi ya vifaa vya kidijitali na anayojifunza katika somo la ICT."
           ]
         },
         {
           "subStrandId": "10.2",
           "subStrandTitle": "Kusoma: Kusoma kwa Ufasaha (Sauti /mb/, /nz/ na /tw/)",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua sauti lengwa katika kifungu chepesi cha hadithi",
             "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia matamshi bora",
@@ -898,12 +1582,31 @@
           ],
           "keyInquiryQuestions": [
             "Kwa nini ni muhimu kusoma kifungu kwa ufasaha?"
+          ],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anapojadiliana na wenzake kuhusu usomaji wa kifungu.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kusoma na kurekodi usomaji wake.",
+            "Hamu ya ujifunzaji: mwanafunzi anapotafuta hadithi zaidi zenye sauti lengwa ili kuboresha usomaji.",
+            "Uwazaji wa kina: mwanafunzi anapotambua namna sauti lengwa zinavyoathiri maana ya kifungu."
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapojitahidi kusoma kwa ufasaha kila anapopewa nafasi.",
+            "Heshima: mwanafunzi anapotoa na kupokea mrejesho kuhusu usomaji wa wenzake kwa staha.",
+            "Uvumilivu: mwanafunzi anapojirudia kusoma hadi afikie ufasaha anaoutaka."
+          ],
+          "pcis": [
+            "Elimu ya mazingira: mwanafunzi anaposoma kifungu kuhusu matumizi ya teknolojia kulinda mazingira.",
+            "Usalama wa mtandao: mwanafunzi anapofuata kanuni za usalama anapotumia vifaa vya kidijitali kusoma."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha stadi ya kusoma kwa ufasaha na anayojifunza katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha mada za teknolojia na yanayofundishwa katika somo la Science and Technology."
           ]
         },
         {
           "subStrandId": "10.3",
           "subStrandTitle": "Kuandika: Insha ya Maelezo",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua vipengele vinavyozingatiwa katika uandishi wa insha ya maelezo",
             "kuandika insha ya maelezo kati ya maneno 85-90 akizingatia kanuni za uandishi",
@@ -919,12 +1622,31 @@
           ],
           "keyInquiryQuestions": [
             "Je, unatumia maneno ya aina gani unapotoa maelezo kuhusu kitu?"
+          ],
+          "coreCompetencies": [
+            "Uwazaji wa kina na utatuzi wa matatizo: mwanafunzi anapopanga maudhui ya insha ya maelezo kwa mantiki.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kuhariri insha yake.",
+            "Mawasiliano na ushirikiano: mwanafunzi anapowasilisha insha yake kwa kikundi kupokea mrejesho.",
+            "Ubunifu: mwanafunzi anapochagua lugha ya kuvutia kueleza mada ya teknolojia."
+          ],
+          "values": [
+            "Uwajibikaji: mwanafunzi anapotii hatua za uandishi alizopewa.",
+            "Uadilifu: mwanafunzi anapoandika maelezo ya ukweli kuhusu mada anayochunguza.",
+            "Ushirikiano: mwanafunzi anapokubali mapendekezo ya uboreshaji kutoka kwa wenzao."
+          ],
+          "pcis": [
+            "Elimu ya fedha: mwanafunzi anapoandika kuhusu bidhaa au huduma ya kiteknolojia.",
+            "Ubunifu na uvumbuzi: mwanafunzi anapotafiti uvumbuzi wa kiteknolojia wa jamii yake."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha uandishi wa maelezo katika somo la Kiswahili na maudhui yanayofanana katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha maudhui ya teknolojia na somo la Science and Technology."
           ]
         },
         {
           "subStrandId": "10.4",
           "subStrandTitle": "Sarufi: Vinyume vya Vitendo",
-          "suggestedLessons": 3,
+          "numberOfLessons": 3,
           "specificLearningOutcomes": [
             "kutambua vinyume vya vitendo katika matini",
             "kutumia vinyume vya vitendo ipasavyo katika matini",
@@ -939,8 +1661,25 @@
             "kuigiza vinyume vya vitendo vilivyotumiwa kwenye kifungu akiwa na wenzake",
             "kumtajia mzazi au mlezi vinyume vya maneno alivyojifunza darasani"
           ],
-          "keyInquiryQuestions": [
-            "Je, unajua vinyume vipi vya vitendo?"
+          "keyInquiryQuestions": ["Je, unajua vinyume vipi vya vitendo?"],
+          "coreCompetencies": [
+            "Mawasiliano na ushirikiano: mwanafunzi anaposhirikiana na wenzake kutunga sentensi zenye vinyume vya vitendo.",
+            "Uwazaji wa kina: mwanafunzi anapotambua maana tofauti zinazotokana na kutumia vinyume vya vitendo.",
+            "Kujiamini: mwanafunzi anapotoa mifano ya vinyume vya vitendo mbele ya darasa.",
+            "Ujuzi wa kidijitali: mwanafunzi anapotumia kifaa cha kidijitali kufanya mazoezi ya vinyume vya vitendo."
+          ],
+          "values": [
+            "Heshima: mwanafunzi anapokubali marekebisho ya wenzake anapokosea kutumia kinyume cha tendo.",
+            "Uwajibikaji: mwanafunzi anapofanya mazoezi ya ziada ili kuboresha uelewa wa vinyume vya vitendo.",
+            "Uvumilivu: mwanafunzi anapojaribu mara kadhaa hadi atumie kinyume cha tendo ipasavyo."
+          ],
+          "pcis": [
+            "Elimu ya kijamii: mwanafunzi anapotumia vinyume vya vitendo kueleza tabia nzuri na mbaya katika jamii.",
+            "Usalama wa mtandao: mwanafunzi anapotumia lugha chanya anapowasiliana mtandaoni."
+          ],
+          "linkToOtherSubjects": [
+            "Mwanafunzi anaweza kuhusisha dhana ya vinyume vya vitendo na anayojifunza katika somo la English Language Activities na Indigenous Language Activities.",
+            "Mwanafunzi anaweza kuhusisha matumizi ya vitendo katika maigizo na somo la Creative Arts."
           ]
         }
       ]

@@ -912,7 +912,9 @@ export default function TeacherSettingsPage() {
                                 />
                                 <input
                                   type="number"
-                                  value={stream.pupils}
+                                  value={
+                                    isNaN(stream.pupils) ? "" : stream.pupils
+                                  }
                                   onChange={(e) =>
                                     updateStreamPupils(
                                       grade,
@@ -1089,7 +1091,11 @@ export default function TeacherSettingsPage() {
                 </label>
                 <input
                   type="number"
-                  value={scheduleConfig.single_lesson_duration}
+                  value={
+                    isNaN(scheduleConfig.single_lesson_duration)
+                      ? ""
+                      : scheduleConfig.single_lesson_duration
+                  }
                   onChange={(e) =>
                     setScheduleConfig({
                       ...scheduleConfig,
@@ -1106,7 +1112,11 @@ export default function TeacherSettingsPage() {
                 </label>
                 <input
                   type="number"
-                  value={scheduleConfig.double_lesson_duration}
+                  value={
+                    isNaN(scheduleConfig.double_lesson_duration)
+                      ? ""
+                      : scheduleConfig.double_lesson_duration
+                  }
                   onChange={(e) =>
                     setScheduleConfig({
                       ...scheduleConfig,
@@ -1123,7 +1133,11 @@ export default function TeacherSettingsPage() {
                 </label>
                 <input
                   type="number"
-                  value={scheduleConfig.lessons_before_first_break}
+                  value={
+                    isNaN(scheduleConfig.lessons_before_first_break)
+                      ? ""
+                      : scheduleConfig.lessons_before_first_break
+                  }
                   onChange={(e) =>
                     setScheduleConfig({
                       ...scheduleConfig,
@@ -1140,7 +1154,11 @@ export default function TeacherSettingsPage() {
                 </label>
                 <input
                   type="number"
-                  value={scheduleConfig.first_break_duration}
+                  value={
+                    isNaN(scheduleConfig.first_break_duration)
+                      ? ""
+                      : scheduleConfig.first_break_duration
+                  }
                   onChange={(e) =>
                     setScheduleConfig({
                       ...scheduleConfig,
@@ -1157,7 +1175,11 @@ export default function TeacherSettingsPage() {
                 </label>
                 <input
                   type="number"
-                  value={scheduleConfig.lessons_before_second_break}
+                  value={
+                    isNaN(scheduleConfig.lessons_before_second_break)
+                      ? ""
+                      : scheduleConfig.lessons_before_second_break
+                  }
                   onChange={(e) =>
                     setScheduleConfig({
                       ...scheduleConfig,
@@ -1174,7 +1196,11 @@ export default function TeacherSettingsPage() {
                 </label>
                 <input
                   type="number"
-                  value={scheduleConfig.second_break_duration}
+                  value={
+                    isNaN(scheduleConfig.second_break_duration)
+                      ? ""
+                      : scheduleConfig.second_break_duration
+                  }
                   onChange={(e) =>
                     setScheduleConfig({
                       ...scheduleConfig,
@@ -1191,7 +1217,11 @@ export default function TeacherSettingsPage() {
                 </label>
                 <input
                   type="number"
-                  value={scheduleConfig.lessons_before_lunch}
+                  value={
+                    isNaN(scheduleConfig.lessons_before_lunch)
+                      ? ""
+                      : scheduleConfig.lessons_before_lunch
+                  }
                   onChange={(e) =>
                     setScheduleConfig({
                       ...scheduleConfig,
@@ -1208,7 +1238,11 @@ export default function TeacherSettingsPage() {
                 </label>
                 <input
                   type="number"
-                  value={scheduleConfig.lunch_break_duration}
+                  value={
+                    isNaN(scheduleConfig.lunch_break_duration)
+                      ? ""
+                      : scheduleConfig.lunch_break_duration
+                  }
                   onChange={(e) =>
                     setScheduleConfig({
                       ...scheduleConfig,
@@ -1225,7 +1259,11 @@ export default function TeacherSettingsPage() {
                 </label>
                 <input
                   type="number"
-                  value={scheduleConfig.lessons_after_lunch}
+                  value={
+                    isNaN(scheduleConfig.lessons_after_lunch)
+                      ? ""
+                      : scheduleConfig.lessons_after_lunch
+                  }
                   onChange={(e) =>
                     setScheduleConfig({
                       ...scheduleConfig,
@@ -1311,7 +1349,7 @@ export default function TeacherSettingsPage() {
                   </label>
                   <input
                     type="number"
-                    value={editingTerm.year}
+                    value={isNaN(editingTerm.year) ? "" : editingTerm.year}
                     onChange={(e) =>
                       setEditingTerm({
                         ...editingTerm,

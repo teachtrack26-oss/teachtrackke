@@ -39,7 +39,8 @@
           "keyInquiryQuestions": [
             "What do you consider when writing numbers in words?",
             "Why do we determine the place value of a digit in a number?"
-          ]
+          ],
+          "numberOfLessons": 20
         },
         {
           "subStrandId": "1.2",
@@ -61,7 +62,8 @@
           "keyInquiryQuestions": [
             "When do you use addition in real life?",
             "How do you make number patterns involving addition?"
-          ]
+          ],
+          "numberOfLessons": 8
         },
         {
           "subStrandId": "1.3",
@@ -83,7 +85,8 @@
           "keyInquiryQuestions": [
             "How do you estimate the difference of given numbers?",
             "How do you create patterns involving subtraction?"
-          ]
+          ],
+          "numberOfLessons": 8
         },
         {
           "subStrandId": "1.4",
@@ -105,7 +108,8 @@
           "keyInquiryQuestions": [
             "When do you use multiplication in real life?",
             "How do you create patterns involving multiplication?"
-          ]
+          ],
+          "numberOfLessons": 8
         },
         {
           "subStrandId": "1.5",
@@ -122,7 +126,10 @@
             "in groups carry out division and multiplication of same numbers to establish relationship between multiplication and division. Discuss and share their results with other groups",
             "in pairs play games involving division using digital devices"
           ],
-          "keyInquiryQuestions": ["When do you use division in real life?"]
+          "keyInquiryQuestions": [
+            "When do you use division in real life?"
+          ],
+          "numberOfLessons": 8
         },
         {
           "subStrandId": "1.6",
@@ -148,7 +155,8 @@
           "keyInquiryQuestions": [
             "When do you use fractions in real life?",
             "How can you represent fractions?"
-          ]
+          ],
+          "numberOfLessons": 6
         },
         {
           "subStrandId": "1.7",
@@ -171,7 +179,8 @@
           ],
           "keyInquiryQuestions": [
             "How do you use decimals in real life situations?"
-          ]
+          ],
+          "numberOfLessons": 10
         },
         {
           "subStrandId": "1.8",
@@ -190,7 +199,8 @@
           ],
           "keyInquiryQuestions": [
             "Why do we represent information using letters?"
-          ]
+          ],
+          "numberOfLessons": 6
         }
       ]
     },
@@ -230,7 +240,8 @@
           "keyInquiryQuestions": [
             "How can you measure distance?",
             "Why do we measure distance in real life?"
-          ]
+          ],
+          "numberOfLessons": 10
         },
         {
           "subStrandId": "2.2",
@@ -251,7 +262,8 @@
           ],
           "keyInquiryQuestions": [
             "How do you work out area of different surfaces?"
-          ]
+          ],
+          "numberOfLessons": 8
         },
         {
           "subStrandId": "2.3",
@@ -270,7 +282,8 @@
           ],
           "keyInquiryQuestions": [
             "Where do we apply the volume of cubes and cuboids in real life situations?"
-          ]
+          ],
+          "numberOfLessons": 6
         },
         {
           "subStrandId": "2.4",
@@ -292,7 +305,8 @@
           ],
           "keyInquiryQuestions": [
             "How can you measure capacity using arbitrary units?"
-          ]
+          ],
+          "numberOfLessons": 6
         },
         {
           "subStrandId": "2.5",
@@ -312,7 +326,10 @@
             "subtract mass involving kilograms (kg)",
             "in pairs play digital games involving mass"
           ],
-          "keyInquiryQuestions": ["How do we measure mass in kilograms?"]
+          "keyInquiryQuestions": [
+            "How do we measure mass in kilograms?"
+          ],
+          "numberOfLessons": 6
         },
         {
           "subStrandId": "2.6",
@@ -337,7 +354,10 @@
             "in groups to work out subtraction involving units of time in real life situations",
             "in groups discuss, tell and record time using electronic clock"
           ],
-          "keyInquiryQuestions": ["How do we estimate time?"]
+          "keyInquiryQuestions": [
+            "How do we estimate time?"
+          ],
+          "numberOfLessons": 10
         },
         {
           "subStrandId": "2.7",
@@ -355,7 +375,10 @@
             "learners in groups are guided to come up with a class or school model shop and role play shopping activities as buyers and shopkeepers",
             "take video clips of their groups as they role shopping activities"
           ],
-          "keyInquiryQuestions": ["Why do we prepare shopping list?"]
+          "keyInquiryQuestions": [
+            "Why do we prepare shopping list?"
+          ],
+          "numberOfLessons": 8
         }
       ]
     },
@@ -383,7 +406,10 @@
             "demonstrate a full turn from a point",
             "in pairs play digital games involving position and direction"
           ],
-          "keyInquiryQuestions": ["How can you change your position?"]
+          "keyInquiryQuestions": [
+            "How can you change your position?"
+          ],
+          "numberOfLessons": 4
         },
         {
           "subStrandId": "3.2",
@@ -400,7 +426,10 @@
             "make clockwise quarter and half turns, and relate the turns to angles",
             "in pairs play digital games and learn more about angles"
           ],
-          "keyInquiryQuestions": ["How do we use angles in daily life?"]
+          "keyInquiryQuestions": [
+            "How do we use angles in daily life?"
+          ],
+          "numberOfLessons": 4
         },
         {
           "subStrandId": "3.3",
@@ -423,7 +452,10 @@
             "identify properties of a triangle practically",
             "in groups use it devices to learn more about plane figures and make patterns"
           ],
-          "keyInquiryQuestions": ["How can you make patterns using shapes?"]
+          "keyInquiryQuestions": [
+            "How can you make patterns using shapes?"
+          ],
+          "numberOfLessons": 6
         }
       ]
     },
@@ -449,7 +481,10 @@
             "explain and interpret the raw data from the table",
             "in pairs use digital devices other resources and for data collection and recording"
           ],
-          "keyInquiryQuestions": ["How can you represent data?"]
+          "keyInquiryQuestions": [
+            "How can you represent data?"
+          ],
+          "numberOfLessons": 8
         }
       ]
     }

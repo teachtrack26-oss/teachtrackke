@@ -27,6 +27,20 @@
           "keyInquiryQuestions": [
             "Why do we greet people?",
             "How do we greet people at different times of the day?"
+          ],
+          "numberOfLessons": 4,
+          "coreCompetencies": [
+            "Communication: The learner's ability to listen keenly and actively is enhanced as they listen to audio texts and identify words with the target sounds in preparation for reading.",
+            "Digital Literacy: The learner's interaction with digital technology is enhanced as they listen to audio texts and identify words with the target sounds."
+          ],
+          "values": [
+            "Unity: This is enhanced as the learner collaborates with peers to recite rhymes and sing songs related to the theme."
+          ],
+          "pcis": [
+            "Life Skills (Self-awareness): The learner's self-awareness is enhanced as they use vocabulary learnt to talk about greetings."
+          ],
+          "linksToOtherSubjects": [
+            "The learner is able to apply attentive listening skills to learning concepts in Kiswahili Language Activities."
           ]
         },
         {
@@ -49,6 +63,19 @@
           "keyInquiryQuestions": [
             "How do we sit while reading?",
             "How do we position our books while reading?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Communication: The learner's ability to listen keenly and actively is enhanced as they identify words with the target sounds in preparation for reading."
+          ],
+          "values": [
+            "Respect: This is developed as the learner appreciates the efforts of peers to identify the sounds as they take turns."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they identify sounds correctly in preparation for reading."
+          ],
+          "linksToOtherSubjects": [
+            "The learner is able to apply knowledge of sounds to learning similar concepts in Kiswahili Language Activities."
           ]
         },
         {
@@ -70,6 +97,19 @@
           ],
           "keyInquiryQuestions": [
             "How do we greet people in the morning/afternoon/ evening?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Communication: The learner's ability to speak clearly and effectively is enhanced as they use naming words correctly."
+          ],
+          "values": [
+            "Unity: Cooperation is enhanced as the learner collaborates with peers to name objects around them."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they use naming words correctly."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies knowledge acquired in the learning of similar concepts in Kiswahili Language Activities."
           ]
         },
         {
@@ -93,6 +133,20 @@
           "keyInquiryQuestions": [
             "Why is it important to sit properly when writing?",
             "How do we place our books when writing?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Learning to Learn: The learner's self-discipline is enhanced as they practise correct letter formation.",
+            "Creativity and Imagination: The learner's originality of ideas and skills are developed as they trace the patterns of the target letters and form letters correctly."
+          ],
+          "values": [
+            "Responsibility: This is enhanced as the learner takes up assigned roles and duties when working collaboratively with peers."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they trace patterns and form letters correctly."
+          ],
+          "linksToOtherSubjects": [
+            "The learner is able to apply knowledge of letter formation to formation of similar letters in Kiswahili Language Activities."
           ]
         }
       ]
@@ -121,6 +175,20 @@
           "keyInquiryQuestions": [
             "Which words do we use to talk about school?",
             "How can we listen attentively to others?"
+          ],
+          "numberOfLessons": 4,
+          "coreCompetencies": [
+            "Communication: The learner's ability to listen keenly and actively is enhanced as they listen to audio texts and identify words with the target sounds.",
+            "Digital Literacy: The learner's interaction with digital technology is enhanced as they listen to audio texts."
+          ],
+          "values": [
+            "Respect: This is developed as the learner appreciates the efforts of peers during oral activities."
+          ],
+          "pcis": [
+            "Life Skills (Self-awareness): The learner's self-awareness is nurtured as they use vocabulary learnt to talk about school."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies attentive listening skills to learning concepts in other learning areas."
           ]
         },
         {
@@ -145,6 +213,19 @@
           ],
           "keyInquiryQuestions": [
             "Why should one sit appropriately when reading?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Learning to Learn: The learner's ability to learn independently is enhanced as they practise identifying letter-sound correspondence."
+          ],
+          "values": [
+            "Responsibility: This is developed as the learner takes up assigned roles during group activities."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they identify sounds correctly in preparation for reading."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies knowledge of sounds to learning similar concepts in Kiswahili Language Activities."
           ]
         },
         {
@@ -168,6 +249,19 @@
           "keyInquiryQuestions": [
             "How do you talk about a person, an object, or a place?",
             "How do we talk about many people?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Communication: The learner's ability to speak clearly is developed as they use personal pronouns correctly."
+          ],
+          "values": [
+            "Respect: This is enhanced as the learner uses personal pronouns to talk about others respectfully."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they use personal pronouns correctly."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies knowledge of personal pronouns to learning of similar concepts in Kiswahili Language Activities."
           ]
         },
         {
@@ -189,6 +283,20 @@
           "keyInquiryQuestions": [
             "How do we sit when writing?",
             "How do we write?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Learning to Learn: The learner's self-discipline is developed as they practise correct letter formation.",
+            "Critical Thinking and Problem Solving: The learner is able to differentiate between the capital and small letters."
+          ],
+          "values": [
+            "Unity: Cooperation is enhanced as the learner works collaboratively with peers during handwriting activities."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they form letters correctly."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies knowledge of letter formation to similar letters in Kiswahili Language Activities."
           ]
         }
       ]
@@ -214,7 +322,23 @@
             "role play simple instructions with peers",
             "sing rhymes, say tongue twisters and poems featuring the target sounds"
           ],
-          "keyInquiryQuestions": ["How can we become better listeners?"]
+          "keyInquiryQuestions": [
+            "How can we become better listeners?"
+          ],
+          "numberOfLessons": 4,
+          "coreCompetencies": [
+            "Communication: The learner's ability to listen keenly and actively is enhanced as they listen to audio texts and identify words with the target sounds.",
+            "Digital Literacy: The learner's interaction with digital technology is enhanced as they watch video clips and identify words with target sounds."
+          ],
+          "values": [
+            "Love: This is enhanced as the learner interacts with texts on family and learns to appreciate family members."
+          ],
+          "pcis": [
+            "Parental Empowerment and Engagement: The learner's awareness of the role of parents is enhanced as they interact with texts on the theme."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies pronunciation skills to learning of similar concepts in Kiswahili and Indigenous Language Activities."
+          ]
         },
         {
           "subStrandId": "3.2",
@@ -233,7 +357,22 @@
             "track print through finger-pointing as the teacher reads",
             "work jointly to match and pair sounds with their corresponding letters"
           ],
-          "keyInquiryQuestions": ["Why should we learn how to read?"]
+          "keyInquiryQuestions": [
+            "Why should we learn how to read?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Learning to Learn: The learner's ability to learn independently is enhanced as they practise matching letters and sounds."
+          ],
+          "values": [
+            "Unity: Cooperation is developed as the learner collaborates with peers during reading activities."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they match letters and sounds correctly."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies knowledge of letter-sound correspondence to reading words in other learning areas."
+          ]
         },
         {
           "subStrandId": "3.3",
@@ -254,6 +393,19 @@
           ],
           "keyInquiryQuestions": [
             "Which words do you use to talk about the things you have?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Communication: The learner's ability to speak clearly and effectively is enhanced as they use articles correctly."
+          ],
+          "values": [
+            "Respect: This is developed as the learner appreciates the efforts of peers during language activities."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they use articles correctly in sentences."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies knowledge of articles to learning of similar concepts in other learning areas."
           ]
         },
         {
@@ -273,7 +425,23 @@
             "work with peers to write lower case letters from left to right",
             "work jointly to display their neatly written work in their portfolios"
           ],
-          "keyInquiryQuestions": ["Why is neat handwriting important?"]
+          "keyInquiryQuestions": [
+            "Why is neat handwriting important?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Learning to Learn: The learner's self-discipline is enhanced as they practise correct letter formation.",
+            "Creativity and Imagination: The learner's originality is developed as they form letters in correct shapes and sizes."
+          ],
+          "values": [
+            "Unity: Cooperation is enhanced as the learner works collaboratively with peers during handwriting activities."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they write letters legibly."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies handwriting skills to writing in all other learning areas."
+          ]
         }
       ]
     },
@@ -298,7 +466,23 @@
             "team up to role play giving and receiving of instructions",
             "take turns to read flashcards featuring words with the target sounds"
           ],
-          "keyInquiryQuestions": ["Why should we pronounce words correctly?"]
+          "keyInquiryQuestions": [
+            "Why should we pronounce words correctly?"
+          ],
+          "numberOfLessons": 4,
+          "coreCompetencies": [
+            "Digital Literacy: The learner's interaction with digital technology is enhanced as they listen to audio or video texts related to the theme.",
+            "Communication: The learner's ability to listen keenly and actively is enhanced as they identify words with the target sounds."
+          ],
+          "values": [
+            "Love: This is enhanced as the learner interacts with texts about home and learns to appreciate family."
+          ],
+          "pcis": [
+            "Life Skills (Self-awareness): The learner's self-awareness is enhanced as they use vocabulary to talk about their home."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies vocabulary related to home to their learning in Environmental Activities."
+          ]
         },
         {
           "subStrandId": "4.2",
@@ -316,7 +500,22 @@
             "team up to play word games to sort the target letters",
             "work with others to match the target letters with their corresponding sounds"
           ],
-          "keyInquiryQuestions": ["Why do we learn letters?"]
+          "keyInquiryQuestions": [
+            "Why do we learn letters?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Learning to Learn: The learner's ability to learn independently is enhanced as they practise reading words with target sounds."
+          ],
+          "values": [
+            "Responsibility: This is developed as the learner takes up roles during group reading activities."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they read words correctly."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies reading skills to reading texts in other learning areas."
+          ]
         },
         {
           "subStrandId": "4.3",
@@ -334,7 +533,22 @@
             "work jointly to record the songs and rhymes as they recite them",
             "work with others to match a given set of words with their singular or plural forms on flashcards"
           ],
-          "keyInquiryQuestions": ["What objects are found at home?"]
+          "keyInquiryQuestions": [
+            "What objects are found at home?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Communication: The learner's ability to speak clearly and correctly is enhanced as they use verbs to describe actions."
+          ],
+          "values": [
+            "Respect: This is developed as the learner appreciates the efforts of peers during language activities."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they use verbs correctly."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies knowledge of verbs to learning of similar concepts in Kiswahili Language Activities."
+          ]
         },
         {
           "subStrandId": "4.4",
@@ -353,7 +567,23 @@
             "match flashcards with upper case and lower case of the letters Aa, Mm, Tt and Ee",
             "watch videos on the formation of the target letters"
           ],
-          "keyInquiryQuestions": ["Why should we shape letters correctly?"]
+          "keyInquiryQuestions": [
+            "Why should we shape letters correctly?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Learning to Learn: The learner's self-discipline is enhanced as they practise correct letter formation.",
+            "Critical Thinking and Problem Solving: The learner is able to match capital and small letters correctly."
+          ],
+          "values": [
+            "Unity: Cooperation is enhanced as the learner works collaboratively with peers during handwriting activities."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they form letters correctly."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies handwriting skills to writing in all other learning areas."
+          ]
         }
       ]
     },
@@ -382,6 +612,20 @@
           ],
           "keyInquiryQuestions": [
             "What things do we do at different times of the day?"
+          ],
+          "numberOfLessons": 4,
+          "coreCompetencies": [
+            "Creativity and imagination: The learner's ability to explore new ways of presenting ideas is inculcated as they retell stories and show appropriate eye contact and facial expressions.",
+            "Digital Literacy: The learner's ability to connect with technology is promoted as they watch a video or live performance of a story and say what the eye contact or the facial expressions mean."
+          ],
+          "values": [
+            "Responsibility: This is enhanced as the learner takes up assigned roles during role play activities with peers."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they use new words learnt to talk about different times of the day."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies information on time to their learning of similar concepts of time in Environmental Activities."
           ]
         },
         {
@@ -399,7 +643,22 @@
             "team up to play a fishing game to identify specific sounds with peers",
             "read simple 3-4 letter words made up of the target letters"
           ],
-          "keyInquiryQuestions": ["What things do you do every morning?"]
+          "keyInquiryQuestions": [
+            "What things do you do every morning?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Collaboration: Teamwork is developed as the learner collaborates with peers to play a fishing game to identify specific sounds."
+          ],
+          "values": [
+            "Social Justice: This is enhanced as the learner fosters fairness and non-discrimination to peers as they accord peers equal opportunities to play the language game."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner acquires an improved level of self-esteem as they acquire reading skills."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies their reading skills to the reading of materials in other learning areas."
+          ]
         },
         {
           "subStrandId": "5.3",
@@ -416,7 +675,23 @@
             "sing songs and rhymes on daily routine activities using simple present tense",
             "listen to a story or poem and pick out sentences about things a person does every day"
           ],
-          "keyInquiryQuestions": ["What do you do from morning to evening?"]
+          "keyInquiryQuestions": [
+            "What do you do from morning to evening?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Communication: The learner's ability to speak clearly and correctly is enhanced as they talk about the activities they do every day.",
+            "Digital Literacy: This is enhanced as the learner interacts with digital content when watching a video on children participating in routine activities."
+          ],
+          "values": [
+            "Respect: This is developed as the learner appreciates and understands peers' opinions as they talk about their routine activities."
+          ],
+          "pcis": [
+            "Life Skills (Self-awareness): The learner acquires self-awareness as they talk about their sequence routine or daily activities using present simple tense."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies the vocabulary learnt to talk about activities taking place at different times of the day in Environmental Activities."
+          ]
         },
         {
           "subStrandId": "5.4",
@@ -437,6 +712,20 @@
           ],
           "keyInquiryQuestions": [
             "Why should you write letters in the correct shape and size?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Critical thinking and problem solving: The learner is able to think logically when matching lower case (small) and upper case (capital) letters Ss, Ll, Ii and Pp on flashcards.",
+            "Learning to Learn: The learner's ability to build relationships is promoted as they work with peers to write 3-4 letter words from left to right."
+          ],
+          "values": [
+            "Unity: This is enhanced as the learner collaborates with others to sort out flashcards with small letters and capital letters."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner acquires a high level of self-esteem as they form letters correctly for effective communication."
+          ],
+          "linksToOtherSubjects": [
+            "The learner can apply the concept of neatness and legibility in writing to their learning in all other learning areas."
           ]
         }
       ]
@@ -465,6 +754,19 @@
           "keyInquiryQuestions": [
             "Why is it important to pronounce words correctly?",
             "What should we do when someone is talking to us?"
+          ],
+          "numberOfLessons": 4,
+          "coreCompetencies": [
+            "Communication: The learner's ability to listen keenly and actively is developed as they listen to audio texts/oral texts and identify words with the target sounds in preparation for reading."
+          ],
+          "values": [
+            "Unity: Cooperation is nurtured as the learner teams up with peers to role play giving and receiving of simple instructions with peers."
+          ],
+          "pcis": [
+            "Environmental Education: The learner acquires information on the environment as they learn the new words related to weather and our environment."
+          ],
+          "linksToOtherSubjects": [
+            "The learner can relate the vocabulary related to weather to their learning in Environmental activities."
           ]
         },
         {
@@ -483,7 +785,22 @@
             "read words about weather and the environment",
             "read sentences containing decodable words related to the theme"
           ],
-          "keyInquiryQuestions": ["Why should we pronounce words clearly?"]
+          "keyInquiryQuestions": [
+            "Why should we pronounce words clearly?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Learning to Learn: The learner's ability to learn independently is developed as they practise reading sentences with decodable words on their own."
+          ],
+          "values": [
+            "Respect: This is developed as the learner appreciates the effort of peers as they practise reading words correctly."
+          ],
+          "pcis": [
+            "Climate Change: This is promoted as the learner interacts with words related to the theme on weather and the environment."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies reading skills to read texts in other learning areas."
+          ]
         },
         {
           "subStrandId": "6.3",
@@ -501,7 +818,22 @@
             "retell portions of a short story in the present continuous tense",
             "role play events in the story with peers"
           ],
-          "keyInquiryQuestions": ["What is going on in the school compound?"]
+          "keyInquiryQuestions": [
+            "What is going on in the school compound?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Communication: The learner's ability to speak clearly and correctly is promoted as they use the present continuous tense to describe ongoing activities."
+          ],
+          "values": [
+            "Unity: This is enhanced as the learner actively participates in role playing events in a story with peers."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's level of self-esteem is boosted as they use the present continuous tense correctly to describe ongoing activities."
+          ],
+          "linksToOtherSubjects": [
+            "The learner links the concept of present continuous tense to learning of similar concepts in Kiswahili and Indigenous Language Activities."
+          ]
         },
         {
           "subStrandId": "6.4",
@@ -525,6 +857,20 @@
           "keyInquiryQuestions": [
             "Why should we spell words correctly?",
             "How can you make sure the letters and words you write are readable?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Learning to Learn: The learner's self-discipline is enhanced as they are motivated to practise correct letter formation on their own.",
+            "Creativity and Imagination: The learner's originality of ideas and skills are developed as they create a poster with words related to weather and our environment."
+          ],
+          "values": [
+            "Responsibility: This is enhanced as the learner takes it upon themselves to complete given tasks."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they spell words dictated by a teacher or peers correctly."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies the writing skills as they write texts in other learning areas."
           ]
         }
       ]
@@ -553,6 +899,20 @@
           ],
           "keyInquiryQuestions": [
             "Why should we say sounds and words correctly?"
+          ],
+          "numberOfLessons": 4,
+          "coreCompetencies": [
+            "Communication: The learner's ability to speak fluently is promoted as they recite alliterative words that have the target sounds as modeled by peers, a teacher or from an audio recording/clip.",
+            "Digital Literacy: The learner's interaction with digital technology is promoted as they listen to audio recordings/clips for information on hygiene and identify words related to the theme."
+          ],
+          "values": [
+            "Unity: This is enhanced as learner works collaboratively with peers to recite poems and sing songs on hygiene."
+          ],
+          "pcis": [
+            "Health Issues (Personal Hygiene): The learner acquires information on how to maintain personal hygiene from texts when reciting rhymes and singing songs related to the theme."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies information on hygiene to learning of similar concepts in Environmental Activities."
           ]
         },
         {
@@ -573,6 +933,19 @@
           ],
           "keyInquiryQuestions": [
             "Why should we learn to say sounds and words correctly?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Learning to Learn: The learner's ability to learn independently is improved as they practise reading non-decodable words for reading competency."
+          ],
+          "values": [
+            "Respect: This is enhanced as the learner appreciates the effort of peers to read non-decodable words and gives positive feedback."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they read non-decodable words correctly."
+          ],
+          "linksToOtherSubjects": [
+            "The learner is able to apply vocabulary related to the theme to words in Environmental Activities."
           ]
         },
         {
@@ -595,6 +968,20 @@
           "keyInquiryQuestions": [
             "What did you do in the morning before coming to school?",
             "What did your family do last Saturday to keep the home clean?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Communication: The learner's ability to speak clearly and effectively is enhanced as they create a story to talk about an event using the past simple tense.",
+            "Critical Thinking and Problem Solving: This is enhanced as the learner weighs options and thinks critically when playing the scavenger hunt game to scan for words in simple past tense."
+          ],
+          "values": [
+            "Social Justice: This is enhanced as the learner fosters inclusivity and non-discrimination towards peers as they play language games."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they use simple past tense in day-to-day communication."
+          ],
+          "linksToOtherSubjects": [
+            "The learner uses the knowledge of simple past tense to learn similar concepts in Kiswahili Language Activities."
           ]
         },
         {
@@ -619,6 +1006,20 @@
           ],
           "keyInquiryQuestions": [
             "Why should we write words in correct spelling?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Communication: The learner's ability to write clearly and correctly is reinforced as they practise writing 3-5 letter words featuring the target sounds correctly.",
+            "Learning to Learn: The learner's self-discipline is developed as they practise writing words featuring the target sounds."
+          ],
+          "values": [
+            "Respect: This is inculcated as the learner appreciates the efforts of peers to write correctly and offers guidance."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they write letters correctly."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies the writing skills to convey information through writing in all learning areas."
           ]
         }
       ]
@@ -646,6 +1047,19 @@
           ],
           "keyInquiryQuestions": [
             "Why should we say words and sounds correctly?"
+          ],
+          "numberOfLessons": 4,
+          "coreCompetencies": [
+            "Critical Thinking and Problem Solving: The learner's ability to think critically is developed as they use picture clues to complete a crossword puzzle with target words."
+          ],
+          "values": [
+            "Unity: This is advanced as the learner collaborates with peers to recite rhymes and poems related to the theme and featuring the target sounds."
+          ],
+          "pcis": [
+            "Life Skills (Self-awareness): The learner's self-awareness is developed as they acquire knowledge about the parts of their body from relevant texts."
+          ],
+          "linksToOtherSubjects": [
+            "The learner uses the pronunciation skills to learn similar concepts in Kiswahili and Indigenous Language Activities."
           ]
         },
         {
@@ -668,7 +1082,22 @@
             "read a grade-appropriate picture book in unison with a peer, a teacher, or recording (choral reading)",
             "take turns reading short rhymes aloud using dramatic voices and gestures appropriate to the story (Reader’s Theatre)"
           ],
-          "keyInquiryQuestions": ["Why should we read fluently?"]
+          "keyInquiryQuestions": [
+            "Why should we read fluently?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Learning to Learn: The learner's ability to build relationships is developed as they team up to make recordings of the text they are reading and play back the text to peers."
+          ],
+          "values": [
+            "Patriotism: This is promoted as the learner appreciates the contribution of peers when working jointly to read a grade-appropriate picture book in unison with a peer, a teacher, or recording."
+          ],
+          "pcis": [
+            "Life Skills (self-esteem): The learner's self-esteem is nurtured as they acquire reading fluency skills."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies reading fluency skills when reading materials in other learning areas."
+          ]
         },
         {
           "subStrandId": "8.3",
@@ -689,6 +1118,19 @@
           ],
           "keyInquiryQuestions": [
             "How do we tell others about near and far objects?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Communication: The learner's ability to write clearly and effectively is enhanced as they use demonstratives to talk about near or far objects."
+          ],
+          "values": [
+            "Unity: This is enhanced as the learner collaboratively works with peers to carry out tasks such as singing songs and reciting rhymes about parts of the body."
+          ],
+          "pcis": [
+            "Health education: This is promoted as the learner interacts with texts and words on the theme Parts of the body."
+          ],
+          "linksToOtherSubjects": [
+            "The learner uses the knowledge acquired on vocabulary in learning the parts of the body in Religious Education Activities."
           ]
         },
         {
@@ -713,6 +1155,19 @@
           "keyInquiryQuestions": [
             "Why do we spell words correctly?",
             "How can we write legibly and neatly?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Learning to learn: The learner's potential to work jointly is promoted as the learner teams up with peers to take part in a spelling writing mini-contest to spell words correctly."
+          ],
+          "values": [
+            "Unity: This is enhanced as the learner collaborates with peers to make words related to parts of the body from jumbled letters."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they learn how to spell words correctly."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies the knowledge acquired to spell words correctly in other learning areas."
           ]
         }
       ]
@@ -741,6 +1196,19 @@
           ],
           "keyInquiryQuestions": [
             "Why should we say sounds and words correctly?"
+          ],
+          "numberOfLessons": 4,
+          "coreCompetencies": [
+            "Learning to Learn: The learner's ability to learn independently is scaled up as they practise pronouncing words with the target sounds correctly."
+          ],
+          "values": [
+            "Unity: Cooperation is developed as the learner collaborates with peers to sing songs and recite poems related to the theme."
+          ],
+          "pcis": [
+            "Life Skills (Self-awareness): The learner's self-awareness is nurtured as they acquire knowledge about their friends."
+          ],
+          "linksToOtherSubjects": [
+            "The learner uses the acquired pronunciation skills to express themselves fully when learning content in the words in other learning areas."
           ]
         },
         {
@@ -765,6 +1233,19 @@
           "keyInquiryQuestions": [
             "Why should we pronounce sounds and words correctly?",
             "How does correct pronunciation help us in reading?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Communication: The learner's ability to speak clearly and effectively is enhanced as they pronounce words correctly when reading a text."
+          ],
+          "values": [
+            "Respect: This is achieved as the learner appreciates the effort of peers to read fluently during timed reading activities."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner gains a greater sense of self-esteem as they recite poems and sing songs related to the theme."
+          ],
+          "linksToOtherSubjects": [
+            "The learner uses reading fluency skills when reading words in Kiswahili and Indigenous Language Activities."
           ]
         },
         {
@@ -787,6 +1268,19 @@
           "keyInquiryQuestions": [
             "Why is it important to refer to people and places by their names?",
             "What things can you see in the classroom?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Communication: The learner's ability to speak clearly is developed as the learner uses common and proper nouns correctly."
+          ],
+          "values": [
+            "Respect: The value of respect is enhanced as the learner talks positively about their friends."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's sense of self-esteem is reinforced as they use proper nouns correctly."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies the knowledge of common and proper nouns to learning of similar concepts in Kiswahili Language Activities."
           ]
         },
         {
@@ -812,6 +1306,20 @@
           "keyInquiryQuestions": [
             "Why do we use the full stop?",
             "When do we use capital letters?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Communication: The learner's ability to write clearly improves as they use capital letters and the full stop correctly.",
+            "Learning to Learn: The learner's ability to learn independently is developed as they practise writing their names/names of their friends starting with capital letters."
+          ],
+          "values": [
+            "Unity: Cooperation is enhanced as the learner works collaboratively with peers to colour the capital letters and small letters using crayons of different colours."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they practise using target punctuation marks correctly."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies knowledge about capital letters and the full stop when learning concepts in learning areas such as Environmental Activities, Kiswahili, and Indigenous Language Activities."
           ]
         }
       ]
@@ -838,7 +1346,23 @@
             "make short sentences with the words related to the theme",
             "respond to simple questions and instructions about the sounds /æ/ / ɔː //i:/ /u:/ / ɔɪ / / eɪ /"
           ],
-          "keyInquiryQuestions": ["Why is it good to say words clearly?"]
+          "keyInquiryQuestions": [
+            "Why is it good to say words clearly?"
+          ],
+          "numberOfLessons": 4,
+          "coreCompetencies": [
+            "Communication: The learner's ability to speak clearly and effectively is promoted as they pronounce words with the target sounds correctly.",
+            "Learning to Learn: The learner's ability to learn independently is developed as they practise pronouncing words containing the target sounds."
+          ],
+          "values": [
+            "Unity: The value of unity is developed as the learner works collaboratively with peers."
+          ],
+          "pcis": [
+            "Safety and Security: The learner's safety is enhanced as they acquire information about safety from texts."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies the skills of correct pronunciation to the learning of similar concepts in Kiswahili and Indigenous Language Activities."
+          ]
         },
         {
           "subStrandId": "10.2",
@@ -862,6 +1386,19 @@
           "keyInquiryQuestions": [
             "Why is it advisable to read at a moderate speed?",
             "How can we make reading more enjoyable?"
+          ],
+          "numberOfLessons": 1,
+          "coreCompetencies": [
+            "Learning to Learn: The learner's ability to develop relationships is developed as they collaboratively recite poems with words that have the target sounds."
+          ],
+          "values": [
+            "Responsibility: This is developed as the learner engages actively in activities to excel in reading fluency."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they acquire reading fluency skills."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies reading fluency skills when reading words in all learning areas."
           ]
         },
         {
@@ -882,7 +1419,22 @@
             "fill in gaps with the correct word (in, on, under, between, behind, in front, inside, outside)",
             "sing a song that features the words (in, on, under, between, behind, in front, inside, outside)"
           ],
-          "keyInquiryQuestions": ["How do we tell others where objects are?"]
+          "keyInquiryQuestions": [
+            "How do we tell others where objects are?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Digital Literacy: This is promoted as the learner interacts with technology as they listen to a story from a recording and lists the prepositions they hear."
+          ],
+          "values": [
+            "Social Justice: Fairness is enhanced as learners accord each other equal opportunities in sharing roles irrespective of their diversities when reciting a poem."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's esteem is enhanced as they use prepositions in various contexts correctly."
+          ],
+          "linksToOtherSubjects": [
+            "Learner applies knowledge about prepositions to the learning of Kiswahili Language Activities and Environmental Activities."
+          ]
         },
         {
           "subStrandId": "10.4",
@@ -905,6 +1457,19 @@
           "keyInquiryQuestions": [
             "Why do we use the question marks?",
             "When do we use capital letters?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Learning to Learn: Independent learning is enhanced as the learner practises how to use the target punctuation marks correctly in writing."
+          ],
+          "values": [
+            "Responsibility: This is enhanced as the learner takes up assigned roles when taking turns to ask questions and receive answers from peers."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): Learners acquire a high enhanced level of self-esteem as they punctuate their writing correctly."
+          ],
+          "linksToOtherSubjects": [
+            "Proper use of punctuation is emphasised in Kiswahili and Indigenous Language Activities."
           ]
         }
       ]
@@ -937,6 +1502,19 @@
           "keyInquiryQuestions": [
             "How can we use sounds to make new words?",
             "How do we learn to pronounce words correctly?"
+          ],
+          "numberOfLessons": 4,
+          "coreCompetencies": [
+            "Creativity and Imagination: This is enhanced as the learner is inspired to embrace creative ways of embracing ideas when reciting poems/ rhymes/ tongue twisters using words with the target sounds."
+          ],
+          "values": [
+            "Respect: This is developed as the learner works exhibits tolerance with peers when playing a game of swapping flashcards to make new words."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they pronounce words correctly."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies knowledge about pronunciation to express themselves clearly when learning concepts in Kiswahili Language Activities and Indigenous Languages Activities."
           ]
         },
         {
@@ -958,6 +1536,19 @@
           ],
           "keyInquiryQuestions": [
             "Why is proper articulation of sounds important?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Self-efficacy: This is enhanced as the learner sharpens their public speaking skills by displaying the right emotions when reading a text."
+          ],
+          "values": [
+            "Responsibility: This is developed as the learner takes up accountability tasks when practicing to read within set timelines."
+          ],
+          "pcis": [
+            "Learner Support Programmes (Clubs and Society): The learner's ability to read is developed as they team up to recite poems/ rhymes related to the theme during club activities."
+          ],
+          "linksToOtherSubjects": [
+            "The learner's capacity to read and understand concepts in other learning areas is greatly improved as they become more fluent in reading."
           ]
         },
         {
@@ -981,6 +1572,19 @@
           ],
           "keyInquiryQuestions": [
             "What do the pictures and the title tell us about the story?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Creativity and Imagination: This is enhanced as the learner practises making predictions of what will happen in a story based on the title and the pictures."
+          ],
+          "values": [
+            "Respect: This is developed as the learner displays patience with each other as they take turns to read simple sentences."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they answer direct and indirect questions from a text correctly to show comprehension."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies the comprehension skills to learning areas of texts in Kiswahili and Indigenous Language Activities."
           ]
         },
         {
@@ -1003,6 +1607,19 @@
           ],
           "keyInquiryQuestions": [
             "How do we talk about people, things, or places?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Creativity and imagination: This is promoted as the learner uses words to describe things around them."
+          ],
+          "values": [
+            "Unity: This is developed as the learner embraces a team spirit during language games involving one and two syllable adjectives."
+          ],
+          "pcis": [
+            "Environmental awareness: This is promoted as the learner gets to identify things and people around them and describe them to peers in terms of shape, size and colour."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies knowledge about adjectives to describe things in Creative Activities."
           ]
         },
         {
@@ -1025,7 +1642,22 @@
             "team up to build a sentence or a chain story collaboratively",
             "complete a story by writing missing words"
           ],
-          "keyInquiryQuestions": ["How do pictures help us to write?"]
+          "keyInquiryQuestions": [
+            "How do pictures help us to write?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Creativity and Imagination: The learner's ability to make connections is developed as the learner makes sentences from picture prompts."
+          ],
+          "values": [
+            "Unity: The learner acquires the ability to cooperate with others as they complete a word search or crossword puzzle with peers."
+          ],
+          "pcis": [
+            "Nationalism: This is addressed as the learner interacts with texts tied to the theme on community leaders."
+          ],
+          "linksToOtherSubjects": [
+            "The learner is able to apply inferencing skills on pictures to their learning of similar concepts in Creative Activities."
+          ]
         }
       ]
     },
@@ -1055,6 +1687,20 @@
           "keyInquiryQuestions": [
             "How would you know if someone is listening to you?",
             "How do we learn to pronounce words correctly?"
+          ],
+          "numberOfLessons": 4,
+          "coreCompetencies": [
+            "Communication: The learner's ability to listen keenly and actively is enhanced as they listen to an audio text and pick out the target sounds.",
+            "Learning to Learn: The learner's ability to learn independently is enhanced as they practise using vocabulary learnt in a variety of texts."
+          ],
+          "values": [
+            "Peace: This is enhanced as the learner works harmoniously with peers to take turns to respond to simple one-directional instructions orally or by using appropriate gestures."
+          ],
+          "pcis": [
+            "Social Cohesion: This is enhanced as the learner interacts with texts on the theme - Living together."
+          ],
+          "linksToOtherSubjects": [
+            "The learner is able to apply attentive listening skills to learning concepts in other learning areas."
           ]
         },
         {
@@ -1072,7 +1718,22 @@
             "take part in timed-reading of a text while displaying the right expressions",
             "recite poems/ rhymes related to the theme with peers"
           ],
-          "keyInquiryQuestions": ["How do we read fluently?"]
+          "keyInquiryQuestions": [
+            "How do we read fluently?"
+          ],
+          "numberOfLessons": 1,
+          "coreCompetencies": [
+            "Self-efficacy: This is enhanced as the learner builds on their fluency by taking part in timed-reading of a text while displaying the right expressions."
+          ],
+          "values": [
+            "Respect: This is enhanced as the learner appreciates the effort of peers in reading fluently as they read words with target sounds correctly."
+          ],
+          "pcis": [
+            "Learner Support Programmes (Clubs and Societies): The learner practises reading fluently and is able to apply the same in reading clubs."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies reading fluency as they read texts in Kiswahili Language Activities."
+          ]
         },
         {
           "subStrandId": "12.3",
@@ -1094,6 +1755,19 @@
           "keyInquiryQuestions": [
             "How can you tell that someone has understood a story?",
             "What makes a story interesting?"
+          ],
+          "numberOfLessons": 1,
+          "coreCompetencies": [
+            "Creativity and Imagination: The learner practises making connections as they talk about their own experiences related to the events in the story."
+          ],
+          "values": [
+            "Responsibility: This is enhanced as the learner engages in assigned roles and duties during role-play activities with peers."
+          ],
+          "pcis": [
+            "Social Cohesion: This is promoted as the learner interacts with texts on living together and shares with peers their real life experiences that relate to events in the story."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies comprehension skills to learning of texts in Kiswahili and Indigenous Language Activities."
           ]
         },
         {
@@ -1114,6 +1788,19 @@
           "keyInquiryQuestions": [
             "How do we show that something belongs to someone in speech?",
             "Why is it important to use possessives correctly?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Creativity and imagination: This is nurtured as the learners creatively express their ideas when engaging in a role-play to show ownership of various items."
+          ],
+          "values": [
+            "Integrity: This is enhanced as the learner shows due regard for other's property when learning about possessives."
+          ],
+          "pcis": [
+            "Life Skills (Self-awareness): The learner's self-awareness is enhanced as they learn about possessive pronouns."
+          ],
+          "linksToOtherSubjects": [
+            "The learner can link the concept of possessive pronouns to learning of similar concepts in Kiswahili Language Activities."
           ]
         },
         {
@@ -1134,6 +1821,19 @@
           "keyInquiryQuestions": [
             "Why is it important to write clearly and legibly?",
             "What should you consider when selecting words to fill in gaps?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Critical thinking and problem solving: The learner is able to think critically when picking out correct words that can be used to fill in gaps in sentences appropriately."
+          ],
+          "values": [
+            "Unity: This is enhanced as the learner works collaboratively with peers to match pictures with words."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they fill in gaps to complete sentences."
+          ],
+          "linksToOtherSubjects": [
+            "The learner can apply the writing skills to write sentences in other learning areas."
           ]
         }
       ]
@@ -1162,6 +1862,19 @@
           ],
           "keyInquiryQuestions": [
             "Why is it important to pronounce words correctly?"
+          ],
+          "numberOfLessons": 4,
+          "coreCompetencies": [
+            "Digital Literacy: This is embraced as the learner is guided to interact with technology when teaming up to record each other recite poems/rhymes/tongue twisters with target words and sounds."
+          ],
+          "values": [
+            "Responsibility: This is enhanced as the learner handles digital devices carefully and keeps each other accountable as they record their performances."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they learn how to use the digital devices appropriately."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies the vocabulary learnt on technology to learning of other related concepts in other learning areas."
           ]
         },
         {
@@ -1184,6 +1897,19 @@
           "keyInquiryQuestions": [
             "What do you see in the pictures?",
             "How can you make a guess on what would happen in a story?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Creativity and Imagination: The learner's ability to make connections is enhanced as they make predictions on where the events would be happening."
+          ],
+          "values": [
+            "Respect: This is enhanced as the learner appreciates the opinions of peers during discussions about the titles and pictures of a story."
+          ],
+          "pcis": [
+            "ICT: This is promoted as the learner interacts with texts tied to the theme on technology."
+          ],
+          "linksToOtherSubjects": [
+            "The learner applies comprehension strategies when reading texts in Kiswahili and Indigenous Language Activities."
           ]
         },
         {
@@ -1201,7 +1927,22 @@
             "restate sentence structures containing Yes/No questions from a story, poem, or conversation they have listened to",
             "role-play activities that will elicit the use of can, may, and will to answer Yes/No questions"
           ],
-          "keyInquiryQuestions": ["How would you ask your friends for help?"]
+          "keyInquiryQuestions": [
+            "How would you ask your friends for help?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Communication: The learner's ability to speak clearly and effectively is enhanced as they take turns to ask and answer Yes/No questions related to the theme using can, may, and will."
+          ],
+          "values": [
+            "Love: This is enhanced as the learner acknowledges peer's views during question and answer activities."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they ask and answer questions appropriately."
+          ],
+          "linksToOtherSubjects": [
+            "The learner uses question and answer as a mode of learning in all learning areas."
+          ]
         },
         {
           "subStrandId": "13.4",
@@ -1218,7 +1959,22 @@
             "rearrange jumbled words to form simple sentences",
             "individually form simple sentences related to the theme (3-5 sentences)"
           ],
-          "keyInquiryQuestions": ["What makes a sentence correct?"]
+          "keyInquiryQuestions": [
+            "What makes a sentence correct?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Collaboration: The learner's teamwork spirit is enhanced as they play sentence-building drills collaboratively with peers while observing the rules of engagement."
+          ],
+          "values": [
+            "Social justice: This is enhanced as the learner fosters inclusivity and non-discrimination to peers as they team up to match pictures with the correct sentences."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they write correct and meaningful sentences and words."
+          ],
+          "linksToOtherSubjects": [
+            "The learner can use the writing skills acquired to write sentences in Kiswahili and Indigenous Language Activities."
+          ]
         }
       ]
     },
@@ -1245,6 +2001,19 @@
           "keyInquiryQuestions": [
             "Why should we pronounce words correctly?",
             "Why is it important to learn new words?"
+          ],
+          "numberOfLessons": 4,
+          "coreCompetencies": [
+            "Communication: The learner's ability to listen keenly and actively is enhanced as they listen to words with the target sounds and articulate them correctly."
+          ],
+          "values": [
+            "Unity: Cooperation is enhanced as the learner works collaboratively with peers on specific tasks like singing songs/chants using words related to the theme."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they pronounce words correctly."
+          ],
+          "linksToOtherSubjects": [
+            "The learner uses the pronunciation skills to learn similar concepts in Kiswahili and Indigenous Language Activities."
           ]
         },
         {
@@ -1262,7 +2031,22 @@
             "engage in timed reading (25 words per minute), displaying the right facial expressions and tone",
             "participate in a readers’ theatre where he or she reads some lines or stanzas of a poem"
           ],
-          "keyInquiryQuestions": ["What makes it easy to read fluently?"]
+          "keyInquiryQuestions": [
+            "What makes it easy to read fluently?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Learning to Learn: The learner's ability to learn independently is enhanced as they practise reading sentences containing decodable and non-decodable words for reading fluency."
+          ],
+          "values": [
+            "Responsibility: This is enhanced as the learner offers guidance to those with difficulties during reading activities."
+          ],
+          "pcis": [
+            "Peer Education and Mentorship: This is promoted as the learner engages in a readers' theatre to build on their fluency."
+          ],
+          "linksToOtherSubjects": [
+            "The learner uses reading fluency skills to read texts Kiswahili and Indigenous Language Activities."
+          ]
         },
         {
           "subStrandId": "14.3",
@@ -1284,6 +2068,19 @@
           "keyInquiryQuestions": [
             "How can we tell that someone has understood a story?",
             "What helps us to understand a story?"
+          ],
+          "numberOfLessons": 1,
+          "coreCompetencies": [
+            "Creativity and Imagination: The learner's ability to make connections is enhanced as they talk about their own experiences in relation to the story with peers."
+          ],
+          "values": [
+            "Respect: This is enhanced as the learner appreciates the opinions of peers during discussions on the title and pictures."
+          ],
+          "pcis": [
+            "Life Skills (Creative and Critical thinking skills): The skills are enhanced as the learner uses contextual clues to answer indirect questions."
+          ],
+          "linksToOtherSubjects": [
+            "The learner uses numeracy skills as learnt in the vocabulary in learning similar concepts in Mathematics Activities."
           ]
         },
         {
@@ -1303,6 +2100,19 @@
           "keyInquiryQuestions": [
             "Where do you find different things in the classroom?",
             "Why is it important to place things in the right place?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Communication: The learner's ability to speak clearly and correctly is enhanced as they use adverbs of place to describe the position of objects and people."
+          ],
+          "values": [
+            "Responsibility: This is enhanced as the learner takes up roles during role-play activities with peers."
+          ],
+          "pcis": [
+            "Environmental awareness: This is enhanced as the learner identifies different positions of things in the classroom."
+          ],
+          "linksToOtherSubjects": [
+            "The learner uses the knowledge of adverbs to learn similar concepts in Kiswahili Language Activities."
           ]
         },
         {
@@ -1323,6 +2133,19 @@
           "keyInquiryQuestions": [
             "Why is it important to write meaningful sentences?",
             "What makes it easy to write clear sentences?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Communication: The learner's ability to write clearly and correctly is enhanced as they write simple meaningful sentences."
+          ],
+          "values": [
+            "Responsibility: This is enhanced as the learner ensures they complete allocated tasks when working jointly to write sentences from a substitution table."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they write correct sentences for effective communication."
+          ],
+          "linksToOtherSubjects": [
+            "The learner can use the writing skills to write correct sentences in other learning areas."
           ]
         }
       ]
@@ -1349,6 +2172,20 @@
           ],
           "keyInquiryQuestions": [
             "What words can we make from the sound given?"
+          ],
+          "numberOfLessons": 4,
+          "coreCompetencies": [
+            "Communication: The learner's ability to speak clearly and correctly is enhanced as they use the new words learnt in short sentences.",
+            "Critical thinking and Problem solving: The learner's ability to apply what they have learnt is enhanced as they use knowledge learnt to conserve resources."
+          ],
+          "values": [
+            "Respect: This is developed as the learner accepts diverse opinions from others when playing language games to practise pronouncing and using new words."
+          ],
+          "pcis": [
+            "Environmental Education: The learner is sensitised on avoiding wastage and using resources in the right way through texts they interact with."
+          ],
+          "linksToOtherSubjects": [
+            "The learner can apply attentive listening skills to learning concepts in other learning areas."
           ]
         },
         {
@@ -1366,7 +2203,23 @@
             "engage in timed reading (25 words per minute) displaying the right facial expressions and tone",
             "participate in a readers’ theatre where they read some lines or stanzas of a poem"
           ],
-          "keyInquiryQuestions": ["Why should we read with expression?"]
+          "keyInquiryQuestions": [
+            "Why should we read with expression?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Learning to Learn: The learner's self-discipline is enhanced as they practise reading sentences containing decodable and non-decodable words for fluency in reading.",
+            "Citizenship: The learner becomes ethically responsible as they use time responsibly when engage in timed reading."
+          ],
+          "values": [
+            "Integrity: The learner's discipline is enhanced as they utilise time as a resource prudently."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they acquire reading fluency skills."
+          ],
+          "linksToOtherSubjects": [
+            "The learner can use fluency skills to read fluently in Kiswahili Language Activities."
+          ]
         },
         {
           "subStrandId": "15.3",
@@ -1389,6 +2242,19 @@
           ],
           "keyInquiryQuestions": [
             "What do pictures and titles tell us about a story?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Creativity and Imagination: The learner's communication and self-expression skills are nurtured as they draw pictures to show what is happening in the story."
+          ],
+          "values": [
+            "Respect: This is developed as the learner appreciates diverse opinions from peers during discussions on whether the predictions made are accurate."
+          ],
+          "pcis": [
+            "Environmental Education: This is promoted as the learner is sensitised on how to use resources properly through texts and stories read."
+          ],
+          "linksToOtherSubjects": [
+            "The learner can apply comprehension skills when reading texts in Kiswahili and Indigenous Language Activities."
           ]
         },
         {
@@ -1409,7 +2275,23 @@
             "construct sentences using interjections of surprise",
             "recite rhymes and poems featuring interjections of surprise"
           ],
-          "keyInquiryQuestions": ["How do people show surprise?"]
+          "keyInquiryQuestions": [
+            "How do people show surprise?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Digital Literacy: The learner's interaction with digital technology is enhanced as they use digital devices to search for emojis showing surprise.",
+            "Communication: The learner's ability to write clearly and correctly is developed as they use interjections of surprise in simple sentences."
+          ],
+          "values": [
+            "Unity: This is reinforced as the learner works collaboratively with peers to role play the interjections of surprise as modelled by peers, the teacher or from a video recording."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they use interjections correctly in communication."
+          ],
+          "linksToOtherSubjects": [
+            "The learner can use the knowledge on interjections of surprise to learn similar concepts in Kiswahili Language and Indigenous Language Activities."
+          ]
         },
         {
           "subStrandId": "15.5",
@@ -1428,7 +2310,22 @@
             "form five-word sentences using descriptive words",
             "fill in gaps with the correct descriptive word"
           ],
-          "keyInquiryQuestions": ["Why are words important in writing?"]
+          "keyInquiryQuestions": [
+            "Why are words important in writing?"
+          ],
+          "numberOfLessons": 2,
+          "coreCompetencies": [
+            "Communication: The learner's ability to write clearly and correctly is developed as they write sentences of not more than five words."
+          ],
+          "values": [
+            "Unity: Cooperation is enhanced as the learner displays a team spirit as they work with peers to create a list of words describing people, things, and places."
+          ],
+          "pcis": [
+            "Life Skills (Self-esteem): The learner acquires a greater level of self-esteem as they express himself/herself creatively in writing."
+          ],
+          "linksToOtherSubjects": [
+            "The learner can apply writing skills to write correctly in other learning areas."
+          ]
         }
       ]
     }

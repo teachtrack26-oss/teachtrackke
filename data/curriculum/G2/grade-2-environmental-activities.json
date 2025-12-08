@@ -31,6 +31,19 @@
           "keyInquiryQuestions": [
             "How can we keep our home clean?",
             "Why should we keep our home environment clean?"
+          ],
+          "numberOfLessons": 16,
+          "coreCompetencies": [
+            "Critical thinking and Problem-solving: learner enhances innovative thinking in improvising cleaning materials using locally available resources"
+          ],
+          "values": [
+            "Responsibility: learner enhances self-drive when cleaning utensils at home"
+          ],
+          "pcis": [
+            "Health Education: learner observes safety and hygiene when washing hands after handling waste materials to avoid communicable diseases"
+          ],
+          "linksToOtherSubjects": [
+            "Mathematical Activities: The skill of sorting draws knowledge learnt in pre-number concepts"
           ]
         },
         {
@@ -59,6 +72,19 @@
           ],
           "keyInquiryQuestions": [
             "How can we meet our family needs?"
+          ],
+          "numberOfLessons": 8,
+          "coreCompetencies": [
+            "Citizenship: learner develops awareness of the local environment when matching places or facilities within the locality where family needs are met"
+          ],
+          "values": [
+            "Love: learner portrays a caring attitude towards peers when playing games of picking out flashcards/paper cuttings/pictures that show family needs and wants"
+          ],
+          "pcis": [
+            "Social Economic Issues: learner enhances financial literacy when sorting and grouping pictures of goods and services into family needs and wants"
+          ],
+          "linksToOtherSubjects": [
+            "Mathematical Activities: Family needs and wants relate to the skill of counting, sorting, and grouping"
           ]
         },
         {
@@ -81,6 +107,19 @@
           ],
           "keyInquiryQuestions": [
             "How can you keep the school environment clean and safe?"
+          ],
+          "numberOfLessons": 8,
+          "coreCompetencies": [
+            "Self-efficacy: learner develops the skill of knowing the school by walking around the school compound to find out dangerous places and items"
+          ],
+          "values": [
+            "Unity: learner enhances cooperation when cleaning the school environment in groups"
+          ],
+          "pcis": [
+            "Social Economic Issues: learner develops disaster risk reduction when role-playing ways of giving first aid to common accidents in school"
+          ],
+          "linksToOtherSubjects": [
+            "Creative Activities: Paper waste recycling relates to concepts of making papier-mâché"
           ]
         },
         {
@@ -101,6 +140,19 @@
           ],
           "keyInquiryQuestions": [
             "How can you show respect for the Kenya National flag?"
+          ],
+          "numberOfLessons": 8,
+          "coreCompetencies": [
+            "Citizenship: learner develops active community skills when observing the expected behaviour related to the Kenya national flag and national anthem"
+          ],
+          "values": [
+            "Patriotism: learner enhances loyalty to the nation when singing the national anthem"
+          ],
+          "pcis": [
+            "Citizenship: learner enhances social cohesion and nationalism when singing the Kenya national anthem"
+          ],
+          "linksToOtherSubjects": [
+            "Creative Activities: Features of the Kenya national flag relate to learning of colours"
           ]
         },
         {
@@ -120,6 +172,19 @@
           ],
           "keyInquiryQuestions": [
             "Why are child rights and responsibilities important at home and school?"
+          ],
+          "numberOfLessons": 6,
+          "coreCompetencies": [
+            "Communication and Collaboration: learner develops teamwork when role-playing the responsibilities of children in school"
+          ],
+          "values": [
+            "Social Justice: learner enhances equity when performing age-appropriate responsibilities at school"
+          ],
+          "pcis": [
+            "Citizenship: learner enhances Child Rights awareness when sharing own expectations, experiences, duties and responsibilities at home or school"
+          ],
+          "linksToOtherSubjects": [
+            "English Language Activities: Listening to a resource person on Child Rights and Responsibilities relates to active listening and speaking"
           ]
         },
         {
@@ -144,6 +209,20 @@
           ],
           "keyInquiryQuestions": [
             "How can you locate your local market?"
+          ],
+          "numberOfLessons": 8,
+          "coreCompetencies": [
+            "Citizenship: learner recognises the interdependence and connections of people found in a market"
+          ],
+          "values": [
+            "Integrity: learner enhances honest and fair negotiations when role-playing buying and selling"
+          ],
+          "pcis": [
+            "Citizenship: learner enhances acknowledgement for self and others when interacting with people found in a market",
+            "Financial Literacy: learner develops spending skills when visiting the nearest market to find out activities that take place"
+          ],
+          "linksToOtherSubjects": [
+            "Mathematical Activities: Buying and selling in a market relates to the concept of money"
           ]
         }
       ]
@@ -174,6 +253,21 @@
           ],
           "keyInquiryQuestions": [
             "Why do we need to predict the weather?"
+          ],
+          "numberOfLessons": 12,
+          "coreCompetencies": [
+            "Digital Literacy: learner interacts with digital technology when playing relevant and educative games on weather conditions"
+          ],
+          "values": [
+            "Unity: learner develops cooperation when observing and recording prevailing weather conditions as an outdoor activity",
+            "Integrity: learner develops honesty when observing and recording weather conditions for one week"
+          ],
+          "pcis": [
+            "Life Skills: learner develops effective communication skills when participating in a class contest, on narrating weather occurrences from weather chart recordings",
+            "Learner Support Programs: learner develops career guidance skills when creating a weather record using weather symbols for one week"
+          ],
+          "linksToOtherSubjects": [
+            "Creative Activities: Drawing weather symbols relates to the skill of drawing and colouring"
           ]
         },
         {
@@ -196,6 +290,19 @@
           ],
           "keyInquiryQuestions": [
             "How can you identify different types of soil in our environment?"
+          ],
+          "numberOfLessons": 8,
+          "coreCompetencies": [
+            "Learning to Learn: learner develops the skill of learning independently when modelling soil ribbons using soil samples and finding out the soil sample that makes smooth long ribbons"
+          ],
+          "values": [
+            "Unity: learner develops cooperation skills when modelling objects with different types of soil"
+          ],
+          "pcis": [
+            "Health Promotion Issues: learner develops preventive health skills when cleaning the working area and hands with soap and clean running water after handling soil to prevent communicable diseases"
+          ],
+          "linksToOtherSubjects": [
+            "Creative Activities: Modelling objects using soil draws knowledge from modelling techniques"
           ]
         },
         {
@@ -219,6 +326,19 @@
           "keyInquiryQuestions": [
             "How can we conserve light in our environment?",
             "Why should we conserve light in our environment?"
+          ],
+          "numberOfLessons": 12,
+          "coreCompetencies": [
+            "Communication: learner develops writing skills when making posters with simple messages on the conservation of light to create awareness"
+          ],
+          "values": [
+            "Unity: learner develops cooperation skills when manipulating objects in the presence of light to form shadows for enjoyment"
+          ],
+          "pcis": [
+            "Social Economic Issues: learner develops financial skills when practising switching off lights when not in use and during day time"
+          ],
+          "linksToOtherSubjects": [
+            "English Language Activities: Posters on energy conservation relate to writing skills"
           ]
         }
       ]
@@ -246,6 +366,19 @@
           ],
           "keyInquiryQuestions": [
             "Why do we store water at home and in school?"
+          ],
+          "numberOfLessons": 12,
+          "coreCompetencies": [
+            "Self-efficacy: learner develops awareness of water conservation when exploring various ways of storing water at home and school"
+          ],
+          "values": [
+            "Responsibility: learner enhances self-drive when practising storing water in bottles and water cans at home and school"
+          ],
+          "pcis": [
+            "Health Education: learner develops awareness of safe water storage to prevent health risks to self and others"
+          ],
+          "linksToOtherSubjects": [
+            "Creative Activities: Drawing items used to store water relates to drawing and colouring skills"
           ]
         },
         {
@@ -265,6 +398,19 @@
           ],
           "keyInquiryQuestions": [
             "How can you care for plants in the environment?"
+          ],
+          "numberOfLessons": 10,
+          "coreCompetencies": [
+            "Citizenship: learner develops environmental awareness when advocating for plant protection for environmental sustainability"
+          ],
+          "values": [
+            "Responsibility: learner enhances care for the environment when watering, manuring and mulching plants"
+          ],
+          "pcis": [
+            "Environmental Education: learner develops awareness of plant protection for environmental sustainability"
+          ],
+          "linksToOtherSubjects": [
+            "English Language Activities: Writing plant protection messages relates to writing skills"
           ]
         },
         {
@@ -289,6 +435,20 @@
           ],
           "keyInquiryQuestions": [
             "Why should an animal stay in a clean place?"
+          ],
+          "numberOfLessons": 12,
+          "coreCompetencies": [
+            "Learning to Learn: learner develops knowledge when relating food items with respective animals"
+          ],
+          "values": [
+            "Responsibility: learner enhances care for animals when carrying out activities of caring for animals in the locality"
+          ],
+          "pcis": [
+            "Health Education: learner develops hygiene awareness when washing hands with soap and water after cleaning the animal shelter",
+            "Animal Welfare: learner develops awareness of fair treatment of animals"
+          ],
+          "linksToOtherSubjects": [
+            "Creative Activities: Sorting and grouping food items from animals relates to classification skills"
           ]
         }
       ]
