@@ -147,6 +147,14 @@ def login(user_credentials: UserLogin, db: Session = Depends(get_db)):
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Please verify your email before logging in"
             )
+            
+        # Check if user is banned
+        if hasattr(user, 'is_active') and user.is_active is False:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Your account has been suspended. Please contact support."
+            )
+
         
         # Create access token
         access_token = create_access_token(data={"sub": user.email})

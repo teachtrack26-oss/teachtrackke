@@ -150,10 +150,12 @@ class User(Base):
     google_id = Column(String(255), unique=True, nullable=True, index=True)  # For Google OAuth
     auth_provider = Column(String(50), default="local")  # local, google, etc.
     is_admin = Column(Boolean, default=False)  # Legacy Admin flag (keep for backward compatibility)
+    is_active = Column(Boolean, default=True)  # For banning users
     
     # SaaS Fields
     role = Column(SQLEnum(UserRole), default=UserRole.TEACHER)
     school_id = Column(Integer, ForeignKey("schools.id", ondelete="SET NULL"), nullable=True)
+    previous_school_id = Column(Integer, ForeignKey("schools.id", ondelete="SET NULL"), nullable=True)  # Track previous school after downgrade
     subscription_type = Column(SQLEnum(SubscriptionType), default=SubscriptionType.INDIVIDUAL_BASIC)
     subscription_status = Column(SQLEnum(SubscriptionStatus), default=SubscriptionStatus.ACTIVE) # Default active for free tier
     

@@ -429,6 +429,16 @@ export default function DashboardPage() {
         }));
         setResources(resourcesData);
       } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
+          console.warn(
+            "Session expired (401) in fetchDashboardData, redirecting..."
+          );
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("user");
+          sessionStorage.clear();
+          router.push("/login");
+          return;
+        }
         console.error("Failed to fetch dashboard data:", error);
         // Fallback to empty states or keep loading state
       }
@@ -536,14 +546,16 @@ export default function DashboardPage() {
         fetchTodayLessons(token, "");
       }
     } catch (error) {
-      console.error("Failed to fetch subjects:", error);
       // If unauthorized, redirect to login and clear all session data
       if (axios.isAxiosError(error) && error.response?.status === 401) {
+        console.warn("Session expired (401) in fetchSubjects, redirecting...");
         localStorage.removeItem("accessToken");
         localStorage.removeItem("user");
         sessionStorage.clear();
         router.push("/login");
+        return;
       }
+      console.error("Failed to fetch subjects:", error);
     } finally {
       setLoading(false);
     }

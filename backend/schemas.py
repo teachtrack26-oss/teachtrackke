@@ -86,9 +86,11 @@ class AdminUserSummary(BaseModel):
     auth_provider: Optional[str] = None
     # New role-based fields
     role: Optional[str] = None
+    is_active: Optional[bool] = True
     subscription_type: Optional[str] = None
     subscription_status: Optional[str] = None
     school_id: Optional[int] = None
+    previous_school_id: Optional[int] = None  # Track previous school after downgrade
     subject_count: Optional[int] = 0
     subjects_count: Optional[int] = 0
     subjects: Optional[List[AdminSubjectSummary]] = []
@@ -922,4 +924,15 @@ class TeacherProfileLogoResponse(BaseModel):
     """Response after uploading logo"""
     message: str
     logo_url: str
+
+class SchoolUpdate(BaseModel):
+    max_teachers: Optional[int] = None
+    subscription_status: Optional[str] = None
+
+class UserLinkRequest(BaseModel):
+    school_id: int
+
+class BulkBanRequest(BaseModel):
+    user_ids: List[int]
+    action: str = "ban" # ban or unban
 

@@ -13,7 +13,7 @@ export default function GoogleSignInButtonNextAuth() {
 
     try {
       // Sign in with NextAuth
-      const result = await signIn("google", {
+      const result: any = await signIn("google", {
         callbackUrl: "/dashboard",
         redirect: true,
       });
@@ -61,9 +61,7 @@ export default function GoogleSignInButtonNextAuth() {
         <span>{isLoading ? "Signing in..." : "Continue with Google"}</span>
       </button>
 
-      {error && (
-        <p className="text-sm text-red-500 text-center">{error}</p>
-      )}
+      {error && <p className="text-sm text-red-500 text-center">{error}</p>}
     </div>
   );
 }

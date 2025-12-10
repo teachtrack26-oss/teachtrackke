@@ -1365,11 +1365,11 @@ const TimetablePage = () => {
                                     entry={entry}
                                     theme={theme}
                                     subjectName={subject?.subject_name}
-                                    onEdit={(e) => {
+                                    onEdit={(e: React.MouseEvent) => {
                                       e.stopPropagation();
                                       openEditModal(entry);
                                     }}
-                                    onDelete={(e) => {
+                                    onDelete={(e: React.MouseEvent) => {
                                       e.stopPropagation();
                                       handleDelete(entry.id);
                                     }}

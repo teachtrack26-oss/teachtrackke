@@ -9,11 +9,11 @@ const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 const TimetablePage = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const [timeSlots, setTimeSlots] = useState([]);
-  const [entries, setEntries] = useState([]);
-  const [subjects, setSubjects] = useState([]);
+  const [timeSlots, setTimeSlots] = useState<any[]>([]);
+  const [entries, setEntries] = useState<any[]>([]);
+  const [subjects, setSubjects] = useState<any[]>([]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [editingEntry, setEditingEntry] = useState(null);
+  const [editingEntry, setEditingEntry] = useState<any>(null);
   const [formData, setFormData] = useState({
     time_slot_id: 0,
     subject_id: 0,
@@ -54,7 +54,7 @@ const TimetablePage = () => {
         { headers }
       );
       const slotsData = await slotsRes.json();
-      setTimeSlots(slotsData.filter((s) => s.slot_type === "lesson"));
+      setTimeSlots(slotsData.filter((s: any) => s.slot_type === "lesson"));
       const entriesRes = await fetch(
         "http://localhost:8000/api/v1/timetable/entries",
         { headers }
@@ -72,7 +72,7 @@ const TimetablePage = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const token =

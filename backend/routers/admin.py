@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Body, UploadFile, File
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
+from sqlalchemy import func
 from typing import List, Optional
 from datetime import datetime
 
@@ -12,7 +13,8 @@ from models import (
 from schemas import (
     AdminUsersResponse, BulkDeleteRequest, AdminRoleUpdate, ResetProgressRequest,
     SystemAnnouncementCreate, SystemAnnouncementResponse,
-    CurriculumTemplateCreate, CurriculumTemplateUpdate, CurriculumTemplateResponse
+    CurriculumTemplateCreate, CurriculumTemplateUpdate, CurriculumTemplateResponse,
+    SchoolUpdate, UserLinkRequest, BulkBanRequest
 )
 from dependencies import get_current_user, get_current_super_admin, get_current_admin_user
 from config import settings
@@ -60,10 +62,167 @@ def get_platform_stats(
 
 @router.get("/schools")
 def get_all_schools(
+    page: int = 1,
+    limit: int = 20,
+    search: Optional[str] = None,
+    subscription_status: Optional[str] = None,
+    sort_by: str = "name",
+    sort_order: str = "asc",
     current_user: User = Depends(get_current_super_admin),
     db: Session = Depends(get_db)
 ):
-    return db.query(School).all()
+    page = max(page, 1)
+    limit = max(min(limit, 100), 1)
+
+    teacher_counts_subq = (
+        db.query(
+            User.school_id.label("school_id"),
+            func.count(User.id).label("teacher_count")
+        )
+        .filter(User.role == UserRole.TEACHER)
+        .group_by(User.school_id)
+        .subquery()
+    )
+
+    teacher_count_col = func.coalesce(teacher_counts_subq.c.teacher_count, 0)
+
+    query = (
+        db.query(School, teacher_count_col.label("teacher_count"))
+        .outerjoin(teacher_counts_subq, School.id == teacher_counts_subq.c.school_id)
+    )
+
+    if search:
+        query = query.filter(School.name.ilike(f"%{search}%"))
+
+    if subscription_status:
+        query = query.filter(School.subscription_status == subscription_status)
+
+    sort_mapping = {
+        "name": School.name,
+        "created_at": School.created_at,
+        "subscription_status": School.subscription_status,
+        "teacher_count": teacher_count_col,
+    }
+
+    sort_column = sort_mapping.get(sort_by, School.name)
+    if sort_order.lower() == "desc":
+        sort_column = sort_column.desc()
+    else:
+        sort_column = sort_column.asc()
+
+    query = query.order_by(sort_column)
+
+    total = query.count()
+    schools = query.offset((page - 1) * limit).limit(limit).all()
+
+    result = []
+    for school, teacher_count in schools:
+        admin_user = school.admin
+        school_dict = {
+            "id": school.id,
+            "name": school.name,
+            "email": admin_user.email if admin_user else None,
+            "admin_name": admin_user.full_name if admin_user else None,
+            "admin_id": admin_user.id if admin_user else None,
+            "max_teachers": school.max_teachers,
+            "subscription_status": school.subscription_status,
+            "created_at": school.created_at,
+            "teacher_count": teacher_count,
+        }
+        result.append(school_dict)
+
+    return {
+        "schools": result,
+        "total": total,
+        "page": page,
+        "page_size": limit
+    }
+
+@router.get("/schools/{school_id}/teachers")
+def get_school_teachers(
+    school_id: int,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    """Get all teachers linked to a specific school (current or previous)"""
+    school = db.query(School).filter(School.id == school_id).first()
+    if not school:
+        raise HTTPException(status_code=404, detail="School not found")
+    
+    # Helper to serialize subject summaries
+    def serialize_subjects(teacher: User):
+        return [
+            {
+                "id": subject.id,
+                "name": subject.subject_name,
+                "grade": subject.grade,
+                "lessons_completed": subject.lessons_completed,
+                "total_lessons": subject.total_lessons,
+                "progress": float(subject.progress_percentage or 0),
+            }
+            for subject in getattr(teacher, "subjects", [])
+        ]
+
+    # Helper to serialize teachers with subject info
+    def serialize_teacher(teacher: User, is_current: bool):
+        subjects = serialize_subjects(teacher)
+        return {
+            "id": teacher.id,
+            "full_name": teacher.full_name,
+            "email": teacher.email,
+            "subscription_type": teacher.subscription_type.value if teacher.subscription_type else None,
+            "is_active": teacher.is_active,
+            "created_at": teacher.created_at,
+            "is_current": is_current,
+            "subjects": subjects,
+            "subject_count": len(subjects),
+        }
+
+    # Get currently linked teachers
+    current_teachers = (
+        db.query(User)
+        .options(joinedload(User.subjects))
+        .filter(User.school_id == school_id, User.role == UserRole.TEACHER)
+        .all()
+    )
+    
+    # Get previously linked teachers (downgraded)
+    previous_teachers = (
+        db.query(User)
+        .options(joinedload(User.subjects))
+        .filter(
+            User.previous_school_id == school_id,
+            User.school_id != school_id,  # Not currently linked
+            User.role == UserRole.TEACHER,
+        )
+        .all()
+    )
+    
+    # Get the school admin
+    school_admin = db.query(User).filter(
+        User.school_id == school_id,
+        User.role == UserRole.SCHOOL_ADMIN
+    ).first()
+    
+    return {
+        "school": {
+            "id": school.id,
+            "name": school.name,
+            "email": school.admin.email if school.admin else None,
+            "max_teachers": school.max_teachers,
+            "subscription_status": school.subscription_status
+        },
+        "school_admin": {
+            "id": school_admin.id,
+            "full_name": school_admin.full_name,
+            "email": school_admin.email,
+            "is_active": school_admin.is_active
+        } if school_admin else None,
+        "teachers": [serialize_teacher(t, True) for t in current_teachers],
+        "previous_teachers": [serialize_teacher(t, False) for t in previous_teachers],
+        "teacher_count": len(current_teachers),
+        "previous_teacher_count": len(previous_teachers)
+    }
 
 @router.put("/users/{user_id}/upgrade")
 def upgrade_user(
@@ -105,8 +264,121 @@ def ban_user(
         raise HTTPException(status_code=404, detail="User not found")
     
     user.is_active = False
+    
+    # If banning a School Admin, downgrade all linked teachers to FREE
+    teachers_downgraded = 0
+    if user.role == UserRole.SCHOOL_ADMIN and user.school_id:
+        linked_teachers = db.query(User).filter(
+            User.school_id == user.school_id,
+            User.role == UserRole.TEACHER,
+            User.subscription_type == SubscriptionType.SCHOOL_SPONSORED
+        ).all()
+        
+        for teacher in linked_teachers:
+            # Save the previous school before downgrading
+            teacher.previous_school_id = teacher.school_id
+            teacher.subscription_type = SubscriptionType.FREE
+            teachers_downgraded += 1
+    
     db.commit()
+    
+    if teachers_downgraded > 0:
+        return {"message": f"User banned. {teachers_downgraded} linked teacher(s) downgraded to FREE subscription."}
     return {"message": "User banned"}
+
+@router.post("/users/{user_id}/unban")
+def unban_user(
+    user_id: int,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    user.is_active = True
+    db.commit()
+    return {"message": "User unbanned"}
+
+@router.patch("/schools/{school_id}")
+def update_school(
+    school_id: int,
+    school_update: SchoolUpdate,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    school = db.query(School).filter(School.id == school_id).first()
+    if not school:
+        raise HTTPException(status_code=404, detail="School not found")
+    
+    if school_update.max_teachers is not None:
+        school.max_teachers = school_update.max_teachers
+    
+    if school_update.subscription_status is not None:
+        school.subscription_status = school_update.subscription_status
+        
+    db.commit()
+    db.refresh(school)
+    return school
+
+@router.post("/users/{user_id}/link")
+def link_user_to_school(
+    user_id: int,
+    link_request: UserLinkRequest,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+        
+    school = db.query(School).filter(School.id == link_request.school_id).first()
+    if not school:
+        raise HTTPException(status_code=404, detail="School not found")
+        
+    user.school_id = school.id
+    user.subscription_type = SubscriptionType.SCHOOL_SPONSORED
+    db.commit()
+    
+    return {"message": f"User linked to {school.name}"}
+
+@router.post("/users/{user_id}/unlink")
+def unlink_user_from_school(
+    user_id: int,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+        
+    if user.school_id:
+        user.previous_school_id = user.school_id
+        user.school_id = None
+        user.subscription_type = SubscriptionType.FREE
+        db.commit()
+        return {"message": "User unlinked from school"}
+    
+    return {"message": "User was not linked to any school"}
+
+@router.delete("/users/{user_id}")
+def delete_user(
+    user_id: int,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Check if user is a super admin to prevent accidental deletion of self or other admins
+    if user.role == UserRole.SUPER_ADMIN:
+         raise HTTPException(status_code=400, detail="Cannot delete a Super Admin")
+
+    db.delete(user)
+    db.commit()
+    return {"message": "User deleted successfully"}
+
 
 # ============================================================================
 # ADMIN USER MANAGEMENT
@@ -150,6 +422,53 @@ def bulk_delete_users(
     db.query(User).filter(User.id.in_(request.user_ids)).delete(synchronize_session=False)
     db.commit()
     return {"message": f"Deleted {len(request.user_ids)} users"}
+
+@router.post("/users/bulk-ban")
+def bulk_ban_users(
+    request: BulkBanRequest,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    is_active = request.action == "unban"
+    db.query(User).filter(User.id.in_(request.user_ids)).update(
+        {User.is_active: is_active}, synchronize_session=False
+    )
+    db.commit()
+    return {"message": f"{'Unbanned' if is_active else 'Banned'} {len(request.user_ids)} users"}
+
+@router.get("/users/export")
+def export_users(
+    search: Optional[str] = None,
+    role: Optional[str] = None,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    query = db.query(User)
+    
+    if search:
+        query = query.filter(
+            (User.email.ilike(f"%{search}%")) | 
+            (User.full_name.ilike(f"%{search}%"))
+        )
+    
+    if role and role != "all":
+        query = query.filter(User.role == role)
+        
+    users = query.all()
+    
+    # Return as list of dicts for frontend to convert to CSV
+    return [
+        {
+            "ID": u.id,
+            "Name": u.full_name,
+            "Email": u.email,
+            "Role": u.role,
+            "School": u.school_rel.name if u.school_rel else "N/A",
+            "Status": "Active" if u.is_active else "Banned",
+            "Joined": u.created_at.strftime("%Y-%m-%d") if u.created_at else "N/A"
+        }
+        for u in users
+    ]
 
 @router.patch("/users/{user_id}/role")
 def update_user_role(

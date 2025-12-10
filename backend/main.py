@@ -11,7 +11,7 @@ from payment_routes import router as payment_router
 from routers import (
     schools, profiles, admin, subjects, notes, curriculum, 
     settings as user_settings, timetable, schemes, lesson_plans, 
-    records, announcements, sharing, learning, dashboard
+    records, announcements, sharing, learning, dashboard, analytics
 )
 
 # Initialize FastAPI app
@@ -52,6 +52,7 @@ app.include_router(announcements.router)
 app.include_router(sharing.router)
 app.include_router(learning.router)
 app.include_router(dashboard.router)
+app.include_router(analytics.router)
 
 # Health check
 @app.get("/")

@@ -38,11 +38,13 @@ const nextConfig: NextConfig = {
     ],
   },
   experimental: {
-    turbopack: {
-      // Silence root inference warning explicitly
-      root: process.cwd(),
-    },
     // serverActions is enabled by default in recent Next.js versions
+  },
+  webpack: (config) => {
+    return config;
+  },
+  turbopack: {
+    root: __dirname,
   },
   async rewrites() {
     // Use environment variable or fallback to localhost

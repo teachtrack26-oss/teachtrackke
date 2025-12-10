@@ -15,6 +15,8 @@ import {
   FaSignInAlt,
   FaSearch,
   FaFilter,
+  FaBan,
+  FaCheck,
 } from "react-icons/fa";
 
 interface Subject {
@@ -33,6 +35,7 @@ interface User {
   school: string;
   grade_level: string;
   is_admin: boolean;
+  is_active: boolean;
   role: string; // Added role field
   auth_provider: string;
   created_at: string;
@@ -136,6 +139,21 @@ export default function AdminUsersPage() {
       const message =
         typeof detail === "string" ? detail : "Failed to delete user";
       toast.error(message);
+    }
+  };
+
+  const toggleBanUser = async (userId: number, isActive: boolean) => {
+    const action = isActive ? "ban" : "unban";
+    if (!confirm(`Are you sure you want to ${action} this user?`)) {
+      return;
+    }
+
+    try {
+      await api.post(`/admin/users/${userId}/${action}`);
+      toast.success(`User ${action}ned successfully`);
+      fetchUsers();
+    } catch (error: any) {
+      toast.error(`Failed to ${action} user`);
     }
   };
 
@@ -480,6 +498,21 @@ export default function AdminUsersPage() {
                                   }
                                 >
                                   <FaUserShield />
+                                </button>
+                                <button
+                                  onClick={() =>
+                                    toggleBanUser(user.id, user.is_active)
+                                  }
+                                  className={`${
+                                    user.is_active
+                                      ? "text-orange-600 hover:text-orange-900"
+                                      : "text-green-600 hover:text-green-900"
+                                  }`}
+                                  title={
+                                    user.is_active ? "Ban user" : "Unban user"
+                                  }
+                                >
+                                  {user.is_active ? <FaBan /> : <FaCheck />}
                                 </button>
                                 <button
                                   onClick={() =>
