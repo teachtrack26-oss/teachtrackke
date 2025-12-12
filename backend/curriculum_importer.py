@@ -6,6 +6,26 @@ from sqlalchemy.orm import Session
 from models import CurriculumTemplate, TemplateStrand, TemplateSubstrand
 from database import SessionLocal
 
+def determine_education_level(grade: str) -> str:
+    """Determine CBC education level from grade"""
+    if not grade:
+        return "Junior Secondary"
+        
+    grade_upper = str(grade).upper()
+    
+    if "PP1" in grade_upper or "PP2" in grade_upper:
+        return "Pre-Primary"
+    elif any(g in grade_upper for g in ["GRADE 1", "GRADE 2", "GRADE 3"]):
+        return "Lower Primary"
+    elif any(g in grade_upper for g in ["GRADE 4", "GRADE 5", "GRADE 6"]):
+        return "Upper Primary"
+    elif any(g in grade_upper for g in ["GRADE 7", "GRADE 8", "GRADE 9"]):
+        return "Junior Secondary"
+    elif any(g in grade_upper for g in ["GRADE 10", "GRADE 11", "GRADE 12"]):
+        return "Senior Secondary"
+    
+    return "Junior Secondary"  # Default fallback
+
 def import_curriculum_from_json(json_data: dict, db: Session):
     """
     Import curriculum data from JSON into database
@@ -61,10 +81,14 @@ def import_curriculum_from_json(json_data: dict, db: Session):
             }
         
         # Create curriculum template
+        education_level = json_data.get("education_level") or json_data.get("educationLevel")
+        if not education_level:
+            education_level = determine_education_level(grade)
+
         curriculum = CurriculumTemplate(
             subject=subject,
             grade=grade,
-            education_level=json_data.get("education_level", "Junior Secondary"),
+            education_level=education_level,
             is_active=True
         )
         db.add(curriculum)

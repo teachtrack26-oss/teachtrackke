@@ -167,7 +167,10 @@ export default function AdminDashboard() {
       const templatesRes = await axios.get("/api/v1/curriculum-templates", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setTemplates(templatesRes.data.templates || []);
+      const templatesData = Array.isArray(templatesRes.data)
+        ? templatesRes.data
+        : templatesRes.data.templates || [];
+      setTemplates(templatesData);
 
       setLoading(false);
     } catch (error) {

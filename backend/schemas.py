@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
-from typing import Optional, List
+from typing import Optional, List, Any
 from datetime import datetime
 
 # User Schemas
@@ -305,16 +305,68 @@ class CurriculumTemplateBase(BaseModel):
 class CurriculumTemplateCreate(CurriculumTemplateBase):
     pass
 
+class TemplateSubstrandUpdate(BaseModel):
+    id: Optional[int] = None
+    substrand_number: Optional[str] = "1.1"
+    substrand_name: str
+    sequence_order: Optional[int] = None
+    number_of_lessons: int = 1
+    specific_learning_outcomes: Optional[Any] = None
+    suggested_learning_experiences: Optional[Any] = None
+    key_inquiry_questions: Optional[Any] = None
+    core_competencies: Optional[Any] = None
+    values: Optional[Any] = None
+    pcis: Optional[Any] = None
+    links_to_other_subjects: Optional[Any] = None
+
+class TemplateStrandUpdate(BaseModel):
+    id: Optional[int] = None
+    strand_number: Optional[str] = "1"
+    strand_name: str
+    sequence_order: int
+    substrands: List[TemplateSubstrandUpdate] = []
+
 class CurriculumTemplateUpdate(BaseModel):
     education_level: Optional[str] = None
     grade: Optional[str] = None
     subject: Optional[str] = None
     is_active: Optional[bool] = None
+    strands: Optional[List[TemplateStrandUpdate]] = None
+
+class TemplateSubstrandResponse(BaseModel):
+    id: int
+    strand_id: int
+    substrand_number: str
+    substrand_name: str
+    number_of_lessons: int
+    specific_learning_outcomes: Optional[Any] = None
+    suggested_learning_experiences: Optional[Any] = None
+    key_inquiry_questions: Optional[Any] = None
+    core_competencies: Optional[Any] = None
+    values: Optional[Any] = None
+    pcis: Optional[Any] = None
+    links_to_other_subjects: Optional[Any] = None
+
+    class Config:
+        from_attributes = True
+
+class TemplateStrandResponse(BaseModel):
+    id: int
+    curriculum_template_id: int
+    strand_number: str
+    strand_name: str
+    sequence_order: int
+    created_at: datetime
+    substrands: List[TemplateSubstrandResponse] = []
+
+    class Config:
+        from_attributes = True
 
 class CurriculumTemplateResponse(CurriculumTemplateBase):
     id: int
     created_at: datetime
     updated_at: datetime
+    strands: List[TemplateStrandResponse] = []
     
     class Config:
         from_attributes = True

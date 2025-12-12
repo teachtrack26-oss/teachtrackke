@@ -6,7 +6,7 @@ from datetime import datetime
 
 from database import get_db
 from models import (
-    User, School, SystemAnnouncement, CurriculumTemplate, 
+    User, School, SystemAnnouncement, CurriculumTemplate, TemplateStrand, TemplateSubstrand,
     SchoolSettings, SchoolTerm, CalendarActivity, LessonConfiguration,
     Subject, Lesson, SubStrand, Strand, ProgressLog, UserRole, SubscriptionType
 )
@@ -19,6 +19,10 @@ from schemas import (
 from dependencies import get_current_user, get_current_super_admin, get_current_admin_user
 from config import settings
 from auth import create_access_token
+import logging
+import traceback
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(
     prefix=f"{settings.API_V1_PREFIX}/admin",
@@ -605,6 +609,17 @@ async def get_all_curriculum_templates(
         
     return query.all()
 
+@router.get("/curriculum-templates/{template_id}", response_model=CurriculumTemplateResponse)
+async def get_curriculum_template(
+    template_id: int,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    template = db.query(CurriculumTemplate).filter(CurriculumTemplate.id == template_id).first()
+    if not template:
+        raise HTTPException(status_code=404, detail="Template not found")
+    return template
+
 @router.post("/curriculum-templates", response_model=CurriculumTemplateResponse)
 async def create_curriculum_template(
     template: CurriculumTemplateCreate,
@@ -624,16 +639,104 @@ async def update_curriculum_template(
     current_user: User = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
-    template = db.query(CurriculumTemplate).filter(CurriculumTemplate.id == template_id).first()
-    if not template:
-        raise HTTPException(status_code=404, detail="Template not found")
-        
-    for key, value in template_update.dict(exclude_unset=True).items():
-        setattr(template, key, value)
-        
-    db.commit()
-    db.refresh(template)
-    return template
+    try:
+        template = db.query(CurriculumTemplate).filter(CurriculumTemplate.id == template_id).first()
+        if not template:
+            raise HTTPException(status_code=404, detail="Template not found")
+            
+        # Update basic fields
+        for key, value in template_update.dict(exclude={'strands'}, exclude_unset=True).items():
+            setattr(template, key, value)
+            
+        # Handle Strands
+        if template_update.strands is not None:
+            # Map existing strands by ID for easy lookup
+            existing_strands = {s.id: s for s in template.strands}
+            
+            # Keep track of processed IDs to know what to delete
+            processed_strand_ids = set()
+            
+            for s_data in template_update.strands:
+                strand = None
+                # Check if it's an existing strand (and not a temp ID)
+                if s_data.id and s_data.id in existing_strands:
+                    strand = existing_strands[s_data.id]
+                    processed_strand_ids.add(strand.id)
+                    
+                    # Update strand fields
+                    strand.strand_name = s_data.strand_name
+                    strand.sequence_order = s_data.sequence_order
+                    if s_data.strand_number:
+                        strand.strand_number = s_data.strand_number
+                else:
+                    # Create new strand
+                    strand = TemplateStrand(
+                        curriculum_template_id=template.id,
+                        strand_name=s_data.strand_name,
+                        strand_number=s_data.strand_number or str(s_data.sequence_order),
+                        sequence_order=s_data.sequence_order
+                    )
+                    db.add(strand)
+                    db.flush() # Get ID for substrands
+                
+                # Handle Substrands
+                if s_data.substrands is not None:
+                    existing_substrands = {ss.id: ss for ss in strand.substrands}
+                    processed_substrand_ids = set()
+                    
+                    for ss_data in s_data.substrands:
+                        substrand = None
+                        if ss_data.id and ss_data.id in existing_substrands:
+                            substrand = existing_substrands[ss_data.id]
+                            processed_substrand_ids.add(substrand.id)
+                            
+                            # Update fields
+                            substrand.substrand_name = ss_data.substrand_name
+                            substrand.number_of_lessons = ss_data.number_of_lessons
+                            substrand.specific_learning_outcomes = ss_data.specific_learning_outcomes
+                            substrand.suggested_learning_experiences = ss_data.suggested_learning_experiences
+                            substrand.key_inquiry_questions = ss_data.key_inquiry_questions
+                            substrand.core_competencies = ss_data.core_competencies
+                            substrand.values = ss_data.values
+                            substrand.pcis = ss_data.pcis
+                            substrand.links_to_other_subjects = ss_data.links_to_other_subjects
+                            if ss_data.substrand_number:
+                                substrand.substrand_number = ss_data.substrand_number
+                        else:
+                            # Create new substrand
+                            substrand = TemplateSubstrand(
+                                strand_id=strand.id,
+                                substrand_name=ss_data.substrand_name,
+                                substrand_number=ss_data.substrand_number or "1.1",
+                                number_of_lessons=ss_data.number_of_lessons,
+                                specific_learning_outcomes=ss_data.specific_learning_outcomes,
+                                suggested_learning_experiences=ss_data.suggested_learning_experiences,
+                                key_inquiry_questions=ss_data.key_inquiry_questions,
+                                core_competencies=ss_data.core_competencies,
+                                values=ss_data.values,
+                                pcis=ss_data.pcis,
+                                links_to_other_subjects=ss_data.links_to_other_subjects
+                            )
+                            db.add(substrand)
+                            processed_substrand_ids.add(substrand.id) # Mark as processed (though it's new, it shouldn't be deleted)
+                    
+                    # Delete removed substrands
+                    for ss_id, ss in existing_substrands.items():
+                        if ss_id not in processed_substrand_ids:
+                            db.delete(ss)
+            
+            # Delete removed strands
+            for s_id, s in existing_strands.items():
+                if s_id not in processed_strand_ids:
+                    db.delete(s)
+            
+        db.commit()
+        db.refresh(template)
+        return template
+    except Exception as e:
+        logger.error(f"Error updating curriculum template: {str(e)}")
+        logger.error(traceback.format_exc())
+        raise HTTPException(status_code=500, detail=f"Failed to update curriculum: {str(e)}")
 
 @router.delete("/curriculum-templates/{template_id}")
 async def delete_curriculum_template(
@@ -844,17 +947,7 @@ def delete_calendar_activity(
 # ANALYTICS
 # ============================================================================
 
-@router.get("/analytics")
-def get_admin_analytics(
-    current_user: User = Depends(get_current_admin_user),
-    db: Session = Depends(get_db)
-):
-    # Placeholder for analytics logic
-    return {
-        "users": db.query(User).count(),
-        "lessons_taught": 0,
-        "active_teachers": 0
-    }
+
 
 # ============================================================================
 # LESSONS PER WEEK CONFIG

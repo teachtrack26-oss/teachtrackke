@@ -12,15 +12,24 @@ import {
   FaChevronDown,
   FaChevronUp,
   FaArrowLeft,
+  FaArrowUp,
+  FaArrowDown,
+  FaCopy,
+  FaCompress,
+  FaExpand,
 } from "react-icons/fa";
 
 interface Substrand {
   id: number;
   sequence_order: number;
   substrand_name: string;
-  specific_learning_outcomes?: string;
-  suggested_learning_experiences?: string;
-  key_inquiry_questions?: string;
+  specific_learning_outcomes?: string | string[];
+  suggested_learning_experiences?: string | string[];
+  key_inquiry_questions?: string | string[];
+  core_competencies?: string | string[];
+  values?: string | string[];
+  pcis?: string | string[];
+  links_to_other_subjects?: string | string[];
   number_of_lessons: number;
 }
 
@@ -55,6 +64,7 @@ export default function EditCurriculumPage() {
   );
   const [editingStrand, setEditingStrand] = useState<number | null>(null);
   const [editingSubstrand, setEditingSubstrand] = useState<number | null>(null);
+  const [newlyAddedId, setNewlyAddedId] = useState<number | null>(null);
 
   // Check for Super Admin access on mount
   useEffect(() => {
@@ -72,6 +82,16 @@ export default function EditCurriculumPage() {
   useEffect(() => {
     fetchTemplate();
   }, [templateId]);
+
+  useEffect(() => {
+    if (newlyAddedId) {
+      const element = document.getElementById(`item-${newlyAddedId}`);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+        setNewlyAddedId(null);
+      }
+    }
+  }, [newlyAddedId, template]);
 
   const fetchTemplate = async () => {
     try {
@@ -103,15 +123,68 @@ export default function EditCurriculumPage() {
 
     setSaving(true);
     try {
+      // Sanitize payload to match backend schema and remove temporary IDs
+      const sanitizedStrands = template.strands.map((s) => ({
+        id: s.id > 2000000000 ? undefined : s.id, // Assume IDs > 2 billion are temp timestamps
+        strand_name: s.strand_name,
+        sequence_order: s.sequence_order,
+        substrands: s.substrands.map((ss) => ({
+          id: ss.id > 2000000000 ? undefined : ss.id,
+          substrand_name: ss.substrand_name,
+          number_of_lessons: ss.number_of_lessons,
+          specific_learning_outcomes:
+            typeof ss.specific_learning_outcomes === "string"
+              ? ss.specific_learning_outcomes
+                  .split("\n")
+                  .filter((line) => line.trim() !== "")
+              : ss.specific_learning_outcomes,
+          suggested_learning_experiences:
+            typeof ss.suggested_learning_experiences === "string"
+              ? ss.suggested_learning_experiences
+                  .split("\n")
+                  .filter((line) => line.trim() !== "")
+              : ss.suggested_learning_experiences,
+          key_inquiry_questions:
+            typeof ss.key_inquiry_questions === "string"
+              ? ss.key_inquiry_questions
+                  .split("\n")
+                  .filter((line) => line.trim() !== "")
+              : ss.key_inquiry_questions,
+          core_competencies:
+            typeof ss.core_competencies === "string"
+              ? ss.core_competencies
+                  .split("\n")
+                  .filter((line) => line.trim() !== "")
+              : ss.core_competencies,
+          values:
+            typeof ss.values === "string"
+              ? ss.values.split("\n").filter((line) => line.trim() !== "")
+              : ss.values,
+          pcis:
+            typeof ss.pcis === "string"
+              ? ss.pcis.split("\n").filter((line) => line.trim() !== "")
+              : ss.pcis,
+          links_to_other_subjects:
+            typeof ss.links_to_other_subjects === "string"
+              ? ss.links_to_other_subjects
+                  .split("\n")
+                  .filter((line) => line.trim() !== "")
+              : ss.links_to_other_subjects,
+          sequence_order: ss.sequence_order,
+        })),
+      }));
+
       await api.put(`/admin/curriculum-templates/${templateId}`, {
         subject: template.subject,
         grade: template.grade,
         is_active: template.is_active,
-        strands: template.strands,
+        strands: sanitizedStrands,
       });
 
       toast.success("Curriculum updated successfully");
+      fetchTemplate(); // Refresh to get real IDs
     } catch (error) {
+      console.error("Failed to update curriculum:", error);
       toast.error("Failed to update curriculum");
     } finally {
       setSaving(false);
@@ -162,20 +235,117 @@ export default function EditCurriculumPage() {
     setTemplate({ ...template, strands: updatedStrands });
   };
 
+  const moveStrand = (index: number, direction: "up" | "down") => {
+    if (!template) return;
+    const newStrands = [...template.strands];
+    if (direction === "up" && index > 0) {
+      [newStrands[index], newStrands[index - 1]] = [
+        newStrands[index - 1],
+        newStrands[index],
+      ];
+    } else if (direction === "down" && index < newStrands.length - 1) {
+      [newStrands[index], newStrands[index + 1]] = [
+        newStrands[index + 1],
+        newStrands[index],
+      ];
+    }
+    // Update sequence orders
+    newStrands.forEach((s, i) => (s.sequence_order = i + 1));
+    setTemplate({ ...template, strands: newStrands });
+  };
+
+  const moveSubstrand = (
+    strandId: number,
+    subIndex: number,
+    direction: "up" | "down"
+  ) => {
+    if (!template) return;
+    const updatedStrands = template.strands.map((strand) => {
+      if (strand.id === strandId) {
+        const newSubstrands = [...strand.substrands];
+        if (direction === "up" && subIndex > 0) {
+          [newSubstrands[subIndex], newSubstrands[subIndex - 1]] = [
+            newSubstrands[subIndex - 1],
+            newSubstrands[subIndex],
+          ];
+        } else if (
+          direction === "down" &&
+          subIndex < newSubstrands.length - 1
+        ) {
+          [newSubstrands[subIndex], newSubstrands[subIndex + 1]] = [
+            newSubstrands[subIndex + 1],
+            newSubstrands[subIndex],
+          ];
+        }
+        // Update sequence orders
+        newSubstrands.forEach((s, i) => (s.sequence_order = i + 1));
+        return { ...strand, substrands: newSubstrands };
+      }
+      return strand;
+    });
+    setTemplate({ ...template, strands: updatedStrands });
+  };
+
+  const duplicateSubstrand = (strandId: number, substrand: Substrand) => {
+    if (!template) return;
+    const newId = Date.now();
+    const updatedStrands = template.strands.map((strand) => {
+      if (strand.id === strandId) {
+        const newSubstrand = {
+          ...substrand,
+          id: newId,
+          substrand_name: `${substrand.substrand_name} (Copy)`,
+          sequence_order: strand.substrands.length + 1,
+        };
+        return {
+          ...strand,
+          substrands: [...strand.substrands, newSubstrand],
+        };
+      }
+      return strand;
+    });
+    setTemplate({
+      ...template,
+      strands: updatedStrands,
+      total_substrands: template.total_substrands + 1,
+    });
+    setNewlyAddedId(newId);
+  };
+
+  const toggleAllStrands = (expand: boolean) => {
+    if (!template) return;
+    if (expand) {
+      setExpandedStrands(new Set(template.strands.map((s) => s.id)));
+    } else {
+      setExpandedStrands(new Set());
+    }
+  };
+
   const addStrand = () => {
     if (!template) return;
+    console.log("Adding new strand");
     const newStrand: Strand = {
       id: Date.now(), // Temporary ID
       sequence_order: template.strands.length + 1,
       strand_name: "New Strand",
       substrands: [],
     };
-    setTemplate({
-      ...template,
-      strands: [...template.strands, newStrand],
-      total_strands: template.total_strands + 1,
+
+    setTemplate((prev) => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        strands: [...prev.strands, newStrand],
+        total_strands: prev.total_strands + 1,
+      };
     });
-    setExpandedStrands(new Set([...expandedStrands, newStrand.id]));
+
+    setExpandedStrands((prev) => {
+      const next = new Set(prev);
+      next.add(newStrand.id);
+      return next;
+    });
+    setNewlyAddedId(newStrand.id);
   };
 
   const deleteStrand = (strandId: number) => {
@@ -192,34 +362,44 @@ export default function EditCurriculumPage() {
 
   const addSubstrand = (strandId: number) => {
     if (!template) return;
-    const strand = template.strands.find((s) => s.id === strandId);
-    if (!strand) return;
+    console.log("Adding substrand to strand", strandId);
 
-    const newSubstrand: Substrand = {
-      id: Date.now(), // Temporary ID
-      sequence_order: strand.substrands.length + 1,
-      substrand_name: "New Sub-Strand",
-      specific_learning_outcomes: "",
-      suggested_learning_experiences: "",
-      key_inquiry_questions: "",
-      number_of_lessons: 1,
-    };
+    const newSubstrandId = Date.now();
 
-    const updatedStrands = template.strands.map((s) => {
-      if (s.id === strandId) {
-        return {
-          ...s,
-          substrands: [...s.substrands, newSubstrand],
-        };
-      }
-      return s;
+    setTemplate((prev) => {
+      if (!prev) return null;
+
+      const updatedStrands = prev.strands.map((s) => {
+        if (s.id === strandId) {
+          const newSubstrand: Substrand = {
+            id: newSubstrandId, // Temporary ID
+            sequence_order: s.substrands.length + 1,
+            substrand_name: "New Sub-Strand",
+            specific_learning_outcomes: "",
+            suggested_learning_experiences: "",
+            key_inquiry_questions: "",
+            core_competencies: "",
+            values: "",
+            pcis: "",
+            links_to_other_subjects: "",
+            number_of_lessons: 1,
+          };
+
+          return {
+            ...s,
+            substrands: [...s.substrands, newSubstrand],
+          };
+        }
+        return s;
+      });
+
+      return {
+        ...prev,
+        strands: updatedStrands,
+        total_substrands: prev.total_substrands + 1,
+      };
     });
-
-    setTemplate({
-      ...template,
-      strands: updatedStrands,
-      total_substrands: template.total_substrands + 1,
-    });
+    setNewlyAddedId(newSubstrandId);
   };
 
   const deleteSubstrand = (strandId: number, substrandId: number) => {
@@ -374,19 +554,37 @@ export default function EditCurriculumPage() {
         <div className="bg-white rounded-lg shadow p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold text-gray-900">Strands</h2>
-            <button
-              onClick={addStrand}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center"
-            >
-              <FaPlus className="mr-2" />
-              Add Strand
-            </button>
+            <div className="flex space-x-2">
+              <button
+                onClick={() => toggleAllStrands(true)}
+                className="text-gray-600 hover:text-blue-600 p-2"
+                title="Expand All"
+              >
+                <FaExpand />
+              </button>
+              <button
+                onClick={() => toggleAllStrands(false)}
+                className="text-gray-600 hover:text-blue-600 p-2"
+                title="Collapse All"
+              >
+                <FaCompress />
+              </button>
+              <button
+                type="button"
+                onClick={addStrand}
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center"
+              >
+                <FaPlus className="mr-2" />
+                Add Strand
+              </button>
+            </div>
           </div>
 
           <div className="space-y-4">
             {template.strands.map((strand, strandIndex) => (
               <div
                 key={strand.id}
+                id={`item-${strand.id}`}
                 className="border border-gray-200 rounded-lg"
               >
                 {/* Strand Header */}
@@ -426,12 +624,38 @@ export default function EditCurriculumPage() {
                   </div>
                   <div className="flex items-center space-x-2">
                     <button
+                      onClick={() => moveStrand(strandIndex, "up")}
+                      disabled={strandIndex === 0}
+                      className={`p-2 ${
+                        strandIndex === 0
+                          ? "text-gray-300"
+                          : "text-gray-600 hover:text-blue-600"
+                      }`}
+                      title="Move Up"
+                    >
+                      <FaArrowUp />
+                    </button>
+                    <button
+                      onClick={() => moveStrand(strandIndex, "down")}
+                      disabled={strandIndex === template.strands.length - 1}
+                      className={`p-2 ${
+                        strandIndex === template.strands.length - 1
+                          ? "text-gray-300"
+                          : "text-gray-600 hover:text-blue-600"
+                      }`}
+                      title="Move Down"
+                    >
+                      <FaArrowDown />
+                    </button>
+                    <button
+                      type="button"
                       onClick={() => setEditingStrand(strand.id)}
                       className="text-blue-600 hover:text-blue-800 p-2"
                     >
                       <FaEdit />
                     </button>
                     <button
+                      type="button"
                       onClick={() => deleteStrand(strand.id)}
                       className="text-red-600 hover:text-red-800 p-2"
                     >
@@ -448,6 +672,7 @@ export default function EditCurriculumPage() {
                         Sub-Strands
                       </h4>
                       <button
+                        type="button"
                         onClick={() => addSubstrand(strand.id)}
                         className="bg-green-600 text-white px-3 py-1 rounded-lg hover:bg-green-700 flex items-center text-sm"
                       >
@@ -460,6 +685,7 @@ export default function EditCurriculumPage() {
                       {strand.substrands.map((substrand, subIndex) => (
                         <div
                           key={substrand.id}
+                          id={`item-${substrand.id}`}
                           className="border border-gray-200 rounded-lg p-4 bg-gray-50"
                         >
                           <div className="flex items-start justify-between mb-3">
@@ -490,6 +716,45 @@ export default function EditCurriculumPage() {
                             <div className="flex items-center space-x-2 ml-4">
                               <button
                                 onClick={() =>
+                                  moveSubstrand(strand.id, subIndex, "up")
+                                }
+                                disabled={subIndex === 0}
+                                className={`p-1 ${
+                                  subIndex === 0
+                                    ? "text-gray-300"
+                                    : "text-gray-600 hover:text-blue-600"
+                                }`}
+                                title="Move Up"
+                              >
+                                <FaArrowUp />
+                              </button>
+                              <button
+                                onClick={() =>
+                                  moveSubstrand(strand.id, subIndex, "down")
+                                }
+                                disabled={
+                                  subIndex === strand.substrands.length - 1
+                                }
+                                className={`p-1 ${
+                                  subIndex === strand.substrands.length - 1
+                                    ? "text-gray-300"
+                                    : "text-gray-600 hover:text-blue-600"
+                                }`}
+                                title="Move Down"
+                              >
+                                <FaArrowDown />
+                              </button>
+                              <button
+                                onClick={() =>
+                                  duplicateSubstrand(strand.id, substrand)
+                                }
+                                className="text-gray-600 hover:text-blue-600 p-1"
+                                title="Duplicate"
+                              >
+                                <FaCopy />
+                              </button>
+                              <button
+                                onClick={() =>
                                   setEditingSubstrand(substrand.id)
                                 }
                                 className="text-blue-600 hover:text-blue-800 p-1"
@@ -514,7 +779,13 @@ export default function EditCurriculumPage() {
                               </label>
                               <textarea
                                 value={
-                                  substrand.specific_learning_outcomes || ""
+                                  Array.isArray(
+                                    substrand.specific_learning_outcomes
+                                  )
+                                    ? substrand.specific_learning_outcomes.join(
+                                        "\n"
+                                      )
+                                    : substrand.specific_learning_outcomes || ""
                                 }
                                 onChange={(e) =>
                                   updateSubstrand(
@@ -535,7 +806,14 @@ export default function EditCurriculumPage() {
                               </label>
                               <textarea
                                 value={
-                                  substrand.suggested_learning_experiences || ""
+                                  Array.isArray(
+                                    substrand.suggested_learning_experiences
+                                  )
+                                    ? substrand.suggested_learning_experiences.join(
+                                        "\n"
+                                      )
+                                    : substrand.suggested_learning_experiences ||
+                                      ""
                                 }
                                 onChange={(e) =>
                                   updateSubstrand(
@@ -555,12 +833,112 @@ export default function EditCurriculumPage() {
                                 Key Inquiry Questions
                               </label>
                               <textarea
-                                value={substrand.key_inquiry_questions || ""}
+                                value={
+                                  Array.isArray(substrand.key_inquiry_questions)
+                                    ? substrand.key_inquiry_questions.join("\n")
+                                    : substrand.key_inquiry_questions || ""
+                                }
                                 onChange={(e) =>
                                   updateSubstrand(
                                     strand.id,
                                     substrand.id,
                                     "key_inquiry_questions",
+                                    e.target.value
+                                  )
+                                }
+                                rows={2}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                              />
+                            </div>
+
+                            <div>
+                              <label className="block text-xs font-medium text-gray-700 mb-1">
+                                Core Competencies
+                              </label>
+                              <textarea
+                                value={
+                                  Array.isArray(substrand.core_competencies)
+                                    ? substrand.core_competencies.join("\n")
+                                    : substrand.core_competencies || ""
+                                }
+                                onChange={(e) =>
+                                  updateSubstrand(
+                                    strand.id,
+                                    substrand.id,
+                                    "core_competencies",
+                                    e.target.value
+                                  )
+                                }
+                                rows={2}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                              />
+                            </div>
+
+                            <div>
+                              <label className="block text-xs font-medium text-gray-700 mb-1">
+                                Values
+                              </label>
+                              <textarea
+                                value={
+                                  Array.isArray(substrand.values)
+                                    ? substrand.values.join("\n")
+                                    : substrand.values || ""
+                                }
+                                onChange={(e) =>
+                                  updateSubstrand(
+                                    strand.id,
+                                    substrand.id,
+                                    "values",
+                                    e.target.value
+                                  )
+                                }
+                                rows={2}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                              />
+                            </div>
+
+                            <div>
+                              <label className="block text-xs font-medium text-gray-700 mb-1">
+                                PCIs
+                              </label>
+                              <textarea
+                                value={
+                                  Array.isArray(substrand.pcis)
+                                    ? substrand.pcis.join("\n")
+                                    : substrand.pcis || ""
+                                }
+                                onChange={(e) =>
+                                  updateSubstrand(
+                                    strand.id,
+                                    substrand.id,
+                                    "pcis",
+                                    e.target.value
+                                  )
+                                }
+                                rows={2}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                              />
+                            </div>
+
+                            <div>
+                              <label className="block text-xs font-medium text-gray-700 mb-1">
+                                Link to Other Learning Areas
+                              </label>
+                              <textarea
+                                value={
+                                  Array.isArray(
+                                    substrand.links_to_other_subjects
+                                  )
+                                    ? substrand.links_to_other_subjects.join(
+                                        "\n"
+                                      )
+                                    : substrand.links_to_other_subjects || ""
+                                }
+                                onChange={(e) =>
+                                  updateSubstrand(
+                                    strand.id,
+                                    substrand.id,
+                                    "links_to_other_subjects",
                                     e.target.value
                                   )
                                 }
@@ -612,17 +990,25 @@ export default function EditCurriculumPage() {
           </div>
         </div>
 
-        {/* Save Button at Bottom */}
-        <div className="flex justify-end">
-          <button
-            onClick={saveChanges}
-            disabled={saving}
-            className="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 flex items-center disabled:bg-gray-400 text-lg"
-          >
-            <FaSave className="mr-2" />
-            {saving ? "Saving..." : "Save All Changes"}
-          </button>
+        {/* Floating Save Bar */}
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-lg z-50">
+          <div className="max-w-7xl mx-auto flex justify-between items-center">
+            <div className="text-sm text-gray-600">
+              {template.strands.length} Strands • {template.total_substrands}{" "}
+              Sub-strands
+            </div>
+            <button
+              onClick={saveChanges}
+              disabled={saving}
+              className="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 flex items-center disabled:bg-gray-400 text-lg shadow-md"
+            >
+              <FaSave className="mr-2" />
+              {saving ? "Saving..." : "Save All Changes"}
+            </button>
+          </div>
         </div>
+        {/* Spacer for floating bar */}
+        <div className="h-24"></div>
       </div>
     </div>
   );
