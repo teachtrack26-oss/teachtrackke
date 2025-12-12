@@ -1,0 +1,2206 @@
+{
+    "grade": "Grade 1",
+    "subject": "English Activities",
+    "education_level": "Lower Primary",
+    "strands": [
+        {
+            "strand_number": "1.0",
+            "strand_name": "Greetings",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and vocabulary",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "pick out the letters a-h and their corresponding sounds for effective communication",
+                        "pronounce words with the sounds /a:/, /æ/, / ɜː/, /ɑː/, /ə/, /b:/, /b/, /k/, /s/, /d/, /e/, /iː/, /f/ /g/, /h/ for oral fluency",
+                        "use words related to greetings in everyday conversations",
+                        "appreciate the role of greetings in diverse contexts"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to an oral text with words containing the sounds corresponding to the letters a-h",
+                        "take turns to pronounce sounds /a:/, /æ/, / ɜː/, /ɑː/, /ə/, /b:/, /b/, /k/, /s/, /d/, /e/, /iː/, /f/ /g/, /h/ as modelled by peers, the teacher or an audio recording",
+                        "match sounds with corresponding letters",
+                        "talk about pictures/photos of people greeting one another",
+                        "watch videos of people greeting each other",
+                        "use non-verbal cues such as eye contact, appropriate gestures, and facial expressions when greeting others",
+                        "practise various types of greetings such as shaking hands, patting someone on the back, fist bumping, waving, among others as they take turns"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do we greet people?",
+                        "How do we greet people at different times of the day?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to listen keenly and actively is enhanced as they listen to audio texts and identify words with the target sounds in preparation for reading.",
+                        "Digital Literacy: The learner's interaction with digital technology is enhanced as they listen to audio texts and identify words with the target sounds."
+                    ],
+                    "values": [
+                        "Unity: This is enhanced as the learner collaborates with peers to recite rhymes and sing songs related to the theme."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-awareness): The learner's self-awareness is enhanced as they use vocabulary learnt to talk about greetings."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.2",
+                    "substrand_name": "Reading: Pre-reading",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify an appropriate posture for reading preparedness",
+                        "read words containing the letters (a-h) for fluency",
+                        "realise the importance of correct posture in preparation for reading"
+                    ],
+                    "suggested_learning_experiences": [
+                        "select the appropriate sitting position from pictures, videos and teacher’s demonstration",
+                        "position self and reading materials appropriately",
+                        "turn the pages of a book from right to left for easy reading",
+                        "track print through finger reading",
+                        "pick out words with letters (a-h) from flashcards or charts",
+                        "match target letters with the sounds they represent",
+                        "read 2-3 letter words containing the target sounds"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we sit while reading?",
+                        "How do we position our books while reading?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to listen keenly and actively is enhanced as they identify words with the target sounds in preparation for reading."
+                    ],
+                    "values": [
+                        "Respect: This is developed as the learner appreciates the efforts of peers to identify the sounds as they take turns."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they identify sounds correctly in preparation for reading."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.3",
+                    "substrand_name": "Language Use: Verb ‘to be’ (Present Tense)",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify the present tense forms of the verbs ‘to be’ am, is, are in sentences",
+                        "use the present tense realisations of the verbs ‘to be’ am, is and are to greet and introduce oneself and others",
+                        "acknowledge the importance of using correct tense in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "participate in language games and songs using the present tense form of the verbs ‘to be’ - am, is, are",
+                        "watch videos of children greeting one another and introducing themselves",
+                        "observe as peers introduce themselves using the verb ‘to be’- am, is, are",
+                        "introduce himself/herself politely using the verb ‘to be’ - am, is, are",
+                        "describe himself/herself, and other people using the verb ‘to be’ - am, is, are",
+                        "practise various types of greetings using appropriate language e.g., how are you? I am fine",
+                        "role play various types of greetings and introduction using the verb ‘to be’ - am, is, are"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we greet people in the morning/afternoon/ evening?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly and effectively is enhanced as they use naming words correctly."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is enhanced as the learner collaborates with peers to name objects around them."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they use naming words correctly."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.4",
+                    "substrand_name": "Writing: Pre-writing",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise the appropriate sitting posture in preparation for writing",
+                        "exhibit appropriate eye- hand coordination for writing preparedness",
+                        "realise the role of correct posture and eye- hand coordination in writing"
+                    ],
+                    "suggested_learning_experiences": [
+                        "look at pictures and watch videos on appropriate sitting posture",
+                        "practise sitting in the right posture",
+                        "position an exercise book correctly",
+                        "hold pencils/ colouring materials correctly",
+                        "work with peers to write the target letters from left to right",
+                        "join dotted lines to make letters and patterns",
+                        "colour different shapes and letters",
+                        "draw patterns and shapes, trace letters and shapes or mould letters with plasticine or clay"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to sit properly when writing?",
+                        "How do we place our books when writing?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's self-discipline is enhanced as they practise correct letter formation.",
+                        "Creativity and Imagination: The learner's originality of ideas and skills are developed as they trace the patterns of the target letters and form letters correctly."
+                    ],
+                    "values": [
+                        "Responsibility: This is enhanced as the learner takes up assigned roles and duties when working collaboratively with peers."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they trace patterns and form letters correctly."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "2.0",
+            "strand_name": "School",
+            "substrands": [
+                {
+                    "substrand_number": "2.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "identify words featuring the sounds /iː/, /ɪ / /aɪ/ /ʤ/, k as in /k/ /l/ /m/ /n/ /ɒ/ /ɔː/ and /p/ in varied contexts",
+                        "articulate the sounds /iː/, /ɪ / /aɪ/ /ʤ/, k as in /k/ /l//m/ /n/ / ɒ/ /ɔː/ and /p/ for speaking fluency",
+                        "make sentences using words related to the theme",
+                        "value the role of listening in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify the sounds /iː/ (feet), /ɪ / (fit) /aɪ/ (price), j: /ʤ/ (just), k: /k/, l: /l/, m: /m/, n: /n/, o: for example, / ɒ/ (lot), /ɔː/ (cot), p: /p/",
+                        "take pictures of items during a nature walk around the school and name them",
+                        "use the Frayer model to discuss the meaning of words related to the theme",
+                        "make sentences using the learnt words",
+                        "sing songs and recite poems featuring the learnt words",
+                        "play language games using the learnt sounds and words"
+                    ],
+                    "key_inquiry_questions": [
+                        "Which words do we use to talk about school?",
+                        "How can we listen attentively to others?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to listen keenly and actively is enhanced as they listen to audio texts and identify words with the target sounds.",
+                        "Digital Literacy: The learner's interaction with digital technology is enhanced as they listen to audio texts."
+                    ],
+                    "values": [
+                        "Respect: This is developed as the learner appreciates the efforts of peers during oral activities."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-awareness): The learner's self-awareness is nurtured as they use vocabulary learnt to talk about school."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "2.2",
+                    "substrand_name": "Reading: Pre-reading",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify small and capital letters from a text",
+                        "position reading materials and sit appropriately while reading",
+                        "read words featuring the letters I to P for fluency",
+                        "value the need for the right posture while reading"
+                    ],
+                    "suggested_learning_experiences": [
+                        "pick out small letters from flashcards or charts",
+                        "match small and capital letters",
+                        "focus eyes on a line or word while reading",
+                        "track print through finger pointing as the teacher reads letters I to P",
+                        "view pictures and videos on reading posture",
+                        "use flashcards to form words with the letters I to P",
+                        "simulate the appropriate sitting posture while working with peers",
+                        "role play the correct positioning of reading materials",
+                        "practise turning over the pages of a book from right to left"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should one sit appropriately when reading?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to learn independently is enhanced as they practise identifying letter-sound correspondence."
+                    ],
+                    "values": [
+                        "Responsibility: This is developed as the learner takes up assigned roles during group activities."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they identify sounds correctly in preparation for reading."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "2.3",
+                    "substrand_name": "Language Use: Verbs ‘to do’ & Subjective Pronouns",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "pick out the words verbs ‘to do’ (do, does) and subjective pronouns (I, she/he, it) from an oral text",
+                        "use the subjective pronouns (I, she/he, it) and the verb ‘to do’ (does and do) in sentences",
+                        "acknowledge the need for well-formed sentences in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "ask each other questions using the target language pattern",
+                        "listen to a story related to the theme",
+                        "pick out the words do, does, I, he/she, it from the text",
+                        "form sentences with the words do and does from a substitution table",
+                        "use the words (I, she/he, it) in sentences, for example, He eats bananas. She drives a car. I read books. She reads books.",
+                        "view pictures and form sentences with the target language patterns",
+                        "make charts and posters showing the words (do, does, I, he/she, it) and display them",
+                        "recite poems featuring the present tense form of the verb ‘to do’ (do and does)"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you talk about a person, an object, or a place?",
+                        "How do we talk about many people?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly is developed as they use personal pronouns correctly."
+                    ],
+                    "values": [
+                        "Respect: This is enhanced as the learner uses personal pronouns to talk about others respectfully."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they use personal pronouns correctly."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "2.4",
+                    "substrand_name": "Writing: Pre-writing",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "describe the right sitting posture and position materials appropriately for writing readiness",
+                        "coordinate the eye and hands in preparation for writing",
+                        "value the need for the right posture and appropriate positioning of writing materials in learning"
+                    ],
+                    "suggested_learning_experiences": [
+                        "observe a series of pictures and pick out the right sitting posture with peers",
+                        "simulate the positioning of writing materials and the right sitting posture",
+                        "select well-positioned writing materials from a chart",
+                        "practise writing from the left to the right",
+                        "draw and colour different shapes using appropriate sitting posture and material positioning",
+                        "role play on how to use their exercise books well"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we sit when writing?",
+                        "How do we write?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's self-discipline is developed as they practise correct letter formation.",
+                        "Critical Thinking and Problem Solving: The learner is able to differentiate between the capital and small letters."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is enhanced as the learner works collaboratively with peers during handwriting activities."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they form letters correctly."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "3.0",
+            "strand_name": "Family",
+            "substrands": [
+                {
+                    "substrand_number": "3.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and vocabulary",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "link the letters q, r, s, t, u, v, w, x, y, z with their corresponding sounds",
+                        "use words featuring the sounds /q/, /r/, /s/, / t /, /ʌ /, /v/, /w/, /x/, /y/ and /z/ in words for oral fluency",
+                        "respond verbally and non- verbally to simple one- directional instructions",
+                        "advocate for accurate pronunciation in oral conversations"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen and point out the sounds of the letters: q, r, s, t, /ʌ/ (u) as in cup, v, w, x, y, z as modelled",
+                        "work with peers to say the sounds /q/, /r/, /s/, t, //ʌ /, /v/, /w/, /x/, /y/ and /z /",
+                        "view a chart featuring the letters and say the corresponding sounds",
+                        "work jointly to repeat words with the target sounds from an oral text",
+                        "role play simple instructions with peers",
+                        "sing rhymes, say tongue twisters and poems featuring the target sounds"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we become better listeners?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to listen keenly and actively is enhanced as they listen to audio texts and identify words with the target sounds.",
+                        "Digital Literacy: The learner's interaction with digital technology is enhanced as they watch video clips and identify words with target sounds."
+                    ],
+                    "values": [
+                        "Love: This is enhanced as the learner interacts with texts on family and learns to appreciate family members."
+                    ],
+                    "pcis": [
+                        "Parental Empowerment and Engagement: The learner's awareness of the role of parents is enhanced as they interact with texts on the theme."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "3.2",
+                    "substrand_name": "Reading: Pre-reading",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "name the letters q, r, s, t, u, v, w, x, y, z articulately",
+                        "read the sounds /q/ /r/ /s/ /t/ /u/ /v/ /w/ /x/ /y/ and /z/ for fluency",
+                        "value the importance of accurate pronunciation in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "name the letters q, r, s, t, u, v, w, x, y, z",
+                        "say the consonant sounds /q/ /r/ /s/ /t/ /v/ /w/ /x/ /y/ /z/",
+                        "say the vowel sound /u/",
+                        "team up to articulate the target sounds and write their corresponding letter",
+                        "model letter shapes for the target letters",
+                        "track print through finger-pointing as the teacher reads",
+                        "work jointly to match and pair sounds with their corresponding letters"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we learn how to read?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to learn independently is enhanced as they practise matching letters and sounds."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is developed as the learner collaborates with peers during reading activities."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they match letters and sounds correctly."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "3.3",
+                    "substrand_name": "Language Use: Verb ‘to have’ & Objective Pronouns",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "select the present form of the verb ‘to have’ (have, has) and the objective pronouns (me, her/him, it) from a text",
+                        "use the present form of the verb ‘to have’ (have, has) and the objective pronouns (me, her/him, it) in varied contexts",
+                        "value the importance of well-formed sentences in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to a story and pick out the present forms of the verb ‘to have’ (have, has)",
+                        "listen to a story and pick out the objective pronouns (me, her/him, it)",
+                        "work with peers to form sentences featuring the present forms of the verb ‘to have’ (have, has) from a substitution table",
+                        "make sentences using the objective pronouns (me, her/him, it)",
+                        "role play a dialogue featuring the present forms of the verb ‘to have’ (have, has) and the objective pronouns (me, her/him, it)",
+                        "sing songs, recite poems and say tongue twisters featuring the present forms of the verb ‘to have’ (have, has) and the objective pronouns (me, her/him, it)",
+                        "pick out the present forms of the verb ‘to have’ (have, has) and the objective pronouns (me, her/him, it) from a textbook, or children’s magazine"
+                    ],
+                    "key_inquiry_questions": [
+                        "Which words do you use to talk about the things you have?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly and effectively is enhanced as they use articles correctly."
+                    ],
+                    "values": [
+                        "Respect: This is developed as the learner appreciates the efforts of peers during language activities."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they use articles correctly in sentences."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "3.4",
+                    "substrand_name": "Writing: Handwriting",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify correctly formed letters of the alphabet in a text",
+                        "form lower case letters for writing fluency",
+                        "write from left to right legibly and neatly",
+                        "appreciate the importance of well-formed letters in written communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "view flashcards featuring well-formed letters of the alphabet",
+                        "team up to sort out flashcards showing the letters of the alphabet in correct sequence",
+                        "practise correct letter formation from models on the board, charts and pattern books",
+                        "copy lowercase letter patterns neatly and legibly",
+                        "work with peers to write lower case letters from left to right",
+                        "work jointly to display their neatly written work in their portfolios"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is neat handwriting important?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's self-discipline is enhanced as they practise correct letter formation.",
+                        "Creativity and Imagination: The learner's originality is developed as they form letters in correct shapes and sizes."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is enhanced as the learner works collaboratively with peers during handwriting activities."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they write letters legibly."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "4.0",
+            "strand_name": "Home",
+            "substrands": [
+                {
+                    "substrand_number": "4.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "articulate the sounds /æ/ /m/, /t/ /e/ for clarity in communication",
+                        "use words with the sounds /æ/ /m/, /t/ /e/ in oral sentences",
+                        "respond to simple specific one-directional instructions using the new words",
+                        "adopt using vocabulary learnt in oral communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "say the sounds /æ/ /m/, /t/ as modelled by the teacher, peers or from an audio recording",
+                        "form words featuring the target sounds",
+                        "display the words formed on flashcards",
+                        "make sentences orally using words with the target sounds",
+                        "team up to role play giving and receiving of instructions",
+                        "take turns to read flashcards featuring words with the target sounds"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we pronounce words correctly?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: The learner's interaction with digital technology is enhanced as they listen to audio or video texts related to the theme.",
+                        "Communication: The learner's ability to listen keenly and actively is enhanced as they identify words with the target sounds."
+                    ],
+                    "values": [
+                        "Love: This is enhanced as the learner interacts with texts about home and learns to appreciate family."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-awareness): The learner's self-awareness is enhanced as they use vocabulary to talk about their home."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "4.2",
+                    "substrand_name": "Reading: Pre-reading",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify the letters Aa, Mm, Tt and Ee in given words",
+                        "form words using the letters Aa, Mm, Tt and Ee in preparation for reading",
+                        "realise the importance of letters in word formation"
+                    ],
+                    "suggested_learning_experiences": [
+                        "read out the letters Aa, Mm, Tt and Ee from a chart",
+                        "point out and name the letters on a chart or flashcards",
+                        "form words using flashcards with the target letters Aa, Mm, Tt and Ee",
+                        "fill in blank spaces using the target letters to form words",
+                        "team up to play word games to sort the target letters",
+                        "work with others to match the target letters with their corresponding sounds"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do we learn letters?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to learn independently is enhanced as they practise reading words with target sounds."
+                    ],
+                    "values": [
+                        "Responsibility: This is developed as the learner takes up roles during group reading activities."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they read words correctly."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "4.3",
+                    "substrand_name": "Language Use: Singular and plurals (adding -s and -es)",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify singular nouns which require the addition of -s or - es to form plural",
+                        "form plural nouns from their singular forms by adding -s or -es",
+                        "appreciate the importance of using singular and plural nouns correctly in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "talk about objects at home in their singular and plural forms",
+                        "work jointly to group pictures of items found at home in columns of ‘one’ and ‘many’",
+                        "draw pictures of objects found at home, colour them and indicate the number",
+                        "sing songs and rhymes featuring the singular and plural forms of nouns",
+                        "work jointly to record the songs and rhymes as they recite them",
+                        "work with others to match a given set of words with their singular or plural forms on flashcards"
+                    ],
+                    "key_inquiry_questions": [
+                        "What objects are found at home?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly and correctly is enhanced as they use verbs to describe actions."
+                    ],
+                    "values": [
+                        "Respect: This is developed as the learner appreciates the efforts of peers during language activities."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they use verbs correctly."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "4.4",
+                    "substrand_name": "Writing: Handwriting",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify the letters Aa, Mm, Tt and Ee in lower case and upper case",
+                        "form the letters Aa, Mm, Tt and Ee in their correct shapes and sizes",
+                        "write from left to right for lifelong learning",
+                        "appreciate the role of legible handwriting in written communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "copy capital and small letter patterns of the letters Aa, Mm, Tt and Ee",
+                        "form the letters Aa, Mm, Tt and Ee from models such as boards/charts/pattern books",
+                        "select the letters Aa, Mm, Tt and Ee from flashcards",
+                        "work with peers to write 3-4 letter words from left to right",
+                        "match flashcards with upper case and lower case of the letters Aa, Mm, Tt and Ee",
+                        "watch videos on the formation of the target letters"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we shape letters correctly?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's self-discipline is enhanced as they practise correct letter formation.",
+                        "Critical Thinking and Problem Solving: The learner is able to match capital and small letters correctly."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is enhanced as the learner works collaboratively with peers during handwriting activities."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they form letters correctly."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "5.0",
+            "strand_name": "Time",
+            "substrands": [
+                {
+                    "substrand_number": "5.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "identify words with the sounds (/s/, /l/, /i /, /p/) in a text",
+                        "use words with the sounds (/s/, /l/, /i /, /p/) in sentences",
+                        "use facial expressions, eye contact and gestures appropriately during conversations",
+                        "appreciate the role of accurate pronunciation and non-verbal cues in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to a story or poem featuring words with the /s/, /l/, /i /, /p/ sounds",
+                        "pick out the words with the sounds /s/, /l/, / i /, /p/",
+                        "say the sounds /s/, /l/, /i /, /p/ as modelled from an audio recording, peer or the teacher",
+                        "make sentences using words with the target letters",
+                        "role play activities done at different times of the day",
+                        "sing songs and recite poems about time",
+                        "watch a video or live performance of a story and say what the eye contact or the facial expressions mean",
+                        "retell the story and show appropriate eye contact and facial expressions"
+                    ],
+                    "key_inquiry_questions": [
+                        "What things do we do at different times of the day?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination: The learner's ability to explore new ways of presenting ideas is inculcated as they retell stories and show appropriate eye contact and facial expressions.",
+                        "Digital Literacy: The learner's ability to connect with technology is promoted as they watch a video or live performance of a story and say what the eye contact or the facial expressions mean."
+                    ],
+                    "values": [
+                        "Responsibility: This is enhanced as the learner takes up assigned roles during role play activities with peers."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they use new words learnt to talk about different times of the day."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "5.2",
+                    "substrand_name": "Reading: Pre-reading",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "match the letters S, L, I and P to their corresponding sounds for reading preparedness",
+                        "read simple 3 - 4 letter words featuring the letters S, L, I and P for effective reading",
+                        "appreciate the role of letter-sound knowledge in reading"
+                    ],
+                    "suggested_learning_experiences": [
+                        "match letters and sounds using pocket charts/ digital flashcards/ charts",
+                        "identify the letters S, L, I and P from a chart",
+                        "say the sounds /s/, / l/, /i/ and /p/ and pick a flashcard with the corresponding letter",
+                        "team up to play a fishing game to identify specific sounds with peers",
+                        "read simple 3-4 letter words made up of the target letters"
+                    ],
+                    "key_inquiry_questions": [
+                        "What things do you do every morning?"
+                    ],
+                    "core_competencies": [
+                        "Collaboration: Teamwork is developed as the learner collaborates with peers to play a fishing game to identify specific sounds."
+                    ],
+                    "values": [
+                        "Social Justice: This is enhanced as the learner fosters fairness and non-discrimination to peers as they accord peers equal opportunities to play the language game."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires an improved level of self-esteem as they acquire reading skills."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "5.3",
+                    "substrand_name": "Language Use: Tense (Present Simple Tense)",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words in present simple tense from given sentences",
+                        "use present simple tense to talk about routine or daily activities",
+                        "adopt the use of present simple tense to talk about routine activities"
+                    ],
+                    "suggested_learning_experiences": [
+                        "watch a video on children participating in routine activities",
+                        "talk about the activities in the video using present simple tense",
+                        "respond to questions using the simple present tense based on daily home routines",
+                        "sing songs and rhymes on daily routine activities using simple present tense",
+                        "listen to a story or poem and pick out sentences about things a person does every day"
+                    ],
+                    "key_inquiry_questions": [
+                        "What do you do from morning to evening?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly and correctly is enhanced as they talk about the activities they do every day.",
+                        "Digital Literacy: This is enhanced as the learner interacts with digital content when watching a video on children participating in routine activities."
+                    ],
+                    "values": [
+                        "Respect: This is developed as the learner appreciates and understands peers' opinions as they talk about their routine activities."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-awareness): The learner acquires self-awareness as they talk about their sequence routine or daily activities using present simple tense."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "5.4",
+                    "substrand_name": "Writing: Handwriting",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify the letters Ss, Ll, Ii and Pp in their small or capital forms",
+                        "form the letters Ss, Ll, Ii, and Pp in their correct shapes and sizes",
+                        "value the role of legible handwriting in written communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "copy capital and small letter patterns of the letters Ss, Ll, Ii and Pp",
+                        "form the letters Ss, Ll, Ii and Pp as shown on boards/charts/pattern books",
+                        "select the letters Ss, Ll, Ii and Pp from a range of letters on flashcards",
+                        "work with peers to write 3-4 letter words from left to right using the target letters",
+                        "match lower case (small) and upper case (capital) letters Ss, Ll, Ii and Pp on flashcards",
+                        "draw and label objects found at home",
+                        "work jointly to sort out flashcards with small letters and capital letters"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should you write letters in the correct shape and size?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem solving: The learner is able to think logically when matching lower case (small) and upper case (capital) letters Ss, Ll, Ii and Pp on flashcards.",
+                        "Learning to Learn: The learner's ability to build relationships is promoted as they work with peers to write 3-4 letter words from left to right."
+                    ],
+                    "values": [
+                        "Unity: This is enhanced as the learner collaborates with others to sort out flashcards with small letters and capital letters."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires a high level of self-esteem as they form letters correctly for effective communication."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "6.0",
+            "strand_name": "Weather and Our Environment",
+            "substrands": [
+                {
+                    "substrand_number": "6.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "identify words with the sounds /f/, /n/, /h/, / ɒ/ and / ɔː/ from an oral t ext",
+                        "pronounce words with the sounds /f/, /n/, /h/, / ɒ/ and / ɔː/ for oral fluency",
+                        "respond to simple one- directional instructions using new words",
+                        "appreciate the role of accurate pronunciation in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to an audio text containing the sounds /f/, /n/, /h/, / ɒ/ and / ɔː/",
+                        "pick out words with the target sounds from a story",
+                        "say the sounds /f/, /n/, /h/, / ɒ/ and / ɔː/ as modeled by peers, teacher or from an audio recording",
+                        "recite rhymes or sing songs about the weather",
+                        "use the Frayer model to discuss the meaning of words related to the theme",
+                        "team up to role play giving and receiving of simple instructions using appropriate eye contact and facial expressions"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to pronounce words correctly?",
+                        "What should we do when someone is talking to us?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to listen keenly and actively is developed as they listen to audio texts/oral texts and identify words with the target sounds in preparation for reading."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is nurtured as the learner teams up with peers to role play giving and receiving of simple instructions with peers."
+                    ],
+                    "pcis": [
+                        "Environmental Education: The learner acquires information on the environment as they learn the new words related to weather and our environment."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "6.2",
+                    "substrand_name": "Reading: Word Reading",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with the sounds /f/, /n/, /h/, /ɒ/ andɔː/ in preparation for reading",
+                        "pronounce words with the target sounds accurately for fluency",
+                        "value the role of fluency in lifelong learning"
+                    ],
+                    "suggested_learning_experiences": [
+                        "point out the sounds /f/, /n/, /h/, /ɒ/ and / ɔː/ from a group of letters",
+                        "select words with the target sounds from a chart",
+                        "view a chart and read the words with the sounds /f/, /n/, /h/ /ɒ/ and / ɔː/",
+                        "work with others and form words that have the sounds /f/, /n/, /h/, /ɒ/ and / ɔː/",
+                        "read words about weather and the environment",
+                        "read sentences containing decodable words related to the theme"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we pronounce words clearly?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to learn independently is developed as they practise reading sentences with decodable words on their own."
+                    ],
+                    "values": [
+                        "Respect: This is developed as the learner appreciates the effort of peers as they practise reading words correctly."
+                    ],
+                    "pcis": [
+                        "Climate Change: This is promoted as the learner interacts with words related to the theme on weather and the environment."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "6.3",
+                    "substrand_name": "Language Use: Tense (Present Continuous Tense)",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify ongoing activities in and out of school",
+                        "use the present continuous tense to talk about ongoing activities",
+                        "appreciate the importance of correct use of tense in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "describe activities going on in the school compound",
+                        "recite poems/sing songs featuring ongoing actions in present continuous tense",
+                        "work with others to answer questions about ongoing activities related to the theme",
+                        "listen to a story and pick out the instances of ongoing actions",
+                        "retell portions of a short story in the present continuous tense",
+                        "role play events in the story with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "What is going on in the school compound?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly and correctly is promoted as they use the present continuous tense to describe ongoing activities."
+                    ],
+                    "values": [
+                        "Unity: This is enhanced as the learner actively participates in role playing events in a story with peers."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's level of self-esteem is boosted as they use the present continuous tense correctly to describe ongoing activities."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "6.4",
+                    "substrand_name": "Writing: Spelling",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "select words featuring the letters Ff, Hh, Nn and Oo in written texts",
+                        "spell 3-5 letter words with the letters Ff, Hh, Nn and Oo for writing fluency",
+                        "advocate for the need to follow spelling rules for writing fluency"
+                    ],
+                    "suggested_learning_experiences": [
+                        "work with others to trace words with the letters Ff, Hh, Nn and Oo in small and capital letters",
+                        "write words dictated by the teacher, peer or from an audio recording with the target letters",
+                        "color and spell 3-5 letter words with the target letters",
+                        "fill in the missing letters in a word",
+                        "rearrange jumbled-up letters to form the correct word",
+                        "play games such as word searches",
+                        "complete the word shapes featuring the letters Ff, Hh, Nn and Oo",
+                        "find the sight words, vowels, or consonants from a word search or crossword puzzle",
+                        "work with peers to create a poster featuring the 3-5 letter words and then colour the words with ink, crayons or improvised dyes"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we spell words correctly?",
+                        "How can you make sure the letters and words you write are readable?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's self-discipline is enhanced as they are motivated to practise correct letter formation on their own.",
+                        "Creativity and Imagination: The learner's originality of ideas and skills are developed as they create a poster with words related to weather and our environment."
+                    ],
+                    "values": [
+                        "Responsibility: This is enhanced as the learner takes it upon themselves to complete given tasks."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they spell words dictated by a teacher or peers correctly."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "7.0",
+            "strand_name": "Hygiene",
+            "substrands": [
+                {
+                    "substrand_number": "7.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "identify words with the sounds /b/, /r/, /u/, and /g/ in a text",
+                        "pronounce words with the sounds /b/, /r/, /u/, and /g/ in preparation for reading",
+                        "use words featuring the target sounds in short sentences",
+                        "acknowledge the role of accurate pronunciation in oral communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to an audio recording/watch a video clip about hygiene",
+                        "pick out words which have the sounds /b/, /r/, /u/, and /g/",
+                        "recite alliterative words that have the target sounds as modeled by peers, a teacher or from an audio recording/clip",
+                        "say tongue twisters featuring the target sounds",
+                        "make sentences using the words with the target letters",
+                        "display their sentences on charts for a gallery walk",
+                        "team up to recite rhymes and sing songs related to the theme and featuring the target sounds"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we say sounds and words correctly?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak fluently is promoted as they recite alliterative words that have the target sounds as modeled by peers, a teacher or from an audio recording/clip.",
+                        "Digital Literacy: The learner's interaction with digital technology is promoted as they listen to audio recordings/clips for information on hygiene and identify words related to the theme."
+                    ],
+                    "values": [
+                        "Unity: This is enhanced as learner works collaboratively with peers to recite poems and sing songs on hygiene."
+                    ],
+                    "pcis": [
+                        "Health Issues (Personal Hygiene): The learner acquires information on how to maintain personal hygiene from texts when reciting rhymes and singing songs related to the theme."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "7.2",
+                    "substrand_name": "Reading: Word Reading",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with the sounds /b/, /r/ /u/ and /g/, and their corresponding letters for reading competence",
+                        "read decodable and non- decodable words featuring the target sounds for fluency",
+                        "appreciate the importance of word reading in lifelong learning"
+                    ],
+                    "suggested_learning_experiences": [
+                        "pick the capital and small letters of these letters from a basket, list, or box and name each letter, (Bb, Rr, Uu, Gg,)",
+                        "read short words with target letters such as green, rot, brush, gap, mud",
+                        "work with peers and read decodable words from a list",
+                        "listen to an audio recording containing decodable words",
+                        "view charts, posters and pictures and select non- decodable words with the sounds /b/, /r/ /u/, and /g/",
+                        "read non-decodable words on a word wall with peers and give feedback"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we learn to say sounds and words correctly?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to learn independently is improved as they practise reading non-decodable words for reading competency."
+                    ],
+                    "values": [
+                        "Respect: This is enhanced as the learner appreciates the effort of peers to read non-decodable words and gives positive feedback."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they read non-decodable words correctly."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "7.3",
+                    "substrand_name": "Language Use: Tense (Simple Past Tense)",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with -ed and - d from a text",
+                        "use simple past tense to talk about things that happened in the past",
+                        "value the need to use the correct tense when conveying information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "make sentences using simple past tense to talk about hygiene (by adding –ed or –d to words)",
+                        "change words to simple past tense, for example: brush (brushed), polish (polished), clean (cleaned,) wash (washed)",
+                        "write short sentences using words in simple present tense",
+                        "rewrite the sentences made in simple past tense",
+                        "read out sentences with simple past tense from a story, poem, or conversation",
+                        "create a story to talk about an event using the simple past tense",
+                        "play a language game ‘tense scavenger hunt’"
+                    ],
+                    "key_inquiry_questions": [
+                        "What did you do in the morning before coming to school?",
+                        "What did your family do last Saturday to keep the home clean?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly and effectively is enhanced as they create a story to talk about an event using the past simple tense.",
+                        "Critical Thinking and Problem Solving: This is enhanced as the learner weighs options and thinks critically when playing the scavenger hunt game to scan for words in simple past tense."
+                    ],
+                    "values": [
+                        "Social Justice: This is enhanced as the learner fosters inclusivity and non-discrimination towards peers as they play language games."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they use simple past tense in day-to-day communication."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "7.4",
+                    "substrand_name": "Writing: Spelling",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise words featuring the letters Bb, Rr, Uu, and Gg in written texts",
+                        "form the letters Bb, Rr, Uu, and Gg appropriately with reference to shape and size",
+                        "spell 3-5 letter words featuring the sounds /b/, /r/, /u/, /g / correctly for writing fluency",
+                        "acknowledge the role of proper spelling in written communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "circle words with the letters Bb, Rr, Uu, Gg from a text",
+                        "spell words dictated by a peer, teacher, or from an audio recording",
+                        "trace and colour the words correctly",
+                        "spell and write words with the target sounds",
+                        "fill in missing letters in words",
+                        "work jointly to rearrange jumbled-up letters to form correct words",
+                        "uncover hidden letters from flashcards and read them out",
+                        "listen to a poem, or sing a song and spell words with similar sounds",
+                        "draw and label objects related to the theme"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we write words in correct spelling?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to write clearly and correctly is reinforced as they practise writing 3-5 letter words featuring the target sounds correctly.",
+                        "Learning to Learn: The learner's self-discipline is developed as they practise writing words featuring the target sounds."
+                    ],
+                    "values": [
+                        "Respect: This is inculcated as the learner appreciates the efforts of peers to write correctly and offers guidance."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they write letters correctly."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "8.0",
+            "strand_name": "Parts of the Body",
+            "substrands": [
+                {
+                    "substrand_number": "8.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "identify the sounds /k/, /d/, and /w/ from an audio text",
+                        "pronounce words with the sounds /k/, /d/, and /w/ accurately for clarity",
+                        "use words related to the theme featuring the sounds /k/, /d/, and /w/ in relevant contexts",
+                        "value the role of accurate pronunciation in oral fluency"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to an audio recording of words featuring the target sounds /k/, /d/, and /w/ or words modelled by the teacher",
+                        "say words with the sounds /k/, /d/, and /w/ in turns",
+                        "match learnt vocabulary to pictures and objects",
+                        "team up to recite rhymes and poems related to the theme and featuring sounds /k/, /d/, and /w/",
+                        "make oral sentences using words with the sounds /k/, /d/, and /w/",
+                        "use picture clues to complete a crossword puzzle with target words"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we say words and sounds correctly?"
+                    ],
+                    "core_competencies": [
+                        "Critical Thinking and Problem Solving: The learner's ability to think critically is developed as they use picture clues to complete a crossword puzzle with target words."
+                    ],
+                    "values": [
+                        "Unity: This is advanced as the learner collaborates with peers to recite rhymes and poems related to the theme and featuring the target sounds."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-awareness): The learner's self-awareness is developed as they acquire knowledge about the parts of their body from relevant texts."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "8.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with the sounds /k/, /d/ and /w/ in preparation for reading",
+                        "read a grade-appropriate text accurately, at the right speed, and with minimal hesitations",
+                        "display the right feelings or emotions when reading a text",
+                        "realise the importance of reading fluency for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "point out words with the sounds /k/, /d/ and /w/",
+                        "say the sounds and words accurately",
+                        "read 3-4 letter words including words with letters ‘c, d, w’ in a text (25 words per minute)",
+                        "read a sentence aloud after the teacher using appropriate facial expressions and pauses (echo game)",
+                        "take turns reading a text aloud with minimal hesitations and with appropriate tone",
+                        "team up to make recordings of the text they are reading and play back the text to peers",
+                        "recite a poem over and over, or sing a song with the target sounds again and again",
+                        "read a grade-appropriate picture book in unison with a peer, a teacher, or recording (choral reading)",
+                        "take turns reading short rhymes aloud using dramatic voices and gestures appropriate to the story (Reader’s Theatre)"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we read fluently?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to build relationships is developed as they team up to make recordings of the text they are reading and play back the text to peers."
+                    ],
+                    "values": [
+                        "Patriotism: This is promoted as the learner appreciates the contribution of peers when working jointly to read a grade-appropriate picture book in unison with a peer, a teacher, or recording."
+                    ],
+                    "pcis": [
+                        "Life Skills (self-esteem): The learner's self-esteem is nurtured as they acquire reading fluency skills."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "8.3",
+                    "substrand_name": "Language Use: Demonstratives (this, that, these and those)",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "select demonstratives (the words this, that, these, and those) from a text",
+                        "use the words this, that, these, those in sentences",
+                        "appreciate the importance of the words this, that, these, and those in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "complete a vocabulary word search featuring this, that, these, and those",
+                        "work with peers and use flashcards with the words, this, that, these, and those and ask one another questions as they point at objects",
+                        "recite a poem featuring the words, this, that, these and those with peers",
+                        "play the ‘run and touch the object’ game",
+                        "play a ‘What is That?’ board Game",
+                        "fill in gaps in a sentence with the words this, that, these, and those",
+                        "sing songs or recite rhymes about parts of the body"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we tell others about near and far objects?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to write clearly and effectively is enhanced as they use demonstratives to talk about near or far objects."
+                    ],
+                    "values": [
+                        "Unity: This is enhanced as the learner collaboratively works with peers to carry out tasks such as singing songs and reciting rhymes about parts of the body."
+                    ],
+                    "pcis": [
+                        "Health education: This is promoted as the learner interacts with texts and words on the theme Parts of the body."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "8.4",
+                    "substrand_name": "Writing: Spelling",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "select words with the letters Cc, Dd, and Ww in a written text",
+                        "spell words with the letters Cc, Dd, and Ww for writing fluency",
+                        "realise the importance of correct spelling in written communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "select words with the letters Cc, Dd, and Ww by circling the words",
+                        "spell the words with the letters Cc, Dd, and Ww dictated by a peer, teacher, or audio recording",
+                        "work jointly to make words related to parts of the body from jumbled letters",
+                        "trace and write words with the target sounds",
+                        "colour words with the target sounds",
+                        "fill in missing letters words",
+                        "team up to take part in a spelling writing mini-contest to spell words correctly",
+                        "uncover hidden letters from flashcards and read them out",
+                        "write neatly from the left to the right"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do we spell words correctly?",
+                        "How can we write legibly and neatly?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn: The learner's potential to work jointly is promoted as the learner teams up with peers to take part in a spelling writing mini-contest to spell words correctly."
+                    ],
+                    "values": [
+                        "Unity: This is enhanced as the learner collaborates with peers to make words related to parts of the body from jumbled letters."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they learn how to spell words correctly."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "9.0",
+            "strand_name": "My Friends",
+            "substrands": [
+                {
+                    "substrand_number": "9.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "identify words with the sounds /k/, /j/, /l/, and /s/ from written texts",
+                        "pronounce words with the sounds /k/, /j/, /l/, and /s/ for oral fluency",
+                        "use vocabulary related to the theme in oral sentences",
+                        "value the role of vocabulary in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "say the target sounds /k/, /j/, /l/, and /s/ as modelled by peers, teacher, or from an audio recording",
+                        "say the sounds /k/, /j/, /l/, and /s/ and their corresponding letters from flashcards or charts",
+                        "sing songs or recite rhymes with words featuring the sounds /k/, /j/, /l/, and /s/",
+                        "use words with the sounds /k/, /j/, /l/, and /s/ to talk about their friends",
+                        "listen to an audio recording on friendship",
+                        "use vocabulary related to the theme in dialogues",
+                        "role-play events related to the theme"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we say sounds and words correctly?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to learn independently is scaled up as they practise pronouncing words with the target sounds correctly."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is developed as the learner collaborates with peers to sing songs and recite poems related to the theme."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-awareness): The learner's self-awareness is nurtured as they acquire knowledge about their friends."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "9.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "select the sounds /k/, /j/, and /l/, and words with the target sounds from a text",
+                        "read a text featuring the sounds /k/, /j/, and /l/ accurately at the right speed, and with expression",
+                        "acknowledge the need for fluency in lifelong learning"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to a poem or story and pick words with the sounds /k/, /j/, and /l/",
+                        "say the sounds /k/, /j/, and /l/ as modeled",
+                        "pick out words with the target sounds from a chart",
+                        "engage in timed reading with peers (25 words per minute)",
+                        "take turns reading short texts aloud, using dramatic voices, appropriate facial expressions and gestures appropriate to the story (Reader’s Theatre)",
+                        "pause appropriately and avoid hesitations while reading",
+                        "read a sentence aloud after a teacher or peer using appropriate expressions and pauses (echo game)",
+                        "read a grade-appropriate text in unison with a peer, a teacher, or recording - choral reading",
+                        "read a favourite picture book that they are familiar with"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we pronounce sounds and words correctly?",
+                        "How does correct pronunciation help us in reading?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly and effectively is enhanced as they pronounce words correctly when reading a text."
+                    ],
+                    "values": [
+                        "Respect: This is achieved as the learner appreciates the effort of peers to read fluently during timed reading activities."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner gains a greater sense of self-esteem as they recite poems and sing songs related to the theme."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "9.3",
+                    "substrand_name": "Language Use: Nouns (Common and proper nouns)",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify people, things, or places around them by name (common and proper nouns) from texts",
+                        "use words referring to the names of people, things, or places (common and proper nouns) in short sentences",
+                        "appreciate the importance of identifying objects, places, or things by name"
+                    ],
+                    "suggested_learning_experiences": [
+                        "work jointly to name the places, people, or things around them",
+                        "say the names of the things found at home and at school",
+                        "name their favourite foods, games, clothes",
+                        "fill in blank spaces using naming words",
+                        "view a chart with pictures of objects and read with peers",
+                        "match the names of items on flashcards with the correct picture",
+                        "take a walk around the school compound or classroom and name the things and people they see"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to refer to people and places by their names?",
+                        "What things can you see in the classroom?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly is developed as the learner uses common and proper nouns correctly."
+                    ],
+                    "values": [
+                        "Respect: The value of respect is enhanced as the learner talks positively about their friends."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's sense of self-esteem is reinforced as they use proper nouns correctly."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "9.4",
+                    "substrand_name": "Writing: Punctuation (capital letters, small letters and the full stop)",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify capital letters, small letters, and the full stop in a text",
+                        "write the capital and small letters of the alphabet correctly",
+                        "use full stops appropriately in sentences",
+                        "acknowledge the need for proper punctuation in written communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "view a chart showing the letters of the alphabet (capital letters and small letters)",
+                        "work with peers to point out the capital letters, small letters, and the full stop in a list of words and short sentences",
+                        "write their name and display it to peers",
+                        "write the names of their friends, teachers, or family members and capitalise the initial letters",
+                        "spell words dictated by a peer, teacher, or from an audio recording",
+                        "trace and write words",
+                        "circle the words with capital letters in a sentence",
+                        "work jointly to colour the capital letters and small letters using crayons of different colours",
+                        "write short sentences and use capital letters and the full stop appropriately"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do we use the full stop?",
+                        "When do we use capital letters?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to write clearly improves as they use capital letters and the full stop correctly.",
+                        "Learning to Learn: The learner's ability to learn independently is developed as they practise writing their names/names of their friends starting with capital letters."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is enhanced as the learner works collaboratively with peers to colour the capital letters and small letters using crayons of different colours."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they practise using target punctuation marks correctly."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "10.0",
+            "strand_name": "Safety",
+            "substrands": [
+                {
+                    "substrand_number": "10.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and vocabulary",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "identify words with the sounds /æ/ / ɔː / /i:/ /u:/ / ɔɪ / and / eɪ / for oral fluency",
+                        "pronounce words with the sounds /æ/ / ɔː / /i:/ /u:/ / ɔɪ / and / eɪ / for speech clarity",
+                        "use words related to the theme in oral sentences",
+                        "realise the importance of varied vocabulary in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to a story and pick out words with the sounds /æ/ / ɔː //i:/ /u:/ / ɔɪ / / eɪ /",
+                        "view/look at flashcards with pictures of the following and talk about them: road, first aid kit, ambulance, fire engine, bottle, walkway",
+                        "say the sounds /æ/ / ɔː //i:/ /u:/ / ɔɪ / / eɪ / from flashcards",
+                        "say words with the sounds /æ/ / ɔː //i:/ /u:// ɔɪ / / eɪ /",
+                        "use picture clues to infer the meaning of words",
+                        "make short sentences with the words related to the theme",
+                        "respond to simple questions and instructions about the sounds /æ/ / ɔː //i:/ /u:/ / ɔɪ / / eɪ /"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it good to say words clearly?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly and effectively is promoted as they pronounce words with the target sounds correctly.",
+                        "Learning to Learn: The learner's ability to learn independently is developed as they practise pronouncing words containing the target sounds."
+                    ],
+                    "values": [
+                        "Unity: The value of unity is developed as the learner works collaboratively with peers."
+                    ],
+                    "pcis": [
+                        "Safety and Security: The learner's safety is enhanced as they acquire information about safety from texts."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "10.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 1,
+                    "specific_learning_outcomes": [
+                        "identify words with the sounds /a:/, /o:/, /i:/, /u:/, /oi/, and /ei/ for fluency",
+                        "read a text accurately, at the right speed, and with expression for fluency",
+                        "realise the importance of fluency in lifelong learning"
+                    ],
+                    "suggested_learning_experiences": [
+                        "read words with the target sounds a:/, /o:/, /i:/, /u:/, /oi/, and /ei/ from a chart",
+                        "view flashcards with words featuring the target sounds and read them with peers",
+                        "read a timed text (25 words per minute) many times",
+                        "show facial expressions, maintain eye contact, and use gestures while reading a short text",
+                        "pause appropriately when reading a text",
+                        "practise reading sentences containing decodable and non-decodable words with peers",
+                        "read rhymes related to safety",
+                        "draw one of the following: an ambulance, a cart, a fire engine, or a first aid kit",
+                        "collaboratively recite poems with words that have the target sounds"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it advisable to read at a moderate speed?",
+                        "How can we make reading more enjoyable?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to develop relationships is developed as they collaboratively recite poems with words that have the target sounds."
+                    ],
+                    "values": [
+                        "Responsibility: This is developed as the learner engages actively in activities to excel in reading fluency."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they acquire reading fluency skills."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "10.3",
+                    "substrand_name": "Language Use: Simple prepositions",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "select the words (in, on, under, between, behind, in front, inside, outside) from a text",
+                        "use the words (in, on, under, between, behind, in front, inside, and outside) in short sentences",
+                        "value the need for well-formed sentences in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "read sentences featuring prepositions",
+                        "read prepositions on flashcards to peers",
+                        "recite a choral poem featuring prepositions",
+                        "listen to a story from a recording and list the prepositions they hear",
+                        "respond to questions related to where the objects are on the story using the words: in, on, under, between, behind, in front, inside, outside",
+                        "look at pictures and complete sentences to describe where objects in the pictures are",
+                        "fill in gaps with the correct word (in, on, under, between, behind, in front, inside, outside)",
+                        "sing a song that features the words (in, on, under, between, behind, in front, inside, outside)"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we tell others where objects are?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: This is promoted as the learner interacts with technology as they listen to a story from a recording and lists the prepositions they hear."
+                    ],
+                    "values": [
+                        "Social Justice: Fairness is enhanced as learners accord each other equal opportunities in sharing roles irrespective of their diversities when reciting a poem."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's esteem is enhanced as they use prepositions in various contexts correctly."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "10.4",
+                    "substrand_name": "Writing: Punctuation (Capital letters, Question marks)",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify capital letters and question marks in a text",
+                        "use capital letters and question marks in sentences",
+                        "acknowledge the need to use capital letters and question marks for writing fluency"
+                    ],
+                    "suggested_learning_experiences": [
+                        "view charts with capital letters and small letters",
+                        "match a given small letter with its capital letter",
+                        "work with peers to view pictures related to the theme and colour the picture",
+                        "circle the capital letters and question marks in a list of sentences",
+                        "make short sentences and use the capital letter and question mark appropriately",
+                        "take turns to ask questions and receive answers from peers",
+                        "circle the words that need a capital letter in a list of sentences",
+                        "write the names of people and places using capital letters appropriately"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do we use the question marks?",
+                        "When do we use capital letters?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: Independent learning is enhanced as the learner practises how to use the target punctuation marks correctly in writing."
+                    ],
+                    "values": [
+                        "Responsibility: This is enhanced as the learner takes up assigned roles when taking turns to ask questions and receive answers from peers."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): Learners acquire a high enhanced level of self-esteem as they punctuate their writing correctly."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "11.0",
+            "strand_name": "Community Leaders",
+            "substrands": [
+                {
+                    "substrand_number": "11.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "pick out the sounds: / ʃ/, /tʃ/, /θ/ and /ð/ from a text",
+                        "pronounce words with the sounds: / ʃ/, /tʃ/, /θ/, and /ð/ correctly for clarity of speech",
+                        "use the vocabulary learnt in relevant contexts",
+                        "advocate for appropriate pronunciation for clarity in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to a text containing the target sounds / ʃ/, /tʃ/, /θ/ and /ð/",
+                        "practise sound discrimination using minimal pairs",
+                        "pick out words with the sounds: / ʃ/, /tʃ/, /θ/ and /ð/ from sentences",
+                        "infer the meaning of words from stories, dialogues, and role-play",
+                        "make short sentences using the learnt vocabulary",
+                        "use picture cues and say the words in the picture",
+                        "sing phonic songs/rhymes",
+                        "recite poems/ rhymes/ tongue twisters using words with the sounds: / ʃ/, /tʃ/, /θ/, /ð/",
+                        "colour the words which end or begin with the target sounds",
+                        "work with peers and play a game of swapping flashcards to make new words"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we use sounds to make new words?",
+                        "How do we learn to pronounce words correctly?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: This is enhanced as the learner is inspired to embrace creative ways of embracing ideas when reciting poems/ rhymes/ tongue twisters using words with the target sounds."
+                    ],
+                    "values": [
+                        "Respect: This is developed as the learner works exhibits tolerance with peers when playing a game of swapping flashcards to make new words."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they pronounce words correctly."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "11.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with the target sounds / ʃ/, /tʃ/, /θ/ and /ð/ correctly",
+                        "read sentences in a text accurately, at the right speed, and with expression for effective communication",
+                        "realise the importance of fluency in reading"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to short paragraphs containing words with the sounds / ʃ/, /tʃ/, /θ/ and /ð/",
+                        "read words with the sounds / ʃ/, /tʃ/, /θ/, /ð/",
+                        "read simple sentences in a story aloud paying attention to the punctuation",
+                        "take part in timed reading competitions",
+                        "team up to recite poems/ rhymes related to the theme",
+                        "take part in echo reading where a teacher or peer reads a text and the learner echos what the peer reads in terms of speed, accuracy, and expressions",
+                        "practise displaying the right emotions when reading a text"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is proper articulation of sounds important?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy: This is enhanced as the learner sharpens their public speaking skills by displaying the right emotions when reading a text."
+                    ],
+                    "values": [
+                        "Responsibility: This is developed as the learner takes up accountability tasks when practicing to read within set timelines."
+                    ],
+                    "pcis": [
+                        "Learner Support Programmes (Clubs and Society): The learner's ability to read is developed as they team up to recite poems/ rhymes related to the theme during club activities."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "11.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "make predictions about a story related to the theme",
+                        "answer direct and indirect questions for comprehension",
+                        "value the importance of comprehension in lifelong learning"
+                    ],
+                    "suggested_learning_experiences": [
+                        "discuss the pictures and the title of a story and make predictions",
+                        "read words with the target sounds in a text of about 60 words",
+                        "take turns to read simple sentences in the story aloud",
+                        "answer direct questions based on a passage",
+                        "answer indirect questions from a passage",
+                        "obtain specific information from a passage",
+                        "complete a sentence using picture clues",
+                        "state whether phrases or sentences are true according to the passage",
+                        "colour a picture based on the details in the passage"
+                    ],
+                    "key_inquiry_questions": [
+                        "What do the pictures and the title tell us about the story?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: This is enhanced as the learner practises making predictions of what will happen in a story based on the title and the pictures."
+                    ],
+                    "values": [
+                        "Respect: This is developed as the learner displays patience with each other as they take turns to read simple sentences."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they answer direct and indirect questions from a text correctly to show comprehension."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "11.4",
+                    "substrand_name": "Language Use: Adjectives (one and two- syllable adjectives)",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "state words which describe people, places, or things for clarity",
+                        "use describing words to talk about people, places, and things",
+                        "appreciate the need to describe people, places, and things for communication efficacy"
+                    ],
+                    "suggested_learning_experiences": [
+                        "work with peers to name objects in the classroom, school, or home",
+                        "say the colour, size, and shape, of the things they see around them in the classroom or from pictures and video clips",
+                        "draw and colour different shapes, namely, oval, triangle, square, rectangle",
+                        "say the colours of the things in the classroom, home, or school",
+                        "use words such as good, bad, handsome, beautiful, kind, among others to describe things around them",
+                        "play language games involving one and two-syllable adjectives",
+                        "answer yes/no questions about the colour, shape, or size of objects",
+                        "sing songs/rhymes and recite poems that use adjectives"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we talk about people, things, or places?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination: This is promoted as the learner uses words to describe things around them."
+                    ],
+                    "values": [
+                        "Unity: This is developed as the learner embraces a team spirit during language games involving one and two syllable adjectives."
+                    ],
+                    "pcis": [
+                        "Environmental awareness: This is promoted as the learner gets to identify things and people around them and describe them to peers in terms of shape, size and colour."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "11.5",
+                    "substrand_name": "Writing: Guided Writing",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "infer what the pictures in a text talk about",
+                        "use 4-6 letter words in short sentences",
+                        "appreciate the importance of writing fluency in lifelong learning"
+                    ],
+                    "suggested_learning_experiences": [
+                        "talk about what they have seen in pictures with peers",
+                        "match pictures to sentences using flashcards",
+                        "make short sentences from picture prompts",
+                        "write words dictated by a teacher or peer",
+                        "listen to a story or song and list four new words or things they hear",
+                        "fill in gaps in sentences",
+                        "work jointly to complete a word search or crossword puzzle with peers",
+                        "rearrange jumbled-up letters to form words",
+                        "team up to build a sentence or a chain story collaboratively",
+                        "complete a story by writing missing words"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do pictures help us to write?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: The learner's ability to make connections is developed as the learner makes sentences from picture prompts."
+                    ],
+                    "values": [
+                        "Unity: The learner acquires the ability to cooperate with others as they complete a word search or crossword puzzle with peers."
+                    ],
+                    "pcis": [
+                        "Nationalism: This is addressed as the learner interacts with texts tied to the theme on community leaders."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "12.0",
+            "strand_name": "Living Together",
+            "substrands": [
+                {
+                    "substrand_number": "12.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "state the words with the sounds /e /, / iː/, and / eə / from an audio text",
+                        "articulate the words with the sounds /e /, / iː/, and / eə / for speech clarity",
+                        "use vocabulary related to the theme in sentences",
+                        "appreciate the importance of proper pronunciation in oral communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to an audio text and pick out the sounds /e /, / iː/, and / eə /",
+                        "listen to a passage aloud and list down the words with the sounds, /e /, / iː/, and /eə /",
+                        "read minimal pairs to distinguish the different sounds",
+                        "recite poems/ rhymes/ tongue twisters using words with the target sounds",
+                        "pick out the new words as used in short sentences/short paragraphs/teacher read- aloud stories",
+                        "practise pronouncing words in response to picture cues",
+                        "construct simple sentences using new words",
+                        "take turns to respond to simple one- directional instructions orally or by using appropriate gestures"
+                    ],
+                    "key_inquiry_questions": [
+                        "How would you know if someone is listening to you?",
+                        "How do we learn to pronounce words correctly?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to listen keenly and actively is enhanced as they listen to an audio text and pick out the target sounds.",
+                        "Learning to Learn: The learner's ability to learn independently is enhanced as they practise using vocabulary learnt in a variety of texts."
+                    ],
+                    "values": [
+                        "Peace: This is enhanced as the learner works harmoniously with peers to take turns to respond to simple one-directional instructions orally or by using appropriate gestures."
+                    ],
+                    "pcis": [
+                        "Social Cohesion: This is enhanced as the learner interacts with texts on the theme - Living together."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "12.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 1,
+                    "specific_learning_outcomes": [
+                        "identify words with the target sounds /e /, / iː/, and /ea/ in a text",
+                        "read sentences in a text accurately, at the right speed, and with expression for effective communication",
+                        "realise the importance of fluency in reading"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to short paragraphs and point out words with the target sounds /e /, / iː/, and /ea/",
+                        "read words with the target sounds correctly",
+                        "read simple sentences in a story aloud paying attention to the punctuation",
+                        "take part in timed-reading of a text while displaying the right expressions",
+                        "recite poems/ rhymes related to the theme with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we read fluently?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy: This is enhanced as the learner builds on their fluency by taking part in timed-reading of a text while displaying the right expressions."
+                    ],
+                    "values": [
+                        "Respect: This is enhanced as the learner appreciates the effort of peers in reading fluently as they read words with target sounds correctly."
+                    ],
+                    "pcis": [
+                        "Learner Support Programmes (Clubs and Societies): The learner practises reading fluently and is able to apply the same in reading clubs."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "12.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 1,
+                    "specific_learning_outcomes": [
+                        "make predictions about a story based on the title and picture",
+                        "read words that have the target sounds /e /, / iː/, and /ea/ in a text related to the theme",
+                        "respond to direct and indirect questions from a text for comprehension",
+                        "adopt reading pictures and texts for enjoyment and information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "make predictions of what will happen in a story by discussing the title and pictures in the text",
+                        "read a story and identify words that have the sounds /e/, /iː/ and / eə /",
+                        "work jointly to find the meaning of words identified from a text using contextual clues",
+                        "talk about their own experiences related to the events in the story with peers",
+                        "respond to direct and indirect questions from a text in print or digital devices",
+                        "work jointly to role-play the events from a story"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can you tell that someone has understood a story?",
+                        "What makes a story interesting?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: The learner practises making connections as they talk about their own experiences related to the events in the story."
+                    ],
+                    "values": [
+                        "Responsibility: This is enhanced as the learner engages in assigned roles and duties during role-play activities with peers."
+                    ],
+                    "pcis": [
+                        "Social Cohesion: This is promoted as the learner interacts with texts on living together and shares with peers their real life experiences that relate to events in the story."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "12.4",
+                    "substrand_name": "Language Use: Possessives (my, our, her, his, their, its)",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise possessives from a written text",
+                        "use possessives to talk about ownership in sentences",
+                        "adopt the use of possessives to show ownership in oral communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify objects in the classroom and attach appropriate possessives to each",
+                        "take turns to ask questions whose responses will include possessives such as: (my pen, his book)",
+                        "engage in a role-play to show ownership of various items",
+                        "pick out possessives from a text",
+                        "use possessives in phrases and sentences to illustrate ownership"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we show that something belongs to someone in speech?",
+                        "Why is it important to use possessives correctly?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination: This is nurtured as the learners creatively express their ideas when engaging in a role-play to show ownership of various items."
+                    ],
+                    "values": [
+                        "Integrity: This is enhanced as the learner shows due regard for other's property when learning about possessives."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-awareness): The learner's self-awareness is enhanced as they learn about possessive pronouns."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "12.5",
+                    "substrand_name": "Writing: Guided Writing",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise pictures for language acquisition",
+                        "fill in gaps in simple sentences for effective communication",
+                        "realise the importance of writing complete sentences to express meaning"
+                    ],
+                    "suggested_learning_experiences": [
+                        "work with peers to match pictures with words",
+                        "make sentences about pictures provided",
+                        "pick out correct words that can be used to fill in gaps in sentences appropriately",
+                        "use the words provided to fill in gaps correctly and meaningfully in given sentences",
+                        "write short sentences using prompts"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to write clearly and legibly?",
+                        "What should you consider when selecting words to fill in gaps?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem solving: The learner is able to think critically when picking out correct words that can be used to fill in gaps in sentences appropriately."
+                    ],
+                    "values": [
+                        "Unity: This is enhanced as the learner works collaboratively with peers to match pictures with words."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they fill in gaps to complete sentences."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "13.0",
+            "strand_name": "Technology",
+            "substrands": [
+                {
+                    "substrand_number": "13.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "identify target sounds /ʊ/ and / eɪ / in words from an oral text",
+                        "articulate words with the target sounds accurately to discriminate the sounds",
+                        "use the vocabulary learnt in relevant contexts",
+                        "adopt using the vocabulary learnt to communicate effectively in various contexts"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to a print or digital text containing the target sounds /ʊ/ and /eɪ / as in wait, pay",
+                        "work jointly to practise sound discrimination using minimal pairs",
+                        "pick out target vocabulary words used in short sentences/short paragraphs/teacher read-aloud stories",
+                        "infer the meaning of the new words from short sentences/short paragraphs/teacher read-aloud stories",
+                        "construct simple sentences using new words learnt",
+                        "recite poems/ rhymes/ tongue twisters using words with the target sounds and words",
+                        "team up to record each other recite the poem/rhymes/tongue twisters with target words and sounds"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to pronounce words correctly?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: This is embraced as the learner is guided to interact with technology when teaming up to record each other recite poems/rhymes/tongue twisters with target words and sounds."
+                    ],
+                    "values": [
+                        "Responsibility: This is enhanced as the learner handles digital devices carefully and keeps each other accountable as they record their performances."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they learn how to use the digital devices appropriately."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "13.2",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "use the title and the pictures to make predictions about a story",
+                        "use context clues to infer the meaning of new words",
+                        "answer direct and indirect questions from a text for comprehension",
+                        "recommend reading for enjoyment and information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "talk about the title and pictures of a story with peers",
+                        "make predictions on where the events would be happening",
+                        "read a text (about 60 words) aloud with peers",
+                        "pick out new words from the text",
+                        "infer the meanings of words using contextual clues",
+                        "answer direct and indirect questions on the text"
+                    ],
+                    "key_inquiry_questions": [
+                        "What do you see in the pictures?",
+                        "How can you make a guess on what would happen in a story?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: The learner's ability to make connections is enhanced as they make predictions on where the events would be happening."
+                    ],
+                    "values": [
+                        "Respect: This is enhanced as the learner appreciates the opinions of peers during discussions about the titles and pictures of a story."
+                    ],
+                    "pcis": [
+                        "ICT: This is promoted as the learner interacts with texts tied to the theme on technology."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "13.3",
+                    "substrand_name": "Language Use: Yes/ No questions (with can, may, will)",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify Yes/No questions with can, may, and will from a text",
+                        "respond to Yes/No questions using can, may and will, for clarity in communication",
+                        "realise the use of can, may and will to seek information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use songs/short poems to practise asking Yes/No questions with can, may, and will",
+                        "point out questions that require a Yes/No response from a written text",
+                        "take turns to ask and answer Yes/No questions related to the theme using can, may and will",
+                        "restate sentence structures containing Yes/No questions from a story, poem, or conversation they have listened to",
+                        "role-play activities that will elicit the use of can, may, and will to answer Yes/No questions"
+                    ],
+                    "key_inquiry_questions": [
+                        "How would you ask your friends for help?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly and effectively is enhanced as they take turns to ask and answer Yes/No questions related to the theme using can, may, and will."
+                    ],
+                    "values": [
+                        "Love: This is enhanced as the learner acknowledges peer's views during question and answer activities."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they ask and answer questions appropriately."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "13.4",
+                    "substrand_name": "Writing: Guided Writing",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise the correct form of words to be used in writing simple sentences",
+                        "rearrange words to form simple sentences for fluency in writing",
+                        "realise the importance of writing correct and meaningful sentences to express meaning"
+                    ],
+                    "suggested_learning_experiences": [
+                        "write dictated words with the target sounds correctly",
+                        "play a sentence-building drill game using the correct form of words",
+                        "team up to match pictures with the correct sentences",
+                        "rearrange jumbled words to form simple sentences",
+                        "individually form simple sentences related to the theme (3-5 sentences)"
+                    ],
+                    "key_inquiry_questions": [
+                        "What makes a sentence correct?"
+                    ],
+                    "core_competencies": [
+                        "Collaboration: The learner's teamwork spirit is enhanced as they play sentence-building drills collaboratively with peers while observing the rules of engagement."
+                    ],
+                    "values": [
+                        "Social justice: This is enhanced as the learner fosters inclusivity and non-discrimination to peers as they team up to match pictures with the correct sentences."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they write correct and meaningful sentences and words."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "14.0",
+            "strand_name": "Numbers",
+            "substrands": [
+                {
+                    "substrand_number": "14.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "recognise the target sounds /dʒ/, /s/ and /ŋ/ used in words for effective communication",
+                        "articulate the words with the target sounds in oral communication",
+                        "use the vocabulary for oral communication in relevant contexts",
+                        "advocate for the appropriate use of correct pronunciation in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to a variety of words with the sounds /dʒ/, /s/ and /ŋ/",
+                        "practise pronouncing the target sounds in mouth-positions modelled by the teacher or from a video clip",
+                        "practise pronouncing words with target sounds accurately with peers",
+                        "use the vocabulary learnt to construct simple sentences",
+                        "work jointly to sing songs/chants using words related to the theme"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we pronounce words correctly?",
+                        "Why is it important to learn new words?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to listen keenly and actively is enhanced as they listen to words with the target sounds and articulate them correctly."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is enhanced as the learner works collaboratively with peers on specific tasks like singing songs/chants using words related to the theme."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they pronounce words correctly."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "14.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with the target sounds dʒ/, /s/ and /ŋ/ in preparation for reading",
+                        "read sentences in a text accurately, at the right speed, and with expression for fluency",
+                        "realise the role of fluency in reading"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify and read words with the sounds dʒ/, /s/ and /ŋ/ from a text",
+                        "practise reading a text containing words with the target letter sounds with the correct pronunciation",
+                        "practise reading sentences containing decodable and non-decodable words",
+                        "engage in timed reading (25 words per minute), displaying the right facial expressions and tone",
+                        "participate in a readers’ theatre where he or she reads some lines or stanzas of a poem"
+                    ],
+                    "key_inquiry_questions": [
+                        "What makes it easy to read fluently?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to learn independently is enhanced as they practise reading sentences containing decodable and non-decodable words for reading fluency."
+                    ],
+                    "values": [
+                        "Responsibility: This is enhanced as the learner offers guidance to those with difficulties during reading activities."
+                    ],
+                    "pcis": [
+                        "Peer Education and Mentorship: This is promoted as the learner engages in a readers' theatre to build on their fluency."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "14.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 1,
+                    "specific_learning_outcomes": [
+                        "make predictions about a story based on the title and picture",
+                        "read words that have the target sounds dʒ/, /s/ and /ŋ/,in a text related to the theme",
+                        "respond to direct and indirect questions from a text for comprehension",
+                        "adopt reading pictures and texts for enjoyment and information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "discuss the title and pictures in the text and make predictions of what will happen",
+                        "read a story and identify words that have the sounds /dʒ/, /s/ and /ŋ/",
+                        "read simple stories or passages aloud",
+                        "talk about their own experiences in relation to the story with peers",
+                        "respond to direct and indirect questions from a print or non-print text",
+                        "role-play, with peers, the events from a story read"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we tell that someone has understood a story?",
+                        "What helps us to understand a story?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: The learner's ability to make connections is enhanced as they talk about their own experiences in relation to the story with peers."
+                    ],
+                    "values": [
+                        "Respect: This is enhanced as the learner appreciates the opinions of peers during discussions on the title and pictures."
+                    ],
+                    "pcis": [
+                        "Life Skills (Creative and Critical thinking skills): The skills are enhanced as the learner uses contextual clues to answer indirect questions."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "14.4",
+                    "substrand_name": "Language Use: Adverbs of Place",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise the adverbs of place in sentences for information",
+                        "use adverbs of place to describe the position of objects and people for effective communication",
+                        "realise the importance of proper use of adverbs of place for language acquisition"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify different positions of things in the classroom",
+                        "point out the adverbs of place in sentences",
+                        "practise using adverbs of place to construct sentences describing objects in the classroom",
+                        "sing songs, role-play, and recite poems related to the theme with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "Where do you find different things in the classroom?",
+                        "Why is it important to place things in the right place?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly and correctly is enhanced as they use adverbs of place to describe the position of objects and people."
+                    ],
+                    "values": [
+                        "Responsibility: This is enhanced as the learner takes up roles during role-play activities with peers."
+                    ],
+                    "pcis": [
+                        "Environmental awareness: This is enhanced as the learner identifies different positions of things in the classroom."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "14.5",
+                    "substrand_name": "Writing: Guided Writing",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise words related to the theme in simple texts",
+                        "write simple sentences for effective communication",
+                        "realise the importance of writing for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify the target vocabulary in sentences",
+                        "write simple meaningful sentences (not more than 5 words)",
+                        "work jointly to practise writing sentences from a substitution table",
+                        "fill in gaps to complete sentences",
+                        "form simple meaningful sentences from word prompts"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to write meaningful sentences?",
+                        "What makes it easy to write clear sentences?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to write clearly and correctly is enhanced as they write simple meaningful sentences."
+                    ],
+                    "values": [
+                        "Responsibility: This is enhanced as the learner ensures they complete allocated tasks when working jointly to write sentences from a substitution table."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they write correct sentences for effective communication."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "15.0",
+            "strand_name": "Conserving Resources",
+            "substrands": [
+                {
+                    "substrand_number": "15.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and vocabulary",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "identify the target sounds /l/, / s/ and /r/ in an oral text",
+                        "articulate words with the target sounds /l/, / s/ and /r/ correctly to discriminate sounds",
+                        "use the vocabulary learnt in relevant contexts",
+                        "realise the role of vocabulary in language acquisition"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to and pronounce words with the target sounds /l/, / s/ and /r/ as modeled by the teacher or from an audio recording",
+                        "practise sound discrimination using minimal pairs",
+                        "use vocabulary relevant to the theme in short sentences",
+                        "play language games to practise pronouncing and using new words",
+                        "team up to recite rhymes, sing songs, and say tongue twisters with the target sounds with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "What words can we make from the sound given?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly and correctly is enhanced as they use the new words learnt in short sentences.",
+                        "Critical thinking and Problem solving: The learner's ability to apply what they have learnt is enhanced as they use knowledge learnt to conserve resources."
+                    ],
+                    "values": [
+                        "Respect: This is developed as the learner accepts diverse opinions from others when playing language games to practise pronouncing and using new words."
+                    ],
+                    "pcis": [
+                        "Environmental Education: The learner is sensitised on avoiding wastage and using resources in the right way through texts they interact with."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "15.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with the target sounds /l/, / s/ and /r/ accurately",
+                        "read sentences in a text accurately, at the right speed, and with expression for effective communication",
+                        "realise the importance of fluency in reading"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify words with the sounds /l/, / s/ and /r/ from a text",
+                        "read a text containing words with the target letters’ sounds adhering to the correct pronunciation",
+                        "work jointly to practise reading sentences containing decodable and non- decodable words",
+                        "engage in timed reading (25 words per minute) displaying the right facial expressions and tone",
+                        "participate in a readers’ theatre where they read some lines or stanzas of a poem"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we read with expression?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's self-discipline is enhanced as they practise reading sentences containing decodable and non-decodable words for fluency in reading.",
+                        "Citizenship: The learner becomes ethically responsible as they use time responsibly when engage in timed reading."
+                    ],
+                    "values": [
+                        "Integrity: The learner's discipline is enhanced as they utilise time as a resource prudently."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they acquire reading fluency skills."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "15.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words that have the target sounds /l/, /r/ and /s/ from a text related to the theme",
+                        "make predictions about a story using the title and the pictures",
+                        "respond to direct and indirect questions from a text to show comprehension",
+                        "adopt reading pictures and texts for enjoyment and information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "read simple sentences aloud while paying attention to new words and correct pronunciation of words with sounds /l/, /r/ and /s/",
+                        "talk about the title and pictures in a story to make predictions",
+                        "read a text (of about 60 words) aloud",
+                        "work jointly to discuss whether the predictions made are accurate",
+                        "infer the meaning of new words using contextual clues",
+                        "answer questions from a story",
+                        "draw pictures to show what is happening in the story",
+                        "read a text or view pictures for enjoyment and information"
+                    ],
+                    "key_inquiry_questions": [
+                        "What do pictures and titles tell us about a story?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: The learner's communication and self-expression skills are nurtured as they draw pictures to show what is happening in the story."
+                    ],
+                    "values": [
+                        "Respect: This is developed as the learner appreciates diverse opinions from peers during discussions on whether the predictions made are accurate."
+                    ],
+                    "pcis": [
+                        "Environmental Education: This is promoted as the learner is sensitised on how to use resources properly through texts and stories read."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "15.4",
+                    "substrand_name": "Language Use: Interjections of surprise",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words showing surprise from a text",
+                        "use words showing surprise in simple sentences",
+                        "adopt the use of interjections of surprise in day-to-day communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to a short dialogue from an audio recording",
+                        "pick out interjections of surprise from the dialogue",
+                        "make different familiar faces showing surprise",
+                        "read out sentence structures containing interjections of surprise from a story, poem or conversation they have listened to",
+                        "work jointly to role play the interjections of surprise as modelled by peers, the teacher or from a video recording",
+                        "search for emojis showing surprise from digital texts",
+                        "construct sentences using interjections of surprise",
+                        "recite rhymes and poems featuring interjections of surprise"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do people show surprise?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: The learner's interaction with digital technology is enhanced as they use digital devices to search for emojis showing surprise.",
+                        "Communication: The learner's ability to write clearly and correctly is developed as they use interjections of surprise in simple sentences."
+                    ],
+                    "values": [
+                        "Unity: This is reinforced as the learner works collaboratively with peers to role play the interjections of surprise as modelled by peers, the teacher or from a video recording."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they use interjections correctly in communication."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "15.5",
+                    "substrand_name": "Writing: Guided Writing",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "pick out words describing people, things, and places from a text",
+                        "write short sentences related to the theme using descriptive words",
+                        "realise the importance of writing correct and meaningful sentences to express meaning"
+                    ],
+                    "suggested_learning_experiences": [
+                        "circle words showing colour, height, feelings, taste, and smell, among others",
+                        "team up to create a list of words describing people, things, and places",
+                        "copy sentences featuring common descriptive words (adjectives)",
+                        "write dictated words",
+                        "match pictures with the correct sentences",
+                        "form five-word sentences using descriptive words",
+                        "fill in gaps with the correct descriptive word"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why are words important in writing?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to write clearly and correctly is developed as they write sentences of not more than five words."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is enhanced as the learner displays a team spirit as they work with peers to create a list of words describing people, things, and places."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires a greater level of self-esteem as they express himself/herself creatively in writing."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        }
+    ]
+}

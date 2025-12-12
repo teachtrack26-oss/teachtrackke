@@ -1,0 +1,663 @@
+{
+    "grade": "Grade 8",
+    "subject": "Social Studies",
+    "education_level": "Junior Secondary",
+    "strands": [
+        {
+            "strand_number": "1.0",
+            "strand_name": "Social Studies and Personal Management",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Self-Improvement",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "describe personality traits for self-understanding",
+                        "share goals for self-improvement in social life",
+                        "appreciate the role of values in the development of personality traits"
+                    ],
+                    "suggested_learning_experiences": [
+                        "choose the animal that best defines their personal characteristics from a list of pre-selected animals, then discuss the outcome with the class",
+                        "watch a video clip on personality traits and discuss",
+                        "develop and share personal life goals such as educational, careers",
+                        "watch a video clip of a successful career individual in social life that reflect on their traits",
+                        "role-play a skit depicting values in their dream career choice in Social Studies"
+                    ],
+                    "key_inquiry_questions": [
+                        "Which animal best reflects your personal characteristics?",
+                        "What career choices in Social Studies relate to you?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration",
+                        "Imagination and Creativity"
+                    ],
+                    "values": [
+                        "Unity",
+                        "Respect"
+                    ],
+                    "pcis": [
+                        "Career guidance"
+                    ],
+                    "links_to_other_subjects": [
+                        "Pre-technical studies",
+                        "Kenyan Sign Language",
+                        "Kiswahili",
+                        "English"
+                    ]
+                },
+                {
+                    "substrand_number": "1.2",
+                    "substrand_name": "Self-Esteem Assessment",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "explain the contribution of self-esteem on their holistic development",
+                        "determine effects of unhealthy self-esteem in day-to-day social lives",
+                        "assess their self-esteem in social interactions",
+                        "desire to improve their self-esteem for personal productivity"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use digital or print resources to search for and discuss the relationship between self-esteem and personal productivity",
+                        "refer to religious texts on self-love",
+                        "discuss cultural beliefs that promote self-esteem",
+                        "act out and discuss skits on examples of difficult life experiences that could severely affect self-esteem in their social lives",
+                        "discuss and present negative impact of low self-esteem such as: relationship difficulties, social isolation",
+                        "discuss and share ways of seeking help to overcome low self-esteem",
+                        "journalise actions they will take to improve their self-esteem"
+                    ],
+                    "key_inquiry_questions": [
+                        "How does self-esteem affect my holistic development?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration",
+                        "Digital literacy"
+                    ],
+                    "values": [
+                        "Love",
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Guidance and peer counselling",
+                        "Social cohesion"
+                    ],
+                    "links_to_other_subjects": [
+                        "Religious Education",
+                        "Kenyan Sign Language",
+                        "Kiswahili",
+                        "English"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "2.0",
+            "strand_name": "Community Service Learning",
+            "substrands": [
+                {
+                    "substrand_number": "2.1",
+                    "substrand_name": "Community Service Learning Project",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "identify a problem/gap in the community",
+                        "design solution(s) to the identified problem",
+                        "plan to implement the solution to the identified problem",
+                        "implement plan for solving the identified problem",
+                        "report/account on the concluded project",
+                        "appreciate the need to offer solutions to the gaps/challenges in the community"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm and identify problems/gaps/opportunities in their school/community that need attention",
+                        "speak engagingly when discussing and adapting one identified (problem/gap) for the class/group project and hence state the project title",
+                        "authenticate the problem/gap and hence write down the statement of the problem (a small description of the identified problem)",
+                        "search, discuss and agree on an appropriate solution/way/skills of addressing the identified problem and note down the recommended/proposed solution",
+                        "discuss and draw a plan for implementing the proposed solution",
+                        "implement the plan prudently to address the identified problem",
+                        "reflect on the concluded project and submit a summary account/report to the CSL teacher"
+                    ],
+                    "key_inquiry_questions": [
+                        "How does one determine some gaps/needs in the community?",
+                        "Why is it necessary to make adequate preparations before embarking on a project?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration",
+                        "Self-efficacy",
+                        "Creativity and Imagination",
+                        "Critical Thinking and Problem-solving",
+                        "Digital Literacy",
+                        "Learning to learn",
+                        "Citizenship"
+                    ],
+                    "values": [
+                        "Integrity",
+                        "Respect",
+                        "Unity"
+                    ],
+                    "pcis": [
+                        "Social Cohesion"
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "3.0",
+            "strand_name": "People and Relationships",
+            "substrands": [
+                {
+                    "substrand_number": "3.1",
+                    "substrand_name": "Scientific Theory about Human Origin",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "explore scientific theory about human origin",
+                        "illustrate changes that took place in humans as a result of evolution",
+                        "draw conclusions on origin of humanity based on the scientific theory",
+                        "develop a sense of humanity based on common origin"
+                    ],
+                    "suggested_learning_experiences": [
+                        "enhance the skill of teamwork as they discuss in groups how scientific theory is used to explain human origin and present",
+                        "draw a map of Africa and locate where prehistoric human remains were discovered",
+                        "draw charts showing the different stages of human evolution and share in class",
+                        "use digital technology to find out the places where early human remains were discovered in Africa",
+                        "accommodate each other’s ideas as they brainstorm in groups on the differences between various species of early humans and when they existed and share",
+                        "engage with a resource person to discuss the preservation of remains of early humans and take notes",
+                        "carry out library research on changes that took place in humans as a result of evolution and draw an evolutionary tree and display",
+                        "work together harmoniously in groups to discuss reasons why Africa is considered as the cradle for humanity and how they influence self-identity",
+                        "engage in assigned roles and duties as they debate on the scientific theory of human origin and Africa as the cradle of humanity"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is Africa considered as the cradle of humanity?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration",
+                        "Digital Literacy"
+                    ],
+                    "values": [
+                        "Respect",
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Social cohesion"
+                    ],
+                    "links_to_other_subjects": [
+                        "Languages",
+                        "Creative Arts"
+                    ]
+                },
+                {
+                    "substrand_number": "3.2",
+                    "substrand_name": "Early Civilisations",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "describe Swahili civilisation along the East African coast",
+                        "show how best practices from early civilisations have contributed to the modern world",
+                        "appreciate best practices of early civilization to the development of the modern world"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use digital technology to locate on a map of Europe and Asia places of origin of early visitors to the East African Coast",
+                        "accommodate divergent opinions in groups as they discuss on the origin of early visitors to the East African Coast up to 1500",
+                        "exhibit culture awareness as they brainstorm on the Swahili civilisation along the East African coast and discuss factors that led to the growth of East African city states",
+                        "reflect on their own role play the best practices from early civilisations to the development of the modern world"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is cultural heritage important to society?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy",
+                        "Learning to Learn"
+                    ],
+                    "values": [
+                        "Respect",
+                        "Patriotism"
+                    ],
+                    "pcis": [
+                        "Cultural Awareness"
+                    ],
+                    "links_to_other_subjects": [
+                        "Languages"
+                    ]
+                },
+                {
+                    "substrand_number": "3.3",
+                    "substrand_name": "Trans Saharan Slave Trade",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "identify factors that led to development of Trans-Saharan slave Trade in Africa",
+                        "describe organization of Trans-Saharan slave trade in Africa",
+                        "outline effects of Trans-Saharan slave trade in Africa",
+                        "demonstrate assertiveness in promotion of social justice",
+                        "desire to promote social justice in a society"
+                    ],
+                    "suggested_learning_experiences": [
+                        "look at a problem in a new or different way as they debate on factors that led to development of Trans-Saharan slave trade in Africa",
+                        "utilise digital technology to effectively accomplish own tasks as they use digital or print resources to research on the organization of Trans-Saharan slave trade in Africa",
+                        "appreciates diverse opinions as they work together and discuss the effects of Trans-Saharan slave trade in Africa",
+                        "take turns in activities and conversation as they draw a map of Africa and locate regions where slaves were sourced during the Trans-Saharan slave trade"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do people subject others to slave trade?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy",
+                        "Creativity and Imagination"
+                    ],
+                    "values": [
+                        "Respect",
+                        "Unity"
+                    ],
+                    "pcis": [
+                        "Social cohesion"
+                    ],
+                    "links_to_other_subjects": [
+                        "Creative Arts"
+                    ]
+                },
+                {
+                    "substrand_number": "3.4",
+                    "substrand_name": "Population Growth in Africa",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "explore causes and effects of population growth in Africa",
+                        "examine types and effects of migration in Africa",
+                        "illustrate demographic trends in Kenya",
+                        "create awareness on the effects of population growth in the community",
+                        "appreciate the impact of migration on population growth in Africa"
+                    ],
+                    "suggested_learning_experiences": [
+                        "exhibit respect for others as they brainstorm in groups causes of population growth in Africa",
+                        "use digital and print resources to research on the effects of population growth in Africa",
+                        "develop self-confidence as they draw demographic trends in Kenya using recent census data",
+                        "brainstorm in groups on types of migration",
+                        "exchange new ideas as they research on the factors that influence migration in Africa and share in class",
+                        "exhibit team spirit as they develop posters to create awareness of the effect of population growth in the community",
+                        "design charts on ways of coping with stress due to population growth and migrations",
+                        "discuss ways of managing stress resulting from the effects of rapid population growth"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to study demographic changes?"
+                    ],
+                    "core_competencies": [
+                        "Self-Efficacy",
+                        "Creativity and Imagination"
+                    ],
+                    "values": [
+                        "Unity",
+                        "Love"
+                    ],
+                    "pcis": [
+                        "Environmental Education"
+                    ],
+                    "links_to_other_subjects": [
+                        "Mathematics"
+                    ]
+                },
+                {
+                    "substrand_number": "3.5",
+                    "substrand_name": "Diversity and Interpersonal Skills",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "explore social cultural diversities in Kenya",
+                        "explain ways of building a healthy self-esteem in diverse social cultural society",
+                        "describe the impact of emotions on self and others",
+                        "manage peer pressure in a culturally diverse environment",
+                        "appreciate social cultural diversities in Kenya"
+                    ],
+                    "suggested_learning_experiences": [
+                        "exhibit respect for fellow citizens as they discuss the social cultural diversities in Kenya",
+                        "explore their own beliefs and those of others as they discuss personal and social cultural factors that influence social cohesion",
+                        "use digital or print material to find out how to improve one’s self-esteem and share the findings in class",
+                        "watch video clips on ways of handling different emotional states and share experiences",
+                        "engage a resource person to talk about managing effects of emotions in a diversified environment",
+                        "practice inclusivity as they role play ways of managing peer pressure",
+                        "discuss ways of managing risky behaviours associated with road usage (speaking out, reporting to parents or police officers, use of seat belts)",
+                        "develop self-confidence and values to enhance positive peer pressure as they act out skits on social cultural diversity and inclusion",
+                        "in groups, compose communication messages on social cultural diversities in Kenya and share in class"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we demonstrate respect and appreciation of Social Cultural Diversity and Inclusion?"
+                    ],
+                    "core_competencies": [
+                        "Self-Efficacy",
+                        "Citizenship"
+                    ],
+                    "values": [
+                        "Patriotism",
+                        "Love"
+                    ],
+                    "pcis": [
+                        "Social cohesion",
+                        "Ethnic and Racial Relation"
+                    ],
+                    "links_to_other_subjects": [
+                        "Religious Education"
+                    ]
+                },
+                {
+                    "substrand_number": "3.6",
+                    "substrand_name": "Peaceful Conflict Resolutions",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "identify situations that lead to conflicts in the family",
+                        "apply peaceful ways of resolving conflicts in the family",
+                        "design strategies for effective communication in resolving conflicts",
+                        "build healthy relationships to promote peace in the family",
+                        "show empathy with survivors of conflicts in the family",
+                        "appreciate the culture of peace in a society"
+                    ],
+                    "suggested_learning_experiences": [
+                        "speak clearly as they discuss and present situations that may lead to conflicts in a family",
+                        "work together harmoniously as they role play peace building scenarios in class",
+                        "resolve differences amicably as they discuss the experiences from the role play scenarios",
+                        "create posters with strategies to enhance for effective communication in resolving conflicts",
+                        "undertake group activities and exchange new ideas as they role play a scenario in the family where empathy is shown",
+                        "use digital or print resources to research ways of building healthy relationships",
+                        "reflect on past empathetic moments, journal in their books and share",
+                        "display team spirit as they work in groups to compose poems on the importance of peace in the family and present in class"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can resolving conflicts help us live peacefully in the community?"
+                    ],
+                    "core_competencies": [],
+                    "values": [
+                        "Peace",
+                        "Unity"
+                    ],
+                    "pcis": [
+                        "Social cohesion"
+                    ],
+                    "links_to_other_subjects": [
+                        "Languages"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "4.0",
+            "strand_name": "Natural and Historic Built Environments",
+            "substrands": [
+                {
+                    "substrand_number": "4.1",
+                    "substrand_name": "Map Reading and Interpretation",
+                    "number_of_lessons": 12,
+                    "specific_learning_outcomes": [
+                        "interpret maps using marginal information",
+                        "calculate areas of places on a topographical map",
+                        "describe the different methods of representing physical features on topographical maps",
+                        "apply critical thinking skills in map interpretation",
+                        "value map reading and interpretation in day-to-day life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "exchange new ideas when discussing in groups the marginal information on a map and present it in class",
+                        "brainstorm on types and uses of scales and present in class",
+                        "collaborate with others to practice scale conversions on a topographical map and critique each other's work",
+                        "measure distances on a topographical map and share in class",
+                        "calculate the area of different places on a topographical map and share in class",
+                        "accomplish the task of carrying out a research on methods of representing physical features (drainage, relief features and vegetation) and share in class",
+                        "draw diagrams of the relief and drainage features on a topographical maps",
+                        "use digital or print resources to search for essential critical thinking skills necessary for map interpretation (observation, analysis, communication, inference)"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can critical thinking be used in map interpretation?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination",
+                        "Digital Literacy"
+                    ],
+                    "values": [
+                        "Unity",
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Social Cohesion"
+                    ],
+                    "links_to_other_subjects": [
+                        "Creative Arts",
+                        "Mathematics"
+                    ]
+                },
+                {
+                    "substrand_number": "4.2",
+                    "substrand_name": "Weather and Climate",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "examine factors influencing climate in Africa",
+                        "illustrate distribution and characteristics of major climatic regions of Africa",
+                        "explore positive ways of managing disaster-related stress",
+                        "apply problem solving skills in addressing effects of climate change on the environment",
+                        "recognise the effects of climate on human activities"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use print or digital resources to research on the factors influencing weather and climate in Africa and share in class",
+                        "draw a map of Africa and indicate the major climatic regions and display it in class",
+                        "view a video clip/film or use print materials on the distribution and characteristics of major climatic regions of Africa (desert, semi-desert, tropical, mediterranean and mountain) and make short notes",
+                        "discuss ways of managing stress caused during disasters caused by climate change",
+                        "brainstorm on the causes and effects of climate change and share in class",
+                        "become aware of own responsibility in the society as they perform a skit on problem solving skills to address effects of climate change",
+                        "find extra information as they engage with a resource person to discuss the effects of weather and climate on personal wellbeing and human activities"
+                    ],
+                    "key_inquiry_questions": [
+                        "How does climate change affect human activities?",
+                        "How can one manage stress during disasters?"
+                    ],
+                    "core_competencies": [
+                        "Critical Thinking and Problem Solving"
+                    ],
+                    "values": [
+                        "Patriotism",
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Disaster and risk reduction",
+                        "Environmental Education"
+                    ],
+                    "links_to_other_subjects": [
+                        "Creative Arts"
+                    ]
+                },
+                {
+                    "substrand_number": "4.3",
+                    "substrand_name": "Vegetation in Africa",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "explain factors influencing vegetation distribution in Africa",
+                        "describe the characteristics of major vegetation regions of Africa on the map",
+                        "locate the major vegetation regions of Africa",
+                        "apply methods of conserving vegetation in the community",
+                        "explore personal interests in conservation of vegetation for career exploration",
+                        "appreciate vegetation conservation for environmental sustainability"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm in groups factors influencing vegetation in Africa and do a presentation in class",
+                        "carry out a field excursion of the immediate environment and identify the different types of vegetation",
+                        "use digital or print resources to find out the vegetation regions in Africa",
+                        "use digital or print resources to identify the characteristics of vegetation in Africa",
+                        "draw the map of Africa and indicate the vegetation regions",
+                        "caring for the environment when creating posters on methods of conserving vegetation in the locality",
+                        "write essays on ways of caring for vegetation in the school community",
+                        "speak clearly as they debate on the importance of vegetation in the community and make short notes",
+                        "Reflect and share on their personal interest in professions associated with vegetation conservation"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we care for vegetation in our environment?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration",
+                        "Citizenship",
+                        "Digital Literacy"
+                    ],
+                    "values": [
+                        "Unity",
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Environmental Education"
+                    ],
+                    "links_to_other_subjects": [
+                        "Agriculture"
+                    ]
+                },
+                {
+                    "substrand_number": "4.4",
+                    "substrand_name": "Historical Sites and Monuments in Africa",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "locate selected historical sites and monuments in Africa",
+                        "examine the importance of historical sites and monuments for the preservation of cultural heritage",
+                        "explore ways of conserving historical sites and monuments in Africa",
+                        "apply creative thinking skills in conserving cultural heritage",
+                        "desire to conserve historical sites and monuments in the locality in promoting cultural heritage"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use digital or print resources to trace selected historical sites and monuments in Africa and present in class",
+                        "draw a map of Africa and indicate the selected historical sites and monuments and share in class",
+                        "develop the skill of constructive dialogue as they brainstorm in groups on the importance of historical sites and monuments in Africa and share in class",
+                        "work harmoniously in groups, and use digital or print resources to find out ways of conserving historical sites and monuments and present them in class",
+                        "discuss ways of applying creative thinking in preserving cultural heritage",
+                        "demonstrate love for their own community as they exchange new ideas in designing strategies to overcoming challenges in creative thinking preserving cultural heritage and share",
+                        "display national pride as they collect pictures and photographs and create an album of historical sites and monuments and display them in class"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we conserve historical sites and monuments?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination",
+                        "Citizenship"
+                    ],
+                    "values": [
+                        "Unity",
+                        "Patriotism"
+                    ],
+                    "pcis": [
+                        "Nationalism",
+                        "Social cohesion"
+                    ],
+                    "links_to_other_subjects": [
+                        "Creative Arts"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "5.0",
+            "strand_name": "Political Developments and Governance",
+            "substrands": [
+                {
+                    "substrand_number": "5.1",
+                    "substrand_name": "The Constitution of Kenya",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "explore components of the Constitution of Kenya",
+                        "illustrate roles of the three arms of government of Kenya in reference to the relevant chapters in the Constitution",
+                        "examine guiding principles of leadership and integrity in the Constitution of Kenya",
+                        "apply assertiveness in upholding principles of leadership and integrity in daily interactions",
+                        "exhibit good leadership as intended in chapter six of the Constitution of Kenya"
+                    ],
+                    "suggested_learning_experiences": [
+                        "in groups discuss the components of the Constitution of Kenya",
+                        "work harmoniously in groups to create charts showing the three arms of government, their roles and interrelationships, and display them",
+                        "research on regulations for safe road users in Kenya and share with peers",
+                        "display team spirit as they brainstorm in groups on the guiding principles of leadership and integrity in the Constitution of Kenya",
+                        "reflect on situations in their past when they needed to be assertive and how it can be applied in upholding principles of leadership and integrity in daily interactions",
+                        "develop critical and constructive dialogue as they debate on whether or not leaders in Kenya adhere to their constitutional responsibilities"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do we need a constitution?",
+                        "Why is assertiveness important in adhering to the Constitution of Kenya?"
+                    ],
+                    "core_competencies": [
+                        "Citizenship"
+                    ],
+                    "values": [
+                        "Integrity",
+                        "Unity"
+                    ],
+                    "pcis": [
+                        "Good governance",
+                        "Social cohesion"
+                    ],
+                    "links_to_other_subjects": [
+                        "Languages",
+                        "Creative Arts"
+                    ]
+                },
+                {
+                    "substrand_number": "5.2",
+                    "substrand_name": "Human Rights",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "explore how human rights can be respected and protected in the community",
+                        "describe process of effective communication on human rights issues",
+                        "outline Children’s Rights in Kenya",
+                        "demonstrate ways in which children are protected against violation of their Rights in Kenya",
+                        "recognise responsibility of the society in protecting human rights"
+                    ],
+                    "suggested_learning_experiences": [
+                        "foster fairness and justice among peers as they brainstorm on how human rights can be respected and protected in the community",
+                        "role-play scenarios that depict the process of effective communication on human rights issues",
+                        "enhance communicating and collaborating skills within diverse group to perform a skit depicting ways in which children are protected against violation of their rights",
+                        "enhance the skill of finding extra information as they use print or digital resources to search and identify the rights of the child as stipulated in the Children’s Act (latest version) and the African Charter on the rights and welfare of the child",
+                        "exhibit the value of human dignity as they design an 'issue tree' and use it to investigate the root causes, effects and possible solutions to the violation of human rights"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we promote respect for Children’ Rights in the community?",
+                        "How can effective communication foster respect for Human Rights?"
+                    ],
+                    "core_competencies": [
+                        "Citizenship",
+                        "Critical Thinking and Problem Solving"
+                    ],
+                    "values": [
+                        "Social Justice",
+                        "Respect"
+                    ],
+                    "pcis": [
+                        "Good governance"
+                    ],
+                    "links_to_other_subjects": [
+                        "Religious Education"
+                    ]
+                },
+                {
+                    "substrand_number": "5.3",
+                    "substrand_name": "Citizenship",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "describe qualities of a global citizen in an interconnected society",
+                        "explore ways in which Nobel Prize nominees responded to injustice situations in the society",
+                        "exhibit social entrepreneurship and active participation in the community for personal and social well-being",
+                        "show empathy to personalities who volunteer to address injustices in society"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm on qualities and responsibilities of a global citizen in the world today",
+                        "use print or digital resources to find out the responsibilities of a global citizen",
+                        "become aware about responsibilities of as global citizens in developing communication messages or posters on responsibilities of a global citizen in the world today",
+                        "in groups discuss factors for harmonious coexistence among citizens in East Africa and Africa",
+                        "research on social entrepreneurship and active participation for personal and social wellbeing and write a report",
+                        "discuss desirable characteristics of the Nobel Prize nominees and ways of modelling them",
+                        "demonstrate tolerance expressing and understanding different viewpoints as they debate on differences and similarities about how (Wangari Maathai and Mahatma Gandhi) responded to injustice situations in society",
+                        "set goals that go beyond their comfort zone as they visualize and share a depiction of themselves in 15 years’ time enjoying their contribution as global citizens",
+                        "write an essay on the importance of empathy to personalities who volunteer to address injustices in society",
+                        "practice and sing the Eastern Africa (EAC) and African Union (AU) anthems",
+                        "in small groups translate the EAC and AU anthems into indigenous languages and sing in class"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we promote global citizenship?",
+                        "How can we show empathy as global citizens?"
+                    ],
+                    "core_competencies": [
+                        "Citizenship",
+                        "Self-Efficacy"
+                    ],
+                    "values": [
+                        "Patriotism"
+                    ],
+                    "pcis": [
+                        "Civic responsibility"
+                    ],
+                    "links_to_other_subjects": [
+                        "Religious Studies",
+                        "Creative Arts"
+                    ]
+                }
+            ]
+        }
+    ]
+}

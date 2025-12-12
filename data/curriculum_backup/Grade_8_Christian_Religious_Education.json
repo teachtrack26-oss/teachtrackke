@@ -1,0 +1,718 @@
+{
+    "grade": "Grade 8",
+    "subject": "Christian Religious Education",
+    "education_level": "Junior Secondary",
+    "strands": [
+        {
+            "strand_number": "1.0",
+            "strand_name": "Creation",
+            "substrands": []
+        },
+        {
+            "strand_number": "4.0",
+            "strand_name": "Teachings of Jesus Christ",
+            "substrands": [
+                {
+                    "substrand_number": "4.1",
+                    "substrand_name": "Teachings on Prayer",
+                    "number_of_lessons": 7,
+                    "specific_learning_outcomes": [
+                        "outline the importance of prayer in the life of a Christian",
+                        "discuss the importance of having faith when one prays to God",
+                        "demonstrate love by praying for all people as taught by Jesus Christ",
+                        "apply lessons learnt on prayer by praying to God always",
+                        "desire to have faith in God whenever they pray"
+                    ],
+                    "suggested_learning_experiences": [
+                        "share with peers how they pray to God in day-to-day life",
+                        "brainstorm on the importance of having faith in God as they pray",
+                        "read Mark 11:22–24 and share how to pray by faith",
+                        "read Matthew 5:44-45 and share instances they prayed for both friends and enemies",
+                        "read Matthew 6:5-8, outline the main teachings and use PowerPoint slides/charts to make presentations",
+                        "journal their day-to-day prayer life experiences"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you apply the teachings of Jesus Christ in your day-to-day life?"
+                    ],
+                    "core_competencies": [
+                        "Communication and collaboration",
+                        "Self-efficacy"
+                    ],
+                    "values": [
+                        "Respect",
+                        "Responsibility",
+                        "Love"
+                    ],
+                    "pcis": [
+                        "Spiritual development",
+                        "Healthy Relationships"
+                    ],
+                    "links_to_other_subjects": [
+                        "Pre-technical Studies",
+                        "English"
+                    ]
+                },
+                {
+                    "substrand_number": "4.2",
+                    "substrand_name": "The Lost Sheep",
+                    "number_of_lessons": 7,
+                    "specific_learning_outcomes": [
+                        "analyse God’s love for the sinner as outlined in the parable of the lost sheep",
+                        "take part in reaching out to the lost through mission work",
+                        "desire to exemplify God’s love by serving all people"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm on God’s love for the lost",
+                        "read Luke 15:1-7 and make notes on the parable of the lost sheep",
+                        "outline lessons learnt from the parable of the lost sheep",
+                        "role-play the parable of the lost sheep",
+                        "brainstorm on how to reach out to the sinner",
+                        "organise a class visit to the less fortunate, give them various items; as a way of sharing God’s love with them",
+                        "share experiences on how to have a close relationship with God",
+                        "compose and sing a song on God’s love for the lost"
+                    ],
+                    "key_inquiry_questions": [
+                        "How does the parable of the lost sheep show God’s love for the lost?"
+                    ],
+                    "core_competencies": [
+                        "Citizenship",
+                        "Creativity and imagination"
+                    ],
+                    "values": [
+                        "Love",
+                        "Respect"
+                    ],
+                    "pcis": [
+                        "Social cohesion",
+                        "Roles sharing"
+                    ],
+                    "links_to_other_subjects": [
+                        "Creative Arts and Sports",
+                        "English"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "2.0",
+            "strand_name": "The Bible",
+            "substrands": [
+                {
+                    "substrand_number": "2.1",
+                    "substrand_name": "Faith and God’s Promises",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "describe the background to the call of Abraham",
+                        "examine ways Abraham demonstrated faith in God",
+                        "apply faith in different situations as exemplified by Abraham",
+                        "analyse the promises made by God to Abraham and their importance to Christians today",
+                        "apply God’s promises in their day-to-day life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "read Genesis 11:24-32, 12:1; discuss and make notes for presentation in class",
+                        "brainstorm and share with the class the meaning of the word, ‘faith.’",
+                        "share experiences of how they exercise faith in God",
+                        "read Hebrews 11:1-6 and make notes in their exercise books or use a digital device",
+                        "brainstorm on how Abraham demonstrated faith in God",
+                        "in turns read and discuss Genesis 12:1-3, 15:1-6; 17:23-26, 21:1-7 and 22:1-14",
+                        "team up to role-play how God tested Abraham’s faith; Genesis 22 1-19",
+                        "develop a weekly journal on how they exercise faith in God",
+                        "brainstorm on the meaning of the word, ‘Promises.’",
+                        "list the promises made by God to Abraham",
+                        "read Genesis 12: 2-3, 15:1- 6, 17:1-8, 17:15-18 and outline the promises made by God to Abraham for presentation in class",
+                        "discuss the importance of God’s promises to Christians today",
+                        "brainstorm on how to apply God’s promises in day-to-day life"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you exercise faith in relation to God’s promises?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn",
+                        "Communication and collaboration"
+                    ],
+                    "values": [
+                        "Unity",
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Social Awareness skills-effective communication",
+                        "Spiritual Development"
+                    ],
+                    "links_to_other_subjects": [
+                        "Pre-technical Studies",
+                        "English"
+                    ]
+                },
+                {
+                    "substrand_number": "2.2",
+                    "substrand_name": "Abrahamic Covenant",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "discuss the meaning of the term ‘covenant’",
+                        "identify covenants in modern life and their importance",
+                        "evaluate characteristics of ungodly covenants today",
+                        "explain the importance of God’s covenant with Abraham",
+                        "outline the importance of circumcision to Abraham and his descendants"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm the meaning of the term covenant and share findings with the class",
+                        "team up to brainstorm on modern covenants and their importance and make notes",
+                        "read and discuss Genesis 15:1-18 and make a presentation to the class using PowerPoint slides or charts",
+                        "watch a video clip on God’s covenant with Abraham",
+                        "buzz on characteristics of ungodly covenants today",
+                        "search/read scriptures on how to distinguish between godly from ungodly covenants",
+                        "read James 4:7, Mathew 4: 8-10, 1Peter 5:8-9, Mathew 7:15-20 and discuss how to resist/discern ungodly covenants",
+                        "discuss the importance of God’s covenant with Abraham",
+                        "read Genesis 17:1- 14 and make notes",
+                        "discuss the importance of circumcision to Abraham and his descendants",
+                        "buzz on how to apply faith in difficult situations and share findings with the class"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is Abrahamic covenant important to Christians today?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy",
+                        "Critical thinking and problem-solving"
+                    ],
+                    "values": [
+                        "Respect",
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Problem-solving skills",
+                        "Group dynamics"
+                    ],
+                    "links_to_other_subjects": [
+                        "Pre-technical Studies",
+                        "English"
+                    ]
+                },
+                {
+                    "substrand_number": "2.3",
+                    "substrand_name": "Leadership in Israel (Saul)",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "discuss reasons for kingship in Israel",
+                        "examine reasons against kingship in Israel according to Prophet Samuel",
+                        "evaluate King Saul’s failures and the consequences",
+                        "deduce lessons learnt from the failures of King Saul",
+                        "desire to be a God-fearing leader at home, school and the community"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm in small groups reasons why the Israelites demanded for a king",
+                        "read 1 Samuel 8: 1-9 and make short notes",
+                        "conduct an internet or library search on reasons against kingship in Israel",
+                        "read 1 Samuel 8:10-20 and outline reasons against kingship in Israel",
+                        "read and discuss king Saul’s failures and the consequences; 1Samuel 13:8-14, 15:7-25",
+                        "discuss lessons learnt from the failures of King Saul",
+                        "write a journal on how you exercise leadership at home, school and in the community"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why did King Saul fail in his leadership?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy",
+                        "Digital literacy"
+                    ],
+                    "values": [
+                        "Integrity",
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Positive behaviour change",
+                        "Citizenship Education-Integrity"
+                    ],
+                    "links_to_other_subjects": [
+                        "Pre-technical Studies",
+                        "English"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "3.0",
+            "strand_name": "Miracles of Jesus Christ",
+            "substrands": [
+                {
+                    "substrand_number": "3.1",
+                    "substrand_name": "Healing of Blind Bartimaeus",
+                    "number_of_lessons": 7,
+                    "specific_learning_outcomes": [
+                        "explain the healing of blind Bartimaeus",
+                        "discuss lessons learnt from the healing of blind Bartimaeus",
+                        "apply lessons learnt when faced with health challenges",
+                        "appreciate the healing power of God in day-to-day life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm on different sicknesses/challenges that face them",
+                        "discuss how they involve God when faced with challenges",
+                        "read Mark 10:46-52 and make notes",
+                        "discuss lessons learnt from the healing of blind Bartimaeus and share findings with the class",
+                        "share personal experiences of how they applied faith in difficult situations",
+                        "write a prayer on healing",
+                        "in groups visit people who are sick/have challenges within the school to encourage and pray for them"
+                    ],
+                    "key_inquiry_questions": [
+                        "How does the healing of Blind Bartimaeus build your faith in God?"
+                    ],
+                    "core_competencies": [
+                        "Communication and collaboration",
+                        "Self-efficacy"
+                    ],
+                    "values": [
+                        "Responsibility",
+                        "Love"
+                    ],
+                    "pcis": [
+                        "Health Promotion Issues - Non-communicable diseases"
+                    ],
+                    "links_to_other_subjects": [
+                        "English",
+                        "Social Studies"
+                    ]
+                },
+                {
+                    "substrand_number": "3.2",
+                    "substrand_name": "Calming the Storm",
+                    "number_of_lessons": 7,
+                    "specific_learning_outcomes": [
+                        "describe the miracle of calming the storm",
+                        "outline lessons learnt from the miracle of calming the storm",
+                        "identify challenges they face in day-to-day life",
+                        "apply lessons learnt to overcome challenges in day-to-day life",
+                        "desire to depend on God when faced with challenges"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm on the meaning of the word, storm",
+                        "share experiences of challenging situations they have faced either as individuals or family and how they can be overcome",
+                        "read Mark 4:35-41 or watch a movie on calming the storm",
+                        "outline lessons learnt from this miracle and make notes",
+                        "choose a challenging situation affecting young people and role-play it in class (the role-play should also include solutions)",
+                        "compose and sing a song about, overcoming the storms of life",
+                        "write a personal journal on how they depend on God in day-to-day life",
+                        "read and meditate on Psalms 91:1-6"
+                    ],
+                    "key_inquiry_questions": [
+                        "How does the miracle of calming the storm relate to challenges facing Christians today?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination",
+                        "Self-efficacy"
+                    ],
+                    "values": [
+                        "Responsibility",
+                        "Unity"
+                    ],
+                    "pcis": [
+                        "Problem-solving skills",
+                        "Self-awareness"
+                    ],
+                    "links_to_other_subjects": [
+                        "Creative Arts and Sports",
+                        "Pre-technical Studies"
+                    ]
+                },
+                {
+                    "substrand_number": "3.3",
+                    "substrand_name": "Healing of the Paralytic",
+                    "number_of_lessons": 7,
+                    "specific_learning_outcomes": [
+                        "describe the healing of the paralytic",
+                        "outline lessons learnt from the healing of the paralytic",
+                        "examine the Pharisees’ opposition to the healing of the paralytic",
+                        "apply lessons learnt by having faith in God when faced with challenges",
+                        "appreciate God’s power over sickness and disease"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm on the meaning of the word, paralysis",
+                        "read and discuss Luke 5:17-26 and make a presentation in class using charts/posters or PowerPoint slides",
+                        "discuss lessons learnt from the healing of the paralytic and make notes",
+                        "watch a movie on the healing of the paralytic",
+                        "buzz on the meaning of the word, blasphemy",
+                        "brainstorm on reasons why the Pharisees accused Jesus Christ of blasphemy",
+                        "share personal experiences on instances when they prayed to God for healing",
+                        "write a personal reflection journal on occasions when God answered their prayers",
+                        "read, write on a flashcard and meditate on Isaiah 53:4-5"
+                    ],
+                    "key_inquiry_questions": [
+                        "How does the healing of the paralytic build your faith in God?"
+                    ],
+                    "core_competencies": [
+                        "Digital literacy",
+                        "Self-efficacy"
+                    ],
+                    "values": [
+                        "Respect",
+                        "Unity"
+                    ],
+                    "pcis": [
+                        "Effective communication",
+                        "Self-awareness"
+                    ],
+                    "links_to_other_subjects": [
+                        "Integrated Science",
+                        "English"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "5.0",
+            "strand_name": "The Church",
+            "substrands": [
+                {
+                    "substrand_number": "5.1",
+                    "substrand_name": "The Holy Spirit",
+                    "number_of_lessons": 7,
+                    "specific_learning_outcomes": [
+                        "describe the outpouring of the Holy Spirit on the day of Pentecost",
+                        "analyse ways Christians exemplify the fruit of the Holy Spirit",
+                        "take part in church activities to foster responsibility"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm on the meaning of ‘the Day of Pentecost.’",
+                        "share experiences about what they know about the day of Pentecost",
+                        "read Acts 2: 1-11 and make notes",
+                        "download and watch a video on the day of Pentecost",
+                        "use a digital device or a chart to write key points on the day of Pentecost",
+                        "read Galatians 5: 22-23 and write on flashcards the fruit of the Holy Spirit",
+                        "sort the flashcards according to the fruits they practise",
+                        "write a reflection journal on how they practise the fruit of the Holy Spirit",
+                        "conduct a buzz session and list the activities they do in the church"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you exemplify the fruit of the Holy Spirit?"
+                    ],
+                    "core_competencies": [
+                        "Digital literacy",
+                        "Citizenship"
+                    ],
+                    "values": [
+                        "Love",
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Information Technology",
+                        "Spiritual Development"
+                    ],
+                    "links_to_other_subjects": [
+                        "Pre-technical Studies",
+                        "English"
+                    ]
+                },
+                {
+                    "substrand_number": "5.2",
+                    "substrand_name": "Acts of Compassion",
+                    "number_of_lessons": 7,
+                    "specific_learning_outcomes": [
+                        "analyse Christian responsibility in helping the needy",
+                        "take part in a community service activity in the school neighbourhood",
+                        "describe the role of the church in caring for the vulnerable and needy in the society",
+                        "practise the teachings of Jesus Christ’s by helping the needy"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm and list people with diverse needs in the community",
+                        "discuss ways Christians care and help the needy in the society",
+                        "share experiences on occasions they have helped the needy",
+                        "collect pictures of people showing acts of compassion, make a collage and display in class",
+                        "read Leviticus 19:32-33, Psalms 82:3, Matthew 25:35-46, and make a class presentation on lessons learnt",
+                        "as a class, organise a visit to the less fortunate, write a detailed report of your visitation, activities done, and lessons learnt and present it in hard copy or PowerPoint slides"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should Christians show compassion to the needy?"
+                    ],
+                    "core_competencies": [
+                        "Digital literacy",
+                        "Critical thinking and problem-solving",
+                        "Learning to learn"
+                    ],
+                    "values": [
+                        "Respect",
+                        "Love",
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Empathy",
+                        "Healthy inter and intra-personal relationships",
+                        "Skills building-helping people with special needs"
+                    ],
+                    "links_to_other_subjects": [
+                        "Pre-technical Studies",
+                        "Social Studies"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "6.0",
+            "strand_name": "Christian Living Today",
+            "substrands": [
+                {
+                    "substrand_number": "6.1",
+                    "substrand_name": "Family Relationships",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "outline roles played by different family members",
+                        "identify practices which depict healthy family relationships",
+                        "identify causes of conflicts in families today",
+                        "examine Christian teachings on healthy family relationships",
+                        "desire to live harmoniously with members of the family"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm on the responsibilities of parents/guardians, children and other members of the family",
+                        "discuss practices of a healthy family today",
+                        "debate on the causes of conflicts in families today",
+                        "discuss how peer pressure can cause conflict in families today",
+                        "find out ways to overcome peer influence/rebellion against parents",
+                        "research on possible solutions to family conflicts",
+                        "read and discuss Ephesians 6:1-4, Exodus 20:12, Colossians 3:20 and outline lessons learnt"
+                    ],
+                    "key_inquiry_questions": [
+                        "How should family members relate with each other?"
+                    ],
+                    "core_competencies": [
+                        "Communication and collaboration",
+                        "Learning to learn"
+                    ],
+                    "values": [
+                        "Unity",
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Peer Pressure Resistance",
+                        "Problem-solving skills"
+                    ],
+                    "links_to_other_subjects": [
+                        "Agriculture",
+                        "Social Studies"
+                    ]
+                },
+                {
+                    "substrand_number": "6.2",
+                    "substrand_name": "Human Sexuality: Responsible Sexual Behaviour",
+                    "number_of_lessons": 7,
+                    "specific_learning_outcomes": [
+                        "identify forms of sexual abuse and how to avoid/overcome abuse",
+                        "evaluate causes of teenage pregnancies today",
+                        "examine the consequences of engaging in irresponsible sexual behaviour",
+                        "discuss values and life skills needed to avoid irresponsible sexual behaviour",
+                        "choose to live responsibly as guided by the word of God"
+                    ],
+                    "suggested_learning_experiences": [
+                        "discuss the meaning of human sexuality and share findings in the class",
+                        "research on forms of sexual abuse and make presentations using PowerPoint slides or charts",
+                        "list places or settings they should avoid for their own safety",
+                        "discuss ways and where to report cases of sexual abuse",
+                        "listen and ask a child protection officer (CPO) questions on what to do in case of defilement",
+                        "discuss on the causes of early pregnancies among teenage girls and make a presentation in class",
+                        "brainstorm and list forms of irresponsible sexual behaviour",
+                        "buzz on the consequences of engaging in irresponsible sexual behaviour",
+                        "read, recite and write on flashcards 1 Thessalonians 4:3-6, Romans 12:1-2, 1 Corinthians 6:18-20",
+                        "brainstorm and list values and life skills needed to avoid irresponsible sexual behaviour",
+                        "write and share sensitisation messages on the importance of not engaging in irresponsible sexual behaviour (you may pin the messages on the school notice board or hang them on the classroom wall)",
+                        "debate on the topic, ‘Overcoming peer pressure as a youth.’",
+                        "pray and depend on God to overcome temptations",
+                        "read and reflect on 1 Peter 2:11"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should you live responsibly as a youth?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy",
+                        "Critical thinking and problem-solving"
+                    ],
+                    "values": [
+                        "Integrity",
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Self-awareness",
+                        "Assertiveness",
+                        "Human Sexuality-Abstinence",
+                        "Life skills",
+                        "Peer pressure resistance"
+                    ],
+                    "links_to_other_subjects": [
+                        "Social Studies",
+                        "English"
+                    ]
+                },
+                {
+                    "substrand_number": "6.3",
+                    "substrand_name": "Sacredness of Life",
+                    "number_of_lessons": 7,
+                    "specific_learning_outcomes": [
+                        "explain the meaning of sacredness of life",
+                        "discuss how the right to life is violated today",
+                        "evaluate causes of suicide in the society today",
+                        "examine causes of abortion among the youth today",
+                        "analyse the consequences of violating the right to life",
+                        "desire to uphold the sacredness of life in day-to-day life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm on the meaning of sacredness of life",
+                        "discuss how the right to life is violated today",
+                        "read Genesis 4:10-11, Genesis 9:6, Exodus 20:13, Numbers 35:11-12, and write lessons learnt for presentation in class",
+                        "discuss why killing is morally wrong",
+                        "brainstorm on reasons which cause some youths to commit suicide",
+                        "discuss the negative effects of suicide to an individual and the family",
+                        "team up to debate on why abortion is a sin and a crime",
+                        "read Jeremiah 1:5, Psalms 127:3, Psalms 139:13–15, Proverbs 6:16-17, and write lessons learnt",
+                        "debate on the consequences of abortion to an individual and the family",
+                        "brainstorm on values and life skills needed to uphold the sacredness of life",
+                        "compose a song on how safe road use can preserve life",
+                        "sing the song at the school assembly to sensitise other learners on safe road use",
+                        "engage a resource person on how to overcome/avoid taking one’s life"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is human life sacred?"
+                    ],
+                    "core_competencies": [
+                        "Citizenship",
+                        "Learning to learn"
+                    ],
+                    "values": [
+                        "Responsibility",
+                        "Social Justice",
+                        "Integrity"
+                    ],
+                    "pcis": [
+                        "Human /Children Rights",
+                        "Self-awareness",
+                        "Coping with Stress"
+                    ],
+                    "links_to_other_subjects": [
+                        "Social Studies",
+                        "English"
+                    ]
+                },
+                {
+                    "substrand_number": "6.4",
+                    "substrand_name": "Bullying",
+                    "number_of_lessons": 7,
+                    "specific_learning_outcomes": [
+                        "identify causes of bullying at school and in the community",
+                        "analyse the effects of bullying on the individual and the family",
+                        "discuss values needed to co-exist peacefully at home, school and the community",
+                        "model the value of love in their interaction with others"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm on the meaning and forms of bullying",
+                        "share experiences of when they were bullied and the negative effects it had on them",
+                        "discuss why young people bully/dislike others",
+                        "read Mathew 5:11-12, Romans 12:18-20, 1 John 3:15, I Peter 3:8, Roman 14:19, Proverbs 22:10, write lessons learnt and share with others in class",
+                        "discuss the negative results of bullying on the individual and family",
+                        "discuss ways and whom to report to in case you are bullied",
+                        "brainstorm on values they need to co-exist peacefully with each other"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is bullying unacceptable?"
+                    ],
+                    "core_competencies": [
+                        "Communication and collaboration",
+                        "Self-efficacy"
+                    ],
+                    "values": [
+                        "Love",
+                        "Peace"
+                    ],
+                    "pcis": [
+                        "Counselling services -Positive behaviour change",
+                        "Peer Education and Mentorship-Healthy inter and intra-personal relationships"
+                    ],
+                    "links_to_other_subjects": [
+                        "English",
+                        "Pre-technical Studies",
+                        "Social Studies"
+                    ]
+                },
+                {
+                    "substrand_number": "6.5",
+                    "substrand_name": "Work: Talents and Abilities",
+                    "number_of_lessons": 7,
+                    "specific_learning_outcomes": [
+                        "identify his/her God-given talents, gifts and abilities",
+                        "take part in different activities at home, school and in the community to nurture talents",
+                        "apply lessons learnt from the parable of talents in day-to-day life",
+                        "originate an income-generating enterprise to enhance financial literacy skills",
+                        "demonstrate accountability by saving money from the enterprise"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm what they enjoy doing while at home, school and in the community",
+                        "share experiences of the talents, gifts and unique abilities they possess",
+                        "showcase the gifts/abilities/talents they possess (for example; they can role-play, dramatise a play or Bible story, draw, sing, paint, compose and recite poems)",
+                        "read and recite James 1:17, Romans 11:29 and discuss lessons learnt from the scriptures",
+                        "participate in various activities/competitions (drawing, painting, singing, knitting, sports, acting, preaching) and write a report for presentation in class",
+                        "read Matthew 25:14-30 on the parable of the talents and make notes",
+                        "discuss lessons learnt from the parable of the talents and make a presentation in class",
+                        "brainstorm on income-generating ideas they can invest in as young people",
+                        "start a project at home or school and report its performance monthly",
+                        "save money from the project/business and keep records"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you discover your talents, gifts and abilities?",
+                        "How do you use your God-given talents, gifts and abilities?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination",
+                        "Self-efficacy"
+                    ],
+                    "values": [
+                        "Responsibility",
+                        "Patriotism"
+                    ],
+                    "pcis": [
+                        "Career guidance- Self-Awareness-interest, strength, passion",
+                        "Parental Empowerment and Engagement-Talents and careers",
+                        "Financial Literacy"
+                    ],
+                    "links_to_other_subjects": [
+                        "Pre-technical Studies",
+                        "Social Studies"
+                    ]
+                },
+                {
+                    "substrand_number": "6.6",
+                    "substrand_name": "Leisure",
+                    "number_of_lessons": 7,
+                    "specific_learning_outcomes": [
+                        "outline ways in which they use their free time",
+                        "identify reasons that lead to misuse of leisure among youths",
+                        "analyse the consequences of misusing leisure time",
+                        "examine ways of using leisure time constructively",
+                        "apply lessons learnt by using leisure time responsibly"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm on the meaning of the term, ‘leisure.’",
+                        "discuss how they use their free time",
+                        "debate on why and how youths misuse leisure today",
+                        "read Exodus 20:11, 1 Corinthians 10:23, 1 Corinthians 10:31, Philippians 4:8; outline lessons learnt and share with the class",
+                        "discuss the negative results of misusing leisure time",
+                        "discuss and make notes on constructive ways of using their free time",
+                        "design posters/charts on positive ways of using leisure time and display it in class or on the school notice board",
+                        "outline values and life skills needed to use leisure time appropriately"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you use your free time?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy",
+                        "Communication and collaboration"
+                    ],
+                    "values": [
+                        "Responsibility",
+                        "Unity"
+                    ],
+                    "pcis": [
+                        "Self-awareness",
+                        "Peer pressure resistance"
+                    ],
+                    "links_to_other_subjects": [
+                        "Agriculture",
+                        "Social Studies"
+                    ]
+                }
+            ]
+        }
+    ]
+}

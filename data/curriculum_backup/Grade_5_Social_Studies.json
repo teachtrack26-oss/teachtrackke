@@ -1,0 +1,854 @@
+{
+    "grade": "Grade 5",
+    "subject": "Social Studies",
+    "education_level": "Upper Primary",
+    "strands": [
+        {
+            "strand_number": "1.0",
+            "strand_name": "Natural and Historic Built Environments",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Elements of a Map",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "Identify key elements of a map",
+                        "Illustrate key elements of a map on a sketch",
+                        "Interpret features in a map using key elements",
+                        "Appreciate the use of maps in daily life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Appreciate diverse opinions as they brainstorm in groups the key elements of a map",
+                        "Locate elements of a map in groups, using a sketch map, wall map, atlas or digital maps",
+                        "Come up with unique ideas as they draw a sketch map and label the key elements",
+                        "Practise reading and interpreting a map using the key elements",
+                        "Use digital technology to accomplish own task as they play computer games, in groups, on the elements of a map (digital, atlas, wall maps)",
+                        "Discuss the various areas where maps are used in their daily lives"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we use maps in our daily lives?"
+                    ],
+                    "core_competencies": [
+                        "Digital literacy: Learners use digital technology to accomplish their own task as they play computer games, in groups, on the elements of a map",
+                        "Creativity and Imagination: Learners come up with unique ideas as they draw a sketch map and label the key elements"
+                    ],
+                    "values": [
+                        "Respect: Learners appreciate diverse opinions as they brainstorm, in groups, the key elements of a map",
+                        "Unity: Learners take turns as they play computer games, in groups, on the elements of a map"
+                    ],
+                    "pcis": [
+                        "Safety and security: Experiential learning as they discuss the uses of maps in daily lives",
+                        "Disaster Risk Reduction: Learners are able to identify places that could be dangerous as they interact with the key elements of the map"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply Language skills when brainstorming the key elements of a map",
+                        "The learner is able to apply Creative Arts skills as they draw a sketch map and label key elements"
+                    ]
+                },
+                {
+                    "substrand_number": "1.2",
+                    "substrand_name": "Location, Position and Size of Kenya",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "Identify countries that neighbour Kenya",
+                        "Locate the position of Kenya in relation to her neighbours using a compass direction",
+                        "Value good relations between Kenya and her neighbours"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Draw a map of Kenya and indicate her neighbours",
+                        "Use an atlas/appropriate media to identify the position of Kenya in relation to her neighbours",
+                        "Acquire knowledge on their country as they discuss the position of Kenya in relation to her neighbours",
+                        "Use appropriate media, in pairs, to play games on locating places on a map",
+                        "Find out the size of Kenya using digital resources and share in class",
+                        "Draw a map of Kenya and indicate the size in square kilometres",
+                        "Show love for their own country as they engage in self-driven tasks in composing songs and poems about Kenya and her neighbours"
+                    ],
+                    "key_inquiry_questions": [
+                        "What is the position of Kenya in relation to her neighbours?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy: Learners acquire knowledge on their country as they discuss the position of Kenya in relation to her neighbours",
+                        "Learning to learn: Learners engage in self-driven tasks as they compose songs and poems about Kenya and her neighbours"
+                    ],
+                    "values": [
+                        "Patriotism: Learners show love for their own country as they engage in self-driven tasks in composing songs and poems about Kenya and her neighbours"
+                    ],
+                    "pcis": [
+                        "Social cohesion: Learners learn to co-exist as they discuss the position of Kenya in relation to her neighbours"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply calculation skills in Mathematics as they find out the size of Kenya using digital resources",
+                        "The learner is able to apply Creative Arts skills as they draw a map of Kenya and indicate her neighbours"
+                    ]
+                },
+                {
+                    "substrand_number": "1.3",
+                    "substrand_name": "Main physical features in Kenya",
+                    "number_of_lessons": 5,
+                    "specific_learning_outcomes": [
+                        "Identify main physical features in Kenya",
+                        "Show main physical features in Kenya on a map",
+                        "Value physical features found in Kenya"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Appreciate diverse opinions as they brainstorm and identify physical features found in Kenya",
+                        "Use digital technology to effectively accomplish own tasks as they use digital and print resources to locate the main physical features in Kenya",
+                        "Locate the main physical features in Kenya using a sketch map or atlas",
+                        "Undertake tasks that encourage artistic expression as they draw a map of Kenya and locate the main physical features",
+                        "Engage in assigned roles of collecting and displaying maps and pictures showing the main physical features in Kenya",
+                        "Care for the physical features found in the immediate environment"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why are physical features useful in a country?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: Learners use digital technology to effectively accomplish their own tasks as they use digital and print resources to locate the main physical features in Kenya",
+                        "Creativity and Imagination: Learners undertake tasks that encourage artistic expression as they draw a map of Kenya and locate the main physical features"
+                    ],
+                    "values": [
+                        "Responsibility: Learners engage in assigned roles as they collect and display maps and pictures showing the main physical features in Kenya",
+                        "Respect: Learners appreciate diverse opinions as they brainstorm in groups to identify physical features found in Kenya"
+                    ],
+                    "pcis": [
+                        "Environmental Education: Learners care for the physical features found in the immediate environment"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply Creative Arts skills as they draw a map of Kenya and locate main physical features"
+                    ]
+                },
+                {
+                    "substrand_number": "1.4",
+                    "substrand_name": "Weather and Climate",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "Identify elements of weather in the environment",
+                        "Show main climatic regions in Kenya on a map",
+                        "Describe characteristics of the main climatic regions in Kenya",
+                        "Acknowledge different weather and climatic conditions in planning for day-to-day activities"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Display team spirit as they brainstorm in groups the difference between weather and climate and share with peers",
+                        "Discuss in groups elements of weather (rainfall, wind, temperature, cloud cover)",
+                        "Use digital maps/atlas to locate the main climatic regions of Kenya",
+                        "Speak engagingly by using facts as they discuss in groups the characteristics of the main climatic regions in Kenya",
+                        "Engage in assigned roles and duties as they undertake tasks that will require learners to organise ideas as they model in groups a map of Kenya showing the main climatic regions and display in class",
+                        "Find out from parents/guardians the effects of extreme weather conditions"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do we experience different climatic conditions in Kenya?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration: Learners can speak engagingly by using facts as they discuss in groups elements of weather",
+                        "Creativity and Imagination: Learners undertake tasks that will require them to organise ideas as they model in groups a map of Kenya showing the main climatic regions and display in class"
+                    ],
+                    "values": [
+                        "Unity: Learners display team spirit as they brainstorm in groups the difference between weather and climate",
+                        "Responsibility: Learners engage in assigned roles and duties as they undertake tasks that will require them to organise ideas while modelling in groups a map of Kenya showing the main climatic regions and display in class"
+                    ],
+                    "pcis": [
+                        "Environmental Education: Learners become aware of weather as they brainstorm in groups the difference between weather and climate"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply Creative Arts skills to model a map of Kenya showing the main climatic regions"
+                    ]
+                },
+                {
+                    "substrand_number": "1.5",
+                    "substrand_name": "The Built Environments",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "Identify main historic built environments in Kenya",
+                        "Show main historic built environments in Kenya on a map",
+                        "Apply strategies to conserve historic built environments for preservation of cultural heritage",
+                        "Appreciate the need for conserving historic built environments in Kenya"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Brainstorm the main historic built environments in Kenya",
+                        "Use digital/print resources to identify historic built environments",
+                        "Use a map of Kenya, in groups, to locate some of the historic built environments",
+                        "Develop posters/ charts/flip cards with messages on importance of caring for historic built environments in Kenya",
+                        "Visit/virtual visit a nearby historic built environment/library/cultural centre and share experiences",
+                        "Seek advice from a resource person as they engage on ways of conserving historic built environments",
+                        "Participate in conservation activities for historic built environments in the locality"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we conserve the historic built environments?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and Problem solving: Learners seek advice from a resource person as they engage on ways of conserving historic built environments",
+                        "Citizenship: Learners participate in conservation activities for historic built environments in the locality"
+                    ],
+                    "values": [
+                        "Love: Learners portray a caring attitude as they participate in conservation activities for historic built environments in the locality",
+                        "Peace: Learners display tolerance as they brainstorm the main historic built environments in Kenya"
+                    ],
+                    "pcis": [
+                        "Environmental Education: Learners participate in conservation activities for historic built environments in the locality"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply Agriculture skills as they participate in conservation of historic built environments in the locality"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "2.0",
+            "strand_name": "People and Social Organisations",
+            "substrands": [
+                {
+                    "substrand_number": "2.1",
+                    "substrand_name": "Language Groups in Kenya",
+                    "number_of_lessons": 5,
+                    "specific_learning_outcomes": [
+                        "Identify main language groups in Kenya",
+                        "Explain benefits of interdependence of language groups in Kenya",
+                        "Show the interdependence of language groups in Kenya",
+                        "Appreciate the interdependence of language groups"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Brainstorm the main language groups in Kenya (Nilotes, Bantu, Cushites)",
+                        "Appreciate the importance of oneness irrespective of individual differences",
+                        "Discuss ways in which different language groups depend on each other in Kenya",
+                        "Engage a resource person to find out the benefits of interdependence of language groups in Kenya",
+                        "Role-play scenarios that depict interdependence of language groups in Kenya",
+                        "Narrate African stories on the origin of various language groups in Kenya"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we benefit by interacting with different language groups in Kenya?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: Learners develop relationships as they role-play scenarios that depict interdependence of language groups in Kenya",
+                        "Communication and Collaboration: Learners listen keenly and actively showing understanding of concepts as they compose poems and songs that depict interdependence during cultural events"
+                    ],
+                    "values": [
+                        "Unity: Learners discuss in groups ways in which different language groups depend on each other in Kenya",
+                        "Respect: Learners value human dignity as they narrate African stories on the origin of various language groups in Kenya"
+                    ],
+                    "pcis": [
+                        "Social cohesion: Learners work together harmoniously as they compose poems and songs that depict interdependence during cultural events"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply Language skills as they compose poems and songs that depict interdependence during cultural events",
+                        "The learner is able to apply Language skills as they narrate and share African stories on the origin of various language groups in Kenya"
+                    ]
+                },
+                {
+                    "substrand_number": "2.2",
+                    "substrand_name": "Population distribution in Kenya",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "Explain the effects of population density in different regions in Kenya",
+                        "Show areas of high and low population density in Kenya on a map",
+                        "Acknowledge the impact of population distribution in Kenya"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Brainstorm areas of high and low population density in Kenya",
+                        "Use digital or print resources to locate areas of high and low population density in Kenya",
+                        "Shade areas of low and high population density on a sketch map of Kenya",
+                        "Take turns as they create a skit that depicts the impact of population distribution in Kenya"
+                    ],
+                    "key_inquiry_questions": [
+                        "How is population distribution useful in Kenya?"
+                    ],
+                    "core_competencies": [
+                        "Communication and collaboration: Learners describe procedure followed in doing defined tasks and give feedback as they shade in pairs, areas of low and high population density on a sketch map of Kenya"
+                    ],
+                    "values": [
+                        "Unity: Learners take turns as they create a skit that depicts the impact of population distribution in Kenya",
+                        "Respect: Learners value ideas of others as they brainstorm areas of high and low population density in Kenya"
+                    ],
+                    "pcis": [
+                        "Social cohesion: Learners work together harmoniously as they take turns to create a skit that depicts the impact of population distribution in Kenya"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply speaking skills in Languages as they present feedback to their peers on areas of low and high population density on a sketch map of Kenya"
+                    ]
+                },
+                {
+                    "substrand_number": "2.3",
+                    "substrand_name": "African Traditional Education",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "Identify methods of instruction used in African traditional education",
+                        "Explain the importance of African traditional education in promoting values",
+                        "Apply African traditional education in promoting values",
+                        "Appreciate the role of African traditional education in promoting values"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Brainstorm the meaning of African traditional education",
+                        "Discuss with peers, methods of instruction used in African traditional education such as narratives, stories, songs, riddles and proverbs",
+                        "Listen keenly and actively as they watch video tapes/listen to narratives, stories/observe pictures on aspects of African traditional education",
+                        "Engage with a resource person on methods of instruction used in African traditional education",
+                        "Discuss the importance of African traditional education in promoting values",
+                        "Design posters on methods of instruction used in African traditional education",
+                        "Find out from parents/guardians the methods of instruction used in African traditional education and share in class"
+                    ],
+                    "key_inquiry_questions": [
+                        "How does African traditional education promote values in our community?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration: Learners listen keenly and actively as they watch video tapes/listen to narratives, stories/observe pictures on aspects of African traditional education",
+                        "Citizenship: Learners participate in the community and contribute to a better world through informed, ethical and peaceful action as they give a summary of an aspect of African traditional education and share the information in class"
+                    ],
+                    "values": [
+                        "Integrity: Learners enhance self-discipline as they engage with a resource person on methods of instruction used in African traditional education",
+                        "Unity: Learners enhance turn taking in activities and conversation as they discuss in pairs, methods of instruction used in African traditional education such as narratives, stories, songs, riddles and proverbs"
+                    ],
+                    "pcis": [
+                        "Social Cohesion: Learners enhance understanding of self and others as they watch video tapes/listen to narratives, stories/observe pictures on aspects of African traditional education"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply speaking and listening skills in Languages as they discuss methods of instruction used in African traditional education such as narratives, stories, songs, riddles, and proverbs"
+                    ]
+                },
+                {
+                    "substrand_number": "2.4",
+                    "substrand_name": "School administration",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "Identify administrative leaders in a school",
+                        "State duties of administrative leaders in a school",
+                        "Illustrate administrative structure of a school",
+                        "Appreciate work done by administrative leaders in school"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Discuss the administrative leaders in school",
+                        "Discuss the order of administration in school",
+                        "Use digital or print resources to search duties of administrative leaders in school",
+                        "Collaboratively, share with parents or guardians the duties of school administrators",
+                        "Draw and display in class the administrative structure of the school"
+                    ],
+                    "key_inquiry_questions": [
+                        "How is school administration organised?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: Learners work collaboratively as they share with parents or guardians the duties of school administrators",
+                        "Communication and Collaboration: Learners contribute to group decision making as they discuss in groups the order of administration in school"
+                    ],
+                    "values": [
+                        "Love: Learners share resources as they think, pair and share the administrative leaders in school",
+                        "Respect: Learners appreciate diverse opinions as they discuss in groups the order of administration in school"
+                    ],
+                    "pcis": [
+                        "Citizenship: Learners discuss in groups the order of administration in school",
+                        "Social cohesion: Learners share with parents or guardians the duties of school administrators"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply communication skills in Languages when discussing the order of administration in school",
+                        "The learner is able to apply drawing skills from Creative Arts when drawing and displaying in class the administrative structure of the school"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "3.0",
+            "strand_name": "Resources and Economic Activities",
+            "substrands": [
+                {
+                    "substrand_number": "3.1",
+                    "substrand_name": "Resources in Kenya",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "Identify resources found in Kenya",
+                        "Explain the benefits of using available resources prudently",
+                        "Illustrate ways in which available resources can be used sustainably",
+                        "Appreciate the resources available in society"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Brainstorm on resources found in Kenya",
+                        "Take a nature walk around the school locality to collect samples of resources found and share their findings in class",
+                        "State the benefits of using available resources prudently",
+                        "Engage a resource to find out the benefits of using available resources prudently",
+                        "Search online or use available print media on the ways in which available resources can be used sustainably",
+                        "Write articles/come up sensitisation messages on prudent use of resources found in Kenya"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to use resources prudently?",
+                        "How can we conserve resources in our society?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: Learners undertake tasks that encourage artistic expression of ideas as they take a nature walk around the school locality to identify resources and share",
+                        "Critical Thinking and Problem solving: Learners follow simple instructions to solve and seek help as they collect samples of resources found within the environment and display them in class"
+                    ],
+                    "values": [
+                        "Responsibility: Learners engage a resource person to find out the benefits of using available resources prudently"
+                    ],
+                    "pcis": [
+                        "Environmental issues: Learners demonstrate care as they search online or use available print media on the ways in which available resources can be used sustainably"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply the concept of caring from Agriculture as they learn about prudent use of available resources for sustainability"
+                    ]
+                },
+                {
+                    "substrand_number": "3.2",
+                    "substrand_name": "Mining in Kenya",
+                    "number_of_lessons": 5,
+                    "specific_learning_outcomes": [
+                        "Identify major minerals found in Kenya",
+                        "Use the map of Kenya to locate major minerals",
+                        "Examine the importance of minerals in Kenya",
+                        "Acknowledge the contribution of mining to the economy of Kenya"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Brainstorm on minerals found in Kenya",
+                        "Use digital or print resources to identify minerals found in Kenya",
+                        "Draw a map of Kenya and locate major minerals",
+                        "Engage with a resource person to discuss the importance of minerals in society",
+                        "Create posters on contribution of mining to the economy of Kenya",
+                        "Visit a mining site/quarry or use digital devices or watch documentary on the importance of mining in our country and write a report",
+                        "Generate new ideas as they create posters on the contribution of mining to the economy of Kenya"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we benefit from the minerals found in our country?",
+                        "How does the government promote mining in Kenya?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: Learners generate new ideas as they create posters on the contribution of mining to the economy of Kenya",
+                        "Learning to Learn: Learners engage with a resource person to discuss the importance of minerals in society"
+                    ],
+                    "values": [
+                        "Patriotism: Learners acknowledge the contribution of mining to the economy of Kenya",
+                        "Love: Learners avoid inflicting emotional pain on others as they in pairs create posters on the importance of mining in Kenya"
+                    ],
+                    "pcis": [
+                        "Creative Thinking skills: Learners enhance creative thinking skills as they create posters on the importance of mining in Kenya"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply Creative Arts skills as they create posters on the importance of mining in Kenya"
+                    ]
+                },
+                {
+                    "substrand_number": "3.3",
+                    "substrand_name": "Fishing in Kenya",
+                    "number_of_lessons": 5,
+                    "specific_learning_outcomes": [
+                        "Identify main inland fishing grounds in Kenya",
+                        "Locate main inland fishing grounds in Kenya",
+                        "Explain contribution of fishing to the economy of Kenya",
+                        "Recognise fishing as an economic activity"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Brainstorm on the main inland fishing grounds in Kenya using digital resources/print media",
+                        "Draw a map of Kenya showing the main inland fishing grounds",
+                        "Find out from relevant sources in groups the contribution of fishing to the economy of Kenya and write a summary",
+                        "Engage with a resource person to discuss the contribution of fishing to the economy of Kenya and report in class",
+                        "Develop posters on the importance of fishing in Kenya and share"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is fishing important in our country?"
+                    ],
+                    "core_competencies": [
+                        "Self-Efficacy: Learners show attention to detail as they discuss in groups methods of inland fishing in Kenya and report in class",
+                        "Citizenship: Learners demonstrate creativity as they develop posters, in pairs, on the importance of fishing in Kenya and share with members of the community"
+                    ],
+                    "values": [
+                        "Unity: Learners take turns in activities as they illustrate in groups fishing methods used in Kenya, display in class and do a gallery walk to appreciate each other’s work",
+                        "Respect: Learners show positive regard for self and others as they find out from relevant sources in groups the contribution of fishing to the economy of Kenya and write a summary"
+                    ],
+                    "pcis": [
+                        "Creativity thinking skills: Learners enhance the skills of creative thinking as they draw a map of Kenya showing the main inland fishing grounds"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply Agriculture skills as they find out from relevant sources the contribution of fishing to the economy of Kenya and write a summary"
+                    ]
+                },
+                {
+                    "substrand_number": "3.4",
+                    "substrand_name": "Wildlife and Tourism in Kenya",
+                    "number_of_lessons": 5,
+                    "specific_learning_outcomes": [
+                        "Identify main tourist attractions in Kenya",
+                        "Locate main game reserves and national parks in Kenya",
+                        "Explain contributions of wildlife and tourism to the economy",
+                        "Acknowledge the contribution of wildlife and tourism to the economy of Kenya"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Discuss and share on who is a tourist",
+                        "Use digital or print resources to identify tourist attractions in Kenya",
+                        "Brainstorm on main tourist attractions in Kenya",
+                        "Brainstorm on the difference between a game reserve and a national park",
+                        "Draw a map of Kenya and show the main game reserves and national parks (Nairobi National Park, Tsavo National Park, Amboseli National Park, Masai Mara Natioal Reserve and Kakamega Forest National Reserve)",
+                        "Discuss the contributions of wildlife and tourism to the economy and do a presentation in class",
+                        "Brainstorm and list down the contribution of tourism to the economy of Kenya",
+                        "Debate on the contribution of tourism to the economy of Kenya",
+                        "Write an essay on the contribution of tourism to the economy of Kenya"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is wildlife important?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: Learners share what they have learnt as they write an essay on the contribution of tourism to the economy of Kenya",
+                        "Communication and Collaboration: Learners speak clearly and effectively as they brainstorm on main tourist attractions in Kenya"
+                    ],
+                    "values": [
+                        "Unity: Learners display team spirit as they debate on the contribution of tourism to the economy of Kenya",
+                        "Responsibility: Learners engage in tasks as they write an essay on the contribution of tourism to the economy of Kenya"
+                    ],
+                    "pcis": [
+                        "Social Cohesion: Learners work together as they write essays on the contribution of tourism to the economy of Kenya"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply Language skills as they write an essay on the contribution of tourism to the economy of Kenya"
+                    ]
+                },
+                {
+                    "substrand_number": "3.5",
+                    "substrand_name": "Development of Transport",
+                    "number_of_lessons": 5,
+                    "specific_learning_outcomes": [
+                        "Outline main means of early transport to facilitate movement of goods and services",
+                        "Identify modern means of transport in Kenya",
+                        "Explore ways of maintaining road safety in society",
+                        "Apply safety precautions in using means of transport",
+                        "Appreciate the role of modern means of transport in national development"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Brainstorm the meaning of transport",
+                        "Use digital or print resources to find out the main early means of transport (human porterage, pack animals, logging/log and boats, rafts) and share in class",
+                        "Sketch the early means of transport and present in class",
+                        "Share information about modern means of transport in Kenya",
+                        "Use digital or print resources to identify modern means of transport in Kenya",
+                        "Write down modern means of transport identified and share in class",
+                        "Draw the road signs in Kenya and display them in class",
+                        "Role-play safe practices of a pedestrian crossing and present in class (walking instead of running, walk on a line/single file)",
+                        "Find out ways of observing road safety in Kenya using digital or print resources and write a report",
+                        "Role-play how to observe traffic rules while using the road"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is transport important in development?"
+                    ],
+                    "core_competencies": [
+                        "Self-Efficacy: Learners develop self-confidence as they use digital or print resources to find out the main early means of transport and share in class",
+                        "Creativity and Imagination: Learners exchange new ideas as they draw the road signs in Kenya and display them in class"
+                    ],
+                    "values": [
+                        "Unity: Learners display team spirit as they role-play how to observe traffic rules while using the road",
+                        "Peace: Learners demonstrate love for their own community as they exchange new ideas, draw the road signs in Kenya and display them in class"
+                    ],
+                    "pcis": [
+                        "Nationalism: Learners display national pride, find out ways of observing road safety in Kenya using digital or print resources and write a report",
+                        "Child Road Safety: Learners work harmoniously as they role-play how to observe traffic rules while using the road"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply Creative Arts skills as they role-play how to observe traffic rules while using the road"
+                    ]
+                },
+                {
+                    "substrand_number": "3.6",
+                    "substrand_name": "Development of Communication",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "Outline main early forms of communication to facilitate social interactions",
+                        "Explore modern means of communication in Kenya",
+                        "Illustrate modern means of communication used in their community",
+                        "Recognise the role of modern means of communication in Kenya"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Use digital or print resources to find out the main early forms of communication and share in class",
+                        "Sketch the early forms of communication and present in class",
+                        "Discuss modern means of communication using appropriate media",
+                        "Discuss modern means of communication in Kenya using digital resources/ print media",
+                        "Draw different modern means of communication and display in class",
+                        "Role-play use of various modern means of communication"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is communication important?"
+                    ],
+                    "core_competencies": [
+                        "Critical Thinking and Problem Solving: Learners undertake group activities as they role-play the use of various modern means of communication",
+                        "Creativity and Imagination: Learners undertake group activities as they role-play use of various modern means of communication"
+                    ],
+                    "values": [
+                        "Unity: Learners collaborate with others as they discuss modern means of communication in Kenya"
+                    ],
+                    "pcis": [
+                        "Internet Safety: Learners portray responsible online behaviour as they use digital devices to find out the main early forms and share in class"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply the concept of use of technology in communication in Science and Technology as they discuss modern means of communication"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "4.0",
+            "strand_name": "Political Systems",
+            "substrands": [
+                {
+                    "substrand_number": "4.1",
+                    "substrand_name": "Traditional Leaders in Kenya",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "Outline leadership qualities of selected traditional leaders in Kenya",
+                        "Illustrate contributions of selected traditional leaders in the Kenya",
+                        "Recognise the role of traditional leaders in the community"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Brainstorm leadership qualities of the selected traditional leaders in Kenya",
+                        "Observe pictures of selected traditional leaders in Kenya using appropriate media",
+                        "Gather information in groups, and do a write-up on the contributions of selected traditional leaders in Kenya",
+                        "Illustrate the contributions of selected traditional leaders in Kenya using charts and display in class",
+                        "Collect and creatively display portraits/ pictures of the selected traditional leaders in Kenya",
+                        "Draw, colour and display in class pictures of selected traditional leaders"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why are traditional leaders important in the community?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration: Learners listen keenly and actively and show understanding of other people’s perspective as they brainstorm, in pairs on who is a traditional leader",
+                        "Learning to learn: Learners develop self-discipline as they work collaboratively while gathering information in groups, and do a write-up on the contributions of selected traditional leaders in Kenya"
+                    ],
+                    "values": [
+                        "Unity: Learners enhance cooperation as they gather information in groups, and do a write-up on the contributions of selected traditional leaders in Kenya",
+                        "Patriotism: Learners show dedication as they illustrate the differences and similarities between the selected traditional leaders in Kenya using charts and display in class"
+                    ],
+                    "pcis": [
+                        "Citizenship Education: Learners develop interethnic and interracial relationships as they observe pictures of selected traditional leaders in Kenya using appropriate media",
+                        "Social Cohesion: Learners understand the ethnic diversity of traditional leaders in Kenya as they illustrate the differences and similarities between the selected traditional leaders in Kenya using charts and display in class"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply speaking and listening skills in Languages as they brainstorm in groups leadership qualities of the selected traditional leaders in Kenya",
+                        "The learner is able to apply drawing skills from Creative Arts as they draw, colour and display in class pictures of selected traditional leaders"
+                    ]
+                },
+                {
+                    "substrand_number": "4.2",
+                    "substrand_name": "Early forms of Government in Kenya",
+                    "number_of_lessons": 5,
+                    "specific_learning_outcomes": [
+                        "Describe early forms of government among selected communities in Kenya",
+                        "Compare early forms of government of the Maasai and Ameru",
+                        "Apply best practices from early forms of government among selected communities in Kenya to modern governance",
+                        "Appreciate the importance of early forms of governance in Kenya"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Brainstorm in pairs on forms of government in their community and share in class",
+                        "Use digital or print resources to describe early forms of government",
+                        "Find out from the library or relevant sources the early forms of government among the Maasai and Ameru and present their findings in class",
+                        "Develop a chart to illustrate the differences and similarities in early forms of government among the Maasai and the Ameru",
+                        "Create a simple journal on best practices from early forms of government among the Maasai and the Ameru",
+                        "Role-play early forms of government among the Maasai or the Ameru"
+                    ],
+                    "key_inquiry_questions": [
+                        "How were communities ruled in the past?"
+                    ],
+                    "core_competencies": [
+                        "Digital literacy: Learners communicate effectively as they use digital media and space to describe early forms of government",
+                        "Creativity and Imagination: Learners show originality as they create a simple journal on what they have learnt about early forms of government"
+                    ],
+                    "values": [
+                        "Responsibility: Learners engage in assigned roles and duties as they create a simple journal on what they have learnt about early forms of government",
+                        "Respect: Learners appreciate diverse opinions about the Maasai and the Ameru as they brainstorm in pairs on forms of leadership in the communities and share"
+                    ],
+                    "pcis": [
+                        "Learner Support Programmes: Learners engage in civic guidance as they use appropriate media to describe early forms of government among the Maasai and the Ameru",
+                        "Social cohesion: Learner’s role-play early forms of government among the Maasai or the Ameru"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply performing skills in Creative Arts as they role-play early forms of government among the Maasai or the Ameru",
+                        "The learner is able to apply speaking and listening skills from Languages as they brainstorm on forms of leadership in their community and share in class"
+                    ]
+                },
+                {
+                    "substrand_number": "4.3",
+                    "substrand_name": "Citizenship in Kenya",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "State how one becomes a citizen in Kenya",
+                        "Explain requirements for dual citizenship in Kenya",
+                        "Demonstrate good citizenship for personal and social well-being",
+                        "Appreciate being a good citizen in the community"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Discuss with peers ways of becoming a Kenyan citizen",
+                        "Use digital resources to find out ways of becoming a Kenyan citizen and share in class",
+                        "Debate on dual citizenship in Kenya",
+                        "Develop communication messages on good citizenship in our country",
+                        "Write an essay on what may happen if one lost Kenyan citizenship",
+                        "Create and recite poems on Kenyan citizenship",
+                        "Develop intergroup communication skills for promotion of peaceful coexistence as they develop communication messages on good citizenship and share with others in school"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we promote responsible citizenship?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy: Learners practise self-drive as they discuss in groups, ways in which one may lose Kenyan citizenship and present in class",
+                        "Citizenship: Learners develop intergroup communication skills for promotion of peaceful coexistence as they develop communication messages on good citizenship and share with others in school"
+                    ],
+                    "values": [
+                        "Social Justice: Learners enhance democracy as they create and recite poems on Kenyan citizenship",
+                        "Integrity: Learners display self-discipline as they write an essay on what may happen if one lost Kenyan citizenship"
+                    ],
+                    "pcis": [
+                        "Safety and Security: Learners enhance patriotism as they discuss in groups, ways in which one may lose Kenyan citizenship and present in class",
+                        "Peace Education: Learners acknowledge self and others as they sing songs on good Kenyan Citizenship"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply singing skills in Creative Arts as they sing songs on good Kenyan Citizenship"
+                    ]
+                },
+                {
+                    "substrand_number": "4.4",
+                    "substrand_name": "National Government",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "Describe the three arms of the National Government in Kenya",
+                        "Illustrate the three arms of National Government in Kenya",
+                        "Desire to participate in national governance in the country"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Brainstorm the three arms of National Government in Kenya and share in class",
+                        "Discuss the three arms of National Government using appropriate media and list them down",
+                        "Engage with others to find out the three arms of National Government in Kenya using relevant sources",
+                        "Illustrate the three arms of the National Government in Kenya and display them in class"
+                    ],
+                    "key_inquiry_questions": [
+                        "How does the government work?"
+                    ],
+                    "core_competencies": [
+                        "Citizenship: Learners engage effectively with others as they find out the three arms of government in Kenya using relevant sources",
+                        "Creativity and Imagination: Learners undertake tasks as they illustrate and display in class the composition of the three arms of National Government in Kenya"
+                    ],
+                    "values": [
+                        "Responsibility: Learners engage in assigned roles and duties as they find out the three arms of government in Kenya using relevant sources",
+                        "Unity: Learners appreciate the effort of others as they discuss the three arms of government using appropriate media and list them down"
+                    ],
+                    "pcis": [
+                        "Patriotism and good governance: Learners enhance good governance at all levels as they illustrate and display in class the three arms of the National Government in Kenya",
+                        "Peace Education: Learners appreciate similarities and differences amongst them as they brainstorm the three arms of National Government in Kenya and share in class"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply drawing skills in Creative Arts when illustrating the three arms of the National Government in Kenya and display them in class"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "5.0",
+            "strand_name": "Governance",
+            "substrands": [
+                {
+                    "substrand_number": "5.1",
+                    "substrand_name": "National Unity in Kenya",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "Identify national symbols in Kenya",
+                        "Explain factors which promote national unity in Kenya",
+                        "Illustrate ways of overcoming challenges of national unity",
+                        "Develop national awareness to enhance social cohesion among diverse communities",
+                        "Embrace a sense of nationhood and patriotism for harmonious living"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Brainstorm on national symbols in Kenya (the coat of arms, the national flag, the national anthem and the public seal) and share in class",
+                        "Use appropriate media to identify the national symbols in Kenya and share with others in class",
+                        "Draw and colour the national symbols in Kenya using the locally available materials (the coat of arms, the national flag and the public seal)",
+                        "Brainstorm factors which promote national unity in Kenya",
+                        "Use appropriate media to establish factors which promote national unity in Kenya",
+                        "Engage a resource person to talk about ways of overcoming challenges of national unity",
+                        "Role-play national awareness to enhance social cohesion among diverse communities",
+                        "Write down and sing the three stanzas of the National Anthem of Kenya as sign of national awareness",
+                        "Find out from parents/ guardians or elders about the national days in Kenya",
+                        "Write a report about national days in Kenya and share in class"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we promote national unity in our country?"
+                    ],
+                    "core_competencies": [
+                        "Citizenship: Learners understand the impact of a person's rights and responsibilities in society as they brainstorm in groups factors which promote national unity in Kenya (national symbols, national days and national languages)",
+                        "Creativity and Imagination: Learners undertake tasks that encourage artistic expression of ideas as they draw and colour the national symbols in Kenya using the locally available materials (the coat of arms, the national flag and the public seal)"
+                    ],
+                    "values": [
+                        "Patriotism: learners show love for their country as they sing and write down in groups, the three stanzas of the National Anthem of Kenya",
+                        "Unity: Learners display team spirit as they share national symbols in Kenya (the coat of arms, the national flag, the national anthem and the public seal)"
+                    ],
+                    "pcis": [
+                        "Human Rights and Responsibilities: Learners enhance cohesion as they brainstorm in groups factors which promote national unity in Kenya (national symbols, national days and national languages)",
+                        "Patriotism and Good Governance: Learners demonstrate patriotism as they sing and write down in groups, the three stanzas of the National Anthem of Kenya"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply performing skills from Creative Arts when singing and writing down three stanzas of the National Anthem of Kenya",
+                        "The learner is able to apply functional writing skills in Languages to write a report about national days in Kenya and share in class"
+                    ]
+                },
+                {
+                    "substrand_number": "5.2",
+                    "substrand_name": "Human Rights",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "Identify basic human rights in Kenya",
+                        "Explain the importance of human rights in society",
+                        "Create awareness on the importance of respecting human rights in society",
+                        "Apply ways to protect human rights in society",
+                        "Appreciate the importance of respecting human rights in society"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Brainstorm on the meaning of human rights and share in class",
+                        "Identify the basic human rights in Kenya using appropriate media and share in class",
+                        "Discuss the importance of human rights in society and make class presentations",
+                        "Develop posters to create awareness on the importance of respecting human rights in society",
+                        "Act a skit on how to apply ways in protecting human rights",
+                        "Engage with a resource person on the importance of human rights and write a report",
+                        "Recite poems and sing songs on the importance of human rights in society"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to respect human rights?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: Learners undertake tasks that will enable them to come up with new ideas as they identify the basic human rights in Kenya using appropriate media and share in class",
+                        "Learning to learn: Learners develop motivation to learn as they engage with a resource person on the importance of human rights and write a report"
+                    ],
+                    "values": [
+                        "Unity: Learners respect other people’s opinions as they discuss in groups the importance of human rights in society and make class presentations",
+                        "Respect: Learners value human dignity as they recite poems and sing songs on the importance of human rights in society"
+                    ],
+                    "pcis": [
+                        "Human Rights and Responsibilities: Learners enhance understanding of children’s rights as they recite poems and sing songs on the importance of human rights in society",
+                        "Social Cohesion: Learners care for one another as they develop posters to create awareness on the importance of respecting human rights in society"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply Creative Arts skills to develop posters to create awareness on the importance of respecting human rights in society",
+                        "The learner is able to apply speaking and listening skills in Languages to discuss the importance of human rights in society and make class presentations"
+                    ]
+                },
+                {
+                    "substrand_number": "5.3",
+                    "substrand_name": "Democracy in Society",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "Identify types of democracy in Kenya",
+                        "Explain benefits of democracy in society",
+                        "Practise democracy in governance in the community",
+                        "Desire to promote democracy in society"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Brainstorm the meaning of democracy",
+                        "Use digital /print materials to find out types of democracy in Kenya and write short notes",
+                        "Discuss and list the benefits of democracy in society",
+                        "Engage with a resource person to discuss the benefits of democracy in society",
+                        "Develop posters on benefits of democracy in society, display in class and share",
+                        "Recite poems /sing songs on the importance of democracy in society"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we practise democracy in our society?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: Learners use the digital devices safely and ethically in a networked environment as they find out more about benefits of democracy in society using digital resources/appropriate media",
+                        "Learning to learn: Learners develop relations as they discuss and list the benefits of democracy in society"
+                    ],
+                    "values": [
+                        "Respect: Learners understand and appreciate others as they brainstorm on the meaning of democracy",
+                        "Responsibility: Learners offer leadership and guidance to others as they discuss and list the benefits of democracy in society"
+                    ],
+                    "pcis": [
+                        "Peace Education: Learners contribute to peacebuilding as they recite poems /sing songs on the importance of democracy in society",
+                        "Human rights and Responsibilities: Learners identify themselves as they engage with a resource person discuss on the benefits of democracy in society"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply speaking skills in Languages to recite poems /sing songs on the importance of democracy in society"
+                    ]
+                }
+            ]
+        }
+    ]
+}

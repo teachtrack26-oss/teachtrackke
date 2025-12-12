@@ -1,0 +1,355 @@
+{
+    "grade": "Grade 9",
+    "subject": "Agriculture and Nutrition",
+    "education_level": "Junior Secondary",
+    "strands": [
+        {
+            "strand_number": "1.0",
+            "strand_name": "CONSERVATION OF RESOURCES",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Conserving Animal Feed: Hay",
+                    "number_of_lessons": 12,
+                    "specific_learning_outcomes": [
+                        "describe methods of conserving forage in coping with drought",
+                        "conserve forage to cope with drought",
+                        "adopt conservation of forage in coping with drought"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use digital and print resources to search for information and share experiences on methods of conserving forage in coping with drought (baled hay making, standing forage, stacking)",
+                        "conserve forage using methods such as stacking or box bailing using locally available such as maize stover and straw to conserve hay for drought season",
+                        "discuss and make class presentation on how households can adopt conservation of forage in coping with drought",
+                        "problem solving skills as learners apply applicable methods to conserve forage, associate peaceful coexistence through conservation of forage during drought, disaster risk reduction using conserved forage to save animals"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can hay conservation contribute to coping with drought?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem solving - evaluation and decision-making; as learners analyse and apply methods of conserving hay to cope with drought",
+                        "Communication and collaboration - speaking and dialogue; as learners discuss ways of conserving forage to cope with drought in the context of rearing animals"
+                    ],
+                    "values": [
+                        "Peace; respect for diversity of opinions as learners discuss methods of conserving hay to cope with drought"
+                    ],
+                    "pcis": [
+                        "Disaster risk reduction as learners analyse and adopt applicable methods of conserving hay to cope with drought"
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate conservation of hay to concepts of mitigating effects of climate change learnt in social studies"
+                    ]
+                },
+                {
+                    "substrand_number": "1.2",
+                    "substrand_name": "Conserving Leftover Foods",
+                    "number_of_lessons": 11,
+                    "specific_learning_outcomes": [
+                        "explain the importance of conserving leftover foods at home",
+                        "prepare leftover foods to avoid wastage",
+                        "embrace the use of leftover foods to avoid food wastage"
+                    ],
+                    "suggested_learning_experiences": [
+                        "search and share experiences on how left over foods importance of conserving leftover foods at home",
+                        "prepare leftover foods for consumption through methods such as reheating or preparing another recipe to avoid wastage",
+                        "make presentations on various recipes adopted from leftover foods to avoid food wastage",
+                        "creativity and imagination skills on preparing leftover foods, value of integrity to avoid wasteful use of resources, hygiene in the food handling to prevent food wastage and contamination"
+                    ],
+                    "key_inquiry_questions": [
+                        "How is leftover food prepared for use to prevent food wastage?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination - experimenting; as learners explore different ways of preparing left over foods"
+                    ],
+                    "values": [
+                        "Integrity; utilizing resources prudently to avoid wastage of resources in the preparation of leftover foods"
+                    ],
+                    "pcis": [
+                        "Hygiene in handling of foods to prevent contamination and spoilage"
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate conservation of leftover foods to spread of food related communicable diseases learnt through Integrated science"
+                    ]
+                },
+                {
+                    "substrand_number": "1.3",
+                    "substrand_name": "Integrated Farming",
+                    "number_of_lessons": 12,
+                    "specific_learning_outcomes": [
+                        "describe components of integrated farming in conserving resources",
+                        "make a model of integrated farming for conservation of resources",
+                        "appreciate the importance of integrated farming in conservation of resource"
+                    ],
+                    "suggested_learning_experiences": [
+                        "take an excursion or search information on integrated farming practices find out how components of integrated farming help to conserve resources",
+                        "design or sketch and make a model to illustrate integrated farming components such as fish rearing, rabbit keeping, poultry keeping and vegetable production on the same plot of land to show their relational benefits",
+                        "learners make class presentations on the models of integrated farming and the importance of the integration in conserving resources",
+                        "creativity skills in the designing and making a model of integrated farming, respect for each others creative work in modelling integrated farming, environmental conservation as they relate the benefits of each component of integrated farming"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can integrated farming conserve resources?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination - observation and making connection; as learners seek information, design and make a model to depict integrated farming enterprise",
+                        "Critical thinking and problem solving - evaluation and decision-making; as learners analyse the environment for components of integrated farming and design models of integrated farming enterprise"
+                    ],
+                    "values": [
+                        "Unity; team work as learners harness gifts and special skills of the group members in designing and making an integrated farming model",
+                        "Respect; accommodating diverse opinions while learners discuss and design model of integrated farming"
+                    ],
+                    "pcis": [
+                        "Environmental awareness and protection as learners re-use locally available resources such as waste pieces of wood, cartons, cardboards and papers to design and make a model of integrated farming enterprise"
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners apply skills of designing and choice of materials learnt in Pre-Technical Studies in the construction of integrated farming model"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "2.0",
+            "strand_name": "FOOD PRODUCTION PROCESSES",
+            "substrands": [
+                {
+                    "substrand_number": "2.1",
+                    "substrand_name": "Organic Gardening",
+                    "number_of_lessons": 14,
+                    "specific_learning_outcomes": [
+                        "explain organic gardening practices in crop production",
+                        "grow a crop using organic gardening practices",
+                        "appreciate importance of organic gardening in production of healthy foods"
+                    ],
+                    "suggested_learning_experiences": [
+                        "search and share information organic gardening practices in crop production",
+                        "grow a selected short season crop such as a vegetable, legume or spice crop using organic gardening practices such as use of organic manure organic pesticides, mechanical weed control, use of organic foliar feed made from animal wastes and plants like Mexican sunflower",
+                        "learners share experiences through class presentations to appreciate importance of organic gardening in production of healthy foods",
+                        "learning to learn as learners make self-discovery of applicable gardening techniques, integrity as learners honestly declare organic practices, unity as they work in teamwork, health promotion as learners acquire skills of producing foods without use of chemicals"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we practise organic gardening?",
+                        "How can we produce food crops through organic gardening?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn - working collaboratively and organising own learning; as learners grow crops using organic gardening practices",
+                        "Self-efficacy - planning; as learners grow crops using organic farming practices"
+                    ],
+                    "values": [
+                        "Unity; working in teams as learners undertake the project on growing crops using organic gardening practices",
+                        "Integrity; honesty as learners practice organic gardening practices"
+                    ],
+                    "pcis": [
+                        "Food health and safety as learners acquire skills of growing foods without use of agro-chemicals"
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate organic gardening practices to farming practices in the social studies"
+                    ]
+                },
+                {
+                    "substrand_number": "2.2",
+                    "substrand_name": "Storage of Crop Produce",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "explain ways of preparing storage structures before storing crop produce",
+                        "prepare an existing storage structure in readiness for storing crop produce",
+                        "manage stored crop produce to reduce spoilage",
+                        "show responsibility in managing stored crop produce to reduce spoilage"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use digital devices or print media to search for information on ways of preparing storage structures in readiness for storage of crop produce and share findings in plenary",
+                        "prepare an existing storage structure or facility (container, store room, granary, storage bags) in readiness for storage through practices such as cleaning, dusting, sealing cracks, repairing leakages, emptying previous crop produce and controlling rodents",
+                        "manage stored crop produce (checking moisture content in cereals and pulses, ensuring ventilation, controlling rodents, turning the stored crop produce and disposing off spoilt produce)",
+                        "critical thinking skills (open mindedness) as learners manage storage structures to avoid spoilage, responsibility as learners team play to maintenance chores, food safety to prevent aflatoxin in food storage"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we prepare facility in readiness for storage of crop produce?",
+                        "How should crop produce be managed during storage?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem solving - open-mindedness and creativity; as learners prepare storage structure and manage crop produce to maintain quality and reduce post-harvest loss"
+                    ],
+                    "values": [
+                        "Responsibility; engaging in assigned roles as learners manage stored crop produce in the school food store"
+                    ],
+                    "pcis": [
+                        "Food safety and security as learners manage crop storage structures to prevent spoilage of crop produce"
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate management of storage of crop produce to farming as an economic activity learnt in social studies"
+                    ]
+                },
+                {
+                    "substrand_number": "2.3",
+                    "substrand_name": "Cooking: Using Flour Mixtures",
+                    "number_of_lessons": 14,
+                    "specific_learning_outcomes": [
+                        "identify types of flour mixtures used in food production",
+                        "prepare flour mixtures for food production",
+                        "make products from various flour mixture",
+                        "appreciate products made from various flour mixtures"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use print or digital resources to identify types of flour mixtures used in food production such as batters and dough",
+                        "prepare flour mixtures such as batters and doughs for food production",
+                        "make products such as pancake, mandazi and chapati from various flour mixtures",
+                        "learning to learn as learners apply procedures of making flour mixtures, integrity as learners use ethically acceptable procedures to prepare foods and safety in the use of tools and equipment"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we make products from flour mixture?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn - reflection on own work; as learners apply procedures of preparing flour mixtures"
+                    ],
+                    "values": [
+                        "Integrity; following ethically acceptable procedures in preparing flour mixtures"
+                    ],
+                    "pcis": [
+                        "Safety of self and others as learners use tools and fuels in making products from flour mixtures"
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate measurement of ingredients in preparing flour mixtures to weights and measurements learnt in mathematics"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "3.0",
+            "strand_name": "HYGIENE PRACTICES",
+            "substrands": [
+                {
+                    "substrand_number": "3.1",
+                    "substrand_name": "Cleaning Waste Disposal Facilities",
+                    "number_of_lessons": 9,
+                    "specific_learning_outcomes": [
+                        "explain importance of cleaning waste disposal facilities",
+                        "clean waste disposal facilities at household level",
+                        "adopt use of clean waste disposal facilities at household level"
+                    ],
+                    "suggested_learning_experiences": [
+                        "discuss and share experiences on importance of cleaning waste disposal facilities such as waste bin, sink and open drains",
+                        "clean waste disposal facilities such as dust bin, sink and open drains",
+                        "problem solving skills while learners identify the waste disposal facilities and clean them, responsibility as learner take initiative to maintain cleanliness and promotion of environmental hygiene"
+                    ],
+                    "key_inquiry_questions": [
+                        "How does cleaning waste disposal facilities promote hygiene?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem solving - reflection; as learners assess their success in cleaning of waste disposal facilities"
+                    ],
+                    "values": [
+                        "Responsibility; taking safety precautions as learners clean waste disposal facilities"
+                    ],
+                    "pcis": [
+                        "Environmental awareness as learners clean waste disposal facilities to promote hygiene in their living places"
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate cleaning of waste disposal facilities to aspects of good health learnt in Integrated Science"
+                    ]
+                },
+                {
+                    "substrand_number": "3.2",
+                    "substrand_name": "Disinfecting Clothing and Household Articles",
+                    "number_of_lessons": 12,
+                    "specific_learning_outcomes": [
+                        "describe methods of disinfecting clothing and household articles",
+                        "carry out disinfection of clothing and household articles",
+                        "appreciate the importance of disinfecting clothing and household articles"
+                    ],
+                    "suggested_learning_experiences": [
+                        "search for information or observe demonstration on methods of disinfecting clothing and household articles such as sunlight, salting, boiling, use of disinfectants, ironing",
+                        "disinfect clothing and household articles like aprons, gloves, towels, dustcoats, handkerchief, socks among other personal items using methods such as sunlight, salting, boiling, use of disinfectants, ironing",
+                        "make class presentations on the importance of disinfecting clothing and household articles for hygiene purposes",
+                        "learning to learn as learners acquire new skills and follow guided procedures, value of responsibility as learners take care of their personal items, personal hygiene as they disinfect their personal articles to prevent communicable diseases"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we disinfect household articles for hygiene purposes?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn - organizing own learning; as they acquire new skills on methods of disinfecting clothing and household articles"
+                    ],
+                    "values": [
+                        "Responsibility; taking care of clothing and household articles as learners carry out disinfection"
+                    ],
+                    "pcis": [
+                        "Health promotion awareness as learners disinfect clothing and household articles to prevent spread of diseases"
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate use of disinfectants to solvents learnt in Integrated science"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "4.0",
+            "strand_name": "PRODUCTION TECHNIQUES",
+            "substrands": [
+                {
+                    "substrand_number": "4.1",
+                    "substrand_name": "Grafting in Plants",
+                    "number_of_lessons": 13,
+                    "specific_learning_outcomes": [
+                        "describe grafting as a method of plant propagation",
+                        "carry out grafting for various purposes",
+                        "take care of the grafted plant to ensure successful union",
+                        "appraise grafting for aesthetics, repair, improvement and rejuvenation purposes"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use print media or digital resources to search for information on grafting as a method of plant propagation",
+                        "carry out grafting in plants (with the help of a resource person) for repair, aesthetic, rejuvenation or improvement purposes",
+                        "carry out caring practices such as watering, protecting the union, removal of the graft tape after successful union, removal of other buds on the rootstock",
+                        "appraise grafting for reasons of (repairing a damaged plant, aesthetic, rejuvenation and plant improvement)",
+                        "learning to learn as learners realize new field practices in crop management, respect as learners interact with the resource person and personal safety as learners use sharp tools in grafting"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is grafting done on a plant?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn - reflection on own work; as learners evaluate success on the grafted plant for rejuvenation, aesthetics, repair or improvement of existing plant",
+                        "Self-efficacy - awareness of potential skills; in manipulation of a plant through grafting for plant propagation"
+                    ],
+                    "values": [
+                        "Respect; appreciating each other’s abilities and skills as learners carry out grafting technique with varied degrees of success",
+                        "Responsibility; taking assigned roles as learners undertake tasks in the grafting practical activity"
+                    ],
+                    "pcis": [
+                        "Safety of self and others as learners handle and use sharp grafting tools and equipment"
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate carrying out grafting to parts of a plant and relationship between plants learnt in Integrated Science"
+                    ]
+                },
+                {
+                    "substrand_number": "4.2",
+                    "substrand_name": "Homemade Sun Dryer",
+                    "number_of_lessons": 13,
+                    "specific_learning_outcomes": [
+                        "describe how to make a homemade sun dryer for vegetables",
+                        "construct a homemade sun dryer to preserve vegetables",
+                        "adopt the use of homemade sun dryer in preservation of vegetables"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use digital and print media resources to search for information on how to make a homemade sun dryer for vegetables",
+                        "sketch and construct homemade sun dryer for drying vegetables using locally available materials",
+                        "use the constructed homemade sun dryer to dry vegetables",
+                        "problem solving skills by analyzing and developing homemade sun dryer, patriotism as learners contribute to solving problem of vegetable spoilage, food security and nutrition as learners conserve foods to reduce losses"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can innovative technology be used to preserve vegetables?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy - leadership and planning; as learners design, construct and use homemade sun dryer for vegetables",
+                        "Critical thinking and problem solving - assessment and designing solution; in the construction of homemade sun dryers"
+                    ],
+                    "values": [
+                        "Responsibility; proactively solving problems by constructing homemade sun dryer to prevent spoilage of vegetables",
+                        "Patriotism; as learners contribute to solving the community problems of food spoilage by constructing homemade sun dryers"
+                    ],
+                    "pcis": [
+                        "Food nutrition and security as learners construct homemade sun dryer to preserve vegetables"
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate designing and construction of homemade sun dryer to skills learnt in Pre-technical studies on designing, sketching and choice of construction materials"
+                    ]
+                }
+            ]
+        }
+    ]
+}

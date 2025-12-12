@@ -1,0 +1,408 @@
+{
+    "grade": "Grade 8",
+    "subject": "Agriculture and Nutrition",
+    "education_level": "Junior Secondary",
+    "strands": [
+        {
+            "strand_number": "1.0",
+            "strand_name": "Conservation of Resources",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Soil Conservation Measures",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "describe methods of soil conservation in agricultural environment",
+                        "carry out soil conservation activities in the environment",
+                        "demonstrate caring attitude towards soil in the environment"
+                    ],
+                    "suggested_learning_experiences": [
+                        "search and share information on methods of soil conservation (strip cropping, grassed water ways, stone lines, trash lines, soil bunds) using digital devices and print media",
+                        "explore the school environment and carry out activities on soil conservation in the school such as strip cropping, grassed water ways, stone lines, trash lines, and soil bunds",
+                        "conduct project: in groups, learners to construct farm model using materials such as cartons, cardboards, soil and papier-mache to demonstrate soil conservation measures on a farm layout",
+                        "creativity skills as learners make a farm model illustrating soil conservation measures, value of unity as learners work in teams to conserve soil, environmental awareness as learners explore school environment to observe soil erosion"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we conserve soil in the environment?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination"
+                    ],
+                    "values": [
+                        "Unity"
+                    ],
+                    "pcis": [
+                        "Environmental awareness"
+                    ],
+                    "links_to_other_subjects": [
+                        "Creative arts"
+                    ]
+                },
+                {
+                    "substrand_number": "1.2",
+                    "substrand_name": "Water Harvesting and Storage",
+                    "number_of_lessons": 9,
+                    "specific_learning_outcomes": [
+                        "discuss ways of storing harvested water for domestic use",
+                        "take part in harvesting and storing water in the school for domestic use",
+                        "show responsibility in harvesting and storing water for domestic use"
+                    ],
+                    "suggested_learning_experiences": [
+                        "search and share information in groups, on how harvested water can be stored for domestic purposes, using methods such as shallow water pans, water ponds and suitable water containers",
+                        "initiate measures of their choice towards water harvesting and storage in the school",
+                        "make class presentations on possible initiatives and maintenance practices that can be made to harvest and store rain water and surface runoff in the school environment",
+                        "problem solving skills in initiating water harvesting and storage measures, value of responsibility in initiating and maintaining water harvesting, and environmental conservation as they adopt water harvesting and storage"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we harvest and store water for domestic purposes?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem solving"
+                    ],
+                    "values": [
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Environmental conservation"
+                    ],
+                    "links_to_other_subjects": [
+                        "Social studies"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "2.0",
+            "strand_name": "Food Production Processes",
+            "substrands": [
+                {
+                    "substrand_number": "2.1",
+                    "substrand_name": "Kitchen and Backyard Gardening",
+                    "number_of_lessons": 9,
+                    "specific_learning_outcomes": [
+                        "explain the role of kitchen and backyard garden in food production",
+                        "establish a kitchen and backyard garden for food production",
+                        "adopt the use of kitchen and backyard garden for food production"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use digital and print resource to search for the roles of kitchen and backyard garden in food production such as production of fresh healthy foods, saving money, readily accessible",
+                        "prepare a kitchen or backyard garden and grow various crops such as vegetables, herbs and spices",
+                        "critical thinking skills as they establish kitchen or backyard garden to produce fresh foods, unity as they collaborate to establish the garden and food security as they grow fresh vegetables for food"
+                    ],
+                    "key_inquiry_questions": [
+                        "How does kitchen garden contribute to food production?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem solving"
+                    ],
+                    "values": [
+                        "Unity"
+                    ],
+                    "pcis": [
+                        "Poverty eradication"
+                    ],
+                    "links_to_other_subjects": [
+                        "Pre-technical studies"
+                    ]
+                },
+                {
+                    "substrand_number": "2.2",
+                    "substrand_name": "Poultry Rearing in a Fold",
+                    "number_of_lessons": 11,
+                    "specific_learning_outcomes": [
+                        "describe a fold in poultry rearing",
+                        "construct a fold for rearing poultry",
+                        "rear poultry in a fold",
+                        "show responsibility in rearing of poultry"
+                    ],
+                    "suggested_learning_experiences": [
+                        "search and observe video clips or images on poultry folds and share experiences on how poultry folds look like",
+                        "use locally available materials such as reused and recycled wires, plastic and wood materials to construct a poultry fold",
+                        "conduct a project: rear poultry of their choice in a fold unit to practice moving of the folds, feeding, watering, sanitation, protection from predators and harsh weather",
+                        "creativity skills as learners apply ideas in constructing a poultry fold, responsibility as they carry out assigned tasks and financial literacy as learner use recycled and reused materials to construct a poultry fold"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we rear poultry in a fold for food production?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination"
+                    ],
+                    "values": [
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Financial literacy"
+                    ],
+                    "links_to_other_subjects": [
+                        "Mathematics"
+                    ]
+                },
+                {
+                    "substrand_number": "2.3",
+                    "substrand_name": "Crop Pest and Disease Control",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "identify vegetable crops attacked by pests and diseases",
+                        "control pests and diseases on vegetable crops",
+                        "acknowledge importance of controlling pests and diseases in vegetable production"
+                    ],
+                    "suggested_learning_experiences": [
+                        "take a field excursion to observe and identify vegetable crops that are attacked by pests (punctured leaves, cut-off seedlings, curling leaves) and the common sites where the pests are found",
+                        "take a field excursion to a vegetable garden, observe and identify vegetable crops affected by disease (wilting plants, black and brown spots and rotting of plant parts)",
+                        "control pests on vegetables using methods such as handpicking, removing affected crop parts, uprooting heavily affected crops and applying natural pesticides such as ash",
+                        "control diseases on vegetables using methods such as removing affected parts and uprooting heavily affected crops",
+                        "discuss and make presentations on importance of controlling crop pests and diseases in vegetable production",
+                        "learning to learn by applying collaborative skills in controlling pests and diseases, value of respect as learners listen and positively critique presentations, and disaster risk reduction while learners control pests and disease to prevent outbreaks"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we identify vegetable crops attacked by pests and diseases?",
+                        "How can we control pests and diseases affecting crops?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn"
+                    ],
+                    "values": [
+                        "Respect"
+                    ],
+                    "pcis": [
+                        "Disaster risk reduction"
+                    ],
+                    "links_to_other_subjects": [
+                        "Social studies"
+                    ]
+                },
+                {
+                    "substrand_number": "2.4",
+                    "substrand_name": "Preparation of Animal Products",
+                    "number_of_lessons": 9,
+                    "specific_learning_outcomes": [
+                        "explain the importance of processing fish and dressing poultry carcass",
+                        "process fresh fish for various purposes",
+                        "dress poultry carcass for various purposes"
+                    ],
+                    "suggested_learning_experiences": [
+                        "discuss to share experiences on the importance of processing fish and dressing poultry",
+                        "process fresh fish through scaling, gutting, cleaning, salting, and frying",
+                        "discuss how to dress poultry carcass (beheading, defeathering, removal of offal, cleaning) for various uses",
+                        "learning to learn as learners collaboratively exercises self-discipline to dress poultry and process fish, integrity as learners apply ethical methods of dressing poultry and ensures respect for animal welfare by humane killing of poultry"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we process fresh fish?",
+                        "How can we dress poultry carcass?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn"
+                    ],
+                    "values": [
+                        "Integrity"
+                    ],
+                    "pcis": [
+                        "Animal welfare"
+                    ],
+                    "links_to_other_subjects": [
+                        "Integrated science"
+                    ]
+                },
+                {
+                    "substrand_number": "2.5",
+                    "substrand_name": "Preserving Milk and Meat",
+                    "number_of_lessons": 9,
+                    "specific_learning_outcomes": [
+                        "explain the importance of preserving milk and meat at household level",
+                        "preserve meat to prolong shelf life at household level",
+                        "preserve milk to prolong shelf life at household level"
+                    ],
+                    "suggested_learning_experiences": [
+                        "search for information from digital and print resources, discuss and share experiences on the importance of preserving milk and meat at household level",
+                        "preserve milk through methods such as boiling, fermenting and home cooling",
+                        "preserve meat through methods such as salting, boiling, drying and smoking",
+                        "digital literacy as learners search for information, integrity as learners display honesty in preserving meat and milk in ethically acceptable procedures and hygiene as learners ensure use of clean equipment"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we preserve milk and meat at household level?"
+                    ],
+                    "core_competencies": [
+                        "Digital literacy"
+                    ],
+                    "values": [
+                        "Integrity"
+                    ],
+                    "pcis": [
+                        "Food hygiene"
+                    ],
+                    "links_to_other_subjects": [
+                        "Integrated science"
+                    ]
+                },
+                {
+                    "substrand_number": "2.6",
+                    "substrand_name": "Cooking: Preparing a Balanced Meal",
+                    "number_of_lessons": 11,
+                    "specific_learning_outcomes": [
+                        "explain factors to consider in preparing a balanced meal",
+                        "prepare a balanced meal for healthy living",
+                        "present the meal using various styles",
+                        "adopt the use of a balanced meal in day to day life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "discuss and share experiences on factors to consider in preparing a balanced meal such as age, health status, occasion and gender",
+                        "plan, and cook a balanced meal with protein, carbohydrate and vegetables",
+                        "serve the balanced meal using a serving styles such as family or blue plate to present the meal",
+                        "make various menu on balanced diet and present in class",
+                        "creativity skills while presenting meals, integrity in the use of resources to prepare the meal and safety in the use of fuel and sharp equipment"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we prepare a balanced meal for healthy living?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination"
+                    ],
+                    "values": [
+                        "Integrity"
+                    ],
+                    "pcis": [
+                        "Health promotion"
+                    ],
+                    "links_to_other_subjects": [
+                        "Integrated science"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "3.0",
+            "strand_name": "Hygiene Practices",
+            "substrands": [
+                {
+                    "substrand_number": "3.1",
+                    "substrand_name": "Cleaning the Kitchen",
+                    "number_of_lessons": 9,
+                    "specific_learning_outcomes": [
+                        "explain the routine cleaning practices of a kitchen",
+                        "carry out cleaning of a kitchen to maintain hygiene",
+                        "appreciate a clean kitchen for healthy living"
+                    ],
+                    "suggested_learning_experiences": [
+                        "learners share experiences on routine cleaning of the kitchen (daily, weekly, special cleaning)",
+                        "clean the kitchen to maintain hygiene applying (daily, weekly and special cleaning)",
+                        "learning to learn while applying appropriate procedures to clean the kitchen, responsibility while undertaking routine roles and promoting health and hygiene at household level"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can daily, weekly and special cleaning enhance hygiene in the kitchen?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn"
+                    ],
+                    "values": [
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Health promotion"
+                    ],
+                    "links_to_other_subjects": [
+                        "Integrated science"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "4.0",
+            "strand_name": "Production Techniques",
+            "substrands": [
+                {
+                    "substrand_number": "4.1",
+                    "substrand_name": "Sewing Skills: Constructing Household Items",
+                    "number_of_lessons": 14,
+                    "specific_learning_outcomes": [
+                        "identify the types of seams used making clothes",
+                        "make samples of seams on a piece of cloth",
+                        "construct a household item using seams"
+                    ],
+                    "suggested_learning_experiences": [
+                        "search for information on different types of seams used in making household items (open and plain seams)",
+                        "make samples of open and plain seams on a piece of cloth using hand sewing",
+                        "make a simple household article such as lap bag, work bag, pillow case, cushion cover using plain or open seams",
+                        "creative skills as learner use ideas to construct a household item, responsibility as learners undertake task to completion and safety as learners take precaution against accident cause by sharp sewing tools"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can a household item be made using seams?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination"
+                    ],
+                    "values": [
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Safety for self and others"
+                    ],
+                    "links_to_other_subjects": [
+                        "Creative arts"
+                    ]
+                },
+                {
+                    "substrand_number": "4.2",
+                    "substrand_name": "Constructing Innovative Animal Waterer",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "explain challenges with animal waterers used in the community",
+                        "design and construct an innovative waterer for water conservation",
+                        "appreciate use of innovative waterers in animal rearing"
+                    ],
+                    "suggested_learning_experiences": [
+                        "visit animal rearing households, identify challenges of animal waterers and make presentations to explain the challenges of the existing waterers",
+                        "search for information from digital and print media on innovative waterers, design and construct a waterer for small domestic animal to solve the identified problem using locally available materials",
+                        "use the constructed innovative waterer to test functionality, make adjustments and provide water to target animal either at home, in the school or selected household",
+                        "problem solving skills while constructing a waterer to solve animal waterer challenges, social justice as learners apply fairness in allocation of tasks and personal safety while taking care of themselves while using tools and equipment"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we make an innovative waterer for small domestic animals?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem solving"
+                    ],
+                    "values": [
+                        "Social justice"
+                    ],
+                    "pcis": [
+                        "Environmental awareness"
+                    ],
+                    "links_to_other_subjects": [
+                        "Pre-technical studies"
+                    ]
+                },
+                {
+                    "substrand_number": "4.3",
+                    "substrand_name": "ICT Support Services",
+                    "number_of_lessons": 9,
+                    "specific_learning_outcomes": [
+                        "describe support services that can be accessed through use of ICT",
+                        "access support services using ICT",
+                        "show responsibility in use of ICT in accessing support services"
+                    ],
+                    "suggested_learning_experiences": [
+                        "discuss and share experiences on how ICT can be used to access supplies and information for appropriate decision making",
+                        "access online platforms for ICT support services such as weather forecast, veterinary services, supply services, extension services, market information and banking services, catering services, cleaning services",
+                        "discuss and adhere to responsible use of ICT platforms by observing ethical and security considerations",
+                        "digital literacy as learners apply digital citizenship skill in safe use of ICT, integrity in the ethical use of online support services and information, cyber security in the use of ICT support services"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we access support services using ICT?"
+                    ],
+                    "core_competencies": [
+                        "Digital literacy"
+                    ],
+                    "values": [
+                        "Integrity"
+                    ],
+                    "pcis": [
+                        "Cyber security"
+                    ],
+                    "links_to_other_subjects": [
+                        "Pre-technical studies"
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,593 @@
+{
+    "grade": "Grade 8",
+    "subject": "Creative Arts and Sports",
+    "education_level": "Junior Secondary",
+    "strands": [
+        {
+            "strand_number": "1.0",
+            "strand_name": "Foundations of Creative Arts and Sports",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Introduction to Creative Arts and Sports",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "describe the roles of Creative Arts and Sports in society",
+                        "make a storyboard highlighting the roles of Creative Arts and Sports in society",
+                        "appreciate the role played by Creative Arts and Sports in society"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm and outline the social (cohesion, identity, culture preservation, health, citizenship, patriotism, entertainment) and economic (eradicating poverty, creating employment) roles of Creative Arts and Sports in society",
+                        "collect and cut the pictures of Creative Arts and Sports activities creatively",
+                        "prepare the surface by painting (splattering, wash)",
+                        "use the pictures collected to make a photographic storyboard by pasting them on the painted surface",
+                        "decorate the storyboard with found beads or any other creative materials",
+                        "display the storyboard in the classroom, make observations and give each other feedback"
+                    ],
+                    "key_inquiry_questions": [
+                        "What is the importance of Creative Arts and Sports in society?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration",
+                        "Critical Thinking and Problem Solving",
+                        "Citizenship",
+                        "Creativity and Imagination"
+                    ],
+                    "values": [
+                        "Unity",
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Poverty Eradication",
+                        "Decision Making Skills"
+                    ],
+                    "links_to_other_subjects": [
+                        "Agriculture and Nutrition",
+                        "English",
+                        "Social Studies"
+                    ]
+                },
+                {
+                    "substrand_number": "1.2",
+                    "substrand_name": "Components of Creative Arts and Sports",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "describe the principles of Visual Art",
+                        "describe the elements of a play",
+                        "perform activities that enhance endurance and agility components of fitness",
+                        "execute basic elements of Music",
+                        "describe elements of dance",
+                        "appreciate the basic elements of Creative Arts and Sports"
+                    ],
+                    "suggested_learning_experiences": [
+                        "watch actual or virtual displays of 2-Dimensional artworks and describe the principles of: (dominance and proportion)",
+                        "sketch illustrations to demonstrate dominance and proportion",
+                        "watch a play performance and explore reference materials to discuss basic elements of play; theme, characters, plot, language and setting",
+                        "make a class presentation demonstrating theme, characters, plot, language and setting in a play",
+                        "watch an actual or virtual fitness session to perform activities showing endurance and agility",
+                        "demonstrate fitness activities that enhance endurance and agility",
+                        "practise activities that enhance endurance and agility using music",
+                        "represent pitch on staff notation by drawing the bass staff, identifying notes G, A, B, C, D, E, F, G and A on the bass staff, ledger line -middle C, and the keyboard, and constructing the scale of C and G, intervals up to a perfect 4th",
+                        "represent rhythm using staff notation by drawing signs for the note values (semibreve, minim, crotchet, quaver and semiquaver)",
+                        "study a music excerpt to define dynamics, timbre, and form (ABA, strophic and through composed) in music",
+                        "repeatedly play/sing technical exercises (singing or playing scales C, and G and arpeggios and singing back simple melodies in C, and G major) for aural recognition of basic elements in music",
+                        "watch virtual or actual presentations of a folk dance to describe elements of dance (body, action, space and time)",
+                        "give feedback on experiences on foundational elements of Creative Arts and Sports in society"
+                    ],
+                    "key_inquiry_questions": [
+                        "What are the components of Creative Arts and Sports?"
+                    ],
+                    "core_competencies": [
+                        "Self-Efficacy",
+                        "Digital Literacy",
+                        "Communication and Collaboration",
+                        "Learning to Learn",
+                        "Creativity and Imagination"
+                    ],
+                    "values": [
+                        "Love",
+                        "Unity",
+                        "Respect",
+                        "Patriotism"
+                    ],
+                    "pcis": [
+                        "Identifying and nurturing gifts and talents",
+                        "Financial Literacy"
+                    ],
+                    "links_to_other_subjects": [
+                        "Mathematics"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "2.0",
+            "strand_name": "Creating and Performing in Creative Arts and Sports",
+            "substrands": [
+                {
+                    "substrand_number": "2.1",
+                    "substrand_name": "Composing rhythm",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "describe time in music",
+                        "compose a four-bar rhythmic pattern in 3-4 time",
+                        "write rhythmic patterns in 3-4 time",
+                        "play four-bar rhythmic patterns in 3-4 time",
+                        "appreciate rhythm as a means of coordination of movements in performances"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to, sing or play familiar tunes in 3-4 time to describe these time patterns",
+                        "listen to rhythmic patterns in 3-4 time and identify the main beat",
+                        "explore rhythm games to recognize rhythms in 3-4 time",
+                        "group notes equivalent to three crotchet beats using different colours to make rhythmic patterns in 3-4 time",
+                        "write rhythmic patterns on monotone from dictation",
+                        "compose and write rhythmic patterns on monotone using the staff, single line and free space, inserting bar lines",
+                        "tap or clap four-bar rhythmic patterns in 3-4 time as they recite the corresponding French rhythm names",
+                        "improvise rhythmic patterns in 3-4 time to accompany movements (clapping, tapping, marching to rhythm, swaying and swinging) in a warm-up routine for long distance races",
+                        "perform the warm-up routine while reciting French rhythm names (Taa-aa-aa-aa, Taa-aa, Taa, Ta-te, Tafa-te and Ta-tefe) of the accompanying rhythmic patterns in 3-4 time",
+                        "appreciate rhythm as a means of coordination of movements"
+                    ],
+                    "key_inquiry_questions": [
+                        "How does one acquire the skill of composing rhythm in music?",
+                        "What is the role of music in day to day life?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination",
+                        "Critical thinking and problem solving",
+                        "Communication and collaboration"
+                    ],
+                    "values": [
+                        "Responsibility",
+                        "Social Justice",
+                        "Unity",
+                        "Integrity"
+                    ],
+                    "pcis": [
+                        "Safety and security"
+                    ],
+                    "links_to_other_subjects": [
+                        "English",
+                        "Mathematics",
+                        "Integrated Science"
+                    ]
+                },
+                {
+                    "substrand_number": "2.2",
+                    "substrand_name": "Athletics",
+                    "number_of_lessons": 12,
+                    "specific_learning_outcomes": [
+                        "describe the characteristics of photomontage technique",
+                        "create a photomontage of athletes running",
+                        "perform middle distance skills for mastery",
+                        "acknowledge own and others' effort in middle distance running for enjoyment"
+                    ],
+                    "suggested_learning_experiences": [
+                        "explore actual or virtual samples of photomontage to take note of the characteristics (use of pictures, superimposition, emphasis on shape)",
+                        "observe actual or virtual images of middle distance running focusing on curved or staggered start, stride length, pacing and recovery",
+                        "collect an assortment of photos",
+                        "create a photomontage of a runner with focus on the subject, posture and centre of interest, by creatively trimming the photos, preparing the support/surface, pasting the photos on the support, finishing and presenting creatively",
+                        "display and critique own and others’ photomontage",
+                        "demonstrate start and running skills in middle distance races",
+                        "use drills to safely practise the skills of middle distance races",
+                        "share experiences of running middle distance races"
+                    ],
+                    "key_inquiry_questions": [
+                        "What are the uses of photomontage?",
+                        "How do running techniques affect performance in middle distance races?"
+                    ],
+                    "core_competencies": [
+                        "Critical Thinking",
+                        "Learning to Learn",
+                        "Creativity and Imagination",
+                        "Digital Literacy"
+                    ],
+                    "values": [
+                        "Responsibility",
+                        "Respect",
+                        "Patriotism"
+                    ],
+                    "pcis": [
+                        "Self-awareness",
+                        "Safety and security",
+                        "Gender issues",
+                        "Environmental Sustainability",
+                        "Global Citizenship"
+                    ],
+                    "links_to_other_subjects": [
+                        "English",
+                        "Mathematics"
+                    ]
+                },
+                {
+                    "substrand_number": "2.3",
+                    "substrand_name": "Composing Melody",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "describe methods of varying a melody",
+                        "compose four-bar melodies in G Major",
+                        "perform simple pieces of music in G Major",
+                        "value the use of melody in Creative Arts and Sports"
+                    ],
+                    "suggested_learning_experiences": [
+                        "sing familiar tunes using tonic sol-fa to describe methods of extending a melody (exact repetition, and varied repetition)",
+                        "listen to or sing familiar tunes in 3-4 time to tap the main beat",
+                        "perform technical skills (scale of G major and its tonic arpeggio, short pieces for sight reading) to recognise the key of G major",
+                        "improvise 2-bar answering phrases to given opening phrases in 3-4 time, using either exact repetition or varied repetition",
+                        "improvise 2-bar opening phrases to given answering phrases in 3-4 time and G major using either exact repetition or varied repetition",
+                        "create a four-bar melody in G major, in 3-4 time, with intervals not exceeding a major perfect 4th",
+                        "add phrase marks to four-bar melodies indicating the dynamics loud (forte-) and soft (piano-p) appropriately",
+                        "sight read the melodies composed using voice/descant recorder/any other western instrument",
+                        "compose a four-bar game-chant in G Major",
+                        "use a digital device to notate and play back composed melodies",
+                        "perform and record composed melodies and share with others for feedback",
+                        "acknowledge melodies written by self and others"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can melody be made interesting?",
+                        "How is melody used in day-to-day life?"
+                    ],
+                    "core_competencies": [
+                        "Self-Efficacy",
+                        "Learning to Learn",
+                        "Digital Literacy",
+                        "Communication and Collaboration"
+                    ],
+                    "values": [
+                        "Integrity",
+                        "Respect"
+                    ],
+                    "pcis": [
+                        "Citizenship Education",
+                        "Safety and Security"
+                    ],
+                    "links_to_other_subjects": [
+                        "Mathematics",
+                        "English",
+                        "Kiswahili",
+                        "Social Studies"
+                    ]
+                },
+                {
+                    "substrand_number": "2.4",
+                    "substrand_name": "Netball",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "explain the execution of different passes in Netball",
+                        "perform passes in netball for skill acquisition",
+                        "execute dodging and marking in Netball for skill development",
+                        "perform footwork skills in Netball game situation",
+                        "appreciate teamwork in application of skills during collaborative play for fun and enjoyment in a Netball game"
+                    ],
+                    "suggested_learning_experiences": [
+                        "observe a virtual or actual Netball game for analysis of skills and demonstrate execution of the passes observed",
+                        "demonstrate dodging and marking in pairs",
+                        "use drills, in groups to practise passing (overhead and chest pass) the ball while dodging and marking",
+                        "demonstrate footwork skills (landing and pivoting)",
+                        "use drills to practise footwork skills while observing safety",
+                        "apply overhead and chest passes, dodging and marking and footwork skills to play a mini game"
+                    ],
+                    "key_inquiry_questions": [
+                        "What is the importance of dodging and marking skill in a game of Netball?",
+                        "What footwork options does a player have after landing with a ball in a Netball game?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn",
+                        "Critical Thinking and Problem Solving",
+                        "Communication",
+                        "Collaboration",
+                        "Digital Literacy"
+                    ],
+                    "values": [
+                        "Unity",
+                        "Integrity"
+                    ],
+                    "pcis": [
+                        "Health promotion issues",
+                        "Citizenship education"
+                    ],
+                    "links_to_other_subjects": [
+                        "Mathematics"
+                    ]
+                },
+                {
+                    "substrand_number": "2.5",
+                    "substrand_name": "Descant Recorder or any other Western instrument",
+                    "number_of_lessons": 14,
+                    "specific_learning_outcomes": [
+                        "explain techniques of playing a descant recorder or any other solo instrument",
+                        "create a poster on Western solo instrumental playing technique",
+                        "interpret performance directions on given pieces of music",
+                        "perform a solo piece in G Major",
+                        "value playing music on the descant recorder or any other Western solo instrument"
+                    ],
+                    "suggested_learning_experiences": [
+                        "read, and interpret fingering charts to play the notes G, A, B, C, D, E, F#, and Gl on a descant recorder or any other Western solo instruments to master the fingering technique",
+                        "watch actual or virtual instrumental tutorials to demonstrate and explain techniques (fingering, pinching, slurring, embouchure, tonguing, strumming, picking, bowing, blowing, tone quality, blend and balance) of playing a descant recorder or any other solo Western instrument",
+                        "take photos of each others’ portraits while playing the notes G, A, B, C, D, E, F#, and Gl on descant recorder or any other Western instrument with emphasis on posture, fingering and movement",
+                        "arrange the photos to form pitches of simple melodies and play them",
+                        "use digital tools to crop, resize and organise the photographs to compose a technique poster",
+                        "caption the photographs with letters G-G written on a treble and bass staff accordingly",
+                        "display and critique own and others’ posters for feedback",
+                        "tune the recorder or solo Western instrument",
+                        "practice playing the note F#",
+                        "play, repeatedly, technical exercises (scale of G major ascending and descending, tonic arpeggios in C and G major and brief sight reading exercises) for warm-up",
+                        "read to interpret performance directions for repeat (da capo al fine, dal segno al fine), articulation (accent and fermata), dynamics (moderately loud (mf) and moderately soft (mp) and tempo (andante, allegro and adagio), on solo pieces of music",
+                        "perform simple solo pieces in 3-4 time, and in ABA, strophic or through composed form, on a descant recorder or any other solo instrument with appropriate playing technique",
+                        "observe performance directions for repeat (da capo al fine, dal segno al fine), articulation (accent and fermata), dynamics (moderately loud (mf) and moderately soft (mp) and tempo (andante, allegro and adagio), on pieces of music played",
+                        "comment on each other’s posters and performance technique"
+                    ],
+                    "key_inquiry_questions": [
+                        "What is the importance of applying technique when playing instruments?",
+                        "How do artistic illustrations enhance interpretation of music?"
+                    ],
+                    "core_competencies": [
+                        "Collaboration",
+                        "Digital Literacy",
+                        "Creativity and Imagination",
+                        "Learning to Learn",
+                        "Self-Efficacy"
+                    ],
+                    "values": [
+                        "Integrity",
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Citizenship Education",
+                        "Social Cohesion"
+                    ],
+                    "links_to_other_subjects": [
+                        "Mathematics",
+                        "Integrated Science"
+                    ]
+                },
+                {
+                    "substrand_number": "2.6",
+                    "substrand_name": "Volleyball",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "differentiate between the overarm and jump service in Volleyball",
+                        "draw human figures of players serving or volleying a ball",
+                        "serve the ball using the jump serve over a net",
+                        "perform the volley for skill acquisition",
+                        "appraise others’ efforts when applying serving and volleying skills in Volleyball"
+                    ],
+                    "suggested_learning_experiences": [
+                        "observe virtual or actual performances of a volleyball game and identify skills of serving the ball",
+                        "draw human figures of volleyball players with emphasis on actions of (serving or volleying)",
+                        "shade the drawing using a pointillism technique",
+                        "finish the drawing creatively",
+                        "exhibit and critique the human figure drawings",
+                        "demonstrate the skills of serving the ball (overarm and jump serves) in volleyball",
+                        "use drills to practise overarm and jump serves techniques in Volleyball",
+                        "demonstrate volleying skill in Volleyball",
+                        "use drills to practise volleying in Volleyball",
+                        "play a mini Volleyball game while observing safety",
+                        "apply skills learnt in a mini Volleyball game and appraise each other"
+                    ],
+                    "key_inquiry_questions": [
+                        "What are the ways of shading human figure drawings?"
+                    ],
+                    "core_competencies": [
+                        "Communication",
+                        "Creativity and imagination"
+                    ],
+                    "values": [
+                        "Respect",
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Health promotion issues",
+                        "Life skills",
+                        "Safety and security"
+                    ],
+                    "links_to_other_subjects": [
+                        "Integrated Science",
+                        "Mathematics"
+                    ]
+                },
+                {
+                    "substrand_number": "2.7",
+                    "substrand_name": "Play",
+                    "number_of_lessons": 20,
+                    "specific_learning_outcomes": [
+                        "describe the format of a play script",
+                        "create a one act play addressing a societal issue",
+                        "act a role in a play performance",
+                        "decorate a stage prop using the collage technique",
+                        "recognise play performance as a channel of addressing societal issues"
+                    ],
+                    "suggested_learning_experiences": [
+                        "read a sample play to identify the format of a script (title, playwright, characters, acts, scenes, setting, stage directions and dialogue)",
+                        "brainstorm, in groups, an idea for a short play",
+                        "create a short play script using the play elements (theme, characters, plot, setting, conflict, language)",
+                        "select relevant prop(s), costumes and music for the play performance",
+                        "collect found materials for collage technique to create a prop for the play with emphasis on the theme",
+                        "create the prop with focus on pasting, different materials, combined with painting, and superimposition",
+                        "finish, present and use the decorated prop in a play performance",
+                        "perform breathing, vocal and physical warm up activities in preparation for play performance",
+                        "enact a role in play performances",
+                        "rehearse the play (paying attention to use of voice, body, movement, space, use of props, music, and costume)",
+                        "perform the play before an audience",
+                        "record experiences onto a journal"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can a play performance be made believable to an audience?",
+                        "Why is it important to decorate props to be used for performance?"
+                    ],
+                    "core_competencies": [
+                        "Communication",
+                        "Collaboration",
+                        "Creativity and Imagination",
+                        "Critical thinking and problem solving",
+                        "Self-efficacy",
+                        "Citizenship",
+                        "Digital literacy"
+                    ],
+                    "values": [
+                        "Responsibility",
+                        "Social Justice",
+                        "Peace",
+                        "Integrity",
+                        "Unity"
+                    ],
+                    "pcis": [
+                        "Learner support programmes",
+                        "Life skills education",
+                        "Citizenship Education"
+                    ],
+                    "links_to_other_subjects": [
+                        "English",
+                        "Kiswahili",
+                        "Pre-technical Studies",
+                        "Religious Studies"
+                    ]
+                },
+                {
+                    "substrand_number": "2.8",
+                    "substrand_name": "Swimming",
+                    "number_of_lessons": 15,
+                    "specific_learning_outcomes": [
+                        "describe the body position in breaststroke",
+                        "describe the body position in water treading",
+                        "perform breaststroke in swimming for skill acquisition",
+                        "perform water treading skill in swimming",
+                        "acknowledge own and others’ efforts while performing water treading and breast stroke skills in swimming"
+                    ],
+                    "suggested_learning_experiences": [
+                        "using virtual or actual performance, observe breast stroke and water treading in order to describe them",
+                        "demonstrate water treading",
+                        "demonstrate breaststroke",
+                        "use drills to practise treading and breaststroke skills while observing safety",
+                        "observe others as they apply the skills of water treading and breast stroke and give feedback"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why are swimming skills considered as survival skills?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy",
+                        "Learning to Learn",
+                        "Communication and Collaboration"
+                    ],
+                    "values": [
+                        "Integrity",
+                        "Responsibility"
+                    ],
+                    "pcis": [
+                        "Health promotion issues",
+                        "Life skills",
+                        "Learner support programmes",
+                        "Socio-economic and environmental issues"
+                    ],
+                    "links_to_other_subjects": [
+                        "Agriculture and Nutrition",
+                        "English",
+                        "Kiswahili"
+                    ]
+                },
+                {
+                    "substrand_number": "2.9",
+                    "substrand_name": "Kenyan Folk Dance",
+                    "number_of_lessons": 15,
+                    "specific_learning_outcomes": [
+                        "classify folk dances from Kenyan communities",
+                        "devise a folk dance from a Kenyan community",
+                        "create body make up using improvised paint",
+                        "perform a folk dance from a Kenyan community",
+                        "appreciate different cultures through performing folk dances from diverse Kenyan communities"
+                    ],
+                    "suggested_learning_experiences": [
+                        "explore live or virtual folk dance performances from diverse Kenyan communities to describe and categorise them according to; community, gender and age of participants, occasion, purpose, and themes",
+                        "select an appropriate folk dance from a given Kenyan community for performance",
+                        "select a theme on a societal issue",
+                        "watch actual or virtual performances of the selected folk dance to explore dance movements, singing, instrumentation, costumes, body make-up, props, mood, and context of performance and performers",
+                        "devise a dance by selecting and sequencing dance movements, songs, instrumentation, costumes, body make-up, and props for the selected dance",
+                        "take a role in rehearsing a group folk dance ensuring appropriate dance performance technique",
+                        "explore virtual or actual demonstrations of make-up designs to make body make-up",
+                        "decorate each other’s bodies for the dance performance",
+                        "create a written/oral synopsis highlighting the title, theme, community, gender and occasion of performance, and function of dance",
+                        "take a role in performing a group folk dance before an audience",
+                        "give feedback on own and others' make-up and dance techniques"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do folk dances represent Kenyan culture?",
+                        "What makes a good folk dance performance?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration",
+                        "Learning to Learn",
+                        "Critical Thinking and Problem Solving",
+                        "Citizenship",
+                        "Self-Efficacy"
+                    ],
+                    "values": [
+                        "Respect",
+                        "Peace",
+                        "Unity",
+                        "Patriotism"
+                    ],
+                    "pcis": [
+                        "Safety and security",
+                        "Self Esteem",
+                        "Education for sustainable development"
+                    ],
+                    "links_to_other_subjects": [
+                        "Mathematics",
+                        "Social Science",
+                        "Agriculture and Nutrition",
+                        "English"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "3.0",
+            "strand_name": "Appreciation in Creative Arts and Sports",
+            "substrands": [
+                {
+                    "substrand_number": "3.1",
+                    "substrand_name": "Analysis of Creative Arts and Sports",
+                    "number_of_lessons": 18,
+                    "specific_learning_outcomes": [
+                        "examine the criteria for evaluating Creative Arts and Sports",
+                        "analyse a netball game",
+                        "analyse a folk dance from a Kenyan community",
+                        "evaluate a play performance",
+                        "evaluate a 3D Visual art work",
+                        "appreciate the role of analysis in adding value to Creative Arts and Sports"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm to interpret criteria for evaluating different categories of Creative Arts and Sports (netball, Kenyan folk dance, play and 3-D Arts)",
+                        "watch, listen to, read or observe selected Creative Arts and Sports performances for analysis",
+                        "watch a recorded or live presentation of a given Kenyan folk dance performance and analyse it paying attention to: community of origin, occasion of performance, purpose, participants, media of performance, structure (beginning, middle, climax, end), body movements, singing, props, costumes and make-up, instrumentation, style (solo, solo-response, group), mood, and messages",
+                        "watch an actual or virtual netball game and analyse it paying attention to passes (overhead and chest pass), footwork, marking and dodging",
+                        "watch a given play performance to evaluate elements such as theme, setting, conflict, resolution, use of voice, use of body movement, internalisation, audience involvement, props, costume, overall impression",
+                        "analyse a 3D artwork paying attention to: organisation of the work (balance, proportion, dominance), subject matter (what is happening - topic), theme (what is the artist saying)",
+                        "Judgement: Evaluating the Artwork"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is analysis an important skill in Creative Arts and Sports?"
+                    ],
+                    "core_competencies": [
+                        "Self-Efficacy",
+                        "Citizenship",
+                        "Learning to Learn"
+                    ],
+                    "values": [
+                        "Unity",
+                        "Patriotism",
+                        "Integrity"
+                    ],
+                    "pcis": [
+                        "Decision Making Skill",
+                        "Learner Support Programmes"
+                    ],
+                    "links_to_other_subjects": [
+                        "English",
+                        "Kiswahili",
+                        "Social Studies"
+                    ]
+                }
+            ]
+        }
+    ]
+}

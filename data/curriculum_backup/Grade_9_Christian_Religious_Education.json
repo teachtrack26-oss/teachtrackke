@@ -1,0 +1,732 @@
+{
+    "grade": "Grade 9",
+    "subject": "Christian Religious Education",
+    "education_level": "Junior Secondary",
+    "strands": [
+        {
+            "strand_number": "1.0",
+            "strand_name": "CREATION",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Work: God Worked",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "interpret the scriptures on work to foster responsibility",
+                        "discuss virtues related to Christian work ethics",
+                        "choose career paths based on his/her gifts talents and abilities",
+                        "demonstrate a positive attitude towards work in daily activities",
+                        "desire to work hard to achieve his/her goals and aspirations"
+                    ],
+                    "suggested_learning_experiences": [
+                        "in groups discuss why it is important to work hard at home, school and the community",
+                        "in pairs share experiences on the chores/roles they perform at home, school, church and the community",
+                        "conduct a buzz session on; a lazy person should not eat; 2 Thessalonians 3:10-12",
+                        "in groups, read Proverbs 6:6-11, Proverbs 10:4 Exodus 20:11, Genesis 2:1-3; outline the teachings, and write them on charts or PowerPoint slides for presentation in class",
+                        "conduct a library or online research on virtues related to work and share the findings with the class",
+                        "compose a poem on, 'God worked, we should also work.'",
+                        "write their career aspirations (what they want to become in the future) on flashcards and share with the class",
+                        "in groups brainstorm on requirements for the different careers and how to work towards attaining them",
+                        "interview a resource person and ask question(s) on different careers and the subjects/learning areas that one should undertake to qualify (note key points)",
+                        "in groups discuss the statement, 'Having a positive attitude towards work.'; write key points in their notebooks for presentation in class",
+                        "write and keep a journal on careers they aspire to undertake and how to work towards them and share them with peers/guardians/parents/teachers"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can you develop a positive attitude towards work?"
+                    ],
+                    "core_competencies": [
+                        "Digital literacy: the skill of interacting with technology is enhanced as learners use digital devices to search online for virtues related to work",
+                        "Communication and Collaboration: the skill of listening and speaking is portrayed as learners discuss, 'Having a positive attitude towards work'"
+                    ],
+                    "values": [
+                        "Respect: is nurtured as learners listen and respect the opinion of others",
+                        "Unity: is promoted as learners discuss and work together in groups",
+                        "Responsibility: is enhanced as learners appreciate and apply the biblical teachings on work in daily activities"
+                    ],
+                    "pcis": [
+                        "Assertiveness: learners develop a positive attitude towards work and work hard towards the attainment of their goals",
+                        "Career guidance: learners make subject choices depending on career pathways/post-school options they want to pursue depending on their talents, gifts and abilities",
+                        "Parental Empowerment and Engagement: Parents support learners to nurture talents. They also guide them on career choices and are role models of good values and effective discipline"
+                    ],
+                    "links_to_other_subjects": [
+                        "English: learners discuss, debate, conduct library research, and buzz confidently and effectively",
+                        "Pre-technical Studies: learners conduct an internet search and make presentations using digital devices"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "2.0",
+            "strand_name": "THE BIBLE",
+            "substrands": [
+                {
+                    "substrand_number": "2.1",
+                    "substrand_name": "Christian Moral Values: Sexual Purity",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "outline moral values that Christian youths should uphold to avoid sexual perversion",
+                        "identify scriptures on sexual purity",
+                        "desire to live a morally upright life as guided by the Bible"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm on moral values that youths should uphold to overcome sexual sins",
+                        "in groups brainstorm on 1 Corinthians 15:33, 1 Thessalonians 4:3, 1 Corinthians 6:13, 1 Corinthians 6:18-20, Leviticus 11:44, and discuss the moral values outlined",
+                        "brainstorm on sexual perversions today and how youths are lured",
+                        "in groups read Galatians 5:19 and Leviticus 18:5-18, 20-23, and use PowerPoint slides or charts to list forbidden sexual practices",
+                        "in pairs discuss how to avoid getting lured into forbidden sexual practises",
+                        "read Romans 1:26-27 and brainstorm on how one can avoid being lured to same-sex relationships",
+                        "in groups perform a skit on how to overcome or avoid being lured into sexual perversion",
+                        "talk to parents/guardians or counselors when confronted with moral decisions",
+                        "share experiences on values and life skills they utilize to overcome sexual perversity such as (self-control, integrity, respect for self, self-awareness, self-esteem assertiveness, and decision-making)",
+                        "pray to God always to overcome temptations (as guided by the Lord's prayer Matthew 6:13)"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can you live a morally upright life?",
+                        "Why should you maintain sexual purity as a Christian youth?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn: the skill of sharing learned knowledge is exhibited as learners brainstorm on moral values that youth should uphold to avoid sexual perversion",
+                        "Critical thinking and problem-solving: the skill of evaluation and decision-making is demonstrated as learners perform a skit on how to overcome sexual perversion"
+                    ],
+                    "values": [
+                        "Respect: learners respect themselves and others by avoiding vices that can defile them",
+                        "Integrity: learners decide to do the right thing by avoiding sexual perversion"
+                    ],
+                    "pcis": [
+                        "Human Sexuality: morality Sexual-Abstinence: learners outline moral values that Christian youths should uphold to avoid sexual perversion",
+                        "Assertiveness: learners utilize moral values and life skills that enable them to overcome growth and developmental challenges",
+                        "Counselling Services: learners are guided on self-awareness, decision-making and positive behavior change",
+                        "Parental Empowerment and Engagement: parents/guardians model good behavior and guide learners through their developmental stages to ensure effective discipline",
+                        "Peer Education and Mentorship: learners are mentored on overcoming life and academic challenges"
+                    ],
+                    "links_to_other_subjects": [
+                        "Social Studies: learners exhibit various skills such as self-management and social awareness skills as they choose to live morally upright lives",
+                        "Creative Arts and Sports: learners perform a skit on how to overcome/avoid being lured into sexual perversions"
+                    ]
+                },
+                {
+                    "substrand_number": "2.2",
+                    "substrand_name": "Woman Judge: Deborah",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "analyse qualities portrayed by Deborah as a judge in Israel",
+                        "deduct lessons learned from the leadership of Judge Deborah",
+                        "appreciate those in leadership by praying for them always"
+                    ],
+                    "suggested_learning_experiences": [
+                        "in groups, list women leaders (at school, church or in government positions); identify and list good leadership qualities you can emulate from them",
+                        "outline leadership qualities portrayed by Deborah as a woman Judge in Israel",
+                        "in groups read the story in Judges 4:1-24 and make notes",
+                        "watch a movie on, 'Judge Deborah.'",
+                        "brainstorm on lessons learn from the leadership of Judge Deborah and make short notes"
+                    ],
+                    "key_inquiry_questions": [
+                        "How did Deborah portray wisdom as a woman Judge?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn: the skill of sharing learned knowledge is exhibited as learners brainstorm on lessons learned from the leadership of Judge Deborah",
+                        "Critical Thinking and problem-solving: the skill of evaluation and decision-making is demonstrated as learners discuss qualities they can emulate from women leaders in the society"
+                    ],
+                    "values": [
+                        "Respect: learners accommodate each other's views as they discuss and brainstorm in groups",
+                        "Patriotism: learners list women leaders in the church, school and the government, and qualities they can emulate from them, thus the learner is conscious of his/her moral and social duties",
+                        "Peace: Judge Deborah brought peace and tranquility in Israel as a woman Judge; learners should live peacefully and avoid hurting others/solve disputes amicably"
+                    ],
+                    "pcis": [
+                        "Good governance: learners discuss the qualities derived from a good leader from Deborah as a Judge in Israel",
+                        "Civic responsibility: Judge Deborah gave advice and accompanied Barak in the war against the Canaanites",
+                        "Information technology (IT): learners use digital devices to watch a movie on Judge Deborah"
+                    ],
+                    "links_to_other_subjects": [
+                        "Social Studies: learners exhibit various skills such as self-management and social awareness skills as they undertake different roles/duties",
+                        "Pre-technical Studies: learners manipulate and use a digital device to watch a movie on Judge Deborah"
+                    ]
+                },
+                {
+                    "substrand_number": "2.3",
+                    "substrand_name": "Kings David and Solomon",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "analyse the importance of David as a king and ancestor of Jesus Christ",
+                        "outline qualities of a good leader from King David's leadership",
+                        "assess the achievements and failures of King Solomon",
+                        "examine how Solomon portrayed wisdom in his leadership",
+                        "choose leaders of integrity at school, church and in the community"
+                    ],
+                    "suggested_learning_experiences": [
+                        "in pairs to list names of members in their family tree",
+                        "brainstorm on the meaning of the word 'ancestor.'",
+                        "conduct a buzz session on how King David is an ancestor of Jesus Christ",
+                        "in groups read and discuss 2 Samuel 7:12-16, Matthew 1:1-2, Luke 1:32-33; make PowerPoint slides or use charts for presentation in class",
+                        "in turns read 1 Samuel 16:1-23, 2 Samuel 6:1-15 and write key points on the importance of David as King in Israel",
+                        "discuss and make notes on the characteristics of a good leader",
+                        "use print material or search the internet for good leadership qualities derived from King David",
+                        "search online/use print sources on the achievements and failures of King Solomon and make notes",
+                        "role-play how King Solomon demonstrated wisdom to Judge between the two disputing women in 1 Kings 3:16-28",
+                        "brainstorm on qualities to consider in choosing leaders at school, church and the community and make a presentation using a chart or a digital device"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why did King Solomon failed as a leader in Israel?",
+                        "How did King David please God?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn: the skill of sharing learned knowledge is exhibited as learners conduct a discussion and make notes on characteristics of a good leader",
+                        "Critical thinking and problem-solving: the skill of evaluation and decision-making is demonstrated as learners role-play how Solomon demonstrated wisdom"
+                    ],
+                    "values": [
+                        "Respect: learners accommodate each other's views as they discuss and brainstorm in groups",
+                        "Patriotism: learners conduct a buzz session on characteristics of a good leader and execute the task by following laid down rules and regulations"
+                    ],
+                    "pcis": [
+                        "Good governance: learners discuss qualities of a good leader derived from King David and apply it in their lives",
+                        "Information technology: learners use digital devices to search for information and make presentations on the various assignments and tasks"
+                    ],
+                    "links_to_other_subjects": [
+                        "Social Studies: learners exhibit various skills such as self-management and social awareness skills as they undertake different roles/duties",
+                        "Creative Arts and Sports: learners role-play King Solomon judging between the two disputing women"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "3.0",
+            "strand_name": "THE LIFE AND MINISTRY OF JESUS CHRIST",
+            "substrands": [
+                {
+                    "substrand_number": "3.1",
+                    "substrand_name": "Raising the Widow's Son",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "elaborate the miracle of raising the Widow's son at Nain",
+                        "interpret lessons learned from the miracle for application in day-to-day life",
+                        "model the value of compassion as portrayed by Jesus Christ",
+                        "appreciate God's power over life and death and the hope of resurrection"
+                    ],
+                    "suggested_learning_experiences": [
+                        "in pairs share experiences of challenges they have faced as a family (eg losing loved ones/close relatives)",
+                        "discuss how they coped/cope with grief or loss",
+                        "in groups read Luke 7:11-17 and discuss the miracle of raising the widow's son at Nain",
+                        "role-play the miracle of raising the widow's son at Nain",
+                        "watch a video on the miracle of raising the widow's son at Nain",
+                        "in groups brainstorm on lessons learned from the miracle and make a presentation using charts or PowerPoint slides",
+                        "share experiences on how they show compassion to others",
+                        "compose a song on the resurrection of Jesus Christ and sing it in class or during the Program of Pastoral Instruction"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can you show compassion to others?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn: the skill of sharing learned knowledge is portrayed as learners share experiences on how they show compassion to others",
+                        "Communication and Collaboration: the skill of teamwork is portrayed as learners discuss, role-play and recognize the value of each other",
+                        "Imagination and Creativity: the skill of networking is enhanced as learners undertake group activities that inspire thinking such as role-play/composing a song",
+                        "Digital Literacy: the skill of using digital platforms is portrayed as learners watch a video on the miracle"
+                    ],
+                    "values": [
+                        "Love: is portrayed as learners show compassion to others",
+                        "Respect: learners accommodate each other's views as they discuss in groups",
+                        "Unity: learners work together in groups and respect each other's opinion"
+                    ],
+                    "pcis": [
+                        "Coping with Emotions: learners share experiences on how they coped/cope with grief or loss",
+                        "Social Awareness skills: learners learn empathy and problem-solving as exemplified by Jesus",
+                        "Spiritual Development: learners appreciate God's power over life and death and the hope of resurrection"
+                    ],
+                    "links_to_other_subjects": [
+                        "Social Studies: learners share experiences on how they coped/cope with grief or loss",
+                        "English: learners read the Bible then learn new vocabulary",
+                        "Creative Arts and Sports: learners role-play and compose a song and sing it in class/school assembly/during Program of Pastoral Instruction"
+                    ]
+                },
+                {
+                    "substrand_number": "3.2",
+                    "substrand_name": "Healing the Ten Lepers",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "describe the healing of the ten lepers",
+                        "design ways of showing gratitude to God in day-to-day life",
+                        "demonstrate faith by praying to God when faced with challenges",
+                        "apply lessons learned by showing kindness to others"
+                    ],
+                    "suggested_learning_experiences": [
+                        "in turns read Luke 17:11-19 and make a presentation in class using a chart or a digital device",
+                        "in groups role-play the healing of the ten lepers",
+                        "in pairs discuss lessons learned from this miracle and share with the class",
+                        "share experiences of how they express gratitude to God and those who show them kindness",
+                        "compose a poem to thank God, parents/guardians or a friend and recite it",
+                        "in groups compose a song of thanksgiving and sing it in class, the school assembly or during the program of Pastoral Instruction"
+                    ],
+                    "key_inquiry_questions": [
+                        "How did the 10 lepers show gratitude to God?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn: the skill of sharing learned knowledge is portrayed as learners share experiences on how they express gratitude to God/others",
+                        "Communication and Collaboration: the skill of teamwork is portrayed as learners discuss, role-play and recognize the value of each other",
+                        "Imagination and Creativity: the skill of networking is enhanced as learners undertake group activities that inspire thinking such as role-play/composing a song",
+                        "Digital Literacy: the skill of using digital platforms is portrayed as learners make a presentation using a digital device"
+                    ],
+                    "values": [
+                        "Social justice: learners appreciate the emancipation act of Jesus for the separated and marginalized lepers",
+                        "Love: is portrayed as learners express gratitude to God/parents/guardians or friends",
+                        "Patriotism: the 10 lepers were integrated back to the society after they were healed; according to the Law of Moses, a priest had to examine that they had been made whole"
+                    ],
+                    "pcis": [
+                        "Health promotion issues - Communicable diseases: learners learn about leprosy, which is a communicable disease",
+                        "Social Awareness skills: learners learn empathy and problem-solving as exemplified by Jesus, who not only showed empathy but He also healed the 10 lepers",
+                        "Citizenship: by Jesus healing the frustrated and separated lepers, He enabled them to rejoin other members of the society as normal citizens"
+                    ],
+                    "links_to_other_subjects": [
+                        "Agriculture and Nutrition: they learn about communicable diseases",
+                        "English: learners read the Bible then learn new vocabulary",
+                        "Creative Arts and Sports: learners role-play and compose a song of thanksgiving and sing it in class/school assembly/during Program of Pastoral Instruction"
+                    ]
+                },
+                {
+                    "substrand_number": "3.3",
+                    "substrand_name": "Parable on prayer: A Friend at Midnight",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "elaborate the parable of a friend at midnight",
+                        "interpret lessons learned from the parable of a friend at midnight for application in day-to-day life",
+                        "appreciate the parable by praying to God always"
+                    ],
+                    "suggested_learning_experiences": [
+                        "in pairs brainstorm the meaning of the word parable, write it on flashcards and share with the class",
+                        "in pairs share experiences of how they prayed persistently for an issue/challenge",
+                        "read Luke 11:5-13 and discuss in groups the parable of a friend at midnight",
+                        "role-play the parable of a friend at midnight",
+                        "prepare PowerPoint slides or charts on lessons learned from the parable of a friend at midnight and make a presentation in class",
+                        "write a reflection journal on how they pray daily"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should Christians pray at all times?",
+                        "How do you exercise faith in prayer?"
+                    ],
+                    "core_competencies": [
+                        "Communication and collaboration: the skill of collegially working as a team and expressing opinions, argument and listening to others is exhibited as learners share experiences of how they prayed persistently for an issue/challenge",
+                        "Learning to learn: the skill of sharing learned knowledge is enhanced as learners brainstorm the meaning of the word parable, write it on flashcards and share with the class"
+                    ],
+                    "values": [
+                        "Social Cohesion: learners pray for self and others who are facing different challenges in the society",
+                        "Unity: learners communicate and collaborate in doing various activities"
+                    ],
+                    "pcis": [
+                        "Self-awareness skill: the learner identifies a need/challenge and prays for it in faith/persistently",
+                        "Spiritual Development: learners write a reflection journal on how they pray daily",
+                        "Roles sharing: learners take on different characters as they role-play the parable of a friend at midnight"
+                    ],
+                    "links_to_other_subjects": [
+                        "Social Studies: learners pray for themselves and those facing challenges in the society",
+                        "Pre-technical Studies: learners prepare PowerPoint slides on lessons learned from the parable of a friend at midnight and make a presentation in class"
+                    ]
+                },
+                {
+                    "substrand_number": "3.4",
+                    "substrand_name": "Nicodemus' Encounter with Jesus Christ",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "explain Nicodemus' encounter with Jesus Christ",
+                        "relate the significance of the bronze serpent to the mission of Jesus Christ",
+                        "deduce lessons learned from John 3:5-7 and its relevance to the life of a Christian",
+                        "desire to apply lessons learned in day-to-day life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "read John 3:1-16 and make summary notes on Nicodemus' encounter with Jesus Christ",
+                        "role-play the story of Nicodemus",
+                        "watch a video on Nicodemus' conversion",
+                        "sing a song on Nicodemus' conversion",
+                        "read Numbers 21:4-8 and John 3:14-15 and brainstorm on how the bronze serpent is related to Jesus Christ and His mission on earth (Luke 4:18-21, Acts 10:38)",
+                        "in groups discuss John 3:5-7 and write lessons learned on charts/PowerPoint slides for presentation in class",
+                        "read John 3:16 and write a reflection journal on how they apply it in their lives"
+                    ],
+                    "key_inquiry_questions": [
+                        "How did Nicodemus' encounter with Christ change his life?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration: the skill of teamwork is enhanced as learners contribute in group discussions by sharing knowledge, resources and outlining the course of action in performing tasks",
+                        "Imagination and Creativity: the skill of making connections is demonstrated as learners take on different roles to complete tasks",
+                        "Learning to learn: the skill of reflection on own work is demonstrated as learners write a reflection journal on how they apply concepts/ideas in their lives",
+                        "Self-efficacy: the skill of self-awareness and planning to accomplish tasks is demonstrated as learners read John 3:16 and write a reflection journal on how they apply it in their lives"
+                    ],
+                    "values": [
+                        "Unity: learners take turns in conversations and activities and respect the opinions of others",
+                        "Responsibility: learners engage in assigned roles, tasks and duties and complete them on time"
+                    ],
+                    "pcis": [
+                        "Self-awareness: is demonstrated as learners communicate their ideas and make decisions on how to manage their lives as guided by the Bible",
+                        "Problem-solving: is portrayed as learners reflect on their own learning and come up with solutions to the challenges they face"
+                    ],
+                    "links_to_other_subjects": [
+                        "English: learners read, write notes, discuss and make presentations in class",
+                        "Creative Arts and Sports: learners sing a song on Nicodemus' conversion/role-play the story of Nicodemus"
+                    ]
+                },
+                {
+                    "substrand_number": "3.5",
+                    "substrand_name": "Jesus' Ministry in Jerusalem",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "elaborate Jesus Christ's triumphant entry into Jerusalem",
+                        "illustrate Jesus Christ's cleansing of the temple",
+                        "analyse Jesus Christ's conflict with the Jewish leaders",
+                        "desire to avoid conflicts at home, school and the community"
+                    ],
+                    "suggested_learning_experiences": [
+                        "share experiences on what happens on Palm Sunday, as practiced by some churches",
+                        "watch a video clip on Jesus Christ's triumphant entry into Jerusalem",
+                        "read Luke 19:38, compose and sing a song related to the scripture in class or during the Program of Pastoral Instruction",
+                        "read in turns Luke 19:28-40 and note key points on a chart or use a digital device for presentation in class",
+                        "in groups brainstorm on ways the Church premise is misused today",
+                        "read Luke 19:45-48 on Jesus Christ's cleansing of the temple",
+                        "discuss lessons learned from the cleansing of the Temple and make notes",
+                        "share experiences on how they resolve conflicts at home, school and the community",
+                        "read Luke 20:1-8, 20-39 and discuss conflicts between Jesus Christ and the Jewish leaders",
+                        "outline lessons learned from this conflict and make a PowerPoint presentation or use charts for display in class",
+                        "debate on a motion titled, 'Christians have a moral obligation to pay taxes to the government and tithes & offerings to God.'"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why was Jesus' triumphant entry into Jerusalem important?",
+                        "Why was Jesus opposed by the Jewish leaders?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy: learners reflect confidence in the ability to control their behavior by avoiding conflicts",
+                        "Digital Literacy Skills: learners use ICT tools interactively as they watch a video clip and make PowerPoint slides for presentation in class"
+                    ],
+                    "values": [
+                        "Patriotism: is portrayed as learners suggest ways they resolve conflicts at home, school and the community",
+                        "Peace: is exhibited as learners resolve disputes amicably and avoid hurting others"
+                    ],
+                    "pcis": [
+                        "Problem-solving Skills: learners share experiences on how they resolve conflicts at home, school and the community",
+                        "Analytical Skills: learners discuss conflicts between Jesus Christ and the Jewish leaders and draw out lessons learned for application in their lives"
+                    ],
+                    "links_to_other_subjects": [
+                        "Social Studies: learners share experiences on how they resolve conflicts at home, school and the community",
+                        "Creative Arts and Sports: learners compose and sing a song related to Jesus triumphant entry into Jerusalem"
+                    ]
+                },
+                {
+                    "substrand_number": "3.6",
+                    "substrand_name": "Jesus' Passion, Death and Resurrection",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "explain the significance of the Lord's Supper to Christians today",
+                        "describe the events that took place at Mount Olives",
+                        "summarise the events that took place between the arrest and the burial of Jesus Christ",
+                        "discuss the importance of Christ's resurrection to the Christian faith",
+                        "appreciate Christ's resurrection as a sign of eternal life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "in groups conduct a buzz session on the meaning of the Lord's Supper",
+                        "share experiences of how they celebrate the Lord's Supper/Lord's Table/Holy Communion/Eucharist/Sacrament in their churches",
+                        "in turns read Luke 22:7-20 and make notes on the Last Supper",
+                        "download and watch a video on the events that took place at Mount Olives (Luke 22:39-53) and make notes",
+                        "in pairs share experiences on when they were betrayed by close friends or relatives",
+                        "discuss lessons they learn from the betrayal",
+                        "take turns to read Luke 22:54-62 on Peter's betrayal of Jesus Christ",
+                        "in groups dramatise Peter's denial of Jesus Christ",
+                        "brainstorm on reasons that may have caused Peter to deny Jesus Christ",
+                        "watch a video on the events that took place between the arrest and the burial of Jesus Christ and make summary notes (Luke 22:63-71, 23:1-56)",
+                        "read Luke 24:1-7 and make notes on Christ's resurrection",
+                        "in groups brainstorm on the importance of Christ's resurrection to Christians today"
+                    ],
+                    "key_inquiry_questions": [
+                        "How is the resurrection of Jesus Christ important to Christians today?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy Skills: learners access, find and manage online information on the arrest and burial of Jesus Christ",
+                        "Communication and Collaboration: learners enhance their skills in communication and team building as they discuss in groups the significance of Christ's death passion and resurrection"
+                    ],
+                    "values": [
+                        "Respect: learners discuss and accommodate diverse opinions",
+                        "Responsibility: learners engage in assigned roles and tasks such as role-play/dramatization"
+                    ],
+                    "pcis": [
+                        "Coping with Emotions: learners discuss the arrest, betrayal and passion of Jesus Christ, and how it applies to their lives",
+                        "Spiritual Development: learners discuss the significance of Christ's resurrection to Christians today"
+                    ],
+                    "links_to_other_subjects": [
+                        "Social Studies: learners exhibit self-management skills as they share experiences on coping with emotions and stress such as betrayal by close family members/friends",
+                        "Pre-technical Studies: learners download and watch video clips on the events that occurred at Mount Olives"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "4.0",
+            "strand_name": "THE CHURCH",
+            "substrands": [
+                {
+                    "substrand_number": "4.1",
+                    "substrand_name": "The Early Church",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "discuss the characteristics of the Early Church",
+                        "describe the miracles performed in the Early Church",
+                        "analyse the story of Paul and Silas and its relevance to Christians today",
+                        "desire to grow spiritually by attending church"
+                    ],
+                    "suggested_learning_experiences": [
+                        "in pairs read and discuss characteristics of the early church, that is, devotion to scriptures, fellowship, prayer, worship, and giving, Acts 2:41-47",
+                        "in groups visit different churches and interview the priest/pastor/church leaders on how the church today exhibits characteristics of the Early Church, write a report and present it to the class",
+                        "read Acts 2:43, 5:12, 3:1-16, 5:12-16 on the miracles performed in the Early Church and outline lessons learned",
+                        "read Acts 16:16-34, outline lessons learned and make short notes",
+                        "choose and sing a worship song familiar to the class",
+                        "write and keep a journal on church attendance and activities done (a church leader to sign the journal)"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can you apply lessons learned from the Early Church in your life?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem-solving: the skill of research is portrayed as learners complete tasks by researching and presenting findings in class",
+                        "Communication and collaboration: the skill of listening is exhibited as learners listen critically, compare perspectives, appreciate information and respect the opinions of others",
+                        "Learning to learn: the skill of organizing own learning is enhanced as learners use and keep a journal on church attendance and activities they do in church"
+                    ],
+                    "values": [
+                        "Unity: learners work in groups and respect each other's opinion",
+                        "Respect: learners accommodate diverse opinions as they discuss in groups"
+                    ],
+                    "pcis": [
+                        "Effective Communication: learners interview a resource person on characteristics of the Early Church and how it relates to the church today",
+                        "Spiritual development: learners write and keep a journal on church attendance and activities they do in church"
+                    ],
+                    "links_to_other_subjects": [
+                        "English: learners read, discuss and communicate effectively by sharing opinions, and make presentations",
+                        "Pre-technical Studies: learners watch a video clip on the miracles performed in the Early Church"
+                    ]
+                },
+                {
+                    "substrand_number": "4.2",
+                    "substrand_name": "The Gifts of the Holy Spirit",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "discuss the teachings of Jesus Christ on the role of the Holy Spirit",
+                        "identify the nine gifts of the Holy Spirit",
+                        "classify the gifts of the Holy Spirit according to their categories",
+                        "utilize discerning gifts to avoid joining ungodly cults/idol worship/religious extremism",
+                        "desire to be guided by the Holy Spirit in day-to-day life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm on the role of the Holy Spirit in the life of a Christian",
+                        "read John 14:15-26, 16:5-15, Acts 1:7-8 on the role of the Holy Spirit; make notes for presentation in class",
+                        "in groups search for the meaning of; Gifts of the Holy Spirit and share findings in class",
+                        "Read 1 Corinthians 12:8-11 and list the nine gifts of the Holy Spirit",
+                        "in groups classify the gifts according to their three categories (Gifts of Knowledge, Power and Divine Utterance)",
+                        "brainstorm on the importance of the gifts of the Holy Spirit in Church today",
+                        "discuss characteristics of cults/idol worship/religious extremism/devil worship",
+                        "use the word of God to discern and identify cults/religious extremism/devil worship (1 Timothy 4:1; Matthew 7:15-20, 2 Peter 2:1, Galatians 5:19-23, 1 Corinthians 12:2-3, 10)",
+                        "pray to God always for guidance and discernment so as not to be misled by false teachings/doctrines/cults"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you utilize the gifts of the Holy Spirit?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem-solving: the skill of research is portrayed as learners complete tasks by researching and presenting findings in class",
+                        "Communication and collaboration: the skill of listening is demonstrated as learners listen critically, compare perspectives, appreciate information and respect the opinions of others",
+                        "Learning to learn: the skill of organizing own learning is enhanced as learners search online or use the Bible and outline the nine gifts of the Holy Spirit (1 Corinthians 12:1-11)"
+                    ],
+                    "values": [
+                        "Responsibility: learners carry out different tasks/assignments and complete them on time",
+                        "Unity: learners work in groups and respect each other's opinion"
+                    ],
+                    "pcis": [
+                        "Extremism-detection, response: learners avoid religious extremism/cults/idol worship/devil worship and use the word of God to discern false teachings/false religion/allow the Holy Spirit to guide them in day-to-day life",
+                        "Analytical and creative thinking: learners brainstorm on the importance of the gifts of the Holy Spirit in the church today"
+                    ],
+                    "links_to_other_subjects": [
+                        "English: learners read, discuss and communicate effectively by sharing opinions/make presentations",
+                        "Pre-technical Studies: learners search online using digital devices on the meaning of the Gifts of the Holy Spirit"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "5.0",
+            "strand_name": "CHRISTIAN LIVING TODAY",
+            "substrands": [
+                {
+                    "substrand_number": "5.1",
+                    "substrand_name": "Courtship and Marriage",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "elaborate the causes and consequences of early marriage today",
+                        "discuss moral values and life skills needed to avoid early marriage",
+                        "analyse Christian approaches to courtship and marriage",
+                        "appreciate marriage as a sacred institution ordained by God"
+                    ],
+                    "suggested_learning_experiences": [
+                        "conduct a buzz session on the causes of early marriage today",
+                        "discuss the consequences of early marriage",
+                        "brainstorm on moral values and life skills needed to avoid early marriage",
+                        "read, write on flashcards and reflect on 1 Timothy 4:12",
+                        "in groups debate the meaning of the word, courtship and share findings with the class",
+                        "in pairs discuss qualities to consider when choosing a marriage partner",
+                        "outline virtues that both partners should uphold before marriage",
+                        "in pairs read 2 Corinthians 6:14-15 and write what they have learned from the text"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is courtship important before marriage?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem-solving: the skill of creativity is enhanced as learners explore complex problems by analyzing the causes and effects of early marriage",
+                        "Self-Efficacy: the skills of self-esteem and self-awareness are portrayed as learners brainstorm on how to avoid/overcome early marriage"
+                    ],
+                    "values": [
+                        "Integrity: learners portray self-discipline by doing the right thing even if they have an opportunity to do the wrong thing",
+                        "Responsibility: the learner is accountable for own actions and does not blame others",
+                        "Respect: learners have positive regard for themselves and others without prejudice"
+                    ],
+                    "pcis": [
+                        "Decision-making: learners know their self-worth and decide to avoid/overcome early marriage",
+                        "Social cohesion: learners are conscious of their social and moral duties",
+                        "Human Sexuality - sexual morality - Abstinence: learners avoid early marriage by not engaging in irresponsible sexual behavior"
+                    ],
+                    "links_to_other_subjects": [
+                        "Social Studies: learners outline virtues that both partners should uphold before marriage",
+                        "English: learners debate on the motion: 'Courtship is important before marriage.'"
+                    ]
+                },
+                {
+                    "substrand_number": "5.2",
+                    "substrand_name": "Responsible Parenthood",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "describe biblical teachings on responsible parenthood",
+                        "discuss causes of irresponsible parenting today",
+                        "appraise the role of parents/guardians in shaping the character of their children",
+                        "appreciate good parenting as guided by the Bible"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use relevant textbooks or internet sources to search for the meaning of responsible parenthood and share findings with the class",
+                        "in groups read, Exodus 20:12, Deuteronomy 11:18-21, Psalms 103:13, Proverbs 15:20, Proverbs 22:6, and Colossians 3:21, discuss and write lessons learned on a chart or use PowerPoint slides for presentation in class",
+                        "discuss the causes of irresponsible parenting",
+                        "brainstorm on ways of avoiding unplanned families",
+                        "conduct a buzz session on moral values needed to avoid unplanned families",
+                        "come up with a play/drama on good parenting",
+                        "in groups debate on the role of parents/guardians in instilling good moral values in children and note key points"
+                    ],
+                    "key_inquiry_questions": [
+                        "How is responsible parenthood achieved?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration: the skill of teamwork is enhanced as learners collegially work in group discussions/brainstorm/buzz and express/defend their views confidently",
+                        "Digital Literacy: the skill of identifying and using digital platforms for learning is portrayed as learners search the internet to get information on different assignments",
+                        "Creativity and imagination: the skill of creativity is exhibited as learners come up with scenarios on good parenting through dramatization and role-play"
+                    ],
+                    "values": [
+                        "Integrity: is portrayed as learners follow laid down procedures when executing tasks/have self-discipline",
+                        "Responsibility: is exhibited as learners engage in assigned roles and duties/they are also accountable for their own actions",
+                        "Social Justice: is enhanced as learners identify values/virtues needed for responsible parenting and harmonious family relationships"
+                    ],
+                    "pcis": [
+                        "Learner support programmes-Decision-making-for transition in life: Guidance and counseling in the school will support learners at different levels of growth and development",
+                        "Human sexuality: learners will acquire life skills that enable them to overcome growth and developmental changes",
+                        "Assertiveness: learners exhibit self-esteem by making the right decisions and avoid negative peer influence by not engaging in vices/situations that can lead to unplanned families",
+                        "Information Technology: learners will use digital devices and applications ethically/exercise self-discipline as they search and download information from the internet"
+                    ],
+                    "links_to_other_subjects": [
+                        "Pre-technical Studies: learners use digital devices to search the internet for information they need to complete assigned tasks",
+                        "Creative Arts and Sports: learners come up with a play/drama on good parenting",
+                        "English: learners read and discuss in groups the Bible texts provided they also present findings confidently in class"
+                    ]
+                },
+                {
+                    "substrand_number": "5.3",
+                    "substrand_name": "Leisure",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "identify different forms of leisure today",
+                        "analyse how youths misuse leisure today",
+                        "identify Christian moral values needed to avoid alcohol, drugs and substances use",
+                        "evaluate the effects of alcohol, drug and substance use on an individual",
+                        "utilize Christian moral values to avoid alcohol, drug and substance use"
+                    ],
+                    "suggested_learning_experiences": [
+                        "in pairs brainstorm on the different forms of leisure",
+                        "share experiences on how they spend their free time",
+                        "in groups discuss why and how youths misuse leisure today",
+                        "discuss the effects of alcohol, drug and substance use on an individual and make notes/PowerPoint slides for class presentation",
+                        "in pairs write and recite poems on, 'Alcohol drug, and substance use is detrimental to health'",
+                        "read and write (1 Timothy 5:13, Ecclesiastes 10:18, Proverbs 19:15) on flashcards and outline lessons learnt",
+                        "identify values and life skills needed to avoid alcohol, drug and substance use",
+                        "debate on the motion, 'An idle mind is the devil's workshop'",
+                        "write and keep a reflection journal on how they spend their free time"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do youths misuse leisure today?",
+                        "How can you avoid idleness?"
+                    ],
+                    "core_competencies": [
+                        "Self-Efficacy: the skill of self-awareness and planning is portrayed as learners set goals on how to use leisure time appropriately",
+                        "Critical thinking and problem-solving: research skills, interpretation and inference are exhibited as learners explore effects of alcohol, drug and substance use on an individual",
+                        "Citizenship: social and civic skills are demonstrated as the learner is aware of own responsibilities in the society, thus obeys laws and regulations by not engaging in alcohol, drug and substance use"
+                    ],
+                    "values": [
+                        "Respect: is demonstrated as learners desire to respect self by not engaging in alcohol, drug and substance use",
+                        "Responsibility: the learners set goals on how to use leisure time responsibly",
+                        "Patriotism: the learner is conscious of their own social and moral duties thus use leisure time responsibly"
+                    ],
+                    "pcis": [
+                        "Decision-making: learners commit themselves to using leisure time well",
+                        "Assertiveness: learners make a decision to use leisure time responsibly and avoid idleness",
+                        "Health Promotion Issues-Drug and substance use: learners write a poem on the effects of alcohol, drug and substance use on an individual",
+                        "Counseling services-Positive behavior change: learners are guided on proper use of leisure and those who are affected by drug and substance use are given support by the school/parents/guardians to positively change their behavior"
+                    ],
+                    "links_to_other_subjects": [
+                        "English: learners in pairs brainstorm on the different forms of leisure and make a presentation using PowerPoint slides/charts",
+                        "Social Studies: learners examine the causes and effects of misuse of leisure and life skills and values needed for proper use of leisure time",
+                        "Pre-technical Studies: learners use digital devices to search for information online and make presentations to the class",
+                        "Creative Arts and Sports: learners write and recite poems on alcohol, drug and substance use/conduct a debate in class",
+                        "Integrated Science: learners discuss the effects of alcohol, drug and substance use on an individual and the values/life skills needed to avoid the vice"
+                    ]
+                },
+                {
+                    "substrand_number": "5.4",
+                    "substrand_name": "Wealth, Money and Poverty",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "discuss Christian teachings on wealth, money and poverty",
+                        "appraise how the love of money can hinder one from inheriting the Kingdom of God",
+                        "assess the causes and remedies of poverty in the society today",
+                        "design ethical ways of acquiring wealth as a youth",
+                        "desire to acquire wealth through credible ways"
+                    ],
+                    "suggested_learning_experiences": [
+                        "in groups read; Deuteronomy 8:18, Ecclesiastes 5:10-19, Proverbs 15:27, Matthew 6:24-27, discuss and make notes",
+                        "in groups read; Proverbs 14:23, 31:8-9, Luke 3:11, Luke 4:18 on Christian views of poverty and make a presentation using charts or digital devices",
+                        "read, Matthew 6:19-21, Luke 9:25 & Luke 12:13-21; outline lessons learned and make notes",
+                        "use the internet or the library to search for information on causes of poverty and remedies; and make a presentation using a chart or a digital device",
+                        "interview a resource person on how to make money using credible ways as a youth and note key points",
+                        "in groups brainstorm and come up with business ideas to share with the teacher/parent/guardian; start the business venture, write a report on its progress",
+                        "write and keep a journal on the progress of the business and share with the teacher/parent/guardian to improve the business based on the feedback provided"
+                    ],
+                    "key_inquiry_questions": [
+                        "Which vices are associated with love for money?",
+                        "Why is integrity important in terms of money and wealth?"
+                    ],
+                    "core_competencies": [
+                        "Imagination and Creativity: the skill of reflection is demonstrated as learners implement a business idea, assess its success and improve it based on the feedback provided",
+                        "Critical thinking and problem-solving skills: the skill of research to find extra information is portrayed as learners use the internet/library to search for information on causes of poverty and the remedies",
+                        "Digital Literacy: the skill of appropriately selecting digital technology relevant to different tasks is exhibited as learners undertake different tasks and make presentations"
+                    ],
+                    "values": [
+                        "Respect: learners understand and appreciate others; they also take turns to air their views and accommodate diverse opinions",
+                        "Responsibility: learners are answerable as they engage in assigned roles and duties and complete the tasks on time",
+                        "Unity: learners collaborate with others and share resources amicably",
+                        "Integrity: learners display fairness, transparency and accountability and apply laid-down procedures in performing various tasks"
+                    ],
+                    "pcis": [
+                        "Self-awareness: learners utilize their talents and abilities as they come up with business ideas and implement the same",
+                        "Parental Empowerment and Engagement-Resource mobilization and utilization: learners come up with a business idea and share with the teacher/parent/guardian",
+                        "Group Dynamics: learners work in groups as they debate, brainstorm and discuss various tasks and strategize on how to execute them",
+                        "Financial Literacy: learners initiate a business enterprise, keep a journal on its progress and improve it based on feedback provided"
+                    ],
+                    "links_to_other_subjects": [
+                        "English: learners communicate effectively as they make presentations and defend their views confidently",
+                        "Social Studies: learners demonstrate skills such as self-awareness, research skills, good communication and presentation skills, as they perform different tasks/assignments",
+                        "Pre-technical Studies: learners use digital devices to search for information from the internet and present the findings in class"
+                    ]
+                }
+            ]
+        }
+    ]
+}

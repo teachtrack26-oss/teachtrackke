@@ -1,0 +1,455 @@
+{
+    "grade": "Grade 7",
+    "subject": "Agriculture and Nutrition",
+    "education_level": "Junior Secondary",
+    "strands": [
+        {
+            "strand_number": "1.0",
+            "strand_name": "Conservation of Resources",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Controlling Soil Pollution",
+                    "number_of_lessons": 7,
+                    "specific_learning_outcomes": [
+                        "Describe ways of controlling soil pollution for environmental conservation",
+                        "Carry out soil pollution control practises for environmental conservation",
+                        "Appreciate the importance of controlling soil pollution for environmental conservation"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Use print and or digital media to describe ways of controlling soil pollution (proper disposal of polythene, proper use of farm chemicals, recycling and reusing waste materials).",
+                        "Carry out practises on controlling soil pollution (safe and proper disposal of polythene, proper use of farm chemicals, recycling and reusing waste materials).",
+                        "Make a poster showing ways of controlling soil pollution for environmental conservation."
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do we control soil pollution?",
+                        "How can we control soil pollution?"
+                    ],
+                    "core_competencies": [
+                        "Citizenship: environmental conservation as learners control soil pollution practises."
+                    ],
+                    "values": [
+                        "Responsibility: engaging in assigned roles while carrying out soil pollution control practises."
+                    ],
+                    "pcis": [
+                        "Environmental conservation as learners control soil pollution."
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate soil pollution control practises to concepts of a healthy environment learnt in Integrated Science."
+                    ]
+                },
+                {
+                    "substrand_number": "1.2",
+                    "substrand_name": "Constructing Water Retention Structures",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "Describe water retention structures in the local environment",
+                        "Construct water retention structures for water conservation",
+                        "Appreciate the importance of constructing water retention structures for water conservation"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Use digital devices or print media to describe water retention structures (water pans, underground tanks or jars, basins) used in the local environment.",
+                        "Construct water retention structures using locally available materials for water conservation.",
+                        "Display pictures or videos on constructed water retention structures to appreciate their importance in water conservation."
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we conserve water?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy: work independently as learners use locally available materials to construct water retention structures."
+                    ],
+                    "values": [
+                        "Responsibility: engaging in assigned roles while constructing water retention structures."
+                    ],
+                    "pcis": [
+                        "Environmental conservation as learners construct water retention structures."
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate the water retention structures to concepts on properties of water learnt in Integrated Science."
+                    ]
+                },
+                {
+                    "substrand_number": "1.3",
+                    "substrand_name": "Conserving Food Nutrients",
+                    "number_of_lessons": 9,
+                    "specific_learning_outcomes": [
+                        "Describe ways of conserving food nutrients for healthy living",
+                        "Apply appropriate ways to conserve food nutrients for healthy living",
+                        "Appreciate the importance of conserving food nutrients for healthy living"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Search for information on ways of conserving food nutrients (cooking food using recommended temperatures and time, use of recommended cooking methods, use of recommended amount of water for cooking) from print and digital devices.",
+                        "Apply ways of conserving food nutrients such as using correct cooking temperatures, time, methods, and amount of water.",
+                        "Taste a food item prepared by conserving nutrients to appreciate the importance of conserving nutrients."
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we conserve food nutrients?",
+                        "How do we conserve food nutrients?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: analytical skills as learners research on food nutrients conservation."
+                    ],
+                    "values": [
+                        "Responsibility: engaging in assigned roles while conserving food nutrients."
+                    ],
+                    "pcis": [
+                        "Health education: as learners engage in activities on food nutrients conservation."
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate food nutrients conservation to concepts on food groups and healthy eating learnt in Integrated Science."
+                    ]
+                },
+                {
+                    "substrand_number": "1.4",
+                    "substrand_name": "Growing Trees",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "Describe tree planting as a practise for environmental conservation",
+                        "Grow tree for environmental conservation",
+                        "Embrace growing of trees for environmental conservation"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Use a digital device or print media to describe tree planting (site selection, spacing, hole digging, placing seedling, backfilling, watering, mulching, and protection) for environmental conservation.",
+                        "Plant a tree seedling using the appropriate tree planting procedure.",
+                        "Display photos and/or videos of trees grown for environmental conservation."
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is growing of trees important?",
+                        "How do we grow trees?"
+                    ],
+                    "core_competencies": [
+                        "Citizenship: environmental stewardship as learners grow trees."
+                    ],
+                    "values": [
+                        "Unity: team work as learners grow trees for environmental conservation."
+                    ],
+                    "pcis": [
+                        "Environmental conservation as learners grow trees."
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate tree planting techniques to related concepts learnt in Integrated Science."
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "2.0",
+            "strand_name": "Food Production Processes",
+            "substrands": [
+                {
+                    "substrand_number": "2.1",
+                    "substrand_name": "Crop Establishment",
+                    "number_of_lessons": 9,
+                    "specific_learning_outcomes": [
+                        "Describe crop establishment activities for food production",
+                        "Carry out crop establishment activities for food production",
+                        "Embrace crop establishment activities for food production"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Watch a video on crop establishment activities (selection of quality seeds, seed bed preparation, planting and/or transplanting and watering) for food production.",
+                        "Carry out crop establishment activities such as selecting quality seeds, preparing a seed bed, planting and/or transplanting, and watering.",
+                        "Display photos, videos, or real materials on crop establishment activities to embrace activities involved in crop establishment."
+                    ],
+                    "key_inquiry_questions": [
+                        "Which activities are involved in crop establishment?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy: work independently as learners carry out crop establishment activities."
+                    ],
+                    "values": [
+                        "Unity: team work as learners carry out crop establishment activities for food production."
+                    ],
+                    "pcis": [
+                        "Education for sustainable development as learners carry out crop establishment for food production."
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate crop establishment activities to concepts on soil, water and living things learnt in Integrated Science."
+                    ]
+                },
+                {
+                    "substrand_number": "2.2",
+                    "substrand_name": "Selected Crop Management Practises",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "Describe selected crop management practises for food production",
+                        "Carry out selected crop management practises for food production",
+                        "Embrace selected crop management practises for food production"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Search for information on selected crop management practises (thinning, mulching, weeding, watering, controlling pests and diseases, harvesting).",
+                        "Carry out selected crop management practises on established crops.",
+                        "Make a presentation on selected crop management practises to embrace the practises involved in crop management."
+                    ],
+                    "key_inquiry_questions": [
+                        "What are the practises in crop management for food production?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy: work independently as learners carry out selected crop management practises."
+                    ],
+                    "values": [
+                        "Unity: team work as learners carry out selected crop management practises."
+                    ],
+                    "pcis": [
+                        "Education for sustainable development as learners carry out selected crop management practises for food production."
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate crop management practises to concepts on living things and their environment learnt in Integrated Science."
+                    ]
+                },
+                {
+                    "substrand_number": "2.3",
+                    "substrand_name": "Preparing Animal Products",
+                    "number_of_lessons": 9,
+                    "specific_learning_outcomes": [
+                        "Describe ways of preparing animal products for consumption",
+                        "Prepare animal products for consumption",
+                        "Embrace the consumption of well-prepared animal products for healthy living"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Watch a video to describe ways (frying, boiling, roasting) of preparing animal products (eggs, meat, and fish) for consumption.",
+                        "Prepare an animal product using appropriate methods (frying, boiling, and roasting).",
+                        "Taste a well-prepared animal product for healthy living."
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you prepare animal products for consumption?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and Problem solving: decision making as learners choose appropriate methods to prepare animal products."
+                    ],
+                    "values": [
+                        "Responsibility: engaging in assigned roles while preparing animal products for consumption."
+                    ],
+                    "pcis": [
+                        "Health education as learners prepare animal products for consumption."
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate preparation of animal products to concepts on food groups and healthy eating learnt in Integrated Science."
+                    ]
+                },
+                {
+                    "substrand_number": "2.4",
+                    "substrand_name": "Cooking Food",
+                    "number_of_lessons": 9,
+                    "specific_learning_outcomes": [
+                        "Describe methods of cooking food for consumption",
+                        "Cook food for consumption",
+                        "Appreciate proper cooking of food for healthy living"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Brainstorm on methods of cooking food (steaming, boiling and frying).",
+                        "Cook a food item using appropriate cooking methods.",
+                        "Serve a well-prepared meal to appreciate proper cooking of food for healthy living."
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we cook food for healthy living?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and Problem Solving: decision making as learners choose appropriate methods to cook food."
+                    ],
+                    "values": [
+                        "Responsibility: engaging in assigned roles while cooking food."
+                    ],
+                    "pcis": [
+                        "Health education as learners prepare healthy meals."
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate cooking to safe food handling concepts learnt in Integrated Science."
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "3.0",
+            "strand_name": "Hygiene Practises",
+            "substrands": [
+                {
+                    "substrand_number": "3.1",
+                    "substrand_name": "Hygiene in Rearing Animals",
+                    "number_of_lessons": 9,
+                    "specific_learning_outcomes": [
+                        "Describe hygiene practises in rearing domestic animals",
+                        "Carry out hygiene practises in rearing domestic animals",
+                        "Appreciate importance of hygiene practises in rearing domestic animals"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Search for information on hygienic practises (clean feeders and waterers, clean and well-ventilated houses, clean animal) in rearing domestic animals such as pets.",
+                        "Carry out appropriate hygiene practises in rearing domestic animals such as cleaning feeders, waterers, cleaning animal structures.",
+                        "Make a class presentation on the importance of hygiene in rearing domestic animals."
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we maintain hygiene while rearing animals?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: sharing learnt knowledge as learners apply information to carry out hygiene in animal rearing practises."
+                    ],
+                    "values": [
+                        "Responsibility: engaging in assigned roles while carrying out hygiene practises in rearing domestic animals."
+                    ],
+                    "pcis": [
+                        "Animal welfare as learners observe hygiene practises in rearing domestic animals."
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate hygiene practises in rearing domestic animals to concepts of animal production as an economic activity learnt in Social Studies."
+                    ]
+                },
+                {
+                    "substrand_number": "3.2",
+                    "substrand_name": "Laundry: Loose-coloured Items",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "Describe how to launder a loose-coloured article for hygiene purposes",
+                        "Launder a loose-coloured article for hygiene purposes",
+                        "Embrace laundering of loose-coloured articles for hygiene purposes"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Watch a video clip or a demonstration on how to launder a loose-coloured (sorting, washing by kneading and squeezing, drying, finishing).",
+                        "Launder a loose-coloured item (sorting, washing by kneading and squeezing, drying, finishing).",
+                        "Display the clean loose-coloured articles to embrace appropriate laundry for hygiene purposes."
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you launder a loose-coloured article for hygienic purposes?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: reflection of own work as learners launder loose-coloured articles for hygiene purposes."
+                    ],
+                    "values": [
+                        "Responsibility as learners undertake assigned roles to launder loose-coloured articles."
+                    ],
+                    "pcis": [
+                        "Health promotion as learners maintain hygiene through laundering a loose-coloured article."
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate laundering of loose-coloured articles to the concept of tie and dye technique of fixing colours learnt in Creative Arts and Sports."
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "4.0",
+            "strand_name": "Production Techniques",
+            "substrands": [
+                {
+                    "substrand_number": "4.1",
+                    "substrand_name": "Knitting Skills",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "Describe knitting stitches used in making household articles",
+                        "Knit various articles for household use",
+                        "Embrace knitting skills in making household articles"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Use digital devices or real materials or print media to identify basic knitting stitches (purl and knit).",
+                        "Knit a simple household article such as a tool bag, scarf, gloves, mats, or table wipers.",
+                        "Display knitted work to embrace the use of knitted articles for household use."
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you knit an article for household use?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination: experimenting skills as learners knit a household article using basic knitting stitches."
+                    ],
+                    "values": [
+                        "Integrity: prudent use of materials and equipment in the knitting of household articles."
+                    ],
+                    "pcis": [
+                        "Safety of self and others as learners use sharp knitting tools."
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate knitting to weaving techniques learnt in Creative Arts and Sports."
+                    ]
+                },
+                {
+                    "substrand_number": "4.2",
+                    "substrand_name": "Constructing Framed Suspended Garden",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "Describe a framed suspended garden for growing crops",
+                        "Construct a framed structure for a suspended garden",
+                        "Embrace the use of framed suspended gardens for growing crops"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Search for photos, videos, and illustrations on framed suspended gardens to describe how they are constructed.",
+                        "Innovate and construct framed suspended gardens using locally available materials such as wires, wooden planks, metal bars, and poles.",
+                        "Establish a crop on the constructed framed suspended garden to embrace their use in growing crops."
+                    ],
+                    "key_inquiry_questions": [
+                        "How are framed suspended gardens constructed?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination: experimenting skills as learners innovate framed suspended gardens."
+                    ],
+                    "values": [
+                        "Unity: team work as learners undertake the project for the construction of a framed suspended garden."
+                    ],
+                    "pcis": [
+                        "Environmental awareness as learners utilise limited space when constructing framed suspended gardens."
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate designing, sketching, and construction of framed suspended gardens to skills in drawing, designing, and the use of related tools learnt in Pre-Technical Studies."
+                    ]
+                },
+                {
+                    "substrand_number": "4.3",
+                    "substrand_name": "Adding Value to Crop Produce",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "Explain ways of adding value on crop produce",
+                        "Add value to a selected crop produce",
+                        "Appreciate the importance of value addition on crop produce"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Discuss ways of adding value to crop produce such as potatoes, cassava, groundnuts, simsim, sweet potatoes, and pumpkin.",
+                        "Process a provided sample of crop produce such as potatoes, cassava, groundnuts, simsim, sweet potatoes and pumpkin to add value using appropriate methods like drying and frying.",
+                        "Compare the processed crop produce to raw crop produce in terms of monetary value and storage life to appreciate the importance of value addition."
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do we add value to crop produce?",
+                        "How can we add value to crop produce?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and Problem-solving: evaluation and decision-making skills as learners carry out value addition to selected crop produce."
+                    ],
+                    "values": [
+                        "Integrity: applying laid down procedures when learners ethically process crop produce to add value."
+                    ],
+                    "pcis": [
+                        "Food and nutrition security as learners process crop produce for value addition."
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate the value addition concept to commodity marketing learnt in Pre-Technical Studies."
+                    ]
+                },
+                {
+                    "substrand_number": "4.4",
+                    "substrand_name": "Making Homemade Soap",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "Identify the forms of soap used at the household level",
+                        "Make homemade soap using natural ingredients",
+                        "Embrace homemade soap for household use"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Brainstorm and share experiences on forms of soap (liquid, cake/bar, paste, powder) used at the household level.",
+                        "Use natural ingredients such as ashes, salt, water, animal fats, or plant oils to make soap.",
+                        "Use the homemade soap to maintain cleanliness at the household level."
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we make soap using natural ingredients?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and Problem-solving: open-mindedness and creativity skills as learners make homemade soap using natural ingredients."
+                    ],
+                    "values": [
+                        "Responsibility: engaging in assigned roles while making homemade soap."
+                    ],
+                    "pcis": [
+                        "Financial literacy as learners save on costs by using locally available resources to make homemade soap."
+                    ],
+                    "links_to_other_subjects": [
+                        "Learners relate the use of natural ingredients in making soap to concepts of recycling and reusing wastes learnt in Integrated Science."
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,756 @@
+{
+    "grade": "Grade 5",
+    "subject": "Mathematics",
+    "education_level": "Upper Primary",
+    "strands": [
+        {
+            "strand_number": "1.0",
+            "strand_name": "Numbers",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Whole Numbers",
+                    "number_of_lessons": 20,
+                    "specific_learning_outcomes": [
+                        "Use place value and total value of digits up to hundreds of thousands in different situations",
+                        "Read and write numbers up to tens of thousands in words in different situations",
+                        "Order numbers up to tens of thousands in different situations",
+                        "Round off numbers up to tens of thousands to the nearest hundred and thousand in different situations",
+                        "Apply divisibility tests of 2, 5 and 10 in real-life situations",
+                        "Determine Highest Common Factor (HCF) and Greatest Common Divisor (GCD) in different situations",
+                        "Determine Least Common Multiple (LCM) in real-life situations",
+                        "Appreciate use of whole numbers in real-life situations"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Identify place value of digits up to hundreds of thousands using place value apparatus or place value charts",
+                        "Identify total value of digits up to hundreds of thousands using place value charts",
+                        "Read numbers up to hundreds of thousands in symbols from number charts or cards",
+                        "Read and write numbers up to tens of thousands in words from number charts or cards",
+                        "Arrange numbers up to tens of thousands in increasing and decreasing order",
+                        "Discuss and round off numbers up to tens of thousands to the nearest hundred and thousand using number cards and share with other groups",
+                        "Carry out the divisibility test for 2, 5 and 10 and come up with divisibility rules",
+                        "Express numbers in terms of their factors then identify the common factors",
+                        "Express the multiples of numbers and identify multiples of the common multiples as well as the least common multiples",
+                        "Play games involving numbers using digital devices or other resources"
+                    ],
+                    "key_inquiry_questions": [
+                        "Where can we use ordering of numbers in real life?",
+                        "Why should we round off numbers?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem solving: learner orders and rounds off numbers",
+                        "Learning to learn: learner reads and writes numbers, computing the total values of numbers"
+                    ],
+                    "values": [
+                        "Unity: learner works with peers in identifying factors, divisors and multiples of numbers to enhance unity"
+                    ],
+                    "pcis": [
+                        "Safety: learner observes safety precautions while handling apparatus for carrying out operations on numbers"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to relate whole numbers to reading and writing numbers symbols and words in languages"
+                    ]
+                },
+                {
+                    "substrand_number": "1.2",
+                    "substrand_name": "Addition",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "Add up to three 6-digit numbers without regrouping up to a sum not exceeding 1,000,000 in different situations",
+                        "Add up to two 6-digit numbers with double regrouping with the sum not exceeding 1,000,000 in different situations",
+                        "Estimate sum by rounding off the addends to the nearest hundred and thousand in different situations",
+                        "Create patterns involving the addition of numbers up to a sum of 1,000,000 in real-life situations",
+                        "Appreciate use of the addition of whole numbers in real-life situations"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Work out the sum of three 6-digit numbers without regrouping up to 1,000,000 using place charts or any other resource",
+                        "Collaborate with others to work out the sum of two 6-digit numbers with double regrouping with the number not more than 1,000,000 using place value apparatus or any other resource",
+                        "Estimate sums by rounding off the addends to the nearest hundred and thousand",
+                        "Come up with patterns involving addition of numbers up to a sum of 1,000,000",
+                        "Play games involving addition of numbers using digital devices and other resources"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can you estimate the sum of given numbers?",
+                        "How can you create patterns in addition?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination: learner makes number patterns involving addition",
+                        "Digital literacy: learner uses digital devices and other resources to learn and play games in addition concept development"
+                    ],
+                    "values": [
+                        "Unity: learner collaborates with others to work out the sum of two 6-digit numbers",
+                        "Responsibility: learner takes roles individually to achieve common solutions in addition of numbers"
+                    ],
+                    "pcis": [
+                        "Social cohesion: learner works with peers in using digital resources for learning the addition of numbers"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to relate the concept of addition to value addition in Agriculture and Nutrition"
+                    ]
+                },
+                {
+                    "substrand_number": "1.3",
+                    "substrand_name": "Subtraction",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "Subtract up to two 6-digit numbers without regrouping in real-life situations",
+                        "Subtract up to two 6-digit numbers with regrouping in different situations",
+                        "Estimate difference by rounding off the minuend and subtrahend to the nearest hundred and thousand in different situations",
+                        "Perform combined operations involving addition and subtraction in different situations",
+                        "Create patterns involving subtraction from up to 1,000,000 in different situations",
+                        "Appreciate subtraction of numbers in real-life situations"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Work with peers to subtract up to two 6-digit numbers without regrouping using place value apparatus",
+                        "Discuss and work out subtraction of up to two 6-digit numbers with regrouping using place value apparatus",
+                        "Team up with peers to estimate difference by rounding off the minuend and subtrahend to the nearest hundred and thousand using a number line",
+                        "Work out questions involving addition and subtraction",
+                        "Generate patterns involving subtraction of whole numbers from up to 1,000,000",
+                        "Play games involving subtraction of numbers using digital devices and other resources"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you estimate difference to the nearest hundred?",
+                        "How can you create number patterns involving subtraction?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination: learner creates number patterns involving subtraction",
+                        "Self-efficacy: learner reports the group's discussion to others in carrying out the various subtraction skills"
+                    ],
+                    "values": [
+                        "Unity: learner harmoniously works with peers to subtract of up to 6-digit numbers without regrouping using place value apparatus"
+                    ],
+                    "pcis": [
+                        "Social cohesion: learner carries out the group work in estimation of differences"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to relate the concept of subtraction to the decrease of economic resources in Social Studies"
+                    ]
+                },
+                {
+                    "substrand_number": "1.4",
+                    "substrand_name": "Multiplication",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "Multiply up to a 3-digit number by up to a 2-digit number in real-life situations",
+                        "Estimate product by rounding off numbers to the nearest ten in different situations",
+                        "Make patterns involving multiplication of numbers with product not exceeding 1000 in different situations",
+                        "Appreciate use of multiplication in real life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Work out multiplication of up to a 3-digit number by up to a 2-digit number using different methods",
+                        "Round off numbers to the nearest tens then get their product using compatibility of numbers or own strategies",
+                        "Team up with peers to create patterns involving multiplication of numbers with products not exceeding 1000",
+                        "Play games involving multiplication of whole numbers using digital devices and other resources"
+                    ],
+                    "key_inquiry_questions": [
+                        "Where can multiplication be used in real life?",
+                        "How can you form patterns involving multiplication?"
+                    ],
+                    "core_competencies": [
+                        "Communication and collaboration: learner works with peers to make patterns involving multiplication",
+                        "Learning to learn: learner explores other methods of working out products of numbers"
+                    ],
+                    "values": [
+                        "Unity: learner teams up with peers to create patterns involving multiplication of numbers with products not exceeding 1000"
+                    ],
+                    "pcis": [
+                        "Self-awareness: learner discovers own strategies in multiplication and estimation of products of numbers"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to relate the concept of multiplication to sowing tiny seeds gardening skills in Agriculture and Nutrition"
+                    ]
+                },
+                {
+                    "substrand_number": "1.5",
+                    "substrand_name": "Division",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "Divide up to a 3-digit number by up to a 2-digit number where the dividend is greater than the divisor in real life",
+                        "Apply the relationship between multiplication and division in different situations",
+                        "Divide up to 3-digit number by 1000 in different situations",
+                        "Estimate quotients by rounding off the dividend and divisor to the nearest ten in real-life situations",
+                        "Perform combined operations involving addition, subtraction, multiplication and division of whole numbers in different situations",
+                        "Appreciate use of division of whole numbers in real-life situations"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Work out division of up to a 3-digit number by up to a 2-digit number where the dividend is greater than the divisor using long and short form",
+                        "Collaborate to show that multiplication is the opposite of division",
+                        "Estimate quotients by rounding off the dividend and divisor to the nearest ten",
+                        "Work out questions involving addition, subtraction, multiplication and division",
+                        "Create number games and puzzles involving division",
+                        "Share digital resources or other resources with peers while playing games involving the division of whole numbers"
+                    ],
+                    "key_inquiry_questions": [
+                        "Where is division used in real life?",
+                        "How can we estimate quotients?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: learner creates number games and puzzles involving division",
+                        "Digital Literacy: learner plays digital games involving divisions"
+                    ],
+                    "values": [
+                        "Social Justice: learner shares digital resources or other resources with peers while playing games involving the division of whole numbers"
+                    ],
+                    "pcis": [
+                        "Self-esteem: learner discovers strategies of working out division and creates number games and puzzles"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to relate the concept of division to the allocation and sharing in Agriculture"
+                    ]
+                },
+                {
+                    "substrand_number": "1.6",
+                    "substrand_name": "Fractions",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "Simplify fractions in different situations",
+                        "Compare fractions in different situations",
+                        "Order fractions with denominators not exceeding 12 in different situations",
+                        "Add two fractions with the same denominator in different situations",
+                        "Subtract two fractions with the same denominator in different situations",
+                        "Add two fractions with one renaming in different situations",
+                        "Subtract two fractions with one renaming in different situations",
+                        "Appreciate the use of fractions in real life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Identify equivalent fractions using a fraction board or chart",
+                        "Represent equivalent fractions using real objects",
+                        "Use charts or others resources to express fractions in their simplest forms",
+                        "Arrange given fractions in increasing or decreasing order using different methods",
+                        "Add fractions with the same denominator using paper cut-outs, real objects or other resources",
+                        "Subtract two fractions with the same denominator using paper cut-outs, number lines, real objects, or other resources",
+                        "Carry out addition of two fractions by renaming one fraction using equivalent fractions",
+                        "Carry out subtraction of two fractions by renaming one fraction using equivalent fractions"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why can we order fractions in real life?",
+                        "Where are fractions used in real life?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn: learner orders, compares and simplifies fractions",
+                        "Digital Literacy: learner plays digital games involving fractions"
+                    ],
+                    "values": [
+                        "Responsibility: learner prepares paper cut-outs and collects concrete objects for comparing fractions"
+                    ],
+                    "pcis": [
+                        "Safety: learner observes safety precautions while collecting concrete objects for learning"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to relate the concept of fractions to mixtures in Science and Technology"
+                    ]
+                },
+                {
+                    "substrand_number": "1.7",
+                    "substrand_name": "Decimals",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "Identify place value of decimals up to thousandths in different situations",
+                        "Order decimals up to thousandths in different situations",
+                        "Add decimals up to thousandths in different situations",
+                        "Subtract decimals up to thousandths in different situations",
+                        "Multiply decimal numbers of up to thousandths by 1000 in different situations",
+                        "Appreciate use of decimals in real-life situations"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Work out place value of decimals up to thousandths using a place value chart",
+                        "Order decimals up to thousandths from smallest to largest and from largest to smallest using different methods",
+                        "Work out addition of decimals up to thousandths using place value apparatus",
+                        "Subtract decimals up to thousandths using place value apparatus",
+                        "Collaborate with peers to find information on application of decimals in real-life situations"
+                    ],
+                    "key_inquiry_questions": [
+                        "Where can you use decimals in real life?",
+                        "What is the importance of ordering decimals?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: the learner orders decimals up to thousandths from smallest to largest and from largest to smallest using number cards"
+                    ],
+                    "values": [
+                        "Unity: learner collaborates with peers to find information on application of decimals in real-life situations",
+                        "Social justice: learner shares information on the application of decimals in real-life situations"
+                    ],
+                    "pcis": [
+                        "Social cohesion: learner collaborates with peers to find information on application of decimals"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to relate the concept of decimal numbers to reading quantities of ingredients in Agriculture"
+                    ]
+                },
+                {
+                    "substrand_number": "1.8",
+                    "substrand_name": "Simple Equations",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "Form simple equations with one unknown involving real-life situations",
+                        "Solve simple equations with one unknown involving real-life situations",
+                        "Appreciate use of equations in solving problems in real life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Discuss and come up with equations with one unknown from daily experiences",
+                        "Use real objects to form equations with one unknown",
+                        "Team up with peers to solve equations with one unknown",
+                        "Use digital devices or other resources to learn more about equations"
+                    ],
+                    "key_inquiry_questions": [
+                        "Where are equations used in real life?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem solving: learner forms and solves equations with one unknown",
+                        "Digital literacy: learner uses digital devices or other resources to learn more about equations with one unknown"
+                    ],
+                    "values": [
+                        "Peace: learner harmoniously teams up with peers to solve equations with one unknown"
+                    ],
+                    "pcis": [
+                        "Safety: learner carefully collects safe concrete objects from the environment to illustrate the formation of simple equations with one unknown"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to relate the concept of equations with one unknown to the concept of marketing goods in Pre-technical Studies"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "2.0",
+            "strand_name": "Measurement",
+            "substrands": [
+                {
+                    "substrand_number": "2.1",
+                    "substrand_name": "Length",
+                    "number_of_lessons": 12,
+                    "specific_learning_outcomes": [
+                        "Identify the kilometre (km) as a unit of measuring length in real life",
+                        "Estimate distance in kilometres in real-life situations",
+                        "Identify the relationship between the kilometre (km) and the metre (m) in different situations",
+                        "Convert kilometres to metres and metres to kilometres in different situations",
+                        "Add metres and kilometres in real-life situations",
+                        "Subtract metres and kilometres in real life situations",
+                        "Multiply metres and kilometres by whole numbers in real life situations",
+                        "Divide metres and kilometres by whole numbers in real life situations",
+                        "Appreciate the use of kilometres and metres in measuring length in real life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Discuss the kilometre as a unit of measuring length in real life",
+                        "Team up with peers to estimate distance in kilometres",
+                        "Work with peers to establish the relationship between the kilometre and metre",
+                        "Express the distance from kilometres to metres and metres to kilometres",
+                        "Carry out addition involving distance in kilometres and metres",
+                        "Carry out subtraction involving distance in kilometres and metres",
+                        "Carry out multiplication involving distance in kilometres and metres",
+                        "Carry out division involving distance in kilometres and metres",
+                        "Use digital devices or other resources to get more information involving length in kilometres and metres"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can you measure distance?",
+                        "Why should you measure distance?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: learner measures distance estimated and compare findings with peers",
+                        "Critical thinking and problem solving: learner establishes the relationship between the kilometre and metre practically"
+                    ],
+                    "values": [
+                        "Integrity: learner measures and honestly records estimated distances practically using ropes and other learning materials",
+                        "Respect: learner takes turn in measuring distance in kilometres practically using ropes"
+                    ],
+                    "pcis": [
+                        "Safety: learner observes safety precautions while handling measuring instruments"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to relate measurement of length to construction a food preservation equipment in Agriculture"
+                    ]
+                },
+                {
+                    "substrand_number": "2.2",
+                    "substrand_name": "Area",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "Identify the square centimetre (cm²) as a unit of measuring area in real life",
+                        "Work out area of rectangles and squares in square centimetres (cm²) in different situations",
+                        "Appreciate the use of cm² in working out area in real life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Discuss and measure, trace and cut out 1 cm by 1cm units, and refer the area of each as one square centimetre (1cm²)",
+                        "Cover a given surface using 1-centimetre square cut-outs and count the number of cut-outs to get the area in cm²",
+                        "Establish the area of rectangles and squares in cm² as the product of the number 1cm² units in the row by the number of units in the column, area of rectangle or square = length x width",
+                        "Team up with peers to play games involving area using multiplication charts"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can you determine the area of different surfaces?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination: learner uses paper cut-outs in covering plane surfaces to get area in cm²",
+                        "Self-efficacy: learner measures, traces and cuts out 1 cm by 1cm units, and refer the area of each as one square centimetre (1cm²)"
+                    ],
+                    "values": [
+                        "Unity: learner teams up with peers to play games involving area using multiplication charts"
+                    ],
+                    "pcis": [
+                        "Environmental awareness: learner covers a given surface from the environment using 1-centimetre square cut-outs and counts the number of cut-outs to get the area in cm²"
+                    ],
+                    "links_to_other_subjects": [
+                        "Learner relates concept of area to planting fields in Agriculture"
+                    ]
+                },
+                {
+                    "substrand_number": "2.3",
+                    "substrand_name": "Volume",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "Identify the cubic centimetre (cm³) as a unit of measuring volume in different situations",
+                        "Derive the formula for the volume of cuboid as v= l x w x h practically",
+                        "Work out volume of cuboids in cubic centimetres (cm³) using the formula",
+                        "Derive the formula for the volume of cube as v= s x s x s practically",
+                        "Work out volume of cubes in cubic centimetres (cm³) using the formula",
+                        "Appreciate use of cubic centimetres in measuring volume in real life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Measure the sides of a 1cm cube and identify it as a unit of measuring volume",
+                        "Arrange a number of cubes along the length, width and vary the number of layers",
+                        "Count the number of cubes used in activity above and record",
+                        "Establish that the total number of cubes represents the volume of the cube or cuboid formed",
+                        "Count the number of cubes on the length and multiply by the number in the width and the number of layers",
+                        "Establish the formula for volume (v) of cuboid as v = l x w x h",
+                        "Discuss the formula for volume of a cube v= s x s x s where, s is the side of a cube",
+                        "Manipulate cubes and cuboids by flipping around using digital devices or other resources",
+                        "Work out the volume of cubes and cuboids in cubic centimetres",
+                        "Use digital devices and other resources to play games involving volumes"
+                    ],
+                    "key_inquiry_questions": [
+                        "Where is volume applicable in real life?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn: learner counts the number of cubes on the length and multiply by the number in the width and the number of layers to establish the formula for volume (v) of a cuboid",
+                        "Creativity and imagination: learner counts the number of cubes to establish that the total number of cubes represents the volume of cuboid formed"
+                    ],
+                    "values": [
+                        "Responsibility: learner shows responsibility as they handle the various objects in the environment"
+                    ],
+                    "pcis": [
+                        "Safety: learner observes safety while handling the various objects in the environment"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to relate concept of volume to construction of innovative watering equipment in Agriculture"
+                    ]
+                },
+                {
+                    "substrand_number": "2.4",
+                    "substrand_name": "Capacity",
+                    "number_of_lessons": 12,
+                    "specific_learning_outcomes": [
+                        "Identify the millilitre as a unit of measuring capacity in real life",
+                        "Measure capacity in millilitres in real-life situations",
+                        "Estimate and measure capacity in millilitres in different situations",
+                        "Identify the relationship between litres and millilitres in real life",
+                        "Convert litres to millilitres and millilitres to litres in real-life situations",
+                        "Add litres and millilitres in real-life situations",
+                        "Subtract litres and millilitres in real-life situations",
+                        "Multiply litres and millilitres by whole numbers in real-life situations",
+                        "Divide litres and millilitres by whole numbers in different situations",
+                        "Appreciate use of litres and millilitres in measuring capacity in real life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Collect safe small containers and read the unit of measurements indicated in them",
+                        "Use smaller containers with capacity in millilitres to fill bigger containers",
+                        "Identify containers with capacity of 5 millilitres and use them to fill other containers",
+                        "Share tasks with peers while filling small containers with water and measure the capacity in millilitres using a container graduated in millilitres",
+                        "Use digital device or other resources to find the relationship between millilitres and litres",
+                        "Use a container labelled in millilitres to fill a container labelled in litres and find the relationship",
+                        "Carry out operations involving addition, subtraction, multiplication and division of litres and millilitres by whole numbers"
+                    ],
+                    "key_inquiry_questions": [
+                        "Where are litres and millilitres used in day-to-day life?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem solving: learner converts units of capacity, relate units of capacity and work questions involving capacity"
+                    ],
+                    "values": [
+                        "Responsibility: learner shares tasks with peers while filling small containers with water and measure the capacity in millilitres using a container graduated in millilitres"
+                    ],
+                    "pcis": [
+                        "Social cohesion: learner works with peers to estimate and measure capacity of different containers using a container graduated in millilitres"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to relate concept of capacity to water conservation in Science and Technology"
+                    ]
+                },
+                {
+                    "substrand_number": "2.5",
+                    "substrand_name": "Mass",
+                    "number_of_lessons": 12,
+                    "specific_learning_outcomes": [
+                        "Identify the gramme as a unit of measuring mass in real life",
+                        "Measure mass in grammes in different situations",
+                        "Estimate and measure mass in grammes in different situations",
+                        "Identify the relationship between the kilogramme and the gramme in real-life situations",
+                        "Convert kilogrammes to grammes and grammes to kilogrammes in real-life situations",
+                        "Add grammes and kilogrammes in real-life situations",
+                        "Subtract grammes and kilogrammes in real-life situations",
+                        "Multiply grammes and kilogramme by whole numbers in real-life situations",
+                        "Divide grammes and kilogrammes by whole numbers in real-life situations",
+                        "Appreciate use of kilogrammes and grammes in measuring mass in real life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Identify different small containers with mass labelled grammes",
+                        "Use a spoon or bottle top scoop sand or soil which is estimated to be about 5 grammes",
+                        "Use the spoon or the bottle top to fill other container with soil or sand and estimate their masses",
+                        "Discuss with peers to establish the relationship between the kilogramme and the grammes using a beam balance or electronic weighing machine (1kg = 1000g)",
+                        "Express various values of mass in kilogrammes to grammes and vice versa",
+                        "Convert kilogrammes to grammes and grammes to kilogrammes in real life",
+                        "Determine mass of items in grammes and kilogrammes by addition, subtraction, multiplication and division in different situations",
+                        "Play games involving mass by measuring mass of different objects or substances using improvised weighing balance"
+                    ],
+                    "key_inquiry_questions": [
+                        "What is the importance of measuring mass?"
+                    ],
+                    "core_competencies": [
+                        "Communication and collaboration: learner teams up with peers to estimate and measure mass of items in grammes using a beam balance or electronic weighing machine"
+                    ],
+                    "values": [
+                        "Respect: learner teams up with peers to estimate and measure mass of items in grammes using a beam balance or electronic weighing machine"
+                    ],
+                    "pcis": [
+                        "Social cohesion: learner teams up with peers to estimate and measure mass of items in grammes"
+                    ],
+                    "links_to_other_subjects": [
+                        "Learner is able to relate concept of mass to measuring mass in grammes in Science and Technology"
+                    ]
+                },
+                {
+                    "substrand_number": "2.6",
+                    "substrand_name": "Time",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "Identify the second as a unit of measuring time from a clock",
+                        "Use digital or analogues clocks to read time in seconds",
+                        "Identify the relationship between the minute and the second in real-life situations",
+                        "Convert minutes to seconds and seconds to minutes in real life",
+                        "Add minutes and seconds with conversion in real-life situations",
+                        "Subtract minutes and seconds with conversion in real life situations",
+                        "Multiply minutes and seconds by whole numbers in real-life situations",
+                        "Divide minutes and seconds by whole numbers in real-life situations",
+                        "Appreciate use of minutes and seconds as units of measuring time in real-life situations"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Work with peers to identify second hand from a clock",
+                        "Carry out activities taking 10 seconds",
+                        "Use digital devices and other resources to tell time from clocks",
+                        "Relate the activities to what can be done in one tenth of the time taken to do the activity; the time taken is 1 second",
+                        "Measure time taken to do various activities in seconds",
+                        "Establish the relationship between seconds and minute using a clock or stop watch, watches",
+                        "Team up with peers to determine time durations in minutes and seconds using different operations in real-life situations"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we read and tell time?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn: learner establishes the relationship between seconds and minute using a clock or stop watch, watches"
+                    ],
+                    "values": [
+                        "Responsibility: learner carefully handles a clock or stopwatch watches while establishing the relationship between seconds and minute"
+                    ],
+                    "pcis": [
+                        "Social cohesion: learner teams up with peers to determine time durations in minutes and seconds using different operations in real-life situations"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to relate concept of time to change of state of matter due to heating or freezing over time in Science and Technology"
+                    ]
+                },
+                {
+                    "substrand_number": "2.7",
+                    "substrand_name": "Money",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "Explain the term budget in real-life situations",
+                        "Identify the importance of a budget in real life",
+                        "Prepare a budget of up to 5 items used in daily life",
+                        "Explain meaning of tax and its importance to the government",
+                        "Identify services provided by banks in real-life situations",
+                        "Identify factors to consider in order to save money wisely",
+                        "Appreciate use of budgeting, bank services and payment of taxes in real life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Discuss meaning and importance of a budget",
+                        "Prepare a budget of about 5 items that can be found in the classroom model shop",
+                        "Discuss meaning and importance of taxes to the governments, and study receipts from sales to identify amount of taxes paid",
+                        "Discuss provision of loans, safe custody of items, money deposits and withdrawals, savings as services provided by banks",
+                        "Brainstorm on factors to consider when saving money and share with others",
+                        "Use digital devices to learn how to transfer money from one person to another as part of bank services"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you spend your money?",
+                        "What is the importance of paying taxes?"
+                    ],
+                    "core_competencies": [
+                        "Communication and collaboration: learner discusses and shares information about preparation of a shopping budget",
+                        "Learning to learn: learner discusses matters on budgeting, savings, and electronic banking"
+                    ],
+                    "values": [
+                        "Patriotism: learner appreciates importance of taxes to the government of Kenya"
+                    ],
+                    "pcis": [
+                        "Financial literacy: learner appreciates the importance of budgeting, personal savings and banking services"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to relate concept of money to resources and economic activities in Kenya in Social Studies"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "3.0",
+            "strand_name": "Geometry",
+            "substrands": [
+                {
+                    "substrand_number": "3.1",
+                    "substrand_name": "Lines",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "Identify horizontal and vertical lines in different situations",
+                        "Draw horizontal and vertical lines in different situations",
+                        "Identify perpendicular lines in different situations",
+                        "Draw perpendicular lines in different situations",
+                        "Identify parallel lines in different situations",
+                        "Draw parallel lines in different situations",
+                        "Appreciate use of various types of lines in real life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Work with peers to identify lines in the classroom and within the environment",
+                        "Describe lines in the environment and identify them as horizontal and vertical lines, parallel and perpendicular lines",
+                        "Work with peers to draw and model horizontal and vertical lines, parallel and perpendicular lines",
+                        "Use digital devices and other resources to draw more lines"
+                    ],
+                    "key_inquiry_questions": [
+                        "Where are perpendicular lines used?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn: learner draws different horizontal, vertical, parallel and perpendicular lines",
+                        "Digital literacy: learner uses digital devices to learn more about lines"
+                    ],
+                    "values": [
+                        "Unity: learner works with peers to draw and model horizontal and vertical lines, parallel and perpendicular lines"
+                    ],
+                    "pcis": [
+                        "Environmental awareness: learner teams up with peers to identify lines in the classroom and within the environment"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to relate line to sketching and drawing in Creative Arts"
+                    ]
+                },
+                {
+                    "substrand_number": "3.2",
+                    "substrand_name": "Angles",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "Relate a turn to angles in real life",
+                        "Read angles from protractor in both directions",
+                        "Use protractor to measure angles in different situations",
+                        "Measure angles in degrees in different situations",
+                        "Identify the use of angles in the environment",
+                        "Appreciate the use of angles in our day-to-day life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Make clockwise, quarter and half turn, and relate them to angles in the environment",
+                        "Discuss the use of angles in the environment",
+                        "Team up with peers to make a unit angle and use it to measure angles in the environment",
+                        "Divide a 10° angle into 10 equal parts and identify each part as equal to 1 degree",
+                        "Measure angles in degrees using a protractor",
+                        "Work with peers to measure angles in degrees using a protractor and share results with others",
+                        "Use digital devices and other resources to draw plane figures and learn about angles"
+                    ],
+                    "key_inquiry_questions": [
+                        "Where are angles used in the environment?"
+                    ],
+                    "core_competencies": [
+                        "Communication and collaboration: learner teams up with peers to make a unit angle and use it to measure angles in the environment",
+                        "Learning to learn: learner measures angles in degrees using a protractor and shares results with others"
+                    ],
+                    "values": [
+                        "Responsibility: learner teams up with peers to make a unit angle and uses it to measure angles in the environment"
+                    ],
+                    "pcis": [
+                        "Social cohesion: learner works with peers to measure angles in degrees using a protractor and shares results with others"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to relate line to sketching and drawing in Creative Arts"
+                    ]
+                },
+                {
+                    "substrand_number": "3.3",
+                    "substrand_name": "Three-Dimension (3-D) Objects",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "Describe 3-D objects in the environment",
+                        "Describe 2-D shapes in 3-D objects in the environment",
+                        "Appreciate the use of 3-D objects in the environment"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Share tasks with peers to identify, collect objects and discuss cubes, cuboids, cylinders, spheres and pyramids as 3-D objects in the environment",
+                        "Watch a video on 3-D objects",
+                        "Describe 2-D shapes found in 3-D objects and share with other groups",
+                        "Use digital devices and other resources to draw and learn more about 3-D objects"
+                    ],
+                    "key_inquiry_questions": [
+                        "Where are 3-D objects used in the environment?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and imagination: learner identifies 2-D shapes in 3-D objects in the environment"
+                    ],
+                    "values": [
+                        "Responsibility: learner shares tasks with peers while identifying and collecting 3-D objects in the environment"
+                    ],
+                    "pcis": [
+                        "Environmental awareness: learner identifies and collects 3-D objects in the environment"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to relate the concept of 3-D objects and 2-D shapes to modelling in Creative Arts"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "4.0",
+            "strand_name": "Data Handling",
+            "substrands": [
+                {
+                    "substrand_number": "4.1",
+                    "substrand_name": "Data Representation",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "Collect data of about 30 items relating to real-life experiences",
+                        "Draw a table to record data from real-life situations",
+                        "Draw tally marks of the collected data",
+                        "Prepare a frequency table to represent data",
+                        "Interpret data represented by frequency tables",
+                        "Appreciate use frequency tables in real life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Team up with peers to collect data involving day-to-day experiences such as marks, shoe number, age of learners in a class",
+                        "Discuss other sources of data such as the number and types of vehicles on a given road near school and home, discuss also number of bicycles or motor cycles",
+                        "Prepare data collection and recording tools and record data on books or charts",
+                        "Discuss and draw tally marks for the data",
+                        "Organise data in a table from real-life situations",
+                        "Discuss information represented by objects piled vertically",
+                        "Use digital devices and other resources to learn more on representing data in tables"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is representing data in tables important?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn: learner practises piling items as a form of data organisation",
+                        "Digital literacy: learner uses digital devices and other resources to learn more about frequency tables"
+                    ],
+                    "values": [
+                        "Unity: learner teams up with peers to collect data involving day-to-day experiences"
+                    ],
+                    "pcis": [
+                        "Safety: learner carefully uses digital devices and other resources to learn more on representing data in tables"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to relate data representation to population distribution in the county in Social Studies"
+                    ]
+                }
+            ]
+        }
+    ]
+}

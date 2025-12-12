@@ -1,0 +1,534 @@
+{
+    "grade": "Grade 7",
+    "subject": "Pre-Technical Studies",
+    "education_level": "Junior Secondary",
+    "strands": [
+        {
+            "strand_number": "1.0",
+            "strand_name": "FOUNDATIONS OF PRE-TECHNICAL STUDIES",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Introduction to Pre-Technical Studies",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "identify the components of Pre-Technical Studies as a learning area",
+                        "explain the role of Pre- Technical Studies in day- to-day life",
+                        "embrace Pre-Technical Studies in career development"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm on the components of Pre- Technical Studies as a learning area",
+                        "discuss and present the role of Pre-Technical Studies in day-to-day life",
+                        "debate on the role of Pre- Technical Studies in day-to-day life"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is Pre- Technical Studies important in day-to- day life?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration: learner develops writing, speaking, listening and teamwork skills when discussing, and presenting on the role of Pre-Technical Studies.",
+                        "Critical Thinking and Problem Solving: learner develops open-mindedness and creativity skills when brainstorming on Pre- Technical Studies as a learning area."
+                    ],
+                    "values": [
+                        "Unity: learner displays team spirit and collaboration with others when discussing and presenting the role of Pre-Technical Studies in day-to-day life.",
+                        "Respect: learner displays tolerance for others' opinions when debating on the role of Pre-Technical Studies in day-to-day life."
+                    ],
+                    "pcis": [
+                        "Social cohesion is enhanced when debating on the role of Pre-Technical Studies."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.2",
+                    "substrand_name": "Safety in the Work Environment",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "identify potential safety threats in a work environment",
+                        "outline safety rules and regulations in the work environment",
+                        "observe safety in a work environment",
+                        "appreciate the importance of observing safety in a work environment"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm with peers on potential safety threats in a work environment (physical and online)",
+                        "use print or digital media to search for information on potential hazards to personal safety in a work environment",
+                        "use print or digital media to search for information on physical threats to digital devices (theft, natural disasters, hardware failure) and online threats in a work environment and list them (cyberbullying, impersonation, phishing, hacking, friend requests from unknown people)",
+                        "share ideas and practice on how to keep personal and sensitive data from public when online",
+                        "discuss safety rules and regulations in a work environment",
+                        "role play on safety for self and others in a work environment"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is safety in the work environment important?",
+                        "How can online threats be safeguarded against?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: learner develops skills of sharing learnt knowledge when taking turns with peers to share ideas on safety for self and others in the work environment.",
+                        "Digital Literacy: learner develops skills of interacting with technology when searching for information on potential hazards to personal safety in a work environment."
+                    ],
+                    "values": [
+                        "Respect: learner appreciates diverse opinions when sharing information with peers on the online threats.",
+                        "Responsibility: learner engages in assigned roles when role playing on safety for self and others in a work environment."
+                    ],
+                    "pcis": [
+                        "Disaster Risk Reduction: learner observes safety when role playing on safety of self and others in a work environment",
+                        "Safety and Security: safety awareness is enhanced when sharing ideas and practices on how to protect personal data when online."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.3",
+                    "substrand_name": "Computer Concepts",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "explain the characteristics of a computer in a user environment",
+                        "classify computers in a user environment",
+                        "use a computer to perform tasks in a user environment",
+                        "acknowledge the importance of different types of computers in a user environment"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm on the meaning of the terms; computer, data and information",
+                        "discuss on characteristics of a computer (speed, accuracy, versatility, reliability, diligence, storage, consistency)",
+                        "download and watch a video clip on classification of computers",
+                        "discuss classification of computers (functionality, purpose and size) in a user environment",
+                        "interact with different types of computers in the user environment to perform tasks"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why are there different classes of computers?"
+                    ],
+                    "core_competencies": [
+                        "Critical Thinking and Problem Solving: learner develops interpretation and inference skills when brainstorming on the meaning of the terms; computer, data and information.",
+                        "Communication and Collaboration: learner develops speaking, listening and teamwork skills when discussing the classification of computers in a user environment."
+                    ],
+                    "values": [
+                        "Peace: learner displays patience with peers when discussing the classification of computers."
+                    ],
+                    "pcis": [
+                        "Cyber Security: learner observes online safety when downloading and watching a video clip on classification of computers."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "2.0",
+            "strand_name": "COMMUNICATION",
+            "substrands": [
+                {
+                    "substrand_number": "2.1",
+                    "substrand_name": "Fundamentals of Communication",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "explain the importance of communication in work environment",
+                        "describe the ICT tools used in communication",
+                        "use ICT to enhance communication",
+                        "acknowledge the role of effective communication in the work environment"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm and present on the meaning and importance of communication in the work environment",
+                        "role play the importance of effective communication in work environment",
+                        "use print or digital media to search for information on ICT tools used in communication (email, mobile phone, computers, video and web conferencing tools, social networking and online collaboration)",
+                        "discuss ICT tools used in communication",
+                        "use ICT tools and internet to communicate",
+                        "discuss the benefits and challenges of the internet"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is communication in the work environment important?",
+                        "How is ICT used in communication?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration: learner acquires speaking, writing, listening, and teamwork skills when role playing the importance of effective communication in work environment",
+                        "Learning to learn: learner acquires skills of organizing own learning and collaborating with others when using print or digital media to search for information on ICT tools used in communication.",
+                        "Digital literacy: the learner develops skills of interacting with technology when using ICT tools and internet to communicate"
+                    ],
+                    "values": [
+                        "Respect: learner shows open-mindedness when brainstorming and presenting the meaning and importance of communication in the work environment.",
+                        "Responsibility: learner shows accountability by engaging in assigned roles and duties when role playing the importance of effective communication in work environment."
+                    ],
+                    "pcis": [
+                        "Mental Health: learner develops emotional awareness to relate well with peers when role playing on the importance of effective communication in work environment."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "2.2",
+                    "substrand_name": "Introduction to Drawing",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "explain the importance of drawing as a means of communication",
+                        "distinguish between artistic and technical drawings used in technical fields",
+                        "print numbers and letters of the alphabet as used in drawing",
+                        "draw types of lines used in drawing",
+                        "illustrate symbols and abbreviations used in drawing",
+                        "appreciate the role of drawing in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "discuss the importance of drawing as a means of communication",
+                        "brainstorm on the meaning of the terms 'technical drawing' and 'artistic drawing'",
+                        "use print or online resources to search for information on artistic and technical drawing",
+                        "practice printing numbers and letters of the alphabet",
+                        "use visual aids to search for information on the types of lines and their application in drawing (thick and thin continuous, dashed and chain)",
+                        "draw various types of lines (thick and thin continuous, dashed and chain)",
+                        "sketch basic symbols (⌀, ℄, R, ⊥, ▢) and abbreviations (DRG, A/F, A/C, I/D, O/D) used in drawing",
+                        "use audio visual aids to study the application of symbols and abbreviations in drawing"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is drawing referred to as a universal way of communication?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration: the learner acquires speaking, listening and teamwork skills when brainstorming on the meaning of the terms 'technical drawing' and 'artistic drawing'.",
+                        "Digital Literacy: learner develops the skill of interacting with technology when using online resources to search for information on artistic and technical drawing."
+                    ],
+                    "values": [
+                        "Respect: the learner demonstrates etiquette during discussion of basic symbols and abbreviations used in drawing.",
+                        "Responsibility: the learner demonstrates accountability when using visual aids to search for information on the types of lines and their application in drawing."
+                    ],
+                    "pcis": [
+                        "Safety and Security: the learner develops online safety skills during online search for information on different types of drawings used in the technical fields."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "2.3",
+                    "substrand_name": "Plane Geometry",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "describe methods of dimensioning drawings in plane geometry",
+                        "construct combined shapes used in a work environment",
+                        "dimension combined shapes in plane geometry",
+                        "embrace the use of plane geometry in a work environment"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm on methods of dimensioning (linear, radial, angular, arc)",
+                        "illustrate types of lines used in dimensioning",
+                        "use visual aids to identify combined shapes",
+                        "discuss how to draw combined shapes",
+                        "use electronic or print media to search for information on methods of dimensioning combined shapes",
+                        "discuss forms of dimensioning combined shapes (parallel, chain, combined)",
+                        "draw and dimension combined shapes in plane geometry"
+                    ],
+                    "key_inquiry_questions": [
+                        "How are combined shapes applied in day-to-day life?"
+                    ],
+                    "core_competencies": [
+                        "Communication and collaboration: learner acquires team working skills when discussing how to draw combined shapes.",
+                        "Learning to learn: learner develops organising skills when drawing and dimensioning combined shapes."
+                    ],
+                    "values": [
+                        "Responsibility: learner engages in assigned roles and duties when drawing and dimensioning combined shapes in plane geometry.",
+                        "Respect: learner appreciates diverse opinions when discussing how to draw combined shapes."
+                    ],
+                    "pcis": [
+                        "Social cohesion: learners work together harmoniously when discussing how to draw combined shapes."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "3.0",
+            "strand_name": "MATERIALS FOR PRODUCTION",
+            "substrands": [
+                {
+                    "substrand_number": "3.1",
+                    "substrand_name": "Economic Resources",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "explain the characteristics of economic resources used for production of goods and services",
+                        "classify economic resources in Kenya",
+                        "distinguish between metallic and non- metallic materials as economic resources",
+                        "analyse sustainable ways of using economic resources in Kenya",
+                        "practice sustainable use of economic resources in the community"
+                    ],
+                    "suggested_learning_experiences": [
+                        "discuss and present on the meaning of economic resources",
+                        "use print or digital media to search for information on the characteristics of economic resources and share with peers",
+                        "read and analyse a case study on classification and types of economic resources in Kenya",
+                        "discuss metallic and non-metallic materials as economic resources",
+                        "carry out resource mapping on types of economic resources in the local community",
+                        "use available resources to establish distribution of economic resources in Kenya",
+                        "brainstorm and present sustainable ways of using economic resources in Kenya"
+                    ],
+                    "key_inquiry_questions": [
+                        "What are economic resources?",
+                        "How can economic resources be used sustainably?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration: learner acquires reading, writing, speaking, listening, and teamwork skills when discussing and presenting on the meaning of economic resources.",
+                        "Self Efficacy: learner develops effective communication skills when brainstorming and presenting on the sustainable ways of using economic resources.",
+                        "Critical Thinking and Problem Solving: learner develops explanation, evaluation and decision-making skills when carrying out resource mapping in the local community."
+                    ],
+                    "values": [
+                        "Respect: learner shows open-mindedness when discussing and presenting on the meaning of economic resources.",
+                        "Responsibility: learner shows accountability by engaging in assigned roles and duties when carrying out resource mapping on types of economic resources",
+                        "Peace: learner displays tolerance and respect for diversity when brainstorming and presenting sustainable ways of using economic resources in Kenya."
+                    ],
+                    "pcis": [
+                        "Environmental Education: learner acquires skills of protecting natural resources when brainstorming and presenting sustainable ways of using economic resources in Kenya."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "3.2",
+                    "substrand_name": "Metallic Materials",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "identify types of metallic materials used in a work environment",
+                        "describe the physical properties of metallic materials found in a work environment",
+                        "relate metallic materials to their use in a work environment",
+                        "appreciate the use of metallic materials in production"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use print or digital media to search for information on metallic materials",
+                        "prepare a checklist for identifying types of metallic materials (steel, aluminum, copper)",
+                        "perform practical activities to examine the physical properties of metallic materials (magnetism, conductivity of heat and electricity, appearance)",
+                        "discuss the physical properties of metallic materials",
+                        "match metallic materials to their use in the work environment"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why are metallic materials important in day-to-day life?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: the learner develops skills of interacting with technology when searching for information on metallic materials.",
+                        "Communication and Collaboration: the learner acquires speaking, listening, and teamwork skills when discussing the uses of metallic materials."
+                    ],
+                    "values": [
+                        "Unity: learner displays team spirit and collaboration with others when discussing the uses of metallic materials.",
+                        "Responsibility: learner shows accountability by caring for the print or digital media when searching for information on metallic materials."
+                    ],
+                    "pcis": [
+                        "Peer Education and Mentorship: the learner develops inter-personal relationships when performing practical activities to examine the physical properties of metallic materials."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "3.3",
+                    "substrand_name": "Non-Metallic Materials",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "identify non-metallic materials found in the locality",
+                        "categorise non-metallic materials as either synthetic or natural",
+                        "describe the physical properties of non-metallic materials found in the locality",
+                        "relate non-metallic materials to their uses in the locality",
+                        "appreciate the use of non-metallic materials in production"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use print or digital media to search for information on non-metallic materials",
+                        "discuss the non-metallic materials (wood, stone, plastics, paper, rubber, cement, glass, ceramics)",
+                        "sort non-metallic materials as either synthetic or natural",
+                        "perform practical activities to examine the physical properties of non-metallic materials (color, texture, hardness, fire resistance)",
+                        "discuss the physical properties of non-metallic materials",
+                        "match non- metallic materials to their use in the locality"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why are non-metallic materials important?"
+                    ],
+                    "core_competencies": [
+                        "Critical Thinking and Problem Solving: learner develops evaluation and decision skills when sorting non-metallic materials as either synthetic or natural.",
+                        "Creativity and Imagination: learner develops observation skills when performing practical activities to examine the physical properties of non-metallic materials."
+                    ],
+                    "values": [
+                        "Peace: learner displays respect for self and peers when discussing non-metallic materials.",
+                        "Unity: learner displays team spirit and collaboration with others when performing practical activities to examine the physical properties of non-metallic materials."
+                    ],
+                    "pcis": [
+                        "Personal Safety and Security: learner observes safety precautions when performing practical activities to examine the physical properties of non-metallic materials."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "4.0",
+            "strand_name": "TOOLS AND PRODUCTION",
+            "substrands": [
+                {
+                    "substrand_number": "4.1",
+                    "substrand_name": "Measuring and Marking Out Tools",
+                    "number_of_lessons": 18,
+                    "specific_learning_outcomes": [
+                        "identify measuring and marking out tools in the work environment",
+                        "select measuring and marking out tools for a given task",
+                        "use measuring and marking out tools to perform a given task",
+                        "care for measuring and marking out tools in the work environment",
+                        "recognise the importance of measuring and marking out tools in the work environment"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use visual aids and realia to identify measuring (Tape measure, steel rule, callipers, weighing balance, stop watch, ammeter, voltmeter) and marking out tools (divider, try-square, marking gauge, dot punch, scriber, pencil, marking knife) in the work environment",
+                        "discuss the use of measuring and marking out tools in the work environment",
+                        "choose the appropriate measuring and marking out tools to perform a given task",
+                        "use available resources to search for information on the use of measuring and marking out tools to perform specific tasks",
+                        "demonstrate the use of measuring and marking out tools to perform specific tasks",
+                        "perform specific tasks using measuring and marking out tools",
+                        "care for and maintain measuring and marking out tools in the work environment"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why are measuring and marking out tools important in a work environment?",
+                        "How are measuring and marking out tools used in a work environment?"
+                    ],
+                    "core_competencies": [
+                        "Critical Thinking and Problem Solving: the learner develops explanation, evaluation and decision-making skills when choosing the appropriate measuring and marking out tools to perform a given task.",
+                        "Self Efficacy: learner develops self-awareness skills by showing a concerted attention to detail when performing specific tasks using measuring and marking out tools."
+                    ],
+                    "values": [
+                        "Respect: learner shows open-mindedness when discussing the use of measuring and marking out tools in the work environment",
+                        "Responsibility: learner shows accountability by caring for and maintaining measuring and marking out tools in the work environment"
+                    ],
+                    "pcis": [
+                        "Disaster Risk Reduction: Learner avoids situations that can lead to injuries when caring for and maintaining measuring and marking out tools in the work environment."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "4.2",
+                    "substrand_name": "Production of Goods and Services",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "explain the benefits of production to the community",
+                        "distinguish between goods and services found in the local market",
+                        "describe the factors of production in the community",
+                        "analyse the ethical and unethical practices in production of goods and services",
+                        "participate in production activities in the community"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm and present the meaning and benefits of production",
+                        "discuss and present the meaning, types and characteristics of goods and services",
+                        "read and analyse a case study on factors of production, characteristics and rewards",
+                        "use print or digital media to search for information on ethical and unethical practices in production of goods and services",
+                        "share experiences on ethical and unethical practices in production of goods and services"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why are factors of production important?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: learner acquires skills of organizing own learning and works collaboratively with others when brainstorming and presenting on the meaning, types and characteristics of goods and services.",
+                        "Critical Thinking: learner develops interpretation and inference skills when analysing a case study on factors of production, characteristics and rewards."
+                    ],
+                    "values": [
+                        "Respect: learner shows etiquette when discussing and presenting the meaning and importance of production",
+                        "Unity: learner cooperates with peers when sharing experiences on ethical and unethical practices in production of goods and services."
+                    ],
+                    "pcis": [
+                        "Chaplaincy: learner exhibits moral values when sharing experiences on ethical and unethical practices in production of goods and services."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "5.0",
+            "strand_name": "ENTREPRENEURSHIP",
+            "substrands": [
+                {
+                    "substrand_number": "5.1",
+                    "substrand_name": "Introduction to Entrepreneurship",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "explain the importance of entrepreneurship to an individual and community",
+                        "describe the qualities of an entrepreneur in business",
+                        "explore sources of business ideas for a business venture",
+                        "analyse the factors considered when evaluating the viability of a business opportunity",
+                        "evaluate the factors that enhance success in a business",
+                        "practice entrepreneurship for self and community development"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm and present the meaning of the terms 'entrepreneur' and 'entrepreneurship'",
+                        "discuss and present on the importance of entrepreneurship to an individual and community",
+                        "download and watch a video clip or use available resources to search for information on qualities of an entrepreneur",
+                        "conduct self-assessment on entrepreneurial qualities",
+                        "use available resources to search for and present the meaning and sources of business ideas",
+                        "compile a list of business ideas and determine their viability as business opportunities",
+                        "read, analyse and present on a case study about the factors that enhance business success"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is entrepreneurship important in the community?",
+                        "What are the qualities of an entrepreneur?"
+                    ],
+                    "core_competencies": [
+                        "Critical Thinking and Problem Solving: learner acquires evaluation and decision-making skills when reading, analysing and presenting on a case study about the factors that enhance business success",
+                        "Citizenship: learner acquires entrepreneurship skills by exploiting opportunities when compiling a list of business ideas and determining their viability."
+                    ],
+                    "values": [
+                        "Peace: learner shows respect for self and others when brainstorming and presenting the meaning of 'entrepreneur' and 'entrepreneurship'.",
+                        "Unity: learner displays team spirit when discussing and presenting the importance of entrepreneurship to an individual and community.",
+                        "Responsibility: learner engages in assigned roles and duties when analysing and reporting on a case study on the factors that enhance business success."
+                    ],
+                    "pcis": [
+                        "Financial Literacy: learner develops entrepreneurial skills when conducting self-assessment on entrepreneurial qualities",
+                        "Career Guidance: learner develops ability to identify personal skill gaps when conducting self-assessment on entrepreneurial qualities."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "5.2",
+                    "substrand_name": "Money",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "identify the characteristics of money as a medium of exchange",
+                        "explain the uses of money in day- to- day life",
+                        "describe the key security features of the Kenyan currency",
+                        "analyse the themes and symbols on the Kenyan currency",
+                        "appreciate the use of money in day-to-day life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm and present the meaning and characteristics of money",
+                        "share experiences on use of money for buying goods and services",
+                        "discuss and present on the uses of money",
+                        "use print or digital media to search for information on the uses of money",
+                        "use Kenyan currency to observe the key security features",
+                        "brainstorm and present the themes and symbols used on the Kenyan currency",
+                        "use different denominations of Kenyan currency to examine themes and symbols"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why does the Kenyan currency have security features?",
+                        "What are the themes and symbols on the Kenyan currency?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: learner acquires the skill of sharing learnt knowledge when brainstorming and presenting on the themes and symbols of the Kenyan currency.",
+                        "Citizenship: learner develops national and cultural identity skills when discussing, brainstorming and presenting on the themes and symbols of the Kenyan currency."
+                    ],
+                    "values": [
+                        "Respect: learner shows regard for self and others when discussing and presenting the uses of money.",
+                        "Integrity: learner is accountable when using different denominations of Kenyan currency to examine themes and symbols."
+                    ],
+                    "pcis": [
+                        "Financial Literacy: learner develops financial skills when discussing and presenting on the uses of money",
+                        "Safety and Security: learner develops the skill of distinguishing between genuine and fake currency by observing key security features."
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "5.3",
+                    "substrand_name": "Financial Goals",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "explain the importance of setting goals in financial management",
+                        "analyse the factors to consider when setting financial goals",
+                        "formulate financial goals for individual development",
+                        "observe financial discipline in financial management"
+                    ],
+                    "suggested_learning_experiences": [
+                        "discuss and present the meaning and importance of setting goals in financial management",
+                        "discuss and present the importance of financial discipline",
+                        "brainstorm and present on the factors to consider when setting financial goals",
+                        "use print or digital media to search for information on setting financial goals",
+                        "set Specific Measurable Achievable Realistic and Time bound (SMART) financial goals"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important for an individual to set financial goals?",
+                        "What are the factors to consider when setting financial goals?"
+                    ],
+                    "core_competencies": [
+                        "Self Efficacy: learner acquires develops the skill of task execution when setting SMART financial goals.",
+                        "Critical Thinking and Problem Solving: learner acquires interpretation and inference skills when brainstorming on the factors to consider when setting financial goals."
+                    ],
+                    "values": [
+                        "Responsibility: learner engages in assigned roles and duties when discussing and presenting on the meaning and importance of goal setting as used in financial management",
+                        "Respect: learner shows regard for the input of every member when brainstorming and presenting on the factors to consider when setting financial goals."
+                    ],
+                    "pcis": [
+                        "Financial Literacy: learner acquires financial skills when setting SMART financial goals."
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        }
+    ]
+}

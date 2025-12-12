@@ -1,0 +1,607 @@
+{
+    "grade": "Grade 1",
+    "subject": "Religious Education (CRE/IRE/HRE)",
+    "education_level": "Lower Primary",
+    "strands": [
+        {
+            "strand_number": "1",
+            "strand_name": "Creation",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Self- Awareness",
+                    "number_of_lessons": 5,
+                    "specific_learning_outcomes": [
+                        "identity their uniqueness as guided by the word of God",
+                        "state their gender according to Genesis 1:27",
+                        "appreciate that God knows them by their names"
+                    ],
+                    "suggested_learning_experiences": [
+                        "in pairs read Genesis 1:27",
+                        "say why they are a special creation",
+                        "sing songs related to their uniqueness",
+                        "state their gender as guided by Genesis 1:27",
+                        "draw and colour a picture of a boy and a girl",
+                        "in turns read Isaiah 43:1",
+                        "write their names on flashcards and display them in class",
+                        "sing songs related to their names",
+                        "watch a clip of a palm of a hand with a name on it",
+                        "draw the palm of a hand and write their names",
+                        "Sing the song, ‘I’ am fearfully and wonderfully made’",
+                        "memorise Isaiah 49:16"
+                    ],
+                    "key_inquiry_questions": [
+                        "What makes you a special creation?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy: learners identify who they are as they engage in activities such as mentioning their names and singing songs related to their names",
+                        "Communication: learners can speak clearly and effectively as they read the Bible verses and memorise the scriptures"
+                    ],
+                    "values": [
+                        "Love: is portrayed as learners sing songs and perform activities such as singing together"
+                    ],
+                    "pcis": [
+                        "Gender issues: learners say their gender as guided by the Bible and in accordance with the Christian faith"
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "My Family",
+                    "number_of_lessons": 5,
+                    "specific_learning_outcomes": [
+                        "name members of their family",
+                        "pray with family members to foster unity",
+                        "identify five items they share at home",
+                        "appreciate family members by praying with them"
+                    ],
+                    "suggested_learning_experiences": [
+                        "list names of family members on flashcards",
+                        "draw and colour family members",
+                        "demonstrate how they pray at home",
+                        "list the number of times they pray at home as a family",
+                        "mention instances they lead prayers at home",
+                        "in groups or pairs, list items they share at home",
+                        "colour a picture of a family sharing a meal",
+                        "sing the song, ’Read your Bible pray every day’",
+                        "memorise Matthew 7:7"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you relate with members of your family?"
+                    ],
+                    "core_competencies": [
+                        "Communication: the skill of speaking clearly and effectively is enhanced as learners lead prayers at home",
+                        "Learning to Learn: learners work on their own in assigned tasks such as listing the number of times they lead prayers at home"
+                    ],
+                    "values": [
+                        "Unity: is enhanced as learners pray with family members"
+                    ],
+                    "pcis": [
+                        "Social cohesion: is portrayed as learners share items with family members and pray together"
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Creation of Plants and Animals",
+                    "number_of_lessons": 5,
+                    "specific_learning_outcomes": [
+                        "name plants and animals in the environment",
+                        "take part in keeping the home environment clean",
+                        "appreciate God’s creation by caring for plants and animals"
+                    ],
+                    "suggested_learning_experiences": [
+                        "picture-read Genesis 1:11, 24",
+                        "name various plants and animals created by God and write them on flashcards",
+                        "take a nature walk and identify different plants and animals in their environment",
+                        "draw and colour some plants and animals in the school environment",
+                        "say how they participate in keeping the home environment clean",
+                        "model some animals and display their work in class"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should you take care of plants and animals?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: learners recreate learning experiences outside the class as they explore and discover more about plants and animals in their surroundings",
+                        "Imagination and Creativity: learners come up with new and unique ideas by modelling and drawing animals and plants"
+                    ],
+                    "values": [
+                        "Responsibility: learners participate in keeping the home environment clean"
+                    ],
+                    "pcis": [
+                        "Environmental Awareness: learners identify plants and animals in the environment"
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "1",
+            "strand_name": "The Holy Bible",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "The Word of God",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "identify five ways of handling the Holy Bible",
+                        "mention the two divisions of the Holy Bible",
+                        "name the first two books in the New Testament",
+                        "desire to handle the Holy Bible with respect"
+                    ],
+                    "suggested_learning_experiences": [
+                        "say how they take care of the Holy Bible",
+                        "tell why they should respect the Holy Bible",
+                        "role-play handling the Holy Bible with care and respect",
+                        "in small groups mention the two divisions of the Holy Bible (Old and New Testament)",
+                        "name the first two Gospel books (Matthew and Mark)",
+                        "listen to and sing a song about the Bible",
+                        "sing a song on ‘read your Bible pray every day’"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should you handle the Holy Bible with respect?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: learners behave safely and ethically as they use digital devices"
+                    ],
+                    "values": [
+                        "Responsibility: learners handle the Bible with care and respect"
+                    ],
+                    "pcis": [
+                        "Spiritual Awareness: learners mention the first two divisions of the Bible and name two Bible books"
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Bible Story: Joseph and his brothers",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "narrate the story of Joseph and his brothers",
+                        "discuss ways they treat their siblings",
+                        "identify three values needed for peaceful co-existence",
+                        "desire to live harmoniously with family members"
+                    ],
+                    "suggested_learning_experiences": [
+                        "watch a video on Joseph’s coat of many colours in Genesis 37:3-4",
+                        "draw a coat and colour it",
+                        "in turns, picture-read Joseph’s dream in Genesis 37:5-8,in groups, picture-read Genesis 37:9-11",
+                        "role-play the story of Joseph",
+                        "say why Joseph’s brothers hated him",
+                        "in groups, share experiences of how they should treat their brothers and sisters",
+                        "list values needed to live well with others",
+                        "sing a song about Joseph and his coat of many colours"
+                    ],
+                    "key_inquiry_questions": [
+                        "How did Joseph relate with his brothers?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: the skill of interacting with digital technology is enhanced as learners watch a video about Joseph and his brothers",
+                        "Imagination and Creativity: the skill of imagining and coming up with original ideas is exhibited as learners draw and colour a coat"
+                    ],
+                    "values": [
+                        "Love: is nurtured as learners share experiences of how they should treat their brothers and sisters"
+                    ],
+                    "pcis": [
+                        "Social Cohesion: is nurtured as learners list values needed to live well with others"
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Bible Story: The chariot of fire",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "retell the story of Elijah and the chariot of fire",
+                        "list three ways of having a good relationship with God",
+                        "desire to respect God and their parents"
+                    ],
+                    "suggested_learning_experiences": [
+                        "picture-read 2 Kings 2:1,11-12",
+                        "in groups draw and colour the chariot of fire",
+                        "watch a video clip of Elijah and the Chariot of fire",
+                        "in pairs, tell their friend three ways of pleasing God",
+                        "sing a song about Elijah and the Chariot of Fire",
+                        "write 2 Kings 2:12 on flashcards and display it in the Christian Religious Education learning corner",
+                        "in groups, tell ways they respect their parents or guardians at home"
+                    ],
+                    "key_inquiry_questions": [
+                        "How did Elijah honour God?"
+                    ],
+                    "core_competencies": [
+                        "Imagination and Creativity: the skill of coming up with new ideas is enhanced as learners role-play the Bible story",
+                        "Communication: the skills of listening and speaking are demonstrated as learners in groups read the Bible text and retell the story"
+                    ],
+                    "values": [
+                        "Love: is portrayed as learners take turns to air their views and respect each other's opinions"
+                    ],
+                    "pcis": [
+                        "Social Cohesion: is nurtured as learners share ideas and work in groups or pairs"
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "1",
+            "strand_name": "The Early Life of Jesus Christ",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "The Birth of Jesus Christ",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "retell the birth of Jesus Christ",
+                        "dramatise the birth of Jesus Christ",
+                        "express the joy of the angels through song and dance",
+                        "appreciate the birth of Jesus by participating in Christmas celebrations"
+                    ],
+                    "suggested_learning_experiences": [
+                        "picture-read the birth of Jesus according to Luke 2:4-13 and retell the story",
+                        "role-play the birth of Jesus Christ",
+                        "listen and dance to a recorded Christmas carol ‘We wish you a Merry Christmas’",
+                        "sing a song related to Luke 2:13-14",
+                        "observe pictures of Jesus Christ’s parents and name each of them as they point at the pictures",
+                        "observe pictures or watch a video clip of angels worshipping Baby Jesus",
+                        "sing and dance to the song of the angels (Luke 2:13-14)"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do we celebrate the birth of Jesus Christ?"
+                    ],
+                    "core_competencies": [
+                        "Communication: is portrayed as learners listen actively and picture-read the birth of Jesus Christ",
+                        "Imagination and Creativity: is demonstrated as learners come up with creative ways and role-play the birth of Jesus Christ",
+                        "Digital Literacy: is enhanced as learners interact with digital technology and watch a video clip of angels worshipping baby Jesus"
+                    ],
+                    "values": [
+                        "Unity: is exhibited as learners work together in groups"
+                    ],
+                    "pcis": [
+                        "Social cohesion: is portrayed as learners in groups role play, sing, listen to, and dance to a recorded carol 'We wish you a Merry Christmas'"
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Jesus Christ in the Temple",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "retell the story of Jesus Christ in the Temple",
+                        "obey their parents as portrayed by Jesus Christ",
+                        "take part in Sunday or Sabbath school activities",
+                        "desire to accompany their parents to church as portrayed by Jesus Christ"
+                    ],
+                    "suggested_learning_experiences": [
+                        "draw and colour the church",
+                        "in turns picture read Luke 2: 42-49",
+                        "observe pictures of Jesus Christ in the temple",
+                        "sequentially arrange flashcards on the events that took place when Jesus was left in the temple",
+                        "tell how Jesus Christ obeyed His parents",
+                        "share experiences of how they obey their parents at home",
+                        "list activities they engage in at Sunday or Sabbath School"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why did Jesus Christ visit the temple?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration: the skill of speaking clearly and effectively is enhanced as learners picture read the Bible in turns"
+                    ],
+                    "values": [
+                        "Peace: learners tell how Jesus obeyed His parents and share experiences of how they obey their parents at home"
+                    ],
+                    "pcis": [
+                        "Peace Education: is enhanced as learners share experiences of how they obey their parents at home"
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Baptism of Jesus Christ",
+                    "number_of_lessons": 5,
+                    "specific_learning_outcomes": [
+                        "name the place where Jesus Christ was baptised",
+                        "identify the person who baptised Jesus Christ",
+                        "practise humility in their interaction with others"
+                    ],
+                    "suggested_learning_experiences": [
+                        "mention occasions, they witnessed people being baptised in their churches",
+                        "in turns, picture-read Matthew 3:13-15",
+                        "watch a video clip on the Baptism of Jesus Christ",
+                        "mention the place where Jesus was baptised",
+                        "name the person who baptised Jesus Christ",
+                        "in groups draw and colour Jesus being baptised",
+                        "tell how Jesus showed humility during His baptism",
+                        "sing baptismal songs familiar to them"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is the baptism of Jesus Christ important to Christians today?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: the skill of digital citizenship is demonstrated as learners act safely and responsibly in digital environments"
+                    ],
+                    "values": [
+                        "Respect: is nurtured as learners take turns to picture-read Matthew 3:13-15"
+                    ],
+                    "pcis": [
+                        "Social Cohesion: is portrayed as learners sing songs in different languages"
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Wedding at Cana of Galilee",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "retell how Jesus changed water into wine",
+                        "obey instructions as portrayed in the wedding at Cana",
+                        "desire to be obedient in their interaction with others"
+                    ],
+                    "suggested_learning_experiences": [
+                        "in groups, tell a story of a wedding that they attended and what they liked most",
+                        "picture-read the story of changing water into wine; John 2:1-10",
+                        "watch a video clip on the miracle of changing water into wine",
+                        "tell how the servants responded to Jesus’ instructions in John 2:7-9",
+                        "sing a song related to this miracle",
+                        "share experiences of how they depend on God to provide for their needs",
+                        "in groups, role-play how they obey their parents and teachers",
+                        "draw and colour the six jars of water"
+                    ],
+                    "key_inquiry_questions": [
+                        "What happened at Cana of Galilee?"
+                    ],
+                    "core_competencies": [
+                        "Imagination and Creativity: the skill of communicating ideas is enhanced as learners draw and colour the six jars of wine",
+                        "Self-efficacy: the skill of self-expression is demonstrated as learners confidently share experiences of how they depend on God to provide for their needs"
+                    ],
+                    "values": [
+                        "Peace: is exhibited as learners display tolerance and respect for each other as they engage in different activities"
+                    ],
+                    "pcis": [
+                        "Peace Education: is enhanced as learners role-play how they obey their parents and teachers"
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Healing Simon’s mother-in-law",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "retell the healing of Simon’s mother-in-law",
+                        "show gratitude to others as portrayed by Simon’s mother- in- law",
+                        "appreciate Jesus’s power to heal the sick"
+                    ],
+                    "suggested_learning_experiences": [
+                        "share experiences of how they help learners in need",
+                        "role-play an instance where they helped a learner in need",
+                        "picture-read the miracle according to Luke 4:38- 39",
+                        "arrange pictures based on the miracle sequentially",
+                        "retell the miracle after watching a video clip",
+                        "role-play the healing of Simon’s mother-in-law",
+                        "write a thank you note to parents and others who help them in their daily lives",
+                        "sing thanksgiving songs to express gratitude to God"
+                    ],
+                    "key_inquiry_questions": [
+                        "How did Simon’s mother-in-law express gratitude?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy: is enhanced as learners role-play an instance they helped a learner in need"
+                    ],
+                    "values": [
+                        "Love: is portrayed as learners write a 'thank you' note to parents and those who help them in their daily lives"
+                    ],
+                    "pcis": [
+                        "Problem-solving: is demonstrated as learners share experiences of how they help those in need"
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "1",
+            "strand_name": "Christian Values",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Sharing",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "identify items they share at home as a family",
+                        "practise the value of sharing at home and school",
+                        "retell the story of the little boy with two fish and five loaves",
+                        "desire to keep the environment clean and avoid wastage"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify items that can be shared at home",
+                        "in pairs mention items shared at home and school",
+                        "watch or listen to the miracle in John 6:1-14",
+                        "role-play the story of the little boy with two fish and five loaves",
+                        "draw and colour the two fish and five loaves",
+                        "sing a song on sharing",
+                        "keep the environment clean (John 6:12-13)"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to share with others?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: the skill of developing relationships is enhanced as learners work in pairs and groups",
+                        "Imagination and Creativity: is exhibited as learners role-play the story of the little boy with two fish and five loaves"
+                    ],
+                    "values": [
+                        "Unity: is portrayed as learners work together in groups and take turns to perform different activities"
+                    ],
+                    "pcis": [
+                        "Social cohesion: is portrayed as learners mention items shared at home and school, in pairs"
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Obedience",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "list the importance of obeying parents",
+                        "practise obedience at home as guided by the scriptures",
+                        "exercise obedience in day-to-day life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "in pairs read Ephesians 6:1-3",
+                        "in groups mention why they should obey their parents",
+                        "say the benefits of obeying parents",
+                        "in pairs tell how they obey their parents at home",
+                        "listen to and sing a song on obedience",
+                        "memorise Ephesians 6:2-3"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should you obey your parents?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration: is promoted as learners listen keenly to the song and speak clearly and effectively during Bible reading",
+                        "Learning to Learn: is enhanced as learners share experiences on the benefits of obeying parents"
+                    ],
+                    "values": [
+                        "Respect: is enhanced as learners appreciate each other's opinions and take turns to share experiences"
+                    ],
+                    "pcis": [
+                        "Social Cohesion: is enhanced as learners sing songs on obedience"
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Honesty",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "state reasons for telling the truth",
+                        "demonstrate honesty by not stealing other people’s items",
+                        "practise punctuality at school and home",
+                        "desire to be truthful in their daily lives"
+                    ],
+                    "suggested_learning_experiences": [
+                        "game read Ephesians 4:25",
+                        "in groups say why they should always speak the truth",
+                        "say why they should not steal or pick items that do not belong to them",
+                        "role-play situations of honesty while dealing with other people’s items",
+                        "sing a song on truthfulness",
+                        "story tell instances they took lost and found items to the teacher",
+                        "mention reasons for getting home and school on time (punctuality)"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it bad to lie?"
+                    ],
+                    "core_competencies": [
+                        "Citizenship: the skill of information and communication is enhanced as learners share stories on instances they practised punctuality"
+                    ],
+                    "values": [
+                        "Responsibility: is demonstrated as learners become accountable of their own actions and respect other people's items",
+                        "Peace: is enhanced as learners avoid hurting others by not taking their items without permission"
+                    ],
+                    "pcis": [
+                        "Social Cohesion: integrity is promoted as learners in groups say why they should speak the truth always"
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Thankfulness",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "mention three ways of expressing gratitude to their parents or guardians",
+                        "practise thankfulness at home as guided by the Bible",
+                        "desire to be thankful in daily life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "say why they should thank their parents",
+                        "in pairs share when to thank parents",
+                        "role-play how to thank parents",
+                        "compose and recite a poem on thanking their parents",
+                        "sing a song about praising God for the gift of parents or guardians",
+                        "write 1Thessalonians 5:18 on flashcards and recite it",
+                        "write flashcards on why they should be thankful to their parents or guardians and display the cards in class"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should you thank your parents or guardians?"
+                    ],
+                    "core_competencies": [
+                        "Imagination and Creativity: the skill of coming up with new ideas is exhibited as they compose poems and role-play how to thank parents",
+                        "Communication and Collaboration: the skill of speaking clearly and effectively is portrayed as learners say why they should thank their parents"
+                    ],
+                    "values": [
+                        "Respect: is demonstrated as learners take turns to role-play and listen to each other's opinions"
+                    ],
+                    "pcis": [
+                        "Social cohesion: the importance of having guiding values in life is enhanced as learners become thankful to their parents"
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "1",
+            "strand_name": "The Church",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "A House of God",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "recognise the Church as a place of worship and respect it",
+                        "demonstrate responsibility by serving God in Church",
+                        "desire to grow in faith by attending Sunday or Sabbath School"
+                    ],
+                    "suggested_learning_experiences": [
+                        "in pairs mention ways they respect the church as a place of worship",
+                        "list the benefits of going to church",
+                        "list the number of times they go to church",
+                        "role-play activities they do in church (e.g. praying, reading the Bible, singing, dancing)",
+                        "sing and dance to the song in Psalms 100:4 (I will enter His gates with thanksgiving…)"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do you go to Church?",
+                        "Why should you respect the Church?"
+                    ],
+                    "core_competencies": [
+                        "Imagination and Creativity: the skill of communication and self-expression is exhibited as learners role-play activities they do in church"
+                    ],
+                    "values": [
+                        "Responsibility: is demonstrated as learners share roles during role-plays and take on different characters"
+                    ],
+                    "pcis": [
+                        "Spiritual Awareness: is enhanced as learners attend and participate in Sunday or Sabbath school activities"
+                    ],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "A House of Prayer",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "recite simple thanksgiving prayers",
+                        "practise saying simple prayers at different times of the day",
+                        "desire to pray always as taught by Jesus Christ"
+                    ],
+                    "suggested_learning_experiences": [
+                        "picture-read Mathew 21:13",
+                        "in groups compose and recite simple prayers",
+                        "pray for family members",
+                        "list the number of times they pray at home or in Sunday or /Sabbath School",
+                        "say simple prayers before and after taking meals and before they leave for home"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to pray always?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration: the skill of listening critically and understanding concepts is exhibited as learners compose and say simple prayers in groups",
+                        "Imagination and Creativity: the skill of exploration is portrayed as learners compose simple prayers"
+                    ],
+                    "values": [
+                        "Love: is demonstrated as learners say simple prayers for family members"
+                    ],
+                    "pcis": [
+                        "Social Cohesion: living together in harmony is enhanced as learners in groups compose simple prayers and recite them"
+                    ],
+                    "links_to_other_subjects": []
+                }
+            ]
+        }
+    ]
+}

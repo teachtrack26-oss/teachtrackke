@@ -1,0 +1,25 @@
+{
+    "grade": "Grade 1",
+    "subject": "Math",
+    "education_level": "Lower Primary",
+    "strands": [
+        {
+            "strand_number": "1",
+            "strand_name": "New Strand",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "New Sub-Strand",
+                    "number_of_lessons": 1,
+                    "specific_learning_outcomes": [],
+                    "suggested_learning_experiences": [],
+                    "key_inquiry_questions": [],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,683 @@
+{
+    "grade": "Grade 5",
+    "subject": "English",
+    "education_level": "Upper Primary",
+    "strands": [
+        {
+            "strand_number": "1.0",
+            "strand_name": "Listening and Speaking",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Listening Comprehension",
+                    "number_of_lessons": 5,
+                    "specific_learning_outcomes": [
+                        "Recognise sounds, words, and phrases correctly",
+                        "Use words and phrases related to the theme in sentences correctly",
+                        "Listen for the main idea and specific details for effective communication",
+                        "Respond to information from an oral text",
+                        "Adopt attentive listening for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Listen to an oral narrative in pairs or groups",
+                        "Identify words and phrases containing the target sounds from a print or audio text",
+                        "Say words and phrases related to the theme accurately",
+                        "Construct sentences using words and phrases with peers",
+                        "Say tongue twisters containing the selected sounds collaboratively with peers",
+                        "Write sentences and phrases containing the selected sounds and words",
+                        "Make an audio recording of a poem containing the target sounds",
+                        "Play the audio recording and obtain feedback"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we say the sounds in words, phrases, and sentences correctly?",
+                        "How can we improve our pronunciation?",
+                        "Why should we listen attentively?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration is developed as the learner works with peers to construct sentences",
+                        "Digital Literacy is enhanced when the learner uses electronic devices to listen and record themselves",
+                        "Learning to Learn is instilled as the learner adopts the use of correct pronunciation in various contexts for effective communication"
+                    ],
+                    "values": [
+                        "Responsibility is inculcated as the learner learns about child rights and responsibilities, and practises them while making an audio recording"
+                    ],
+                    "pcis": [
+                        "Life Skills: Effective communication is achieved as the learner articulates the target sounds clearly"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can link the content when they learn about similar concepts in Social Studies"
+                    ]
+                },
+                {
+                    "substrand_number": "1.2",
+                    "substrand_name": "Pronunciation and Vocabulary",
+                    "number_of_lessons": 30,
+                    "specific_learning_outcomes": [
+                        "Identify words, phrases, and sentences containing the target sounds from texts",
+                        "Construct sentences orally using words related to the theme",
+                        "Listen for the main idea and specific details for effective communication",
+                        "Interpret a speaker's feelings and emotions (non-verbal cues) correctly during an oral presentation",
+                        "Pronounce words using the correct stress",
+                        "Use stress and intonation appropriately in statements and questions",
+                        "Use polite words, phrases, and expressions to compliment others",
+                        "Use vocabulary related to the theme correctly in oral communication",
+                        "Display varied emotions and feelings during an oral presentation"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Identify words with target sounds from print materials such as newspapers, magazines",
+                        "Listen to audio-visual recordings containing target sounds",
+                        "Say tongue twisters with target sounds",
+                        "Discuss with peers the vocabulary used in the text and construct sentences",
+                        "Role play events depicted in dialogues",
+                        "Interpret gestures, eye contacts, and facial expressions correctly",
+                        "Practise using polite words and phrases with peers",
+                        "Access correct pronunciation of sounds, words, phrases from digital texts",
+                        "Listen to/recite poems with words featuring the target sounds",
+                        "Reproduce appropriate patterns of stress and intonation in speech",
+                        "Recite choral verses with peers",
+                        "Use the right intonation in role play telephone conversations"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we listen carefully?",
+                        "Why do we take turns when talking?",
+                        "Why should you use polite expressions when talking to others?",
+                        "Why should we pronounce words correctly?",
+                        "Why do words have different meanings at times?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy is enhanced as the learner role plays and constructs sentences using learnt vocabulary",
+                        "Learning to Learn is advanced as the learner builds on their own learning",
+                        "Digital Literacy is developed as the learner listens to audio-visual recordings",
+                        "Communication and Collaboration is achieved as the learner works with peers"
+                    ],
+                    "values": [
+                        "Unity is fostered as the learner collaborates with others in role play",
+                        "Respect is developed as the learner displays understanding and appreciation of others' efforts",
+                        "Love is inculcated as the learner puts the interests of others first",
+                        "Peace is fostered as the learner displays tolerance with peers"
+                    ],
+                    "pcis": [
+                        "Life Skills Education: effective communication and self-awareness are enhanced",
+                        "Safety and security is promoted as the learner interacts with content on accident prevention",
+                        "Cultural awareness is promoted as the learner interacts with texts on traditional foods"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can relate the content to similar concepts in Kiswahili",
+                        "The learner can relate etiquette and table manners to Agriculture"
+                    ]
+                },
+                {
+                    "substrand_number": "1.3",
+                    "substrand_name": "Speaking Fluency",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "Speak accurately, at the right speed and with expression on a given topic",
+                        "Use vocabulary related to the theme correctly in oral communication",
+                        "Display appropriate emotions and feelings when making an oral presentation",
+                        "Interrupt politely during a conversation",
+                        "Challenge others to listen interactively during conversations"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Listen to a poem or narrative and identify words with target sounds",
+                        "Retell a narrative in own words collaboratively",
+                        "Listen to graded texts with audio recordings of whole narratives",
+                        "Listen to music and pick out target sounds and vocabulary",
+                        "Watch news at home and retell interesting episodes to peers",
+                        "Practise delivering news highlights in the classroom",
+                        "Respond to oral questions on given texts confidently and with speed",
+                        "Make one-minute speeches on topics collaboratively with peers",
+                        "Recite poems on various themes"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to speak accurately and express the right feelings?",
+                        "How can you listen more attentively?",
+                        "Why should you interrupt others politely?"
+                    ],
+                    "core_competencies": [
+                        "Communication is enhanced as the learner makes short speeches",
+                        "Creativity and Imagination is developed as the learner makes speeches collaboratively"
+                    ],
+                    "values": [
+                        "Responsibility is enhanced as the learner acquires and shares information"
+                    ],
+                    "pcis": [
+                        "Effective communication is developed as the learner practises delivering news highlights",
+                        "Health Related Issues are addressed through content on communicable diseases"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can link the vocabulary to similar concepts in Science and Technology"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "2.0",
+            "strand_name": "Reading",
+            "substrands": [
+                {
+                    "substrand_number": "2.1",
+                    "substrand_name": "Extensive Reading",
+                    "number_of_lessons": 12,
+                    "specific_learning_outcomes": [
+                        "Select relevant reference materials: dictionaries, junior encyclopaedias, and subject-specific encyclopaedias",
+                        "Spell words correctly for effective communication",
+                        "Use reference materials to find the required information",
+                        "Adopt the use of reference materials for lifelong learning",
+                        "Select relevant reading materials from a collection of books",
+                        "Scan a text to obtain specific information",
+                        "Skim through digital or print texts to establish appropriateness and relevance",
+                        "Read a variety of materials for fluency",
+                        "Judge the appropriateness of a reading text on the basis of language and interest"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Select appropriate print and non-print reference materials",
+                        "Read selected reference materials independently",
+                        "Look for information related to the theme from reference materials",
+                        "Report and discuss what they have read with peers",
+                        "Visit a library to find reference materials",
+                        "Work jointly to select texts from a collection",
+                        "Preview a text to determine suitability",
+                        "Scan a text to pick out vocabulary words",
+                        "Skim through reading materials for the main idea",
+                        "Select fiction and non-fiction reading materials of between 1000-1250 words",
+                        "Set up an after-school reading club",
+                        "Share reflections on the books read collaboratively"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do you read books?",
+                        "Which type of books do you enjoy reading?",
+                        "What materials do you enjoy reading?",
+                        "Why is it necessary to read many books?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy is developed as the learner manipulates electronic reference materials",
+                        "Learning to Learn is nurtured when the learner uses reference materials to get information",
+                        "Communication and Collaboration is enhanced as the learner sets up reading clubs"
+                    ],
+                    "values": [
+                        "Responsibility is developed as the learner does the assigned duty of selecting reading materials",
+                        "Unity is developed as the learner respects self and others' opinions"
+                    ],
+                    "pcis": [
+                        "Life Skills Education: Interpersonal relationship is intensified",
+                        "Social justice is enhanced as the learner practises living together"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner uses the skill on how to use reference materials in all other learning areas"
+                    ]
+                },
+                {
+                    "substrand_number": "2.2",
+                    "substrand_name": "Intensive Reading",
+                    "number_of_lessons": 24,
+                    "specific_learning_outcomes": [
+                        "Identify characters, places, and events in a story for comprehension",
+                        "Predict events in a text for comprehension",
+                        "Respond correctly to factual and inferential questions for comprehension",
+                        "Use contextual clues to infer the meaning of words for comprehension",
+                        "Recommend appropriate reading techniques to peers",
+                        "Relate events in the story with their life experiences",
+                        "Create mental images from the events in a story",
+                        "Summarise the main points in a text",
+                        "Answer direct and inferential questions correctly"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Make predictions of what a story is about using the title/pictures",
+                        "Infer the meaning of words from the context",
+                        "Use imagination to visualise the events in a story",
+                        "Draw pictures, diagrams, or posters of events in the story",
+                        "Read poems of not more than five stanzas",
+                        "Read a narrative of up to 400 words silently",
+                        "Retell a narrative or recite a poem and create a video recording",
+                        "View pictures, illustrations, posters, videos, maps",
+                        "Describe and interpret visuals correctly with peers",
+                        "Answer questions based on visuals with peers",
+                        "Present own stories using pictures or videos",
+                        "Scan and skim texts for new words and information"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is the title of a poem or a story important?",
+                        "How do we predict events in a story or poem?",
+                        "How do we tell the meaning of unknown words in a story?",
+                        "How do you get information from a text?",
+                        "What makes someone a good reader?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination is advanced as the learner participates in predicting stories",
+                        "Learning to Learn is achieved as the learner retells narratives",
+                        "Self-Efficacy is developed as the learner reads and interprets visuals",
+                        "Digital Literacy is achieved as the learner looks for visuals in digital format"
+                    ],
+                    "values": [
+                        "Patriotism is promoted as the learner shows love for their country",
+                        "Responsibility is enhanced as the learner composes poems and answers questions",
+                        "Social justice is promoted as the learner uses imagination to visualise events"
+                    ],
+                    "pcis": [
+                        "Life Skills Education: effective communication is enhanced",
+                        "Environmental Activities are reinforced as the learner interacts with information"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies reading skills in all other areas of learning",
+                        "The learner relates concepts to Art and Craft, Social Studies"
+                    ]
+                },
+                {
+                    "substrand_number": "2.3",
+                    "substrand_name": "Fluency",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "Identify unfamiliar words in texts for fluency",
+                        "Read a text accurately, with expression and at the right speed for fluency",
+                        "Recommend to peers and parents to read accurately, at the right speed and without hesitation"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Scan through paragraphs for unfamiliar words collaboratively",
+                        "Search for an article on a topic they enjoy, select a portion to read",
+                        "Set a goal on the number of words to be read per minute",
+                        "Find a word or phrase from a word-chart within a stipulated time",
+                        "Read a text in unison, as a class or small group (choral reading)",
+                        "Participate in a reader's theatre using a short text from a poem or short play",
+                        "Select a story or poem that can be divided into parts or characters",
+                        "Assign a portion to each member with peers",
+                        "Read a portion of the script orally for practice",
+                        "Echo or imitate a model intonation and expression"
+                    ],
+                    "key_inquiry_questions": [
+                        "What makes someone a good reader?",
+                        "How long do you take to read a text?",
+                        "What can you do to improve your reading speed?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn is promoted as the learner practices reading texts at the right speed"
+                    ],
+                    "values": [
+                        "Unity is enhanced as the learner reads a text and participates in reader's theatre collaboratively"
+                    ],
+                    "pcis": [
+                        "Environmental Activities are reinforced as the learner interacts with information through participating in readers' theatre"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply the skill of reading fluency in all other areas of learning"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "3.0",
+            "strand_name": "Grammar in Use",
+            "substrands": [
+                {
+                    "substrand_number": "3.1",
+                    "substrand_name": "Word Classes",
+                    "number_of_lessons": 26,
+                    "specific_learning_outcomes": [
+                        "Identify demonstrative determiners: this, these, that, those in a variety of texts",
+                        "Use demonstrative determiners correctly",
+                        "Identify collective nouns and reflexive pronouns in texts",
+                        "Use collective nouns and reflexive pronouns in sentences correctly",
+                        "Identify possessive forms in print or digital texts",
+                        "Use possessive forms correctly in sentences",
+                        "Identify quantifying determiners in a variety of texts",
+                        "Use quantifying determiners appropriately",
+                        "Identify comparative and superlative forms of adjectives in a text",
+                        "Order adjectives in terms of size, shape and age appropriately",
+                        "Identify adverbs of manner, time, place and frequency in a text",
+                        "Use adverbs correctly in oral and written contexts",
+                        "Identify conjunctions in texts for effective communication",
+                        "Use conjunctions correctly in communication",
+                        "Identify prepositions of time, place and direction in sentences",
+                        "Use prepositions appropriately for effective communication",
+                        "Identify nouns which occur as same in both singular and plural"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Identify demonstrative determiners from texts",
+                        "Read sentences containing determiners in print or electronic materials",
+                        "Construct sentences using demonstrative determiners with peers",
+                        "Make sentences containing determiners from a substitution table",
+                        "Watch video clips featuring nouns and pronouns",
+                        "Team up to pick out collective nouns and reflexive pronouns",
+                        "Construct sentences using collective nouns and reflexive pronouns",
+                        "Create and complete crossword puzzles",
+                        "Engage in online/offline games involving pronouns",
+                        "Simulate, dramatise or role play conversations",
+                        "Describe items using comparative and superlative forms",
+                        "Change positive forms to comparative and superlative forms",
+                        "Identify and list adverbs from digital or print text collaboratively",
+                        "Fill in blank spaces with appropriate adverbs",
+                        "Listen to short dialogues and identify conjunctions",
+                        "Make sentences from substitution tables",
+                        "Underline prepositions in sample sentences"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you identify objects that are near or far?",
+                        "How do we show that objects being referred to are singular or more?",
+                        "How do you emphasise that you did something on your own?",
+                        "Which words do you use to refer to a group of things or animals?",
+                        "Which words show something belongs to a person?",
+                        "Which words do we use to show amount or quantity?",
+                        "How do we compare things, people or events?",
+                        "How do we describe when, how, where and how many times an action takes place?",
+                        "Why do you join words and sentences?",
+                        "Which words show direction and time?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy is enhanced as the learner uses language patterns correctly",
+                        "Communication and Collaboration is achieved as the learner works with peers",
+                        "Digital Literacy is developed as the learner manipulates digital devices",
+                        "Creativity and Imagination is enhanced as the learner creates crossword puzzles"
+                    ],
+                    "values": [
+                        "Respect is developed as the learner respects the opinion of others",
+                        "Integrity is cultivated as the learner displays honesty",
+                        "Peace is enhanced as the learner cooperates with peers",
+                        "Responsibility is enhanced as learners use language correctly"
+                    ],
+                    "pcis": [
+                        "Life Skills Education: self-esteem is boosted as learners communicate effectively",
+                        "Social cohesion is reinforced as learners engage in collaborative activities"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies the knowledge to learning Kiswahili and Indigenous Languages"
+                    ]
+                },
+                {
+                    "substrand_number": "3.2",
+                    "substrand_name": "Language Patterns",
+                    "number_of_lessons": 9,
+                    "specific_learning_outcomes": [
+                        "Identify sentences featuring the target language patterns: use of too…to/for",
+                        "Use Must/Should with an Adverb/Adverbial correctly",
+                        "Use the language patterns in sentences correctly",
+                        "Identify question tags and double imperatives from a text",
+                        "Use question tags and double imperatives correctly in sentences",
+                        "Identify interrogatives: how, what, when, why, who in sentences correctly",
+                        "Use interrogatives how much more…, when/who/why/what else accurately"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Make sentences with too…to/for from a substitution table",
+                        "Construct sentences using 'must/should with an adverb/adverbial'",
+                        "Recite poems with the target language pattern",
+                        "Discuss instances when sentence patterns are used",
+                        "Fill in blank spaces in sentences using the patterns",
+                        "Search for examples of sentences with the language patterns from the internet",
+                        "Fill in gaps in sentences using double imperatives",
+                        "Select question tags from a story, dialogue or poem",
+                        "Match statements with the correct question tag",
+                        "Practise giving instructions using double imperatives",
+                        "Role play giving and receiving instructions at home",
+                        "Use double imperatives to make rules for classroom",
+                        "Use wh-words and how to ask questions collaboratively",
+                        "Construct questions using the target pattern with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you identify correct sentences?",
+                        "Why is it important to use sentences correctly?",
+                        "What are some of your school rules?",
+                        "How do you give instructions?",
+                        "Why do we ask questions?",
+                        "How do we ask questions?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn is enhanced as learners search for examples",
+                        "Self-efficacy is fostered as the learner formulates school rules"
+                    ],
+                    "values": [
+                        "Respect is developed as the learner displays open mindedness",
+                        "Respect is developed as the learner practises using question tags"
+                    ],
+                    "pcis": [
+                        "Life Skills Education: effective communication is enriched as the learner shows mastery of sentence structures"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies the knowledge of the basic sentence structure in all areas of learning"
+                    ]
+                },
+                {
+                    "substrand_number": "3.3",
+                    "substrand_name": "Tense",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "Identify words that indicate future time using will and shall in sentences",
+                        "Use will and shall to express future time correctly",
+                        "Collaborate with others to determine the correctness and appropriateness of the tense used"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Pick sentences which express future time from a text",
+                        "Make sentences from a substitution table",
+                        "Answer questions on future time using will/shall collaboratively",
+                        "Construct sentences using will/shall collaboratively",
+                        "Role play activities they plan or wish to do in future with peers",
+                        "Watch videos offline or online and identify sentences featuring future time",
+                        "Use computers, tablets or mobile phones to listen to audio materials",
+                        "Make predictions (on events, weather) using will and shall",
+                        "Create display charts with sentences which feature will and shall"
+                    ],
+                    "key_inquiry_questions": [
+                        "Which words do we use to show future time?",
+                        "How do you tell that something will happen in the future?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration is enhanced as the learner expresses future plans",
+                        "Self-efficacy is developed as the learner acquires skill of making sentences about future"
+                    ],
+                    "values": [
+                        "Social justice is developed as the learner shows democracy in role play activities"
+                    ],
+                    "pcis": [
+                        "Effective Communication is realised as the learner practises basic sentence structures"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner uses the concept of future time in Kiswahili"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "4.0",
+            "strand_name": "Writing",
+            "substrands": [
+                {
+                    "substrand_number": "4.1",
+                    "substrand_name": "Creative Writing",
+                    "number_of_lessons": 15,
+                    "specific_learning_outcomes": [
+                        "Select relevant points when planning a composition",
+                        "Write an open-ended composition for comprehension",
+                        "Advocate for the use of creativity in writing",
+                        "Identify the parts of a narrative composition",
+                        "Write coherently on different topics",
+                        "Create a narrative composition for self-expression",
+                        "Promote creativity in writing among peers",
+                        "Choose possible topics for pictorial compositions",
+                        "Create a composition based on the visuals or pictures",
+                        "Describe people or things mentioned in a text",
+                        "Use similes and proverbs correctly in oral and written texts",
+                        "Create a descriptive composition related to the theme"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Brainstorm possible points to include in compositions",
+                        "Write the first paragraph with peers while observing correct punctuation and spelling",
+                        "Complete the composition of about 100-150 words",
+                        "Work jointly to proofread compositions",
+                        "Display the completed compositions in class",
+                        "Conduct a gallery walk and give feedback",
+                        "Search and read compositions online",
+                        "Read samples of narrative compositions with peers",
+                        "Identify the parts of a narrative composition",
+                        "Compose a narrative of 120-160 words individually or collaboratively",
+                        "Listen or view a recording of a narrative and rewrite in own words",
+                        "Interpret pictures collaboratively with peers",
+                        "Match pictures with different parts of a composition",
+                        "Arrange different pictures logically to write a story coherently",
+                        "Write a pictorial composition of about 120-160 words",
+                        "List similes and proverbs in texts collaboratively",
+                        "Create a clear and coherent storyline using proverbs and similes"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we express ideas on different topics?",
+                        "Why do we share ideas?",
+                        "Why do you enjoy reading stories?",
+                        "How do you make your composition interesting?",
+                        "Why do we enjoy looking at pictures?",
+                        "What messages do pictures communicate?",
+                        "How do we describe things or events?",
+                        "Which similes and proverbs do you know?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn is promoted as the learner reflects on their learning",
+                        "Critical Thinking and problem solving is advanced as the learner brainstorms",
+                        "Creativity and Imagination is enhanced as the learner creates stories",
+                        "Communication and Collaboration is enhanced as the learner works with peers"
+                    ],
+                    "values": [
+                        "Responsibility is enhanced as the learner offers leadership and guidance",
+                        "Patriotism is developed as learners create compositions featuring traditional foods",
+                        "Unity is fostered as learners list similes and proverbs collaboratively"
+                    ],
+                    "pcis": [
+                        "Life Skill Education is achieved as the learner expresses ideas effectively",
+                        "Life skills (Assertiveness) is enhanced as the learner masters the art of creative writing"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies the skill of composition writing when learning Kiswahili",
+                        "The learner relates concepts to Art and Craft, Social Studies"
+                    ]
+                },
+                {
+                    "substrand_number": "4.2",
+                    "substrand_name": "Functional Writing",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "Record specific details: personal information, school information in forms",
+                        "Design a form to obtain the required information",
+                        "Acknowledge the importance of filling forms correctly",
+                        "Identify the components of a friendly letter from a sample letter",
+                        "Write a friendly letter using the correct format for effective communication",
+                        "Judge the appropriateness of words, phrases and sentences in friendly letters",
+                        "Identify the key components of a diary/journal from a sample",
+                        "Create a journal/diary to convey desired information in the right format",
+                        "Collaborate with peers to create personal journals and diaries"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Search for sample forms from the internet individually",
+                        "Select the information to be filled in a form collaboratively",
+                        "Fill a form related to the theme with required details",
+                        "Discuss the importance of filling forms correctly with peers",
+                        "Design a form to obtain information with peers and upload it online",
+                        "Read a sample friendly letter with peers and pick out the parts",
+                        "Pick words related to the theme",
+                        "Write a reply to a friendly letter using new words and correct format",
+                        "Proofread/edit the letter collaboratively",
+                        "Present the edited version to other groups",
+                        "Search for more examples of friendly letters on the internet",
+                        "View a sample diary/journal and identify the components",
+                        "Write journal/diary entries with peers",
+                        "Create an appointment diary collaboratively",
+                        "Create a three-day journal with peers",
+                        "Display work in class and take a gallery walk"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do we fill forms?",
+                        "Why is it important to fill forms accurately?",
+                        "What details do we fill in forms?",
+                        "How do you communicate with people who are far away?",
+                        "Why do we write letters?",
+                        "Why should we plan our activities in advance?",
+                        "What is the most memorable experience in your life?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy is developed as the learner manipulates digital devices",
+                        "Creativity and imagination is enhanced as the learner designs forms",
+                        "Learning to Learn is enhanced as the learner searches for information"
+                    ],
+                    "values": [
+                        "Responsibility is fostered as the learner diligently designs forms with peers",
+                        "Love is enhanced as learners reply friendly letters from peers",
+                        "Unity is fostered as learners create journals with peers"
+                    ],
+                    "pcis": [
+                        "Life Skills Education - effective communication skills are developed",
+                        "Social cohesion is enhanced as learners work jointly"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies the content to concepts in Social Studies",
+                        "The skill of writing diaries and journals is applied to Kiswahili"
+                    ]
+                },
+                {
+                    "substrand_number": "4.3",
+                    "substrand_name": "Mechanics of Writing",
+                    "number_of_lessons": 13,
+                    "specific_learning_outcomes": [
+                        "Identify text written in joined letters or cursive script",
+                        "Write legibly using joined letters/cursive script",
+                        "Recommend ways of improving legibility and neatness in written communication",
+                        "Identify commas and double quotation marks in written texts",
+                        "Use the comma and double quotation marks correctly in sentences",
+                        "Advocate the use of correct punctuation in written communication",
+                        "Identify the apostrophe and exclamation mark in sentences",
+                        "Punctuate sentences correctly using the apostrophe and exclamation mark",
+                        "Spell selected words correctly for effective communication",
+                        "Use homophones and homonyms in sentences correctly",
+                        "Identify homophones, words with double consonants and double vowels",
+                        "Spell homophones, words with double consonants and double vowels correctly"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Copy words, sentences, and paragraphs using joined letters",
+                        "Observe visuals/pictures and compose a story in cursive script",
+                        "Discuss the importance of writing legibly and neatly as a class",
+                        "Team up to search for information from the internet and make notes",
+                        "Read a short text and identify punctuation marks used",
+                        "Use commas to show pauses between words, phrases or clauses",
+                        "Complete sentences using double quotation marks and commas",
+                        "Pick out sentences with double quotation marks in newspapers",
+                        "Play punctuation games with peers",
+                        "Create posters or charts with sentences using punctuation marks",
+                        "Underline the apostrophe and exclamation marks in a text",
+                        "Construct sentences using the apostrophe and exclamation mark",
+                        "Watch online videos about correct use of punctuation marks",
+                        "Discuss with peers the words they find difficult to spell",
+                        "Make a presentation on correct spelling of homophones and homonyms",
+                        "Write words from a dictation",
+                        "Play spelling games with peers like scramble or scrabble",
+                        "Use a jigsaw puzzle to form words correctly",
+                        "Make words from jumbled up letters",
+                        "Search for homophones and words with double letters from the internet"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we write legibly and neatly?",
+                        "How can you improve your handwriting?",
+                        "Which punctuation marks do you know?",
+                        "Why do we punctuate sentences?",
+                        "Which words do you find difficult to write?",
+                        "How do we learn to spell words correctly?",
+                        "Which words have the same pronunciation but different spelling?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination is developed as the learner uses visuals to write",
+                        "Digital Literacy is enhanced as the learner uses internet resources",
+                        "Communication and Collaboration is enhanced as the learner plays spelling games",
+                        "Critical Thinking and Problem Solving is nurtured as the learner makes words from jumbled letters",
+                        "Learning to Learn is inculcated as the learner makes effort to spell difficult words"
+                    ],
+                    "values": [
+                        "Respect is fostered as the learner accommodates diverse opinions",
+                        "Responsibility is developed as the learner creates and displays charts",
+                        "Unity is developed as the learner creates puzzles collaboratively"
+                    ],
+                    "pcis": [
+                        "Life skills Education - self-esteem and confidence are enhanced",
+                        "Health Education is enhanced as the learner interacts with material on diseases",
+                        "Financial literacy is enhanced as the learner interacts with vocabulary about money"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner uses legible handwriting to write texts in all learning areas",
+                        "Punctuation marks are used in all areas of learning especially Kiswahili",
+                        "The learner applies the skill of proper spelling in all learning areas"
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,461 @@
+{
+    "grade": "Grade 3",
+    "subject": "Mathematics",
+    "education_level": "Lower Primary",
+    "strands": [
+        {
+            "strand_number": "1.0",
+            "strand_name": "Numbers",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Pre-Number Activities",
+                    "number_of_lessons": 20,
+                    "specific_learning_outcomes": [
+                        "order objects according to size",
+                        "identify the position of objects from 1st to 20th",
+                        "write the position of objects in numbers symbols and words",
+                        "recognise the use of positions of items in real-life situations"
+                    ],
+                    "suggested_learning_experiences": [
+                        "discuss and arrange real objects collected from the environment according to size starting with the smallest to the largest and from the largest to the smallest",
+                        "name the position of an object from a reference point using 1st, 2nd up to 20th",
+                        "race for a distance and assign each other the correct position using the words first, second to twentieth position depending on when they finish the race. Write their positions in the race in symbols and words",
+                        "relate numbers 1 to 20 to positions first, second up to 20th and relate to real-life situations. For example, birth order in a family; 1st born, 2nd born",
+                        "play games with peers involving positions 1 to 20 using digital devices and other resources"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we tell our positions in a competition?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration: the learner discusses and arranges real objects collected from the environment according to size",
+                        "Digital Literacy: learner plays games involving the position of items from 1 to 20 using digital devices"
+                    ],
+                    "values": [
+                        "Integrity: learner displays honesty as they assign each other the rightful positions after a timed race",
+                        "Unity: the learner plays games with peers involving the position of items from 1 to 20 using digital devices"
+                    ],
+                    "pcis": [
+                        "Sports and Games: learner participates in a race and assigns each other the correct position",
+                        "Friendship formation: the learner plays games with peers involving positions 1 to 20 using digital devices and other resources"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can relate the skills used in writing the position of objects in number symbols and words to functional writing in English Language Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "1.2",
+                    "substrand_name": "Whole Numbers",
+                    "number_of_lessons": 25,
+                    "specific_learning_outcomes": [
+                        "count numbers forward up to 1000 starting from any point",
+                        "count numbers backward in multiples of 100 from 1000",
+                        "identify the place value of numbers up to hundreds",
+                        "read numbers 1 to 1000 in symbols",
+                        "read and write numbers 1 to 100 in words",
+                        "identify missing numbers in number patterns up to 1000",
+                        "play games involving number patterns up to 1000"
+                    ],
+                    "suggested_learning_experiences": [
+                        "count forward in 1's, 10's, and 100's starting from any point up to 1000 using a rope skipping game in a safe environment",
+                        "practise through play using number cards counting numbers backward in multiples of 100 from 1000",
+                        "discuss place value up to hundreds using place value apparatus in class",
+                        "read numbers 1 to 1000 in symbols starting from any point",
+                        "take turns, reading and writing numbers 1 to 100 in words using number cards",
+                        "team up to create number patterns up to 1000 and share with other groups",
+                        "play games involving whole numbers up to 1000 using digital devices and other resources with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "How would you get the total number of people in a group?",
+                        "How do you tell the place value of a digit in a number?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: the learner counts numbers backward in multiples of 100 from 1000",
+                        "Creativity and Imagination: learners create patterns of numbers up to 1000"
+                    ],
+                    "values": [
+                        "Respect: the learner gives peers equal opportunity as they take turns to read and write numbers",
+                        "Unity: the learner plays games involving whole numbers up to 1000 using digital devices and other resources with peers"
+                    ],
+                    "pcis": [
+                        "Friendship formation: the learner plays games involving whole numbers up to 1000 using digital devices and other resources with peers",
+                        "Social Cohesion: learner discusses place value up to hundreds using place value apparatus in class"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can relate discussion skills to speaking and listening skills in English and Kiswahili Language Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "1.3",
+                    "substrand_name": "Addition",
+                    "number_of_lessons": 25,
+                    "specific_learning_outcomes": [
+                        "add a 3-digit number to up to a 2-digit number without regrouping with a sum not exceeding 1000",
+                        "add a 3-digit number to up to a 2-digit number with single regrouping with a sum not exceeding 1000",
+                        "add two 3-digit numbers without regrouping",
+                        "add two 3-digit numbers with single regrouping with a sum not exceeding 1000",
+                        "create number patterns involving addition up to 1000",
+                        "practise the addition of numbers using digital devices or other resources"
+                    ],
+                    "suggested_learning_experiences": [
+                        "add a 3-digit number to up to a 2-digit number without regrouping with a sum not exceeding 1000 using place value apparatus",
+                        "practise addition horizontally and vertically using place value apparatus",
+                        "work with peers to practise adding a 3-digit number to up to a 2-digit number with single regrouping with a sum not exceeding 1000",
+                        "practise adding two 3-digit numbers without regrouping with a sum not exceeding 1000 using place value apparatus (abacus and place value tins)",
+                        "create and work out missing numbers in patterns involving addition up to 1000",
+                        "use digital devices or other resources for activities involving additions"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you arrange numbers when adding downwards?",
+                        "How can you get the next number in a given pattern?"
+                    ],
+                    "core_competencies": [
+                        "Imagination and Creativity: the learner creates patterns involving addition up to a sum of 1000",
+                        "Learning to Learn: learner practises addition horizontally and vertically using place value apparatus"
+                    ],
+                    "values": [
+                        "Respect: learner portrays patience as he/she works with peers to practise addition horizontally and vertically using place value apparatus"
+                    ],
+                    "pcis": [
+                        "Sustainable consumption: the learner improvises place value apparatus such as an abacus, place value tins, or pockets using locally available materials"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can relate the skills used in creating patterns to the pattern-making skills in Creative Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "1.4",
+                    "substrand_name": "Subtraction",
+                    "number_of_lessons": 20,
+                    "specific_learning_outcomes": [
+                        "subtract a 2-digit number from a 3-digit number without regrouping",
+                        "subtract a 2-digit number from a three-digit number with single regrouping",
+                        "subtract a 3-digit number from a 3-digit number with single regrouping",
+                        "subtract up to 3-digit numbers involving missing numbers with single regrouping",
+                        "work out missing numbers in number patterns involving subtraction up to 1000",
+                        "appreciate subtraction in real-life situations"
+                    ],
+                    "suggested_learning_experiences": [
+                        "work out subtraction of up to 3-digit numbers without regrouping using place value apparatus and share findings with others",
+                        "jointly work out subtraction of up to 3-digit numbers with single regrouping using a place value chart",
+                        "work out missing numbers in subtraction of up to 3-digit numbers with single regrouping using a variety of strategies",
+                        "play games involving subtraction using digital devices and other resources with peers",
+                        "work out missing numbers in patterns involving subtraction up to 1000"
+                    ],
+                    "key_inquiry_questions": [
+                        "When do you regroup during subtraction?",
+                        "How do you identify the missing number in a number pattern involving subtraction?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: learner plays games involving subtraction using digital devices",
+                        "Creativity and Imagination: the learner comes up with ideas to create number patterns involving subtraction"
+                    ],
+                    "values": [
+                        "Unity: learner jointly works out subtraction of up to 3-digit numbers without regrouping using place value pockets",
+                        "Respect: learner accommodates diverse opinions as they discuss how to work out missing numbers in patterns"
+                    ],
+                    "pcis": [
+                        "Problem-solving skills: learner works out missing numbers in subtraction of up to 3-digit numbers with single regrouping using a variety of strategies"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can relate skills used in discussion to speaking and listening skills in English and Kiswahili Language Activities"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "2.0",
+            "strand_name": "Measurements",
+            "substrands": [
+                {
+                    "substrand_number": "2.1",
+                    "substrand_name": "Length",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "measure length in metres",
+                        "add length in metres",
+                        "subtract length in metres",
+                        "estimate length up to 10 metres",
+                        "appreciate measuring length in metres in real-life situations"
+                    ],
+                    "suggested_learning_experiences": [
+                        "jointly use metre sticks to measure various distances and record their results",
+                        "prepare 5 metre long strings with knots at intervals of one metre to measure long distances",
+                        "in teams, measure the lengths of the 4 walls in their classroom and add the lengths",
+                        "measure the length of the chalkboard and the teacher's table in metres and work out the difference in length",
+                        "work out questions involving the addition of length in real-life situations",
+                        "work out subtraction of length in metres based on real-life situations",
+                        "work with peers to estimate distances around the school compound up to 10 metres, measure and compare results",
+                        "record videos of classmates measuring length then play back the video and share experiences"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can the length of a chalkboard be measured using a metre stick?",
+                        "How can the distance between the flag post and the staffroom be measured using a 5 metres long string?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: the learner uses digital devices to record videos of classmates measuring length",
+                        "Critical thinking and Problem-solving: learner works out questions involving the addition of length in real-life situations"
+                    ],
+                    "values": [
+                        "Unity: the learner appreciates peers' effort as they measure the lengths of various objects in and around the classroom"
+                    ],
+                    "pcis": [
+                        "Self-efficacy: the learner estimates distances around the school compound up to 10 metres, measures the actual distances, and compares results",
+                        "Social Cohesion: learner works harmoniously with peers to estimate distances around the school compound"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can relate skills used in preparing 5-metres long strings with knots at intervals of one metre to weaving skills in Creative Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "2.2",
+                    "substrand_name": "Mass",
+                    "number_of_lessons": 10,
+                    "specific_learning_outcomes": [
+                        "measure mass in kilograms",
+                        "add mass in kilograms",
+                        "subtract mass in kilograms",
+                        "estimate mass up to 5 kilograms",
+                        "appreciate measuring the mass of objects in kilograms"
+                    ],
+                    "suggested_learning_experiences": [
+                        "collect safe materials to be used to measure mass in their immediate environment",
+                        "make masses of 1kg using sand or soil by measuring against the kilogram standard unit",
+                        "measure the mass of different objects in kilograms using a beam balance and share experiences",
+                        "role play addition of mass in kilograms using items in the classroom model shop",
+                        "work out the differences between the masses of items in the classroom model shop",
+                        "compare the masses of items in the classroom model shop with a 5kg mass",
+                        "estimate the mass of items up to 5kg",
+                        "measure the masses of items to confirm their actual mass",
+                        "play digital games involving mass"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can you make a 1kg mass using a beam balance?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy: the learner role plays the addition of mass in kilograms using items in the classroom model shop",
+                        "Critical thinking and Problem-solving: learner makes masses of 1kg using sand or soil by measuring against the kilogram standard unit"
+                    ],
+                    "values": [
+                        "Respect: the learner shares experiences on measuring the mass of different objects",
+                        "Unity: learner shares resources amicably as they make masses of objects to use in learning"
+                    ],
+                    "pcis": [
+                        "Safety: learner safely collects materials needed for learning from their immediate environment"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can relate skills used in preparing a mass of different objects to moulding in Creative Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "2.3",
+                    "substrand_name": "Capacity",
+                    "number_of_lessons": 12,
+                    "specific_learning_outcomes": [
+                        "measure capacity in litres",
+                        "add capacity in litres",
+                        "subtract capacity in litres",
+                        "estimate capacity up to 5 litres",
+                        "appreciate measuring the capacity of containers in litres"
+                    ],
+                    "suggested_learning_experiences": [
+                        "collect safe materials in their immediate environment to be used to measure capacity",
+                        "discuss and measure the capacity of different containers using 1-litre containers",
+                        "in turn, practise the addition of capacity in litres in real-life situations",
+                        "in turn, practise subtraction of capacity in litres in real-life situations",
+                        "estimate capacity of containers up to 5 litres",
+                        "measure the actual capacity of the containers to confirm their capacity in litres",
+                        "play digital games involving capacity in real-life situations with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can the capacity of a container be measured?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy: the learner estimates the capacity of containers up to 5 litres, measures the actual capacities of the containers, and compares the measurements",
+                        "Communication and Collaboration: learner discusses and measures the capacity of different containers using 1-litre containers"
+                    ],
+                    "values": [
+                        "Unity: learner in turn, practises the addition of capacity in litres in real-life situations",
+                        "Responsibility: learner cares for the items for measuring capacity"
+                    ],
+                    "pcis": [
+                        "Social Cohesion: learner plays digital games involving capacity in real-life situations with peers"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can relate the collection of safe materials in their immediate environment for learning to waste management in Environmental Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "2.4",
+                    "substrand_name": "Time",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "identify the minute as a unit of measuring time",
+                        "read and tell time using 'past' and 'to' the hour using the clock face",
+                        "read and tell time using the digital clock or analogue clock",
+                        "write time using 'past' and 'to' the hour",
+                        "estimate time in hours",
+                        "add time involving hours and minutes without conversion in real-life situations",
+                        "subtract time involving hours and minutes without conversion in real-life situations",
+                        "appreciate reading and telling time using digital and analogue clocks"
+                    ],
+                    "suggested_learning_experiences": [
+                        "draw a clock face on a manila paper or any other resource, divide the clock face into two equal parts using a line passing through the centre, and discuss what each division represents",
+                        "discuss the divisions on the clock face",
+                        "locate a minute on the clock face and discuss it as a unit of measuring time",
+                        "discuss how to tell time on the clock face using 'past' and 'to' the hour",
+                        "in turns, read and tell time on an analogue clock",
+                        "discuss how the digital clock operates and share their findings with others",
+                        "in turns, read and tell time on a digital clock",
+                        "team up to estimate time in hours",
+                        "add time in hours and minutes without conversion",
+                        "subtract time in hours and minutes without conversion",
+                        "discuss the importance of keeping time in real-life situations"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we read and tell time using digital and analogue clocks?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration: the learner discusses how to tell time on the clock face using 'past' and 'to' the hour",
+                        "Learning to Learn: the learner reads and tells time on analogue and digital clocks"
+                    ],
+                    "values": [
+                        "Respect: learner accommodates diverse opinions as they discuss the importance of keeping time in real-life situations",
+                        "Peace: learner displays tolerance as they in turn read and tell time on a digital clock"
+                    ],
+                    "pcis": [
+                        "Social Cohesion: learner takes turns in activities and conversations as they read and tell time on analogue and digital clocks"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can relate the skills used in drawing the clock face to drawing skills in Creative Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "2.5",
+                    "substrand_name": "Money",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "identify Kenyan currency notes up to sh.1000",
+                        "count money in different denominations up to sh.1000",
+                        "add money involving different denominations up to a sh.1000",
+                        "subtract money involving different denominations up to a sh.1000",
+                        "represent the same amount of money in different denominations",
+                        "convert money into different denominations",
+                        "use the money to buy up to 3 items involving balance",
+                        "appreciate spending and saving money in real-life situations"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use locally available materials to model Kenyan currency denominations for use in learning",
+                        "sort Kenyan currency notes according to their value up to sh.1000",
+                        "count Kenyan currency notes in different denominations up to sh1000",
+                        "subtract money up to sh.1000 in real-life situations",
+                        "add money up to sh.1000 in real-life situations",
+                        "role play changing money into different denominations up to sh. 1000 in the classroom model shop",
+                        "role play buying up to 3 items involving balance using the money models up to sh.1000 in the classroom model shop",
+                        "share their own experiences with shopping activities",
+                        "play digital games involving money with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can money be represented in different denominations?"
+                    ],
+                    "core_competencies": [
+                        "Citizenship: learner counts Kenyan currency notes in different denominations up to sh. 1000",
+                        "Digital Literacy: learner uses digital devices to play games involving money"
+                    ],
+                    "values": [
+                        "Patriotism: learner exhibit honesty as they sort out Kenyan currency notes according to their value up to sh.1000",
+                        "Responsibility: learner engages in assigned roles and duties as they role play buying and selling in the classroom model shop"
+                    ],
+                    "pcis": [
+                        "Financial Literacy: learner role plays buying and selling items in the classroom model shop",
+                        "Sustainable consumption: the learner uses locally available materials from the environment to model Kenyan currency"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can relate the skills used in modelling the Kenyan currency denominations to modelling skills in Creative Activities"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "3.0",
+            "strand_name": "Geometry",
+            "substrands": [
+                {
+                    "substrand_number": "3.1",
+                    "substrand_name": "Position and Direction",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "move along a straight line from a point",
+                        "identify the right and left side from a point",
+                        "turn to the right from a point",
+                        "turn to the left from a point",
+                        "appreciate the use of directions in real-life situations"
+                    ],
+                    "suggested_learning_experiences": [
+                        "team up to move along a straight line from a given point outside the classroom",
+                        "play a game of moving to the right and left sides from a point with peers",
+                        "team up to move straight outside the classroom then turn to the right",
+                        "team up to move straight outside the classroom then turn to the left",
+                        "role play games with peers involving moving objects such as toy cars or models on a road",
+                        "play digital games with peers involving movement on straight lines and turning to the left and right"
+                    ],
+                    "key_inquiry_questions": [
+                        "What is the importance of directions in real-life situations?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: the learner uses digital devices to play games involving movement on straight lines, to the right and left",
+                        "Collaboration: the learner teams up with others to move along a straight line from a given point outside the classroom"
+                    ],
+                    "values": [
+                        "Unity: the learner plays games involving moving along a straight line and then turning left or right peers",
+                        "Respect: the learner takes turns in activities as they move straight outside the classroom and then turn to the left"
+                    ],
+                    "pcis": [
+                        "Positive discipline: learner follows laid down procedures to carry out activities as they move along a straight line from a given point outside the classroom",
+                        "Social Cohesion: the learner gives others equal opportunities to share responsibilities as they play games"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can relate the concept of position and direction to the concept of location in Environmental Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "3.2",
+                    "substrand_name": "Shapes",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "identify the shapes in a combined shape made of two different shapes",
+                        "draw a combined shape made of 2 shapes",
+                        "model a combined shape made of two shapes",
+                        "appreciate the use of combined shapes in the environment"
+                    ],
+                    "suggested_learning_experiences": [
+                        "make paper cut-outs of different shapes",
+                        "sort out the paper cut-outs according to their shapes",
+                        "name the different shapes made from the paper cut-outs",
+                        "name and discuss shapes in their immediate environment",
+                        "draw combined shapes found in the environment that are made of 2 different shapes, e.g. the hut",
+                        "use locally available materials to model a combined shape made of 2 different shapes",
+                        "play digital games involving shapes with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "What shapes can you identify in your school?"
+                    ],
+                    "core_competencies": [
+                        "Creativity: the learner draws combined shapes found in the environment that are made of 2 different shapes",
+                        "Digital Literacy: learner plays digital games involving shapes with peers"
+                    ],
+                    "values": [
+                        "Social Justice: the learner accommodates peers' opinion as they name the different shapes made from the paper cut-outs",
+                        "Responsibility: learner uses locally available resources sparingly as they model a combined shape made of 2 different shapes"
+                    ],
+                    "pcis": [
+                        "Creative thinking: the learner uses locally available materials to model combined shapes"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can relate the skills used in drawing combined shapes to drawing skills in Creative Activities"
+                    ]
+                }
+            ]
+        }
+    ]
+}

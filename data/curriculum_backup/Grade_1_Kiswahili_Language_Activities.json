@@ -1,0 +1,1114 @@
+{
+    "grade": "Grade 1",
+    "subject": "Kiswahili Language Activities",
+    "education_level": "Lower Primary",
+    "strands": [
+        {
+            "strand_number": "1.0",
+            "strand_name": "DARASANI",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Kusikiliza na Kuzungumza: Maamkuzi na Maagano",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua maneno yanayotumiwa katika maamkuzi na maagano",
+                        "kuamkua na kuitikia maamkuzi na maagano ipasavyo ili kufanikisha mawasiliano",
+                        "kuchangamkia maamkuzi na maagano katika maisha ya kila siku"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua maneno ya maamkuzi (Hujambo? Hamjambo? Habari? Sijambo, Hatujambo, Nzuri) na maagano (Kwaheri, Kwaheri ya kuonana) kwa kutumia kadi maneno, michoro, chati, mti maneno, kapu maneno n.k. akishirikiana na wenzake",
+                        "kusikiliza kifungu kifupi cha hadithi kuhusu maamkuzi na maagano mepesi kikisomwa na mwalimu, mgeni mwalikwa au katika kifaa cha kidijitali",
+                        "kutambua maamkuzi na maagano yaliyotumiwa katika hadithi aliyoisikiliza akishirikiana na wenzake",
+                        "kujadili michoro au picha zenye watu wanaoamkuana na wanaoagana akishirikiana na mwenzake",
+                        "kuigiza maamkuzi na maagano (k.v. Hujambo? - Sijambo; Hamjambo? - Hatujambo; Habari? - Njema/Nzuri; Kwaheri - Kwaheri ya kuonana) darasani akishirikiana na mwenzake au katika kikundi kwa kuzingatia umoja, upendo na heshima kwa wenzake",
+                        "kueleza wenzake kuhusu maamkuzi na maagano aliyojadili na mzazi au mlezi wake"
+                    ],
+                    "key_inquiry_questions": [
+                        "Unatumia maneno gani kuwasalimu na kuwaaga watu?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.2",
+                    "substrand_name": "Kusoma: Usomaji Mwafaka",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua namna ifaayo ya kuketi anaposoma",
+                        "kutambua jinsi ya kushika kitabu ipasavyo anaposoma",
+                        "kuelekeza macho kutoka kushoto hadi kulia na kutoka juu ya ukurasa hadi chini anaposoma",
+                        "kuonea fahari usomaji mwafaka maishani"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua namna ya kuketi anaposoma (k.v. kutoinama sana, kuketi wima, kutoning’iniza miguu) kutoka kwenye picha, michoro, magazeti, vitabu, vifaa vya kidijitali akishirikiana na wenzake",
+                        "kufanya mazoezi ya kuketi ipasavyo anaposoma",
+                        "kutambua jinsi ya kushika kitabu ipasavyo kwa kutazama picha au michoro kwenye magazeti, chati, mabango, vitabu, vifaa vya kidijitali n.k. akishirikiana na wenzake",
+                        "kufanya mazoezi ya kushika kitabu ipasavyo anaposoma",
+                        "kuelekeza macho kutoka kushoto hadi kulia na kutoka juu ya ukurasa hadi chini akiongozwa na mwalimu",
+                        "kutazama picha mbalimbali zinazotoka kushoto kwenda kulia na juu kwenda chini",
+                        "kufanya mazoezi ya kufungua kurasa za kitabu ipasavyo",
+                        "kumsomea mzazi au mlezi kwa kuzingatia namna ifaayo ya kuketi na kushika kitabu"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, unazingatia mambo gani unaposoma?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.3",
+                    "substrand_name": "Kuandika: Uandishi Bora",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua namna ifaayo ya kuketi anapoandika",
+                        "kuketi ifaavyo wakati wa kuandika",
+                        "kutambua jinsi ya kushika kalamu anapoandika",
+                        "kuandika kutoka kushoto hadi kulia kwa hati nadhifu",
+                        "kuonea fahari uandishi mwafaka maishani"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutazama picha zinazoonyesha jinsi ya kuketi na kushika kalamu katika vitabu au katika kifaa cha kidijitali akishirikiana na wenzake",
+                        "kutambua jinsi ya kuketi ipasavyo wakati wa kuandika kutoka kwenye picha",
+                        "kuketi ipasavyo wakati wa kuandika",
+                        "kumwonyesha mwenzake jinsi ya kuketi wakati wa kuandika",
+                        "kutambua namna ya kushika kalamu kutoka kwenye picha, michoro, magazeti, vitabu, vifaa vya kidijitali n.k akishirikiana na wenzake",
+                        "kushika kalamu na kuidhibiti ipasavyo",
+                        "kuwaonyesha wenzake jinsi ya kushika kalamu ipasavyo wakati wa kuandika",
+                        "kuandika (kwa mfano kuchora kifaa cha darasani kama vile kiti, kitabu, kalamu, meza) kwa kushika kalamu ipasavyo na kuidhibiti",
+                        "kuwapa wenzake kazi yake waipitie ili waitolee maoni"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, ni mambo gani unapaswa kuzingatia wakati wa kuandika?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "1.4",
+                    "substrand_name": "Sarufi: Matumizi ya Mimi na Sisi",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua maneno mimi na sisi katika sentensi alizopewa",
+                        "kutumia maneno mimi na sisi ipasavyo katika sentensi alizopewa",
+                        "kufurahia kutumia maneno mimi na sisi katika mawasiliano"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kusikiliza wimbo unaotumia maneno mimi na sisi kutoka kwa mwalimu au kifaa cha kidijitali",
+                        "kusoma sentensi fupi zilizoandikwa kwa kutumia maneno mimi na sisi akishirikiana na wenzake",
+                        "kujaza mapengo kwa kutumia mimi na sisi",
+                        "kumsomea mzazi au mlezi wake sentensi alizokamilisha kwa kujaza nafasi akitumia mimi na sisi ili ampe maoni yake"
+                    ],
+                    "key_inquiry_questions": [
+                        "Maneno mimi na sisi hutumiwa kwa maana gani katika mawasiliano?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "2.0",
+            "strand_name": "FAMILIA",
+            "substrands": [
+                {
+                    "substrand_number": "2.1",
+                    "substrand_name": "Kusikiliza na Kuzungumza: Matamshi Bora (Sauti: /m/, /a/, /u/, /k/, /t/ /l/)",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua sauti lengwa katika matini",
+                        "kutamka sauti lengwa ipasavyo ili kuimarisha mazungumzo",
+                        "kutamka silabi za sauti lengwa ipasavyo",
+                        "kutamka ipasavyo maneno yenye silabi za sauti lengwa",
+                        "kuchangamkia nafasi ya matamshi bora katika mawasiliano"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua sauti lengwa katika kadi maneno, chati, mti maneno, au kifaa cha kidijitali akishirikiana na wenzake",
+                        "kutumia teknolojia (k.v. papaya) kusikiliza matamshi bora ya sauti lengwa",
+                        "kusikiliza mwalimu au mgeni mwalikwa akitamka sauti lengwa",
+                        "kutamka sauti pamoja na mwalimu",
+                        "kutamka sauti lengwa akishirikiana na wenzake",
+                        "kusikiliza silabi za sauti lengwa zikitamkwa na mwalimu, mgeni mwalikwa au kutoka kwa vifaa vya kidijitali (k.v. kinasasauti au rununu) akishirikiana na wenzake",
+                        "kutamka silabi za sauti lengwa alizosikiliza akishirikiana na wenzake",
+                        "kusikiliza maneno yenye sauti lengwa yakisomwa na mwalimu, mgeni mwalikwa au kutoka kwa vifaa vya kidijitali",
+                        "kutamka maneno ya sauti lengwa ifaavyo akishirikiana na wenzake",
+                        "kumtamkia mzazi au mlezi maneno yenye sauti lengwa ipasavyo"
+                    ],
+                    "key_inquiry_questions": [
+                        "Unaweza kutamka sauti zipi?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "2.2",
+                    "substrand_name": "Kusoma: Kusoma kwa Ufasaha (Sauti: /m/, /a/, /u/, /k/, /t/, /l/)",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua sauti lengwa katika kifungu chepesi cha hadithi",
+                        "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia matamshi bora",
+                        "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia kiwango kifaacho cha sauti",
+                        "kusoma kifungu chepesi chenye sauti lengwa kwa kuzingatia kasi ifaayo",
+                        "kuchangamkia kusoma kwa ufasaha ili kufanikisha mawasiliano"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua sauti lengwa katika kifungu chepesi cha hadithi kuhusu suala lengwa akishirikiana na wenzake",
+                        "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia matamshi bora akishirikiana na wenzake",
+                        "kusoma kifungu chepesi cha hadithi chenye maneno yenye sauti lengwa, kwa kuzingatia kiwango kifaacho cha sauti akishirikiana na wenzake",
+                        "kusoma kifungu chepesi cha maneno yenye sauti lengwa kwa kuzingatia kasi ifaayo (maneno 5 kwa dakika na kwa kuizingatia viakifishi) akishirikiana na wenzake)",
+                        "kusoma hadithi kutoka kwenye kitabu au kifaa cha kidijtali akishirikiana na wenzake",
+                        "kuzingatia matamshi bora, kasi ifaayo na kiwango kifaacho cha sauti"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, ni maneno yapi unayojua kusoma?",
+                        "Je, kwa nini ni muhimu kusoma kwa sauti inayosikika?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "2.3",
+                    "substrand_name": "Kuandika: Hati nadhifu - Herufi kubwa",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua maumbo ya herufi kubwa",
+                        "kuandika herufi kubwa ipasavyo kwa kuzingatia maumbo yake",
+                        "kufurahia kuandika herufi kubwa ipasavyo kwa kuzingatia maumbo yake"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kushirikiana na wenzake kutambua herufi kubwa kwenye kitabu, kadi maneno, chati au vifaa vya kidjitali",
+                        "kutambua maumbo ya herufi kubwa akiwa na mwalimu, mgeni mwalikwa au kwa kutumia kifaa cha kidijitali",
+                        "kushirikiana na wenzake katika kikundi kuandika herufi kubwa ipasavyo",
+                        "kuandika herufi kubwa ipasavyo kitabuni au kwenye kifaa cha kidijitali akishirikiana na wenzake",
+                        "kushirikiana na wenzake kutathmini herufi kubwa alizoandika"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, ni herufi gani kubwa unazojua kuandika?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "2.4",
+                    "substrand_name": "Sarufi: Umoja na Wingi wa Majina",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua majina ya vitu katika mazingira yake katika umoja na wingi",
+                        "kuandika majina ya vitu katika mazingira yake katika umoja na wingi",
+                        "kuchangamkia kuzungumzia vitu katika mazingira yake katika umoja na wingi"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua majina ya vitu katika mazingira yake kwa kutazama vitu halisi, picha au vifaa vya kidijitali k.v. vifaa vya nyumbani",
+                        "kutaja majina ya vitu katika mazingira yake katika umoja na wingi akishirikiana na wenzake",
+                        "kuimba wimbo unaotaja vitu katika mazingira yake katika umoja na wingi akishirikiana na wenzake",
+                        "kusoma majina ya vitu katika umoja na wingi akishirikiana na wenzake",
+                        "kuandika majina ya vitu katika mazingira yake katika umoja na wingi akishirikiana na wenzake",
+                        "kujaza nafasi kwa kutumia majina ya vitu katika mazingira yake katika umoja na wingi",
+                        "kuambatanisha michoro na majina ya vitu katika mazingira yake akishirikiana na wenzake"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, ni vitu gani hupatikana katika mazingira ya darasani na nyumbani?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "3.0",
+            "strand_name": "TARAKIMU",
+            "substrands": [
+                {
+                    "substrand_number": "3.1",
+                    "substrand_name": "Kusikiliza na Kuzungumza: Maneno ya Adabu na Heshima",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua maneno ya adabu na heshima yanayotumiwa katika jamii",
+                        "kutumia ipasavyo maneno ya adabu na heshima katika mawasiliano",
+                        "kuthamini matumizi ya maneno ya adabu na heshima katika mawasiliano ya kila siku"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua maneno ya heshima (asante, pole, tafadhali) kutoka kwenye chati, kadi maneno, mti maneno, kitabu n.k akishirikiana na wenzake",
+                        "kutazama michoro mbalimbali na kujadili neno linalofaa kutumiwa katika shughuli husika (k.v. mtu akipokea zawadi, mtu akitaka kupishwa apite) akishirikiana na wenzake",
+                        "kusikiliza mazungumzo (k.v. kutoka kwa wanafunzi wenzake, kifungu katika kifaa cha kidijitali) kisha kutambua maneno ya adabu na heshima yaliyotumika",
+                        "kuigiza mazungumzo mafupi yanayotumia maneno ya heshima wakiwa na wenzake",
+                        "kuzungumza na mzazi au mlezi huku wakitumia maneno ya heshima yanayotumiwa katika jamii na kuambatanisha na hisia zifaazo"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, tunaweza kuonyesha heshima na adabu kwa wenzetu kwa kufanya nini?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "3.2",
+                    "substrand_name": "Kusoma: Kusoma kwa Ufahamu Kifungu",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua msamiati kuhusu suala lengwa katika kifungu chepesi cha ufahamu",
+                        "kueleza ujumbe wa kifungu chepesi cha ufahamu",
+                        "kuchangamkia kusoma vifungu vya ufahamu ili kuimarisha stadi ya kusoma"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kusoma kifungu chepesi cha ufahamu chenye maneno 6-12 kuhusu suala lengwa na kutambua msamiati wa suala lengwa (k.v moja, mbili, tatu, nne, tano, sita, saba, nano, tisa, kumi) akishirikiana na wenzake",
+                        "kueleza ujumbe wa kifungu chepesi cha ufahamu akiwa na wenzake",
+                        "kujibu maswali kutokana na kifungu alichokisoma",
+                        "kutumia msamiati wa suala lengwa ipasavyo katika mawasiliano",
+                        "kumweleza mzazi au mlezi kuhusu tarakimu alizojifunza"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, unajua hadithi kuhusu nini?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "3.3",
+                    "substrand_name": "Kuandika: Hati Nadhifu Herufi Ndogo",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua maumbo ya herufi ndogo katika maandishi",
+                        "kuandika herufi ndogo kwa kuzingatia maumbo yake",
+                        "kufurahia kuandika herufi ndogo ipasavyo ili kuimarisha mawasiliano"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua maumbo ya herufi ndogo kwenye kitabu, chati au kifaa cha kidijitali",
+                        "kushirikiana na wenzake kutambua herufi ndogo kwenye kitabu, chati au chombo cha kidjitali",
+                        "kuandika herufi ndogo ipasavyo kitabuni au kwenye kifaa cha kidijitali",
+                        "kushirikiana na wenzake kutambua maumbo ya herufi ndogo kwenye chati, kitabuni, au chombo cha kidjitali",
+                        "kushiriki kuimba nyimbo kuhusu herufi ndogo",
+                        "kumwonyesha mzazi au mlezi herufi alizoandika ili azitolee maoni"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, unazingatia nini ili kuandika kwa hati nadhifu?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "3.4",
+                    "substrand_name": "Sarufi: Matumizi ya Huyu na Hawa",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua matumizi ya huyu na hawa kutokana na picha",
+                        "kutumia huyu na hawa ipasavyo katika mazungumzo",
+                        "kuchangamkia matumizi ya huyu na hawa katika mawasiliano ya kila siku"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua matumizi ya huyu na hawa katika picha",
+                        "akiwa kwenye kikundi kutumia huyu na hawa k.v. Mwanafunzi huyu - wanafunzi hawa",
+                        "kutunga sentensi zinazojumuisha matumizi ya huyu na hawa",
+                        "kusoma sentensi zinazojumuisha matumizi ya huyu na hawa",
+                        "kumtungia mwenzake sentensi kwa kutumia huyu na hawa katika kikundi",
+                        "kujaza nafasi katika daftari kwa kutumia huyu na hawa"
+                    ],
+                    "key_inquiry_questions": [
+                        "Maneno huyu na hawa hutumikaje katika mawasiliano?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "4.0",
+            "strand_name": "SIKU ZA WIKI",
+            "substrands": [
+                {
+                    "substrand_number": "4.1",
+                    "substrand_name": "Kusikiliza na Kuzungumza: Matamshi Bora Sauti: (/n/, /o/, /w/, /e/, /i/, /h/)",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua sauti lengwa katika matini",
+                        "kutamka sauti lengwa ipasavyo ili kuimarisha mazungumzo",
+                        "kutamka silabi za sauti lengwa ipasavyo",
+                        "kutamka ipasavyo maneno yenye silabi za sauti lengwa",
+                        "kuchangamkia nafasi ya matamshi bora katika mawasiliano"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua sauti lengwa katika kadi maneno, chati, mti maneno au kifaa cha kidijitali akishirikiana na wenzake",
+                        "kutumia teknolojia (k.v. papaya) kusikiliza matamshi bora ya sauti lengwa",
+                        "kusikiliza mwalimu au mgeni mwalikwa akitamka sauti lengwa akiwa na wenzake",
+                        "kutamka sauti pamoja na mwalimu",
+                        "kutamka sauti lengwa akishirikiana na wenzake",
+                        "kusikiliza silabi za sauti lengwa zikitamkwa na mwalimu, mgeni mwalikwa au kutoka kwa vifaa vya kidijitali k.v. kinasasauti na rununu kisha kutamka silabi za sauti lengwa akishirikiana na wenzake",
+                        "kusikiliza maneno yenye sauti lengwa yakisomwa na mwalimu kisha kutamka maneno hayo",
+                        "kumtamkia mzazi au mlezi sauti alizojifunza"
+                    ],
+                    "key_inquiry_questions": [
+                        "Ni sauti zipi unazojua kutamka vizuri?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "4.2",
+                    "substrand_name": "Kusoma: Kusoma kwa Ufasaha Sauti: (/n/, /o/, /w/, /e/, /i/, /h/)",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua sauti lengwa katika kifungu chepesi cha hadithi",
+                        "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia matamshi bora",
+                        "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia kiwango kifaacho cha sauti",
+                        "kusoma kifungu chepesi chenye sauti lengwa kwa kuzingatia kasi ifaayo",
+                        "kuchangamkia kusoma kwa ufasaha ili kufanikisha mawasiliano"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua sauti lengwa (/n/, /o/, /w/, /e/, /i/, /h/) katika kifungu chepesi kuhusu suala lengwa akiwa peke yake na wenzake",
+                        "kusoma kifungu chepesi cha maneno chenye sauti lengwa kwa kuzingatia matamshi bora akishirikiana na wenzake",
+                        "kusoma kifungu chepesi cha maneno chenye sauti lengwa kwa kuzingatia kiwango kifaacho cha sauti akishirikiana na wenzake",
+                        "kusoma kifungu chepesi cha maneno chenye sauti lengwa kwa kuzingatia kasi ifaayo (maneno 15 kwa dakika na kwa kuizingatia viakifishi) akishirikiana na wenzake",
+                        "kusoma hadithi kutoka kwenye kitabu au kifaa cha kidijtali akishirikiana na wenzake, akizingatia matamshi bora, kasi ifaayo na kiwango kifaacho cha sauti",
+                        "kumsomea mzazi au mlezi kifungu chepesi chenye sauti lengwa akizingatia matamshi bora, kasi ifaayo na kiwango kifaacho cha sauti ili amtolee maoni"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, unaweza kusoma silabi zipi?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "4.3",
+                    "substrand_name": "Kuandika: Hati Nadhifu",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua nafasi baina ya herufi katika maneno",
+                        "kuandika maneno kwa kuunganisha silabi",
+                        "kufurahia kuandika maneno kwa kuzingatia nafasi ifaayo baina ya herufi"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kuonyesha nafasi baina ya herufi zinazounda maneno kwenye kitabu, chati au chombo cha kidijitali",
+                        "kushirikiana na wenzake katika vikundi kutambua nafasi baina ya herufi katika maneno",
+                        "kuandika daftarini maneno kwa kuunganisha silabi akizingatia nafasi ifaayo baina ya herufi zinazounda maneno"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, kwa nini tunafaa kuandika kwa hati nadhifu?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "4.4",
+                    "substrand_name": "Sarufi: Umoja na Wingi wa Majina",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua majina ya vitu katika mazingira yake katika umoja na wingi",
+                        "kutumia majina ya vitu katika mazingira yake katika umoja na wingi",
+                        "kuchangamkia kuzungumzia vitu katika mazingira yake katika umoja na wingi"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua majina ya vitu katika mazingira yake ya darasani kwa kutazama vitu halisi, picha au vifaa vya kidijitali",
+                        "kuimba wimbo unaotaja vitu katika mazingira yake",
+                        "kusoma majina ya vitu vinavyopatikana katika mazingira yake katika umoja na wingi",
+                        "kujaza nafasi kwa kutumia majina ya vitu katika mazingira yake katika umoja na wingi",
+                        "kumzungumzia mzazi au mlezi wake kuhusu vitu katika mazingira ya nyumbani kwa kutumia majina yafaayo katika umoja na wingi"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, ni vitu gani vya darasani unavyoweza kutaja katika umoja na wingi?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "5.0",
+            "strand_name": "MIMI NA WENZANGU",
+            "substrands": [
+                {
+                    "substrand_number": "5.1",
+                    "substrand_name": "Kusikiliza na Kuzungumza: Ufahamu wa Kusikiliza Kifungu",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua msamiati wa suala lengwa katika kifungu",
+                        "kutunga sentensi sahihi akitumia msamiati uliotumiwa",
+                        "kusikiliza kifungu anachosomewa cha maneno kati ya 15-20 na kupata ujumbe",
+                        "kujibu maswali kuhusu hadithi aliyosikiliza",
+                        "kuchangamkia kusikiliza kifungu ili kujenga ari ya kusoma"
+                    ],
+                    "suggested_learning_experiences": [
+                        "Kusikiliza kifungu cha maneno kati ya 15-20 kikisomwa na mwalimu au kupitia vifaa vya kiteknolojia",
+                        "kushirikiana na wengine kujadili picha zilizojumuishwa kwenye hadithi",
+                        "kutabiri kitakachotokea kwenye hadithi",
+                        "kuthibitisha utabiri wake baada ya kusikiliza hadithi",
+                        "kutunga sentensi akitumia msamiati uliotumika kwenye hadithi",
+                        "kujibu maswali kutokana na kifungu",
+                        "kujadiliana kuhusu hadithi waliyosomewa katika kikundi"
+                    ],
+                    "key_inquiry_questions": [
+                        "Unatarajiwa kufanya nini unaposomewa hadithi?",
+                        "Unawezaje kupata ujumbe katika kifungu cha hadithi unachosome wa?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "5.2",
+                    "substrand_name": "Kusoma: Kusoma kwa Ufahamu Kifungu",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua msamiati kuhusu suala lengwa katika kifungu chepesi cha ufahamu",
+                        "kueleza ujumbe wa kifungu chepesi cha ufahamu",
+                        "kuchangamkia kusoma vifungu vya ufahamu ili kuimarisha stadi ya kusoma"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua msamiati kuhusu suala lengwa (k.v. mimi, wenzangu) kutoka kwenye kadi maneno, chati, mti maneno, kapu maneno akishirikiana na wenzake",
+                        "kutumia msamiati wa suala lengwa ipasavyo katika mawasiliano",
+                        "kusoma kifungu chepesi cha maneno 13- 16 kuhusu suala lengwa na kutambua msamiati wa suala lengwa akishirikiana na wenzake",
+                        "kueleza ujumbe wa kifungu chepesi cha ufahamu akishirikiana na wenzake",
+                        "kumweleza mzazi au mlezi kuhusu ujumbe aliopata kutokana na kifungu alichosoma"
+                    ],
+                    "key_inquiry_questions": [
+                        "Ni mambo gani unayoweza kujifunza katika hadithi?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "5.3",
+                    "substrand_name": "Kuandika: Matumizi ya Kikomo",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua alama ya kikomo katika maandishi",
+                        "kuandika alama ya kikomo ifaavyo katika daftari",
+                        "kutumia ipasavyo alama ya kikomo katika sentensi",
+                        "kufurahia kutumia alama ya kikomo ipasavyo katika sentensi"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua alama ya kikomo (.) katika sentensi kitabuni, kwenye chati au kifaa cha kidijitali akishirikiana na wenzake",
+                        "kuandika sentensi daftarini au kutumia kifaa cha kidijitali kisha aweke alama ya kikomo",
+                        "kutumia alama ya kikomo ipasavyo mwishoni mwa sentensi akishirikiana na wenzake",
+                        "kumwonyesha mzazi au mlezi alama ya kikomo na kuitumia ipasavyo katika sentensi"
+                    ],
+                    "key_inquiry_questions": [
+                        "Alama gani zinazotumika katika kuandika sentensi?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "5.4",
+                    "substrand_name": "Sarufi: Matumizi ya -angu na -etu",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua matumizi ya -angu na -etu katika miktadha mbalimbali",
+                        "kutumia -angu na - etu katika mazungumzo kwa ufasaha ili kuimarisha mawasiliano",
+                        "kufurahia kutumia - angu na -etu katika mawasiliano ya kila siku"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua matumizi ya -angu na - etu kwa kurejelea vitu katika mazingira yake",
+                        "kuigiza matumizi ya -angu na -etu akiwa na wenzake katika kikundi kwa kutumia vitu anavyomiliki k.v. kitabu changu – vitabu vyetu; rafiki yangu - marafiki zetu",
+                        "kusoma sentensi zinazotumia maneno - angu na -etu",
+                        "kukamilisha sentensi zenye matumizi ya -angu na -etu",
+                        "kujaza nafasi kwa kutumia -angu na -etu"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, ni maneno gani unayotumia kuonyesha kuwa kitu ni chako au ni chenu?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "6.0",
+            "strand_name": "MWILI WANGU",
+            "substrands": [
+                {
+                    "substrand_number": "6.1",
+                    "substrand_name": "Kusikiliza na Kuzungumza: Matamshi Bora Sauti: (/s/, /b/, /y/, /z/, /g/, /d/)",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua sauti lengwa katika kadi maneno",
+                        "kutamka sauti lengwa ipasavyo ili kuimarisha mazungumzo",
+                        "kutamka silabi za sauti lengwa ipasavyo",
+                        "kutamka ipasavyo maneno yenye silabi za sauti lengwa",
+                        "kuchangamkia nafasi ya matamshi bora katika mawasiliano"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kushiriki katika kutambua sauti lengwa katika kadi maneno",
+                        "kusikiliza matamshi ya sauti lengwa kutoka kwa mwalimu, mgeni mwalikwa au kifaa cha kidijitali",
+                        "kutamka sauti lengwa akiwa na mwalimu kisha akishirikiana na wenzake",
+                        "kusikiliza silabi za sauti lengwa zikitamkwa na mwalimu, mgeni mwalikwa au kutoka kwa vifaa vya kidijitali k.v. kinasasauti na rununu",
+                        "kutamka silabi alizozisikiliza ipasavyo akishirikiana na wenzake",
+                        "kutamka ipasavyo maneno yenye silabi za sauti lengwa akishirikiana na wenzake"
+                    ],
+                    "key_inquiry_questions": [
+                        "Ni sauti zipi unazojua kutamka?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "6.2",
+                    "substrand_name": "Kusoma: Kusoma kwa Ufasaha Sauti: (/s/, /b/, /y/, /z/, /g/, /d/)",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua sauti lengwa katika kifungu chepesi cha hadithi",
+                        "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia matamshi bora",
+                        "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia kiwango kifaacho cha sauti",
+                        "kusoma kifungu chepesi chenye sauti lengwa kwa kuzingatia kasi ifaayo",
+                        "kuchangamkia kusoma kwa ufasaha ili kufanikisha mawasiliano"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua sauti lengwa (/s/, /b/, /y/, /z/, /g/, /d/) katika kifungu Chepesi cha hadithi kuhusu suala lengwa akishirikiana na wenzake",
+                        "kusoma kifungu chepesi cha hadithi chenye maneno yenye sauti lengwa kwa kuzingatia matamshi bora akishirikiana na wenzake",
+                        "kusoma kifungu chepesi cha hadithi chenye maneno yenye sauti lengwa kwa kuzingatiakiwango kifaacho cha sauti akishirikiana na wenzake",
+                        "kusoma kifungu chepesi cha hadithi chenye maneno yenye sauti lengwa kwa kuzingatia kasi ifaayo (maneno 20 kwa dakika na kuzingatia viakifishi) akishirikiana na wenzake",
+                        "kusoma hadithi kutoka kwenye kitabu, kifaa cha kidijtali, nk akishirikiana na wenzake",
+                        "kuzingatia matamshi bora, kasi ifaayo na kwa sauti inayosikika",
+                        "kumsomea mzazi au mlezi kifungu chepesi cha hadithi chenye sauti lengwa akizingatia matamshi bora, kasi ifaayo na kiwango kifaacho cha sauti"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, ni kwa nini unafaa kutamka maneno vizuri unaposoma?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "6.3",
+                    "substrand_name": "Kuandika: Tahajia Imla",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua maneno yasiyozidi silabi tatu kutokana na suala lengwa",
+                        "kuandika kwa usahihi maneno yasiyozidi silabi tatu kwa kuunganisha silabi kuunda neno",
+                        "kufurahia kuandika maneno kwa usahihi"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua maneno yasiyozidi silabi tatu kutokana na suala lengwa kwa kusomewa na mwalimu au katika kifaa cha kidijitali",
+                        "kusikiliza maneno yasiyozidi silabi tatu ya kiwango chake yakisomwa na mwalimu au kutoka kwa kifaa cha kidijitali (k.v radio) na kuyaandika",
+                        "kushirikiana na wenzake kuandika maneno yasiyozidi silabi tatu ya kiwango chake, kwa kuunganisha silabi kuunda neno",
+                        "kuyakosoa maneno aliyoyaendeleza visivyofaa kwa kushirikiana na wenzake"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, ni maneno gani ya silabi tatu unayajua?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "6.4",
+                    "substrand_name": "Sarufi: Matumizi ya - zuri na – baya",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua matumizi ya- zuri na-baya katika kifungu",
+                        "kutumia -zuri na - baya katika sentensi ili kuimarisha mawasiliano",
+                        "kufurahia kutumia -zuri na -baya katika mawasiliano ya kila siku"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua matumizi ya -zuri na -baya kwa kurejelea vitu katika mazingira yake",
+                        "kutumia -zuri na -baya akiwa na wenzake katika kikundi kurejelea vitu katika mazingira yake",
+                        "kusikiliza matumizi ya -zuri na -baya kwa kutumia kifaa cha kidijitali",
+                        "kusoma sentensi zinazotumia maneno - zuri na -baya",
+                        "kukamilisha sentensi zenye matumizi ya -zuri na -baya",
+                        "kujaza mapengo kwa kutumia - zuri na -baya",
+                        "kumtajia mzazi au mlezi vitu nyumbani kwa kutumia -zuri na - baya"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, ni maneno gani unayotumia kuelezea vitu vinavyokupendeza au visivyokupendeza?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "7.0",
+            "strand_name": "USAFI WA MWILI",
+            "substrands": [
+                {
+                    "substrand_number": "7.1",
+                    "substrand_name": "Kusikiliza na Kuzungumza: Maagizo",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua maagizo mepesi yanayotolewa darasani",
+                        "kutoa na kufuata maagizo mepesi yanayotumiwa darasani",
+                        "kubainisha maagizo yanayopaswa kufuatwa katika mazingira yake",
+                        "kuthamini umuhimu wa maagizo katika maisha ya kila siku"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua maagizo kwa kutazama video ya maagizo",
+                        "kutoa na kufuata maagizo (kama vile simama, keti, andika na chora) akiwa na wenzake katika kikundi",
+                        "kueleza kuhusu maagizo yafaayo na yasiyofaa kufuatwa",
+                        "kushiriki katika mazungumzo ya matokeo ya kufuata na kutofuata maagizo",
+                        "kuimba na kuigiza nyimbo zinazohusu maagizo"
+                    ],
+                    "key_inquiry_questions": [
+                        "Ni maagizo yapi yanayotakiwa kufuatwa na yasiyotakiwa kufuatwa katika mazingira tofauti?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "7.2",
+                    "substrand_name": "Kusoma: Kusoma kwa Ufahamu Kifungu",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua msamiati kuhusu suala lengwa katika kifungu chepesi cha ufahamu",
+                        "kutabiri yatayotokea katika kifungu chepesi cha ufahamu kwa kuzingatia picha",
+                        "kueleza ujumbe wa kifungu chepesi cha ufahamu",
+                        "kueleza mafunzo yanayotokana na kifungu chepesi cha ufahamu",
+                        "kuchangamkia kusoma vifungu vya ufahamu ili kuimarisha stadi ya kusoma"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kusoma kifungu chepesi cha maneno 17-22- kuhusu suala lengwa na kutambua msamiati wa suala lengwa (mimi, wenzangu) akishirikiana na wenzake",
+                        "kutambua msamiati kuhusu suala lengwa (k.v. mimi, wenzangu, oga, nawa osha, maji, sabuni) kutoka kwenye kadi maneno, chati, mti maneno, kapu maneno akishirikiana na wenzake",
+                        "kueleza ujumbe wa kifungu chepesi cha ufahamu akishirikiana na wenzake",
+                        "kutumia msamiati wa suala lengwa ipasavyo katika mawasiliano",
+                        "kumweleza mzazi au mlezi kuhusu ujumbe aliopata kutokana na kifungu alichosoma. akishirikiana na wenzake"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, unapenda kusoma kuhusu nini?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "7.3",
+                    "substrand_name": "Kuandika: Kuandika maneno ipasavyo",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua maneno yanayotokana na suala lengwa",
+                        "kuandika maneno yanayohusu suala lengwa kwa kuunganisha silabi ili kuunda neno",
+                        "kufurahia uandishi wa maneno katika mawasiliano"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua maneno mepesi yanayotokana na suala lengwa (k.v : oga, nawa, osha, maji, sabuni)",
+                        "kuandika maneno yanayotokana na suala lengwa daftarini au kwenye kifaa cha kidijitali kwa kuunganisha silabi kuunda neno akishirikiana na wenzake",
+                        "kushirikiana na wenzake kujadili na kurekebisha makosa katika maandishi yake"
+                    ],
+                    "key_inquiry_questions": [
+                        "Ni maneno gani unayoweza kuandika kwa kuunganisha silabi?",
+                        "Kwa nini ni muhimu kujifunza kuandika?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "7.4",
+                    "substrand_name": "Sarufi: Ukanushaji",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua ukanusho wa nafsi ya kwanza umoja na wingi katika vifungu",
+                        "kutumia ukanusho wa nafsi ya kwanza umoja na wingi katika kifungu kwa usahihi",
+                        "kuchangamkia matumizi ya ukanusho wa nafsi ya kwanza umoja na wingi katika mawasiliano"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutenda vitendo atakavyoagizwa na mwalimu kwa kuashiria nafsi ya kwanza umoja",
+                        "kutenda vitendo vyake mwenyewe na kusema anachokifanya",
+                        "kutambua ukanusho wa nafsi ya kwanza umoja",
+                        "kushirikiana na wenzake katika kikundi kukanusha sentensi katika nafsi ya kwanza umoja",
+                        "kukamilisha sentensi zinazoashiria ukanusho wa nafsi ya kwanza umoja kwa kuelekezwa na mwalimu",
+                        "kusikiliza sentensi kwa kutumia kifaa cha kidijitali zilizokanushwa akielekezwa na mwalimu"
+                    ],
+                    "key_inquiry_questions": [
+                        "Unafanya nini sasa?",
+                        "Kama haukufanya mambo uliyotaja ungesemaje?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "8.0",
+            "strand_name": "VYAKULA VYETU",
+            "substrands": [
+                {
+                    "substrand_number": "8.1",
+                    "substrand_name": "Kusikiliza na Kuzungumza: Matamshi bora Sauti: (/j/, /r/, /p/, /f/, /v/, /sh/)",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua sauti lengwa katika kadi maneno",
+                        "kutamka sauti lengwa ipasavyo ili kuimarisha mazungumzo",
+                        "kutamka silabi za sauti sauti lengwa ipasavyo",
+                        "kutamka ipasavyo maneno yenye silabi za sauti lengwa",
+                        "kuchangamkia nafasi ya matamshi bora katika mawasiliano"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kushiriki katika kutambua sauti lengwa katika kadi maneno",
+                        "kusikiliza mwalimu au mgeni mwalikwa akitamka sauti lengwa",
+                        "kutamka sauti alizozisikiliza pamoja na mwalimu na mwishowe kutamka akishirikiana na wenzake",
+                        "kutumia vifaa vya kidijitali (k.v. papaya) kusikiliza matamshi bora ya sauti lengwa",
+                        "kutamka sauti lengwa ashirikiana na wenzake",
+                        "kusikiliza silabi za sauti lengwa zikitamkwa na mwalimu, mgeni mwalikwa au kutoka kwa vifaa vya kidijitali k.v. kinasasauti na rununu",
+                        "kutamka silabi alizozisikiliza ipasavyo akishirikiana na wenzake",
+                        "kutamka ipasavyo maneno yenye silabi za sauti lengwa akiwa na wenzake",
+                        "kumwomba mzazi au mlezi kutumia kifaa cha kidijitali kama vile rununu ili kusikiliza matamshi ya sauti lengwa"
+                    ],
+                    "key_inquiry_questions": [
+                        "Kwa ninini muhimu kutamka maneno ipasavyo?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "8.2",
+                    "substrand_name": "Kusoma: Kusoma kwa Ufasaha Sauti: (/j/, /r/, /p/, /f/, /v/, /sh/)",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua sauti lengwa katika kifungu chepesi cha hadithi",
+                        "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia matamshi bora",
+                        "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa sauti inayosikika",
+                        "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia kasi ifaayo",
+                        "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia ishara zifaazo",
+                        "kuchangamkia kusoma kwa ufasaha ili kufanikisha mawasiliano"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua sauti lengwa katika kifungu chepesi kuhusu suala lengwa akishirikiana na wenzake",
+                        "kusoma kifungu chepesi cha maneno chenye sauti lengwa kwa kuzingatia matamshi bora akishirikiana na wenzake",
+                        "kusoma kifungu chepesi cha maneno chenye sauti lengwa kwa kuzingatia kiwango kifaacho cha sauti akishirikiana na wenzake",
+                        "kusoma kifungu chepesi cha maneno chenye sauti lengwa kwa kuzingatia kasi ifaayo (maneno 25 kwa dakika na kwa kuzingatia viakifishi) akishirikiana na wenzake",
+                        "kusoma hadithi kutoka kwenye kitabu, kifaa cha kidijitali, nk akishirikiana na wenzake, akizingatia matamshi bora, kasi ifaayo na kwa sauti inayosikika",
+                        "kumsomea mzazi au mlezi kifungu chepesi chenye sauti lengwa akizingatia matamshi bora, kasi ifaayo na kwa sauti inayosikika"
+                    ],
+                    "key_inquiry_questions": [
+                        "Matamshi bora na sauti inayosikika yana umuhimu gani katika kusoma?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "8.3",
+                    "substrand_name": "Kuandika: Tahajia",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua tahajia sahihi katika sentensi",
+                        "kuandika sentensi tatu kuhusu suala lengwa akizingatia tahajia sahihi",
+                        "kuchangamkia matumizi ya tahajia sahihi katika uandishi wa sentensi"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua sentensi zinazohusu suala lengwa zenye tahajia sahihi kwa kutumia nyenzo kama vile: kadi za majina, mti maneno, kapu maneno, chati, kifungu au kifaa cha kidijitali",
+                        "kusoma sentensi zenye tahajia sahihi kuhusu suala lengwa",
+                        "kunakili sentensi zenye tahajia sahihi kuhusu suala lengwa kwenye daftari",
+                        "kutunga sentensi tatu sahihi kuhusu suala lengwa akishirikiana na wenzake",
+                        "kuandika sentensi alizotunga kwa kuzingatia tahajia sahihi",
+                        "kusoma sentensi alizoandika pamoja na wenzake katika kikundi kisha wenzake wazitolee maoni",
+                        "kusahihisha sentensi alizoandika kwa kuzingatia tahajia",
+                        "Kumwonyesha mzazi au mlezi sentensi sahihi alizoandika ili apate maoni yake"
+                    ],
+                    "key_inquiry_questions": [
+                        "Kwa nini ni muhimu kuyaandika maneno na sentensi kwa usahihi?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "8.4",
+                    "substrand_name": "Sarufi: Matumizi ya hiki na hivi",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua maneno hiki na hivi katika vifungu",
+                        "kusoma vifungu vinavyojumuisha maneno hiki na hivi ili kuonyeshea ifaavyo",
+                        "kutumia maneno hiki na hivi kuonyeshea vitu katika mazingira yake",
+                        "kuchangamkia matumizi ya hiki na hivi katika mawasiliano ya kila siku"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua hiki na hivi kwa kutumia nyenzo halisi, kadi za majina, kapu maneno au chati",
+                        "kusikiliza kifungu kinachohusu matumizi ya hiki na hivi katika kifaa cha kidijitali",
+                        "kusoma vifungu vinavyojumuisha hiki na hivi kisha abainishe matumizi ya hiki na hivi",
+                        "kuonyesha vitu mbalimbali kama vile vyakula na kuvitungia sentensi katika kikundi k.m. chakula hiki – vyakula hivi",
+                        "kumtungia mwenzake sentensi katika kikundi kwa kutumia hiki na hivi",
+                        "kutoa maoni kuhusu sentensi zilizotungwa na wenzake",
+                        "kukamilisha vifungu vyenye mapengo kwa kutumia hiki na hivi wakiwa wawiliwawili k.m. chakula (hiki, hii), vyakula (hivi, hizi)"
+                    ],
+                    "key_inquiry_questions": [
+                        "Unajua majina yapi ya vitu vinavyoweza kuashiriwa kwa kutumia maneno hiki na hivi?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "9.0",
+            "strand_name": "JIKONI",
+            "substrands": [
+                {
+                    "substrand_number": "9.1",
+                    "substrand_name": "Kusikiliza na Kuzungumza: Mazungumzo",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua suala lengwa ili azungumze kulihusu",
+                        "kuzungumza kuhusu suala lengwa akizingatia matamshi bora na ishara zifaazo",
+                        "kujieleza kwa ujasiri, kasi ifaayo na sauti inayosikika",
+                        "kuchangamkia mazungumzo na matamshi bora katika mawasiliano"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kusikiliza mazungumzo mafupi kuhusu suala lengwa kutoka kwa mwalimu, mgeni mwalikwa au kifaa cha kidijitali",
+                        "kutazama video kuhusu mazungumzo yanayohusisha watoto",
+                        "kuwasilisha mazungumzo yake kwa wenzake katika kikundi kwa kuzingatia matamshi bora na ishara zifaazo",
+                        "kujieleza kwa ujasiri, kasi ifaayo na sauti inayosikika",
+                        "kusikiliza mazungumzo ya wenzake na kutoa maoni",
+                        "kushiriki katika mazungumzo kwa kuzingatia maagizo atakayopewa na mwalimu",
+                        "kujieleza kwa ujasiri ili kufanikisha mawasiliano akiwa na mzazi au mlezi jikoni"
+                    ],
+                    "key_inquiry_questions": [
+                        "Unapenda kuzungumza kuhusu mambo gani ukiwa na wenzako?",
+                        "Unazingatia mambo gani unapozungumza mbele ya wenzako?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "9.2",
+                    "substrand_name": "Kusoma: Kusoma kwa Ufahamu Kifungu",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua msamiati kuhusu suala lengwa katika kifungu chepesi cha ufahamu",
+                        "kutabiri yatakayotokea katika kifungu chepesi cha ufahamu kwa kuzingatia picha",
+                        "kueleza ujumbe wa kifungu chepesi cha ufahamu",
+                        "kueleza mafunzo yanayotokana na kifungu chepesi cha ufahamu",
+                        "kuchangamkia kusoma vifungu vya ufahamu ili kuimarisha stadi ya kusoma"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kusoma kifungu chepesi cha ufahamu chenye maneno 23-30 na kutambua msamiati wa suala lengwa (k.v. kisu, kikombe, meko, sahani) akishirikiana na wenzake",
+                        "kutumia msamiati wa suala lengwa ipasavyo katika mawasiliano",
+                        "kutabiri kitakachotokea katika hadithi akizingatia picha kwenye kifungu akishirikiana na wenzake",
+                        "kuthibitisha utabiri wake kuhusu hadithi baada ya kuisoma",
+                        "kueleza ujumbe wa kifungu chepesi cha ufahamu akishirikiana na wenzake",
+                        "kueleza mafunzo yanayotokana na kifungu chepesi cha ufahamu akishirikiana na wenzake",
+                        "kumsomea mzazi au mlezi kifungu kuhusu suala lengwa"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, tunaweza kujifunza mambo yapi kutokana na hadithi mbalimbali?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "9.3",
+                    "substrand_name": "Kuandika: Kifungu kutokana na Picha",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutazama picha na kutambua yaliyomo",
+                        "kuandika kifungu kuhusu yaliyomo katika picha",
+                        "kufurahia kuandika kifungu kutokana na yaliyomo katika picha"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutazama picha na kutambua wahusika, walipo wahusika na matendo yao akiwa peke",
+                        "kuandika daftarini au kwenye kifaa cha kidijitali kifungu cha sentensi mbili kutokana na picha aliyoitazama",
+                        "kumwonyesha mzazi au mlezi kifungu alichokiandika ili ampe maoni yake"
+                    ],
+                    "key_inquiry_questions": [
+                        "Ni ujumbe upi unaoweza kuutoa kutokana na picha baada ya kuitazama?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "9.4",
+                    "substrand_name": "Sarufi: Matumizi ya Maneno Yanayoashiria Vitendo",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua maneno yanayoashiria vitendo katika kifungu na mawasiliano mbalimbali",
+                        "kusoma maneno yanayoashiria vitendo ili kujenga usomaji bora",
+                        "kutumia maneno yanayoashiria vitendo katika sentensi ipasavyo",
+                        "kufurahia kutumia maneno yanayoashiria vitendo katika mawasiliano"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua maneno yanayoashiria vitendo katika kadi maneno, mti maneno, chati au vifaa vya kidijitali",
+                        "kutaja mambo aliyofanya siku hiyo kama vile, kula, kuvaa, kupika, kuwasha, kuosha, pakua",
+                        "kuigiza vitendo k.m. kula, kunywa, keti, simama, nawa, choma",
+                        "kusoma maneno yanayoashiria vitendo ili kujenga usomaji bora",
+                        "kukamilisha sentensi akitumia maneno yanayoashiria vitendo",
+                        "kutunga sentensi zenye matumizi ya maneno yanayoashiria vitendo",
+                        "kumtungia mwenzake katika kikundi sentensi kwa kutumia maneno yanayoashiria vitendo",
+                        "kufanya zoezi la kujaza nafasi katika madaftari yao"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, ni mambo yapi uliyofanya tangu jana?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                }
+            ]
+        },
+        {
+            "strand_number": "10.0",
+            "strand_name": "MICHEZO",
+            "substrands": [
+                {
+                    "substrand_number": "10.1",
+                    "substrand_name": "Kusikiliza na Kuzungumza: Matamshi Bora Sauti: (/ny/, /dh/, /th/, /ch/, /gh/, /ng/, /ng’/)",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua sauti lengwa katika kadi maneno",
+                        "kutamka sauti lengwa ipasavyo ili kuimarisha mazungumzo",
+                        "kutamka silabi za sauti lengwa ipasavyo",
+                        "kutamka ipasavyo maneno yenye silabi za sauti lengwa",
+                        "kuchangamkia nafasi ya matamshi bora katika mawasiliano"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kushiriki katika kutambua sauti lengwa katika kadi maneno",
+                        "kutumia teknolojia (k.v. papaya) kusikiliza matamshi bora ya sauti lengwa",
+                        "kusikiliza mwalimu au mgeni mwalikwa akitamka sauti lengwa",
+                        "kutamka sauti pamoja na mwalimu",
+                        "kutamka sauti lengwa akishirikiana na wenzake",
+                        "kutambua majina ya herufi zinazowakilisha sauti lengwa kwa kutumia kadi za herufi",
+                        "kutamka herufi za sauti lengwa akishirikiana na wenzake",
+                        "kusikiliza silabi za sauti lengwa zikitamkwa na mwalimu, mgeni mwalikwa au kutoka kwa vifaa vya kidijitali k.v. kinasasauti na rununu",
+                        "kutamka silabi alizozisikiliza ipasavyo akishirikiana na wenzake",
+                        "kutamka maneno yenye silabi za sauti lengwa ipasavyo"
+                    ],
+                    "key_inquiry_questions": [
+                        "Ni majina yapi ya sauti /ny/,/dh/,/th/,/ch/, /gh/,/ng/, /ng’/unayojua kutamka?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "10.2",
+                    "substrand_name": "Kusoma: Kusoma kwa Ufasaha: Sauti: (/ny/, /dh/, /th/, /ch/, /gh/, /ng/, /ng’/)",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua sauti lengwa katika kifungu chepesi cha hadithi",
+                        "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia matamshi bora",
+                        "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa sauti inayosikika",
+                        "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia kasi ifaayo",
+                        "kusoma kifungu chepesi cha hadithi chenye sauti lengwa kwa kuzingatia ishara zifaazo",
+                        "kuchangamkia kusoma kwa ufasaha ili kufanikisha mawasiliano"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutambua sauti lengwa katika kifungu chepesi kuhusu suala lengwa akishirikiana na wenzake",
+                        "kusoma kifungu chepesi cha maneno chenye sauti lengwa kuhusu suala lengwa kwa kuzingatia matamshi bora",
+                        "kusoma kifungu chepesi cha maneno chenye sauti lengwa kwa kuzingatia kiwango kifaacho cha sauti",
+                        "kusoma kifungu chepesi cha maneno chenye suala lengwa (k.m kuhusu michezo mbalimbali, sehemu mbalimbali za barabara kwa kuzingatia kasi ifaayo (maneno 30 kwa dakika na kwa kizingatia viakifishi) akishirikiana na wenzake",
+                        "kusoma hadithi kutoka kwenye kitabu, kifaa cha kidijtali, n.k akishirikiana na wenzake kwa kuzingatia matamshi bora, kasi ifaayo na kiwango kifaacho cha sauti",
+                        "kumsomea mzazi au mlezi kifungu chepesi cha hadithi chenye sauti lengwa akizingatia matamshi bora, kasi ifaayo na kiwango kifaacho cha sauti"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je, tunafaa kufanya nini tunapowasomea wengine kitabu kwa sauti?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "10.3",
+                    "substrand_name": "Kuandika: Kifungu kutokana na picha",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutazama picha na kutambua yaliyomo",
+                        "kuandika kifungu kuhusu yaliyomo katika picha",
+                        "kufurahia kuandika kifungu kutokana na yaliyomo katika picha"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kutazama picha kuhusu suala lengwa na kutambua wahusika na matendo yao akishirikiana na wenzake",
+                        "kueleza wenzake katika kikundi wahusika ni nani na wanafanya nini",
+                        "kuandika kifungu cha sentensi mbili kutokana na picha aliyoitazama",
+                        "kuwasomea wenzake sentensi alizoandika kuhusu picha",
+                        "kunakili sentensi alizoandika kwa kutumia kifaa cha kidijitali",
+                        "kuandika kifungu kwa kurejelea baadhi ya picha zinazopatikana nyumbani na sehemu mbalimbali za barabarani"
+                    ],
+                    "key_inquiry_questions": [
+                        "Unapenda picha zinazohusu vitu gani?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                },
+                {
+                    "substrand_number": "10.4",
+                    "substrand_name": "Sarufi: Vinyume vya Vitendo",
+                    "number_of_lessons": 3,
+                    "specific_learning_outcomes": [
+                        "kutambua vinyume vya vitendo mbalimbali katika kifungu chepesi",
+                        "kutumia majina ya vinyume vya vitendo katika mawasiliano",
+                        "kuchangamkia kutumia vitendo na vinyume vyake katika mawasiliano ya kila siku"
+                    ],
+                    "suggested_learning_experiences": [
+                        "kusoma maneno ya vitendo na vinyume vyake akishirikiana na wenzake",
+                        "kutambua vinyume vya vitendo (kama vile, lala-amka; keti - simama; cheka - lia; enda - rudi; panda- shuka) katika kadi maneno, mti maneno, chati, kapu maneno au vifaa vya kidijitali",
+                        "kutumia vifaa vya kidijitali kusikiliza matumizi ya vinyume vya vitendo k.v. katika kifungu kinachosomwa",
+                        "kuigiza vinyume vya vitendo akiwa katika kikundi",
+                        "kushirikishwa kutaja majina ya vinyume vya vitendo",
+                        "kuandika vinyume vya vitendo"
+                    ],
+                    "key_inquiry_questions": [
+                        "Je,vinyume gani vya vitendo unavyofanya kila siku?"
+                    ],
+                    "core_competencies": [],
+                    "values": [],
+                    "pcis": [],
+                    "links_to_other_subjects": []
+                }
+            ]
+        }
+    ]
+}

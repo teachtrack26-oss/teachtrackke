@@ -1,0 +1,2714 @@
+{
+    "grade": "Grade 3",
+    "subject": "English Activities",
+    "education_level": "Lower Primary",
+    "strands": [
+        {
+            "strand_number": "1.0",
+            "strand_name": "Activities at Home and School",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and vocabulary",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise words with the target letter-sound combinations (bl, br, cl and sound /tÊƒ/) in oral texts",
+                        "pronounce words with the target letter-sound combinations (bl, br, cl and sound /tÊƒ/) in preparation for reading",
+                        "use the new words learnt to communicate in various contexts",
+                        "realise the role of listening attentively and speaking clearly for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to an oral text with words containing the target-letter sound combinations as modelled by peers, teacher, or from audio recording",
+                        "point out words with the target sound combinations from the text",
+                        "watch videos on conveyoursations with words featuring the target letter- sounds: (bl, br, cl and sound /tÊƒ/)",
+                        "take turns to practise saying words with the target letter-sound combinations",
+                        "play word games with peers involving target sounds",
+                        "work jointly to match new words with their meaning",
+                        "use new words to construct sentences with peers and give feedback to each other",
+                        "create a talking tree using the vocabulary learnt"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do we pronounce words correctly?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to listen keenly and actively is enhanced as they listen to oral texts and recognise words with the target letter- sound combinations.",
+                        "Creativity and imagination: This is nurtured as the learner embraces ideas that inspire creativity when creating a talking tree using the vocabulary learnt."
+                    ],
+                    "values": [
+                        "Respect is enhanced as the learner appreciates the effort of peers when working jointly to match new words with their meaning."
+                    ],
+                    "pcis": [
+                        "Environmental awareness: This is promoted as the learner familiarises with activities at home and school."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can relate the concept of correct pronunciation to learning of similar concepts in Kiswahili and Indigenous Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "1.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with target letter-sound combinations bl, br, cl and sound /tÊƒ/ in a text",
+                        "read a text accurately, at the right speed, and with expression",
+                        "realise the correspondence between spoken words and written words in various contexts"
+                    ],
+                    "suggested_learning_experiences": [
+                        "watch a video clip/listen to an audio recording/teacher model of target sounds",
+                        "pick out words containing the target letter- sound combinations bl, br, cl and sound /tÊƒ/ from a written text",
+                        "read words with the target letter-sound combinations from either print or digital stories",
+                        "engage in timed reading of a text (90 words per minute) displaying the right emotions and feelings, with peers",
+                        "take part in word-building activities using pocket charts, print, and digital flashcards"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we show emotions when reading a story?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to listen keenly and actively is enhanced as they listen to oral texts/audio recordings and identify words with the target letter-sound combinations correctly.",
+                        "Learning to Learn: The learner's ability to develop relationships is enhanced as they engage in timed reading with peers and give feedback."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is enhanced as the learner collaborates with peers in carrying out activities such as word building and timed reading."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as their reading competency improves."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can use the reading fluency skills to learn similar concepts in Kiswahili Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "1.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "make predictions and anticipate possible outcomes of a story",
+                        "identify characters and settings in a text for comprehension",
+                        "use context clues to infer meanings of words in a text",
+                        "answer simple direct and indirect questions based on a text",
+                        "appreciate the strategy of talking about a text read for comprehension"
+                    ],
+                    "suggested_learning_experiences": [
+                        "look at pictures and titles of a text and predict the likely order of events in a story, with peers",
+                        "read a print or digital text, related to the theme",
+                        "identify the characters in a text",
+                        "draw a concept map to outline the characters in the text",
+                        "discuss the setting in a story, with peers",
+                        "respond to direct questions by locating sentences with the answers",
+                        "answer indirect questions using prior knowledge of the target theme",
+                        "list keywords or phrases related to the theme from a grade-appropriate text",
+                        "work jointly to use contextual clues to find meaning of the new words"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we tell how a story, poem, or conversation will end?",
+                        "Why is it important to identify the main idea in a text?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination: The learner's ability to embrace new ideas in nurtured as they draw a concept map to outline the characters in the text.",
+                        "Collaboration: The learner's ability to contribute to group decision-making is enhanced as they value the ideas of peers and observe rules of engagement during discussions."
+                    ],
+                    "values": [
+                        "Respect is enhanced as the learner appreciates diverse opinions from peers during discussions."
+                    ],
+                    "pcis": [
+                        "Social cohesion: This is enhanced as the learner interacts with texts on activities at home and in school and how they can take part in constructive activities."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies the comprehension strategies in the reading of texts in other Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "1.4",
+                    "substrand_name": "Language Use: Subject-verb agreement â€“ Verb â€˜to beâ€™",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "select the forms of the verb â€˜to beâ€™ (am, is, are, was and were) from a text",
+                        "use the forms of the verb â€˜to beâ€™ (am, is, are, was and were) to show subject-verb agreement",
+                        "value the importance of well-formed sentences in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to a story and pick out forms of the verb â€˜to beâ€™ (am, is, are, was and were)",
+                        "answer questions based on the forms of the verb â€˜to beâ€™ (am, is, are, was and were)",
+                        "form sentences using the forms of the verb â€˜to beâ€™",
+                        "rewrite sentences featuring forms of the verb â€˜to beâ€™ (am, is, are, was and were)",
+                        "complete substitution tables featuring the forms of the verb â€˜to beâ€™ (am, is, are, was and were)",
+                        "view pictures/charts showing actions featuring the forms of the verb â€˜to beâ€™ (am, is, are, was and were)",
+                        "play a language game on am, is, are, was, were"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we write correct sentences?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to write clearly and correctly is enhanced as they complete substitution tables featuring the verbs 'to be' am, is, are, was, and were.",
+                        "Learning to Learn: The learner's ability to develop relationships is enhanced as they play a language game on complete substitution tables featuring the verbs to be am, is, are, was, were with peers."
+                    ],
+                    "values": [
+                        "Respect is enhanced as the learner waits patiently to take turns in constructing sentences using the verbs to be am, is, are, was, were"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-awareness): The learner's self-awareness is developed as they construct sentences correctly."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies knowledge on subject-verb agreement to learning of similar concept in Kiswahili and Indigenous Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "1.5",
+                    "substrand_name": "Writing: Handwriting: Letters of the alphabet",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise aspects of good handwriting for effective communication",
+                        "write words with ascenders and target letter-sound combinations bl, br, ch, and cl in clear legible handwriting",
+                        "advocate for the importance of writing clearly and legibly for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "look at a sample text with good handwriting",
+                        "point out aspects of good handwriting in the text",
+                        "trace, model or copy ascenders in the letters of the alphabet neatly",
+                        "copy letter patterns of the target letter-sound combinations (bl, br, ch, cl), with peers",
+                        "write words related to the theme in response to a picture prompt",
+                        "listen to a dictation on sentences using subject- verb agreement and write them neatly",
+                        "team up to display their neatly written sentences on charts"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we write neatly and legibly?",
+                        "How are the letters of the alphabet shaped?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to write clearly and correctly is developed as they trace or copy ascenders in the letters of the alphabet neatly.",
+                        "Learning to Learn: The learner's ability to learn independently is enhanced as they practise writing clearly and legibly on their own."
+                    ],
+                    "values": [
+                        "Respect is cultivated as the learner positively regards the effort of peers as they team up to display their neatly written sentences on charts."
+                    ],
+                    "pcis": [
+                        "Peer education and mentorship: The learner's ability to mentor others is developed as they model good handwriting to peers."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner uses the writing skills to write clearly and legibly in other learning areas."
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "2.0",
+            "strand_name": "Sharing Duties and Responsibilities",
+            "substrands": [
+                {
+                    "substrand_number": "2.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and vocabulary",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise words with the target letter-sound combinations (â€˜drâ€™, â€˜flâ€™, â€˜frâ€™ and â€˜glâ€™) in sentences",
+                        "pronounce the target letter-sound combinations (â€˜drâ€™, â€˜flâ€™, â€˜frâ€™ and â€˜glâ€™) in words and sentences correctly",
+                        "use the vocabulary learnt to communicate appropriately in various contexts",
+                        "respond to simple specific three- directional instructions in oral communication",
+                        "realise the role of listening attentively and correct pronunciation for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to the teacher model or an audio recording of the target letter-sound combinations (â€˜drâ€™, â€˜flâ€™, â€˜frâ€™ and â€˜glâ€™)",
+                        "pronounce the target letter-sound combinations by taking turns",
+                        "listen to and say tongue twisters with the target letter-sound combination",
+                        "sing songs or recite poems with target letter- sound combinations",
+                        "construct simple sentences with peers using the new words and give feedback to each other",
+                        "dramatise or role-play sharing of responsibilities and duties using vocabulary learnt",
+                        "listen and respond to three directional instructions",
+                        "team up to play the â€˜Simon saysâ€™ game to practice responding to simple instructions"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we pronounce words correctly?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn: This is promoted as the learner builds on their own learning when teaming up to play the â€˜Simon saysâ€™ game to practice responding to simple instructions.",
+                        "Collaboration: The learnerâ€™s ability to contribute to group activity is enhanced as they participate actively in role-play with peers and observe the rules of engagement."
+                    ],
+                    "values": [
+                        "Responsibility is enhanced as the learner engages in assigned roles and duties at home and school."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-awareness): The learnerâ€™s self-awareness is improved as they learn about the duties at home and school."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner will apply attentive listening skills in learning other concepts in all learning areas."
+                    ]
+                },
+                {
+                    "substrand_number": "2.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with the target letter-sound combinations ( â€˜drâ€™, â€˜flâ€™, â€˜frâ€™ and â€˜glâ€™) for ease of reading",
+                        "read a grade-appropriate text accurately, at the right speed, and with expression",
+                        "adopt reading simple, short texts from a variety of genres"
+                    ],
+                    "suggested_learning_experiences": [
+                        "pick out words with the target sounds and letter sound combinations",
+                        "watch a video or listen to an audio clip as the teacher or peers model words featuring the target letter-sound combinations: â€˜drâ€™, â€˜flâ€™, â€˜frâ€™, and â€˜glâ€™",
+                        "pick out words containing the target letter-sound combinations from a written text",
+                        "team up to participate in a spelling bee speed test to spell words with the target letter sound combinations",
+                        "engage in timed reading of a text displaying appropriate expression, with peers",
+                        "read texts from different genres paying attention to punctuation, facial expressions, pace, pitch, and volume"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we read at the right speed?",
+                        "How can we use our eyes and faces to pass a message to others?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: The learnerâ€™s ability to interact with digital devices is enhanced as they watch a video clip and pick out words with the target letter- sound combination.",
+                        "Learning to Learn: The learnerâ€™s ability to learn independently is reinforced as they team up to participate in a spelling bee speed test to spell words with the target letter sound combinations."
+                    ],
+                    "values": [
+                        "Respect is nurtured as the learner appreciates the effort of peers as they engage in timed reading activities."
+                    ],
+                    "pcis": [
+                        "Nationalism: This is promoted as the learner interacts with texts on sharing duties and responsibilities to promote harmonious living."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply reading fluency skills when reading texts in Kiswahili and Indigenous Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "2.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words related to the theme",
+                        "make predictions and anticipate possible outcomes in a story for comprehension",
+                        "use contextual clues to infer meanings of new words",
+                        "answer direct and inferential questions for comprehension",
+                        "adopt the reading texts for lifelong learning"
+                    ],
+                    "suggested_learning_experiences": [
+                        "read a printed or digital text and pick out words related to the theme",
+                        "look at pictures and title of a text and say what will happen in the story",
+                        "work with peers to infer the meaning of new words using contextual clues",
+                        "discuss the text with peers and locate sentences containing answers to the direct questions based on the text",
+                        "answer inferential questions based on the text read using contextual clues",
+                        "make connections between events in the text and real-life experiences",
+                        "engage in a language game using the vocabulary learnt"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we tell how a story/poem will end?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: The learnerâ€™s ability to make connections is enhanced as they relate the events in the texts to real-life experiences.",
+                        "Collaboration: The learnerâ€™s sense of teamwork is built up as they work with peers to infer the meaning of new words using contextual clues."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is enhanced as the learner works collaboratively with peers in group activities."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learnerâ€™s self-esteem is improved during the answering of comprehension questions to show understanding."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply vocabulary learnt in the theme on sharing duties and responsibilities to their learning in religious studies activities."
+                    ]
+                },
+                {
+                    "substrand_number": "2.4",
+                    "substrand_name": "Language use: Forms of the verb â€˜to doâ€™ / Subject-verb agreement",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify the forms of the verb â€˜to doâ€™ (do, does and did) in a text",
+                        "use the forms of the verb â€˜to doâ€™ (do, does and did) in sentences for subject- verb agreement",
+                        "realise the importance correct use of tense in language"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen for the forms of the verb â€˜to doâ€™ (do, does and did) from an audio recording/video clip or as modelled by the peers or the teacher",
+                        "construct sentences related to the theme using the different forms of the verb â€˜to doâ€™ (do, does and did) for subject-verb agreement",
+                        "work jointly to recite poems/sing songs about the theme, while using the different forms of the verb â€˜to doâ€™ (do, does and did)",
+                        "type sentences formed using the different forms of the verb â€˜to doâ€™ (do, does and did) onto a digital device in pairs",
+                        "play a language game with peers and use the different forms of the verb â€˜to doâ€™ (do, does and did) in their interactions"
+                    ],
+                    "key_inquiry_questions": [
+                        "What duties do you like doing?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination: This is enhanced as the learner embraces ideas that inspire creativity when recite poems/sing songs about the theme, while using the different forms of the verb â€˜to doâ€™ (do, does and did).",
+                        "Digital Literacy: The learnerâ€™s ability to interact with digital devices is enhanced as they type sentences on a digital device."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is enhanced as the learner collaborates with peers when playing language games."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learnerâ€™s self-esteem is improved through the use of the various forms of the verb â€˜to doâ€™ correctly in communication."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply the knowledge acquired on the different forms of the verb â€˜to doâ€™ in learning of similar concepts in Kiswahili and Indigenous Languages Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "2.5",
+                    "substrand_name": "Writing: Handwriting",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise aspects of good handwriting for effective communication",
+                        "write words related to the theme in clear and legible handwriting",
+                        "acknowledge the importance of writing correctly and clearly for writing fluency"
+                    ],
+                    "suggested_learning_experiences": [
+                        "look at a sample of a text with good handwriting and another with bad handwriting",
+                        "work jointly to identify aspects of good handwriting such as letter formation, spacing, alignment, and capitalisation",
+                        "copy letter patterns of the target letter-sound combinations (drâ€™, â€˜flâ€™, â€˜frâ€™, and â€˜glâ€™) with peers",
+                        "write words related to the theme in response to a picture prompt",
+                        "organise their neatly written work in a portfolio",
+                        "listen to a dictation on sentences using various forms of the verb â€˜to doâ€™ and write them"
+                    ],
+                    "key_inquiry_questions": [
+                        "What should we do to ensure we write legibly?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learnerâ€™s ability to write clearly and correctly is enhanced as they write words related to the theme in good handwriting.",
+                        "Learning to Learn: The learnerâ€™s ability to learn independently is improved as they practise writing neatly and legibly on their own."
+                    ],
+                    "values": [
+                        "Responsibility is enhanced as the learner works diligently to organise their neatly written work in a portfolio."
+                    ],
+                    "pcis": [
+                        "Peer Education and Mentorship: The learnerâ€™s ability to embrace peer learning is enhanced as they work jointly to identify aspects of good handwriting."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply the handwriting skills learnt in learning of similar concepts in Kiswahili Language Activities."
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "3.0",
+            "strand_name": "Etiquette",
+            "substrands": [
+                {
+                    "substrand_number": "3.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise words with the target letter-sound combinations (â€˜crâ€™, â€˜plâ€™, â€˜stâ€™ and â€˜snâ€™) in a text",
+                        "pronounce words with the target letter-sound combinations â€˜crâ€™, â€˜plâ€™, â€˜stâ€™ and â€˜snâ€™ correctly",
+                        "use vocabulary related to the theme to communicate in various contexts",
+                        "respond to simple specific three- directional instructions in oral communication",
+                        "appreciate the importance of listening attentively for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify and pronounce words and phrases with letter-sound combinations (â€˜crâ€™, â€˜plâ€™, â€˜stâ€™ and â€˜snâ€™) as modelled by the peers/teacher or in an audio recording",
+                        "use words that have the target letter-sound combinations to create sentences",
+                        "practise tongue twisters, rhymes, or poems and pick out the target letter-sound combinations with peers",
+                        "listen to an audio/video recording of a conversation on etiquette and identify words related to the theme",
+                        "play a language game involving matching vocabulary learnt to pictures",
+                        "work jointly to build a vocabulary bank on the new words learnt",
+                        "take turns to give each other instructions and do as they are instructed"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we learn new words?",
+                        "Why should we listen attentively?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learnerâ€™s ability to speak engagingly is enhanced as they use the polite words learnt in everyday conversations."
+                    ],
+                    "values": [
+                        "Responsibility is enhanced as the learner takes up assigned roles when working with peers."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-awareness): The learnerâ€™s self-awareness is enhanced as they learn words related to etiquette and use them in everyday communication."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner uses the skill of correct pronunciation in learning of similar concepts in Kiswahili Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "3.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with target letter-sound combinations (â€˜crâ€™, â€˜plâ€™, â€˜stâ€™ and â€˜snâ€™) in preparation for reading",
+                        "read a grade-appropriate text accurately, at the right speed, and with expression",
+                        "adopt reading simple, short texts in a variety of genres"
+                    ],
+                    "suggested_learning_experiences": [
+                        "recognise words with target letter-sound combinations (â€˜crâ€™, â€˜plâ€™, â€˜stâ€™ and â€˜snâ€™)",
+                        "identify words with the target letter- sound combinations from a text",
+                        "make words with the target letter sound combinations and read to peers",
+                        "conduct a readerâ€™s theatre to read a text displaying the right emotions and feelings, paying attention to punctuation and tone",
+                        "engage in timed reading, with peers and give positive feedback"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is reading without hesitation important?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learnerâ€™s ability to develop relationships is enhanced as they engage in timed reading with peers and give positive feedback."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is improved as the learner works collaboratively with peers to conduct a readerâ€™s theatre to read a text displaying the right emotions and feelings, paying attention to punctuation and tone."
+                    ],
+                    "pcis": [
+                        "Social cohesion: This is promoted as the learner interacts with texts and learns etiquette which contributes to harmonious interpersonal relationships."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply the reading fluency skills acquired in learning of similar concept in Kiswahili Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "3.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify the main idea, topic/purpose of the text for inference",
+                        "summarise events in a story to check understanding",
+                        "explain the sequence of events in a text",
+                        "realise the importance of reading a variety of texts for information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "read a story in print or digital form",
+                        "say what the story is about",
+                        "say where the action in of the story, with peers",
+                        "explain what happens in the beginning, middle, and end of the story using their own words",
+                        "retell the content of the story in a few words using the five-finger model",
+                        "work jointly to organise the events of the story in a chain diagram to show sequence"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we ensure we understand the events in a story?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem solving: This is promoted as the learner thinks logically when organising the events of the story in a chain diagram to show sequence.",
+                        "Creativity and Imagination: The learnerâ€™s fluency skills are improved as they explain the events in the story from the beginning to the end in their own words."
+                    ],
+                    "values": [
+                        "Respect is enhanced as the learner accepts diverse opinions from peers during discussions."
+                    ],
+                    "pcis": [
+                        "Life Skills (self-esteem): The learnerâ€™s self-esteem/confidence is enhanced as they creatively retell a story."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies comprehension strategies in the reading of texts in Kiswahili and Indigenous Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "3.4",
+                    "substrand_name": "Language Use: Subject-verb agreement â€“ verb â€˜to haveâ€™",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "select forms of the verb â€˜to haveâ€™ (has, have and had) from a text",
+                        "use the forms of the verb â€˜to haveâ€™ (have, has and had) to show subject-verb agreement",
+                        "value the importance of subject-verb agreement in sentences"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to a story and pick out forms of the verb â€˜to haveâ€™ (has, have and had)",
+                        "answer questions based on the forms of the verb â€˜to haveâ€™ (has, have and had)",
+                        "form sentences featuring have, has, had from a substitution table",
+                        "view pictures/charts showing actions by one person and others by more than one person, and make sentences to show subject-verb agreement using have, has, had",
+                        "work jointly to prepare flashcards with the target language pattern and display in class",
+                        "match subject (nouns or subjective pronoun) with forms of the verb â€˜to haveâ€™ (has, have and had) with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we make what we say or write better understood?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem solving: The learnerâ€™s ability to think critically is enhanced as they form sentences featuring have, has, had from a substitution table.",
+                        "Learning to Learn: The learnerâ€™s ability to develop relationships is enhanced as they play a language game on subject-verb agreement with peers."
+                    ],
+                    "values": [
+                        "Unity is enhanced as the learner works jointly to prepare flashcards with the target language pattern and display in class."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-awareness): The learnerâ€™s self-awareness is developed as they construct sentences using objects at home and school."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies knowledge of subject-verb agreement to learning of similar concepts in Kiswahili and Indigenous Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "3.5",
+                    "substrand_name": "Writing: Handwriting",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise aspects of good handwriting for effective communication",
+                        "write words in clear and legible handwriting",
+                        "value the importance of writing clearly and legibly for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "look at a sample text of good handwriting",
+                        "identify aspects of good handwriting in a text",
+                        "identify common mistakes learners make on handwriting",
+                        "copy letter patterns of the target letter-sound combinations (â€˜crâ€™, â€˜plâ€™, â€˜stâ€™ and â€˜sn)",
+                        "neatly write words related to the theme in response to a picture prompt",
+                        "write words or short sentences and give feedback on each otherâ€™s handwriting"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to write neatly and legibly?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learnerâ€™s ability to write clearly and correctly is enhanced as they write words in clear and legible handwriting.",
+                        "Learning to Learn: The learnerâ€™s ability to learn independently is enhanced as they practise writing neatly and legibly on their own."
+                    ],
+                    "values": [
+                        "Responsibility is enhanced as the learner works diligently to organise their neatly written work in a portfolio."
+                    ],
+                    "pcis": [
+                        "Peer Education and Mentorship: The learnerâ€™s ability to demonstrate peer learning is enhanced as they give each other honest and constructive feedback on handwriting."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply the handwriting skill in learning of similar concepts in Kiswahili Language Activities."
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "4.0",
+            "strand_name": "Child Rights",
+            "substrands": [
+                {
+                    "substrand_number": "4.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise words with the target letter-sounds combinations ( â€˜wrâ€™, prâ€™, â€˜smâ€™ and â€˜stâ€™) in given words for effective communication",
+                        "articulate the words with the target letter-sound combinations ( â€˜wrâ€™, prâ€™, â€˜smâ€™ and â€˜stâ€™) correctly",
+                        "use new words related to the theme in relevant contexts",
+                        "realise the importance of listening attentively and using correct pronunciation for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify words with the target letter sound combinations: â€˜wrâ€™, prâ€™, â€˜smâ€™, and â€˜stâ€™ from an oral text",
+                        "pronounce the target letter-sound combinations by taking turns as modelled by the peers, teacher, or audio recording",
+                        "sing simple songs or recite poems with target letter-sound combinations, with peers",
+                        "add new words related to the theme onto a word tree for display",
+                        "construct simple sentences with peers using the new words and review each otherâ€™s work",
+                        "role-play issues related to childâ€™s rights, with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we pronounce words correctly?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to listen keenly and actively is enhanced as they listen to oral texts, identify words with the target letter-sound combination, and pronounce the words correctly.",
+                        "Collaboration: Teamwork is enhanced as the learner actively participates in constructing simple sentences with peers and giving feedback while observing the rules of engagement."
+                    ],
+                    "values": [
+                        "Integrity is enhanced as the learner shares honest and constructive feedback to peers during review of each other's sentneces."
+                    ],
+                    "pcis": [
+                        "Child's Rights: The learner becomes aware of their rights as they acquire information from texts on child's rights."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is can use attentive listening skills in learning of concepts in other learning areas."
+                    ]
+                },
+                {
+                    "substrand_number": "4.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise words with the target letter-sound combinations (wrâ€™, prâ€™ smâ€™, and st) in preparation for reading",
+                        "read words with the target letter-sound combinations (â€˜wrâ€™, â€˜prâ€™ â€˜smâ€™, and â€˜stâ€™) correctly",
+                        "value the importance of reading fluently in a variety of genres"
+                    ],
+                    "suggested_learning_experiences": [
+                        "select words with the sounds (â€˜wrâ€™, â€˜prâ€™ â€˜smâ€™, and â€˜stâ€™) from a text",
+                        "select words with the target letter sound combinations from a chart",
+                        "read words with target letter-sound combinations",
+                        "practise reading sentences containing decodable and non-decodable words",
+                        "engage in the timed reading of a grade-appropriate text displaying the right facial expressions, feelings, or emotions",
+                        "recite a choral verse related to the theme, with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "What makes us read a story at a good speed?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to learn independently is enhanced as they practise reading sentences containing decodable and non-decodable words on their own."
+                    ],
+                    "values": [
+                        "Unity is developed as the learner collaborates with peers in reciting of choral verses on child's rights."
+                    ],
+                    "pcis": [
+                        "Life Skill (Self-esteem): The learner's self-esteem is enhanced as they acquire reading fluency skills."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply the reading fluency skills acquired in learning of similar concepts in Kiswahili Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "4.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "predict the likely outcomes in a story for comprehension",
+                        "answer direct and indirect questions to check for understanding",
+                        "adopt reading a variety of texts for information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "observe pictures and the title of a text and say what is likely to happen in the story, with peers",
+                        "infer meanings or use contextual clues to find the meaning of new words",
+                        "scan a passage to locate answers to direct questions and the required information",
+                        "respond to indirect questions using context clues",
+                        "connect events in the story with real- life experiences and discuss with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do we predict what will happen in a story before reading?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to write clearly and correctly is enhanced as they write correct answers to comprehension questions.",
+                        "Creativity and Imagination: The learner's ability to make connections is enhanced as they relate the events in the story to real-life experiences."
+                    ],
+                    "values": [
+                        "Social Justice is cultivated in the learner as they accord each other equal opportunities to say what is likely to happen in the story."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they predict the likely outcomes in the story correctly."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply the vocabulary learnt on child rights to their learning of similar concepts in Religious Studies Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "4.4",
+                    "substrand_name": "Language Use: Indefinite pronouns",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify indefinite pronouns (nobody, anybody, somebody) in a text",
+                        "use indefinite pronouns to construct sentences for effective communication",
+                        "adopt using indefinite pronouns in day-to-day communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to a story/poem/conversation read by the teacher or from digital devices",
+                        "identify the indefinite pronouns (nobody, anybody, somebody) from the text",
+                        "engage in question-and-answer dialogues using indefinite pronouns",
+                        "create sentences using indefinite pronouns",
+                        "fill in gaps in sentences with indefinite pronouns",
+                        "work jointly to solve a crossword puzzle with indefinite pronouns",
+                        "participate in a language game involving the use of indefinite pronouns"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we refer to other people without mentioning their names?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem solving: The learner's ability to think critically is enhanced as they work jointly to solve a crossword puzzle with indefinite pronouns.",
+                        "Collaboration (Teamwork): The learner's ability to work as a team is enhanced as they actively participate in question-and-answer dialogues with peers using indefinite pronouns."
+                    ],
+                    "values": [
+                        "Respect is enhanced as the learner understands and appreciates the opinions of peers during group activities."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they use indefinite pronouns correctly in communication."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can link the concept of indefinite pronouns to learning of similar concepts in Kiswahili Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "4.5",
+                    "substrand_name": "Writing: Handwriting",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise aspects of good handwriting for effective communication",
+                        "write words related to the theme in clear and legible handwriting",
+                        "value the importance of writing clearly and legibly for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "look at a sample of correct, clear, and legible handwriting of a text",
+                        "write dictated words ensuring good handwriting and correct spelling",
+                        "write phrases in response to a picture prompt related to the theme",
+                        "make sentences related to the theme collaboratively and give feedback on peers' handwriting"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do we write neatly and legibly?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to write clearly and correctly is improved as they write words in clear and legible handwriting."
+                    ],
+                    "values": [
+                        "Respect is enhanced as the learner works together with peers to write neat and legible sentences."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is nurtured as their handwriting improves through practise in writing neatly and legibly."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can use the aspects of good handwriting in learning of similar concepts in Kiswahili Language Activities."
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "5.0",
+            "strand_name": "Occupations",
+            "substrands": [
+                {
+                    "substrand_number": "5.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise words with the target letter-sound combination (â€˜slâ€™, â€˜stâ€™, â€˜swâ€™, â€˜spâ€™, â€˜thrâ€™) in sentences",
+                        "pronounce the target letter-sound combination in words and sentences correctly",
+                        "use the vocabulary learnt to communicate in various contexts",
+                        "respond to simple specific three-directional instructions in oral communication",
+                        "recognise the importance of listening attentively, responding appropriately and understanding the meanings of words in day-to-day life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to the teacher/audio recording and identify words with the target letter-sound combinations: (â€˜slâ€™, â€˜stâ€™, â€˜swâ€™, â€˜spâ€™, â€˜thrâ€™)",
+                        "pronounce words with the target letter-sound combinations, with peers",
+                        "create a list of sentences using words with the target letter-sound combinations",
+                        "listen to stories and identify words related to the theme",
+                        "look for the meaning of vocabulary from pictorial dictionaries and practise using them in sentences",
+                        "sing songs/ recite poems on the theme",
+                        "watch a video with content related to the theme",
+                        "role-play different occupations as they record the videos",
+                        "work with peers to develop a talking tree using the vocabulary on different types of occupations",
+                        "listen and respond to three-directional instructions"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to look at someoneâ€™s face as they speak to you?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination: The learner's ability to embrace creative ideas is nurtured as they work with peers to develop a talking tree using the vocabulary on different types of occupations.",
+                        "Digital Literacy: The learner's ability to create with technology is enhanced as they role-play different occupations and records the videos."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is enhanced as the learner collaborates with peers to develop a talking tree using the vocabulary learnt."
+                    ],
+                    "pcis": [
+                        "Career education: This is promoted as the learner interacts with information on the various jobs and occupations in texts."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply the attentive listening skills in learning other concepts in other learning areas."
+                    ]
+                },
+                {
+                    "substrand_number": "5.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with target letter-sound combinations (â€˜slâ€™, â€˜stâ€™, â€˜swâ€™, â€˜spâ€™, â€˜thrâ€™), in preparation for reading",
+                        "read a text related to the theme accurately, at the right speed with expression for fluency",
+                        "realise the role of reading fluency in learning"
+                    ],
+                    "suggested_learning_experiences": [
+                        "read words with the target letter-sound combinations (â€˜slâ€™, â€˜stâ€™, â€˜swâ€™, â€˜spâ€™, â€˜thrâ€™), with peers",
+                        "point out words with target letter-sound combinations from a text",
+                        "engage in timed reading (90 words per minute) displaying the right emotions and feelings",
+                        "read a text paying attention to punctuation and tone",
+                        "read grade-appropriate texts related to occupation in the library and share what they have read with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to read fluently?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner ability to learn independently is enhanced as they read texts on 'Occupations' and share what they have learnt with peers."
+                    ],
+                    "values": [
+                        "Unity is encouraged as the learner cooperates with peers in carrying out group activities."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is improved as they read texts fluently."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply reading fluency skills in learning similar concepts in Kiswahili Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "5.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify characters and settings in a text for comprehension",
+                        "make predictions and anticipate possible outcomes of a story",
+                        "use context clues to infer meanings of new words in a text",
+                        "answer direct and indirect questions based on a text read",
+                        "share what they have read in a text"
+                    ],
+                    "suggested_learning_experiences": [
+                        "look at pictures and the title of a text and predict the likely order of events in a story, with peers",
+                        "talk about the setting and characters using a variety of clues, with peers",
+                        "infer meanings of new words in a story",
+                        "read a story and answer direct questions by locating sentences containing the answers",
+                        "respond to indirect questions using context clues",
+                        "connect events in the story with real- life experiences"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we tell what is going to happen next in a story?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: The learner improves their ability to make connections as they relate the events in the story with real-life experiences.",
+                        "Communication: The learner's ability to comprehend a text is enhanced as they provide answers to questions from the passage."
+                    ],
+                    "values": [
+                        "Respect is developed as the learner appreciates diverse opinions from peers during discussions."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they answer comprehension questions correctly to show understanding."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply the comprehension strategies when reading texts in Kiswahili and Indigenous Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "5.4",
+                    "substrand_name": "Language Use: Singular and plurals of irregular nouns",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify irregular nouns in a print/digital text",
+                        "use singular and plural forms of irregular nouns to talk about the theme",
+                        "realise the importance of irregular nouns in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "work jointly to pick out irregular nouns and their plural forms from a text",
+                        "form plurals of irregular nouns in the singular form",
+                        "construct sentences about the theme using the plural forms of irregular nouns",
+                        "listen to a story/poem and respond to questions based on singular and plural forms of irregular nouns",
+                        "recite poems/read texts/sing songs containing plurals of irregular nouns",
+                        "work jointly to play language games involving singular and plural forms of irregular nouns",
+                        "work jointly to create a class word bank of singular and plural forms of irregular nouns"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we refer to things that are more than one?"
+                    ],
+                    "core_competencies": [
+                        "Learning to learn: This is enhanced as the learner builds on their learning experiences by working jointly to create a class word bank of singular and plural forms of irregular nouns."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is enhanced as the learner collaborates with peers to pick out irregular nouns and their plural forms from a text."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they improve in their linguistic knowledge on use of plural forms of nouns."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner is able to apply knowledge learnt on plurals of nouns in learning of similar concept in Kiswahili Language Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "5.5",
+                    "substrand_name": "Writing: Hand Writing",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise aspects of good handwriting for effective communication",
+                        "write words with target letter- sound combinations (â€˜slâ€™, â€˜stâ€™, â€˜swâ€™, â€˜spâ€™ and â€˜thrâ€™), in clear and legible handwriting",
+                        "appreciate the importance of writing clearly and legibly for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "look at samples of texts with good handwriting",
+                        "identify aspects of good handwriting",
+                        "copy letter patterns of words with the target letter-sound combinations (â€˜slâ€™, â€˜stâ€™, â€˜swâ€™, â€˜spâ€™ and â€˜thrâ€™)",
+                        "write words related to the theme in response to a picture prompt neatly",
+                        "trace letter patterns neatly and legibly",
+                        "re-write short sentences related to the theme in neat and legible handwriting",
+                        "type words and phrases using digital devices"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we write words and sentences neatly and legibly?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to write clearly and correctly is enhanced as they write words in clear and legible handwriting.",
+                        "Digital Literacy: The learner's ability to create with technology is improved as they type words and phrases on digital devices."
+                    ],
+                    "values": [
+                        "Respect is enhanced as the learner appreciates the effort of peers to write correctly and assist those with writing difficulties."
+                    ],
+                    "pcis": [
+                        "Peer Education and Mentorship: The learner's ability to mentor others is developed as they model good handwriting to their peers."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply good handwriting skills to learn concepts in Kiswahili Language Activities."
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "6.0",
+            "strand_name": "Technology",
+            "substrands": [
+                {
+                    "substrand_number": "6.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise words with the target letter-sounds combinations (/dr/, /gr/, /shr/) in given words correctly",
+                        "pronounce the words with the target letter-sound combinations in preparation for reading",
+                        "use vocabulary words related to the theme in relevant contexts",
+                        "respond to simple specific three- directional instructions in oral communication",
+                        "grasp the importance of listening attentively and correct pronunciation for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify and pronounce words with letter-sound combinations sounds: (/dr/, /gr/, /shr/) as modelled by the peers/ teacher/ audio recording",
+                        "use words that have the target letter- sound combinations to create sentences",
+                        "recite alliterative words that have the sounds (/dr/, /gr/, /shr/)",
+                        "listen to an audio/video recording of a conversation on technology and identify words related to the theme",
+                        "respond to simple specific three- directional instructions",
+                        "play in a language game with peers, matching the vocabulary learnt with pictures"
+                    ],
+                    "key_inquiry_questions": [
+                        "What words do we use to talk about technology?",
+                        "Why is it important to pronounce words correctly?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: The learner's interaction with digital devices is enhanced as they listen or watch recordings and respond to them appropriately.",
+                        "Communication: The learner's ability to speak engagingly is developed as they use vocabulary related to technology in communication."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is enhanced as the learner works collaboratively with peers during language games."
+                    ],
+                    "pcis": [
+                        "ICT: This is promoted as the learner interact with texts and vocabulary on technology."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner uses the skill of correct pronunciation to learn similar concepts in Kiswahili and Indigenous Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "6.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with the target letter-sound combinations (/dr/, /gr/, /shr/) in a text)",
+                        "read a text accurately, at the right speed, and with expression",
+                        "realise the importance of reading accurately, at the right speed and with expression for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "pick out words with letter-sound combinations: /dr/, /gr/, /shr/, from a chart",
+                        "blend target sounds to read words with target letter-sound combinations, with peers",
+                        "read words with letters-sound combinations correctly",
+                        "read a text while displaying the right facial expressions and tone and obtaining feedback from peers",
+                        "engage in timed reading with peers taking appropriate pauses at punctuation marks",
+                        "practise reading sentences containing decodable and non-decodable words",
+                        "participate in a readerâ€™s theatre and record their experience in a personal journal"
+                    ],
+                    "key_inquiry_questions": [
+                        "How should we read?",
+                        "What benefits do we get from reading?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to reflect on their learning experiences is nurtured as they participate in a reader's theatre and record their experience in a personal journal.",
+                        "Collaboration: Teamwork is developed as the learner participates actively in timed reading with peers, observing the rules of engagement."
+                    ],
+                    "values": [
+                        "Respect is enhanced as the learner appreciates the effort of others as they engage in timed reading and give positive feedback."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem):The learner's self-esteem is boosted as they read texts fluently."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies the reading fluency skills acquired when reading texts in Kiswahili and Indigenous Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "6.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "make predictions about a story based on the title and pictures",
+                        "respond to direct and indirect questions to show comprehension",
+                        "adopt reading pictures and texts for information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "predict what will happen after discussing the title and pictures in a story",
+                        "infer meanings of new words in a text",
+                        "answer direct questions by locating the sentences with the answers in a story",
+                        "respond to indirect questions from a text using prior knowledge",
+                        "summarise the story/ poem/ conversation and record",
+                        "talk about their own experiences in relation to the story"
+                    ],
+                    "key_inquiry_questions": [
+                        "What do the pictures tell us about a story?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: The learner is able to interact with technology as the record each other giving a summary of the texts read.",
+                        "Creativity and Imagination: The learner's ability to make connections is developed as they talk about their own experiences in relation to the story."
+                    ],
+                    "values": [
+                        "Peace is enhanced as the learner displays tolerance with peers when working together."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is heightened as they make relevant predictions about a story based on the title and pictures."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies comprehension skills when reading texts in Kiswahili and Indigenous Language activities."
+                    ]
+                },
+                {
+                    "substrand_number": "6.4",
+                    "substrand_name": "Language Use: Tense: Future time (will/shall)",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words that express future time/actions for effective communication",
+                        "use â€˜willâ€™ and â€˜shallâ€™ to talk about future time/events",
+                        "value the role of â€˜willâ€™ and â€˜shallâ€™ in communicating future time/ and intentions"
+                    ],
+                    "suggested_learning_experiences": [
+                        "recognise sentences with words that express future time from a text",
+                        "talk about what they plan to do after school to express future time",
+                        "take turns to ask and answer questions using words that express future time",
+                        "sing a song/rhyme using â€˜willâ€™ and â€˜shallâ€™",
+                        "fill in gaps in sentences using will or shall to show future time",
+                        "listen to a story, poem, or conversation read by the teacher and respond to questions using â€˜willâ€™/â€™shallâ€™"
+                    ],
+                    "key_inquiry_questions": [
+                        "How would you talk about things that will happen tomorrow or later?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly about future plans is enhanced as they use 'will' and 'shall' to express future time and intentions",
+                        "Collaboration: Teamwork is developed as the learner takes turns to ask and answer questions using words that express future time"
+                    ],
+                    "values": [
+                        "Responsibility: Future planning skills are developed as the learner talks about what they plan to do after school"
+                    ],
+                    "pcis": [
+                        "Science, Technology & Innovation: The learner develops awareness of future technological possibilities as they learn to express future time in technology contexts"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies future tense concepts when learning similar grammar concepts in Kiswahili and Indigenous Language Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "6.5",
+                    "substrand_name": "Writing: Spelling",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "spell words with the target letter-sound combinations (dr, gr and shr) for effective writing",
+                        "write words related to the target theme appropriately for clarity",
+                        "adopt writing words clearly, legibly, and correctly"
+                    ],
+                    "suggested_learning_experiences": [
+                        "spell the words with the letter combinations dr, gr and shr",
+                        "fill in a crossword puzzle using words with the target letter-sound combinations",
+                        "write dictated words",
+                        "make words related to the theme from jumbled letters",
+                        "copy words legibly and correctly from charts/flashcards",
+                        "generate as many words as they can from a set of given words or letters",
+                        "participate in a spelling bee mini-contest with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is correct spelling of words important?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem solving: This is promoted as the learner weighs options when thinking critically to from a set of given words or letters."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is enriched as the learner collaborates with peers to participate in a spelling bee mini-contest with peers."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they spell words correctly."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can link the concept of correct spelling of words to learning similar concepts in Kiswahili and Indigenous Language activities."
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "7.0",
+            "strand_name": "Safety",
+            "substrands": [
+                {
+                    "substrand_number": "7.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise words with the target letter-sound combinations dw, tw, nk, and sq from an oral text",
+                        "use new words in relevant contexts to talk about safety",
+                        "respond to simple specific three-directional instructions in oral communication",
+                        "realise the importance of listening attentively and correct pronunciation for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to a text featuring the target letter- sound combinations as modelled by the teacher, peer, or from an audio recording",
+                        "pick out and pronounce words or phrases with the target letter-sound combinations (dw, tw, nk and sq) from the text",
+                        "look at pictures, watch a video showing pictures related to the theme such as bumps, road signs, rumble strips, pedestrian crossing, and talk about them with peers",
+                        "roleplay a safety scene with peers using thematic vocabulary and words with the target sounds",
+                        "listen to the vocabulary used in short sentences/short paragraphs/short stories that the teacher reads aloud",
+                        "work jointly to use vocabulary learnt to play language games with peers",
+                        "play the â€˜Simon saysâ€™ language game to practice responding to simple specific three directional instructions"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to pronounce words correctly?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to listen attentively and respond appropriately is enhanced as they practice responding to simple specific three directional instructions",
+                        "Learning to Learn: The learner's ability to collaborate is developed as they work jointly to use vocabulary learnt to play language games with peers"
+                    ],
+                    "values": [
+                        "Responsibility: Safety consciousness is promoted as the learner learns vocabulary related to safety and participates in safety-themed role-plays"
+                    ],
+                    "pcis": [
+                        "Safety and Security: The learner develops safety awareness as they learn vocabulary and engage in activities related to road safety, water safety, and home safety"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies safety vocabulary and pronunciation skills to learning similar concepts in Environmental Activities and Health Education"
+                    ]
+                },
+                {
+                    "substrand_number": "7.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise words with the target letter-sound combinations (dw, tw, nk, and â€˜sqâ€™) in a written text",
+                        "read a grade- appropriate text accurately, at the right speed and with expression",
+                        "adopt the reading of a variety of texts for reading fluency"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to words with the target letter-sound combinations (dw, tw, nk, and â€˜sqâ€™) from a digital device or as modeled by the teacher or peer",
+                        "identify and pronounce words and phrases with the target letter-sound combinations",
+                        "read a text, about safety on the road, safety on water, and safety at home, among others while displaying the right facial expressions and tone when reading",
+                        "engage in timed reading of a text (90 words per minute) taking appropriate pauses at punctuation marks",
+                        "practise reading sentences containing decodable and non- decodable words",
+                        "participate in a readerâ€™s theatre with peers where they read a text, story, or poem related to the theme"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to read words properly?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to read independently is enhanced as they adopt reading a variety of texts for reading fluency",
+                        "Collaboration: Teamwork is developed as the learner participates in reader's theatre with peers reading safety-themed texts"
+                    ],
+                    "values": [
+                        "Responsibility: Safety awareness is nurtured as the learner reads texts about safety on the road, safety on water, and safety at home"
+                    ],
+                    "pcis": [
+                        "Safety and Security: The learner develops comprehensive safety knowledge as they read texts covering different safety contexts"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies reading fluency skills when reading safety-related texts in Environmental Activities and Health Education"
+                    ]
+                },
+                {
+                    "substrand_number": "7.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify the main idea in a text to show comprehension",
+                        "make predictions about a story based on the title and pictures",
+                        "respond to direct and indirect questions to show comprehension",
+                        "adopt reading pictures and texts for information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "look at pictures showing a fire, or a road crash, or a flood",
+                        "read the title of a story to make predictions of what will happen in the text",
+                        "read/listen to a story from a digital device/as narrated by peers/ teacher",
+                        "get clues from the story read to answer direct and indirect questions",
+                        "identify the main idea in a story, poem, or conversation on safety, with peers",
+                        "talk about their own experiences in relation to the theme and the story"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you identify the main idea in a text?",
+                        "What do titles and pictures tell about a story?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to express personal experiences is enhanced as they talk about their own experiences in relation to the safety theme",
+                        "Creativity and Imagination: The learner's ability to make predictions is developed as they make predictions about stories based on titles and pictures"
+                    ],
+                    "values": [
+                        "Responsibility: Safety consciousness and personal responsibility are developed as the learner engages with safety-themed texts and relates them to personal experiences"
+                    ],
+                    "pcis": [
+                        "Safety and Security: The learner develops critical thinking about safety situations as they analyze safety-themed texts and scenarios"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies comprehension skills when reading safety-related content in Environmental Activities and Health Education"
+                    ]
+                },
+                {
+                    "substrand_number": "7.4",
+                    "substrand_name": "Language Use: Conjunctions",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify the target conjunctions (but, because) from a written text",
+                        "join phrases using the target conjunctions for effective communication",
+                        "comprehend the importance of communicating ideas using conjunctions"
+                    ],
+                    "suggested_learning_experiences": [
+                        "watch a video clip and identify sentences and phrases with the target conjunctions",
+                        "use the conjunctions â€˜butâ€™ and â€˜becauseâ€™ in sentences",
+                        "team up to play a language game featuring the target conjunctions",
+                        "view flashcards showing pictures based on the theme and make oral sentences using the words because and but",
+                        "take part in using a substitution table to join phrases using the conjunctions â€˜butâ€™ and â€˜becauseâ€™ with peers",
+                        "play a drag and drop game to fill in gaps in sentences using â€˜butâ€™ and â€˜becauseâ€™"
+                    ],
+                    "key_inquiry_questions": [
+                        "When do we use the words â€˜butâ€™ and â€˜becauseâ€™ in sentences?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner develops clear expression skills using conjunctions",
+                        "Digital Literacy: Technology interaction through drag and drop games"
+                    ],
+                    "values": [
+                        "Unity: Cooperation through language games"
+                    ],
+                    "pcis": [
+                        "Life Skills (Communication): Effective communication through conjunctions"
+                    ],
+                    "links_to_other_subjects": [
+                        "Applied in Kiswahili and Indigenous Language Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "7.5",
+                    "substrand_name": "Writing: Spelling",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise correct spelling of words with the target letter- sound combinations (dw-, tw-, -nk and sq-) from a written text",
+                        "write sentences related to safety using words that contain the target letter-sound combinations for clarity in communication",
+                        "attempt to write clearly, and legibly for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify words with the target letter-sound combinations (dw-, tw-, -nk, and sq-) from a text",
+                        "team up to spell 4-6 letter words with the target letter-sound combinations from a dictation",
+                        "organise jumbled letters to make 4-6 letter words with the target letter-sound combinations",
+                        "form words using the target letter-sound combination, with peers",
+                        "work with peers to spell 4-6 letter words related to the theme such as wash, fire, water, park, stop, bus, path",
+                        "copy simple sentences legibly and correctly"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we spell words correctly?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to work collaboratively is enhanced as they team up to spell words with target letter-sound combinations",
+                        "Communication: The learner's ability to write clearly is developed as they copy simple sentences legibly and correctly"
+                    ],
+                    "values": [
+                        "Responsibility: Attention to detail and accuracy is promoted as the learner focuses on correct spelling and legible writing"
+                    ],
+                    "pcis": [
+                        "Safety and Security: The learner reinforces safety vocabulary through spelling practice with safety-related words"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies spelling and writing skills when writing safety-related content in Environmental Activities and Health Education"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "8.0",
+            "strand_name": "Domestic Animals",
+            "substrands": [
+                {
+                    "substrand_number": "8.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise words with the target letter-sound combinations (-ft, - ct, -lt, -rd) from an oral text",
+                        "pronounce words with the target letter-sound combinations in preparation for reading",
+                        "use new words related to the theme in relevant contexts",
+                        "respond to simple specific three- directional instructions in oral communication",
+                        "appreciate the importance of listening attentively and correct pronunciation in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify and pronounce words and phrases with the target letter-sound combinations (-ft, -ct, -lt, -rd) as modelled by peers/ teacher/audio recording",
+                        "use words that have the target letter-sound combinations to talk about caring for domestic animals, with peers",
+                        "copy the words related to domestic animals",
+                        "construct sentences using the new words related to the themes",
+                        "recite rhymes/sing songs using the vocabulary related to the theme",
+                        "match vocabulary learnt to pictures and objects",
+                        "respond to specific three-directional instructions in oral communication"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is correct pronunciation important in speech?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to listen attentively and speak clearly is enhanced as they respond to simple specific three-directional instructions",
+                        "Learning to Learn: The learner's ability to learn collaboratively is developed as they work with peers to learn vocabulary about domestic animals"
+                    ],
+                    "values": [
+                        "Responsibility: Care for animals and environmental stewardship is nurtured as the learner learns about caring for domestic animals"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-awareness): The learner develops awareness of the human-animal relationship and responsibility towards domestic animals"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies pronunciation skills and animal vocabulary to learning similar concepts in Environmental Activities and Science Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "8.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with the target letter-sound combinations from an oral text",
+                        "pronounce words accurately when reading a text",
+                        "read a grade-appropriate text accurately, at the right speed and with expression",
+                        "acknowledge the importance of reading fluently in effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify words with the target letter-sound combinations (- ft, -ct, -lt, -rd)",
+                        "read words with the target letter-sound combinations",
+                        "read a text, displaying the right facial expressions, and tone when reading",
+                        "engage in timed reading taking appropriate pauses at punctuation marks",
+                        "team up to recite poems about caring for domestic animals",
+                        "read sentences containing decodable and non-decodable words",
+                        "participate in a speed reading test to identify the best reading speed"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we say words and sentences accurately?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to read independently is enhanced as they acknowledge the importance of reading fluently for effective communication",
+                        "Collaboration: Teamwork is fostered as the learner teams up to recite poems about caring for domestic animals"
+                    ],
+                    "values": [
+                        "Responsibility: Environmental awareness is promoted as the learner reads texts about caring for domestic animals"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-confidence is boosted as they participate in speed reading tests and improve their reading fluency"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies reading fluency skills when reading animal-related texts in Environmental Activities and Science Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "8.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify the sequence of events in a text to show comprehension",
+                        "make predictions about a story based on the title and picture",
+                        "respond to direct and indirect questions about a text to show comprehension",
+                        "appreciate the importance of reading fluently for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "predict what will happen in a story, based on the title and pictures in the text",
+                        "read/ listen to a story from a digital device /as narrated by peers/teacher",
+                        "get clues from the story read to answer direct and indirect questions",
+                        "answer direct and indirect questions from a text",
+                        "retell a story related to the theme, with peers",
+                        "share their own experiences in relation to the story, with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "What do pictures tell us about a story?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to express personal experiences is enhanced as they share their own experiences in relation to animal-themed stories",
+                        "Creativity and Imagination: The learner's ability to make predictions is developed as they make predictions about stories based on titles and pictures"
+                    ],
+                    "values": [
+                        "Responsibility: Environmental stewardship and animal care are promoted as the learner engages with texts about domestic animals"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-awareness): The learner develops empathy and awareness of animal care responsibilities through story comprehension"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies comprehension skills when reading animal-related content in Environmental Activities and Science Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "8.4",
+                    "substrand_name": "Language use: Quantifiers",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify sentences that contain quantifiers in a written text",
+                        "use quantifiers in sentences to talk about care for animals",
+                        "practise using quantifiers in sentences to convey different meanings"
+                    ],
+                    "suggested_learning_experiences": [
+                        "read a text based on the theme in turns",
+                        "tem up to identify quantifiers (some, many, no, all, any) used in sentences within the text",
+                        "take turns to ask and answer questions using the quantifiers in sentences",
+                        "observe pictures related to the theme and construct sentences using quantifiers",
+                        "generate sentences from a substitution table",
+                        "type sentences with a quantifier onto a digital device"
+                    ],
+                    "key_inquiry_questions": [
+                        "Which words do you use to measure or talk about things that can be counted?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to express quantities accurately is enhanced as they use quantifiers in sentences to talk about care for animals",
+                        "Digital Literacy: The learner's ability to interact with technology is developed as they type sentences with quantifiers onto digital devices"
+                    ],
+                    "values": [
+                        "Responsibility: Accurate communication about animal care is promoted as the learner learns to use quantifiers appropriately"
+                    ],
+                    "pcis": [
+                        "Life Skills (Critical thinking): The learner develops mathematical thinking as they learn to use quantifiers to measure and describe quantities"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies knowledge of quantifiers when learning similar concepts in Mathematics Activities and Science Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "8.5",
+                    "substrand_name": "Writing: Spelling",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "spell words with the target letter-sound combinations (-ft, - ct, -lt and -rd), for effective writing",
+                        "write words related to the theme clearly and legibly",
+                        "appreciate the place of correct spelling in written communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "spell the words with the target letter-sound combinations (-ft, -ct, -lt and -rd)",
+                        "make words related to the theme from jumbled letters, with peers",
+                        "write 4-7 letter words from a dictation",
+                        "copy words legibly and correctly",
+                        "form words using letters of their names",
+                        "work jointly to find words related to the theme from a word search"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we spell words correctly?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to work collaboratively is enhanced as they make words related to domestic animals from jumbled letters with peers",
+                        "Communication: The learner's ability to write clearly is developed as they copy words legibly and correctly"
+                    ],
+                    "values": [
+                        "Responsibility: Attention to detail and accuracy is promoted as the learner focuses on correct spelling of animal-related vocabulary"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-confidence is boosted as they improve their spelling and writing skills"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies spelling and writing skills when writing about animals in Environmental Activities and Science Activities"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "9.0",
+            "strand_name": "Wild Animals",
+            "substrands": [
+                {
+                    "substrand_number": "9.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise words with the target letter-sound combinations (-lk, -lf, -lm, -mp), in preparation for reading",
+                        "use new words related to the theme in relevant contexts",
+                        "respond to simple specific three- directional instructions in oral communication",
+                        "realise the importance of using new words in conversations for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "read words and phrases with target letter- sound combinations as modelled by the peers/ teacher or audio recording",
+                        "identify words with the target letter-sound combinations: (-lk, -lf, -lm, -mp)",
+                        "recite rhyming words that have the target letter-sound combinations",
+                        "listen to the vocabulary used in short sentences, short paragraphs, and teacher read-aloud stories",
+                        "play a language game with peers using the new words",
+                        "use the vocabulary learnt to talk about wild animals",
+                        "match vocabulary learnt to pictures",
+                        "take turns to give and respond to instructions and peer review for correctness"
+                    ],
+                    "key_inquiry_questions": [
+                        "What can we tell from peopleâ€™s faces and hand movements as they talk?"
+                    ],
+                    "core_competencies": [
+                        "Communication: Enhanced listening and speaking skills",
+                        "Learning to Learn: Collaborative learning through language games"
+                    ],
+                    "values": [
+                        "Respect: Environmental appreciation for wild animals"
+                    ],
+                    "pcis": [
+                        "Environmental Education: Wildlife conservation awareness"
+                    ],
+                    "links_to_other_subjects": [
+                        "Applied in Environmental Activities and Science Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "9.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with the target letter-sound combinations (-lk, -lf, -lm, - mp), from a written text",
+                        "read a grade-appropriate text accurately, at the right speed, and with expression",
+                        "realise the importance of reading a variety of grade- level texts fluently"
+                    ],
+                    "suggested_learning_experiences": [
+                        "recognise words with the target letter-sound combinations from a chart: (-lk, -lf, -lm, -mp)",
+                        "select words with the target letter-sound combinations from a story or song extract",
+                        "read sentences containing decodable and non- decodable words",
+                        "engage in timed reading of a text taking appropriate pauses at punctuation marks, displaying the right facial expressions and tone",
+                        "recite a poem with peers about wild animals"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to read words correctly?",
+                        "What makes it difficult to read well?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to learn independently is enhanced as they practise reading texts at the right speed, displaying the right facial expressions and tone."
+                    ],
+                    "values": [
+                        "Responsibility: is inculcated as the learner prioritises tasks to accomplish a goal when reciting poems about wild animals."
+                    ],
+                    "pcis": [
+                        "Wildlife and tourism: This is promoted as the learner interacts with vocabulary and information about various wild animals."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply information on vocabulary learnt about wild animals to content on creation in Religious Education Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "9.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "make predictions about a story based on the title and pictures",
+                        "respond to direct and indirect questions about a text to show comprehension",
+                        "visualise characters, events, and places for comprehension",
+                        "adopt reading pictures and texts for information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm with peers the possible outcomes of the story based on the title and pictures",
+                        "identify the characters and setting of a story",
+                        "work jointly to talk about their favourite character in a story and reasons for the choice",
+                        "locate sentences in the text to respond to direct questions",
+                        "answer indirect questions from the text read using contextual clues",
+                        "develop a concept map with peers from the text read",
+                        "retell a story to peers in a few words"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we identify and describe the characters in a story?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak confidently is improved as they retell the story to peers in a few words.",
+                        "Creativity and Imagination: The learner's ability to make connections is enhanced as they predict events/outcomes of a story based on the title and pictures."
+                    ],
+                    "values": [
+                        "Social Justice: This is promoted as the learner accords others equal opportunities to talk about their favourite character in a story and reasons for the choice."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they respond to direct and indirect questions from a text correctly."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies the comprehension strategies when reading texts in Kiswahili and Indigenous Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "9.4",
+                    "substrand_name": "Language Use: Opposites",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify the opposites of different words for effective communication",
+                        "use opposites of words to construct sentences related to the theme",
+                        "appreciate the role of opposites in language acquisition"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify opposites from a group of words in a text",
+                        "tell stories about wildlife conservation using the opposites of a variety of words, with peers",
+                        "work jointly to creating a word bank of words with their opposites",
+                        "draw pictures of various objects to demonstrate the concept of opposites",
+                        "construct sentences using the opposites of words related to the theme, with peers",
+                        "use opposites to respond to questions from a story, poem, or conversation",
+                        "play a language game that involves identifying opposites of different words"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to learn about opposites of words?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination: The learner's ability to embrace ideas that inspire creativity is built when they draw pictures of various objects to demonstrate the concept of opposites."
+                    ],
+                    "values": [
+                        "Social Justice: is achieved as the learner accords peers equal opportunities to contribute to creating a word bank of words with their opposites."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is heightened as they use opposites of words in speech correctly."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies the knowledge of opposites to learning similar concepts in Kiswahili and Indigenous Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "9.5",
+                    "substrand_name": "Writing: Punctuation - The Comma",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise the comma in a text related to the theme",
+                        "use the comma correctly in writing lists of items",
+                        "adopt the use of commas in writing"
+                    ],
+                    "suggested_learning_experiences": [
+                        "recognise commas from a text on wall charts/chalkboard/ digital and print resources",
+                        "work jointly to create models of the comma and display in class",
+                        "use commas correctly in sentences",
+                        "use commas to write lists of items/names of classmates",
+                        "role play reading sentences with pauses to show use of the comma",
+                        "team up to recite a poem of the language structure"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we decide where to pause when reading a text?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination: This is nurtured as the learner work jointly with peers to create models of the comma for display in class."
+                    ],
+                    "values": [
+                        "Love is cultivated as the learner portrays a caring attitude toward the peers as they work together."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they use the comma correctly in writing."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner links the concept of comma to learning of similar concept in Kiswahili and Indigenous Language Activities."
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "10.0",
+            "strand_name": "Festivals",
+            "substrands": [
+                {
+                    "substrand_number": "10.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise words with the target letter-sound combinations (- mb, - nt, -nd, -nch), in preparation for reading",
+                        "pronounce words with the target letter-sound combinations in preparation for reading",
+                        "use new words related to the theme in relevant contexts",
+                        "recognise the importance of listening attentively for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to a text and point out words featuring the target letter-sound combinations: (-mb, - nt, -nd, -nch)",
+                        "practise saying words with the target letter-sound combinations",
+                        "recite rhyming words that have the target letter-sounds combinations",
+                        "construct simple sentences with peers using the new words and share for feedback",
+                        "create a talking tree using the vocabulary related to the theme",
+                        "team up to build a vocabulary bank using the new words learnt related to the theme"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do we learn new words?",
+                        "How can we pronounce words correctly?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to listen keenly and actively is improved as they listen to a text and point out words featuring the target-letter sound combinations.",
+                        "Collaboration: Teamwork is promoted as the learner teams up with peers to build a vocabulary bank using the new words learnt related to the theme"
+                    ],
+                    "values": [
+                        "Respect is inculcated as the learner works with peers to make oral sentences using learnt vocabulary."
+                    ],
+                    "pcis": [
+                        "Social-cultural sensitivity and awareness: This is enhanced as the learner creates a talking tree using the vocabulary related to the theme on festivals with peers."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies attentive listening skills to learning concepts in other learning areas."
+                    ]
+                },
+                {
+                    "substrand_number": "10.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with the target letter-sound combinations â€˜mbâ€™, â€˜ntâ€™, â€˜ndâ€™, and â€˜nchâ€™, in preparation for reading",
+                        "read a grade-appropriate text accurately, at the right speed and with expression",
+                        "recognise the importance of reading accurately, at the right speed and with expression for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "select and read words with the target letter-sound combinations from a text: â€˜mbâ€™, â€˜ntâ€™, â€˜ndâ€™, and â€˜nchâ€™",
+                        "practise reading sentences containing decodable and non-decodable words",
+                        "engage in timed reading (90 words long text) with peers",
+                        "read a text while displaying the right facial expression and tone",
+                        "participate in a readerâ€™s theatre with peers where he or she reads some lines or stanzas of a poem",
+                        "participate in a class reading fluency contest on a text related to the theme"
+                    ],
+                    "key_inquiry_questions": [
+                        "What is the importance of reading accurately and with expression?",
+                        "How can we improve our reading speed?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to learn independently is enhanced as they practise reading texts at the right speed and with the right expressions on their own."
+                    ],
+                    "values": [
+                        "Respect is cultivated as the learner appreciates the effort of peers during timed reading and gives positive feedback."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is raised as they acquire reading fluency skills."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies reading fluency skills acquired in learning texts in Kiswahili Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "10.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "make predictions about a story based on the title and picture",
+                        "visualise characters and events in a text to show comprehension",
+                        "adopt reading pictures and texts for information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "look at the pictures, title, and discuss what they think will happen in the story",
+                        "use adjectives related to the five senses to talk about characters, events, and places in a text",
+                        "draw and colour characters in a text",
+                        "share the pictures with peers and give feedback",
+                        "discuss the flow of events in a text with peers",
+                        "display the events in the story on a sequence chart/ sequence card (cards showing each event and organised in the order of occurrence)",
+                        "talk about their own experiences in relation to the story"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we use pictures to understand a story?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem solving: This is enhanced as the learner analyses concepts logically to present the events in the story on a sequence card.",
+                        "Creativity and Imagination: The learner's communication and self-expression skills are enhanced as they visualise and draw characters and events in a text."
+                    ],
+                    "values": [
+                        "Respect is inculcated as the learner appreciates the pictures drawn by peers and gives positive feedback."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is boosted as they answer comprehension questions correctly."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies comprehension strategies when reading texts in Kiswahili and Indigenous Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "10.4",
+                    "substrand_name": "Language use: Prepositions",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify the target prepositions in a text",
+                        "use the target prepositions to describe the position, location, and direction of things accurately",
+                        "appreciate the use of prepositions to describe the position and location of people, places, and things"
+                    ],
+                    "suggested_learning_experiences": [
+                        "pick out the words (next to, around, near, by, along, after, under) from a written or audio text",
+                        "describe the positions of different objects in the classroom, at school or home",
+                        "listen to and answer oral questions related to prepositions in a story/poems/song",
+                        "place objects at different points and ask their peers to use suitable prepositions to describe their location",
+                        "construct sentences using prepositions in relation to a prompt and give feedback",
+                        "sing short songs/rhymes on prepositions",
+                        "play language games involving prepositions"
+                    ],
+                    "key_inquiry_questions": [
+                        "Where do you keep different things at home?",
+                        "How do you describe the position of something?"
+                    ],
+                    "core_competencies": [
+                        "Self- efficacy: This is enhanced as the learner effectively prioritises tasks to achieve a goal when placing objects at different points and asking their peers to use suitable prepositions to describe their location.",
+                        "Collaboration: The teamwork spirit is enhanced as learners construct sentences with peers using prepositions and give feedback."
+                    ],
+                    "values": [
+                        "Social Justice is inculcated as the learner fosters inclusivity and non-discrimination to peers as they play language games featuring prepositions."
+                    ],
+                    "pcis": [
+                        "Environmental awareness: This is promoted as the learner appreciates objects and people in their environment and how to describe their positions and direction using language."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies the knowledge acquired on prepositions to learning similar concepts in Kiswahili Language Activities."
+                    ]
+                },
+                {
+                    "substrand_number": "10.5",
+                    "substrand_name": "Writing: Punctuation",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise the target punctuation marks (capital letters, full stops, question marks, and exclamation marks) in a text",
+                        "use the target punctuation marks correctly in writing",
+                        "adopt correct use of punctuation marks in writing"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify the capital letters, full stops, question marks, and exclamation marks from sample writings on wall charts/chalkboard/digital or print resources",
+                        "practise using the target punctuation marks correctly in written exercises",
+                        "play games that involve placing the target punctuation marks correctly in a text",
+                        "write sentences using the target punctuation marks",
+                        "with peers, role-play a scene related to the theme, and use punctuation marks",
+                        "work jointly to model the target punctuation marks and display in class"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is proper punctuation important in communication?",
+                        "How do we write sentences correctly?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to write clearly and correctly is enhanced as they use punctuation marks correctly in writing.",
+                        "Creativity and imagination: This is promoted as the learner embraces ideas that inspire creativity when working jointly to model the target punctuation marks and display in class."
+                    ],
+                    "values": [
+                        "Unity: Cooperation is enhanced as the learner actively engages in role-play activities with peers."
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is boosted as they use the target punctuation marks correctly."
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies the knowledge of punctuation marks to learning similar concepts in Kiswahili and Indigenous Language activities."
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "11.0",
+            "strand_name": "Play Time and Sports",
+            "substrands": [
+                {
+                    "substrand_number": "11.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise words with the target letter-sound combinations: - nkl-, -pt, -nth, -nd, in an oral text",
+                        "pronounce words with the target letter-sound combinations in preparation for reading",
+                        "use new words related to the theme in relevant contexts",
+                        "appreciate the importance of using new words in conversations for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify and pronounce words and phrases with the target letter-sound combinations (- nkl-, -pt, -nth, -nd), as modelled by the peers/teacher or audio recording",
+                        "listen to the new words from short sentences/short paragraphs/ teacher read aloud stories and give their meanings",
+                        "construct sentences using the new words to talk about playtime and games",
+                        "play a language game to match vocabulary and pictures",
+                        "recite rhymes/sing songs, using the vocabulary related to the theme"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to learn new vocabulary?",
+                        "How can we communicate with people apart from using the spoken word?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination: The learner's ability to think creatively is enhanced as they construct sentences about play time and games using the new words",
+                        "Learning to Learn: The learner's ability to develop relationships is enhanced as they collaboratively practise pronunciation of words with target letter-sound combinations with peers"
+                    ],
+                    "values": [
+                        "Love: Patience is enhanced as the learner takes turns to listen to peers during discussions"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires a high level of self-esteem as they interpret and respond to instructions appropriately"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies pronunciation skills to learning of similar concepts in Kiswahili and Indigenous Language Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "11.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with the target letter-sound combinations (- nkl, -pt,-nth, -nd), in preparation for reading in a written text",
+                        "read a grade-appropriate text accurately, at the right speed, and with expression",
+                        "adopt reading simple short narratives for information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "pick out words with the target letter-sound combinations: -nkl, -pt,-nth, -nd from a text",
+                        "read the words with letter-sound combinations aloud, in turns",
+                        "watch a video showing reading of a text with correct facial expressions and speed used when reading texts",
+                        "read a text, displaying the right facial expressions and tone",
+                        "engage in timed reading taking appropriate pauses at punctuation marks as they read a text",
+                        "practise reading sentences containing decodable and non-decodable words",
+                        "participate in a readerâ€™s theatre with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "What makes it easy to read well?",
+                        "What helps someone to read fluently?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's self-discipline is promoted as they read grade-appropriate texts accurately, at the right speed, and with expression",
+                        "Collaboration: Teamwork is cultivated as the learner actively participates in a reader's theatre with peers"
+                    ],
+                    "values": [
+                        "Respect is developed as the learner appreciates the effort of peers in reading fluently during timed reading"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires a high level of self-esteem as they read fluently"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies reading fluency skills when reading texts in Kiswahili language activities"
+                    ]
+                },
+                {
+                    "substrand_number": "11.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "make predictions about a story based on the title and picture",
+                        "infer meanings of new words using contextual clues",
+                        "respond to direct and indirect questions from a text for comprehension",
+                        "summarise information from a text for comprehension",
+                        "adopt reading pictures and texts for information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "look at the story title and pictures and guess what will happen in the story",
+                        "get meanings of new words using contextual clues",
+                        "answer to direct and indirect questions from a text",
+                        "retell a story, poem, or conversation based on the theme with peers",
+                        "retell the story in three sentence",
+                        "talk about their own experiences in relation to the story",
+                        "role-play scenarios in a story"
+                    ],
+                    "key_inquiry_questions": [
+                        "What is the importance of a title in a story?",
+                        "Why do we need to summarise what we read?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak engagingly is improved as they retell a story, poem, or conversation using their own words",
+                        "Creativity and Imagination: The learner's ability to make connections is enhanced as they talk about their own experiences in relation to the story"
+                    ],
+                    "values": [
+                        "Responsibility: Self-drive is heightened as the learner takes the initiative to get clues from the story read to answer indirect questions"
+                    ],
+                    "pcis": [
+                        "Safety and Security: The learner gains and uses information on safety during playtime and games"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner uses comprehension skills when reading texts in Kiswahili and Indigenous Language Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "11.4",
+                    "substrand_name": "Language use: Adjectives: Comparatives and superlatives",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise adjectives in comparative and superlative forms (-er and â€“est) used to compare people and things from a text",
+                        "use comparatives and superlatives for effective communication",
+                        "grasp the importance of using comparatives and superlatives to compare people, things, and places"
+                    ],
+                    "suggested_learning_experiences": [
+                        "read a story/poem/conversation from a textbook or a digital device",
+                        "identify comparatives and superlatives used in various sentences within the text",
+                        "make comparison between objects/people using superlatives and comparatives",
+                        "construct sentences using comparatives and superlatives with peers",
+                        "role-play a scenario related to the theme, using comparatives and superlatives",
+                        "play a language game on the use of comparatives and superlatives"
+                    ],
+                    "key_inquiry_questions": [
+                        "Which words can we use when comparing people and things?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak appealingly is enhanced as they use comparatives and superlatives to describe people and things"
+                    ],
+                    "values": [
+                        "Unity: Cooperation is inculcated as the learner collaborates with peers to play language games"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is boosted as they use comparatives and superlatives correctly in communication"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies the knowledge of comparatives and superlatives adjectives to the learning of similar concepts in Kiswahili Languages Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "11.5",
+                    "substrand_name": "Writing: Guided Writing",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise the names of the objects in pictures related to the theme",
+                        "write names from picture prompts to demonstrate mastery of vocabulary",
+                        "recognise the importance of writing correctly"
+                    ],
+                    "suggested_learning_experiences": [
+                        "name different objects in the pictures provided",
+                        "respond to the prompts presented and write the names of objects",
+                        "draw, colour, and name the objects related to the theme",
+                        "work jointly to organise their drawings in a portfolio",
+                        "fill in gaps using the correct vocabulary words related to the theme",
+                        "match pictures of objects with their names"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to correctly write the names of objects?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and imagination: The learner's ability to embrace ideas that inspire creativity is nurtured as they draw, colour, and name the objects related to the theme"
+                    ],
+                    "values": [
+                        "Responsibility: This is enhanced as the learner diligently works with peers to organise their drawings in a portfolio"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is enhanced as they name objects correctly"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply their writing skills to write clearly and correctly in Kiswahili and Indigenous Language Activities"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "12.0",
+            "strand_name": "Food and Diseases",
+            "substrands": [
+                {
+                    "substrand_number": "12.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise the target letter-sound combinations (gr-, pr-, -ewâ€™) in given words",
+                        "pronounce words with the target letter-sound combinations",
+                        "use vocabulary related to the theme in relevant contexts",
+                        "appreciate the importance of listening attentively and responding appropriately for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen attentively for the target letter sounds combinations (gr-, pr-, -ewâ€™) in different words from an audio recording",
+                        "say words with the target letter sound combination and record using a digital device",
+                        "listen to the new words in short sentences/short paragraphs/teacher-read stories and write them down",
+                        "collaboratively give the meaning of the words based on the context",
+                        "say new words in response to picture cues",
+                        "dramatise scenarios using the vocabulary words to talk about food and diseases and record each other",
+                        "practice using the new words in a language game of matching vocabulary and pictures, with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we listen attentively?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to listen keenly and actively is developed as they say new words in response to picture cues",
+                        "Digital Literacy: The learner's ability to interact with digital technology is enhanced as they say words with the target letter sound combination and record using a digital device"
+                    ],
+                    "values": [
+                        "Responsibility: Accountability is inculcated as the learner collaboratively gives the meaning of the words based on the context"
+                    ],
+                    "pcis": [
+                        "Healthy Lifestyle: This is addressed as the learner interacts with texts on food and diseases"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can link concepts learnt through vocabulary on food and diseases to their learning of similar concepts in Environmental Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "12.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with the (gr-, pr-, and -ewâ€™) sound combinations in varied contexts",
+                        "read a variety of texts accurately, at the right speed, and with expression",
+                        "appreciate the role of fluent reading in lifelong learning"
+                    ],
+                    "suggested_learning_experiences": [
+                        "pick out words with the target letter-sound combination (gr- pr-, -ew) from print or digital stories",
+                        "read words with the target letter-sound combination, in turns",
+                        "read a text while using the right facial expressions and voice when reading",
+                        "engage in a timed reading taking appropriate pauses at punctuation marks when reading the text",
+                        "play a word ladder game involving pronunciation from audio/visual recordings of words learnt",
+                        "participate in readerâ€™s theatre and record a as he or she reads from a text",
+                        "team up to initiate or join a junior reading club to enhance reading fluency"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why do we need to read a variety of texts appropriately?"
+                    ],
+                    "core_competencies": [
+                        "Collaboration: Teamwork is developed as the learner collaborates with peers to play word ladder game involving pronunciation",
+                        "Digital Literacy: The learner is enriched with the ability to interact with technology as they read a text from a digital device and pick out words with target letter sounds"
+                    ],
+                    "values": [
+                        "Responsibility: This is enhanced as the learner takes initiative to team up to start or join a junior reading club to enhance reading fluency"
+                    ],
+                    "pcis": [
+                        "Clubs and Societies: The learner is encouraged to take part in reading club activities to enhance fluency through reader's theatres"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies reading fluency skills when reading texts in Kiswahili and Indigenous Language Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "12.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "make predictions on the outcomes of a story based on the theme",
+                        "identify events in a text for comprehension",
+                        "infer the meanings of new words as used in the text",
+                        "answer direct and indirect questions based on a text",
+                        "acknowledge the importance of the information they have read in the text"
+                    ],
+                    "suggested_learning_experiences": [
+                        "look at pictures and the title of a text and discuss what will happen in the story, with peers",
+                        "talk about events, characters, and places in a story",
+                        "guess what a story is about from the picture clues",
+                        "find the meaning of new words as used in a text",
+                        "read the text and answer direct and indirect questions",
+                        "conduct a story telling session to retell a story to peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we tell where events have taken place in a story?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak engagingly is enhanced as they talk about events, characters, and places in a story",
+                        "Learning to Learn: The learner's ability to learn independently is developed as they conduct a story telling session to retell a story to peers"
+                    ],
+                    "values": [
+                        "Unity: Cooperation is cultivated as the learner collaborates with others in group activities"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is nurtured as their reading comprehension skills improve"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies comprehension skills when reading texts in Kiswahili and Indigenous Languages"
+                    ]
+                },
+                {
+                    "substrand_number": "12.4",
+                    "substrand_name": "Language Use: Pronouns: Possessive pronouns",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify sentences featuring possessive pronouns in a text",
+                        "use possessive pronouns correctly in writing",
+                        "appreciate the use of possessive pronouns in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "talk about the things that belong to them/ their parents/guardians, using possessive pronouns (mine, yours, ours, hers, his)",
+                        "role-play events related to ownership of items and objects in the classroom",
+                        "make sentences related to the theme using possessive pronouns",
+                        "ask and answer questions on possessive pronouns",
+                        "sing songs/rhymes using the possessive pronouns",
+                        "play language games involving the use of possessives pronouns",
+                        "use a digital device to play a drag and drop game on possessive pronouns"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you talk about things that belong to you or other people?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: This is promoted as the learner interacts with technology when using a digital device to play a drag and drop game on possessive pronouns",
+                        "Learning to Learn: The learner's ability to build relationships is boosted as they role-play ownership of items and objects in the classroom with peers"
+                    ],
+                    "values": [
+                        "Social justice is developed as the learner accords peers equal opportunities to talk about the things that belong to them/ their parents/guardians, using possessive pronouns"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires an enhanced level of self-esteem as they use possessive pronouns correctly in communication"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can link the concept of possessive pronouns to learning similar concepts in Kiswahili and Indigenous Language Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "12.5",
+                    "substrand_name": "Writing: Paragraphs",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify the general idea in jumbled sentences",
+                        "write the sentences sequentially to form a cohesive paragraph",
+                        "advocate for the role of writing as a part of the learning process"
+                    ],
+                    "suggested_learning_experiences": [
+                        "study jumbled sentences to establish the idea in each",
+                        "discuss the main idea conveyed in the jumbled sentences",
+                        "explore various possibilities with peers to arrange the jumbled sentences in correct order",
+                        "re-write the jumbled sentences according to the correct order",
+                        "make a paragraph from one sentence given by adding onto the first one"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to put sentences in the correct order when writing?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: The learner's ability to write clearly and correctly is developed as they re-write sentences sequentially to form a paragraph"
+                    ],
+                    "values": [
+                        "Responsibility is inculcated as the learner takes the initiative to explore various possibilities with peers to arrange the jumbled sentences in correct order"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's esteem is enhanced as their writing skills improve"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies the skills on write paragraphs in Kiswahili and Indigenous Language Activities"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "13.0",
+            "strand_name": "Savings",
+            "substrands": [
+                {
+                    "substrand_number": "13.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and vocabulary",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "distinguish words with the target letter-sound combinations: -lf, -rf, spl-, for effective communication",
+                        "pronounce words with the target letter-sound combinations accurately",
+                        "identify vocabulary related to the theme correctly",
+                        "use the new words related to the theme in short sentences",
+                        "value the importance of using proper pronunciation and correct vocabulary in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen and pick out words with the target letter sound combinations (-lf, -rf, spl-) from an audio clip/poem/story",
+                        "practise saying words with the target sounds with peers",
+                        "generate and list words with the target sounds",
+                        "categorise different words according to each of the target sounds",
+                        "use new words to construct simple sentences",
+                        "engage in role-plays and use words related to the theme, with peers",
+                        "recite rhymes/sing songs which contain vocabulary related to the theme, with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to know the pronunciation of new words?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly and engagingly is developed as they use new words learnt in communication"
+                    ],
+                    "values": [
+                        "Peace: Love is promoted as learner works harmoniously with peers during role-play activities"
+                    ],
+                    "pcis": [
+                        "Financial Literacy: The learner acquires financial management skills as they learn vocabulary related to savings"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner uses the skills of correct pronunciation of words to pronounce words in Kiswahili Language Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "13.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with the target letter-sound combinations (-lf, -rf, spl-) in a text",
+                        "read a grade-appropriate text accurately, at the right speed, and with expressions",
+                        "adopt reading fluently for comprehension"
+                    ],
+                    "suggested_learning_experiences": [
+                        "pick out words with letter-sound combinations: (-lf, - rf, spl-) from a text",
+                        "read words with letters â€“sound combination correctly",
+                        "engage in timed reading of a text with minimal hesitations, displaying the right facial expressions and voice",
+                        "take appropriate pauses at punctuation marks as they read a text",
+                        "practise reading sentences containing decodable and non-decodable words",
+                        "participate in reading a text in readersâ€™ theatre with peers and record on a digital device"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to read at the right speed?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to learn independently is developed as they read a grade-appropriate text accurately, at the right speed, and with expressions",
+                        "Digital Literacy: The learner's ability to interact with technology is improved as they participate in reading a text in readers' theatre with peers and record on a digital device"
+                    ],
+                    "values": [
+                        "Respect is cultivated as the learner appreciates the effort of peers as they engage in timed reading and give positive feedback"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is boosted as they gain reading fluency skills"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner uses the reading fluency skills acquired when reading texts in Kiswahili and Indigenous Language Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "13.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "make predictions about a story based on the title and pictures",
+                        "respond to direct and indirect questions about the text to show comprehension",
+                        "summarise a text for comprehension",
+                        "adopt reading texts for information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "look at the title of a story, pictures and guess what will happen in the story",
+                        "locate sentences in the text to answer direct questions",
+                        "get clues from the story to answer indirect questions",
+                        "retell a story, poem, or conversation using a concept map, with peers",
+                        "paraphrase the events in a story",
+                        "participate in a â€˜five-finger retellâ€™ activity",
+                        "talk about their own experiences in relation to the story"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do pictures and the title of a story help us to know what will happen in the story?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: The learner's ability to make connections is enhanced as they talk about their own experiences in relation to the story",
+                        "Learning to Learn: The learner's ability to build relationships is enhanced as they summarise a story, poem, or conversation using a concept map with peers"
+                    ],
+                    "values": [
+                        "Peace: Love is nurtured as the learner displays tolerance to peers as they work together in harmony"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is raised as they answer questions correctly to show comprehension"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can use the vocabulary learnt in this theme in similar content in Mathematics Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "13.4",
+                    "substrand_name": "Language Use: â€˜Whâ€™ questions",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify sentences containing Wh- questions that begin with why, whom, and how from a text",
+                        "use the Wh- questions in sentences for effective communication",
+                        "grasp the role of Wh- questions in seeking information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to recorded conversations containing the Wh-questions",
+                        "identify sentences containing Wh-questions",
+                        "engage in a meaningful question-and-answer dialogue using why, whom, and how, with peers",
+                        "fill in gaps in sentences using why, whom, and how appropriately",
+                        "collaborate with peers to answer questions beginning with why, whom, and how appropriately",
+                        "sing/recite short poems to practise the use of why, whom, and how"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to ask questions correctly?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly and effectively is developed as they engage in meaningful question-and-answer dialogues using Wh- questions appropriately"
+                    ],
+                    "values": [
+                        "Unity: Cooperation is enhanced as the learner works collaboratively with peers to practise using Wh- questions"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires an elevated level of self-esteem as they gain mastery of asking questions using the Wh- words"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner uses the Wh- questions to seek information by asking questions in other learning areas"
+                    ]
+                },
+                {
+                    "substrand_number": "13.5",
+                    "substrand_name": "Writing: Guided writing",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise words related to the theme from a written text",
+                        "write simple paragraphs related to the theme clearly",
+                        "acknowledge the importance of writing simple and clear paragraphs for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "pick out various words related to the theme from a text",
+                        "reorganize jumbled letters to form words",
+                        "write 3-5 simple, short and meaningful sentences in response to a prompt",
+                        "list the sentences logically in order of sequence with peers",
+                        "organise the sequenced list of sentences to form a meaningful paragraph",
+                        "use the five steps of the writing process: planning, drafting, revising, editing, and writing the final piece"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why should we write sentences correctly?",
+                        "How do we form a good paragraph?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: The learner's ability to come up with unique ideas is enhanced as they use the five steps of the writing process to write a short paragraph about the theme"
+                    ],
+                    "values": [
+                        "Responsibility: Self-drive is boosted as the learner practises writing simple paragraphs using the five steps of the writing process"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is elevated when they logically communicate ideas in paragraphs"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply the five steps of the writing process to write paragraphs in Kiswahili and Indigenous Language Activities"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "14.0",
+            "strand_name": "Talents",
+            "substrands": [
+                {
+                    "substrand_number": "14.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise words with the target letter-sound combinations (spr and strâ€™), in a text",
+                        "pronounce words with the target letter-sound combinations in preparation for reading",
+                        "use new words related to the theme in relevant contexts",
+                        "realise the importance of listening attentively, and correct pronunciation in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify and pronounce words and phrases with the target letter-sound combinations (spr and strâ€™) as modelled by the peers/teacher or audio recording",
+                        "use words that have the target letter combinations to talk about talent",
+                        "practise using vocabulary related to the theme in short sentences",
+                        "recite rhymes/sing songs with peers using the vocabulary related to the theme",
+                        "work with peers to play language games matching vocabulary learnt to pictures and objects",
+                        "listen and respond to simple specific three- directional instructions"
+                    ],
+                    "key_inquiry_questions": [
+                        "What words do you use to talk about talents?",
+                        "What helps us to remember the meaning of words?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly and correctly is improved as they use the new words learnt to talk about talents",
+                        "Collaboration: Teamwork is encouraged as the learner actively participates in playing language games with peers observing the rules of engagement"
+                    ],
+                    "values": [
+                        "Social Justice is enhanced as the learner fosters inclusivity and non-discrimination to peers as they play language games"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-awareness): The learner's self-awareness is developed as they become aware of their own talents"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies attentive listening skills in learning concepts in other learning areas"
+                    ]
+                },
+                {
+                    "substrand_number": "14.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with the target letter-sound combinations (spr and str) in a text",
+                        "read a text accurately, at the right speed, and with expression",
+                        "adopt reading simple, short narratives for information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "pick out and read words with target letter-sound combinations (spr and str) from a text",
+                        "read words with the letter-sound combinations correctly",
+                        "read a text, displaying the right facial expressions and using the right tone",
+                        "engage in timed with peer reading, taking appropriate pauses at punctuation marks",
+                        "record time taken in reading of texts by peers and give feedback",
+                        "practise reading sentences containing decodable and non-decodable words"
+                    ],
+                    "key_inquiry_questions": [
+                        "What makes it easy to read well?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn: The learner's ability to learn independently is enhanced as they adopt reading simple, short narratives for information"
+                    ],
+                    "values": [
+                        "Respect is inculcated as the learner appreciates the effort of peers and gives positive feedback as they engage in timed reading"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is improved as their fluency in reading improves"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies the fluency skills when reading texts in Kiswahili and Indigenous Language Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "14.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "make predictions about a story based on the title and picture",
+                        "identify the main idea in a text for comprehension",
+                        "infer meanings of new words from the context",
+                        "respond to direct and indirect questions on a text for comprehension",
+                        "adopt reading texts for information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "predict what will happen in a story based on the theme after discussing the title and pictures with peers",
+                        "identify the main idea in the text, with peers",
+                        "use contextual clues to get meanings of new words",
+                        "respond to direct and indirect questions from a text using contextual clues",
+                        "talk about own experiences in relation to a story, with peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "What do pictures tell us about a story?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination: The learner's communication and self-expression skills are enhanced as they talk about their own experiences in relation to the story"
+                    ],
+                    "values": [
+                        "Unity: Cooperation is cultivated as the learner works with peers collaboratively in group activities"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem improves as they answer comprehension questions correctly and gain confidence"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies comprehension strategies when reading texts in Kiswahili and Indigenous Language Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "14.4",
+                    "substrand_name": "Language Use: Adverbs of Manner",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify adverbs of manner in a written text in preparation for writing",
+                        "use adverbs of manner to describe actions",
+                        "understand the use of adverbs in writing"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to a descriptive story, poem, or conversation read by the teacher or from a digital device",
+                        "point out adverbs of manner from the text",
+                        "construct simple sentences about talents using adverbs of manner",
+                        "role-play familiar actions with peers and have them describe the actions using adverbs of manner",
+                        "make sentences from a substitution table",
+                        "fill in gaps in sentences using adverbs of manner correctly"
+                    ],
+                    "key_inquiry_questions": [
+                        "Which words do you use to talk about how things are done?",
+                        "Why is it important to clearly describe how something is done?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly and effectively is improved as they use adverbs of manner appropriately to describe actions",
+                        "Learning to Learn: The learner's ability to develop relationships is developed as they role-play familiar actions with peers and have them describe the actions using adverbs of manner"
+                    ],
+                    "values": [
+                        "Respect is nurtured as the learner shows positive regard for other's contribution when role-playing familiar actions with peers and have them describe the actions using adverbs of manner"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is elevated as they build on their communication skills through the use of adverbs of manner to describe actions"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can link the concept of adverbs to learning of similar concepts in Kiswahili Language Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "14.5",
+                    "substrand_name": "Writing: Guided writing",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise the steps of composition writing in preparation for writing",
+                        "write a short narrative related to the theme following the five steps of the writing process",
+                        "appreciate the importance of correctly writing simple paragraphs for effective communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "pick out new words from a text based on the theme",
+                        "write the new words correctly and legibly",
+                        "write 3-5 meaningful sentences using the new words in response to a prompt",
+                        "write a paragraph of 3-5 sentences using the steps in the writing process",
+                        "write a simple guided composition of about 5-10 sentences",
+                        "use the five steps of the writing process: planning, drafting, revising, editing, and writing the final piece"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we plan before writing a composition?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to write clearly and legibly is developed as they write short paragraphs following the five steps of the writing process",
+                        "Creativity and Imagination: The learner's ability to embrace creativity and originality are enhanced as they come up with unique and new ideas and use them to write a story"
+                    ],
+                    "values": [
+                        "Responsibility is nurtured as the learner prioritises their tasks to accomplish goals when writing a simple guided composition of about 5-10 sentences"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner acquires an elevated level of self-esteem as their writing skills improve"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply the five steps of the writing process when writing paragraphs in Kiswahili Language Activities"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "15.0",
+            "strand_name": "Environment",
+            "substrands": [
+                {
+                    "substrand_number": "15.1",
+                    "substrand_name": "Listening and Speaking: Pronunciation and Vocabulary",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "recognise the target letter-sound combinations â€˜scr-â€˜, â€˜que-â€™ from a text",
+                        "identify words related to the theme from an oral text",
+                        "engage in meaningful conversations using new words",
+                        "grasp the importance of proper pronunciation and attentive listening in everyday conversations"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify words with the target letter-sound combinations (â€˜scr-â€˜, â€˜que-â€™) from a list",
+                        "practise saying words with the target letter- sound combinations with peers",
+                        "listen to peers for correctness of pronunciation of the target letter-sound combinations",
+                        "explore the other sounds that can combine with target sounds to make new words",
+                        "take part in a nature walk around the school and identify things that form part of the vocabulary words learnt",
+                        "construct sentences using the new words",
+                        "sing songs related to the theme"
+                    ],
+                    "key_inquiry_questions": [
+                        "How can we use the sounds learnt to make new words?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly and effectively is improved as they engage in meaningful conversations in the environment using new words",
+                        "Critical thinking and Problem-solving: The learner's research skills are enhanced as they think of how to take care of the environment",
+                        "Learning to Learn: The learner's ability to learn independently is heightened as they recreate learning experiences outside class by taking care of the environment"
+                    ],
+                    "values": [
+                        "Responsibility is promoted as the learner diligently takes up assigned roles when engaging in a dialogue with peers"
+                    ],
+                    "pcis": [
+                        "Environmental Education: The learner gets information on how to take care of the environment as they take part in nature walks"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply vocabulary learnt in this theme in their learning in Environmental Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "15.2",
+                    "substrand_name": "Reading: Fluency",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words with the target letter-sound combinations (â€˜scrâ€™ and â€˜queâ€™) in a text",
+                        "articulate words with the target letter-sound combinations for clarity of meaning",
+                        "read a text accurately, at the right speed, and with expression",
+                        "adopt reading simple, short narratives for information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "select words with the target letter-sound combinations (â€˜scrâ€™ and â€˜queâ€™) from a print or digital text",
+                        "pronounce words with the target letter-sound combinations",
+                        "conduct the echo game to retell words with the target sounds after peers or a lead",
+                        "take part in timed reading, with peers",
+                        "read a narrative/poem/dialogue paying attention to pace, pitch, and volume",
+                        "watch video recordings showing reading fluency in terms of speed and articulation"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to read words accurately?",
+                        "What makes it easy to read well?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy: This is promoted as the learner interacts with digital content when watching video recordings showing reading fluency in terms of speed and articulation"
+                    ],
+                    "values": [
+                        "Unity: Cooperation is encouraged as the learner works collaboratively with peers in timed reading activities"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is heightened as they acquire reading fluency skills"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies fluent reading skills when reading texts in Kiswahili Language activities"
+                    ]
+                },
+                {
+                    "substrand_number": "15.3",
+                    "substrand_name": "Reading: Comprehension",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "predict the outcome of a story based on available clues",
+                        "identify the order of events or information in a text for comprehension",
+                        "infer the meanings of new words and phrases from the context",
+                        "answer direct and indirect questions based on a text",
+                        "adopt reading texts for information"
+                    ],
+                    "suggested_learning_experiences": [
+                        "predict what will happen in a story, based on pictures and the title of a text, with peers",
+                        "read a print or non-print story aloud",
+                        "talk about the events in a story in the sequence in which they happen",
+                        "use context clues to find the meaning of words",
+                        "locate sentences containing answers to direct questions",
+                        "answer indirect questions using contextual clues",
+                        "conduct a storytelling session to retell a story read to peers"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we get the meaning of new words in a story?"
+                    ],
+                    "core_competencies": [
+                        "Self-efficacy: This is promoted as the learner shows defining personal skills when retelling a story during the storytelling session with peers",
+                        "Critical thinking and problem solving: This is enhanced as the learner organises ideas sequentially to retell the story they have read"
+                    ],
+                    "values": [
+                        "Respect is enhanced as the learner understands and appreciates the opinions of peers during discussions when talk about the events in a story in the sequence in which they happen"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is nurtured as they answer questions from a text correctly"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner applies comprehension strategies when reading texts in Kiswahili and Indigenous Language Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "15.4",
+                    "substrand_name": "Language Use: Interjections of Displeasure",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify words that are often used to express displeasure",
+                        "use words that express displeasure appropriately",
+                        "value the role of interjections in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "listen to a descriptive story, poem, or conversation read by the teacher or from a digital device and identify interjections of displeasure",
+                        "role-play situations of displeasure and use the appropriate expressions or words",
+                        "construct sentences using interjections of displeasure",
+                        "take part in a dialogue that allows turn-taking while using interjections of displeasure",
+                        "work jointly to create a talking tree displaying the interjections of displeasure and display in class"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do you show that you are not happy about something?"
+                    ],
+                    "core_competencies": [
+                        "Communication: The learner's ability to speak clearly and effectively is enhanced as they use appropriate interjections to express displeasure",
+                        "Learning to Learn: The learner's ability to develop relationships is improved when they take part in a dialogue that allows turn-taking while using interjections of displeasure"
+                    ],
+                    "values": [
+                        "Peace: The learner is able to work harmoniously with peers to create a talking tree displaying the interjections of displeasure and display in class"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-awareness): The learner grows their self-awareness and communication skills as they learn how to express displeasure using the appropriate interjections"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply knowledge of interjections when learning similar concepts in Kiswahili and Indigenous Language Activities"
+                    ]
+                },
+                {
+                    "substrand_number": "15.5",
+                    "substrand_name": "Writing: Guided Writing - Factual Paragraph",
+                    "number_of_lessons": 2,
+                    "specific_learning_outcomes": [
+                        "identify facts from various processes and contexts in preparation for writing",
+                        "order the factual ideas logically for clarity of communication",
+                        "write a paragraph using factual sentences",
+                        "appreciate the use of factual texts in communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "identify facts from various processes and contexts collaboratively with peers",
+                        "list the facts identified logically",
+                        "team up to make oral presentations of the facts",
+                        "select the most appropriate sentences for the paragraph",
+                        "write simple sentences based on oral presentations of facts to form a paragraph"
+                    ],
+                    "key_inquiry_questions": [
+                        "How do we write a good factual paragraph?"
+                    ],
+                    "core_competencies": [
+                        "Critical thinking and problem solving: The learner's logical thinking skills are improved as they order factual ideas logically and write a paragraph using factual sentences"
+                    ],
+                    "values": [
+                        "Respect is inculcated as the learner appreciates the effort of peers during oral presentations of facts and gives positive feedback"
+                    ],
+                    "pcis": [
+                        "Life Skills (Self-esteem): The learner's self-esteem is boosted as they write factual paragraphs clearly and correctly"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learner can apply the skill of factual writing to learning of similar concepts in Kiswahili Language Activities"
+                    ]
+                }
+            ]
+        }
+    ]
+}

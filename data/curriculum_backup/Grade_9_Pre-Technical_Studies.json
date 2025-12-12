@@ -1,0 +1,563 @@
+{
+    "grade": "Grade 9",
+    "subject": "Pre-Technical Studies",
+    "education_level": "Junior Secondary",
+    "strands": [
+        {
+            "strand_number": "1.0",
+            "strand_name": "FOUNDATIONS OF PRE-TECHNICAL STUDIES",
+            "substrands": [
+                {
+                    "substrand_number": "1.1",
+                    "substrand_name": "Safety on Raised Platforms",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "identify types of raised platforms used in a workplace",
+                        "describe risks associated with working on raised platforms",
+                        "observe safety when working on raised platforms",
+                        "appreciate the need for observing safety while working on raised platforms"
+                    ],
+                    "suggested_learning_experiences": [
+                        "walk around the school to explore types of raised platforms (ladders, trestles, steps, stands, work benches, ramps)",
+                        "brainstorm on the types of raised platforms used in day-to-day life",
+                        "use print or digital media to search for information on risks associated with working on raised platforms",
+                        "discuss ways of minimizing risks related to working on raised platforms in workplace",
+                        "role play safety practices for working on raised platforms",
+                        "visit workplaces around the school to note safety precautions taken when working on raised platforms"
+                    ],
+                    "key_inquiry_questions": [
+                        "What is the importance for observing safety when working on raised platforms?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration - speaking, listening and teamwork; learner develops speaking, listening and teamwork skills when discussing and presenting on ways of minimizing risks and dangers related to working on raised platforms in workplaces",
+                        "Critical Thinking and Problem Solving - decision making and inference; learner decides and makes inference as their role play safety practices for working on raised platforms",
+                        "Digital Literacy - interacting with digital devices; learner interacts with and manipulates digital devices as they use audio visual aids to observe risks associated with working on raised platforms"
+                    ],
+                    "values": [
+                        "Unity; learner develops positive relationships as they interact to share learning aids and discuss during learning activities",
+                        "Love; learner cares for others to avoid injury as they role-play safety practices for working on raised platforms",
+                        "Responsibility; learner cares for the audio visual aids when using them to identify types of raised platforms in the workplace"
+                    ],
+                    "pcis": [
+                        "Disaster Risk Reduction: learner ability to identify and mitigate risks is enhanced when working on raised platforms"
+                    ],
+                    "links_to_other_subjects": [
+                        "The learners is able to relate skills on safety in a workplace to laboratory safety rules in Integrated Science"
+                    ]
+                },
+                {
+                    "substrand_number": "1.2",
+                    "substrand_name": "Self-Exploration and Career Development",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "explain ways of nurturing talents and abilities for business purposes",
+                        "relate talents and abilities to career pathways in senior school",
+                        "analyse ethical and unethical practices related to the use of talents and abilities",
+                        "choose a career based on talents and abilities for self-development"
+                    ],
+                    "suggested_learning_experiences": [
+                        "discuss and present on ways of nurturing talents and abilities",
+                        "display talents and abilities through clubs and societies and other planned school fora",
+                        "make a list of talents and abilities and the corresponding career pathways in the senior school",
+                        "engage with a resource person on career opportunities related to talents and abilities in Pre-Technical Studies",
+                        "read and discuss a case study on ethical and unethical practices related to the use of talents and abilities"
+                    ],
+                    "key_inquiry_questions": [
+                        "How are talents and abilities nurtured?",
+                        "Why is self-exploration necessary for career development?"
+                    ],
+                    "core_competencies": [
+                        "Creativity and Imagination - networking and creative thinking; learner acquires networking skills by undertaking group activities and exchanging new ideas that inspire creative thinking skills during the display of talents and abilities through clubs, societies and other planned school fora",
+                        "Critical Thinking and Problem Solving - interpretation and inference; learner interprets and makes inference when reading and analyzing a case study on ethical and unethical practices related to the use of talents and abilities",
+                        "Learning to Learn - self-learning; learner develops self-learning skill when reading and analyzing a case study on ethical and unethical practices related to the use of talents and abilities",
+                        "Self-Efficacy - effective communication; learner acquires effective communication skills when organizing and participating in talent shows to nurture talents and abilities"
+                    ],
+                    "values": [
+                        "Integrity; learner develops accountability when analyzing a case study on ethical and unethical practices related to the use of talents and abilities",
+                        "Respect; learner shows humility by displaying positive regard for self and others when discussing and presenting on ways of nurturing talents and abilities",
+                        "Responsibility; learner shows determination by engaging in assigned roles and duties when organizing and participating in talent shows to nurture talents and abilities"
+                    ],
+                    "pcis": [
+                        "Social Cohesion: learner cooperates with others when demonstrating their talents and abilities during talent shows",
+                        "Peer Education and Mentorship: learner displays talents and abilities through clubs and societies and other planned school fora"
+                    ],
+                    "links_to_other_subjects": [
+                        "Creative Arts and Sports: learner enhances creative skill during the display of talents and abilities through clubs and societies and other planned school fora"
+                    ]
+                },
+                {
+                    "substrand_number": "1.3",
+                    "substrand_name": "Computer Software",
+                    "number_of_lessons": 12,
+                    "specific_learning_outcomes": [
+                        "identify the categories of computer software used in a workplace",
+                        "explain the functions of different application software in the workplace",
+                        "use computer software to perform tasks in day-to-day life",
+                        "acknowledge the importance of application software in the workplace"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm on the meaning of the term 'computer software' and present to peers",
+                        "use available resources to search for different computer software",
+                        "discuss categories of computer software (system software, application software)",
+                        "brainstorm on the functions of different application software (word processing, presentation, spreadsheets, databases, desktop publishing, information management systems, customized software)",
+                        "perform tasks using different application software (word processing, presentation, spreadsheet and desktop publishing)"
+                    ],
+                    "key_inquiry_questions": [
+                        "How are computer software used in day-to-day life?",
+                        "Why is computer software important?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy - creating with technology; learner develops creating with technology skills when performing tasks using different application software",
+                        "Learning to Learn - sharing knowledge; learner develops relationships by sharing what they have learned with peers when discussing categories of computer software"
+                    ],
+                    "values": [
+                        "Integrity; learner exhibits fairness by giving equal opportunities to peers when brainstorming functions of application software"
+                    ],
+                    "pcis": [
+                        "Peer Education and Mentorship: learner develops interpersonal relationships as they brainstorm on the functions of different application software"
+                    ],
+                    "links_to_other_subjects": [
+                        "English: the learner uses application software to write narrative paragraphs"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "2.0",
+            "strand_name": "COMMUNICATION",
+            "substrands": [
+                {
+                    "substrand_number": "2.1",
+                    "substrand_name": "Oblique Projection",
+                    "number_of_lessons": 12,
+                    "specific_learning_outcomes": [
+                        "explain the characteristics of oblique drawing in technical fields",
+                        "sketch given drawings in oblique projection",
+                        "draw shaped blocks in oblique projection",
+                        "appreciate the application of oblique projection in technical communication"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use print or digital media to search for information on characteristic of oblique drawings",
+                        "brainstorm on the characteristic of oblique drawings",
+                        "draw given drawings in oblique projection without using instruments (ensure neatness, correct line work, maintain proportionality, correct labeling)"
+                    ],
+                    "key_inquiry_questions": [
+                        "How is oblique projection applied in technical communication?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration - speaking, listening and self-expression; learner develops speaking, listening and self-expression skills when brainstorming on the characteristic of oblique drawings",
+                        "Critical Thinking and Problem Solving - interpretation and inference; learner develops interpretation and inference skills when drawing three-dimensional diagrams"
+                    ],
+                    "values": [
+                        "Responsibility; learner cares for the print or digital media as well as drawing instruments when learning how to draw three dimensional objects in oblique projection",
+                        "Unity; learner cooperates with others when using digital devices to search for information on and discuss characteristic of oblique drawings"
+                    ],
+                    "pcis": [
+                        "Social cohesion: learner develops ability to relate well with others as they brainstorm on the characteristic of oblique drawings"
+                    ],
+                    "links_to_other_subjects": [
+                        "Visual art as learners make free-hand pictures of three-dimensional objects",
+                        "Mathematics as the learner makes oblique drawings to specified dimensions in technical drawing"
+                    ]
+                },
+                {
+                    "substrand_number": "2.2",
+                    "substrand_name": "Visual Programming",
+                    "number_of_lessons": 14,
+                    "specific_learning_outcomes": [
+                        "explain the application areas of visual programming software in solving problems",
+                        "create an application using visual programming software for solving problems in day-to-day life",
+                        "embrace the use of visual programming in the day-to-day life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use available resources to search for information on the application areas of visual programming (mobile programming and web development)",
+                        "discuss the application areas of visual programming software",
+                        "search and play a video on how to develop an application using visual programming software (games and stories)",
+                        "develop interactive stories, games and animations"
+                    ],
+                    "key_inquiry_questions": [
+                        "How are applications developed using visual programming software?"
+                    ],
+                    "core_competencies": [
+                        "Self-Efficacy - effective communication; effective communication skills are developed as the learner discuss the application areas of visual programming with peers",
+                        "Critical Thinking and Problem Solving - open-mindedness and creativity; open-mindedness and creativity skills are developed as the learner develops an application using visual programming software"
+                    ],
+                    "values": [
+                        "Social justice; learner shares resources equivalently with others as they work in groups to develop applications"
+                    ],
+                    "pcis": [
+                        "Peer Education and Mentorship: interpersonal relationships is enhanced as learner discusses the application areas of visual programming software",
+                        "Internet Safety and Security: responsible online behavior is enhanced as learner uses available resources to search for information on the application areas of visual programming"
+                    ],
+                    "links_to_other_subjects": [
+                        "Mathematics as learner uses visual programming concepts to solve problems"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "3.0",
+            "strand_name": "MATERIALS FOR PRODUCTION",
+            "substrands": [
+                {
+                    "substrand_number": "3.1",
+                    "substrand_name": "Wood",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "classify wood according to physical characteristics",
+                        "describe the preparation of wood for use in a workplace",
+                        "relate types of wood to their uses in a workplace",
+                        "value the importance of wood in the day-to-day life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use print or digital media to search for information on the types of wood used at the workplace",
+                        "use a checklist to sort wood as either softwood or hardwood",
+                        "discuss methods of wood preparation for use in a workplace (conversion and seasoning)",
+                        "visit a workplace to explore on the uses of wood",
+                        "develop charts to match types of wood to their uses",
+                        "brainstorm on the uses of wood in different trades"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is wood an important material in day-to-day life?"
+                    ],
+                    "core_competencies": [
+                        "Digital Literacy - digital skills; learner develops digital skills when interacting and manipulating digital devices to search for information on types of wood",
+                        "Learning to learn - organizing own learning; learner organizes own learning when searching for information on the types of wood used at the workplace"
+                    ],
+                    "values": [
+                        "Unity; learner cooperates with others when sharing print or digital media to search for information on types of wood",
+                        "Respect; learner accepts diverse opinions when discussing methods of wood preparation"
+                    ],
+                    "pcis": [
+                        "Environmental education and climate change: learner understands the growth process of trees when using print or digital media to search for information on the types of wood used at the workplace",
+                        "Peer education and mentorship: Teamwork is enhanced when the learner participates the discussion on methods of wood preparation for use in the workplace"
+                    ],
+                    "links_to_other_subjects": [
+                        "Social Studies: learner enhances knowledge of resource exploitation as they brainstorm on the uses of wood in different trades"
+                    ]
+                },
+                {
+                    "substrand_number": "3.2",
+                    "substrand_name": "Hazardous Materials",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "identify hazardous materials in the workplace",
+                        "classify hazardous materials in the workplace",
+                        "demonstrate safe practices when handling hazardous materials in the workplace",
+                        "acknowledge the importance of safe handling of hazardous materials in the workplace"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use print or digital media to search for information on hazardous materials in the workplace",
+                        "brainstorm on hazardous materials found in the workplace",
+                        "use charts to group hazardous materials in the workplace (poisonous, flammable, corrosive, e-waste)",
+                        "interpret safety instructions contained in labels and manuals on handling of hazardous materials",
+                        "discuss safe ways of handling hazardous materials (to self, others, environment and promote safety awareness)",
+                        "exercise safe ways of handling hazardous materials in the workplace (read instructions, use PPE, handle the material, store/dispose safely)"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important to handle hazardous materials safely?"
+                    ],
+                    "core_competencies": [
+                        "Critical Thinking and Problem Solving - decision making; learner develops decision making skills when interpreting safety instructions on handling hazardous materials",
+                        "Digital Literacy - digital skills; learner develops digital skills when using digital media to search for information on hazardous materials"
+                    ],
+                    "values": [
+                        "Responsibility; learner exercises care when handling hazardous materials in the workplace",
+                        "Unity; learner cooperates with others when discussing safe ways of handling hazardous materials"
+                    ],
+                    "pcis": [
+                        "Environmental Education: learner appreciates the need to protect the environment when storing and disposing hazardous materials",
+                        "Personal Safety and Security: learner demonstrates basic safety habits when handling hazardous materials"
+                    ],
+                    "links_to_other_subjects": [
+                        "Integrated Science: learner enhances lab safety as they exercise safe ways of handling hazardous materials in the workplace"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "4.0",
+            "strand_name": "TOOLS AND PRODUCTION",
+            "substrands": [
+                {
+                    "substrand_number": "4.1",
+                    "substrand_name": "Holding Tools",
+                    "number_of_lessons": 7,
+                    "specific_learning_outcomes": [
+                        "identify holding tools used in a workplace",
+                        "select holding tools for a given task in a workplace",
+                        "use holding tools to perform a given task in a workplace",
+                        "care for holding tools in the workplace",
+                        "appreciate the importance of holding tools in the workplace"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use visual aids or real objects to identify holding tools in a workplace (pliers, clamps, tongs, clips, spanner, vice)",
+                        "choose holding tools for different tasks",
+                        "discuss the use of holding tools in the workplace",
+                        "use audio visual aids or print media to get information on safe use of holding tools in the workplace",
+                        "demonstrate safe use of holding tools for different tasks",
+                        "practice using holding tools for given tasks",
+                        "maintain and store holding tools in the workplace"
+                    ],
+                    "key_inquiry_questions": [
+                        "How are holding tools used in a workplace?"
+                    ],
+                    "core_competencies": [
+                        "Communication and Collaboration - listening and speaking; learner develops listening and speaking skills when discussing the use of holding tools",
+                        "Learning to Learn - reflection; learner reflects on own work when demonstrating safe use of holding tools to perform given tasks",
+                        "Digital Literacy - digital skills; learner develops digital skills when interacting and manipulating audio visual aids on safe use of holding tools"
+                    ],
+                    "values": [
+                        "Unity; learner cooperates with others when discussing on the safe use of holding tools",
+                        "Responsibility; learner exercises accountability as they maintain and store holding tools"
+                    ],
+                    "pcis": [
+                        "Personal Safety and Security: learner demonstrates basic safety habits as they safely use holding tools to perform tasks",
+                        "Disaster Risk Reduction: learner appreciates the need to maintain and store holding tools in the workplace for safe use and retrieval"
+                    ],
+                    "links_to_other_subjects": [
+                        "Agriculture and Nutrition: learners enhances the knowledge on use of farm tools during demonstration on how to use and care for holding tools"
+                    ]
+                },
+                {
+                    "substrand_number": "4.2",
+                    "substrand_name": "Driving Tools",
+                    "number_of_lessons": 8,
+                    "specific_learning_outcomes": [
+                        "identify driving tools used in a workplace",
+                        "select driving tools for a given task in a workplace",
+                        "use driving tools to perform a given task in a workplace",
+                        "care for driving tools in a workplace",
+                        "value the need for driving tools in a workplace"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use visual aids or realia to identify driving tools in a workplace (hammers, mallets, screwdrivers)",
+                        "choose driving tools for different tasks",
+                        "discuss the use of driving tools in the workplace",
+                        "use audio visual aids or print media to get information on safe use of driving tools in the workplace",
+                        "demonstrate safe use of driving tools for different tasks",
+                        "practice using driving tools for given tasks",
+                        "maintain and store driving tools in the workplace"
+                    ],
+                    "key_inquiry_questions": [
+                        "How are driving tools used in a workplace?"
+                    ],
+                    "core_competencies": [
+                        "Self-Efficacy - effective communication; learner acquires effective communication skills in task execution when demonstrating safe use of driving tools to perform given tasks",
+                        "Digital Literacy - interacting skills; learner develops interacting skills when manipulating audio visual devices on safe use of driving tools"
+                    ],
+                    "values": [
+                        "Unity; learner cooperates with others when discussing on the safe use of driving tools",
+                        "Responsibility; learner exercises accountability as they maintain and store driving tools"
+                    ],
+                    "pcis": [
+                        "Personal Safety and Security: learner demonstrates basic safety habits as they safely use driving tools to perform tasks",
+                        "Disaster Risk Reduction: learner appreciates the need to maintain and store driving tools in the workplace for safe use"
+                    ],
+                    "links_to_other_subjects": [
+                        "Agriculture and Nutrition: learners enhances the knowledge on use of farm tools during demonstration on how to use and care for driving tools"
+                    ]
+                },
+                {
+                    "substrand_number": "4.5",
+                    "substrand_name": "Distribution of Goods and Services",
+                    "number_of_lessons": 7,
+                    "specific_learning_outcomes": [
+                        "explain the role of intermediaries in the distribution of goods and services",
+                        "illustrate the channels for distributing different goods and services in business",
+                        "analyse ethical and unethical practices in distribution of goods and services",
+                        "participate in distribution of goods and services in the community"
+                    ],
+                    "suggested_learning_experiences": [
+                        "discuss and present the meaning of channels of distribution and role of intermediaries in distribution of goods and services",
+                        "search from available resources the role of intermediaries in distribution of goods and services to the consumer",
+                        "search and watch video clips on channels for distributing different goods and services",
+                        "prepare a chart on channels for distribution of different goods and services",
+                        "analyse case studies on different distribution channels for goods and services",
+                        "debate on ethical issues on distribution of goods and services"
+                    ],
+                    "key_inquiry_questions": [
+                        "How is the distribution of goods and services carried out in day-to-day life?",
+                        "Which ethical issues influence distribution of goods and services?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn - organizing self-learning; learner acquires the skills of organizing self-learning when analyzing case studies on different distribution channels for goods and services",
+                        "Digital Literacy - interacting with digital devices; learner acquires the skills of interacting with digital devices when watching and listening to video clips on channels for distributing goods and services",
+                        "Critical Thinking and Problem Solving - interpretation and inference; learner acquires interpretation and inference skills when debating on ethical issues in distribution of goods and services",
+                        "Self-Efficacy - effective communication; learner develops effective communication skills when debating on ethical issues in distribution of products"
+                    ],
+                    "values": [
+                        "Respect; learner shows regard for self and others when discussing the meaning of channels of distribution and role of intermediaries in the distribution of goods and services",
+                        "Responsibility; learner engages in assigned roles and duties when debating on ethical issues on distribution of goods and services",
+                        "Peace; learner displays tolerance and respect for others when debating on ethical issues on distribution of goods and services"
+                    ],
+                    "pcis": [
+                        "Social Cohesion: learner improves on their interpersonal relationships when debating on ethical issues on distribution of goods and services",
+                        "Mental Health: emotional awareness is enhanced as learner participates in discussion and presentation on the meaning of channels of distribution and role of intermediaries in distribution of goods and services"
+                    ],
+                    "links_to_other_subjects": [
+                        "Social Studies: learner enhances knowledge on trade when learning about distribution of goods and services"
+                    ]
+                },
+                {
+                    "substrand_number": "4.6",
+                    "substrand_name": "Project",
+                    "number_of_lessons": 14,
+                    "specific_learning_outcomes": [
+                        "identify a problem in the locality that can be solved using the skills acquired in Pre-Technical Studies",
+                        "select an item that can be made to solve the identified problem",
+                        "make an item to solve the problem identified using locally available materials",
+                        "utilize skills learned in solving problems in the day-to-day life"
+                    ],
+                    "suggested_learning_experiences": [
+                        "explore the locality to establish problems that can be solved using the skills acquired in this learning area",
+                        "brainstorm on the problems in the locality that can solve using the skills acquired",
+                        "use a print or digital media to search for information on possible items to solve the identified problem",
+                        "discuss possible items that can be made to solve the identified problem",
+                        "select one item that can be made using the skills acquired to solve the identified problem",
+                        "sketch the item that can be made using the skills acquired to solve the identified problem",
+                        "use locally available materials and tools to make the item",
+                        "estimate the cost to determine the price for the item",
+                        "display the finished item for peer assessment"
+                    ],
+                    "key_inquiry_questions": [
+                        "How are competencies acquired in Pre-Technical Studies used to solve day-to-day problems?"
+                    ],
+                    "core_competencies": [
+                        "Critical Thinking and Problem Solving - evaluation and decision making; learner develops evaluation and decision making skills when selecting an item that can be made using the skills acquired",
+                        "Creativity and imagination - experimenting; learner develops experimenting skills when selecting locally available materials and tools to make the identified item",
+                        "Self-Efficacy - effective communication; learner acquires effective communication skills when describing the procedure followed in doing the defined task and gives feedback during display of the finished item for evaluation"
+                    ],
+                    "values": [
+                        "Responsibility; learner cares for tools and materials when making the item",
+                        "Respect; learner appreciates diverse opinions of others as they discuss possible items that can be made to solve the identified problem"
+                    ],
+                    "pcis": [
+                        "Environmental Education: learner protects natural resources as they use locally available materials and tools to make the identified item",
+                        "Financial Literacy: is enhanced as learner estimates the cost to determine the price for the item",
+                        "Time Management: learner demonstrates ability to manage time when carrying out the project within a given duration"
+                    ],
+                    "links_to_other_subjects": [
+                        "Creative Arts and Sports: learner enhances knowledge on drawing during the sketching of an item that can be made using the skills acquired in Pre-Technical Studies"
+                    ]
+                }
+            ]
+        },
+        {
+            "strand_number": "5.0",
+            "strand_name": "ENTREPRENEURSHIP",
+            "substrands": [
+                {
+                    "substrand_number": "5.1",
+                    "substrand_name": "Financial Services",
+                    "number_of_lessons": 4,
+                    "specific_learning_outcomes": [
+                        "identify financial institutions available in Kenya",
+                        "classify financial institutions in Kenya",
+                        "analyse services offered by financial institutions in Kenya",
+                        "utilize financial services for entrepreneurial development"
+                    ],
+                    "suggested_learning_experiences": [
+                        "use print or digital media to search for information on financial institutions available in Kenya",
+                        "discuss and present the types of financial institutions in Kenya (banks, insurance, SACCOs, microfinance)",
+                        "use ICT and other available resources to search for information on services offered by financial institutions in Kenya",
+                        "use a case study on financial institutions to identify the financial services"
+                    ],
+                    "key_inquiry_questions": [
+                        "What are the services offered by different financial institutions in Kenya?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn - organizing self-learning; learner acquires skills of organizing self-learning when searching for information on services offered by financial institutions in Kenya",
+                        "Self-Efficacy - effective communication; learner develops effective communication skills when discussing and presenting the types of financial institutions in Kenya",
+                        "Critical Thinking and Problem-Solving - interpretation and inference; learner develops interpretation and inference skills when identifying financial services"
+                    ],
+                    "values": [
+                        "Responsibility; learner cares for own property and those of others when handling ICT devices while searching for information on financial services",
+                        "Unity; learner displays team spirit and collaborates with others when discussing and presenting on the types of financial institutions in Kenya"
+                    ],
+                    "pcis": [
+                        "Financial Literacy: learner's financial literacy skills are enhanced when learning about services offered by financial institutions"
+                    ],
+                    "links_to_other_subjects": [
+                        "Agriculture and Nutrition as the learner learns about financial services offered to farmers"
+                    ]
+                },
+                {
+                    "substrand_number": "5.2",
+                    "substrand_name": "Government and Business",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "explain the reasons for government involvement in business in Kenya",
+                        "describe ways of government involvement in business",
+                        "explore types of taxes in Kenya government",
+                        "analyse e-Government services in business",
+                        "acknowledge the need to comply with Government regulation in business"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm and present on the reasons for government involvement in business in Kenya",
+                        "use available resources to search for information on ways of Government involvement in business",
+                        "discuss and present on the meaning and importance of paying taxes in Kenya",
+                        "discuss on the types of taxes in Kenya (income tax, VAT, corporate tax, excise duty) and present to peers",
+                        "discuss a case study on e-Government services in business",
+                        "use ICT tools to access and interact with e-Government platform in Kenya"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is it important for the Government to get involved in business?"
+                    ],
+                    "core_competencies": [
+                        "Critical Thinking and Problem Solving - evaluating and decision making; learner develops evaluating and decision making skills when discussing a case study on e-Government services in business",
+                        "Digital Literacy - interacting with digital devices; learner develops the skills of interacting with digital devices when using ICT tools to access and interact with the e-Government platform in Kenya",
+                        "Citizenship - social and civic skills; learner develops social and civic skills when discussing and presenting on the meaning and importance of paying taxes in Kenya"
+                    ],
+                    "values": [
+                        "Integrity; learner acquires accountability skills when discussing and presenting on the meaning and importance of paying taxes in Kenya",
+                        "Social justice; learner learns about the need for government involvement in business to promote fairness and equity across the society",
+                        "Patriotism; learner becomes aware of own responsibility towards payment of taxes when discussing and presenting on the meaning and importance of paying taxes in Kenya"
+                    ],
+                    "pcis": [
+                        "Financial Literacy: learner's financial literacy skills are enhanced when discuss and presenting on types of taxes paid in Kenya",
+                        "Social Cohesion: learner's interpersonal relationships are enhanced when brainstorming and presenting on the reasons for government involvement in business in Kenya"
+                    ],
+                    "links_to_other_subjects": [
+                        "Social Studies as they learn about governance"
+                    ]
+                },
+                {
+                    "substrand_number": "5.3",
+                    "substrand_name": "Business Plan",
+                    "number_of_lessons": 6,
+                    "specific_learning_outcomes": [
+                        "explain the importance of a business plan in entrepreneurship",
+                        "describe the components of a business plan in financial management",
+                        "fill in a business plan template for a given business project",
+                        "embrace the use of a business plan in entrepreneurship"
+                    ],
+                    "suggested_learning_experiences": [
+                        "brainstorm and present the meaning and importance of a business plan",
+                        "read case studies to get information on the components of a business plan",
+                        "complete a business plan template (executive summary business description, product and service, market/competitor analysis, financial projection and marketing plan)"
+                    ],
+                    "key_inquiry_questions": [
+                        "Why is a business plan important to an entrepreneur?",
+                        "How is a business plan prepared?"
+                    ],
+                    "core_competencies": [
+                        "Learning to Learn - organizing own learning; learner acquires the skill of organizing own learning when completing a business plan template",
+                        "Critical thinking and Problem Solving - evaluation and decision-making; learner acquires evaluation and decision-making skills when completing a business plan template"
+                    ],
+                    "values": [
+                        "Respect; learner shows regard for the input of every member when brainstorming and presenting the meaning and importance of a business plan",
+                        "Love; learner respects others when brainstorming and presenting the meaning and importance of a business plan"
+                    ],
+                    "pcis": [
+                        "Social Cohesion: learner works and cooperates with members of the team when brainstorming on the meaning and importance of a business plan",
+                        "Time Management: learner develops ability to manage time as work to complete a business plan template"
+                    ],
+                    "links_to_other_subjects": [
+                        "Agriculture and Nutrition as they learn about marketing crop produce"
+                    ]
+                }
+            ]
+        }
+    ]
+}
