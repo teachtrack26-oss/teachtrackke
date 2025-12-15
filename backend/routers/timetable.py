@@ -4,7 +4,7 @@ from typing import List, Optional
 from datetime import datetime, timedelta
 
 from database import get_db
-from models import User, SchoolSchedule, TimetableEntry, TimeSlot
+from models import User, UserRole, SchoolSchedule, TimetableEntry, TimeSlot
 from schemas import (
     SchoolScheduleCreate, SchoolScheduleUpdate, SchoolScheduleResponse,
     TimetableEntryCreate, TimetableEntryUpdate, TimetableEntryResponse,
@@ -158,8 +158,14 @@ async def create_school_schedule(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
+    # If user is a school admin, link to school
+    school_id = None
+    if current_user.role in [UserRole.SCHOOL_ADMIN, UserRole.SUPER_ADMIN] and current_user.school_id:
+        school_id = current_user.school_id
+        
     db_schedule = SchoolSchedule(
         user_id=current_user.id,
+        school_id=school_id,
         **schedule.dict()
     )
     db.add(db_schedule)
@@ -184,7 +190,20 @@ async def get_active_schedule(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    # Use the fallback logic to find *some* schedule if the specific one is missing
+    # 1. If user is linked to a school, try to find a school-wide schedule first
+    if current_user.school_id:
+        query = db.query(SchoolSchedule).filter(
+            SchoolSchedule.school_id == current_user.school_id,
+            SchoolSchedule.is_active == True
+        )
+        if education_level:
+            query = query.filter(SchoolSchedule.education_level == education_level)
+            
+        school_schedule = query.first()
+        if school_schedule:
+            return school_schedule
+
+    # 2. Fallback to user-specific schedule (legacy or independent teacher)
     schedule = get_active_schedule_or_fallback(db, current_user, education_level)
     if not schedule:
         raise HTTPException(status_code=404, detail="No active schedule found")
@@ -261,7 +280,16 @@ async def get_timetable_entries(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    query = db.query(TimetableEntry).filter(TimetableEntry.user_id == current_user.id)
+    # If user is School Admin, they can see all entries for their school
+    if current_user.role in [UserRole.SCHOOL_ADMIN, UserRole.SUPER_ADMIN] and current_user.school_id:
+        # Find all schedules for this school
+        schedules = db.query(SchoolSchedule).filter(SchoolSchedule.school_id == current_user.school_id).all()
+        schedule_ids = [s.id for s in schedules]
+        
+        query = db.query(TimetableEntry).filter(TimetableEntry.schedule_id.in_(schedule_ids))
+    else:
+        query = db.query(TimetableEntry).filter(TimetableEntry.user_id == current_user.id)
+
     if day_of_week:
         query = query.filter(TimetableEntry.day_of_week == day_of_week)
     return query.all()

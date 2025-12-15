@@ -4,18 +4,11 @@ import { useEffect, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import {
-  FiArrowLeft,
-  FiPrinter,
-  FiSave,
-  FiCheck,
-  FiEdit,
-  FiDownload,
-} from "react-icons/fi";
+import { FiArrowLeft, FiCheck, FiEdit, FiDownload } from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useReactToPrint } from "react-to-print";
 import { RecordOfWorkPrintView } from "@/components/RecordOfWorkPrintView";
+import { downloadElementAsPdf } from "@/lib/pdf";
 
 interface RecordEntry {
   id: number;
@@ -50,24 +43,9 @@ export default function RecordOfWorkDetailPage() {
   const [loading, setLoading] = useState(true);
   const [record, setRecord] = useState<RecordOfWork | null>(null);
   const [isEditing, setIsEditing] = useState(false);
-  const componentRef = useRef<HTMLDivElement>(null);
-
-  const handlePrint = useReactToPrint({
-    contentRef: componentRef,
-    documentTitle: `Record of Work - ${record?.learning_area}`,
-    pageStyle: `
-      @page {
-        size: A4;
-        margin: 20mm 15mm;
-      }
-      @media print {
-        body {
-          -webkit-print-color-adjust: exact;
-          print-color-adjust: exact;
-        }
-      }
-    `,
-  });
+  const visibleRef = useRef<HTMLDivElement>(null);
+  const downloadRef = useRef<HTMLDivElement>(null);
+  const [downloadWeek, setDownloadWeek] = useState<number | "all">("all");
 
   useEffect(() => {
     fetchRecord();
@@ -127,6 +105,41 @@ export default function RecordOfWorkDetailPage() {
 
   if (!record) return null;
 
+  const availableWeeks = Array.from(
+    new Set((record.entries || []).map((e) => e.week_number).filter(Boolean))
+  ).sort((a, b) => a - b);
+
+  const handleDownloadPdf = async () => {
+    const user = session?.user as any;
+    if (user?.subscription_type === "FREE") {
+      toast.error("Downloads are available on Premium plans only.");
+      return;
+    }
+
+    if (!downloadRef.current) {
+      toast.error("Unable to prepare download.");
+      return;
+    }
+
+    const toastId = toast.loading("Preparing PDF...");
+    try {
+      const safeArea = (record.learning_area || "record")
+        .replace(/[^a-z0-9\-\s]/gi, "")
+        .trim()
+        .replace(/\s+/g, "-");
+      const weekSuffix =
+        downloadWeek === "all" ? "all-weeks" : `week-${downloadWeek}`;
+      const filename = `record-of-work-${safeArea}-${record.term || "term"}-${
+        record.year || "year"
+      }-${weekSuffix}.pdf`;
+      await downloadElementAsPdf(downloadRef.current, filename);
+      toast.dismiss(toastId);
+    } catch (e) {
+      console.error("PDF download failed:", e);
+      toast.error("Failed to generate PDF", { id: toastId });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 pt-24 pb-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -159,15 +172,31 @@ export default function RecordOfWorkDetailPage() {
                 </>
               )}
             </button>
-            <button
-              onClick={() => {
-                const user = session?.user as any;
-                if (user?.subscription_type === "FREE") {
-                  toast.error("Downloads are available on Premium plans only.");
-                  return;
-                }
-                handlePrint();
+
+            <select
+              value={downloadWeek}
+              onChange={(e) => {
+                const v = e.target.value;
+                setDownloadWeek(v === "all" ? "all" : parseInt(v, 10));
               }}
+              className="px-3 py-2 border border-gray-300 rounded-md text-sm bg-white"
+              disabled={(session?.user as any)?.subscription_type === "FREE"}
+              title={
+                (session?.user as any)?.subscription_type === "FREE"
+                  ? "Upgrade to download"
+                  : "Select week to download"
+              }
+            >
+              <option value="all">All Weeks</option>
+              {availableWeeks.map((w) => (
+                <option key={w} value={w}>
+                  Week {w}
+                </option>
+              ))}
+            </select>
+
+            <button
+              onClick={handleDownloadPdf}
               className={`inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md transition-colors ${
                 (session?.user as any)?.subscription_type === "FREE"
                   ? "bg-gray-200 text-gray-500 cursor-not-allowed"
@@ -189,11 +218,29 @@ export default function RecordOfWorkDetailPage() {
 
         {/* Printable Content */}
         <RecordOfWorkPrintView
-          ref={componentRef}
+          ref={visibleRef}
           record={record}
           isEditing={isEditing}
           onUpdateEntry={handleUpdateEntry}
         />
+
+        {/* Offscreen PDF-only content (so download doesn't include inputs/controls) */}
+        <div
+          style={{
+            position: "fixed",
+            left: "-10000px",
+            top: 0,
+            width: "794px",
+          }}
+          aria-hidden="true"
+        >
+          <RecordOfWorkPrintView
+            ref={downloadRef}
+            record={record}
+            isEditing={false}
+            weekFilter={downloadWeek === "all" ? null : downloadWeek}
+          />
+        </div>
       </div>
     </div>
   );

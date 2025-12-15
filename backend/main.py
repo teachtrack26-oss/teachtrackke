@@ -11,6 +11,9 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+from database import engine, SessionLocal
+from models import SystemSetting
+
 from config import settings
 from auth_routes import router as auth_router
 from payment_routes import router as payment_router
@@ -26,6 +29,40 @@ app = FastAPI(
     description="API for TeachTrack CBC - Curriculum tracking for Kenyan teachers",
     version="1.0.0"
 )
+
+
+DEFAULT_PRICING_CONFIG = {
+    "currency": "KES",
+    "termly": {"label": "Termly Pass", "price_kes": 350, "duration_label": "/term"},
+    "yearly": {"label": "Yearly Saver", "price_kes": 1000, "duration_label": "/year"},
+}
+
+
+@app.on_event("startup")
+def ensure_system_settings_table_and_seed_pricing():
+    """Best-effort creation of system_settings + seed pricing_config.
+
+    This removes the need for manual SQL setup in most environments.
+    If the DB user lacks DDL permissions, the app will continue and endpoints
+    will fall back to defaults.
+    """
+    try:
+        SystemSetting.__table__.create(bind=engine, checkfirst=True)
+
+        db = SessionLocal()
+        try:
+            existing = (
+                db.query(SystemSetting)
+                .filter(SystemSetting.key == "pricing_config")
+                .first()
+            )
+            if not existing:
+                db.add(SystemSetting(key="pricing_config", value=DEFAULT_PRICING_CONFIG))
+                db.commit()
+        finally:
+            db.close()
+    except Exception as e:
+        logger.warning(f"[Startup] Could not ensure system_settings/pricing_config: {e}")
 
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):

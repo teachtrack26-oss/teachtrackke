@@ -10,15 +10,8 @@ import {
   FiUpload,
   FiDatabase,
   FiSettings,
-  FiTrash2,
-  FiEdit,
-  FiLock,
-  FiFilter,
-  FiChevronLeft,
-  FiChevronRight,
-  FiX,
-  FiSearch,
-  FiEye,
+  FiArrowRight,
+  FiClock,
 } from "react-icons/fi";
 
 interface CurriculumTemplate {
@@ -27,13 +20,7 @@ interface CurriculumTemplate {
   grade: string;
   education_level: string;
   is_active: boolean;
-}
-
-interface UserSubject {
-  user_email: string;
-  subject_name: string;
-  grade: string;
-  progress_percentage: number;
+  updated_at?: string;
 }
 
 interface User {
@@ -43,32 +30,45 @@ interface User {
   role: "SUPER_ADMIN" | "SCHOOL_ADMIN" | "TEACHER";
 }
 
-const ITEMS_PER_PAGE = 10;
+interface PricingPlanConfig {
+  label: string;
+  price_kes: number;
+  duration_label: string;
+}
 
-const EDUCATION_LEVELS = [
-  "Pre-Primary",
-  "Lower Primary",
-  "Upper Primary",
-  "Junior Secondary",
-  "Senior Secondary",
-];
+interface PricingConfig {
+  currency: string;
+  termly: PricingPlanConfig;
+  yearly: PricingPlanConfig;
+}
 
-const GRADES = [
-  "PP1",
-  "PP2",
-  "Grade 1",
-  "Grade 2",
-  "Grade 3",
-  "Grade 4",
-  "Grade 5",
-  "Grade 6",
-  "Grade 7",
-  "Grade 8",
-  "Grade 9",
-  "Grade 10",
-  "Grade 11",
-  "Grade 12",
-];
+interface PaymentUser {
+  id: number;
+  email: string;
+  full_name?: string | null;
+}
+
+interface PaymentItem {
+  id: number;
+  amount: number;
+  phone_number: string;
+  transaction_code?: string | null;
+  checkout_request_id: string;
+  status: string;
+  reference?: string | null;
+  created_at: string;
+  user: PaymentUser;
+}
+
+interface PaymentStats {
+  total_revenue: number;
+  revenue_today: number;
+  revenue_this_month: number;
+  total_completed: number;
+  total_pending: number;
+  total_failed: number;
+  total_cancelled: number;
+}
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -76,66 +76,17 @@ export default function AdminDashboard() {
   const [users, setUsers] = useState<any[]>([]);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<"templates" | "users">(
-    "templates"
+
+  const [pricingConfig, setPricingConfig] = useState<PricingConfig | null>(
+    null
   );
+  const [pricingLoading, setPricingLoading] = useState(false);
+  const [pricingSaving, setPricingSaving] = useState(false);
 
-  // Filter states
-  const [filterGrade, setFilterGrade] = useState<string>("");
-  const [filterLevel, setFilterLevel] = useState<string>("");
-  const [filterSubject, setFilterSubject] = useState<string>("");
-  const [filterStatus, setFilterStatus] = useState<string>("");
-  const [showFilters, setShowFilters] = useState(false);
-
-  // Pagination state
-  const [currentPage, setCurrentPage] = useState(1);
+  const [paymentStats, setPaymentStats] = useState<PaymentStats | null>(null);
+  const [recentPayments, setRecentPayments] = useState<PaymentItem[]>([]);
 
   const isSuperAdmin = currentUser?.role === "SUPER_ADMIN";
-  const isSchoolAdmin = currentUser?.role === "SCHOOL_ADMIN";
-
-  // Get unique subjects for filter dropdown
-  const uniqueSubjects = useMemo(() => {
-    const subjects = [...new Set(templates.map((t) => t.subject))].sort();
-    return subjects;
-  }, [templates]);
-
-  // Filtered templates
-  const filteredTemplates = useMemo(() => {
-    return templates.filter((template) => {
-      if (filterGrade && template.grade !== filterGrade) return false;
-      if (filterLevel && template.education_level !== filterLevel) return false;
-      if (filterSubject && template.subject !== filterSubject) return false;
-      if (filterStatus === "active" && !template.is_active) return false;
-      if (filterStatus === "inactive" && template.is_active) return false;
-      return true;
-    });
-  }, [templates, filterGrade, filterLevel, filterSubject, filterStatus]);
-
-  // Paginated templates
-  const paginatedTemplates = useMemo(() => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    return filteredTemplates.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  }, [filteredTemplates, currentPage]);
-
-  // Total pages
-  const totalPages = Math.ceil(filteredTemplates.length / ITEMS_PER_PAGE);
-
-  // Reset to page 1 when filters change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [filterGrade, filterLevel, filterSubject, filterStatus]);
-
-  // Clear all filters
-  const clearFilters = () => {
-    setFilterGrade("");
-    setFilterLevel("");
-    setFilterSubject("");
-    setFilterStatus("");
-  };
-
-  // Check if any filter is active
-  const hasActiveFilters =
-    filterGrade || filterLevel || filterSubject || filterStatus;
 
   useEffect(() => {
     // Get current user from localStorage
@@ -162,6 +113,8 @@ export default function AdminDashboard() {
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("accessToken");
+      const storedUser = localStorage.getItem("user");
+      const parsedUser = storedUser ? JSON.parse(storedUser) : null;
 
       // Fetch templates
       const templatesRes = await axios.get("/api/v1/curriculum-templates", {
@@ -172,6 +125,50 @@ export default function AdminDashboard() {
         : templatesRes.data.templates || [];
       setTemplates(templatesData);
 
+      // Fetch platform pricing (Super Admin only)
+      if (parsedUser?.role === "SUPER_ADMIN") {
+        try {
+          setPricingLoading(true);
+          const pricingRes = await axios.get("/api/v1/admin/pricing-config", {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setPricingConfig(pricingRes.data);
+        } catch (e) {
+          console.error("Failed to fetch pricing config:", e);
+        } finally {
+          setPricingLoading(false);
+        }
+
+        // Fetch payments overview (Super Admin only)
+        try {
+          const [statsRes, paymentsRes] = await Promise.all([
+            axios.get("/api/v1/admin/payments/stats", {
+              headers: { Authorization: `Bearer ${token}` },
+            }),
+            axios.get("/api/v1/admin/payments", {
+              headers: { Authorization: `Bearer ${token}` },
+              params: { page: 1, limit: 5 },
+            }),
+          ]);
+
+          setPaymentStats(statsRes.data);
+          setRecentPayments(paymentsRes.data?.items || []);
+        } catch (e) {
+          console.error("Failed to fetch payments overview:", e);
+        }
+      }
+
+      // Fetch users (if endpoint exists, otherwise mock or skip)
+      // For now we'll just keep the empty array or try to fetch if there's an endpoint
+      // Assuming there might be a users endpoint, but if not we handle gracefully
+      try {
+        // Placeholder for user fetch if needed, or keep existing logic
+        // const usersRes = await axios.get("/api/v1/users", ...);
+        // setUsers(usersRes.data);
+      } catch (e) {
+        // Ignore user fetch error
+      }
+
       setLoading(false);
     } catch (error) {
       console.error("Failed to fetch admin data:", error);
@@ -180,27 +177,49 @@ export default function AdminDashboard() {
     }
   };
 
-  const deleteTemplate = async (id: number, subject: string) => {
+  const savePricingConfig = async () => {
+    if (!pricingConfig) return;
+    const token = localStorage.getItem("accessToken");
+
+    // Basic validation
+    if (!pricingConfig.termly?.label || !pricingConfig.yearly?.label) {
+      toast.error("Plan labels are required");
+      return;
+    }
     if (
-      !confirm(
-        `Are you sure you want to delete ${subject}? This cannot be undone.`
-      )
+      pricingConfig.termly.price_kes < 0 ||
+      pricingConfig.yearly.price_kes < 0 ||
+      Number.isNaN(pricingConfig.termly.price_kes) ||
+      Number.isNaN(pricingConfig.yearly.price_kes)
     ) {
+      toast.error("Prices must be valid numbers");
       return;
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
-      await axios.delete(`/api/v1/curriculum-templates/${id}`, {
+      setPricingSaving(true);
+      await axios.put("/api/v1/admin/pricing-config", pricingConfig, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      toast.success("Curriculum template deleted");
-      fetchData();
-    } catch (error) {
-      console.error("Failed to delete template:", error);
-      toast.error("Failed to delete template");
+      toast.success("Pricing updated. /pricing will reflect changes.");
+    } catch (e: any) {
+      console.error("Failed to save pricing config:", e);
+      toast.error(e?.response?.data?.detail || "Failed to save pricing");
+    } finally {
+      setPricingSaving(false);
     }
   };
+
+  // Get 5 most recently updated templates
+  const recentTemplates = useMemo(() => {
+    return [...templates]
+      .sort((a, b) => {
+        const dateA = a.updated_at ? new Date(a.updated_at).getTime() : 0;
+        const dateB = b.updated_at ? new Date(b.updated_at).getTime() : 0;
+        return dateB - dateA;
+      })
+      .slice(0, 5);
+  }, [templates]);
 
   if (loading) {
     return (
@@ -214,15 +233,15 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 py-8 pt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
           <p className="mt-2 text-gray-600">
             {isSuperAdmin
-              ? "Manage curriculum templates, users, and monitor system usage"
-              : "Manage your school settings, teachers, and view curriculum templates"}
+              ? "System overview and management"
+              : "School management overview"}
           </p>
         </div>
 
@@ -230,7 +249,7 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <button
             onClick={() => router.push("/admin/school-settings")}
-            className="bg-gradient-to-br from-indigo-500 to-purple-600 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-white"
+            className="bg-gradient-to-br from-indigo-500 to-purple-600 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-white text-left"
           >
             <FiSettings className="w-8 h-8 mb-2" />
             <h3 className="font-semibold">School Settings</h3>
@@ -241,7 +260,7 @@ export default function AdminDashboard() {
 
           <button
             onClick={() => router.push("/admin/users")}
-            className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow"
+            className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow text-left"
           >
             <FiUsers className="w-8 h-8 text-blue-600 mb-2" />
             <h3 className="font-semibold text-gray-900">User Management</h3>
@@ -254,7 +273,7 @@ export default function AdminDashboard() {
           {isSuperAdmin && (
             <button
               onClick={() => router.push("/admin/curriculum")}
-              className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow"
+              className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow text-left"
             >
               <FiBook className="w-8 h-8 text-purple-600 mb-2" />
               <h3 className="font-semibold text-gray-900">
@@ -268,7 +287,7 @@ export default function AdminDashboard() {
 
           <button
             onClick={() => router.push("/admin/analytics")}
-            className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow"
+            className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow text-left"
           >
             <FiDatabase className="w-8 h-8 text-green-600 mb-2" />
             <h3 className="font-semibold text-gray-900">Analytics</h3>
@@ -279,7 +298,7 @@ export default function AdminDashboard() {
           {isSuperAdmin && (
             <button
               onClick={() => router.push("/admin/import-curriculum")}
-              className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow"
+              className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow text-left"
             >
               <FiUpload className="w-8 h-8 text-indigo-600 mb-2" />
               <h3 className="font-semibold text-gray-900">Import Curriculum</h3>
@@ -287,9 +306,23 @@ export default function AdminDashboard() {
             </button>
           )}
 
+          {/* Payments - Super Admin Only */}
+          {isSuperAdmin && (
+            <button
+              onClick={() => router.push("/admin/payments")}
+              className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow text-left"
+            >
+              <FiDatabase className="w-8 h-8 text-emerald-600 mb-2" />
+              <h3 className="font-semibold text-gray-900">Payments</h3>
+              <p className="text-sm text-gray-600 mt-1">
+                Track revenue & transactions
+              </p>
+            </button>
+          )}
+
           <button
             onClick={() => router.push("/admin/lessons-config")}
-            className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow"
+            className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow text-left"
           >
             <FiSettings className="w-8 h-8 text-orange-600 mb-2" />
             <h3 className="font-semibold text-gray-900">Lessons Per Week</h3>
@@ -305,12 +338,6 @@ export default function AdminDashboard() {
             <p className="text-sm text-gray-600 mt-1">Curriculum Templates</p>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow">
-            <FiUsers className="w-8 h-8 text-blue-600 mb-2" />
-            <h3 className="font-semibold text-gray-900">{users.length}</h3>
-            <p className="text-sm text-gray-600 mt-1">Active Users</p>
-          </div>
-
           {/* Active templates stat - All Admins */}
           <div className="bg-white p-6 rounded-lg shadow">
             <FiDatabase className="w-8 h-8 text-purple-600 mb-2" />
@@ -321,378 +348,303 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="bg-white rounded-lg shadow">
-          <div className="border-b border-gray-200">
-            <nav className="flex -mb-px">
-              {/* Curriculum Templates Tab - All Admins can view */}
-              <button
-                onClick={() => setActiveTab("templates")}
-                className={`px-6 py-4 text-sm font-medium border-b-2 ${
-                  activeTab === "templates"
-                    ? "border-indigo-600 text-indigo-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                }`}
-              >
-                <FiBook className="inline mr-2" />
-                Curriculum Templates
-              </button>
-              <button
-                onClick={() => setActiveTab("users")}
-                className={`px-6 py-4 text-sm font-medium border-b-2 ${
-                  activeTab === "users"
-                    ? "border-indigo-600 text-indigo-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                }`}
-              >
-                <FiUsers className="inline mr-2" />
-                Users & Usage
-              </button>
-            </nav>
-          </div>
-
-          <div className="p-6">
-            {activeTab === "templates" && (
+        {/* Payments Overview - Super Admin Only */}
+        {isSuperAdmin && (
+          <div className="bg-white rounded-lg shadow overflow-hidden mb-8">
+            <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
               <div>
-                <div className="mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                  <div>
-                    <h2 className="text-xl font-semibold">
-                      All Curriculum Templates
-                    </h2>
-                    <p className="text-sm text-gray-500 mt-1">
-                      Showing {filteredTemplates.length} of {templates.length}{" "}
-                      templates
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {/* Filter toggle button */}
-                    <button
-                      onClick={() => setShowFilters(!showFilters)}
-                      className={`px-4 py-2 rounded-lg border flex items-center gap-2 transition-colors ${
-                        showFilters || hasActiveFilters
-                          ? "bg-indigo-50 border-indigo-300 text-indigo-700"
-                          : "bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
-                      }`}
-                    >
-                      <FiFilter className="w-4 h-4" />
-                      Filters
-                      {hasActiveFilters && (
-                        <span className="bg-indigo-600 text-white text-xs px-2 py-0.5 rounded-full">
-                          {
-                            [
-                              filterGrade,
-                              filterLevel,
-                              filterSubject,
-                              filterStatus,
-                            ].filter(Boolean).length
-                          }
-                        </span>
-                      )}
-                    </button>
-                    {/* Import button - Super Admin Only */}
-                    {isSuperAdmin && (
-                      <button
-                        onClick={() => router.push("/admin/import-curriculum")}
-                        className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
-                      >
-                        <FiUpload className="inline mr-2" />
-                        Import New
-                      </button>
-                    )}
+                <h2 className="text-lg font-semibold text-gray-900">
+                  Payments Overview
+                </h2>
+                <p className="text-sm text-gray-500">
+                  Recent transactions and revenue.
+                </p>
+              </div>
+              <button
+                onClick={() => router.push("/admin/payments")}
+                className="text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center"
+              >
+                View All <FiArrowRight className="ml-1" />
+              </button>
+            </div>
+
+            <div className="px-6 py-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="text-sm text-gray-500">Total Revenue</div>
+                  <div className="text-xl font-bold text-gray-900">
+                    KES{" "}
+                    {Number(paymentStats?.total_revenue || 0).toLocaleString()}
                   </div>
                 </div>
-
-                {/* Filter Panel */}
-                {showFilters && (
-                  <div className="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                    <div className="flex flex-wrap gap-4">
-                      {/* Education Level Filter */}
-                      <div className="flex-1 min-w-[180px]">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Education Level
-                        </label>
-                        <select
-                          value={filterLevel}
-                          onChange={(e) => setFilterLevel(e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                        >
-                          <option value="">All Levels</option>
-                          {EDUCATION_LEVELS.map((level) => (
-                            <option key={level} value={level}>
-                              {level}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {/* Grade Filter */}
-                      <div className="flex-1 min-w-[180px]">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Grade
-                        </label>
-                        <select
-                          value={filterGrade}
-                          onChange={(e) => setFilterGrade(e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                        >
-                          <option value="">All Grades</option>
-                          {GRADES.map((grade) => (
-                            <option key={grade} value={grade}>
-                              {grade}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {/* Subject Filter */}
-                      <div className="flex-1 min-w-[180px]">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Subject
-                        </label>
-                        <select
-                          value={filterSubject}
-                          onChange={(e) => setFilterSubject(e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                        >
-                          <option value="">All Subjects</option>
-                          {uniqueSubjects.map((subject) => (
-                            <option key={subject} value={subject}>
-                              {subject}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {/* Status Filter */}
-                      <div className="flex-1 min-w-[180px]">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Status
-                        </label>
-                        <select
-                          value={filterStatus}
-                          onChange={(e) => setFilterStatus(e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                        >
-                          <option value="">All Status</option>
-                          <option value="active">Active</option>
-                          <option value="inactive">Inactive</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    {/* Clear Filters Button */}
-                    {hasActiveFilters && (
-                      <div className="mt-3 pt-3 border-t border-gray-200">
-                        <button
-                          onClick={clearFilters}
-                          className="text-sm text-indigo-600 hover:text-indigo-800 flex items-center gap-1"
-                        >
-                          <FiX className="w-4 h-4" />
-                          Clear all filters
-                        </button>
-                      </div>
-                    )}
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="text-sm text-gray-500">Today</div>
+                  <div className="text-xl font-bold text-gray-900">
+                    KES{" "}
+                    {Number(paymentStats?.revenue_today || 0).toLocaleString()}
                   </div>
-                )}
+                </div>
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="text-sm text-gray-500">Completed</div>
+                  <div className="text-xl font-bold text-gray-900">
+                    {paymentStats?.total_completed ?? 0}
+                  </div>
+                </div>
+              </div>
 
+              {recentPayments.length === 0 ? (
+                <div className="text-sm text-gray-600">No payments yet.</div>
+              ) : (
                 <div className="overflow-x-auto">
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                       <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Subject
+                        <th className="px-4 py-2 text-left text-xs font-semibold text-gray-600 uppercase">
+                          Date
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Grade
+                        <th className="px-4 py-2 text-left text-xs font-semibold text-gray-600 uppercase">
+                          User
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Level
+                        <th className="px-4 py-2 text-left text-xs font-semibold text-gray-600 uppercase">
+                          Amount
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th className="px-4 py-2 text-left text-xs font-semibold text-gray-600 uppercase">
                           Status
-                        </th>
-                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Actions
                         </th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {paginatedTemplates.length === 0 ? (
-                        <tr>
-                          <td
-                            colSpan={5}
-                            className="px-6 py-8 text-center text-gray-500"
-                          >
-                            {hasActiveFilters
-                              ? "No templates match your filters. Try adjusting your search criteria."
-                              : "No curriculum templates found."}
+                      {recentPayments.map((p) => (
+                        <tr key={p.id} className="hover:bg-gray-50">
+                          <td className="px-4 py-2 text-sm text-gray-700 whitespace-nowrap">
+                            {new Date(p.created_at).toLocaleString()}
+                          </td>
+                          <td className="px-4 py-2 text-sm text-gray-900">
+                            <div className="font-medium">
+                              {p.user?.full_name || "(No name)"}
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              {p.user?.email}
+                            </div>
+                          </td>
+                          <td className="px-4 py-2 text-sm font-semibold text-gray-900 whitespace-nowrap">
+                            KES {Number(p.amount || 0).toLocaleString()}
+                          </td>
+                          <td className="px-4 py-2 text-sm whitespace-nowrap">
+                            <span
+                              className={`inline-flex px-2 py-1 rounded-full text-xs font-semibold ${
+                                p.status === "COMPLETED"
+                                  ? "bg-green-100 text-green-800"
+                                  : p.status === "PENDING"
+                                  ? "bg-amber-100 text-amber-800"
+                                  : p.status === "FAILED"
+                                  ? "bg-red-100 text-red-800"
+                                  : "bg-gray-100 text-gray-700"
+                              }`}
+                            >
+                              {p.status}
+                            </span>
                           </td>
                         </tr>
-                      ) : (
-                        paginatedTemplates.map((template) => (
-                          <tr key={template.id} className="hover:bg-gray-50">
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="font-medium text-gray-900">
-                                {template.subject}
-                              </div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                              {template.grade}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                              {template.education_level}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <span
-                                className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                  template.is_active
-                                    ? "bg-green-100 text-green-800"
-                                    : "bg-red-100 text-red-800"
-                                }`}
-                              >
-                                {template.is_active ? "Active" : "Inactive"}
-                              </span>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                              {/* View button for all admins */}
-                              <button
-                                onClick={() =>
-                                  router.push(
-                                    `/admin/curriculum/view/${template.id}`
-                                  )
-                                }
-                                className="text-indigo-600 hover:text-indigo-900 mr-4"
-                                title="View curriculum"
-                              >
-                                <FiEye className="inline" />
-                              </button>
-                              {/* Edit/Delete buttons - Super Admin Only */}
-                              {isSuperAdmin && (
-                                <>
-                                  <button
-                                    onClick={() =>
-                                      router.push(
-                                        `/admin/curriculum/edit/${template.id}`
-                                      )
-                                    }
-                                    className="text-blue-600 hover:text-blue-900 mr-4"
-                                    title="Edit curriculum"
-                                  >
-                                    <FiEdit className="inline" />
-                                  </button>
-                                  <button
-                                    onClick={() =>
-                                      deleteTemplate(
-                                        template.id,
-                                        template.subject
-                                      )
-                                    }
-                                    className="text-red-600 hover:text-red-900"
-                                    title="Delete curriculum"
-                                  >
-                                    <FiTrash2 className="inline" />
-                                  </button>
-                                </>
-                              )}
-                            </td>
-                          </tr>
-                        ))
-                      )}
+                      ))}
                     </tbody>
                   </table>
                 </div>
+              )}
+            </div>
+          </div>
+        )}
 
-                {/* Pagination */}
-                {totalPages > 1 && (
-                  <div className="mt-4 flex items-center justify-between border-t border-gray-200 pt-4">
-                    <div className="text-sm text-gray-700">
-                      Showing{" "}
-                      <span className="font-medium">
-                        {(currentPage - 1) * ITEMS_PER_PAGE + 1}
-                      </span>{" "}
-                      to{" "}
-                      <span className="font-medium">
-                        {Math.min(
-                          currentPage * ITEMS_PER_PAGE,
-                          filteredTemplates.length
-                        )}
-                      </span>{" "}
-                      of{" "}
-                      <span className="font-medium">
-                        {filteredTemplates.length}
-                      </span>{" "}
-                      results
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() =>
-                          setCurrentPage(Math.max(1, currentPage - 1))
-                        }
-                        disabled={currentPage === 1}
-                        className={`px-3 py-2 rounded-lg border flex items-center gap-1 ${
-                          currentPage === 1
-                            ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                            : "bg-white text-gray-700 hover:bg-gray-50 border-gray-300"
-                        }`}
-                      >
-                        <FiChevronLeft className="w-4 h-4" />
-                        Previous
-                      </button>
-
-                      {/* Page Numbers */}
-                      <div className="hidden sm:flex items-center gap-1">
-                        {Array.from({ length: totalPages }, (_, i) => i + 1)
-                          .filter((page) => {
-                            // Show first, last, current, and nearby pages
-                            if (page === 1 || page === totalPages) return true;
-                            if (Math.abs(page - currentPage) <= 1) return true;
-                            return false;
-                          })
-                          .map((page, index, arr) => (
-                            <span key={page} className="flex items-center">
-                              {index > 0 && arr[index - 1] !== page - 1 && (
-                                <span className="px-2 text-gray-400">...</span>
-                              )}
-                              <button
-                                onClick={() => setCurrentPage(page)}
-                                className={`px-3 py-1 rounded-lg ${
-                                  currentPage === page
-                                    ? "bg-indigo-600 text-white"
-                                    : "text-gray-700 hover:bg-gray-100"
-                                }`}
-                              >
-                                {page}
-                              </button>
-                            </span>
-                          ))}
-                      </div>
-
-                      <button
-                        onClick={() =>
-                          setCurrentPage(Math.min(totalPages, currentPage + 1))
-                        }
-                        disabled={currentPage === totalPages}
-                        className={`px-3 py-2 rounded-lg border flex items-center gap-1 ${
-                          currentPage === totalPages
-                            ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                            : "bg-white text-gray-700 hover:bg-gray-50 border-gray-300"
-                        }`}
-                      >
-                        Next
-                        <FiChevronRight className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {activeTab === "users" && (
+        {/* Pricing Control - Super Admin Only */}
+        {isSuperAdmin && (
+          <div className="bg-white rounded-lg shadow overflow-hidden mb-8">
+            <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-semibold mb-4">User Management</h2>
-                <p className="text-gray-600">
-                  User management features coming soon...
+                <h2 className="text-lg font-semibold text-gray-900">
+                  Pricing Control
+                </h2>
+                <p className="text-sm text-gray-500">
+                  Update prices shown on the public pricing page.
                 </p>
+              </div>
+              <button
+                onClick={savePricingConfig}
+                disabled={pricingLoading || pricingSaving || !pricingConfig}
+                className={`px-4 py-2 rounded-md text-sm font-semibold text-white ${
+                  pricingLoading || pricingSaving || !pricingConfig
+                    ? "bg-gray-400"
+                    : "bg-indigo-600 hover:bg-indigo-700"
+                }`}
+              >
+                {pricingSaving ? "Saving..." : "Save"}
+              </button>
+            </div>
+
+            <div className="px-6 py-6">
+              {pricingLoading ? (
+                <div className="text-sm text-gray-600">Loading pricing...</div>
+              ) : !pricingConfig ? (
+                <div className="text-sm text-gray-600">
+                  Pricing config not available (check backend + DB migration).
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="border border-gray-200 rounded-lg p-4">
+                    <h3 className="font-semibold text-gray-900 mb-4">Termly</h3>
+
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Label
+                    </label>
+                    <input
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      value={pricingConfig.termly.label}
+                      onChange={(e) =>
+                        setPricingConfig({
+                          ...pricingConfig,
+                          termly: {
+                            ...pricingConfig.termly,
+                            label: e.target.value,
+                          },
+                        })
+                      }
+                    />
+
+                    <label className="block text-sm font-medium text-gray-700 mt-4 mb-1">
+                      Price (KES)
+                    </label>
+                    <input
+                      type="number"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      value={pricingConfig.termly.price_kes}
+                      onChange={(e) =>
+                        setPricingConfig({
+                          ...pricingConfig,
+                          termly: {
+                            ...pricingConfig.termly,
+                            price_kes: Number(e.target.value),
+                          },
+                        })
+                      }
+                    />
+
+                    <label className="block text-sm font-medium text-gray-700 mt-4 mb-1">
+                      Duration Label
+                    </label>
+                    <input
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      value={pricingConfig.termly.duration_label}
+                      onChange={(e) =>
+                        setPricingConfig({
+                          ...pricingConfig,
+                          termly: {
+                            ...pricingConfig.termly,
+                            duration_label: e.target.value,
+                          },
+                        })
+                      }
+                    />
+                  </div>
+
+                  <div className="border border-gray-200 rounded-lg p-4">
+                    <h3 className="font-semibold text-gray-900 mb-4">Yearly</h3>
+
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Label
+                    </label>
+                    <input
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      value={pricingConfig.yearly.label}
+                      onChange={(e) =>
+                        setPricingConfig({
+                          ...pricingConfig,
+                          yearly: {
+                            ...pricingConfig.yearly,
+                            label: e.target.value,
+                          },
+                        })
+                      }
+                    />
+
+                    <label className="block text-sm font-medium text-gray-700 mt-4 mb-1">
+                      Price (KES)
+                    </label>
+                    <input
+                      type="number"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      value={pricingConfig.yearly.price_kes}
+                      onChange={(e) =>
+                        setPricingConfig({
+                          ...pricingConfig,
+                          yearly: {
+                            ...pricingConfig.yearly,
+                            price_kes: Number(e.target.value),
+                          },
+                        })
+                      }
+                    />
+
+                    <label className="block text-sm font-medium text-gray-700 mt-4 mb-1">
+                      Duration Label
+                    </label>
+                    <input
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      value={pricingConfig.yearly.duration_label}
+                      onChange={(e) =>
+                        setPricingConfig({
+                          ...pricingConfig,
+                          yearly: {
+                            ...pricingConfig.yearly,
+                            duration_label: e.target.value,
+                          },
+                        })
+                      }
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Recent Activity Section */}
+        <div className="bg-white rounded-lg shadow overflow-hidden">
+          <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+            <h2 className="text-lg font-semibold text-gray-900">
+              Recent Curriculum Updates
+            </h2>
+            <button
+              onClick={() => router.push("/admin/curriculum")}
+              className="text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center"
+            >
+              View All <FiArrowRight className="ml-1" />
+            </button>
+          </div>
+          <div className="divide-y divide-gray-200">
+            {recentTemplates.length > 0 ? (
+              recentTemplates.map((template) => (
+                <div
+                  key={template.id}
+                  className="px-6 py-4 hover:bg-gray-50 transition-colors flex items-center justify-between"
+                >
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-900">
+                      {template.subject}
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      {template.grade} • {template.education_level}
+                    </p>
+                  </div>
+                  <div className="flex items-center text-sm text-gray-500">
+                    <FiClock className="mr-1.5 text-gray-400" />
+                    {template.updated_at
+                      ? new Date(template.updated_at).toLocaleDateString()
+                      : "Unknown date"}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="px-6 py-8 text-center text-gray-500">
+                No recent updates found.
               </div>
             )}
           </div>

@@ -59,6 +59,7 @@ interface SchemeOfWork {
   is_archived: boolean;
   created_at: string;
   updated_at: string;
+  teacher_name?: string; // Added for Admin view
 }
 
 interface LessonPlan {
@@ -1117,6 +1118,12 @@ export default function ProfessionalRecordsPage() {
                             Term {scheme.term_number} • {scheme.term_year}
                           </span>
                         </div>
+                        {scheme.teacher_name && (
+                          <div className="flex items-center gap-2 text-sm mt-1 opacity-90">
+                            <FiUsers className="w-4 h-4" />
+                            <span>{scheme.teacher_name}</span>
+                          </div>
+                        )}
                       </div>
 
                       {/* White Body */}

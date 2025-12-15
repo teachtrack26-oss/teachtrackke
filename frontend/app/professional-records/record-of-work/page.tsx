@@ -22,8 +22,8 @@ import {
 } from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useReactToPrint } from "react-to-print";
 import { RecordOfWorkPrintView } from "@/components/RecordOfWorkPrintView";
+import { downloadElementAsPdf } from "@/lib/pdf";
 
 // Summary interface for the list
 interface RecordOfWorkSummary {
@@ -84,14 +84,11 @@ export default function RecordsOfWorkListPage() {
   const [weekFilter, setWeekFilter] = useState<number | null>(null);
   const bulkPrintRef = useRef<HTMLDivElement>(null);
 
-  const handlePrint = useReactToPrint({
-    contentRef: bulkPrintRef,
-    documentTitle: "Records of Work Bulk Export",
-    onAfterPrint: () => {
-      setBulkPrintData([]); // Clear data after print to save memory
-      setIsBulkDownloading(false);
-    },
-  });
+  const [bulkAvailableWeeks, setBulkAvailableWeeks] = useState<number[]>([]);
+  const [bulkWeeksLoading, setBulkWeeksLoading] = useState(false);
+  const [bulkSelectedWeek, setBulkSelectedWeek] = useState<number | "all">(
+    "all"
+  );
 
   // Filters
   const [searchQuery, setSearchQuery] = useState("");
@@ -116,6 +113,57 @@ export default function RecordsOfWorkListPage() {
     }
   };
 
+  // Populate week selector options based on selected records.
+  // We fetch record details to compute the union of week numbers.
+  useEffect(() => {
+    const fetchWeeks = async () => {
+      if (selectedIds.length === 0) {
+        setBulkAvailableWeeks([]);
+        setBulkSelectedWeek("all");
+        return;
+      }
+
+      setBulkWeeksLoading(true);
+      try {
+        const token = localStorage.getItem("accessToken");
+        const responses = await Promise.all(
+          selectedIds.map((id) =>
+            axios.get(`/api/v1/records-of-work/${id}`, {
+              headers: { Authorization: `Bearer ${token}` },
+            })
+          )
+        );
+
+        const fullRecords = responses.map((r) => r.data);
+        const weeks = Array.from(
+          new Set(
+            fullRecords
+              .flatMap((rec: any) =>
+                (rec.entries || []).map((e: any) => e.week_number)
+              )
+              .filter((w: any) => typeof w === "number" && w > 0)
+          )
+        ).sort((a: number, b: number) => a - b);
+
+        setBulkAvailableWeeks(weeks);
+
+        // Reset if previously selected week is no longer valid.
+        if (bulkSelectedWeek !== "all" && !weeks.includes(bulkSelectedWeek)) {
+          setBulkSelectedWeek("all");
+        }
+      } catch (e) {
+        console.error("Failed to load available weeks:", e);
+        setBulkAvailableWeeks([]);
+        setBulkSelectedWeek("all");
+      } finally {
+        setBulkWeeksLoading(false);
+      }
+    };
+
+    fetchWeeks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedIds.join(",")]);
+
   const handleBulkDownload = async (type: "all" | "weekly") => {
     const user = session?.user as any;
     if (user?.subscription_type === "FREE") {
@@ -128,18 +176,9 @@ export default function RecordsOfWorkListPage() {
       return;
     }
 
-    let week: number | null = null;
-    if (type === "weekly") {
-      const weekInput = prompt("Enter Week Number (e.g., 1):");
-      if (!weekInput) return;
-      week = parseInt(weekInput);
-      if (isNaN(week)) {
-        toast.error("Invalid week number");
-        return;
-      }
-      setWeekFilter(week);
-    } else {
-      setWeekFilter(null);
+    if (type === "weekly" && bulkSelectedWeek === "all") {
+      toast.error("Please select a week to download");
+      return;
     }
 
     setIsBulkDownloading(true);
@@ -155,13 +194,32 @@ export default function RecordsOfWorkListPage() {
 
       const responses = await Promise.all(promises);
       const fullRecords = responses.map((r) => r.data);
+
+      const week = type === "weekly" ? (bulkSelectedWeek as number) : null;
+      setWeekFilter(week);
       setBulkPrintData(fullRecords);
 
-      // Wait for state update and render before printing
-      setTimeout(() => {
-        handlePrint();
-        toast.dismiss(toastId);
-      }, 1000);
+      // Wait for state update and render before downloading
+      setTimeout(async () => {
+        try {
+          if (!bulkPrintRef.current) {
+            toast.error("Unable to prepare download", { id: toastId });
+            setIsBulkDownloading(false);
+            return;
+          }
+
+          const weekSuffix = week ? `week-${week}` : "all-weeks";
+          const filename = `records-of-work-selected-${weekSuffix}.pdf`;
+          await downloadElementAsPdf(bulkPrintRef.current, filename);
+          toast.dismiss(toastId);
+        } catch (e) {
+          console.error("Bulk PDF download failed:", e);
+          toast.error("Failed to generate PDF", { id: toastId });
+        } finally {
+          setBulkPrintData([]);
+          setIsBulkDownloading(false);
+        }
+      }, 700);
     } catch (error) {
       console.error("Failed to fetch records for bulk download:", error);
       toast.error("Failed to prepare download", { id: toastId });
@@ -299,6 +357,38 @@ export default function RecordsOfWorkListPage() {
           <div className="flex gap-2">
             {selectedIds.length > 0 && (
               <div className="flex gap-2">
+                <select
+                  value={bulkSelectedWeek}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setBulkSelectedWeek(v === "all" ? "all" : parseInt(v, 10));
+                  }}
+                  disabled={
+                    (session?.user as any)?.subscription_type === "FREE" ||
+                    bulkWeeksLoading ||
+                    isBulkDownloading
+                  }
+                  className={`px-3 py-2 border border-gray-300 rounded-md text-sm bg-white ${
+                    (session?.user as any)?.subscription_type === "FREE"
+                      ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                      : "text-gray-700"
+                  }`}
+                  title={
+                    (session?.user as any)?.subscription_type === "FREE"
+                      ? "Upgrade to download"
+                      : bulkWeeksLoading
+                      ? "Loading weeks..."
+                      : "Select week to download"
+                  }
+                >
+                  <option value="all">All Weeks</option>
+                  {bulkAvailableWeeks.map((w) => (
+                    <option key={w} value={w}>
+                      Week {w}
+                    </option>
+                  ))}
+                </select>
+
                 <button
                   onClick={() => handleBulkDownload("all")}
                   disabled={isBulkDownloading}
@@ -583,7 +673,10 @@ export default function RecordsOfWorkListPage() {
       </div>
 
       {/* Hidden Print Container */}
-      <div style={{ display: "none" }}>
+      <div
+        style={{ position: "fixed", left: "-10000px", top: 0, width: "794px" }}
+        aria-hidden="true"
+      >
         <div ref={bulkPrintRef}>
           {bulkPrintData.map((record) => (
             <RecordOfWorkPrintView

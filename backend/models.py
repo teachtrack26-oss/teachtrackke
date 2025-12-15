@@ -13,6 +13,7 @@ class UserRole(str, enum.Enum):
     SUPER_ADMIN = "SUPER_ADMIN"
     SCHOOL_ADMIN = "SCHOOL_ADMIN"
     TEACHER = "TEACHER"
+    HOD = "HOD"
 
 class SubscriptionType(str, enum.Enum):
     FREE = "FREE"
@@ -46,6 +47,27 @@ class School(Base):
     # Relationships
     admin = relationship("User", foreign_keys=[admin_id], back_populates="managed_school")
     teachers = relationship("User", foreign_keys="[User.school_id]", back_populates="school_rel")
+    departments = relationship("Department", back_populates="school", cascade="all, delete-orphan")
+
+# ============================================================================
+# DEPARTMENT MODEL
+# ============================================================================
+
+class Department(Base):
+    __tablename__ = "departments"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    school_id = Column(Integer, ForeignKey("schools.id", ondelete="CASCADE"), nullable=False)
+    name = Column(String(100), nullable=False)
+    description = Column(Text, nullable=True)
+    hod_id = Column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    school = relationship("School", back_populates="departments")
+    hod = relationship("User", foreign_keys=[hod_id])
 
 # ============================================================================
 # PAYMENT MODELS
@@ -70,6 +92,10 @@ class Payment(Base):
     status = Column(SQLEnum(PaymentStatus), default=PaymentStatus.PENDING)
     description = Column(String(255), nullable=True) # e.g. "Termly Pass Subscription"
     reference = Column(String(100), nullable=True) # Internal reference
+    
+    # New fields for extended M-Pesa details
+    result_desc = Column(String(255), nullable=True)
+    mpesa_metadata = Column(JSON, nullable=True)
     
     created_at = Column(TIMESTAMP, server_default=func.now())
     updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
@@ -143,7 +169,7 @@ class User(Base):
     full_name = Column(String(255), nullable=False)
     phone = Column(String(20))
     school = Column(String(255))
-    grade_level = Column(String(50))
+    grade_level = Column(String(255))
     tsc_number = Column(String(50))  # Teachers Service Commission Number
     email_verified = Column(Boolean, default=False)
     verification_token = Column(String(255), index=True)
@@ -484,7 +510,8 @@ class SchoolSchedule(Base):
     __tablename__ = "school_schedules"
     
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=True) # Nullable for school-wide schedules
+    school_id = Column(Integer, ForeignKey("schools.id", ondelete="CASCADE"), nullable=True) # New field
     schedule_name = Column(String(100), nullable=False)  # e.g., "Default Schedule", "Monday-Thursday"
     education_level = Column(String(50))  # e.g., "Pre-Primary", "Lower Primary", "Upper Primary", "Junior Secondary", "Senior Secondary"
     
@@ -511,6 +538,7 @@ class SchoolSchedule(Base):
     
     # Relationships
     user = relationship("User")
+    school = relationship("School")
     time_slots = relationship("TimeSlot", back_populates="schedule", cascade="all, delete-orphan")
     timetable_entries = relationship("TimetableEntry", back_populates="schedule", cascade="all, delete-orphan")
 
@@ -577,6 +605,7 @@ class TimetableEntry(Base):
 class SchoolSettings(Base):
     __tablename__ = 'school_settings'
     id = Column(Integer, primary_key=True, index=True)
+    school_id = Column(Integer, ForeignKey("schools.id", ondelete="CASCADE"), nullable=True)
     school_name = Column(String(255), nullable=False)
     school_email = Column(String(255), nullable=False)
     school_phone = Column(String(50))
@@ -595,6 +624,7 @@ class SchoolSettings(Base):
     updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
     
     # Relationships
+    school = relationship("School")
     terms = relationship("SchoolTerm", back_populates="school_settings", cascade="all, delete-orphan")
     activities = relationship("CalendarActivity", back_populates="school_settings", cascade="all, delete-orphan")
 
@@ -633,10 +663,11 @@ class CalendarActivity(Base):
 
 
 class LessonConfiguration(Base):
-    """Global lesson configuration set by admin for each subject/grade combination"""
+    """School-specific lesson configuration set by admin for each subject/grade combination"""
     __tablename__ = 'lesson_configurations'
     
     id = Column(Integer, primary_key=True, index=True)
+    school_id = Column(Integer, ForeignKey("schools.id", ondelete="CASCADE"), nullable=False)
     subject_name = Column(String(255), nullable=False)
     grade = Column(String(50), nullable=False)
     education_level = Column(String(100), nullable=True)  # e.g., "Junior Secondary", "Senior Secondary"
@@ -647,9 +678,12 @@ class LessonConfiguration(Base):
     created_at = Column(TIMESTAMP, server_default=func.now())
     updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
     
-    # Unique constraint on subject_name + grade
+    # Relationships
+    school = relationship("School")
+
+    # Unique constraint on school + subject_name + grade
     __table_args__ = (
-        Index('ix_lesson_config_subject_grade', 'subject_name', 'grade', unique=True),
+        Index('ix_lesson_config_school_subject_grade', 'school_id', 'subject_name', 'grade', unique=True),
     )
 
 
@@ -691,6 +725,18 @@ class SystemAnnouncement(Base):
     
     # Relationships
     creator = relationship("User")
+
+
+class SystemSetting(Base):
+    __tablename__ = "system_settings"
+
+    id = Column(Integer, primary_key=True, index=True)
+    key = Column(String(100), unique=True, nullable=False)
+    value = Column(JSON, nullable=False)
+    updated_by = Column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+
+    updater = relationship("User")
 
 # ============================================================================
 # PROFESSIONAL RECORDS MODELS

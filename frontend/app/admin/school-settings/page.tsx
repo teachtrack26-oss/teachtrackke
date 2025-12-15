@@ -55,13 +55,41 @@ interface CalendarActivity {
   description?: string;
 }
 
+interface Department {
+  id: number;
+  name: string;
+  description?: string;
+  hod_id?: number;
+  hod_name?: string;
+}
+
+interface Teacher {
+  id: number;
+  full_name: string;
+}
+
 export default function SchoolSettingsPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [activeSection, setActiveSection] = useState<
-    "basic" | "terms" | "calendar" | "timetable"
+    "basic" | "terms" | "calendar" | "timetable" | "departments" | "rollover"
   >("basic");
+
+  // Departments State
+  const [departments, setDepartments] = useState<Department[]>([]);
+  const [teachers, setTeachers] = useState<Teacher[]>([]);
+  const [showDeptModal, setShowDeptModal] = useState(false);
+  const [editingDept, setEditingDept] = useState<Department | null>(null);
+  const [deptForm, setDeptForm] = useState({
+    name: "",
+    description: "",
+    hod_id: "",
+  });
+
+  // Rollover State
+  const [showRolloverModal, setShowRolloverModal] = useState(false);
+  const [rolloverLoading, setRolloverLoading] = useState(false);
 
   // Timetable State
   interface ScheduleConfig {
@@ -179,7 +207,102 @@ export default function SchoolSettingsPage() {
     fetchSchoolSettings();
     fetchTerms();
     fetchCalendarActivities();
+    fetchDepartments();
+    fetchTeachers();
   }, []);
+
+  const fetchDepartments = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get("/api/v1/admin/departments", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setDepartments(response.data);
+    } catch (error) {
+      console.error("Failed to fetch departments:", error);
+    }
+  };
+
+  const fetchTeachers = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get("/api/v1/admin/users?role=TEACHER", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setTeachers(response.data.users);
+    } catch (error) {
+      console.error("Failed to fetch teachers:", error);
+    }
+  };
+
+  const handleSaveDepartment = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem("accessToken");
+      const payload = {
+        name: deptForm.name,
+        description: deptForm.description,
+        hod_id: deptForm.hod_id ? parseInt(deptForm.hod_id) : null,
+      };
+
+      if (editingDept) {
+        await axios.put(
+          `/api/v1/admin/departments/${editingDept.id}`,
+          payload,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        toast.success("Department updated");
+      } else {
+        await axios.post("/api/v1/admin/departments", payload, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        toast.success("Department created");
+      }
+      setShowDeptModal(false);
+      setEditingDept(null);
+      setDeptForm({ name: "", description: "", hod_id: "" });
+      fetchDepartments();
+    } catch (error) {
+      toast.error("Failed to save department");
+    }
+  };
+
+  const handleDeleteDepartment = async (id: number) => {
+    if (!confirm("Are you sure you want to delete this department?")) return;
+    try {
+      const token = localStorage.getItem("accessToken");
+      await axios.delete(`/api/v1/admin/departments/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      toast.success("Department deleted");
+      fetchDepartments();
+    } catch (error) {
+      toast.error("Failed to delete department");
+    }
+  };
+
+  const handleRollover = async () => {
+    setRolloverLoading(true);
+    try {
+      const token = localStorage.getItem("accessToken");
+      await axios.post(
+        "/api/v1/admin/school-settings/rollover",
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      toast.success("Academic year rollover successful!");
+      setShowRolloverModal(false);
+      fetchSchoolSettings(); // Refresh streams
+    } catch (error) {
+      toast.error("Failed to perform rollover");
+    } finally {
+      setRolloverLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (activeSection === "timetable") {
@@ -604,7 +727,7 @@ export default function SchoolSettingsPage() {
         <div className="absolute top-40 right-20 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 py-8 pt-24">
         {/* Header */}
         <div className="mb-8">
           <button
@@ -663,6 +786,26 @@ export default function SchoolSettingsPage() {
               }`}
             >
               Timetable Config
+            </button>
+            <button
+              onClick={() => setActiveSection("departments")}
+              className={`flex-1 px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
+                activeSection === "departments"
+                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                  : "text-gray-700 hover:bg-white/60"
+              }`}
+            >
+              Departments
+            </button>
+            <button
+              onClick={() => setActiveSection("rollover")}
+              className={`flex-1 px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
+                activeSection === "rollover"
+                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                  : "text-gray-700 hover:bg-white/60"
+              }`}
+            >
+              Year Rollover
             </button>
           </div>
         </div>
@@ -1313,7 +1456,9 @@ export default function SchoolSettingsPage() {
                         onChange={(e) =>
                           setScheduleConfig({
                             ...scheduleConfig,
-                            single_lesson_duration: e.target.value ? parseInt(e.target.value) : 0,
+                            single_lesson_duration: e.target.value
+                              ? parseInt(e.target.value)
+                              : 0,
                           })
                         }
                         className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
@@ -1333,7 +1478,9 @@ export default function SchoolSettingsPage() {
                         onChange={(e) =>
                           setScheduleConfig({
                             ...scheduleConfig,
-                            double_lesson_duration: e.target.value ? parseInt(e.target.value) : 0,
+                            double_lesson_duration: e.target.value
+                              ? parseInt(e.target.value)
+                              : 0,
                           })
                         }
                         className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
@@ -1363,7 +1510,9 @@ export default function SchoolSettingsPage() {
                           onChange={(e) =>
                             setScheduleConfig({
                               ...scheduleConfig,
-                              lessons_before_first_break: e.target.value ? parseInt(e.target.value) : 0,
+                              lessons_before_first_break: e.target.value
+                                ? parseInt(e.target.value)
+                                : 0,
                             })
                           }
                           className="w-full px-4 py-2 rounded-lg border border-gray-300"
@@ -1382,7 +1531,9 @@ export default function SchoolSettingsPage() {
                           onChange={(e) =>
                             setScheduleConfig({
                               ...scheduleConfig,
-                              first_break_duration: e.target.value ? parseInt(e.target.value) : 0,
+                              first_break_duration: e.target.value
+                                ? parseInt(e.target.value)
+                                : 0,
                             })
                           }
                           className="w-full px-4 py-2 rounded-lg border border-gray-300"
@@ -1409,7 +1560,9 @@ export default function SchoolSettingsPage() {
                           onChange={(e) =>
                             setScheduleConfig({
                               ...scheduleConfig,
-                              lessons_before_second_break: e.target.value ? parseInt(e.target.value) : 0,
+                              lessons_before_second_break: e.target.value
+                                ? parseInt(e.target.value)
+                                : 0,
                             })
                           }
                           className="w-full px-4 py-2 rounded-lg border border-gray-300"
@@ -1428,7 +1581,9 @@ export default function SchoolSettingsPage() {
                           onChange={(e) =>
                             setScheduleConfig({
                               ...scheduleConfig,
-                              second_break_duration: e.target.value ? parseInt(e.target.value) : 0,
+                              second_break_duration: e.target.value
+                                ? parseInt(e.target.value)
+                                : 0,
                             })
                           }
                           className="w-full px-4 py-2 rounded-lg border border-gray-300"
@@ -1455,7 +1610,9 @@ export default function SchoolSettingsPage() {
                           onChange={(e) =>
                             setScheduleConfig({
                               ...scheduleConfig,
-                              lessons_before_lunch: e.target.value ? parseInt(e.target.value) : 0,
+                              lessons_before_lunch: e.target.value
+                                ? parseInt(e.target.value)
+                                : 0,
                             })
                           }
                           className="w-full px-4 py-2 rounded-lg border border-gray-300"
@@ -1474,7 +1631,9 @@ export default function SchoolSettingsPage() {
                           onChange={(e) =>
                             setScheduleConfig({
                               ...scheduleConfig,
-                              lunch_break_duration: e.target.value ? parseInt(e.target.value) : 0,
+                              lunch_break_duration: e.target.value
+                                ? parseInt(e.target.value)
+                                : 0,
                             })
                           }
                           className="w-full px-4 py-2 rounded-lg border border-gray-300"
@@ -1501,7 +1660,9 @@ export default function SchoolSettingsPage() {
                           onChange={(e) =>
                             setScheduleConfig({
                               ...scheduleConfig,
-                              lessons_after_lunch: e.target.value ? parseInt(e.target.value) : 0,
+                              lessons_after_lunch: e.target.value
+                                ? parseInt(e.target.value)
+                                : 0,
                             })
                           }
                           className="w-full px-4 py-2 rounded-lg border border-gray-300"
@@ -1664,6 +1825,214 @@ export default function SchoolSettingsPage() {
                   Save Term
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Departments Section */}
+      {activeSection === "departments" && (
+        <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold text-gray-900">Departments</h2>
+            <button
+              onClick={() => {
+                setEditingDept(null);
+                setDeptForm({ name: "", description: "", hod_id: "" });
+                setShowDeptModal(true);
+              }}
+              className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center gap-2"
+            >
+              <FiPlus /> Add Department
+            </button>
+          </div>
+
+          <div className="grid gap-4">
+            {departments.map((dept) => (
+              <div
+                key={dept.id}
+                className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center"
+              >
+                <div>
+                  <h3 className="font-bold text-lg text-gray-900">
+                    {dept.name}
+                  </h3>
+                  <p className="text-gray-600">{dept.description}</p>
+                  {dept.hod_name && (
+                    <p className="text-sm text-indigo-600 mt-1">
+                      HOD: {dept.hod_name}
+                    </p>
+                  )}
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => {
+                      setEditingDept(dept);
+                      setDeptForm({
+                        name: dept.name,
+                        description: dept.description || "",
+                        hod_id: dept.hod_id?.toString() || "",
+                      });
+                      setShowDeptModal(true);
+                    }}
+                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
+                  >
+                    <FiEdit2 />
+                  </button>
+                  <button
+                    onClick={() => handleDeleteDepartment(dept.id)}
+                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
+                  >
+                    <FiTrash2 />
+                  </button>
+                </div>
+              </div>
+            ))}
+            {departments.length === 0 && (
+              <p className="text-center text-gray-500 py-8">
+                No departments added yet.
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Department Modal */}
+      {showDeptModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl">
+            <h3 className="text-2xl font-bold mb-6">
+              {editingDept ? "Edit Department" : "Add Department"}
+            </h3>
+            <form onSubmit={handleSaveDepartment} className="space-y-4">
+              <div>
+                <label className="block text-sm font-bold text-gray-900 mb-2">
+                  Department Name
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={deptForm.name}
+                  onChange={(e) =>
+                    setDeptForm({ ...deptForm, name: e.target.value })
+                  }
+                  className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-gray-900 mb-2">
+                  Description
+                </label>
+                <textarea
+                  value={deptForm.description}
+                  onChange={(e) =>
+                    setDeptForm({ ...deptForm, description: e.target.value })
+                  }
+                  className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-gray-900 mb-2">
+                  Head of Department (HOD)
+                </label>
+                <select
+                  value={deptForm.hod_id}
+                  onChange={(e) =>
+                    setDeptForm({ ...deptForm, hod_id: e.target.value })
+                  }
+                  className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                >
+                  <option value="">Select HOD</option>
+                  {teachers.map((teacher) => (
+                    <option key={teacher.id} value={teacher.id}>
+                      {teacher.full_name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex gap-4 pt-4">
+                <button
+                  type="button"
+                  onClick={() => setShowDeptModal(false)}
+                  className="flex-1 px-6 py-3 bg-gray-200 text-gray-800 rounded-xl font-bold hover:bg-gray-300"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Rollover Section */}
+      {activeSection === "rollover" && (
+        <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8 text-center">
+          <div className="max-w-2xl mx-auto">
+            <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-8 text-left">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <FiClock className="h-5 w-5 text-yellow-400" />
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm text-yellow-700">
+                    Warning: This action is irreversible. It will move all
+                    streams to the next grade level (e.g., Grade 1 streams
+                    become Grade 2 streams). Grade 12 streams will be archived.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Academic Year Rollover
+            </h2>
+            <p className="text-gray-600 mb-8 text-lg">
+              Ready to start the new academic year? This tool will automatically
+              promote all classes to the next grade level.
+            </p>
+
+            <button
+              onClick={() => setShowRolloverModal(true)}
+              className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold text-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all"
+            >
+              Start New Academic Year
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Rollover Confirmation Modal */}
+      {showRolloverModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl text-center">
+            <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <FiClock className="w-8 h-8 text-red-600" />
+            </div>
+            <h3 className="text-2xl font-bold mb-2">Are you sure?</h3>
+            <p className="text-gray-600 mb-6">
+              This will promote all streams to the next grade level. This action
+              cannot be undone.
+            </p>
+            <div className="flex gap-4">
+              <button
+                onClick={() => setShowRolloverModal(false)}
+                className="flex-1 px-6 py-3 bg-gray-200 text-gray-800 rounded-xl font-bold hover:bg-gray-300"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleRollover}
+                disabled={rolloverLoading}
+                className="flex-1 px-6 py-3 bg-red-600 text-white rounded-xl font-bold shadow-lg hover:bg-red-700 disabled:opacity-50"
+              >
+                {rolloverLoading ? "Processing..." : "Confirm Rollover"}
+              </button>
             </div>
           </div>
         </div>

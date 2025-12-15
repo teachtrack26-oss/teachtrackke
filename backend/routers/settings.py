@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List
 
 from database import get_db
-from models import User, Term, SchoolSettings
+from models import User, Term, SchoolSettings, SystemSetting
 from schemas import UserSettingsResponse, UserSettingsUpdate, TermsResponse, TermResponse, TermUpdate
 from dependencies import get_current_user, ensure_user_terms
 from config import settings
@@ -12,6 +12,21 @@ router = APIRouter(
     prefix=f"{settings.API_V1_PREFIX}",
     tags=["Settings"]
 )
+
+
+DEFAULT_PRICING_CONFIG = {
+    "currency": "KES",
+    "termly": {
+        "label": "Termly Pass",
+        "price_kes": 350,
+        "duration_label": "/term",
+    },
+    "yearly": {
+        "label": "Yearly Saver",
+        "price_kes": 1000,
+        "duration_label": "/year",
+    },
+}
 
 # User Settings
 
@@ -220,3 +235,19 @@ def delete_school_term_public(
     db.delete(term)
     db.commit()
     return {"message": "Term deleted"}
+
+
+@router.get("/pricing-config")
+def get_pricing_config(db: Session = Depends(get_db)):
+    """Public pricing configuration used by the /pricing page.
+
+    Returns defaults if config is missing or the table isn't present.
+    """
+    try:
+        row = db.query(SystemSetting).filter(SystemSetting.key == "pricing_config").first()
+        if row and isinstance(row.value, dict):
+            return row.value
+    except Exception:
+        # If the table doesn't exist yet (migration not applied), fail soft.
+        pass
+    return DEFAULT_PRICING_CONFIG

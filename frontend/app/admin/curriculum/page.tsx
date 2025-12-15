@@ -11,6 +11,10 @@ import {
   FiCheck,
   FiX,
   FiFilter,
+  FiBookOpen,
+  FiSearch,
+  FiDownload,
+  FiUpload,
 } from "react-icons/fi";
 
 interface CurriculumTemplate {
@@ -82,6 +86,7 @@ export default function CurriculumManagementPage() {
   const [filterLevel, setFilterLevel] = useState<string>("");
   const [filterGrade, setFilterGrade] = useState<string>("");
   const [filterActive, setFilterActive] = useState<string>("all");
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     fetchTemplates();
@@ -89,7 +94,7 @@ export default function CurriculumManagementPage() {
 
   useEffect(() => {
     applyFilters();
-  }, [templates, filterLevel, filterGrade, filterActive]);
+  }, [templates, filterLevel, filterGrade, filterActive, searchTerm]);
 
   const fetchTemplates = async () => {
     try {
@@ -121,6 +126,15 @@ export default function CurriculumManagementPage() {
     if (filterActive !== "all") {
       const isActive = filterActive === "active";
       filtered = filtered.filter((t) => t.is_active === isActive);
+    }
+
+    if (searchTerm) {
+      const lowerSearch = searchTerm.toLowerCase();
+      filtered = filtered.filter(
+        (t) =>
+          t.subject.toLowerCase().includes(lowerSearch) ||
+          t.grade.toLowerCase().includes(lowerSearch)
+      );
     }
 
     setFilteredTemplates(filtered);
@@ -240,7 +254,7 @@ export default function CurriculumManagementPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 py-8 pt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8 flex justify-between items-center">
@@ -252,25 +266,59 @@ export default function CurriculumManagementPage() {
               Manage learning areas across all education levels
             </p>
           </div>
-          <button
-            onClick={() => {
-              resetForm();
-              setShowAddModal(true);
-            }}
-            className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center gap-2"
-          >
-            <FiPlus />
-            Add New Subject
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={() => toast.success("Export feature coming soon!")}
+              className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 flex items-center gap-2"
+            >
+              <FiDownload />
+              Export
+            </button>
+            <button
+              onClick={() => toast.success("Import feature coming soon!")}
+              className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 flex items-center gap-2"
+            >
+              <FiUpload />
+              Import
+            </button>
+            <button
+              onClick={() => {
+                resetForm();
+                setShowAddModal(true);
+              }}
+              className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center gap-2"
+            >
+              <FiPlus />
+              Add New Subject
+            </button>
+          </div>
         </div>
 
         {/* Filters */}
         <div className="bg-white rounded-lg shadow p-4 mb-6">
           <div className="flex items-center gap-2 mb-3">
             <FiFilter className="text-gray-500" />
-            <h3 className="font-semibold text-gray-900">Filters</h3>
+            <h3 className="font-semibold text-gray-900">Filters & Search</h3>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <div className="md:col-span-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Search
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FiSearch className="text-gray-400" />
+                </div>
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder="Search subjects..."
+                  className="w-full pl-10 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+            </div>
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Education Level
@@ -333,6 +381,7 @@ export default function CurriculumManagementPage() {
                   setFilterLevel("");
                   setFilterGrade("");
                   setFilterActive("all");
+                  setSearchTerm("");
                 }}
                 className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
               >
@@ -436,9 +485,20 @@ export default function CurriculumManagementPage() {
                             </td>
                             <td className="px-6 py-4 text-right text-sm font-medium">
                               <button
+                                onClick={() =>
+                                  router.push(
+                                    `/admin/curriculum/edit/${template.id}`
+                                  )
+                                }
+                                className="text-green-600 hover:text-green-900 mr-4"
+                                title="Manage Content"
+                              >
+                                <FiBookOpen className="inline w-5 h-5" />
+                              </button>
+                              <button
                                 onClick={() => openEditModal(template)}
                                 className="text-indigo-600 hover:text-indigo-900 mr-4"
-                                title="Edit"
+                                title="Edit Metadata"
                               >
                                 <FiEdit className="inline w-5 h-5" />
                               </button>

@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session, joinedload
 from typing import List
 
 from database import get_db
-from models import User, Subject, Strand, SubStrand, Lesson, SubscriptionType
+from models import User, UserRole, Subject, Strand, SubStrand, Lesson, SubscriptionType
 from schemas import SubjectCreate, SubjectResponse
 from dependencies import get_current_user
 from config import settings
@@ -18,6 +18,10 @@ def get_subjects(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
+    # If user is School Admin, they can see all subjects for their school
+    if current_user.role in [UserRole.SCHOOL_ADMIN, UserRole.SUPER_ADMIN] and current_user.school_id:
+        return db.query(Subject).join(User).filter(User.school_id == current_user.school_id).all()
+
     # Filter by current user
     return db.query(Subject).filter(Subject.user_id == current_user.id).all()
 

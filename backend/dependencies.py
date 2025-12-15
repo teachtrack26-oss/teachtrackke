@@ -82,12 +82,17 @@ def get_current_admin_user(
 
 def get_current_super_admin(current_user: User = Depends(get_current_user)) -> User:
     """Dependency to verify the user is a Super Admin."""
-    if current_user.role != UserRole.SUPER_ADMIN:
-        raise HTTPException(
-            status_code=403,
-            detail="Super Admin access required"
-        )
-    return current_user
+    # Allow if role is SUPER_ADMIN OR if legacy is_admin flag is True
+    if current_user.role == UserRole.SUPER_ADMIN:
+        return current_user
+        
+    if current_user.is_admin:
+        return current_user
+
+    raise HTTPException(
+        status_code=403,
+        detail="Super Admin access required"
+    )
 
 def get_current_admin(current_user: User = Depends(get_current_user)) -> User:
     """Dependency to verify the user is an Admin (Super Admin or School Admin)."""
@@ -154,14 +159,38 @@ def get_active_schedule_or_fallback(
     education_level: Optional[str] = None
 ) -> Optional[SchoolSchedule]:
     """Return the active schedule for a level, falling back to a generic one when missing."""
+    
+    normalized_level = education_level.strip() if education_level else None
+    if normalized_level in {"", "all", "general"}:
+        normalized_level = None
+
+    # 1. Check for School-Wide Schedule if user is in a school
+    if user.school_id:
+        school_query = db.query(SchoolSchedule).filter(
+            SchoolSchedule.school_id == user.school_id,
+            SchoolSchedule.is_active == True
+        )
+        
+        schedule = None
+        if normalized_level:
+            schedule = school_query.filter(SchoolSchedule.education_level == normalized_level).first()
+            
+        if not schedule:
+             schedule = school_query.filter(
+                or_(SchoolSchedule.education_level == None, SchoolSchedule.education_level == "")
+            ).first()
+            
+        if not schedule:
+            schedule = school_query.order_by(SchoolSchedule.created_at.desc()).first()
+            
+        if schedule:
+            return schedule
+
+    # 2. Fallback to User-Specific Schedule
     base_query = db.query(SchoolSchedule).filter(
         SchoolSchedule.user_id == user.id,
         SchoolSchedule.is_active == True
     )
-
-    normalized_level = education_level.strip() if education_level else None
-    if normalized_level in {"", "all", "general"}:
-        normalized_level = None
 
     schedule = None
     if normalized_level:

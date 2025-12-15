@@ -48,7 +48,7 @@ export default function ImportCurriculumPage() {
       router.push("/login");
       return;
     }
-    
+
     // Check for Super Admin access
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -59,7 +59,7 @@ export default function ImportCurriculumPage() {
         return;
       }
     }
-    
+
     fetchCurricula();
   }, [router]);
 
@@ -159,7 +159,7 @@ export default function ImportCurriculumPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-6 pb-12">
+    <div className="min-h-screen bg-gray-50 pt-24 pb-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">

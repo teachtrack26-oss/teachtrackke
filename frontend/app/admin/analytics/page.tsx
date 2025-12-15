@@ -55,6 +55,25 @@ interface Analytics {
   progress_distribution: {
     [key: string]: number;
   };
+  department_stats: Array<{
+    name: string;
+    hod: string;
+    teacher_count: number;
+  }>;
+  subscription_stats: {
+    paid: number;
+    free: number;
+    school_sponsored: number;
+  };
+  retention_stats: Array<{
+    date: string;
+    active_users: number;
+  }>;
+  lesson_adherence: {
+    planned: number;
+    completed: number;
+    rate: number;
+  };
 }
 
 const COLORS = [
@@ -121,7 +140,7 @@ export default function AdminAnalyticsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-gray-50 p-8 pt-24">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -288,6 +307,127 @@ export default function AdminAnalyticsPage() {
                 <Bar dataKey="count" fill="#f59e0b" name="Subjects" />
               </BarChart>
             </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Department Stats */}
+        {analytics.department_stats &&
+          analytics.department_stats.length > 0 && (
+            <div className="mb-6 bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Department Overview
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {analytics.department_stats.map((dept, index) => (
+                  <div key={index} className="p-4 border rounded-lg bg-gray-50">
+                    <h4 className="font-bold text-indigo-600">{dept.name}</h4>
+                    <p className="text-sm text-gray-600 mt-1">
+                      HOD: {dept.hod}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+        {/* New Metrics Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          {/* Subscription Stats */}
+          <div className="bg-white rounded-lg shadow p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              Subscription Breakdown
+            </h3>
+            <ResponsiveContainer width="100%" height={250}>
+              <PieChart>
+                <Pie
+                  data={[
+                    { name: "Paid", value: analytics.subscription_stats.paid },
+                    { name: "Free", value: analytics.subscription_stats.free },
+                    {
+                      name: "School Sponsored",
+                      value: analytics.subscription_stats.school_sponsored,
+                    },
+                  ]}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={80}
+                  paddingAngle={5}
+                  dataKey="value"
+                >
+                  <Cell fill="#10b981" />
+                  <Cell fill="#9ca3af" />
+                  <Cell fill="#3b82f6" />
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* User Retention */}
+          <div className="bg-white rounded-lg shadow p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              Daily Active Users (30 Days)
+            </h3>
+            <ResponsiveContainer width="100%" height={250}>
+              <LineChart data={analytics.retention_stats}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" fontSize={10} />
+                <YAxis />
+                <Tooltip />
+                <Line
+                  type="monotone"
+                  dataKey="active_users"
+                  stroke="#8b5cf6"
+                  strokeWidth={2}
+                  dot={false}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Lesson Adherence */}
+          <div className="bg-white rounded-lg shadow p-6 flex flex-col justify-center items-center text-center">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4 w-full text-left">
+              Lesson Plan Adherence
+            </h3>
+            <div className="relative w-40 h-40 flex items-center justify-center">
+              <svg className="w-full h-full" viewBox="0 0 36 36">
+                <path
+                  d="M18 2.0845
+                    a 15.9155 15.9155 0 0 1 0 31.831
+                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                  fill="none"
+                  stroke="#e5e7eb"
+                  strokeWidth="3"
+                />
+                <path
+                  d="M18 2.0845
+                    a 15.9155 15.9155 0 0 1 0 31.831
+                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                  fill="none"
+                  stroke="#f59e0b"
+                  strokeWidth="3"
+                  strokeDasharray={`${analytics.lesson_adherence.rate}, 100`}
+                />
+              </svg>
+              <div className="absolute text-3xl font-bold text-gray-800">
+                {analytics.lesson_adherence.rate}%
+              </div>
+            </div>
+            <div className="mt-4 text-sm text-gray-600">
+              <p>
+                <span className="font-bold text-gray-900">
+                  {analytics.lesson_adherence.completed}
+                </span>{" "}
+                completed of{" "}
+                <span className="font-bold text-gray-900">
+                  {analytics.lesson_adherence.planned}
+                </span>{" "}
+                planned
+              </p>
+            </div>
           </div>
         </div>
 

@@ -217,46 +217,50 @@ async def initiate_payment(
 
 @router.post("/callback")
 async def mpesa_callback(request: Request, db: Session = Depends(get_db)):
-    """Handle M-Pesa Callback"""
+    """Handle M-Pesa Callback - This is called by Safaricom after STK push completes"""
     try:
         data = await request.json()
-        print(f"M-Pesa Callback Data: {json.dumps(data, indent=2)}")
+        print(f"[CALLBACK] M-Pesa Callback Received: {json.dumps(data, indent=2)}")
         
         stk_callback = data.get('Body', {}).get('stkCallback', {})
         checkout_request_id = stk_callback.get('CheckoutRequestID')
         result_code = stk_callback.get('ResultCode')
         result_desc = stk_callback.get('ResultDesc')
         
+        print(f"[CALLBACK] CheckoutID={checkout_request_id}, ResultCode={result_code}, Desc={result_desc}")
+        
         # Find payment record
         payment = db.query(Payment).filter(Payment.checkout_request_id == checkout_request_id).first()
         
         if not payment:
-            print(f"Payment not found for CheckoutRequestID: {checkout_request_id}")
+            print(f"[WARN] Payment not found for CheckoutRequestID: {checkout_request_id}")
             return {"status": "error", "message": "Payment not found"}
         
-        # SANDBOX TESTING: Treat sandbox errors as success for testing
-        # In production, remove this block
-        is_sandbox_test = settings.MPESA_ENV == "sandbox" and result_code in [2001, 1037]
+        # If already processed (by status query), skip
+        if payment.status != PaymentStatus.PENDING:
+            print(f"[INFO] Payment {checkout_request_id} already processed as {payment.status.value}")
+            return {"status": "success", "message": "Already processed"}
+            
+        # Always update result description
+        payment.result_desc = result_desc
         
-        if result_code == 0 or is_sandbox_test:
-            # Success (or simulated success in sandbox)
+        if result_code == 0:
+            # SUCCESS - Payment completed!
             payment.status = PaymentStatus.COMPLETED
             
-            if is_sandbox_test:
-                payment.transaction_code = f"SANDBOX_TEST_{checkout_request_id[:8]}"
-                print(f"SANDBOX: Simulating success for testing (original error: {result_desc})")
-            else:
-                # Extract metadata
-                meta_data = stk_callback.get('CallbackMetadata', {}).get('Item', [])
-                for item in meta_data:
-                    if item.get('Name') == 'MpesaReceiptNumber':
-                        payment.transaction_code = item.get('Value')
-                    # Can extract other fields like PhoneNumber, Amount, Date if needed
+            # Extract metadata from callback
+            meta_data = stk_callback.get('CallbackMetadata', {}).get('Item', [])
+            metadata_dict = {item.get('Name'): item.get('Value') for item in meta_data}
+            payment.mpesa_metadata = metadata_dict
+            
+            for item in meta_data:
+                if item.get('Name') == 'MpesaReceiptNumber':
+                    payment.transaction_code = item.get('Value')
             
             # Update User Subscription
             user = db.query(User).filter(User.id == payment.user_id).first()
             if user:
-                plan_type = payment.reference # We stored plan type here
+                plan_type = payment.reference
                 
                 if plan_type == "TERMLY":
                     user.subscription_type = SubscriptionType.INDIVIDUAL_BASIC
@@ -265,11 +269,8 @@ async def mpesa_callback(request: Request, db: Session = Depends(get_db)):
                 
                 user.subscription_status = SubscriptionStatus.ACTIVE
                 
-                # You might want to set an expiry date here if you have a field for it
-                # user.subscription_expiry = datetime.now() + timedelta(days=120 if plan_type == "TERMLY" else 365)
-                
             db.commit()
-            print(f"Payment {checkout_request_id} completed successfully. User {user.id} upgraded.")
+            print(f"[OK] Payment {checkout_request_id} COMPLETED via callback. User {user.id if user else 'unknown'} upgraded.")
             
             # Send payment confirmation email
             if user and user.email:
@@ -281,11 +282,17 @@ async def mpesa_callback(request: Request, db: Session = Depends(get_db)):
                     transaction_code=payment.transaction_code or "N/A"
                 )
             
-        else:
-            # Failed or Cancelled
-            payment.status = PaymentStatus.FAILED if result_code != 1032 else PaymentStatus.CANCELLED
+        elif result_code == 1032:
+            # User cancelled the STK push
+            payment.status = PaymentStatus.CANCELLED
             db.commit()
-            print(f"Payment {checkout_request_id} failed: {result_desc}")
+            print(f"[CANCELLED] Payment {checkout_request_id} CANCELLED by user.")
+            
+        else:
+            # Other errors = failed
+            payment.status = PaymentStatus.FAILED
+            db.commit()
+            print(f"[FAILED] Payment {checkout_request_id} FAILED: {result_desc}")
             
         return {"status": "success"}
         
@@ -308,62 +315,84 @@ async def check_payment_status(
     if not payment:
         raise HTTPException(status_code=404, detail="Payment not found")
     
+    # If already completed/failed/cancelled, return current status
+    if payment.status != PaymentStatus.PENDING:
+        return PaymentStatusResponse(
+            status=payment.status,
+            transaction_code=payment.transaction_code,
+            amount=payment.amount,
+            date=payment.updated_at
+        )
+    
     # If still pending, query M-Pesa directly for status
-    if payment.status == PaymentStatus.PENDING:
-        try:
-            result = mpesa_client.query_stk_status(checkout_request_id)
-            result_code = result.get('ResultCode')
-            result_desc = result.get('ResultDesc', '')
+    try:
+        result = mpesa_client.query_stk_status(checkout_request_id)
+        result_code = str(result.get('ResultCode', ''))
+        result_desc = result.get('ResultDesc', '')
+        
+        print(f"[STATUS] Query for {checkout_request_id}: ResultCode={result_code}, Desc={result_desc}")
+        
+        if result_code == '0':
+            # Payment successful!
+            payment.status = PaymentStatus.COMPLETED
+            payment.result_desc = result_desc
             
-            # SANDBOX TESTING: Treat sandbox errors as success for testing
-            is_sandbox_test = settings.MPESA_ENV == "sandbox" and str(result_code) in ['2001', '1037']
+            # Get transaction code from result
+            payment.transaction_code = result.get('MpesaReceiptNumber', f"MPESA-{checkout_request_id[:10]}")
             
-            if result_code == '0' or result_code == 0 or is_sandbox_test:
-                # Payment successful
-                payment.status = PaymentStatus.COMPLETED
+            # Store metadata if available
+            if result.get('Amount') or result.get('PhoneNumber'):
+                payment.mpesa_metadata = {
+                    "Amount": result.get('Amount'),
+                    "MpesaReceiptNumber": result.get('MpesaReceiptNumber'),
+                    "TransactionDate": result.get('TransactionDate'),
+                    "PhoneNumber": result.get('PhoneNumber')
+                }
+            
+            # Update user subscription
+            user = db.query(User).filter(User.id == payment.user_id).first()
+            if user:
+                plan_type = payment.reference
+                if plan_type == "TERMLY":
+                    user.subscription_type = SubscriptionType.INDIVIDUAL_BASIC
+                elif plan_type == "YEARLY":
+                    user.subscription_type = SubscriptionType.INDIVIDUAL_PREMIUM
+                user.subscription_status = SubscriptionStatus.ACTIVE
+            
+            db.commit()
+            print(f"[OK] Payment {checkout_request_id} COMPLETED. User {user.id if user else 'unknown'} upgraded to {payment.reference}.")
+            
+            # Send confirmation email
+            if user and user.email:
+                send_payment_confirmation_email(
+                    user_email=user.email,
+                    user_name=user.full_name,
+                    plan=plan_type,
+                    amount=payment.amount,
+                    transaction_code=payment.transaction_code or "N/A"
+                )
                 
-                if is_sandbox_test:
-                    payment.transaction_code = f"SANDBOX_QUERY_{checkout_request_id[:8]}"
-                    print(f"SANDBOX QUERY: Simulating success for testing (original error: {result_desc})")
-                else:
-                    payment.transaction_code = f"MPESA-{checkout_request_id[:10]}"
-                
-                # Update user subscription
-                user = db.query(User).filter(User.id == payment.user_id).first()
-                if user:
-                    plan_type = payment.reference
-                    if plan_type == "TERMLY":
-                        user.subscription_type = SubscriptionType.INDIVIDUAL_BASIC
-                    elif plan_type == "YEARLY":
-                        user.subscription_type = SubscriptionType.INDIVIDUAL_PREMIUM
-                    user.subscription_status = SubscriptionStatus.ACTIVE
-                
-                db.commit()
-                print(f"Payment {checkout_request_id} confirmed via query. User upgraded.")
-                
-                # Send confirmation email
-                if user and user.email:
-                    send_payment_confirmation_email(
-                        user_email=user.email,
-                        user_name=user.full_name,
-                        plan=plan_type,
-                        amount=payment.amount,
-                        transaction_code=payment.transaction_code or "N/A"
-                    )
-                    
-            elif result_code == '1032' or result_code == 1032:
-                # Cancelled by user
-                payment.status = PaymentStatus.CANCELLED
-                db.commit()
-            elif result_code is not None and result_code != '1' and result_code != 1:
-                # Failed (but not "still processing" which is code 1)
-                payment.status = PaymentStatus.FAILED
-                db.commit()
-            # If result_code is 1, it's still processing - leave as PENDING
-                
-        except Exception as e:
-            print(f"Error querying M-Pesa status: {str(e)}")
-            # Don't fail the request, just return current status
+        elif result_code == '1032':
+            # Cancelled by user
+            payment.status = PaymentStatus.CANCELLED
+            payment.result_desc = result_desc
+            db.commit()
+            print(f"[CANCELLED] Payment {checkout_request_id} CANCELLED by user.")
+            
+        elif result_code == '1':
+            # Still processing - keep as pending
+            print(f"[PENDING] Payment {checkout_request_id} still processing...")
+            
+        elif result_code and result_code not in ['', '1']:
+            # Other error codes = failed
+            payment.status = PaymentStatus.FAILED
+            payment.result_desc = result_desc
+            db.commit()
+            print(f"[FAILED] Payment {checkout_request_id} FAILED: {result_desc}")
+            
+    except Exception as e:
+        print(f"[ERROR] Error querying M-Pesa status: {str(e)}")
+        # Don't fail the request, just return current status
         
     return PaymentStatusResponse(
         status=payment.status,

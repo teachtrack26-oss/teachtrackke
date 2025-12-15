@@ -15,6 +15,7 @@ import {
   FiPlay,
   FiPause,
   FiChevronDown,
+  FiPrinter,
 } from "react-icons/fi";
 import {
   DndContext,
@@ -104,7 +105,7 @@ const DraggableLesson = ({
             )}
           </div>
         </div>
-        <div className="flex flex-col space-y-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        <div className="flex flex-col space-y-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 print:hidden">
           <button
             onPointerDown={(e) => e.stopPropagation()}
             onClick={onEdit}
@@ -491,11 +492,7 @@ const TimetablePage = () => {
 
         // Sort and filter for the grid view
         const sortedSlots = uniqueSlots
-          .filter((s: any) => {
-            if (s.slot_type !== "lesson") return false;
-            // Only show slots that have lessons
-            return fetchedEntries.some((e: any) => e.time_slot_id === s.id);
-          })
+          .filter((s: any) => s.slot_type === "lesson")
           .sort((a: any, b: any) => a.start_time.localeCompare(b.start_time))
           .map((s: any) => ({
             ...s,
@@ -549,6 +546,7 @@ const TimetablePage = () => {
           .map((s: any, index: number) => ({
             ...s,
             label: `Lesson ${index + 1}`,
+            education_level: selectedViewLevel,
           }));
 
         console.log("Filtered lesson slots:", lessonSlots);
@@ -1032,6 +1030,31 @@ const TimetablePage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 relative overflow-hidden">
+      <style>{`
+        @media print {
+          @page {
+            size: landscape;
+            margin: 0.5cm;
+          }
+          body * {
+            visibility: hidden;
+          }
+          #timetable-content, #timetable-content * {
+            visibility: visible;
+          }
+          #timetable-content {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            padding-top: 0 !important;
+            max-width: none !important;
+          }
+          .print\\:hidden {
+            display: none !important;
+          }
+        }
+      `}</style>
       {/* Premium Animated Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-400/20 rounded-full blur-[128px] animate-blob"></div>
@@ -1039,13 +1062,16 @@ const TimetablePage = () => {
         <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-pink-400/20 rounded-full blur-[128px] animate-blob animation-delay-4000"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
+      <div
+        id="timetable-content"
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8"
+      >
         {/* Header with Schedule Info */}
         <div className="mb-8">
           {/* Live Status Timer */}
           {currentStatus && (
             <div
-              className={`glass-card mb-6 p-5 rounded-2xl shadow-xl border border-white/60 ${
+              className={`glass-card mb-6 p-5 rounded-2xl shadow-xl border border-white/60 print:hidden ${
                 currentStatus.type === "in-lesson"
                   ? "bg-gradient-to-r from-green-400/30 to-emerald-400/30"
                   : currentStatus.type === "free-period"
@@ -1162,7 +1188,7 @@ const TimetablePage = () => {
                 Organize your teaching schedule with ease
               </p>
             </div>
-            <div className="flex flex-wrap gap-3 items-center">
+            <div className="flex flex-wrap gap-3 items-center print:hidden">
               <div className="relative">
                 <select
                   value={selectedViewLevel}
@@ -1180,6 +1206,14 @@ const TimetablePage = () => {
                   <FiChevronDown className="w-4 h-4" />
                 </div>
               </div>
+
+              <button
+                onClick={() => window.print()}
+                className="inline-flex items-center gap-2 px-4 py-3 bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700 rounded-xl font-semibold transition-all shadow-sm hover:shadow group print:hidden"
+              >
+                <FiPrinter className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <span className="hidden sm:inline">Print</span>
+              </button>
 
               <button
                 onClick={() => {
@@ -1571,12 +1605,22 @@ const TimetablePage = () => {
                           No time slots available - please set up schedule first
                         </option>
                       ) : (
-                        timeSlots.map((slot) => (
-                          <option key={slot.id} value={slot.id}>
-                            {slot.label || `Lesson ${slot.id}`}:{" "}
-                            {slot.start_time} - {slot.end_time}
-                          </option>
-                        ))
+                        timeSlots
+                          .filter((slot) => {
+                            if (!selectedEducationLevel) return true;
+                            if (
+                              slot.education_level &&
+                              slot.education_level !== selectedEducationLevel
+                            )
+                              return false;
+                            return true;
+                          })
+                          .map((slot) => (
+                            <option key={slot.id} value={slot.id}>
+                              {slot.label || `Lesson ${slot.id}`}:{" "}
+                              {slot.start_time} - {slot.end_time}
+                            </option>
+                          ))
                       )}
                     </select>
                   </div>

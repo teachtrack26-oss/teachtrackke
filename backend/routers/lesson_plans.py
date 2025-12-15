@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List
 
 from database import get_db
-from models import User, LessonPlan, SchemeLesson
+from models import User, UserRole, LessonPlan, SchemeLesson
 from schemas import LessonPlanCreate, LessonPlanUpdate, LessonPlanResponse, LessonPlanSummary
 from dependencies import get_current_user
 from config import settings
@@ -40,14 +40,22 @@ async def create_lesson_plan_from_scheme(
         raise HTTPException(status_code=404, detail="Scheme lesson not found")
         
     # Create plan from scheme lesson data
+    # Ensure we have the scheme loaded to get subject details
+    scheme = scheme_lesson.week.scheme
+    
     plan = LessonPlan(
         user_id=current_user.id,
-        topic=scheme_lesson.week.sub_strand, # Approximation
-        sub_topic=scheme_lesson.specific_learning_outcomes,
-        objectives=scheme_lesson.specific_learning_outcomes,
-        learning_activities=scheme_lesson.learning_experiences,
-        resources=scheme_lesson.learning_resources,
-        assessment=scheme_lesson.assessment_methods
+        subject_id=scheme.subject_id,
+        scheme_lesson_id=scheme_lesson.id,
+        learning_area=scheme.subject,
+        grade=scheme.grade,
+        strand_theme_topic=scheme_lesson.strand,
+        sub_strand_sub_theme_sub_topic=scheme_lesson.sub_strand,
+        specific_learning_outcomes=scheme_lesson.specific_learning_outcomes,
+        key_inquiry_questions=scheme_lesson.key_inquiry_questions,
+        learning_resources=scheme_lesson.learning_resources,
+        development=scheme_lesson.learning_experiences, # Pre-fill development with experiences
+        status="pending"
     )
     db.add(plan)
     db.commit()
@@ -59,6 +67,10 @@ async def get_lesson_plans(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
+    # If user is School Admin, they can see all lesson plans for their school
+    if current_user.role in [UserRole.SCHOOL_ADMIN, UserRole.SUPER_ADMIN] and current_user.school_id:
+        return db.query(LessonPlan).join(User).filter(User.school_id == current_user.school_id).all()
+
     return db.query(LessonPlan).filter(LessonPlan.user_id == current_user.id).all()
 
 @router.get("/{lesson_plan_id}", response_model=LessonPlanResponse)
@@ -126,8 +138,15 @@ async def auto_generate_lesson_plan(
         raise HTTPException(status_code=404, detail="Lesson plan not found")
         
     # Call AI service
-    # generated = await generate_lesson_plan(plan)
-    # Update plan
+    try:
+        plan = await generate_lesson_plan(plan)
+        db.commit()
+        db.refresh(plan)
+    except Exception as e:
+        print(f"AI Generation failed: {e}")
+        # We don't raise here to allow returning the partial plan, or we could raise.
+        # For now, let's just log and return the plan as is.
+        
     return plan
 
 @router.post("/{lesson_plan_id}/enhance", response_model=LessonPlanResponse)
@@ -140,4 +159,13 @@ async def enhance_lesson_plan_with_ai(
     plan = db.query(LessonPlan).filter(LessonPlan.id == lesson_plan_id, LessonPlan.user_id == current_user.id).first()
     if not plan:
         raise HTTPException(status_code=404, detail="Lesson plan not found")
+        
+    # Call AI service (same as generate for now)
+    try:
+        plan = await generate_lesson_plan(plan)
+        db.commit()
+        db.refresh(plan)
+    except Exception as e:
+        print(f"AI Enhancement failed: {e}")
+        
     return plan

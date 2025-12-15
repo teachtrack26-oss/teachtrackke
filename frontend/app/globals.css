@@ -182,8 +182,8 @@
   animation: pulse-gentle 2s ease-in-out infinite;
 }
 
-/* Security & Print Protection */
-@media print {
+/* Security & Print Protection - Disabled for now */
+/* @media print {
   body * {
     visibility: hidden;
   }
@@ -197,7 +197,6 @@
     top: 0;
   }
 
-  /* Hide everything by default if not explicitly safe */
   body:not(:has(.print-safe))::after {
     content: "Printing is disabled for this content.";
     visibility: visible;
@@ -208,7 +207,7 @@
     font-size: 24px;
     color: #ef4444;
   }
-}
+} */
 
 .no-select {
   -webkit-user-select: none;

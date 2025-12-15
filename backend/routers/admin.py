@@ -1,33 +1,305 @@
 from fastapi import APIRouter, Depends, HTTPException, Body, UploadFile, File
 from sqlalchemy.orm import Session, joinedload
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from typing import List, Optional
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from database import get_db
 from models import (
-    User, School, SystemAnnouncement, CurriculumTemplate, TemplateStrand, TemplateSubstrand,
+    User, School, Payment, PaymentStatus, SystemAnnouncement, SystemSetting, CurriculumTemplate, TemplateStrand, TemplateSubstrand,
     SchoolSettings, SchoolTerm, CalendarActivity, LessonConfiguration,
-    Subject, Lesson, SubStrand, Strand, ProgressLog, UserRole, SubscriptionType
+    Subject, Lesson, SubStrand, Strand, ProgressLog, UserRole, SubscriptionType, SubscriptionStatus, Department
 )
 from schemas import (
     AdminUsersResponse, BulkDeleteRequest, AdminRoleUpdate, ResetProgressRequest,
     SystemAnnouncementCreate, SystemAnnouncementResponse,
     CurriculumTemplateCreate, CurriculumTemplateUpdate, CurriculumTemplateResponse,
-    SchoolUpdate, UserLinkRequest, BulkBanRequest
+    SchoolUpdate, UserLinkRequest, BulkBanRequest, AdminUserUpdate, AdminUserCreate,
+    DepartmentCreate, DepartmentUpdate, DepartmentResponse
 )
 from dependencies import get_current_user, get_current_super_admin, get_current_admin_user
 from config import settings
-from auth import create_access_token
+from auth import create_access_token, get_password_hash
 import logging
 import traceback
 
 logger = logging.getLogger(__name__)
 
+
+from pydantic import BaseModel, Field
+
+
+class PricingPlanConfig(BaseModel):
+    label: str = Field(..., min_length=1, max_length=80)
+    price_kes: int = Field(..., ge=0, le=10_000_000)
+    duration_label: str = Field(..., min_length=1, max_length=20)
+
+
+class PricingConfigPayload(BaseModel):
+    currency: str = Field("KES", min_length=1, max_length=10)
+    termly: PricingPlanConfig
+    yearly: PricingPlanConfig
+
+
+DEFAULT_PRICING_CONFIG = {
+    "currency": "KES",
+    "termly": {
+        "label": "Termly Pass",
+        "price_kes": 350,
+        "duration_label": "/term",
+    },
+    "yearly": {
+        "label": "Yearly Saver",
+        "price_kes": 1000,
+        "duration_label": "/year",
+    },
+}
+
+
+class AdminPaymentUser(BaseModel):
+    id: int
+    email: str
+    full_name: Optional[str] = None
+
+
+class AdminPaymentItem(BaseModel):
+    id: int
+    amount: float
+    phone_number: str
+    transaction_code: Optional[str] = None
+    checkout_request_id: str
+    merchant_request_id: Optional[str] = None
+    status: str
+    description: Optional[str] = None
+    reference: Optional[str] = None
+    result_desc: Optional[str] = None
+    mpesa_metadata: Optional[dict] = None
+    created_at: datetime
+    user: AdminPaymentUser
+
+
+class AdminPaymentsResponse(BaseModel):
+    items: List[AdminPaymentItem]
+    page: int
+    limit: int
+    total: int
+
+
+class AdminPaymentStatsResponse(BaseModel):
+    total_revenue: float
+    revenue_today: float
+    revenue_this_month: float
+    total_completed: int
+    total_pending: int
+    total_failed: int
+    total_cancelled: int
+
 router = APIRouter(
     prefix=f"{settings.API_V1_PREFIX}/admin",
     tags=["Admin"]
 )
+
+
+@router.get("/payments", response_model=AdminPaymentsResponse)
+def list_payments(
+    page: int = 1,
+    limit: int = 25,
+    status: Optional[str] = None,
+    q: Optional[str] = None,
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db),
+):
+    """List payment transactions (Super Admin only)."""
+    page = max(page, 1)
+    limit = max(min(limit, 100), 1)
+
+    query = (
+        db.query(Payment)
+        .options(joinedload(Payment.user))
+        .join(User, Payment.user_id == User.id)
+    )
+
+    if status:
+        status_upper = status.upper()
+        # Validate against enum values
+        allowed = {s.value for s in PaymentStatus}
+        if status_upper not in allowed:
+            raise HTTPException(status_code=400, detail=f"Invalid status. Allowed: {sorted(list(allowed))}")
+        query = query.filter(Payment.status == status_upper)
+
+    if q:
+        q_like = f"%{q.strip()}%"
+        query = query.filter(
+            or_(
+                Payment.phone_number.ilike(q_like),
+                Payment.transaction_code.ilike(q_like),
+                Payment.checkout_request_id.ilike(q_like),
+                User.email.ilike(q_like),
+                User.full_name.ilike(q_like),
+            )
+        )
+
+    # Date filters (ISO date: YYYY-MM-DD)
+    def _parse_date(value: Optional[str]) -> Optional[datetime]:
+        if not value:
+            return None
+        try:
+            # Accept full ISO datetime or date.
+            if "T" in value:
+                return datetime.fromisoformat(value.replace("Z", "+00:00"))
+            return datetime.fromisoformat(value)
+        except Exception:
+            raise HTTPException(status_code=400, detail=f"Invalid date format: {value}. Use YYYY-MM-DD")
+
+    start_dt = _parse_date(start_date)
+    end_dt = _parse_date(end_date)
+    if start_dt:
+        query = query.filter(Payment.created_at >= start_dt)
+    if end_dt:
+        # If given a date-only string, include entire day by adding 1 day and using <
+        if end_date and "T" not in end_date:
+            end_dt = end_dt + timedelta(days=1)
+        query = query.filter(Payment.created_at < end_dt)
+
+    total = query.count()
+    items = (
+        query.order_by(Payment.created_at.desc())
+        .offset((page - 1) * limit)
+        .limit(limit)
+        .all()
+    )
+
+    def to_item(p: Payment) -> dict:
+        return {
+            "id": p.id,
+            "amount": float(p.amount or 0),
+            "phone_number": p.phone_number,
+            "transaction_code": p.transaction_code,
+            "checkout_request_id": p.checkout_request_id,
+            "merchant_request_id": p.merchant_request_id,
+            "status": p.status.value if hasattr(p.status, "value") else str(p.status),
+            "description": p.description,
+            "reference": p.reference,
+            "result_desc": p.result_desc,
+            "mpesa_metadata": p.mpesa_metadata,
+            "created_at": p.created_at,
+            "user": {
+                "id": p.user.id if p.user else p.user_id,
+                "email": p.user.email if p.user else "",
+                "full_name": getattr(p.user, "full_name", None) if p.user else None,
+            },
+        }
+
+    return {
+        "items": [to_item(p) for p in items],
+        "page": page,
+        "limit": limit,
+        "total": total,
+    }
+
+
+@router.get("/payments/stats", response_model=AdminPaymentStatsResponse)
+def payment_stats(
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db),
+):
+    """Aggregate payment stats (Super Admin only)."""
+    now = datetime.utcnow()
+    start_of_today = datetime(now.year, now.month, now.day)
+    start_of_month = datetime(now.year, now.month, 1)
+
+    completed = PaymentStatus.COMPLETED
+
+    total_revenue = (
+        db.query(func.coalesce(func.sum(Payment.amount), 0))
+        .filter(Payment.status == completed)
+        .scalar()
+        or 0
+    )
+    revenue_today = (
+        db.query(func.coalesce(func.sum(Payment.amount), 0))
+        .filter(Payment.status == completed)
+        .filter(Payment.created_at >= start_of_today)
+        .scalar()
+        or 0
+    )
+    revenue_this_month = (
+        db.query(func.coalesce(func.sum(Payment.amount), 0))
+        .filter(Payment.status == completed)
+        .filter(Payment.created_at >= start_of_month)
+        .scalar()
+        or 0
+    )
+
+    total_completed = db.query(Payment.id).filter(Payment.status == PaymentStatus.COMPLETED).count()
+    total_pending = db.query(Payment.id).filter(Payment.status == PaymentStatus.PENDING).count()
+    total_failed = db.query(Payment.id).filter(Payment.status == PaymentStatus.FAILED).count()
+    total_cancelled = db.query(Payment.id).filter(Payment.status == PaymentStatus.CANCELLED).count()
+
+    return {
+        "total_revenue": float(total_revenue),
+        "revenue_today": float(revenue_today),
+        "revenue_this_month": float(revenue_this_month),
+        "total_completed": total_completed,
+        "total_pending": total_pending,
+        "total_failed": total_failed,
+        "total_cancelled": total_cancelled,
+    }
+
+
+@router.get("/pricing-config")
+def get_pricing_config_admin(
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db),
+):
+    """Super-admin view of pricing config."""
+    try:
+        row = db.query(SystemSetting).filter(SystemSetting.key == "pricing_config").first()
+        if row and isinstance(row.value, dict):
+            return row.value
+        return DEFAULT_PRICING_CONFIG
+    except Exception as e:
+        logger.exception("Failed to read pricing_config")
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Failed to read pricing configuration. The database schema may be missing "
+                "or the database user may lack required permissions."
+            ),
+        ) from e
+
+
+@router.put("/pricing-config")
+def update_pricing_config_admin(
+    payload: PricingConfigPayload,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db),
+):
+    """Super-admin update of pricing config."""
+    try:
+        row = db.query(SystemSetting).filter(SystemSetting.key == "pricing_config").first()
+        if not row:
+            row = SystemSetting(key="pricing_config", value=payload.dict(), updated_by=current_user.id)
+            db.add(row)
+        else:
+            row.value = payload.dict()
+            row.updated_by = current_user.id
+
+        db.commit()
+        db.refresh(row)
+        return row.value
+    except Exception as e:
+        db.rollback()
+        logger.exception("Failed to update pricing_config")
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Failed to update pricing configuration. The database schema may be missing "
+                "or the database user may lack required permissions."
+            ),
+        ) from e
 
 # ============================================================================
 # SUPER ADMIN ENDPOINTS
@@ -43,7 +315,7 @@ def get_platform_stats(
     total_subjects = db.query(Subject).count()
     
     # Role counts
-    total_teachers = db.query(User).filter(User.role == UserRole.TEACHER).count()
+    total_teachers = db.query(User).filter(User.role.in_([UserRole.TEACHER, UserRole.HOD])).count()
     total_school_admins = db.query(User).filter(User.role == UserRole.SCHOOL_ADMIN).count()
 
     # Subscription counts
@@ -83,7 +355,7 @@ def get_all_schools(
             User.school_id.label("school_id"),
             func.count(User.id).label("teacher_count")
         )
-        .filter(User.role == UserRole.TEACHER)
+        .filter(User.role.in_([UserRole.TEACHER, UserRole.HOD]))
         .group_by(User.school_id)
         .subquery()
     )
@@ -186,7 +458,7 @@ def get_school_teachers(
     current_teachers = (
         db.query(User)
         .options(joinedload(User.subjects))
-        .filter(User.school_id == school_id, User.role == UserRole.TEACHER)
+        .filter(User.school_id == school_id, User.role.in_([UserRole.TEACHER, UserRole.HOD]))
         .all()
     )
     
@@ -197,7 +469,7 @@ def get_school_teachers(
         .filter(
             User.previous_school_id == school_id,
             User.school_id != school_id,  # Not currently linked
-            User.role == UserRole.TEACHER,
+            User.role.in_([UserRole.TEACHER, UserRole.HOD]),
         )
         .all()
     )
@@ -228,9 +500,14 @@ def get_school_teachers(
         "previous_teacher_count": len(previous_teachers)
     }
 
-@router.put("/users/{user_id}/upgrade")
-def upgrade_user(
+class SubscriptionUpdate(BaseModel):
+    subscription_type: SubscriptionType
+    subscription_status: SubscriptionStatus
+
+@router.put("/users/{user_id}/subscription")
+def update_user_subscription(
     user_id: int,
+    update_data: SubscriptionUpdate,
     current_user: User = Depends(get_current_super_admin),
     db: Session = Depends(get_db)
 ):
@@ -238,9 +515,18 @@ def upgrade_user(
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     
-    # Logic to upgrade user subscription
-    # For now just a placeholder
-    return {"message": "User upgraded"}
+    user.subscription_type = update_data.subscription_type
+    user.subscription_status = update_data.subscription_status
+    
+    db.commit()
+    db.refresh(user)
+    
+    return {"message": "User subscription updated successfully", "user": {
+        "id": user.id,
+        "email": user.email,
+        "subscription_type": user.subscription_type,
+        "subscription_status": user.subscription_status
+    }}
 
 @router.put("/users/{user_id}/role", response_model=dict)
 def update_user_role_super(
@@ -274,7 +560,7 @@ def ban_user(
     if user.role == UserRole.SCHOOL_ADMIN and user.school_id:
         linked_teachers = db.query(User).filter(
             User.school_id == user.school_id,
-            User.role == UserRole.TEACHER,
+            User.role.in_([UserRole.TEACHER, UserRole.HOD]),
             User.subscription_type == SubscriptionType.SCHOOL_SPONSORED
         ).all()
         
@@ -473,6 +759,82 @@ def export_users(
         }
         for u in users
     ]
+
+@router.post("/users")
+def create_user(
+    payload: AdminUserCreate,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    # Check if email exists
+    if db.query(User).filter(User.email == payload.email).first():
+        raise HTTPException(status_code=400, detail="Email already registered")
+
+    # Only Super Admin can create Super Admin
+    if payload.role == UserRole.SUPER_ADMIN and current_user.role != UserRole.SUPER_ADMIN:
+        raise HTTPException(status_code=403, detail="Cannot create Super Admin")
+
+    hashed_password = get_password_hash(payload.password)
+    
+    new_user = User(
+        email=payload.email,
+        full_name=payload.full_name,
+        password_hash=hashed_password,
+        school=payload.school,
+        grade_level=payload.grade_level,
+        role=payload.role,
+        is_active=True,
+        email_verified=True, # Admin created users are verified
+        auth_provider="local"
+    )
+    
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    
+    return {"message": "User created successfully", "user_id": new_user.id}
+
+@router.patch("/users/{user_id}")
+def update_user_details(
+    user_id: int,
+    payload: AdminUserUpdate,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Only Super Admin can change to/from Super Admin
+    if payload.role == UserRole.SUPER_ADMIN and current_user.role != UserRole.SUPER_ADMIN:
+        raise HTTPException(status_code=403, detail="Cannot promote to Super Admin")
+        
+    if user.role == UserRole.SUPER_ADMIN and current_user.role != UserRole.SUPER_ADMIN:
+        raise HTTPException(status_code=403, detail="Cannot modify Super Admin")
+
+    if payload.full_name is not None:
+        user.full_name = payload.full_name
+    if payload.email is not None:
+        # Check uniqueness if email changed
+        if payload.email != user.email:
+            if db.query(User).filter(User.email == payload.email).first():
+                raise HTTPException(status_code=400, detail="Email already in use")
+        user.email = payload.email
+    if payload.school is not None:
+        user.school = payload.school
+    if payload.grade_level is not None:
+        user.grade_level = payload.grade_level
+    if payload.role is not None:
+        user.role = payload.role
+        # Sync legacy is_admin flag
+        user.is_admin = (payload.role in [UserRole.SUPER_ADMIN, UserRole.SCHOOL_ADMIN])
+    if payload.is_active is not None:
+        user.is_active = payload.is_active
+    if payload.password is not None:
+        user.password_hash = get_password_hash(payload.password)
+
+    db.commit()
+    return {"message": "User updated successfully"}
 
 @router.patch("/users/{user_id}/role")
 def update_user_role(
@@ -975,18 +1337,243 @@ def update_lessons_per_week_config(
     config = db.query(LessonConfiguration).filter(
         LessonConfiguration.school_id == current_user.school_id,
         LessonConfiguration.grade == config_data.get("grade"),
-        LessonConfiguration.subject == config_data.get("subject")
+        LessonConfiguration.subject_name == config_data.get("subject_name")
     ).first()
     
     if config:
-        for key, value in config_data.items():
-            setattr(config, key, value)
+        # Update existing
+        if "lessons_per_week" in config_data:
+            config.lessons_per_week = config_data["lessons_per_week"]
+        if "double_lessons_per_week" in config_data:
+            config.double_lessons_per_week = config_data["double_lessons_per_week"]
+        if "single_lesson_duration" in config_data:
+            config.single_lesson_duration = config_data["single_lesson_duration"]
+        if "double_lesson_duration" in config_data:
+            config.double_lesson_duration = config_data["double_lesson_duration"]
     else:
+        # Create new
         config = LessonConfiguration(
             school_id=current_user.school_id,
-            **config_data
+            subject_name=config_data.get("subject_name"),
+            grade=config_data.get("grade"),
+            lessons_per_week=config_data.get("lessons_per_week", 5),
+            double_lessons_per_week=config_data.get("double_lessons_per_week", 0),
+            single_lesson_duration=config_data.get("single_lesson_duration", 40),
+            double_lesson_duration=config_data.get("double_lesson_duration", 80)
         )
         db.add(config)
         
     db.commit()
+    db.refresh(config)
     return config
+
+@router.post("/lessons-per-week/bulk")
+def bulk_update_lessons_config(
+    bulk_data: dict,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Apply settings to all subjects in a specific grade"""
+    if not current_user.school_id:
+        raise HTTPException(status_code=400, detail="User not linked to a school")
+    
+    grade = bulk_data.get("grade")
+    subjects = bulk_data.get("subjects", []) # List of subject names
+    
+    if not grade or not subjects:
+        raise HTTPException(status_code=400, detail="Grade and subjects are required")
+        
+    updated_count = 0
+    
+    for subject_name in subjects:
+        # Check if exists
+        config = db.query(LessonConfiguration).filter(
+            LessonConfiguration.school_id == current_user.school_id,
+            LessonConfiguration.grade == grade,
+            LessonConfiguration.subject_name == subject_name
+        ).first()
+        
+        if config:
+            # Update existing
+            if "lessons_per_week" in bulk_data:
+                config.lessons_per_week = bulk_data["lessons_per_week"]
+            if "double_lessons_per_week" in bulk_data:
+                config.double_lessons_per_week = bulk_data["double_lessons_per_week"]
+            if "single_lesson_duration" in bulk_data:
+                config.single_lesson_duration = bulk_data["single_lesson_duration"]
+            if "double_lesson_duration" in bulk_data:
+                config.double_lesson_duration = bulk_data["double_lesson_duration"]
+        else:
+            # Create new
+            config = LessonConfiguration(
+                school_id=current_user.school_id,
+                subject_name=subject_name,
+                grade=grade,
+                lessons_per_week=bulk_data.get("lessons_per_week", 5),
+                double_lessons_per_week=bulk_data.get("double_lessons_per_week", 0),
+                single_lesson_duration=bulk_data.get("single_lesson_duration", 40),
+                double_lesson_duration=bulk_data.get("double_lesson_duration", 80)
+            )
+            db.add(config)
+        updated_count += 1
+        
+    db.commit()
+    return {"message": f"Updated {updated_count} subjects for {grade}"}
+
+# ============================================================================
+# DEPARTMENTS
+# ============================================================================
+
+@router.get("/departments", response_model=List[DepartmentResponse])
+def get_departments(
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    if not current_user.school_id:
+        return []
+    
+    departments = db.query(Department).filter(Department.school_id == current_user.school_id).all()
+    
+    # Manually populate hod_name for response
+    result = []
+    for dept in departments:
+        dept_dict = DepartmentResponse.from_orm(dept)
+        if dept.hod:
+            dept_dict.hod_name = dept.hod.full_name
+        result.append(dept_dict)
+        
+    return result
+
+@router.post("/departments", response_model=DepartmentResponse)
+def create_department(
+    dept_data: DepartmentCreate,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    if not current_user.school_id:
+        raise HTTPException(status_code=400, detail="User not linked to a school")
+        
+    department = Department(
+        school_id=current_user.school_id,
+        **dept_data.dict()
+    )
+    db.add(department)
+    db.commit()
+    db.refresh(department)
+    
+    # Populate hod_name
+    response = DepartmentResponse.from_orm(department)
+    if department.hod:
+        response.hod_name = department.hod.full_name
+    return response
+
+@router.put("/departments/{dept_id}", response_model=DepartmentResponse)
+def update_department(
+    dept_id: int,
+    dept_data: DepartmentUpdate,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    department = db.query(Department).filter(
+        Department.id == dept_id,
+        Department.school_id == current_user.school_id
+    ).first()
+    
+    if not department:
+        raise HTTPException(status_code=404, detail="Department not found")
+        
+    for key, value in dept_data.dict(exclude_unset=True).items():
+        setattr(department, key, value)
+        
+    db.commit()
+    db.refresh(department)
+    
+    response = DepartmentResponse.from_orm(department)
+    if department.hod:
+        response.hod_name = department.hod.full_name
+    return response
+
+@router.delete("/departments/{dept_id}")
+def delete_department(
+    dept_id: int,
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    department = db.query(Department).filter(
+        Department.id == dept_id,
+        Department.school_id == current_user.school_id
+    ).first()
+    
+    if not department:
+        raise HTTPException(status_code=404, detail="Department not found")
+        
+    db.delete(department)
+    db.commit()
+    return {"message": "Department deleted"}
+
+# ============================================================================
+# ACADEMIC YEAR ROLLOVER
+# ============================================================================
+
+@router.post("/school-settings/rollover")
+def rollover_academic_year(
+    current_user: User = Depends(get_current_admin_user),
+    db: Session = Depends(get_db)
+):
+    if not current_user.school_id:
+        raise HTTPException(status_code=400, detail="User not linked to a school")
+        
+    settings = db.query(SchoolSettings).filter(SchoolSettings.school_id == current_user.school_id).first()
+    if not settings:
+        raise HTTPException(status_code=404, detail="School settings not found")
+        
+    # Logic:
+    # 1. Increment established_year (or we should have a current_year field, but established_year is what we have)
+    #    Actually, established_year is when school started. We probably shouldn't change that.
+    #    Let's assume we just move streams.
+    
+    # 2. Move streams up
+    #    Order: PP1 -> PP2 -> Grade 1 ... -> Grade 12
+    
+    grade_order = [
+        "PP1", "PP2", 
+        "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6",
+        "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12"
+    ]
+    
+    current_streams = settings.streams_per_grade or {}
+    new_streams = {}
+    
+    # Initialize all grades in new_streams with empty lists
+    for grade in grade_order:
+        new_streams[grade] = []
+        
+    # Move streams
+    for i in range(len(grade_order) - 1, -1, -1):
+        current_grade = grade_order[i]
+        
+        # If it's the last grade (Grade 12), these streams graduate/archive
+        if i == len(grade_order) - 1:
+            # Maybe log archived streams? For now, they just disappear from active list
+            pass
+        else:
+            # Move to next grade
+            next_grade = grade_order[i + 1]
+            if current_grade in current_streams:
+                # Copy streams to next grade
+                # Reset pupil counts? Or keep them? Usually keep them as students move up.
+                new_streams[next_grade] = current_streams[current_grade]
+                
+    # PP1 (First grade) starts empty
+    new_streams["PP1"] = []
+    
+    # Update settings
+    settings.streams_per_grade = new_streams
+    
+    # Update established_year? No.
+    # Maybe we need a way to track "Current Academic Year" in settings.
+    # For now, we just do the stream move.
+    
+    db.commit()
+    
+    return {"message": "Academic year rollover completed successfully. Streams have been promoted."}

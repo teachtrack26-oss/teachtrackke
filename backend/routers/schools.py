@@ -113,7 +113,8 @@ async def invite_teacher(
         db.refresh(new_user)
         
         # Send invitation email
-        await send_invitation_email(invite_data.email, current_user.school.name, temp_password)
+        school_name = current_user.school_rel.name if current_user.school_rel else "your school"
+        await send_invitation_email(invite_data.email, school_name, temp_password)
         
         return SchoolTeacherResponse(
             id=new_user.id,

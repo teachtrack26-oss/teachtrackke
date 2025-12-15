@@ -99,6 +99,23 @@ class AdminUserSummary(BaseModel):
     class Config:
         from_attributes = True
 
+class AdminUserUpdate(BaseModel):
+    full_name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    school: Optional[str] = None
+    grade_level: Optional[str] = None
+    role: Optional[str] = None
+    is_active: Optional[bool] = None
+    password: Optional[str] = None  # Optional password reset
+
+class AdminUserCreate(BaseModel):
+    full_name: str
+    email: EmailStr
+    password: str
+    school: Optional[str] = None
+    grade_level: Optional[str] = None
+    role: Optional[str] = "TEACHER"
+
 
 class AdminUsersResponse(BaseModel):
     users: List[AdminUserSummary]
@@ -647,6 +664,7 @@ class SchemeAutoGenerateRequest(BaseModel):
     grade: str
     total_weeks: int
     lessons_per_week: int = 5
+    include_special_weeks: bool = False
 
 class SchemeOfWorkUpdate(BaseModel):
     teacher_name: Optional[str] = None
@@ -987,4 +1005,27 @@ class UserLinkRequest(BaseModel):
 class BulkBanRequest(BaseModel):
     user_ids: List[int]
     action: str = "ban" # ban or unban
+
+# Department Schemas
+class DepartmentBase(BaseModel):
+    name: str
+    description: Optional[str] = None
+    hod_id: Optional[int] = None
+
+class DepartmentCreate(DepartmentBase):
+    pass
+
+class DepartmentUpdate(DepartmentBase):
+    name: Optional[str] = None
+
+class DepartmentResponse(DepartmentBase):
+    id: int
+    school_id: int
+    created_at: datetime
+    updated_at: datetime
+    hod_name: Optional[str] = None # Helper field
+
+    class Config:
+        from_attributes = True
+
 

@@ -263,7 +263,7 @@ export default function AllLevelsListView({
                       </div>
 
                       {/* Actions */}
-                      <div className="flex-shrink-0 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="flex-shrink-0 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity print:hidden">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();

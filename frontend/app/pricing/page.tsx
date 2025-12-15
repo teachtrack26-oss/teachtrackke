@@ -14,11 +14,27 @@ import {
 import toast from "react-hot-toast";
 import axios from "axios";
 
+interface PricingPlanConfig {
+  label: string;
+  price_kes: number;
+  duration_label: string;
+}
+
+interface PricingConfig {
+  currency: string;
+  termly: PricingPlanConfig;
+  yearly: PricingPlanConfig;
+}
+
 export default function PricingPage() {
   const router = useRouter();
   const { data: session } = useSession();
   const [billingCycle, setBillingCycle] = useState<"termly" | "yearly">(
     "termly"
+  );
+
+  const [pricingConfig, setPricingConfig] = useState<PricingConfig | null>(
+    null
   );
 
   // Payment State
@@ -90,10 +106,31 @@ export default function PricingPage() {
     }
   }, [session]);
 
+  useEffect(() => {
+    const fetchPricingConfig = async () => {
+      try {
+        const res = await axios.get("/api/v1/pricing-config");
+        if (res?.data) setPricingConfig(res.data);
+      } catch (err) {
+        console.warn("Failed to load pricing config; using defaults", err);
+      }
+    };
+    fetchPricingConfig();
+  }, []);
+
   const currentPlan =
     localUser?.subscription_type ||
     (session?.user as any)?.subscription_type ||
     "FREE";
+
+  const currency = pricingConfig?.currency || "KES";
+  const termlyLabel = pricingConfig?.termly?.label || "Termly Pass";
+  const yearlyLabel = pricingConfig?.yearly?.label || "Yearly Saver";
+  const termlyDurationLabel = pricingConfig?.termly?.duration_label || "/term";
+  const yearlyDurationLabel = pricingConfig?.yearly?.duration_label || "/year";
+  const termlyPriceKes = Number(pricingConfig?.termly?.price_kes ?? 350);
+  const yearlyPriceKes = Number(pricingConfig?.yearly?.price_kes ?? 1000);
+  const yearlySavingsKes = Math.max(0, termlyPriceKes * 3 - yearlyPriceKes);
 
   const handleSubscribe = async (plan: string) => {
     if (!isLoggedIn) {
@@ -161,8 +198,9 @@ export default function PricingPage() {
       const token =
         localStorage.getItem("accessToken") || (session as any)?.accessToken;
 
-      // Determine amount based on plan (Testing: 1/2 KES, Production: 350/1000)
-      const amount = selectedPlan === "TERMLY" ? 1 : 2;
+      // Determine amount based on plan (server currently trusts amount passed)
+      const amount =
+        selectedPlan === "TERMLY" ? termlyPriceKes : yearlyPriceKes;
 
       const response = await axios.post(
         "/api/v1/payments/stk-push",
@@ -395,16 +433,16 @@ export default function PricingPage() {
                   <p className="text-sm text-gray-500 mb-4">
                     Enter your M-Pesa phone number to pay for the{" "}
                     <strong>
-                      {selectedPlan === "TERMLY"
-                        ? "Termly Pass"
-                        : "Yearly Saver"}
+                      {selectedPlan === "TERMLY" ? termlyLabel : yearlyLabel}
                     </strong>
                     .
                   </p>
 
                   <p className="text-2xl font-bold text-gray-900 mb-4">
-                    KES {selectedPlan === "TERMLY" ? "1" : "2"}{" "}
-                    <span className="text-sm text-gray-500">(Testing)</span>
+                    {currency}{" "}
+                    {selectedPlan === "TERMLY"
+                      ? termlyPriceKes
+                      : yearlyPriceKes}
                   </p>
 
                   <form onSubmit={handlePayment}>
@@ -642,14 +680,18 @@ export default function PricingPage() {
               <h3 className="text-xl font-semibold text-gray-900">
                 {currentPlan === "SCHOOL_SPONSORED"
                   ? "School Sponsored"
-                  : "Termly Pass"}
+                  : termlyLabel}
               </h3>
               <p className="mt-4 flex items-baseline text-gray-900">
                 <span className="text-5xl font-extrabold tracking-tight">
-                  {currentPlan === "SCHOOL_SPONSORED" ? "Paid" : "KES 350"}
+                  {currentPlan === "SCHOOL_SPONSORED"
+                    ? "Paid"
+                    : `${currency} ${termlyPriceKes}`}
                 </span>
                 <span className="ml-1 text-xl font-semibold text-gray-500">
-                  {currentPlan === "SCHOOL_SPONSORED" ? "by School" : "/term"}
+                  {currentPlan === "SCHOOL_SPONSORED"
+                    ? "by School"
+                    : termlyDurationLabel}
                 </span>
               </p>
               <p className="mt-6 text-gray-500">
@@ -743,7 +785,7 @@ export default function PricingPage() {
                   ? "Current Plan"
                   : currentPlan === "SCHOOL_SPONSORED"
                   ? "Active via School"
-                  : "Get Termly Pass"}
+                  : `Get ${termlyLabel}`}
               </button>
             </div>
           </div>
@@ -756,17 +798,17 @@ export default function PricingPage() {
           >
             <div className="p-8 flex-1">
               <h3 className="text-xl font-semibold text-gray-900">
-                Yearly Saver
+                {yearlyLabel}
               </h3>
               <p className="absolute top-0 py-1.5 px-4 bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wide transform -translate-y-1/2 rounded-full">
                 Best Value
               </p>
               <p className="mt-4 flex items-baseline text-gray-900">
                 <span className="text-5xl font-extrabold tracking-tight">
-                  KES 1000
+                  {currency} {yearlyPriceKes}
                 </span>
                 <span className="ml-1 text-xl font-semibold text-gray-500">
-                  /year
+                  {yearlyDurationLabel}
                 </span>
               </p>
               <p className="mt-6 text-gray-500">
@@ -799,7 +841,9 @@ export default function PricingPage() {
                 <li className="flex">
                   <FiStar className="flex-shrink-0 w-5 h-5 text-amber-500" />
                   <span className="ml-3 text-gray-900 font-bold">
-                    Save KES 400 vs Termly
+                    {yearlySavingsKes > 0
+                      ? `Save ${currency} ${yearlySavingsKes} vs Termly`
+                      : "Best yearly value"}
                   </span>
                 </li>
               </ul>
@@ -822,7 +866,7 @@ export default function PricingPage() {
                   ? "Current Plan"
                   : currentPlan === "SCHOOL_SPONSORED"
                   ? "Included in School Plan"
-                  : "Get Yearly Saver"}
+                  : `Get ${yearlyLabel}`}
               </button>
             </div>
           </div>

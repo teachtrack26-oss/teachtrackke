@@ -89,6 +89,13 @@ export default function LessonsConfigPage() {
     single_lesson_duration: 40,
     double_lesson_duration: 80,
   });
+  const [showBulkModal, setShowBulkModal] = useState(false);
+  const [bulkValues, setBulkValues] = useState({
+    lessons_per_week: 5,
+    double_lessons_per_week: 0,
+    single_lesson_duration: 40,
+    double_lesson_duration: 80,
+  });
 
   useEffect(() => {
     fetchConfigs();
@@ -98,6 +105,32 @@ export default function LessonsConfigPage() {
     // Update selected grade when level changes
     setSelectedGrade(GRADE_LEVELS[selectedLevel][0]);
   }, [selectedLevel]);
+
+  const handleBulkSave = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const subjects = LEARNING_AREAS[selectedLevel];
+
+      await axios.post(
+        "/api/v1/admin/lessons-per-week/bulk",
+        {
+          grade: selectedGrade,
+          subjects: subjects,
+          ...bulkValues,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      toast.success(`Updated all subjects for ${selectedGrade}`);
+      setShowBulkModal(false);
+      fetchConfigs();
+    } catch (error) {
+      console.error("Failed to bulk save:", error);
+      toast.error("Failed to update configurations");
+    }
+  };
 
   const fetchConfigs = async () => {
     try {
@@ -197,7 +230,7 @@ export default function LessonsConfigPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-8 pt-24">
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
@@ -250,9 +283,17 @@ export default function LessonsConfigPage() {
         </div>
 
         <div className="glass-card bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            {selectedGrade} Learning Areas
-          </h2>
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold text-gray-900">
+              {selectedGrade} Learning Areas
+            </h2>
+            <button
+              onClick={() => setShowBulkModal(true)}
+              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-2"
+            >
+              <FiEdit2 /> Bulk Settings for {selectedGrade}
+            </button>
+          </div>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
@@ -448,6 +489,101 @@ export default function LessonsConfigPage() {
           </div>
         </div>
       </div>
+      {/* Bulk Update Modal */}
+      {showBulkModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl">
+            <h3 className="text-2xl font-bold mb-6">
+              Bulk Settings for {selectedGrade}
+            </h3>
+            <p className="text-gray-600 mb-6">
+              This will update settings for ALL subjects in {selectedGrade}.
+            </p>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-bold text-gray-900 mb-2">
+                  Lessons Per Week
+                </label>
+                <input
+                  type="number"
+                  value={bulkValues.lessons_per_week}
+                  onChange={(e) =>
+                    setBulkValues({
+                      ...bulkValues,
+                      lessons_per_week: parseInt(e.target.value) || 5,
+                    })
+                  }
+                  className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-gray-900 mb-2">
+                  Double Lessons Per Week
+                </label>
+                <input
+                  type="number"
+                  value={bulkValues.double_lessons_per_week}
+                  onChange={(e) =>
+                    setBulkValues({
+                      ...bulkValues,
+                      double_lessons_per_week: parseInt(e.target.value) || 0,
+                    })
+                  }
+                  className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-bold text-gray-900 mb-2">
+                    Single Duration (min)
+                  </label>
+                  <input
+                    type="number"
+                    value={bulkValues.single_lesson_duration}
+                    onChange={(e) =>
+                      setBulkValues({
+                        ...bulkValues,
+                        single_lesson_duration: parseInt(e.target.value) || 40,
+                      })
+                    }
+                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-gray-900 mb-2">
+                    Double Duration (min)
+                  </label>
+                  <input
+                    type="number"
+                    value={bulkValues.double_lesson_duration}
+                    onChange={(e) =>
+                      setBulkValues({
+                        ...bulkValues,
+                        double_lesson_duration: parseInt(e.target.value) || 80,
+                      })
+                    }
+                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex gap-4 pt-8">
+              <button
+                onClick={() => setShowBulkModal(false)}
+                className="flex-1 px-6 py-3 bg-gray-200 text-gray-800 rounded-xl font-bold hover:bg-gray-300"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleBulkSave}
+                className="flex-1 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl"
+              >
+                Apply to All
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

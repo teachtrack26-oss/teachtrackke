@@ -183,6 +183,7 @@ export default function SchemeGeneratorPage() {
     total_lessons: 0,
     lessons_per_week: 5,
     default_textbook: "", // New field
+    include_special_weeks: false,
     status: "draft",
   });
 
@@ -366,7 +367,11 @@ export default function SchemeGeneratorPage() {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      setLessons(lessonsRes.data.lessons || []);
+      // Handle both array response (direct list) and object response ({ lessons: [...] })
+      const lessonsData = Array.isArray(lessonsRes.data)
+        ? lessonsRes.data
+        : lessonsRes.data.lessons || [];
+      setLessons(lessonsData);
 
       // Store the subject's lessons_per_week for later use
       const lessonsPerWeek = subjectRes.data.lessons_per_week || 5;
@@ -578,6 +583,7 @@ export default function SchemeGeneratorPage() {
         grade: formData.grade,
         total_weeks: formData.total_weeks,
         lessons_per_week: formData.lessons_per_week || 5,
+        include_special_weeks: formData.include_special_weeks,
       };
 
       const response = await axios.post("/api/v1/schemes/generate", payload, {
@@ -1078,6 +1084,34 @@ export default function SchemeGeneratorPage() {
                   required
                   readOnly
                 />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+                  <div className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={formData.include_special_weeks}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          include_special_weeks: e.target.checked,
+                        })
+                      }
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                  </div>
+                  <div>
+                    <span className="block text-sm font-medium text-gray-900">
+                      Include Opening, Assessment & Closing Weeks
+                    </span>
+                    <span className="block text-xs text-gray-500">
+                      Automatically adds Opener Assessment (Week 1), End of Term
+                      Assessment (Week N-1), and Closing (Week N).
+                    </span>
+                  </div>
+                </label>
               </div>
             </div>
 
