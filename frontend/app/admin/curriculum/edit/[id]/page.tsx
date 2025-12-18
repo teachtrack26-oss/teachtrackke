@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { api } from "@/lib/api";
 import { toast } from "react-hot-toast";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import {
   FaSave,
   FaPlus,
@@ -55,6 +56,7 @@ export default function EditCurriculumPage() {
   const router = useRouter();
   const params = useParams();
   const templateId = params.id as string;
+  const { user, isAuthenticated, loading: authLoading } = useCustomAuth();
 
   const [template, setTemplate] = useState<Template | null>(null);
   const [loading, setLoading] = useState(true);
@@ -68,16 +70,13 @@ export default function EditCurriculumPage() {
 
   // Check for Super Admin access on mount
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-      if (user.role !== "SUPER_ADMIN") {
+    if (!authLoading && isAuthenticated) {
+      if (user?.role !== "SUPER_ADMIN") {
         toast.error("Access denied. Super Admin privileges required.");
         router.push("/admin/dashboard");
-        return;
       }
     }
-  }, [router]);
+  }, [authLoading, isAuthenticated, user, router]);
 
   useEffect(() => {
     fetchTemplate();

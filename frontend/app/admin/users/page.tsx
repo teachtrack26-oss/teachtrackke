@@ -368,16 +368,7 @@ export default function AdminUsersPage() {
 
   const handleImpersonate = async (userId: number) => {
     try {
-      const response = await api.post(`/admin/users/${userId}/impersonate`);
-      const { access_token } = response.data;
-
-      localStorage.setItem("accessToken", access_token);
-
-      const userResponse = await api.get("/auth/me", {
-        headers: { Authorization: `Bearer ${access_token}` },
-      });
-
-      localStorage.setItem("user", JSON.stringify(userResponse.data));
+      await api.post(`/admin/users/${userId}/impersonate`);
       window.location.href = "/dashboard";
     } catch (error: any) {
       const detail = error.response?.data?.detail;

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { FiCheck, FiAlertCircle, FiBook } from "react-icons/fi";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 
 const GRADES = [
   "PP1",
@@ -31,7 +32,7 @@ interface CurriculumTemplate {
 
 export default function CurriculumSelectPage() {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { user, isAuthenticated, loading: authLoading } = useCustomAuth();
   const [loading, setLoading] = useState(false);
   const [templates, setTemplates] = useState<CurriculumTemplate[]>([]);
   const [filteredTemplates, setFilteredTemplates] = useState<
@@ -40,23 +41,12 @@ export default function CurriculumSelectPage() {
   const [selectedGrade, setSelectedGrade] = useState("");
   const [selectedTemplates, setSelectedTemplates] = useState<number[]>([]);
   const [addingTemplate, setAddingTemplate] = useState(false);
-  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    // Check authentication
-    const token = localStorage.getItem("accessToken");
-    const userData = localStorage.getItem("user");
-    if (!token) {
-      toast.error("Please login to select curriculum");
-      router.push("/login");
-      return;
+    if (!authLoading && isAuthenticated) {
+      fetchTemplates();
     }
-    if (userData) {
-      setUser(JSON.parse(userData));
-    }
-    setIsAuthenticated(true);
-    fetchTemplates();
-  }, [router]);
+  }, [authLoading, isAuthenticated]);
 
   useEffect(() => {
     // Filter templates by selected grade
@@ -72,11 +62,8 @@ export default function CurriculumSelectPage() {
   const fetchTemplates = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get("/api/v1/curriculum-templates", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        withCredentials: true,
       });
       // Backend returns a list directly, or check if it's wrapped
       const data = response.data;
@@ -138,7 +125,7 @@ export default function CurriculumSelectPage() {
     // Check Free Plan Limit
     if (user?.subscription_type === "FREE" && selectedTemplates.length > 2) {
       toast.error(
-        "Free plan is limited to 2 subjects total. Please upgrade to add more.",
+        "Free plan is limited to 6 subjects total. Please upgrade to add more.",
         {
           duration: 5000,
           icon: "🔒",
@@ -155,14 +142,11 @@ export default function CurriculumSelectPage() {
     setAddingTemplate(true);
 
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.post(
         `/api/v1/curriculum-templates/bulk-use`,
         { template_ids: selectedTemplates },
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          withCredentials: true,
         }
       );
 
@@ -262,7 +246,7 @@ export default function CurriculumSelectPage() {
                 </div>
                 {user?.subscription_type === "FREE" && (
                   <span className="text-xs font-medium px-2.5 py-0.5 rounded bg-yellow-100 text-yellow-800">
-                    Free Plan: Max 2 Subjects
+                    Free Plan: Max 6 Subjects
                   </span>
                 )}
               </h2>
@@ -420,7 +404,7 @@ export default function CurriculumSelectPage() {
                       <span>
                         {user?.subscription_type === "FREE" &&
                         selectedTemplates.length > 2
-                          ? "Limit Exceeded (Max 2)"
+                          ? "Limit Exceeded (Max 6)"
                           : `Add ${selectedTemplates.length} Subject${
                               selectedTemplates.length !== 1 ? "s" : ""
                             }`}

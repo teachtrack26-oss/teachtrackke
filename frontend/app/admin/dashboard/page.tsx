@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import {
   FiBook,
   FiUsers,
@@ -72,6 +73,11 @@ interface PaymentStats {
 
 export default function AdminDashboard() {
   const router = useRouter();
+  const {
+    user: authUser,
+    loading: authLoading,
+    isAuthenticated,
+  } = useCustomAuth();
   const [templates, setTemplates] = useState<CurriculumTemplate[]>([]);
   const [users, setUsers] = useState<any[]>([]);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -86,39 +92,32 @@ export default function AdminDashboard() {
   const [paymentStats, setPaymentStats] = useState<PaymentStats | null>(null);
   const [recentPayments, setRecentPayments] = useState<PaymentItem[]>([]);
 
-  const isSuperAdmin = currentUser?.role === "SUPER_ADMIN";
+  const isSuperAdmin = authUser?.role === "SUPER_ADMIN";
 
   useEffect(() => {
-    // Get current user from localStorage
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-      setCurrentUser(user);
+    if (authLoading) return;
+
+    if (isAuthenticated && authUser) {
+      setCurrentUser(authUser as any);
 
       // Check if user has admin access
-      if (user.role !== "SUPER_ADMIN" && user.role !== "SCHOOL_ADMIN") {
+      if (
+        authUser?.role !== "SUPER_ADMIN" &&
+        authUser?.role !== "SCHOOL_ADMIN"
+      ) {
         toast.error("Access denied. Admin privileges required.");
         router.push("/dashboard");
         return;
       }
-    } else {
-      toast.error("Please log in to access admin features");
-      router.push("/login");
-      return;
+      fetchData();
     }
-
-    fetchData();
-  }, []);
+  }, [authUser, isAuthenticated, authLoading]);
 
   const fetchData = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
-      const storedUser = localStorage.getItem("user");
-      const parsedUser = storedUser ? JSON.parse(storedUser) : null;
-
       // Fetch templates
       const templatesRes = await axios.get("/api/v1/curriculum-templates", {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       const templatesData = Array.isArray(templatesRes.data)
         ? templatesRes.data
@@ -126,11 +125,11 @@ export default function AdminDashboard() {
       setTemplates(templatesData);
 
       // Fetch platform pricing (Super Admin only)
-      if (parsedUser?.role === "SUPER_ADMIN") {
+      if (isSuperAdmin) {
         try {
           setPricingLoading(true);
           const pricingRes = await axios.get("/api/v1/admin/pricing-config", {
-            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
           });
           setPricingConfig(pricingRes.data);
         } catch (e) {
@@ -143,10 +142,10 @@ export default function AdminDashboard() {
         try {
           const [statsRes, paymentsRes] = await Promise.all([
             axios.get("/api/v1/admin/payments/stats", {
-              headers: { Authorization: `Bearer ${token}` },
+              withCredentials: true,
             }),
             axios.get("/api/v1/admin/payments", {
-              headers: { Authorization: `Bearer ${token}` },
+              withCredentials: true,
               params: { page: 1, limit: 5 },
             }),
           ]);
@@ -179,7 +178,6 @@ export default function AdminDashboard() {
 
   const savePricingConfig = async () => {
     if (!pricingConfig) return;
-    const token = localStorage.getItem("accessToken");
 
     // Basic validation
     if (!pricingConfig.termly?.label || !pricingConfig.yearly?.label) {
@@ -199,7 +197,7 @@ export default function AdminDashboard() {
     try {
       setPricingSaving(true);
       await axios.put("/api/v1/admin/pricing-config", pricingConfig, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       toast.success("Pricing updated. /pricing will reflect changes.");
     } catch (e: any) {

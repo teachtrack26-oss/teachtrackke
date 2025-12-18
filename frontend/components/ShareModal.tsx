@@ -39,10 +39,9 @@ export default function ShareModal({
 
   const loadShareLinks = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get(
         `${API_URL}/api/v1/notes/${noteId}/shares`,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { withCredentials: true }
       );
       setShareLinks(response.data);
     } catch (error) {
@@ -53,14 +52,13 @@ export default function ShareModal({
   const createShareLink = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.post(
         `${API_URL}/api/v1/notes/${noteId}/share`,
         {
           expires_in_days: expiryDays > 0 ? expiryDays : null,
           allow_download: allowDownload,
         },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { withCredentials: true }
       );
       setShareLinks([response.data, ...shareLinks]);
     } catch (error) {
@@ -75,9 +73,8 @@ export default function ShareModal({
     if (!confirm("Deactivate this share link?")) return;
 
     try {
-      const token = localStorage.getItem("accessToken");
       await axios.delete(`${API_URL}/api/v1/shares/${shareId}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setShareLinks(
         shareLinks.map((link) =>

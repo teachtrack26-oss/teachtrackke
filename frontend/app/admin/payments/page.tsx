@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { FiArrowLeft, FiSearch } from "react-icons/fi";
@@ -47,6 +48,7 @@ interface PaymentStats {
 
 export default function AdminPaymentsPage() {
   const router = useRouter();
+  const { user, isAuthenticated, loading: authLoading } = useCustomAuth();
 
   const [currentUserRole, setCurrentUserRole] = useState<string | null>(null);
 
@@ -58,7 +60,7 @@ export default function AdminPaymentsPage() {
   const [limit] = useState(25);
   const [total, setTotal] = useState(0);
 
-  const [status, setStatus] = useState<string>("");
+  const [statusFilter, setStatusFilter] = useState<string>("");
   const [q, setQ] = useState<string>("");
   const [selectedPayment, setSelectedPayment] = useState<PaymentItem | null>(
     null
@@ -70,26 +72,29 @@ export default function AdminPaymentsPage() {
   );
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (!storedUser) {
+    if (authLoading) return;
+
+    if (!isAuthenticated) {
       toast.error("Please log in to access admin features");
       router.push("/login");
       return;
     }
 
-    const user = JSON.parse(storedUser);
-    setCurrentUserRole(user?.role || null);
+    if (isAuthenticated) {
+      const userRole = user?.role;
+      setCurrentUserRole(userRole || null);
 
-    if (user?.role !== "SUPER_ADMIN") {
-      toast.error("Super Admin access required");
-      router.push("/dashboard");
-      return;
+      if (userRole !== "SUPER_ADMIN") {
+        toast.error("Super Admin access required");
+        router.push("/dashboard");
+        return;
+      }
+
+      // initial load
+      void fetchAll(1, statusFilter, q);
     }
-
-    // initial load
-    void fetchAll(1, status, q);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [authLoading, isAuthenticated, user, router]);
 
   const fetchAll = async (
     nextPage: number,
@@ -98,14 +103,13 @@ export default function AdminPaymentsPage() {
   ) => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("accessToken");
 
       const [statsRes, listRes] = await Promise.all([
         axios.get("/api/v1/admin/payments/stats", {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }),
         axios.get("/api/v1/admin/payments", {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
           params: {
             page: nextPage,
             limit,
@@ -192,8 +196,8 @@ export default function AdminPaymentsPage() {
               </label>
               <select
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
               >
                 <option value="">All</option>
                 <option value="COMPLETED">COMPLETED</option>
@@ -219,7 +223,7 @@ export default function AdminPaymentsPage() {
             </div>
 
             <button
-              onClick={() => fetchAll(1, status, q)}
+              onClick={() => fetchAll(1, statusFilter, q)}
               className="px-4 py-2 bg-indigo-600 text-white rounded-md font-semibold hover:bg-indigo-700"
             >
               Apply
@@ -340,7 +344,7 @@ export default function AdminPaymentsPage() {
             </div>
             <div className="flex gap-2">
               <button
-                onClick={() => fetchAll(Math.max(1, page - 1), status, q)}
+                onClick={() => fetchAll(Math.max(1, page - 1), statusFilter, q)}
                 disabled={page <= 1 || loading}
                 className={`px-3 py-2 rounded-md text-sm font-semibold ${
                   page <= 1 || loading
@@ -352,7 +356,7 @@ export default function AdminPaymentsPage() {
               </button>
               <button
                 onClick={() =>
-                  fetchAll(Math.min(totalPages, page + 1), status, q)
+                  fetchAll(Math.min(totalPages, page + 1), statusFilter, q)
                 }
                 disabled={page >= totalPages || loading}
                 className={`px-3 py-2 rounded-md text-sm font-semibold ${

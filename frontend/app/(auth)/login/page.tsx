@@ -13,9 +13,15 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
+  const [captcha, setCaptcha] = useState<{
+    id: string;
+    question: string;
+  } | null>(null);
+  const [captchaAnswer, setCaptchaAnswer] = useState("");
 
   // Check if user is already logged in
   useEffect(() => {
+    fetchCaptcha();
     // Don't clear auth if coming back from OAuth callback with error
     const error = searchParams.get("error");
     if (error) {
@@ -31,12 +37,24 @@ function LoginForm() {
     // Don't clear if there's an OAuth callback happening
     const callbackUrl = searchParams.get("callbackUrl");
     if (!callbackUrl) {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("user");
-      sessionStorage.clear();
+      // localStorage.removeItem("accessToken");
+      // localStorage.removeItem("user");
+      // sessionStorage.clear();
     }
     setCheckingAuth(false);
   }, [searchParams]);
+
+  const fetchCaptcha = async () => {
+    try {
+      const res = await fetch("/api/v1/auth/captcha");
+      if (res.ok) {
+        const data = await res.json();
+        setCaptcha(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch captcha", error);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,55 +62,74 @@ function LoginForm() {
 
     try {
       // Clear any existing session data before login
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("user");
-      sessionStorage.clear();
+      // localStorage.removeItem("accessToken");
+      // localStorage.removeItem("user");
+      // sessionStorage.clear();
 
       // Call backend API directly
       // Use Next.js rewrite proxy to avoid CORS in dev
       const response = await fetch(`/api/v1/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        credentials: "include",
+        body: JSON.stringify({
+          email,
+          password,
+          captcha_id: captcha?.id,
+          captcha_answer: captchaAnswer,
+        }),
       });
 
       if (!response.ok) {
         let msg = "Invalid credentials";
         try {
           const text = await response.text();
-          msg = text || msg;
+          // Try to parse JSON error if possible
+          try {
+            const jsonError = JSON.parse(text);
+            msg = jsonError.detail || msg;
+          } catch {
+            msg = text || msg;
+          }
         } catch {}
         toast.error(msg);
         setLoading(false);
+        fetchCaptcha();
+        setCaptchaAnswer("");
         return;
       }
 
       const data = await response.json();
 
-      // Fetch user info
+      // Fetch user info - Cookie will be sent automatically
       const userResponse = await fetch(`/api/v1/auth/me`, {
-        headers: { Authorization: `Bearer ${data.access_token}` },
+        credentials: "include",
+        // headers: { Authorization: `Bearer ${data.access_token}` }, // No longer needed
       });
 
       if (userResponse.ok) {
         const user = await userResponse.json();
 
-        // Store token and user info in localStorage
-        localStorage.setItem("accessToken", data.access_token);
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            id: user.id,
-            email: user.email,
-            name: user.full_name,
-            is_admin: user.is_admin,
-            role: user.role,
-            subscription_type: user.subscription_type,
-            has_subjects: user.has_subjects,
-          })
-        );
+        // Store user info in localStorage (but NOT the token)
+        // localStorage.setItem("accessToken", data.access_token); // REMOVED for security
+        // localStorage.setItem(
+        //   "user",
+        //   JSON.stringify({
+        //     id: user.id,
+        //     email: user.email,
+        //     name: user.full_name,
+        //     is_admin: user.is_admin,
+        //     role: user.role,
+        //     subscription_type: user.subscription_type,
+        //     has_subjects: user.has_subjects,
+        //   })
+        // );
 
         toast.success("Login successful!");
+
+        // Notify the rest of the app (Navbar/layout) that auth state has changed.
+        // This helps immediately unlock UI that depends on cookie-based auth.
+        window.dispatchEvent(new Event("teachtrack:authChanged"));
 
         // Redirect based on user role
         if (user.role === "SUPER_ADMIN") {
@@ -110,6 +147,10 @@ function LoginForm() {
         }
       } else {
         toast.success("Login successful!");
+
+        // Still notify app even if /me fails (cookie may not be readable yet).
+        window.dispatchEvent(new Event("teachtrack:authChanged"));
+
         router.push("/dashboard");
       }
     } catch (error: any) {
@@ -211,6 +252,27 @@ function LoginForm() {
                 placeholder="••••••••"
               />
             </div>
+
+            {captcha && (
+              <div>
+                <label
+                  htmlFor="captcha"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Security Check: {captcha.question}
+                </label>
+                <input
+                  id="captcha"
+                  name="captcha"
+                  type="text"
+                  required
+                  value={captchaAnswer}
+                  onChange={(e) => setCaptchaAnswer(e.target.value)}
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-xl focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white"
+                  placeholder="Answer"
+                />
+              </div>
+            )}
           </div>
 
           <div className="flex items-center justify-between">

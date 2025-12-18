@@ -1,10 +1,9 @@
-from fastapi import APIRouter, Depends, HTTPException, Request, BackgroundTasks, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi import APIRouter, Depends, HTTPException, Request, BackgroundTasks
 from sqlalchemy.orm import Session
 from database import get_db
 from models import User, Payment, PaymentStatus, SubscriptionType, SubscriptionStatus
 from schemas import PaymentInitiate, PaymentResponse, PaymentStatusResponse
-from auth import verify_token
+from dependencies import get_current_user
 from mpesa_utils import mpesa_client
 from datetime import datetime, timedelta
 from config import settings
@@ -14,9 +13,6 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 router = APIRouter(prefix="/payments", tags=["Payments"])
-
-# HTTP Bearer security
-security = HTTPBearer()
 
 def send_payment_confirmation_email(user_email: str, user_name: str, plan: str, amount: float, transaction_code: str):
     """Send payment confirmation email"""
@@ -137,27 +133,6 @@ def send_payment_confirmation_email(user_email: str, user_name: str, plan: str, 
     except Exception as e:
         print(f"Failed to send payment confirmation email: {str(e)}")
         return False
-
-def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Depends(security),
-    db: Session = Depends(get_db)
-):
-    """Get current user from JWT token"""
-    token = credentials.credentials
-    email = verify_token(token)
-    if email is None:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Could not validate credentials"
-        )
-    
-    user = db.query(User).filter(User.email == email).first()
-    if user is None:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="User not found"
-        )
-    return user
 
 @router.post("/stk-push", response_model=PaymentResponse)
 async def initiate_payment(

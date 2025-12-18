@@ -125,17 +125,25 @@ def create_subject(
     # Default to FREE if no subscription type
     sub_type = current_user.subscription_type or SubscriptionType.FREE
     
-    if sub_type == SubscriptionType.FREE:
-        if subject_count >= 2:
-            raise HTTPException(
-                status_code=403, 
-                detail="Free plan is limited to 2 subjects. Please upgrade to add more."
-            )
-    elif sub_type == SubscriptionType.INDIVIDUAL_BASIC:
+    # Check if trial is active - limit to 6 subjects
+    if current_user.is_trial_active:
         if subject_count >= 6:
             raise HTTPException(
                 status_code=403, 
-                detail="Basic plan is limited to 6 subjects. Please upgrade to Premium for unlimited subjects."
+                detail="Free Trial is limited to 6 subjects."
+            )
+    elif sub_type == SubscriptionType.FREE:
+        if subject_count >= 6:
+            raise HTTPException(
+                status_code=403, 
+                detail="Free plan is limited to 6 subjects. Please upgrade to add more."
+            )
+    # Enforce 6 subject limit for ALL paid individual plans to prevent misuse
+    elif sub_type in [SubscriptionType.INDIVIDUAL_BASIC, SubscriptionType.INDIVIDUAL_PREMIUM]:
+        if subject_count >= 6:
+            raise HTTPException(
+                status_code=403, 
+                detail="Individual plans are limited to 6 subjects to prevent account sharing. Please contact support if you teach more than 6 subjects."
             )
 
     # Create subject for current user
@@ -151,6 +159,14 @@ def delete_subject(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
+    # Prevent subject cycling (misuse prevention)
+    # Users cannot delete subjects themselves to free up slots for other teachers
+    if current_user.role not in [UserRole.SUPER_ADMIN, UserRole.SCHOOL_ADMIN]:
+         raise HTTPException(
+            status_code=403, 
+            detail="Subject deletion is restricted to prevent misuse. Please contact support to remove a subject."
+        )
+
     subject = db.query(Subject).filter(Subject.id == subject_id).first()
     if not subject:
         raise HTTPException(status_code=404, detail="Subject not found")

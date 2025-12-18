@@ -45,3 +45,13 @@ def verify_token(token: str) -> Optional[str]:
         return email
     except JWTError:
         return None
+
+def verify_captcha_token(token: str, answer: str) -> bool:
+    """Verify Captcha token and answer"""
+    try:
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        if payload.get("type") != "captcha":
+            return False
+        return payload.get("answer") == answer
+    except JWTError:
+        return False

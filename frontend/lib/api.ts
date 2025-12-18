@@ -5,19 +5,22 @@ const API_BASE_URL = "/api/v1";
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
+  withCredentials: true, // Send cookies with requests
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// Add auth token to requests
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("accessToken");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+// Add auth token to requests (Backward compatibility for localStorage)
+// api.interceptors.request.use((config) => {
+//   if (typeof window !== "undefined") {
+//     const token = localStorage.getItem("accessToken");
+//     if (token) {
+//       config.headers.Authorization = `Bearer ${token}`;
+//     }
+//   }
+//   return config;
+// });
 
 // Auth
 export const authAPI = {

@@ -182,7 +182,7 @@ class User(Base):
     role = Column(SQLEnum(UserRole), default=UserRole.TEACHER)
     school_id = Column(Integer, ForeignKey("schools.id", ondelete="SET NULL"), nullable=True)
     previous_school_id = Column(Integer, ForeignKey("schools.id", ondelete="SET NULL"), nullable=True)  # Track previous school after downgrade
-    subscription_type = Column(SQLEnum(SubscriptionType), default=SubscriptionType.INDIVIDUAL_BASIC)
+    subscription_type = Column(SQLEnum(SubscriptionType), default=SubscriptionType.FREE)
     subscription_status = Column(SQLEnum(SubscriptionStatus), default=SubscriptionStatus.ACTIVE) # Default active for free tier
     
     # For Individual Basic plan limits
@@ -225,7 +225,7 @@ class User(Base):
             except:
                 return False
 
-        trial_end = created + timedelta(days=14)
+        trial_end = created + timedelta(days=30)
         return datetime.now() < trial_end
 
     @property
@@ -246,7 +246,7 @@ class User(Base):
             except:
                 return 0
 
-        trial_end = created + timedelta(days=14)
+        trial_end = created + timedelta(days=30)
         remaining = trial_end - datetime.now()
         return max(0, remaining.days)
 
@@ -759,7 +759,7 @@ class SchemeOfWork(Base):
     # Metadata
     total_weeks = Column(Integer, nullable=False)
     total_lessons = Column(Integer, nullable=False)
-    status = Column(String(20), default='draft')  # draft, active, completed
+    status = Column(String(20), default='active')  # draft, active, completed
     is_archived = Column(Boolean, default=False)
     
     # Sharing and Notes

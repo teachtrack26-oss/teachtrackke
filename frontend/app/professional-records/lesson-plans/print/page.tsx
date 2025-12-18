@@ -2,8 +2,10 @@
 
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import axios from "axios";
-import { FiPrinter, FiArrowLeft } from "react-icons/fi";
+import toast from "react-hot-toast";
+import { FiPrinter, FiArrowLeft, FiLock } from "react-icons/fi";
 
 interface LessonPlan {
   id: number;
@@ -43,11 +45,18 @@ interface SchoolContext {
 function PrintContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { user, isAuthenticated, loading: authLoading } = useCustomAuth();
   const [plans, setPlans] = useState<LessonPlan[]>([]);
   const [loading, setLoading] = useState(true);
   const [schoolContext, setSchoolContext] = useState<SchoolContext | null>(
     null
   );
+
+  const isPremium =
+    user?.subscription_type === "INDIVIDUAL_PREMIUM" ||
+    user?.subscription_type === "SCHOOL_SPONSORED" ||
+    !!user?.school_id ||
+    user?.role === "SUPER_ADMIN";
 
   useEffect(() => {
     const fetchPlans = async () => {
@@ -58,12 +67,11 @@ function PrintContent() {
       }
 
       const ids = idsParam.split(",").map((id) => parseInt(id));
-      const token = localStorage.getItem("accessToken");
 
       try {
         try {
           const contextRes = await axios.get("/api/v1/profile/school-context", {
-            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
           });
           setSchoolContext(contextRes.data);
         } catch (err) {
@@ -72,7 +80,7 @@ function PrintContent() {
 
         const promises = ids.map((id) =>
           axios.get(`/api/v1/lesson-plans/${id}`, {
-            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
           })
         );
 
@@ -113,7 +121,17 @@ function PrintContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 pb-10">
+    <div
+      className={`min-h-screen bg-gray-100 pb-10 ${
+        !isPremium ? "select-none" : ""
+      }`}
+      onContextMenu={(e) => {
+        if (!isPremium) {
+          e.preventDefault();
+          toast.error("Right-click is disabled for preview.");
+        }
+      }}
+    >
       <style jsx global>{`
         @media print {
           @page {
@@ -128,14 +146,37 @@ function PrintContent() {
           .no-print {
             display: none !important;
           }
-          .print-preview-container {
-            margin: 0 !important;
-            padding: 0 !important;
-            box-shadow: none !important;
-            width: 100% !important;
-            min-height: auto !important;
-            border: none !important;
-          }
+
+          /* Hide content for non-premium users during print */
+          ${!isPremium
+            ? `
+            .print-preview-container {
+              display: none !important;
+            }
+            body::after {
+              content: "Printing is available on Premium plans only. Please upgrade to print.";
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              font-size: 24pt;
+              font-weight: bold;
+              color: #555;
+              text-align: center;
+              padding: 20px;
+            }
+          `
+            : `
+            .print-preview-container {
+              margin: 0 !important;
+              padding: 0 !important;
+              box-shadow: none !important;
+              width: 100% !important;
+              min-height: auto !important;
+              border: none !important;
+            }
+          `}
+
           .page-break {
             page-break-after: always;
           }
@@ -289,21 +330,77 @@ function PrintContent() {
           </h2>
         </div>
         <button
-          onClick={() => window.print()}
-          className="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold flex items-center gap-2 hover:bg-blue-700 shadow-sm"
+          onClick={() => {
+            if (!isPremium) {
+              toast.error(
+                "Printing is available on Premium plans only. Please upgrade to print."
+              );
+              return;
+            }
+            window.print();
+          }}
+          disabled={!isPremium}
+          className={`${
+            !isPremium
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-blue-600 hover:bg-blue-700"
+          } text-white px-6 py-2 rounded-lg font-bold flex items-center gap-2 shadow-sm`}
+          title={!isPremium ? "Upgrade to print" : "Print"}
         >
-          <FiPrinter /> Print
+          <FiPrinter /> {!isPremium ? "Preview Only" : "Print"}
         </button>
       </div>
 
       <div className="pt-20">
+        {/* Free Plan Banner */}
+        {!isPremium && (
+          <div className="max-w-[210mm] mx-auto mb-6 no-print">
+            <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 shadow-sm relative overflow-hidden">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                    <FiLock className="w-5 h-5 text-amber-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900">
+                      Preview Mode Active
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      Upgrade to Premium to print these Lesson Plans.
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => router.push("/pricing")}
+                  className="whitespace-nowrap px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white text-sm font-bold rounded-lg shadow-md transition-all"
+                >
+                  Upgrade Now
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {plans.map((plan, index) => (
           <div
             key={plan.id}
-            className={`print-preview-container ${
+            className={`print-preview-container relative ${
               index < plans.length - 1 ? "page-break" : ""
             }`}
           >
+            {/* Watermark for non-premium users */}
+            {!isPremium && (
+              <div className="absolute inset-0 pointer-events-none z-50 grid grid-cols-2 gap-y-32 gap-x-12 content-start justify-items-center overflow-hidden opacity-10 p-10">
+                {Array.from({ length: 20 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="transform -rotate-45 text-gray-900 text-3xl font-black whitespace-nowrap select-none"
+                  >
+                    {user?.email || "PREVIEW ONLY"}
+                  </div>
+                ))}
+              </div>
+            )}
             {/* School Header */}
             <div className="school-header">
               <span className="school-label">SCHOOL:</span>

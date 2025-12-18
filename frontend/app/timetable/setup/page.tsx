@@ -60,31 +60,17 @@ const TimetableSetupPage = () => {
   };
 
   useEffect(() => {
-    // Check if user is logged in
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      toast.error("Please login first");
-      router.push("/login");
-      return;
-    }
     checkActiveSchedule(selectedLevel);
   }, [selectedLevel]);
 
   const checkActiveSchedule = async (level: string) => {
     try {
-      const token = localStorage.getItem("accessToken");
-      if (!token) {
-        return;
-      }
-
       const response = await fetch(
-        `http://localhost:8000/api/v1/timetable/schedules/active?education_level=${encodeURIComponent(
+        `/api/v1/timetable/schedules/active?education_level=${encodeURIComponent(
           level
         )}`,
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          credentials: "include",
         }
       );
 
@@ -125,19 +111,11 @@ const TimetableSetupPage = () => {
     setIsLoading(true);
 
     try {
-      const token = localStorage.getItem("accessToken");
-
-      if (!token) {
-        toast.error("Please login first");
-        router.push("/login");
-        return;
-      }
-
       // Determine if we're creating or updating
       const url =
         isEditMode && scheduleId
-          ? `http://localhost:8000/api/v1/timetable/schedules/${scheduleId}`
-          : "http://localhost:8000/api/v1/timetable/schedules";
+          ? `/api/v1/timetable/schedules/${scheduleId}`
+          : "/api/v1/timetable/schedules";
 
       const method = isEditMode && scheduleId ? "PUT" : "POST";
 
@@ -145,8 +123,8 @@ const TimetableSetupPage = () => {
         method: method,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
+        credentials: "include",
         body: JSON.stringify(config),
       });
 

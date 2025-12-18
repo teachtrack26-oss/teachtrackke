@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import {
   FiPlus,
   FiSearch,
@@ -44,7 +44,7 @@ interface Subject {
 
 export default function NotesPage() {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { user, isAuthenticated, loading: authLoading } = useCustomAuth();
   const [notes, setNotes] = useState<Note[]>([]);
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [loading, setLoading] = useState(true);
@@ -52,7 +52,6 @@ export default function NotesPage() {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState<number | null>(null);
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showViewer, setShowViewer] = useState(false);
   const [viewerNoteIndex, setViewerNoteIndex] = useState(0);
 
@@ -66,48 +65,27 @@ export default function NotesPage() {
   const [selectedSubjectName, setSelectedSubjectName] = useState<string>("");
 
   useEffect(() => {
-    // Check authentication
-    const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
-    if (!token) {
-      // Wait for session to load
-      if (session === undefined) return;
-      if (session === null) {
-        toast.error("Please login to access notes");
-        router.push("/login");
-        return;
-      }
+    if (!authLoading && isAuthenticated) {
+      fetchData();
     }
-    setIsAuthenticated(true);
-    fetchData();
-  }, [router, session]);
+  }, [authLoading, isAuthenticated]);
 
   const fetchData = async () => {
     try {
       setLoading(true);
-
-      // Get token from localStorage or session
-      let token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
-
-      // Check if token exists
-      if (!token) {
-        console.error("No access token found");
-        toast.error("Please login to continue");
-        router.push("/login");
-        return;
-      }
 
       // First, try to make the request
       try {
         const [notesResponse, subjectsResponse, educationLevelsResponse] =
           await Promise.all([
             axios.get(`/api/v1/notes`, {
-              headers: { Authorization: `Bearer ${token}` },
+              withCredentials: true,
             }),
             axios.get(`/api/v1/subjects`, {
-              headers: { Authorization: `Bearer ${token}` },
+              withCredentials: true,
             }),
             axios.get("/api/v1/education-levels", {
-              headers: { Authorization: `Bearer ${token}` },
+              withCredentials: true,
             }),
           ]);
 
@@ -115,69 +93,18 @@ export default function NotesPage() {
         setSubjects(subjectsResponse.data);
         setEducationLevels(educationLevelsResponse.data.education_levels || []);
       } catch (error: any) {
-        // If 401, try to refresh token
+        // If 401, redirect to login
         if (axios.isAxiosError(error) && error.response?.status === 401) {
-          console.log("Token expired, attempting refresh...");
-
-          // Try to refresh the token
-          const refreshToken = localStorage.getItem("refreshToken");
-          if (refreshToken) {
-            try {
-              const refreshResponse = await axios.post(
-                "/api/v1/token/refresh",
-                {
-                  refresh_token: refreshToken,
-                }
-              );
-
-              // Save new token
-              const newToken = refreshResponse.data.access_token;
-              localStorage.setItem("accessToken", newToken);
-
-              console.log("Token refreshed successfully, retrying requests...");
-
-              // Retry the requests with new token
-              const [notesResponse, subjectsResponse, educationLevelsResponse] =
-                await Promise.all([
-                  axios.get(`/api/v1/notes`, {
-                    headers: { Authorization: `Bearer ${newToken}` },
-                  }),
-                  axios.get(`/api/v1/subjects`, {
-                    headers: { Authorization: `Bearer ${newToken}` },
-                  }),
-                  axios.get("/api/v1/education-levels", {
-                    headers: { Authorization: `Bearer ${newToken}` },
-                  }),
-                ]);
-
-              setNotes(notesResponse.data);
-              setSubjects(subjectsResponse.data);
-              setEducationLevels(
-                educationLevelsResponse.data.education_levels || []
-              );
-
-              toast.success("Session refreshed");
-            } catch (refreshError) {
-              console.error("Token refresh failed:", refreshError);
-              localStorage.removeItem("accessToken");
-              localStorage.removeItem("refreshToken");
-              localStorage.removeItem("user");
-              toast.error("Session expired. Please login again");
-              router.push("/login");
-            }
-          } else {
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("user");
-            toast.error("Session expired. Please login again");
-            router.push("/login");
-          }
-        } else {
-          throw error;
+          console.log("Session expired or invalid");
+          toast.error("Please login to access notes");
+          router.push("/login");
+          return;
         }
+        throw error;
       }
     } catch (error) {
       console.error("Failed to fetch data:", error);
-      toast.error("Failed to load notes. Please try again.");
+      toast.error("Failed to load notes");
     } finally {
       setLoading(false);
     }
@@ -186,11 +113,10 @@ export default function NotesPage() {
   // Fetch grades when education level changes
   const fetchGrades = async (educationLevel: string) => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get(
         `/api/v1/grades?education_level=${educationLevel}`,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
       setGrades(response.data.grades || []);
@@ -209,10 +135,9 @@ export default function NotesPage() {
     educationLevel: string
   ) => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get(
         `/api/v1/subjects-by-grade?grade=${grade}&education_level=${educationLevel}`,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { withCredentials: true }
       );
       setAvailableSubjects(response.data.subjects || []);
       setSelectedSubjectName(""); // Reset subject selection
@@ -250,9 +175,8 @@ export default function NotesPage() {
     if (!confirm("Are you sure you want to delete this note?")) return;
 
     try {
-      const token = localStorage.getItem("accessToken");
       await axios.delete(`/api/v1/notes/${noteId}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
 
       toast.success("Note deleted successfully");
@@ -265,11 +189,10 @@ export default function NotesPage() {
 
   const handleToggleFavorite = async (noteId: number) => {
     try {
-      const token = localStorage.getItem("accessToken");
       await axios.patch(
         `/api/v1/notes/${noteId}/favorite`,
         {},
-        { headers: { Authorization: `Bearer ${token}` } }
+        { withCredentials: true }
       );
 
       // Update local state
@@ -389,7 +312,7 @@ export default function NotesPage() {
             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
             <div className="absolute -top-24 -right-24 w-48 h-48 bg-indigo-50 rounded-full blur-3xl group-hover:bg-indigo-100 transition-colors duration-500"></div>
             <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-50 rounded-full blur-3xl group-hover:bg-purple-100 transition-colors duration-500"></div>
-            
+
             <div className="relative z-10">
               <div className="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <FiBook className="w-10 h-10 text-gray-400" />
@@ -483,7 +406,9 @@ export default function NotesPage() {
                   <div className="flex items-center justify-between text-xs text-gray-500 mb-3 pb-3 border-b border-gray-100">
                     <span className="flex items-center gap-1.5">
                       <FiFile className="w-3 h-3" />
-                      <span className="font-medium">{note.file_type.toUpperCase()}</span>
+                      <span className="font-medium">
+                        {note.file_type.toUpperCase()}
+                      </span>
                       <span>•</span>
                       <span>{formatFileSize(note.file_size_bytes)}</span>
                     </span>
@@ -493,10 +418,15 @@ export default function NotesPage() {
                         handleToggleFavorite(note.id);
                       }}
                       className={`p-1 rounded transition-colors ${
-                        note.is_favorite ? "text-yellow-500 hover:text-yellow-600" : "text-gray-400 hover:text-yellow-500"
+                        note.is_favorite
+                          ? "text-yellow-500 hover:text-yellow-600"
+                          : "text-gray-400 hover:text-yellow-500"
                       }`}
                     >
-                      <FiStar className="w-4 h-4" fill={note.is_favorite ? "currentColor" : "none"} />
+                      <FiStar
+                        className="w-4 h-4"
+                        fill={note.is_favorite ? "currentColor" : "none"}
+                      />
                     </button>
                   </div>
 

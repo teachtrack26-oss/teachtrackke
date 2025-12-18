@@ -66,15 +66,16 @@ export default function CreateLessonPlanPage() {
   useEffect(() => {
     const fetchTimeSlots = async () => {
       try {
-        const token = localStorage.getItem("accessToken");
         // Fetch time slots for Junior Secondary (or make this dynamic based on grade)
         // For now, we'll fetch the active schedule's slots
         const response = await axios.get("/api/v1/timetable/time-slots", {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         });
-        
+
         // Filter for lesson slots only
-        const lessonSlots = response.data.filter((slot: TimeSlot) => slot.slot_type === "lesson");
+        const lessonSlots = response.data.filter(
+          (slot: TimeSlot) => slot.slot_type === "lesson"
+        );
         setTimeSlots(lessonSlots);
       } catch (error) {
         console.error("Failed to fetch time slots:", error);
@@ -109,7 +110,6 @@ export default function CreateLessonPlanPage() {
     setLoading(true);
 
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.post(
         "/api/v1/lesson-plans",
         {
@@ -117,7 +117,7 @@ export default function CreateLessonPlanPage() {
           subject_id: 1, // You might want to make this selectable
         },
         {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
 
@@ -226,7 +226,10 @@ export default function CreateLessonPlanPage() {
                     >
                       <option value="">Select Time</option>
                       {timeSlots.map((slot) => (
-                        <option key={slot.id} value={`${slot.start_time} - ${slot.end_time}`}>
+                        <option
+                          key={slot.id}
+                          value={`${slot.start_time} - ${slot.end_time}`}
+                        >
                           {slot.start_time} - {slot.end_time}
                         </option>
                       ))}

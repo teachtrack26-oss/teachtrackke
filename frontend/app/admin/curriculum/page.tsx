@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import axios from "axios";
 import toast from "react-hot-toast";
 import {
@@ -52,6 +53,7 @@ const GRADES_BY_LEVEL: Record<string, string[]> = {
 
 export default function CurriculumManagementPage() {
   const router = useRouter();
+  const { user, isAuthenticated, loading: authLoading } = useCustomAuth();
   const [templates, setTemplates] = useState<CurriculumTemplate[]>([]);
   const [filteredTemplates, setFilteredTemplates] = useState<
     CurriculumTemplate[]
@@ -64,16 +66,24 @@ export default function CurriculumManagementPage() {
 
   // Check for Super Admin access on mount
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-      if (user.role !== "SUPER_ADMIN") {
+    if (authLoading) return;
+
+    if (!isAuthenticated) {
+      toast.error("Please login to access admin features");
+      router.push("/login");
+      return;
+    }
+
+    if (isAuthenticated) {
+      const userRole = user?.role;
+      if (userRole !== "SUPER_ADMIN") {
         toast.error("Access denied. Super Admin privileges required.");
         router.push("/admin/dashboard");
         return;
       }
+      fetchTemplates();
     }
-  }, [router]);
+  }, [authLoading, isAuthenticated, user, router]);
 
   const [formData, setFormData] = useState<TemplateFormData>({
     education_level: "",
@@ -89,19 +99,14 @@ export default function CurriculumManagementPage() {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
-    fetchTemplates();
-  }, []);
-
-  useEffect(() => {
     applyFilters();
   }, [templates, filterLevel, filterGrade, filterActive, searchTerm]);
 
   const fetchTemplates = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get("/api/v1/admin/curriculum-templates", {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setTemplates(response.data);
       setLoading(false);
@@ -159,9 +164,8 @@ export default function CurriculumManagementPage() {
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
       await axios.post("/api/v1/admin/curriculum-templates", formData, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       toast.success("Curriculum template added successfully");
       setShowAddModal(false);
@@ -181,12 +185,11 @@ export default function CurriculumManagementPage() {
     if (!editingTemplate) return;
 
     try {
-      const token = localStorage.getItem("accessToken");
       await axios.put(
         `/api/v1/admin/curriculum-templates/${editingTemplate.id}`,
         formData,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
       toast.success("Curriculum template updated successfully");
@@ -211,9 +214,8 @@ export default function CurriculumManagementPage() {
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
       await axios.delete(`/api/v1/admin/curriculum-templates/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       toast.success("Curriculum template deactivated");
       fetchTemplates();

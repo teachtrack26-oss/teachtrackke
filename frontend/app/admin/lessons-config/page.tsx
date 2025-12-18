@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import { FiBook, FiSave, FiEdit2, FiPlus } from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -74,6 +75,7 @@ const LEARNING_AREAS = {
 
 export default function LessonsConfigPage() {
   const router = useRouter();
+  const { isAuthenticated, loading: authLoading } = useCustomAuth();
   const [loading, setLoading] = useState(true);
   const [configs, setConfigs] = useState<LessonConfig[]>([]);
   const [selectedLevel, setSelectedLevel] =
@@ -98,8 +100,16 @@ export default function LessonsConfigPage() {
   });
 
   useEffect(() => {
-    fetchConfigs();
-  }, []);
+    if (authLoading) return;
+    if (!isAuthenticated) {
+      toast.error("Please login to access admin features");
+      router.push("/login");
+      return;
+    }
+    if (isAuthenticated) {
+      fetchConfigs();
+    }
+  }, [authLoading, isAuthenticated, router]);
 
   useEffect(() => {
     // Update selected grade when level changes
@@ -108,7 +118,6 @@ export default function LessonsConfigPage() {
 
   const handleBulkSave = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const subjects = LEARNING_AREAS[selectedLevel];
 
       await axios.post(
@@ -119,7 +128,7 @@ export default function LessonsConfigPage() {
           ...bulkValues,
         },
         {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
 
@@ -134,9 +143,8 @@ export default function LessonsConfigPage() {
 
   const fetchConfigs = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get("/api/v1/admin/lessons-per-week", {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setConfigs(response.data.configs || []);
     } catch (error) {
@@ -189,7 +197,6 @@ export default function LessonsConfigPage() {
     if (!editingConfig) return;
 
     try {
-      const token = localStorage.getItem("accessToken");
       await axios.post(
         "/api/v1/admin/lessons-per-week",
         {
@@ -198,7 +205,7 @@ export default function LessonsConfigPage() {
           ...editValues,
         },
         {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
 

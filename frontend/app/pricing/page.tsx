@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import {
   FiCheck,
   FiX,
@@ -28,7 +28,7 @@ interface PricingConfig {
 
 export default function PricingPage() {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { user, isAuthenticated, loading: authLoading } = useCustomAuth(false);
   const [billingCycle, setBillingCycle] = useState<"termly" | "yearly">(
     "termly"
   );
@@ -47,65 +47,6 @@ export default function PricingPage() {
   );
   const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
 
-  // Check for local auth (email/password login)
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [localUser, setLocalUser] = useState<any>(null);
-
-  useEffect(() => {
-    // Check both NextAuth session and localStorage token
-    const token = localStorage.getItem("accessToken");
-    const userData = localStorage.getItem("user");
-
-    if (session?.user) {
-      setIsLoggedIn(true);
-      setLocalUser(session.user);
-
-      // Fetch fresh user data from backend to ensure subscription status is up to date
-      const fetchFreshUserData = async () => {
-        try {
-          const accessToken = (session as any)?.accessToken || token;
-          if (accessToken) {
-            const res = await axios.get("/api/v1/auth/me", {
-              headers: { Authorization: `Bearer ${accessToken}` },
-            });
-            if (res.data) {
-              setLocalUser(res.data);
-              // Update local storage as well
-              localStorage.setItem("user", JSON.stringify(res.data));
-            }
-          }
-        } catch (err) {
-          console.error("Failed to fetch fresh user data", err);
-        }
-      };
-
-      fetchFreshUserData();
-    } else if (token && userData) {
-      setIsLoggedIn(true);
-      setLocalUser(JSON.parse(userData));
-
-      // Also refresh for local token users
-      const fetchFreshUserData = async () => {
-        try {
-          const res = await axios.get("/api/v1/auth/me", {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          if (res.data) {
-            setLocalUser(res.data);
-            localStorage.setItem("user", JSON.stringify(res.data));
-          }
-        } catch (err) {
-          console.error("Failed to fetch fresh user data", err);
-        }
-      };
-
-      fetchFreshUserData();
-    } else {
-      setIsLoggedIn(false);
-      setLocalUser(null);
-    }
-  }, [session]);
-
   useEffect(() => {
     const fetchPricingConfig = async () => {
       try {
@@ -118,10 +59,7 @@ export default function PricingPage() {
     fetchPricingConfig();
   }, []);
 
-  const currentPlan =
-    localUser?.subscription_type ||
-    (session?.user as any)?.subscription_type ||
-    "FREE";
+  const currentPlan = user?.subscription_type || "FREE";
 
   const currency = pricingConfig?.currency || "KES";
   const termlyLabel = pricingConfig?.termly?.label || "Termly Pass";
@@ -133,7 +71,7 @@ export default function PricingPage() {
   const yearlySavingsKes = Math.max(0, termlyPriceKes * 3 - yearlyPriceKes);
 
   const handleSubscribe = async (plan: string) => {
-    if (!isLoggedIn) {
+    if (!isAuthenticated) {
       toast.error("Please login to subscribe");
       router.push("/login?callbackUrl=/pricing");
       return;
@@ -151,18 +89,15 @@ export default function PricingPage() {
         )
       ) {
         try {
-          const token =
-            localStorage.getItem("accessToken") ||
-            (session as any)?.accessToken;
           await axios.post(
             "/api/v1/payments/downgrade",
             {},
             {
-              headers: { Authorization: `Bearer ${token}` },
+              withCredentials: true,
             }
           );
           toast.success("Plan downgraded to Free");
-          if (localUser && localUser.has_subjects === false) {
+          if (user && user.has_subjects === false) {
             router.push("/curriculum/select");
           } else {
             window.location.reload();
@@ -195,9 +130,6 @@ export default function PricingPage() {
     const loadingToast = toast.loading("Initiating M-Pesa payment...");
 
     try {
-      const token =
-        localStorage.getItem("accessToken") || (session as any)?.accessToken;
-
       // Determine amount based on plan (server currently trusts amount passed)
       const amount =
         selectedPlan === "TERMLY" ? termlyPriceKes : yearlyPriceKes;
@@ -209,7 +141,7 @@ export default function PricingPage() {
           amount: amount,
           plan: selectedPlan,
         },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { withCredentials: true }
       );
 
       toast.dismiss(loadingToast);
@@ -237,13 +169,10 @@ export default function PricingPage() {
   const checkPaymentOnce = async () => {
     if (!checkoutRequestId) return;
 
-    const token =
-      localStorage.getItem("accessToken") || (session as any)?.accessToken;
-
     try {
       const response = await axios.get(
         `/api/v1/payments/status/${checkoutRequestId}`,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { withCredentials: true }
       );
 
       const status = response.data.status;
@@ -258,7 +187,7 @@ export default function PricingPage() {
         setTimeout(() => {
           setIsModalOpen(false);
           setCheckoutRequestId(null);
-          if (localUser && localUser.has_subjects === false) {
+          if (user && user.has_subjects === false) {
             router.push("/curriculum/select");
           } else {
             window.location.reload();
@@ -285,8 +214,6 @@ export default function PricingPage() {
   };
 
   const pollPaymentStatus = async (checkoutId: string) => {
-    const token =
-      localStorage.getItem("accessToken") || (session as any)?.accessToken;
     let attempts = 0;
     const maxAttempts = 12; // Poll for up to 2 minutes (12 * 10 seconds)
 
@@ -303,7 +230,7 @@ export default function PricingPage() {
       try {
         const response = await axios.get(
           `/api/v1/payments/status/${checkoutId}`,
-          { headers: { Authorization: `Bearer ${token}` } }
+          { withCredentials: true }
         );
 
         const status = response.data.status;
@@ -318,7 +245,7 @@ export default function PricingPage() {
           setTimeout(() => {
             setIsModalOpen(false);
             setCheckoutRequestId(null);
-            if (localUser && localUser.has_subjects === false) {
+            if (user && user.has_subjects === false) {
               router.push("/curriculum/select");
             } else {
               window.location.reload();
@@ -565,14 +492,14 @@ export default function PricingPage() {
                 Mwalimu Starter
               </h3>
               <p className="absolute top-0 py-1.5 px-4 bg-gray-100 text-gray-500 text-xs font-bold uppercase tracking-wide transform -translate-y-1/2 rounded-full">
-                Free Forever
+                30-Day Free Trial
               </p>
               <p className="mt-4 flex items-baseline text-gray-900">
                 <span className="text-5xl font-extrabold tracking-tight">
                   KES 0
                 </span>
                 <span className="ml-1 text-xl font-semibold text-gray-500">
-                  /forever
+                  /30 days
                 </span>
               </p>
               <p className="mt-6 text-gray-500">
@@ -615,35 +542,36 @@ export default function PricingPage() {
                     No Full Term Generation
                   </span>
                 </li>
+                <li className="flex">
+                  <FiCheck className="flex-shrink-0 w-5 h-5 text-green-500" />
+                  <span className="ml-3 text-gray-500">
+                    Access to Dashboard, Notes, Curriculum, Records & Timetable
+                  </span>
+                </li>
               </ul>
             </div>
             <div className="p-8 bg-gray-50 rounded-b-2xl">
               <button
                 onClick={() => {
-                  if (
-                    currentPlan === "FREE" &&
-                    localUser?.has_subjects === false
-                  ) {
+                  if (currentPlan === "FREE" && user?.has_subjects === false) {
                     router.push("/curriculum/select");
                   } else {
                     handleSubscribe("FREE");
                   }
                 }}
                 disabled={
-                  (currentPlan === "FREE" &&
-                    localUser?.has_subjects !== false) ||
+                  (currentPlan === "FREE" && user?.has_subjects !== false) ||
                   currentPlan === "SCHOOL_SPONSORED"
                 }
                 className={`w-full block border rounded-md py-3 text-sm font-semibold text-center ${
-                  (currentPlan === "FREE" &&
-                    localUser?.has_subjects !== false) ||
+                  (currentPlan === "FREE" && user?.has_subjects !== false) ||
                   currentPlan === "SCHOOL_SPONSORED"
                     ? "bg-gray-100 text-gray-400 border-gray-200 cursor-default"
                     : "bg-white text-gray-900 border-gray-300 hover:bg-gray-50"
                 }`}
               >
                 {currentPlan === "FREE"
-                  ? localUser?.has_subjects === false
+                  ? user?.has_subjects === false
                     ? "Continue with Free"
                     : "Current Plan"
                   : currentPlan === "SCHOOL_SPONSORED"

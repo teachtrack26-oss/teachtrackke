@@ -38,6 +38,13 @@ def create_or_update_teacher_profile(
     profile = db.query(TeacherProfile).filter(TeacherProfile.user_id == current_user.id).first()
     
     if profile:
+        # Prevent School Name changes to avoid misuse (generating for multiple schools)
+        if profile.school_name and profile_data.school_name and profile.school_name != profile_data.school_name:
+             raise HTTPException(
+                status_code=403, 
+                detail="School Name cannot be changed once set. This is to prevent account sharing. Please contact support if you have moved schools."
+            )
+
         # Update existing
         for key, value in profile_data.dict(exclude_unset=True).items():
             setattr(profile, key, value)

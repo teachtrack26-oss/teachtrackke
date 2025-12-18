@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { FiArrowLeft, FiSave, FiPlus, FiTrash2 } from "react-icons/fi";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
+import { FiArrowLeft, FiSave, FiPlus, FiTrash2, FiLock } from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -87,10 +88,13 @@ interface Week {
 interface SchemeOfWork {
   id: number;
   subject_id: number;
-  subject_name: string;
+  subject_name?: string;
+  subject?: string;
   grade: string;
-  term_number: number;
-  term_year: number;
+  term?: string;
+  year?: number;
+  term_number?: number;
+  term_year?: number;
   total_weeks: number;
   total_lessons: number;
   status: "draft" | "active" | "completed";
@@ -100,7 +104,14 @@ interface SchemeOfWork {
 export default function EditSchemePage() {
   const router = useRouter();
   const params = useParams();
+  const { user, isAuthenticated, loading: authLoading } = useCustomAuth();
   const schemeId = params?.id as string;
+
+  const isPremium =
+    user?.subscription_type === "INDIVIDUAL_PREMIUM" ||
+    user?.subscription_type === "SCHOOL_SPONSORED" ||
+    !!user?.school_id ||
+    user?.role === "SUPER_ADMIN";
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -114,11 +125,33 @@ export default function EditSchemePage() {
 
   const fetchScheme = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get(`/api/v1/schemes/${schemeId}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
-      setScheme(response.data);
+      const parseTermNumber = (termValue: unknown): number | undefined => {
+        if (!termValue) return undefined;
+        const match = String(termValue).match(/(\d+)/);
+        if (!match) return undefined;
+        const parsed = Number(match[1]);
+        return Number.isFinite(parsed) ? parsed : undefined;
+      };
+
+      const s = response.data;
+      const subject_name = s.subject_name ?? s.subject;
+      const term =
+        s.term ?? (s.term_number != null ? `Term ${s.term_number}` : undefined);
+      const year = s.year ?? s.term_year;
+      const term_number = s.term_number ?? parseTermNumber(term);
+      const term_year = s.term_year ?? year;
+
+      setScheme({
+        ...s,
+        subject_name,
+        term,
+        year,
+        term_number,
+        term_year,
+      });
     } catch (error) {
       console.error("Failed to fetch scheme:", error);
       toast.error("Failed to load scheme of work");
@@ -317,9 +350,8 @@ export default function EditSchemePage() {
 
     setSaving(true);
     try {
-      const token = localStorage.getItem("accessToken");
       await axios.put(`/api/v1/schemes/${schemeId}`, scheme, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       toast.success("Scheme updated successfully!");
       router.push(`/professional-records/schemes/${schemeId}`);
@@ -347,7 +379,60 @@ export default function EditSchemePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100 relative overflow-hidden">
+    <div
+      className={`min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100 relative overflow-hidden ${
+        !isPremium ? "select-none" : ""
+      }`}
+      onContextMenu={(e) => {
+        if (!isPremium) {
+          e.preventDefault();
+          toast.error("Right-click is disabled for preview.");
+        }
+      }}
+    >
+      {/* Watermark for non-premium users */}
+      {!isPremium && (
+        <div className="fixed inset-0 pointer-events-none z-50 grid grid-cols-3 gap-y-32 gap-x-12 content-start justify-items-center overflow-hidden opacity-10 p-10">
+          {Array.from({ length: 60 }).map((_, i) => (
+            <div
+              key={i}
+              className="transform -rotate-45 text-gray-900 text-3xl font-black whitespace-nowrap select-none"
+            >
+              {user?.email || "PREVIEW ONLY"}
+            </div>
+          ))}
+        </div>
+      )}
+      <style jsx global>{`
+        @media print {
+          /* Hide content for non-premium users during print */
+          ${!isPremium
+            ? `
+            body > * {
+              display: none !important;
+            }
+            body::after {
+              content: "Printing is available on Premium plans only. Please upgrade to print.";
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              font-size: 24pt;
+              font-weight: bold;
+              color: #555;
+              text-align: center;
+              padding: 20px;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              background: white;
+              z-index: 9999;
+            }
+          `
+            : ""}
+        }
+      `}</style>
       {/* Animated background */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 left-20 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
@@ -355,6 +440,34 @@ export default function EditSchemePage() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
+        {/* Free Plan Banner */}
+        {!isPremium && (
+          <div className="mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 shadow-sm relative overflow-hidden no-print">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                  <FiLock className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900">
+                    Preview Mode Active
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Upgrade to Premium to edit this Scheme of Work without
+                    restrictions.
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => router.push("/pricing")}
+                className="whitespace-nowrap px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white text-sm font-bold rounded-lg shadow-md transition-all"
+              >
+                Upgrade Now
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Header */}
         <div className="mb-8">
           <button
@@ -373,8 +486,15 @@ export default function EditSchemePage() {
                 Edit Scheme of Work
               </h1>
               <p className="text-lg text-gray-700 mt-2">
-                {scheme.subject_name} - {scheme.grade} - Term{" "}
-                {scheme.term_number} • {scheme.term_year}
+                {scheme.subject_name || scheme.subject || "Unknown Subject"} -{" "}
+                {scheme.grade} -{" "}
+                {scheme.term ||
+                  (scheme.term_number != null
+                    ? `Term ${scheme.term_number}`
+                    : "Term")}
+                {(scheme.year ?? scheme.term_year) != null
+                  ? ` • ${scheme.year ?? scheme.term_year}`
+                  : ""}
               </p>
             </div>
 

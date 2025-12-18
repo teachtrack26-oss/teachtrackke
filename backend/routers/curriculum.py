@@ -105,12 +105,21 @@ async def use_curriculum_templates_bulk(
         subject_count = db.query(Subject).filter(Subject.user_id == current_user.id).count()
         sub_type = current_user.subscription_type or SubscriptionType.FREE
         
-        if sub_type == SubscriptionType.FREE and subject_count >= 2:
-             results["failed"].append({"id": template_id, "subject": template.subject, "reason": "Free plan limit reached (2 subjects). Upgrade to add more."})
-             continue
+        # Check if trial is active - limit to 6 subjects
+        if current_user.is_trial_active:
+            if subject_count >= 6:
+                results["failed"].append({"id": template_id, "subject": template.subject, "reason": "Free Trial limit reached (6 subjects)."})
+                continue
+        elif sub_type == SubscriptionType.FREE and subject_count >= 6:
+            results["failed"].append({"id": template_id, "subject": template.subject, "reason": "Free plan limit reached (6 subjects). Upgrade to add more."})
+            continue
+        # Enforce 6 subject limit for ALL paid individual plans
+        elif sub_type in [SubscriptionType.INDIVIDUAL_BASIC, SubscriptionType.INDIVIDUAL_PREMIUM] and subject_count >= 6:
+            results["failed"].append({"id": template_id, "subject": template.subject, "reason": "Plan limit reached (6 subjects). Contact support for more."})
+            continue
         elif sub_type == SubscriptionType.INDIVIDUAL_BASIC and subject_count >= 6:
-             results["failed"].append({"id": template_id, "subject": template.subject, "reason": "Basic plan limit reached (6 subjects). Upgrade to add more."})
-             continue
+            results["failed"].append({"id": template_id, "subject": template.subject, "reason": "Basic plan limit reached (6 subjects). Upgrade to add more."})
+            continue
 
         try:
             # 3. Create the Subject
@@ -214,8 +223,8 @@ async def use_curriculum_template(
     subject_count = db.query(Subject).filter(Subject.user_id == current_user.id).count()
     sub_type = current_user.subscription_type or SubscriptionType.FREE
     
-    if sub_type == SubscriptionType.FREE and subject_count >= 2:
-        raise HTTPException(status_code=403, detail="Free plan is limited to 2 subjects. Please upgrade to add more.")
+    if sub_type == SubscriptionType.FREE and subject_count >= 6:
+        raise HTTPException(status_code=403, detail="Free plan is limited to 6 subjects. Please upgrade to add more.")
     elif sub_type == SubscriptionType.INDIVIDUAL_BASIC and subject_count >= 6:
         raise HTTPException(status_code=403, detail="Basic plan is limited to 6 subjects. Please upgrade to Premium for unlimited subjects.")
 

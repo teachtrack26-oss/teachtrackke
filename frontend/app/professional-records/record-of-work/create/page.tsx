@@ -33,9 +33,8 @@ export default function CreateRecordOfWorkPage() {
 
   const fetchSchemes = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get("/api/v1/schemes", {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setSchemes(response.data);
     } catch (error) {
@@ -49,11 +48,10 @@ export default function CreateRecordOfWorkPage() {
   const handleGenerate = async (schemeId: number) => {
     setGenerating(schemeId);
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.post(
         `/api/v1/records-of-work/create-from-scheme/${schemeId}`,
         {},
-        { headers: { Authorization: `Bearer ${token}` } }
+        { withCredentials: true }
       );
       toast.success("Record of Work generated successfully!");
       router.push(`/professional-records/record-of-work/${response.data.id}`);

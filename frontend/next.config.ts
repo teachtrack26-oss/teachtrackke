@@ -26,6 +26,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
     formats: ["image/webp", "image/avif"],
+    qualities: [75, 100],
     remotePatterns: [
       {
         protocol: "http",

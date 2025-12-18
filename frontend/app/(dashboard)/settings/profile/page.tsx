@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import axios from "axios";
 import toast from "react-hot-toast";
 import {
@@ -170,23 +170,13 @@ const ACTIVITY_TYPES = [
 
 export default function TeacherSettingsPage() {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { isAuthenticated, loading: authLoading } = useCustomAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [activeSection, setActiveSection] = useState<
     "basic" | "terms" | "calendar" | "timetable"
   >("basic");
   const [isSchoolLinked, setIsSchoolLinked] = useState(false);
-
-  // Get auth token
-  const getAuthToken = (): string | null => {
-    const sessionToken = (session as any)?.accessToken;
-    if (sessionToken) return sessionToken;
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("accessToken");
-    }
-    return null;
-  };
 
   // School Settings State
   const [settings, setSettings] = useState<SchoolSettings>({
@@ -239,28 +229,22 @@ export default function TeacherSettingsPage() {
 
   // Fetch data on mount
   useEffect(() => {
-    if (status === "loading") return;
-    const token = getAuthToken();
-    if (!token) {
-      setLoading(false);
-      return;
+    if (authLoading) return;
+    if (isAuthenticated) {
+      fetchAllData();
     }
-    fetchAllData();
-  }, [session, status]);
+  }, [authLoading, isAuthenticated]);
 
   const fetchAllData = async () => {
-    const token = getAuthToken();
-    if (!token) return;
-
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const apiUrl = ""; // Use relative path for proxy
 
       // Check if user is linked to school
       try {
         const contextRes = await axios.get(
           `${apiUrl}/api/v1/profile/school-context`,
           {
-            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
           }
         );
         setIsSchoolLinked(contextRes.data.is_school_linked || false);
@@ -273,7 +257,7 @@ export default function TeacherSettingsPage() {
         const profileRes = await axios.get(
           `${apiUrl}/api/v1/profile/settings`,
           {
-            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
           }
         );
         const data = profileRes.data;
@@ -304,7 +288,7 @@ export default function TeacherSettingsPage() {
       // Fetch terms (use school-terms endpoint)
       try {
         const termsRes = await axios.get(`${apiUrl}/api/v1/school-terms`, {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         });
         setTerms(termsRes.data || []);
       } catch (err) {
@@ -318,7 +302,7 @@ export default function TeacherSettingsPage() {
             selectedLevel
           )}`,
           {
-            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
           }
         );
         if (scheduleRes.data) {
@@ -356,15 +340,9 @@ export default function TeacherSettingsPage() {
 
   // Save basic settings
   const handleSaveBasicSettings = async () => {
-    const token = getAuthToken();
-    if (!token) {
-      toast.error("Please log in to save settings");
-      return;
-    }
-
     setSaving(true);
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const apiUrl = ""; // Use relative path
 
       // Upload logo if changed
       if (logoFile) {
@@ -374,7 +352,7 @@ export default function TeacherSettingsPage() {
           `${apiUrl}/api/v1/profile/upload-logo`,
           formData,
           {
-            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
           }
         );
         settings.school_logo_url = logoRes.data.logo_url;
@@ -383,7 +361,7 @@ export default function TeacherSettingsPage() {
 
       // Save settings
       await axios.post(`${apiUrl}/api/v1/profile/settings`, settings, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
 
       toast.success("Settings saved successfully!");
@@ -398,11 +376,9 @@ export default function TeacherSettingsPage() {
   // Term management
   const handleSaveTerm = async () => {
     if (!editingTerm) return;
-    const token = getAuthToken();
-    if (!token) return;
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const apiUrl = ""; // Use relative path
 
       const termData = {
         ...editingTerm,
@@ -414,7 +390,7 @@ export default function TeacherSettingsPage() {
           `${apiUrl}/api/v1/school-terms/${editingTerm.id}`,
           termData,
           {
-            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
           }
         );
         setTerms(terms.map((t) => (t.id === editingTerm.id ? editingTerm : t)));
@@ -423,7 +399,7 @@ export default function TeacherSettingsPage() {
           `${apiUrl}/api/v1/school-terms`,
           termData,
           {
-            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
           }
         );
         setTerms([...terms, res.data]);
@@ -438,15 +414,12 @@ export default function TeacherSettingsPage() {
   };
 
   const handleDeleteTerm = async (termId: number) => {
-    const token = getAuthToken();
-    if (!token) return;
-
     if (!confirm("Are you sure you want to delete this term?")) return;
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const apiUrl = ""; // Use relative path
       await axios.delete(`${apiUrl}/api/v1/school-terms/${termId}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setTerms(terms.filter((t) => t.id !== termId));
       toast.success("Term deleted");
@@ -457,14 +430,11 @@ export default function TeacherSettingsPage() {
 
   // Schedule config
   const handleSaveSchedule = async () => {
-    const token = getAuthToken();
-    if (!token) return;
-
     setSaving(true);
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const apiUrl = ""; // Use relative path
       await axios.post(`${apiUrl}/api/v1/timetable/schedules`, scheduleConfig, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       toast.success("Schedule saved successfully!");
     } catch (error: any) {
@@ -601,7 +571,7 @@ export default function TeacherSettingsPage() {
   };
 
   // Loading state
-  if (status === "loading" || loading) {
+  if (authLoading || loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
@@ -610,8 +580,7 @@ export default function TeacherSettingsPage() {
   }
 
   // Auth check
-  const hasAuth = status === "authenticated" || getAuthToken();
-  if (!hasAuth) {
+  if (!isAuthenticated) {
     return (
       <div className="container mx-auto p-6 max-w-4xl">
         <div className="bg-red-50 border-l-4 border-red-400 p-6 rounded-lg">

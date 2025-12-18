@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import { toast } from "react-hot-toast";
+import axios from "axios";
 import {
   FiClock,
   FiBook,
@@ -364,7 +365,14 @@ const getSubjectTheme = (subjectName: string) => {
 
 const TimetablePage = () => {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { user, isAuthenticated, loading: authLoading } = useCustomAuth();
+
+  const isPremium =
+    user?.subscription_type === "INDIVIDUAL_PREMIUM" ||
+    user?.subscription_type === "SCHOOL_SPONSORED" ||
+    !!user?.school_id ||
+    user?.role === "SUPER_ADMIN";
+
   const [isLoading, setIsLoading] = useState(true);
   const [schedule, setSchedule] = useState<any>(null);
   const [timeSlots, setTimeSlots] = useState<any[]>([]);
@@ -411,19 +419,12 @@ const TimetablePage = () => {
   };
 
   useEffect(() => {
-    const token =
-      localStorage.getItem("accessToken") || (session as any)?.accessToken;
-    if (!token) {
-      // Wait for session to load
-      if (session === undefined) return;
-      if (session === null) {
-        toast.error("Please login");
-        router.push("/login");
-        return;
-      }
+    if (authLoading) return;
+
+    if (isAuthenticated) {
+      loadData();
     }
-    loadData();
-  }, [selectedViewLevel, session]); // Reload when level changes or session loads
+  }, [selectedViewLevel, isAuthenticated, authLoading]);
 
   // Timer and status update effect
   useEffect(() => {
@@ -432,9 +433,7 @@ const TimetablePage = () => {
 
   const loadData = async () => {
     try {
-      const token =
-        localStorage.getItem("accessToken") || (session as any)?.accessToken;
-      const headers = { Authorization: `Bearer ${token}` };
+      const config = { withCredentials: true };
 
       // Handle "All Levels" view differently
       if (selectedViewLevel === "All Levels") {
@@ -442,15 +441,16 @@ const TimetablePage = () => {
 
         // Fetch all entries (no level filter)
         let fetchedEntries: any[] = [];
-        const entriesRes = await fetch(
-          "http://localhost:8000/api/v1/timetable/entries",
-          { headers }
-        );
-        if (entriesRes.ok) {
-          const data = await entriesRes.json();
-          fetchedEntries = Array.isArray(data) ? data : [];
+        try {
+          const entriesRes = await axios.get(
+            "/api/v1/timetable/entries",
+            config
+          );
+          fetchedEntries = Array.isArray(entriesRes.data)
+            ? entriesRes.data
+            : [];
           setEntries(fetchedEntries);
-        } else {
+        } catch (e) {
           setEntries([]);
         }
 
@@ -463,13 +463,14 @@ const TimetablePage = () => {
           "Senior Secondary",
         ];
         const allSlotsPromises = allLevels.map((level) =>
-          fetch(
-            `http://localhost:8000/api/v1/timetable/time-slots?education_level=${encodeURIComponent(
-              level
-            )}`,
-            { headers }
-          )
-            .then((res) => (res.ok ? res.json() : []))
+          axios
+            .get(
+              `/api/v1/timetable/time-slots?education_level=${encodeURIComponent(
+                level
+              )}`,
+              config
+            )
+            .then((res) => res.data)
             .then((slots) =>
               slots.map((s: any) => ({ ...s, education_level: level }))
             )
@@ -514,29 +515,31 @@ const TimetablePage = () => {
         });
       } else {
         // Level-specific view (existing code)
-        const scheduleRes = await fetch(
-          `http://localhost:8000/api/v1/timetable/schedules/active?education_level=${encodeURIComponent(
-            selectedViewLevel
-          )}`,
-          { headers }
-        );
-        if (!scheduleRes.ok) {
+        let scheduleData;
+        try {
+          const scheduleRes = await axios.get(
+            `/api/v1/timetable/schedules/active?education_level=${encodeURIComponent(
+              selectedViewLevel
+            )}`,
+            config
+          );
+          scheduleData = scheduleRes.data;
+          setSchedule(scheduleData);
+        } catch (e) {
           setSchedule(null);
           setTimeSlots([]);
           setEntries([]);
           setIsLoading(false);
           return;
         }
-        const scheduleData = await scheduleRes.json();
-        setSchedule(scheduleData);
 
-        const slotsRes = await fetch(
-          `http://localhost:8000/api/v1/timetable/time-slots?education_level=${encodeURIComponent(
+        const slotsRes = await axios.get(
+          `/api/v1/timetable/time-slots?education_level=${encodeURIComponent(
             selectedViewLevel
           )}`,
-          { headers }
+          config
         );
-        const slotsData = await slotsRes.json();
+        const slotsData = slotsRes.data;
 
         console.log("Raw time slots from API:", slotsData);
 
@@ -555,52 +558,40 @@ const TimetablePage = () => {
         setTimeSlots(lessonSlots);
         console.log("Time slots set to state:", lessonSlots);
 
-        const levelEntriesRes = await fetch(
-          "http://localhost:8000/api/v1/timetable/entries",
-          { headers }
+        const levelEntriesRes = await axios.get(
+          "/api/v1/timetable/entries",
+          config
         );
-        if (levelEntriesRes.ok) {
-          const data = await levelEntriesRes.json();
-          setEntries(Array.isArray(data) ? data : []);
-        } else {
-          setEntries([]);
-        }
+        setEntries(
+          Array.isArray(levelEntriesRes.data) ? levelEntriesRes.data : []
+        );
       }
 
       // Fetch USER'S SUBJECTS (for displaying in timetable)
-      const userSubjectsRes = await fetch(
-        "http://localhost:8000/api/v1/subjects",
-        { headers }
-      );
-      const userSubjects = await userSubjectsRes.json();
+      const userSubjectsRes = await axios.get("/api/v1/subjects", config);
+      const userSubjects = userSubjectsRes.data;
       console.log("Loaded user subjects:", userSubjects);
 
       // Fetch all curriculum templates (learning areas) - any teacher can use any template
       let curriculumData = [];
       try {
         // Try admin endpoint first (works if user has admin access)
-        const adminRes = await fetch(
-          "http://localhost:8000/api/v1/admin/curriculum-templates?is_active=true",
-          {
-            headers,
-          }
+        const adminRes = await axios.get(
+          "/api/v1/admin/curriculum-templates?is_active=true",
+          config
         );
-        if (adminRes.ok) {
-          curriculumData = await adminRes.json();
-        } else {
-          // Fall back to public endpoint
-          const publicRes = await fetch(
-            "http://localhost:8000/api/v1/curriculum-templates",
-            {
-              headers,
-            }
+        curriculumData = adminRes.data;
+      } catch (e) {
+        // Fall back to public endpoint
+        try {
+          const publicRes = await axios.get(
+            "/api/v1/curriculum-templates",
+            config
           );
-          const publicData = await publicRes.json();
-          curriculumData = publicData.templates || [];
+          curriculumData = publicRes.data;
+        } catch (err) {
+          console.error("Failed to fetch curriculum templates", err);
         }
-      } catch (error) {
-        console.error("Failed to fetch curriculum templates:", error);
-        toast.error("Failed to load learning areas");
       }
 
       // Transform curriculum templates to match expected format
@@ -638,34 +629,25 @@ const TimetablePage = () => {
     );
 
     try {
-      const token = localStorage.getItem("accessToken");
+      const config = { withCredentials: true };
       const url = editingEntry
-        ? `http://localhost:8000/api/v1/timetable/entries/${editingEntry.id}`
-        : "http://localhost:8000/api/v1/timetable/entries";
-      const response = await fetch(url, {
-        method: editingEntry ? "PUT" : "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(formData),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Response from server:", data);
-        toast.success("Lesson saved successfully!");
-        setIsAddModalOpen(false);
-        setEditingEntry(null);
-        setSelectedSubject(null);
-        loadData();
+        ? `/api/v1/timetable/entries/${editingEntry.id}`
+        : "/api/v1/timetable/entries";
+
+      if (editingEntry) {
+        await axios.put(url, formData, config);
       } else {
-        const error = await response.json();
-        console.error("Server error:", error);
-        toast.error(error.detail || "Failed to save lesson");
+        await axios.post(url, formData, config);
       }
-    } catch (error) {
+
+      toast.success("Lesson saved successfully!");
+      setIsAddModalOpen(false);
+      setEditingEntry(null);
+      setSelectedSubject(null);
+      loadData();
+    } catch (error: any) {
       console.error("Submit error:", error);
-      toast.error("Failed to save lesson");
+      toast.error(error.response?.data?.detail || "Failed to save lesson");
     }
   };
 
@@ -673,21 +655,12 @@ const TimetablePage = () => {
     if (!confirm("Are you sure you want to delete this lesson?")) return;
 
     try {
-      const token = localStorage.getItem("accessToken");
-      const response = await fetch(
-        `http://localhost:8000/api/v1/timetable/entries/${entryId}`,
-        {
-          method: "DELETE",
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      await axios.delete(`/api/v1/timetable/entries/${entryId}`, {
+        withCredentials: true,
+      });
 
-      if (response.ok) {
-        toast.success("Lesson deleted");
-        loadData();
-      } else {
-        toast.error("Failed to delete lesson");
-      }
+      toast.success("Lesson deleted");
+      loadData();
     } catch (error) {
       toast.error("Failed to delete lesson");
     }
@@ -726,11 +699,6 @@ const TimetablePage = () => {
     setEntries(updatedEntries);
 
     try {
-      const token = localStorage.getItem("accessToken");
-      // We need to send the full payload required by the API
-      // We'll fetch the current entry data first or just construct it from what we have
-      // The API expects: subject_id, time_slot_id, day_of_week, etc.
-
       const payload = {
         subject_id: entry.subject_id,
         time_slot_id: newTimeSlotId,
@@ -741,21 +709,9 @@ const TimetablePage = () => {
         is_double_lesson: entry.is_double_lesson,
       };
 
-      const response = await fetch(
-        `http://localhost:8000/api/v1/timetable/entries/${entryId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(payload),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to update lesson position");
-      }
+      await axios.put(`/api/v1/timetable/entries/${entryId}`, payload, {
+        withCredentials: true,
+      });
 
       toast.success("Lesson moved", { duration: 1500, icon: "👌" });
     } catch (error) {
@@ -936,7 +892,6 @@ const TimetablePage = () => {
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
       let successCount = 0;
       let failCount = 0;
 
@@ -954,21 +909,12 @@ const TimetablePage = () => {
           is_double_lesson: formData.is_double_lesson,
         };
 
-        const response = await fetch(
-          "http://localhost:8000/api/v1/timetable/entries",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(lessonData),
-          }
-        );
-
-        if (response.ok) {
+        try {
+          await axios.post("/api/v1/timetable/entries", lessonData, {
+            withCredentials: true,
+          });
           successCount++;
-        } else {
+        } catch (e) {
           failCount++;
         }
       }
@@ -1052,6 +998,35 @@ const TimetablePage = () => {
           }
           .print\\:hidden {
             display: none !important;
+          }
+          
+          /* Hide content for non-premium users during print */
+          ${
+            !isPremium
+              ? `
+            #timetable-content {
+              display: none !important;
+            }
+            body::after {
+              content: "Printing is available on Premium plans only. Please upgrade to print.";
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              font-size: 24pt;
+              font-weight: bold;
+              color: #555;
+              text-align: center;
+              padding: 20px;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              background: white;
+              z-index: 9999;
+            }
+          `
+              : ""
           }
         }
       `}</style>
@@ -1208,11 +1183,27 @@ const TimetablePage = () => {
               </div>
 
               <button
-                onClick={() => window.print()}
-                className="inline-flex items-center gap-2 px-4 py-3 bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700 rounded-xl font-semibold transition-all shadow-sm hover:shadow group print:hidden"
+                onClick={() => {
+                  if (!isPremium) {
+                    toast.error(
+                      "Printing is available on Premium plans only. Please upgrade to print."
+                    );
+                    return;
+                  }
+                  window.print();
+                }}
+                disabled={!isPremium}
+                className={`inline-flex items-center gap-2 px-4 py-3 border rounded-xl font-semibold transition-all shadow-sm hover:shadow group print:hidden ${
+                  !isPremium
+                    ? "bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200"
+                    : "bg-white border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700"
+                }`}
+                title={!isPremium ? "Upgrade to print" : "Print"}
               >
                 <FiPrinter className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                <span className="hidden sm:inline">Print</span>
+                <span className="hidden sm:inline">
+                  {!isPremium ? "Preview Only" : "Print"}
+                </span>
               </button>
 
               <button

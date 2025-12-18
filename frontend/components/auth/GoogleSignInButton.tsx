@@ -12,17 +12,23 @@ export default function GoogleSignInButton() {
   const handleSuccess = async (credentialResponse: any) => {
     setIsLoading(true);
     setError(null);
-    
+
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/auth/google`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token: credentialResponse.credential,
-        }),
-      });
+      const res = await fetch(
+        `${
+          process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+        }/api/v1/auth/google`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            token: credentialResponse.credential,
+          }),
+        }
+      );
 
       const data = await res.json();
 
@@ -31,8 +37,8 @@ export default function GoogleSignInButton() {
       }
 
       // Store token and user data
-      localStorage.setItem("token", data.access_token);
-      localStorage.setItem("user", JSON.stringify(data.user));
+      // localStorage.setItem("token", data.access_token);
+      // localStorage.setItem("user", JSON.stringify(data.user));
 
       // Redirect to dashboard
       router.push("/dashboard");
@@ -46,7 +52,10 @@ export default function GoogleSignInButton() {
   };
 
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-  console.log("Google Client ID loaded:", clientId ? "Yes (" + clientId.substring(0, 10) + "...)" : "No");
+  console.log(
+    "Google Client ID loaded:",
+    clientId ? "Yes (" + clientId.substring(0, 10) + "...)" : "No"
+  );
 
   if (!clientId) {
     return (
@@ -71,14 +80,12 @@ export default function GoogleSignInButton() {
           />
         </div>
       </GoogleOAuthProvider>
-      
+
       {isLoading && (
         <p className="text-sm text-gray-500 animate-pulse">Signing in...</p>
       )}
-      
-      {error && (
-        <p className="text-sm text-red-500 text-center">{error}</p>
-      )}
+
+      {error && <p className="text-sm text-red-500 text-center">{error}</p>}
     </div>
   );
 }

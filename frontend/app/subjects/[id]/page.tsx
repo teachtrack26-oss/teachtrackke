@@ -43,22 +43,14 @@ export default function SubjectDetailPage() {
   );
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      toast.error("Please login to view subject details");
-      router.push("/login");
-      return;
-    }
     fetchSubjectDetails();
   }, [subjectId]);
 
   const fetchSubjectDetails = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
-
       // Fetch subject info
       const subjectResponse = await axios.get(`/api/v1/subjects/${subjectId}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setSubject(subjectResponse.data);
 
@@ -66,7 +58,7 @@ export default function SubjectDetailPage() {
       const strandsResponse = await axios.get(
         `/api/v1/subjects/${subjectId}/strands`,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
       const fetchedStrands = strandsResponse.data;
@@ -80,8 +72,6 @@ export default function SubjectDetailPage() {
     } catch (error) {
       console.error("Failed to fetch subject details:", error);
       if (axios.isAxiosError(error) && error.response?.status === 401) {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("user");
         router.push("/login");
       } else {
         toast.error("Failed to load subject details");

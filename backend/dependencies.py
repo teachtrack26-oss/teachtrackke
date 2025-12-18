@@ -12,16 +12,28 @@ from models import (
 )
 from auth import verify_token
 
-security = HTTPBearer()
+security = HTTPBearer(auto_error=False)
 
 def get_current_user(
     request: Request,
-    credentials: HTTPAuthorizationCredentials = Depends(security),
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(security),
     db: Session = Depends(get_db)
 ):
-    token = credentials.credentials
-    email = verify_token(token)
-    if email is None:
+    token = None
+    email = None
+
+    # 1. Try to get token from Bearer header
+    if credentials:
+        token = credentials.credentials
+        email = verify_token(token)
+    
+    # 2. If header token is missing or invalid, try to get from HttpOnly cookie
+    if not email:
+        token = request.cookies.get("access_token")
+        if token:
+            email = verify_token(token)
+        
+    if not email:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials"
@@ -58,12 +70,11 @@ def get_current_user(
             
             # 30 days trial
             if age.days > 30:
-                # Check if they have an active subscription override (future feature)
-                # For now, just warn or restrict? 
-                # The prompt implies we should check this. 
-                # Current implementation in main.py seemed incomplete in the snippet, 
-                # but we will preserve the logic structure.
-                pass
+                # Strict block for expired trial users
+                raise HTTPException(
+                    status_code=status.HTTP_402_PAYMENT_REQUIRED,
+                    detail="Your 30-day free trial has expired. Please upgrade to continue accessing the system."
+                )
 
     return user
 

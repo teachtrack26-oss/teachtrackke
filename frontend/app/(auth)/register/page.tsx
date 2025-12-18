@@ -7,9 +7,11 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import GoogleSignInButton from "@/components/auth/GoogleSignInButton";
 import { FiEye, FiEyeOff, FiCheck, FiX } from "react-icons/fi";
+import { useSession } from "next-auth/react";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { data: session, status } = useSession();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -30,28 +32,12 @@ export default function RegisterPage() {
 
   // Check if user is already logged in
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    const userData = localStorage.getItem("user");
-
-    if (token && userData) {
-      try {
-        const user = JSON.parse(userData);
-        if (user.role === "SUPER_ADMIN") {
-          router.replace("/dashboard");
-        } else if (user.role === "SCHOOL_ADMIN") {
-          router.replace("/dashboard");
-        } else {
-          router.replace("/dashboard");
-        }
-      } catch (error) {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("user");
-        setCheckingAuth(false);
-      }
-    } else {
+    if (status === "authenticated") {
+      router.replace("/dashboard");
+    } else if (status === "unauthenticated") {
       setCheckingAuth(false);
     }
-  }, [router]);
+  }, [status, router]);
 
   // Calculate password strength
   useEffect(() => {
@@ -211,11 +197,11 @@ export default function RegisterPage() {
         {formData.role === "TEACHER" && (
           <div className="mb-6">
             <GoogleSignInButton />
-            
+
             <p className="mt-3 text-center text-xs text-gray-500 italic">
               💡 Skip the form! Google Sign-In creates your account instantly
             </p>
-            
+
             <div className="relative mt-6">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-300" />
@@ -296,7 +282,10 @@ export default function RegisterPage() {
                 htmlFor="school"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
-                School Name {formData.role === "SCHOOL_ADMIN" && <span className="text-red-500">*</span>}
+                School Name{" "}
+                {formData.role === "SCHOOL_ADMIN" && (
+                  <span className="text-red-500">*</span>
+                )}
               </label>
               <input
                 id="school"
@@ -306,7 +295,11 @@ export default function RegisterPage() {
                 value={formData.school}
                 onChange={handleChange}
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white text-gray-900 placeholder-gray-400"
-                placeholder={formData.role === "SCHOOL_ADMIN" ? "e.g., Nairobi Primary School" : "Your School (optional)"}
+                placeholder={
+                  formData.role === "SCHOOL_ADMIN"
+                    ? "e.g., Nairobi Primary School"
+                    : "Your School (optional)"
+                }
               />
               {formData.role === "SCHOOL_ADMIN" && (
                 <p className="mt-1 text-xs text-gray-500">
@@ -324,7 +317,9 @@ export default function RegisterPage() {
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
                     TSC Number
-                    <span className="text-xs text-gray-500 ml-1">(Optional)</span>
+                    <span className="text-xs text-gray-500 ml-1">
+                      (Optional)
+                    </span>
                   </label>
                   <input
                     id="tscNumber"

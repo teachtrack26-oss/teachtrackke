@@ -185,7 +185,7 @@ async def generate_scheme_of_work(data, current_user, db):
         grade=data.grade,
         total_weeks=data.total_weeks,
         total_lessons=0, # Will update later
-        status="draft"
+        status="active"
     )
     db.add(scheme)
     db.flush() # Get scheme.id

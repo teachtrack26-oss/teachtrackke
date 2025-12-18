@@ -14,6 +14,7 @@ from schemas import (
 from dependencies import get_current_user
 from config import settings
 from ai_lesson_planner import generate_scheme_of_work
+from rate_limiter import rate_limiter
 
 # ReportLab Imports
 from reportlab.lib import colors
@@ -104,7 +105,7 @@ async def create_scheme(
         grade=data.grade,
         total_weeks=data.total_weeks,
         total_lessons=data.total_lessons,
-        status=data.status or "draft"
+        status=data.status or "active"
     )
     db.add(scheme)
     db.flush()
@@ -305,7 +306,7 @@ async def generate_lesson_plans_from_scheme(
     db.commit()
     return {"message": "Lesson plans generated", "total_plans": count}
 
-@router.get("/{scheme_id}/pdf")
+@router.get("/{scheme_id}/pdf", dependencies=[Depends(rate_limiter(limit=5, window_seconds=60))])
 async def scheme_pdf(
     scheme_id: int,
     current_user: User = Depends(get_current_user),
@@ -318,8 +319,9 @@ async def scheme_pdf(
     # Only PREMIUM or SCHOOL_SPONSORED users can download
     is_school_linked = current_user.school_id is not None
     is_premium = current_user.subscription_type in [SubscriptionType.SCHOOL_SPONSORED, SubscriptionType.INDIVIDUAL_PREMIUM]
+    is_trial = current_user.is_trial_active
     
-    if not (is_school_linked or is_premium):
+    if not (is_school_linked or is_premium or is_trial):
          raise HTTPException(
             status_code=403,
             detail="Downloads are available on Premium plans only. Please upgrade to download."

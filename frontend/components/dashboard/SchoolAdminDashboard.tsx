@@ -3,7 +3,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { FiUsers, FiPlus, FiTrash2, FiBriefcase, FiCheckCircle } from "react-icons/fi";
+import {
+  FiUsers,
+  FiPlus,
+  FiTrash2,
+  FiBriefcase,
+  FiCheckCircle,
+} from "react-icons/fi";
 
 interface School {
   id: number;
@@ -26,7 +32,9 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
   const [inviteEmail, setInviteEmail] = useState("");
   const [schoolName, setSchoolName] = useState("");
   const [maxTeachers, setMaxTeachers] = useState(5);
-  const [teacherCounts, setTeacherCounts] = useState<Record<string, number>>({});
+  const [teacherCounts, setTeacherCounts] = useState<Record<string, number>>(
+    {}
+  );
   const [creatingSchool, setCreatingSchool] = useState(false);
 
   useEffect(() => {
@@ -35,16 +43,18 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
 
   const fetchSchoolData = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
+      // const token = localStorage.getItem("accessToken");
       // Get School Details
       const schoolRes = await axios.get("/api/v1/schools/me", {
-        headers: { Authorization: `Bearer ${token}` },
+        // headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setSchool(schoolRes.data);
 
       // Get Teachers
       const teachersRes = await axios.get("/api/v1/schools/teachers", {
-        headers: { Authorization: `Bearer ${token}` },
+        // headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setTeachers(teachersRes.data);
     } catch (error: any) {
@@ -60,15 +70,18 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
     e.preventDefault();
     setCreatingSchool(true);
     try {
-      const token = localStorage.getItem("accessToken");
+      // const token = localStorage.getItem("accessToken");
       const res = await axios.post(
         "/api/v1/schools",
-        { 
+        {
           name: schoolName,
           max_teachers: maxTeachers,
-          teacher_counts_by_level: teacherCounts
+          teacher_counts_by_level: teacherCounts,
         },
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          // headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        }
       );
       setSchool(res.data);
       toast.success("School created successfully!");
@@ -82,11 +95,14 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
   const handleInviteTeacher = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("accessToken");
+      // const token = localStorage.getItem("accessToken");
       const res = await axios.post(
         "/api/v1/schools/teachers",
         { email: inviteEmail },
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          // headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        }
       );
       setTeachers([...teachers, res.data]);
       setInviteEmail("");
@@ -99,9 +115,10 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
   const handleRemoveTeacher = async (id: number) => {
     if (!confirm("Are you sure you want to remove this teacher?")) return;
     try {
-      const token = localStorage.getItem("accessToken");
+      // const token = localStorage.getItem("accessToken");
       await axios.delete(`/api/v1/schools/teachers/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        // headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setTeachers(teachers.filter((t) => t.id !== id));
       toast.success("Teacher removed.");
@@ -110,7 +127,8 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
     }
   };
 
-  if (loading) return <div className="p-8 text-center">Loading school data...</div>;
+  if (loading)
+    return <div className="p-8 text-center">Loading school data...</div>;
 
   if (!school) {
     return (
@@ -119,7 +137,9 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
           <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <FiBriefcase className="w-8 h-8 text-indigo-600" />
           </div>
-          <h2 className="text-3xl font-bold text-gray-900">Setup Your School</h2>
+          <h2 className="text-3xl font-bold text-gray-900">
+            Setup Your School
+          </h2>
           <p className="text-gray-600 mt-2">
             Create your school profile to start managing teachers and licenses.
           </p>
@@ -156,9 +176,17 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
           </div>
 
           <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-            <h3 className="text-sm font-semibold text-gray-900 mb-3">Teachers per Level</h3>
+            <h3 className="text-sm font-semibold text-gray-900 mb-3">
+              Teachers per Level
+            </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {["Pre-Primary", "Lower Primary", "Upper Primary", "Junior Secondary", "Senior Secondary"].map((level) => (
+              {[
+                "Pre-Primary",
+                "Lower Primary",
+                "Upper Primary",
+                "Junior Secondary",
+                "Senior Secondary",
+              ].map((level) => (
                 <div key={level}>
                   <label className="block text-xs font-medium text-gray-600 mb-1">
                     {level}
@@ -167,7 +195,12 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
                     type="number"
                     min="0"
                     value={teacherCounts[level] || 0}
-                    onChange={(e) => setTeacherCounts({ ...teacherCounts, [level]: parseInt(e.target.value) || 0 })}
+                    onChange={(e) =>
+                      setTeacherCounts({
+                        ...teacherCounts,
+                        [level]: parseInt(e.target.value) || 0,
+                      })
+                    }
                     className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
                   />
                 </div>
@@ -235,8 +268,11 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="p-6 border-b border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
           <h2 className="text-xl font-bold text-gray-900">Manage Teachers</h2>
-          
-          <form onSubmit={handleInviteTeacher} className="flex gap-2 w-full md:w-auto">
+
+          <form
+            onSubmit={handleInviteTeacher}
+            className="flex gap-2 w-full md:w-auto"
+          >
             <input
               type="email"
               required
@@ -267,7 +303,10 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
             <tbody className="divide-y divide-gray-100">
               {teachers.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-8 text-center text-gray-500">
+                  <td
+                    colSpan={4}
+                    className="px-6 py-8 text-center text-gray-500"
+                  >
                     No teachers added yet. Invite someone above!
                   </td>
                 </tr>

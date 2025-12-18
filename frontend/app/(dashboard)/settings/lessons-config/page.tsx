@@ -111,16 +111,6 @@ export default function TeacherLessonsConfigPage() {
   });
   const [saving, setSaving] = useState(false);
 
-  // Get auth token
-  const getAuthToken = (): string | null => {
-    const sessionToken = (session as any)?.accessToken;
-    if (sessionToken) return sessionToken;
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("accessToken");
-    }
-    return null;
-  };
-
   useEffect(() => {
     if (status === "loading") return;
     fetchConfigs();
@@ -135,18 +125,12 @@ export default function TeacherLessonsConfigPage() {
   }, [selectedLevel]);
 
   const fetchConfigs = async () => {
-    const token = getAuthToken();
-    if (!token) {
-      setLoading(false);
-      return;
-    }
-
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
       const response = await axios.get(
         `${apiUrl}/api/v1/profile/lessons-config`,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
       setConfigs(response.data.configs || []);
@@ -195,11 +179,6 @@ export default function TeacherLessonsConfigPage() {
 
   const saveConfig = async () => {
     if (!editingConfig) return;
-    const token = getAuthToken();
-    if (!token) {
-      toast.error("Please log in to save");
-      return;
-    }
 
     setSaving(true);
     try {
@@ -212,7 +191,7 @@ export default function TeacherLessonsConfigPage() {
           ...editValues,
         },
         {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
 
@@ -243,8 +222,7 @@ export default function TeacherLessonsConfigPage() {
   }
 
   // Auth check
-  const hasAuth = status === "authenticated" || getAuthToken();
-  if (!hasAuth) {
+  if (status === "unauthenticated") {
     return (
       <div className="container mx-auto p-6 max-w-4xl">
         <div className="bg-red-50 border-l-4 border-red-400 p-6 rounded-lg">

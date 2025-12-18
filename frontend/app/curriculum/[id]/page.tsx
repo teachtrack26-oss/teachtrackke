@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import {
   FiChevronRight,
   FiChevronDown,
@@ -58,6 +59,7 @@ export default function CurriculumDetailPage() {
   const router = useRouter();
   const params = useParams();
   const subjectId = params?.id;
+  const { user, isAuthenticated, loading: authLoading } = useCustomAuth();
 
   const [subject, setSubject] = useState<Subject | null>(null);
   const [lessons, setLessons] = useState<Lesson[]>([]);
@@ -73,35 +75,30 @@ export default function CurriculumDetailPage() {
   const [isSuperAdmin, setIsSuperAdmin] = useState<boolean>(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    const userStr = localStorage.getItem("user");
+    if (authLoading) return;
 
-    if (!token) {
+    if (!isAuthenticated) {
       toast.error("Please login to access curriculum");
       router.push("/login");
       return;
     }
 
-    if (userStr) {
-      try {
-        const user = JSON.parse(userStr);
-        setUserEmail(user.email || "");
-        // Check if user is super admin (adjust based on your actual user object structure)
-        setIsSuperAdmin(user.role === "SUPER_ADMIN" || user.is_admin === true);
-      } catch (e) {
-        console.error("Error parsing user data", e);
-      }
+    if (user) {
+      setUserEmail(user.email || "");
+      // Check if user is super admin
+      setIsSuperAdmin(user.role === "SUPER_ADMIN" || user.is_admin === true);
     }
 
-    fetchSubjectDetails();
-    fetchLessons();
-  }, [subjectId, router]);
+    if (isAuthenticated && subjectId) {
+      fetchSubjectDetails();
+      fetchLessons();
+    }
+  }, [subjectId, router, authLoading, isAuthenticated, user]);
 
   const fetchSubjectDetails = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get(`/api/v1/subjects/${subjectId}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
 
       if (!response.data) {
@@ -121,8 +118,6 @@ export default function CurriculumDetailPage() {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 401) {
           toast.error("Session expired. Please login again.");
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("user");
           router.push("/login");
           return;
         }
@@ -140,11 +135,10 @@ export default function CurriculumDetailPage() {
 
   const fetchLessons = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get(
         `/api/v1/subjects/${subjectId}/lessons`,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
       const fetchedLessons = parseLessons(response.data);
@@ -166,14 +160,13 @@ export default function CurriculumDetailPage() {
   ) => {
     setCompletingLesson(lessonId);
     try {
-      const token = localStorage.getItem("accessToken");
       const endpoint = isCompleted ? "uncomplete" : "complete";
 
       await axios.post(
         `/api/v1/lessons/${lessonId}/${endpoint}`,
         {},
         {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import {
   FiUpload,
   FiBook,
@@ -32,41 +32,29 @@ interface Subject {
 
 export default function CurriculumPage() {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { isAuthenticated, loading: authLoading } = useCustomAuth();
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [showUploadModal, setShowUploadModal] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Check authentication
-    const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
-    if (!token) {
-      // Wait for session to load
-      if (session === undefined) return;
-      if (session === null) {
-        toast.error("Please login to access curriculum");
-        router.push("/login");
-        return;
-      }
+    if (!authLoading && isAuthenticated) {
+      fetchSubjects();
     }
-    setIsAuthenticated(true);
-    fetchSubjects();
-  }, [router, session]);
+  }, [authLoading, isAuthenticated]);
 
   const fetchSubjects = async () => {
     try {
-      const token = localStorage.getItem("accessToken") || (session as any)?.accessToken;
       const response = await axios.get(`/api/v1/subjects`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setSubjects(response.data);
     } catch (error) {
       console.error("Failed to fetch subjects:", error);
       if (axios.isAxiosError(error) && error.response?.status === 401) {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("user");
+        // Only redirect if we really can't authenticate
+        toast.error("Please login to access curriculum");
         router.push("/login");
       }
     } finally {
@@ -193,13 +181,15 @@ export default function CurriculumPage() {
             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
             <div className="absolute -top-24 -right-24 w-48 h-48 bg-indigo-50 rounded-full blur-3xl group-hover:bg-indigo-100 transition-colors duration-500"></div>
             <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-50 rounded-full blur-3xl group-hover:bg-purple-100 transition-colors duration-500"></div>
-            
+
             <div className="relative z-10">
               <div className="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <FiBook className="w-10 h-10 text-gray-400" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                {searchTerm ? "No subjects found" : "Your curriculum library is empty"}
+                {searchTerm
+                  ? "No subjects found"
+                  : "Your curriculum library is empty"}
               </h3>
               <p className="text-gray-600 mb-8 max-w-md mx-auto text-lg">
                 {searchTerm
@@ -227,12 +217,16 @@ export default function CurriculumPage() {
                   className="group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden hover:-translate-y-1"
                 >
                   {/* Card Header with Gradient */}
-                  <div className={`h-2 bg-gradient-to-r ${theme.gradient}`}></div>
-                  
+                  <div
+                    className={`h-2 bg-gradient-to-r ${theme.gradient}`}
+                  ></div>
+
                   <div className="p-6">
                     <div className="flex justify-between items-start mb-4">
                       <div className="flex items-start gap-3 flex-1">
-                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${theme.gradient} flex items-center justify-center text-white shadow-md transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
+                        <div
+                          className={`w-12 h-12 rounded-xl bg-gradient-to-br ${theme.gradient} flex items-center justify-center text-white shadow-md transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}
+                        >
                           <span className="text-2xl">{theme.icon}</span>
                         </div>
                         <div className="flex-1">
@@ -280,7 +274,9 @@ export default function CurriculumPage() {
                     {/* Progress Section */}
                     <div className="mb-5">
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm font-medium text-gray-600">Progress</span>
+                        <span className="text-sm font-medium text-gray-600">
+                          Progress
+                        </span>
                         <span className="text-sm font-bold text-gray-900">
                           {Math.round(subject.progress_percentage)}%
                         </span>
@@ -303,13 +299,17 @@ export default function CurriculumPage() {
                         <div className="text-2xl font-bold text-gray-900">
                           {subject.total_lessons}
                         </div>
-                        <div className="text-xs text-gray-600 font-medium">Total Lessons</div>
+                        <div className="text-xs text-gray-600 font-medium">
+                          Total Lessons
+                        </div>
                       </div>
                       <div className="text-center p-3 bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg">
                         <div className="text-2xl font-bold text-green-700">
                           {subject.lessons_completed}
                         </div>
-                        <div className="text-xs text-green-700 font-medium">Completed</div>
+                        <div className="text-xs text-green-700 font-medium">
+                          Completed
+                        </div>
                       </div>
                     </div>
 
@@ -342,9 +342,11 @@ export default function CurriculumPage() {
                   {subjects.length}
                 </div>
               </div>
-              <div className="text-sm font-medium text-gray-600">Total Subjects</div>
+              <div className="text-sm font-medium text-gray-600">
+                Total Subjects
+              </div>
             </div>
-            
+
             <div className="group bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-lg hover:border-green-200 transition-all">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
@@ -354,9 +356,11 @@ export default function CurriculumPage() {
                   {subjects.reduce((sum, s) => sum + s.lessons_completed, 0)}
                 </div>
               </div>
-              <div className="text-sm font-medium text-gray-600">Lessons Completed</div>
+              <div className="text-sm font-medium text-gray-600">
+                Lessons Completed
+              </div>
             </div>
-            
+
             <div className="group bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-lg hover:border-amber-200 transition-all">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
@@ -366,9 +370,11 @@ export default function CurriculumPage() {
                   {subjects.reduce((sum, s) => sum + s.total_lessons, 0)}
                 </div>
               </div>
-              <div className="text-sm font-medium text-gray-600">Total Lessons</div>
+              <div className="text-sm font-medium text-gray-600">
+                Total Lessons
+              </div>
             </div>
-            
+
             <div className="group bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-lg hover:border-purple-200 transition-all">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
@@ -386,7 +392,9 @@ export default function CurriculumPage() {
                   %
                 </div>
               </div>
-              <div className="text-sm font-medium text-gray-600">Average Progress</div>
+              <div className="text-sm font-medium text-gray-600">
+                Average Progress
+              </div>
             </div>
           </div>
         )}

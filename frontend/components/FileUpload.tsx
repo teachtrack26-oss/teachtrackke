@@ -127,16 +127,17 @@ export default function FileUpload({
     if (tags) formData.append("tags", tags);
 
     try {
-      const token = localStorage.getItem("accessToken");
-      if (!token) {
-        throw new Error("Not authenticated");
-      }
+      // const token = localStorage.getItem("accessToken");
+      // if (!token) {
+      //   throw new Error("Not authenticated");
+      // }
 
       const response = await fetch("/api/v1/notes/upload", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        // headers: {
+        //   Authorization: `Bearer ${token}`,
+        // },
+        credentials: "include",
         body: formData,
       });
 

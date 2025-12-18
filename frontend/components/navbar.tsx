@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { useSession, signOut } from "next-auth/react";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import {
   FiMenu,
   FiX,
@@ -21,11 +21,14 @@ import toast from "react-hot-toast";
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
-  const { data: session, status } = useSession();
+  const {
+    user,
+    isAuthenticated: isLoggedIn,
+    loading: authLoading,
+    logout,
+  } = useCustomAuth(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [nextLesson, setNextLesson] = useState<any>(null);
   const [countdown, setCountdown] = useState<string>("");
   const [scrolled, setScrolled] = useState(false);
@@ -61,29 +64,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    // Check authentication status
-    const checkAuth = () => {
-      const token = localStorage.getItem("accessToken");
-      const userData = localStorage.getItem("user");
-
-      if (status === "authenticated" && session?.user) {
-        // User is logged in via NextAuth (Google Sign-In)
-        setUser(session.user);
-        setIsLoggedIn(true);
-      } else if (token && userData) {
-        // User is logged in via email/password
-        setUser(JSON.parse(userData));
-        setIsLoggedIn(true);
-      } else {
-        setUser(null);
-        setIsLoggedIn(false);
-      }
-    };
-
-    checkAuth();
-  }, [pathname, session, status]); // Re-check when route or session changes
-
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -104,13 +84,12 @@ export default function Navbar() {
     async function fetchNextLesson() {
       if (!isLoggedIn) return;
       try {
-        const token = localStorage.getItem("accessToken");
-        const res = await fetch(
-          "http://localhost:8000/api/v1/timetable/entries/next",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        // Use relative URL to leverage proxy and cookies
+        const res = await fetch("/api/v1/timetable/entries/next", {
+          // headers: { Authorization: `Bearer ${token}` }, // Cookie handled automatically
+        });
+        if (!res.ok) return;
+
         const data = await res.json();
         if (data.has_next_lesson && data.entry) {
           setNextLesson(data.entry);
@@ -156,27 +135,7 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     setIsAccountDropdownOpen(false);
-    // Clear localStorage
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
-
-    // Clear all possible session storage
-    sessionStorage.clear();
-
-    // Clear NextAuth session (if using OAuth)
-    try {
-      const { signOut } = await import("next-auth/react");
-      await signOut({ redirect: false, callbackUrl: "/" });
-    } catch (e) {
-      // NextAuth not available or no session
-    }
-
-    setUser(null);
-    setIsLoggedIn(false);
-
-    // Force a hard navigation to clear any cached state
-    toast.success("Logged out successfully");
-    window.location.href = "/";
+    await logout();
   };
 
   // Check if user is admin

@@ -2,9 +2,15 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import Link from "next/link";
-import { FiArrowLeft, FiCheck, FiEdit, FiDownload } from "react-icons/fi";
+import {
+  FiArrowLeft,
+  FiCheck,
+  FiEdit,
+  FiDownload,
+  FiLock,
+} from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { RecordOfWorkPrintView } from "@/components/RecordOfWorkPrintView";
@@ -39,7 +45,14 @@ interface RecordOfWork {
 export default function RecordOfWorkDetailPage() {
   const params = useParams();
   const router = useRouter();
-  const { data: session } = useSession();
+  const { user, isAuthenticated, loading: authLoading } = useCustomAuth();
+
+  const isPremium =
+    user?.subscription_type === "INDIVIDUAL_PREMIUM" ||
+    user?.subscription_type === "SCHOOL_SPONSORED" ||
+    !!user?.school_id ||
+    user?.role === "SUPER_ADMIN";
+
   const [loading, setLoading] = useState(true);
   const [record, setRecord] = useState<RecordOfWork | null>(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -53,9 +66,8 @@ export default function RecordOfWorkDetailPage() {
 
   const fetchRecord = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get(`/api/v1/records-of-work/${params.id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setRecord(response.data);
     } catch (error) {
@@ -83,11 +95,10 @@ export default function RecordOfWorkDetailPage() {
     });
 
     try {
-      const token = localStorage.getItem("accessToken");
       await axios.put(
         `/api/v1/records-of-work/${params.id}/entries/${entryId}`,
         { [field]: value },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { withCredentials: true }
       );
     } catch (error) {
       console.error("Failed to update entry:", error);
@@ -110,8 +121,7 @@ export default function RecordOfWorkDetailPage() {
   ).sort((a, b) => a - b);
 
   const handleDownloadPdf = async () => {
-    const user = session?.user as any;
-    if (user?.subscription_type === "FREE") {
+    if (!isPremium) {
       toast.error("Downloads are available on Premium plans only.");
       return;
     }
@@ -141,8 +151,76 @@ export default function RecordOfWorkDetailPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-24 pb-8 px-4 sm:px-6 lg:px-8">
+    <div
+      className={`min-h-screen bg-gray-50 pt-24 pb-8 px-4 sm:px-6 lg:px-8 ${
+        !isPremium ? "select-none" : ""
+      }`}
+      onContextMenu={(e) => {
+        if (!isPremium) {
+          e.preventDefault();
+          toast.error("Right-click is disabled for preview.");
+        }
+      }}
+    >
+      <style jsx global>{`
+        @media print {
+          /* Hide content for non-premium users during print */
+          ${!isPremium
+            ? `
+            body > * {
+              display: none !important;
+            }
+            body::after {
+              content: "Printing is available on Premium plans only. Please upgrade to print.";
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              font-size: 24pt;
+              font-weight: bold;
+              color: #555;
+              text-align: center;
+              padding: 20px;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              background: white;
+              z-index: 9999;
+            }
+          `
+            : ""}
+        }
+      `}</style>
       <div className="max-w-7xl mx-auto">
+        {/* Free Plan Banner */}
+        {!isPremium && (
+          <div className="mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 shadow-sm relative overflow-hidden print:hidden">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                  <FiLock className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900">
+                    Preview Mode Active
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Upgrade to Premium to download, print, and edit this Record
+                    of Work.
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => router.push("/pricing")}
+                className="whitespace-nowrap px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white text-sm font-bold rounded-lg shadow-md transition-all"
+              >
+                Upgrade Now
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Header Actions - Explicitly visible */}
         <div className="mb-8 flex justify-between items-center bg-white p-4 rounded-lg shadow-sm border border-gray-200 print:hidden">
           <Link
@@ -180,11 +258,9 @@ export default function RecordOfWorkDetailPage() {
                 setDownloadWeek(v === "all" ? "all" : parseInt(v, 10));
               }}
               className="px-3 py-2 border border-gray-300 rounded-md text-sm bg-white"
-              disabled={(session?.user as any)?.subscription_type === "FREE"}
+              disabled={!isPremium}
               title={
-                (session?.user as any)?.subscription_type === "FREE"
-                  ? "Upgrade to download"
-                  : "Select week to download"
+                !isPremium ? "Upgrade to download" : "Select week to download"
               }
             >
               <option value="all">All Weeks</option>
@@ -197,32 +273,42 @@ export default function RecordOfWorkDetailPage() {
 
             <button
               onClick={handleDownloadPdf}
+              disabled={!isPremium}
               className={`inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md transition-colors ${
-                (session?.user as any)?.subscription_type === "FREE"
+                !isPremium
                   ? "bg-gray-200 text-gray-500 cursor-not-allowed"
                   : "text-gray-700 bg-white hover:bg-gray-50"
               }`}
-              title={
-                (session?.user as any)?.subscription_type === "FREE"
-                  ? "Upgrade to download"
-                  : "Download"
-              }
+              title={!isPremium ? "Upgrade to download" : "Download"}
             >
               <FiDownload className="mr-2 -ml-1 h-5 w-5" />
-              {(session?.user as any)?.subscription_type === "FREE"
-                ? "Preview Only"
-                : "Download"}
+              {!isPremium ? "Preview Only" : "Download"}
             </button>
           </div>
         </div>
 
         {/* Printable Content */}
-        <RecordOfWorkPrintView
-          ref={visibleRef}
-          record={record}
-          isEditing={isEditing}
-          onUpdateEntry={handleUpdateEntry}
-        />
+        <div className="relative">
+          {/* Watermark for non-premium users */}
+          {!isPremium && (
+            <div className="absolute inset-0 pointer-events-none z-50 grid grid-cols-3 gap-y-32 gap-x-12 content-start justify-items-center overflow-hidden opacity-10 p-10">
+              {Array.from({ length: 40 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="transform -rotate-45 text-gray-900 text-3xl font-black whitespace-nowrap select-none"
+                >
+                  {user?.email || "PREVIEW ONLY"}
+                </div>
+              ))}
+            </div>
+          )}
+          <RecordOfWorkPrintView
+            ref={visibleRef}
+            record={record}
+            isEditing={isEditing}
+            onUpdateEntry={handleUpdateEntry}
+          />
+        </div>
 
         {/* Offscreen PDF-only content (so download doesn't include inputs/controls) */}
         <div

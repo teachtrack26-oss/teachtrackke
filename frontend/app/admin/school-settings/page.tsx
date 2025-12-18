@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import {
   FiSave,
   FiUpload,
@@ -70,6 +71,11 @@ interface Teacher {
 
 export default function SchoolSettingsPage() {
   const router = useRouter();
+  const {
+    user: authUser,
+    loading: authLoading,
+    isAuthenticated,
+  } = useCustomAuth();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [activeSection, setActiveSection] = useState<
@@ -204,18 +210,21 @@ export default function SchoolSettingsPage() {
   ];
 
   useEffect(() => {
-    fetchSchoolSettings();
-    fetchTerms();
-    fetchCalendarActivities();
-    fetchDepartments();
-    fetchTeachers();
-  }, []);
+    if (authLoading) return;
+
+    if (isAuthenticated) {
+      fetchSchoolSettings();
+      fetchTerms();
+      fetchCalendarActivities();
+      fetchDepartments();
+      fetchTeachers();
+    }
+  }, [isAuthenticated, authLoading]);
 
   const fetchDepartments = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get("/api/v1/admin/departments", {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setDepartments(response.data);
     } catch (error) {
@@ -225,9 +234,8 @@ export default function SchoolSettingsPage() {
 
   const fetchTeachers = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get("/api/v1/admin/users?role=TEACHER", {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setTeachers(response.data.users);
     } catch (error) {
@@ -238,7 +246,6 @@ export default function SchoolSettingsPage() {
   const handleSaveDepartment = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("accessToken");
       const payload = {
         name: deptForm.name,
         description: deptForm.description,
@@ -250,13 +257,13 @@ export default function SchoolSettingsPage() {
           `/api/v1/admin/departments/${editingDept.id}`,
           payload,
           {
-            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
           }
         );
         toast.success("Department updated");
       } else {
         await axios.post("/api/v1/admin/departments", payload, {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         });
         toast.success("Department created");
       }
@@ -272,9 +279,8 @@ export default function SchoolSettingsPage() {
   const handleDeleteDepartment = async (id: number) => {
     if (!confirm("Are you sure you want to delete this department?")) return;
     try {
-      const token = localStorage.getItem("accessToken");
       await axios.delete(`/api/v1/admin/departments/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       toast.success("Department deleted");
       fetchDepartments();
@@ -286,12 +292,11 @@ export default function SchoolSettingsPage() {
   const handleRollover = async () => {
     setRolloverLoading(true);
     try {
-      const token = localStorage.getItem("accessToken");
       await axios.post(
         "/api/v1/admin/school-settings/rollover",
         {},
         {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
       toast.success("Academic year rollover successful!");
@@ -313,13 +318,12 @@ export default function SchoolSettingsPage() {
   const fetchSchedule = async (level: string) => {
     setScheduleLoading(true);
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get(
         `/api/v1/timetable/schedules/active?education_level=${encodeURIComponent(
           level
         )}`,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
       setScheduleConfig(response.data);
@@ -348,7 +352,6 @@ export default function SchoolSettingsPage() {
   const handleSaveSchedule = async () => {
     setSaving(true);
     try {
-      const token = localStorage.getItem("accessToken");
       const payload = { ...scheduleConfig, education_level: selectedLevel };
 
       if (scheduleConfig.id) {
@@ -356,12 +359,12 @@ export default function SchoolSettingsPage() {
           `/api/v1/timetable/schedules/${scheduleConfig.id}`,
           payload,
           {
-            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
           }
         );
       } else {
         await axios.post("/api/v1/timetable/schedules", payload, {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         });
       }
 
@@ -398,9 +401,8 @@ export default function SchoolSettingsPage() {
 
   const fetchSchoolSettings = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get("/api/v1/admin/school-settings", {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       if (response.data) {
         // Normalize streams_per_grade to ensure it's an array of objects
@@ -439,9 +441,8 @@ export default function SchoolSettingsPage() {
 
   const fetchTerms = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get("/api/v1/admin/school-terms", {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setTerms(response.data || []);
     } catch (error) {
@@ -451,9 +452,8 @@ export default function SchoolSettingsPage() {
 
   const fetchCalendarActivities = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get("/api/v1/admin/calendar-activities", {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setActivities(response.data || []);
     } catch (error) {
@@ -480,8 +480,6 @@ export default function SchoolSettingsPage() {
   const handleSaveSettings = async () => {
     setSaving(true);
     try {
-      const token = localStorage.getItem("accessToken");
-
       // Upload logo if changed
       let logoUrl = settings.school_logo_url;
       if (logoFile) {
@@ -491,8 +489,8 @@ export default function SchoolSettingsPage() {
           "/api/v1/admin/upload-logo",
           formData,
           {
+            withCredentials: true,
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "multipart/form-data",
             },
           }
@@ -507,12 +505,12 @@ export default function SchoolSettingsPage() {
           `/api/v1/admin/school-settings/${settings.id}`,
           payload,
           {
-            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
           }
         );
       } else {
         await axios.post("/api/v1/admin/school-settings", payload, {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         });
       }
 
@@ -622,18 +620,17 @@ export default function SchoolSettingsPage() {
     if (!editingTerm) return;
 
     try {
-      const token = localStorage.getItem("accessToken");
       if (editingTerm.id) {
         await axios.put(
           `/api/v1/admin/school-terms/${editingTerm.id}`,
           editingTerm,
           {
-            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
           }
         );
       } else {
         await axios.post("/api/v1/admin/school-terms", editingTerm, {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         });
       }
       toast.success("Term saved successfully!");
@@ -650,9 +647,8 @@ export default function SchoolSettingsPage() {
     if (!confirm("Delete this term?")) return;
 
     try {
-      const token = localStorage.getItem("accessToken");
       await axios.delete(`/api/v1/admin/school-terms/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       toast.success("Term deleted");
       fetchTerms();
@@ -666,18 +662,17 @@ export default function SchoolSettingsPage() {
     if (!editingActivity) return;
 
     try {
-      const token = localStorage.getItem("accessToken");
       if (editingActivity.id) {
         await axios.put(
           `/api/v1/admin/calendar-activities/${editingActivity.id}`,
           editingActivity,
           {
-            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
           }
         );
       } else {
         await axios.post("/api/v1/admin/calendar-activities", editingActivity, {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         });
       }
       toast.success("Activity saved successfully!");
@@ -694,9 +689,8 @@ export default function SchoolSettingsPage() {
     if (!confirm("Delete this activity?")) return;
 
     try {
-      const token = localStorage.getItem("accessToken");
       await axios.delete(`/api/v1/admin/calendar-activities/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       toast.success("Activity deleted");
       fetchCalendarActivities();

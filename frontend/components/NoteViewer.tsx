@@ -50,26 +50,9 @@ export default function NoteViewer({ note, onClose }: NoteViewerProps) {
         ? `${process.env.NEXT_PUBLIC_API_URL}/api/v1`
         : "/api/v1";
 
-      // Token storage inconsistency fix: other requests use localStorage key 'accessToken'.
-      // Fallback to 'token' in case of older storage scheme.
-      const token =
-        localStorage.getItem("accessToken") ||
-        localStorage.getItem("token") ||
-        "";
-
-      if (!token) {
-        console.warn(
-          "No auth token found for download. Ensure login sets 'accessToken' in localStorage."
-        );
-      }
-
       // Use backend download endpoint
       const response = await fetch(`${API_URL}/notes/${note.id}/download`, {
-        headers: token
-          ? {
-              Authorization: `Bearer ${token}`,
-            }
-          : {},
+        credentials: "include",
       });
 
       if (!response.ok) {
@@ -170,7 +153,7 @@ export default function NoteViewer({ note, onClose }: NoteViewerProps) {
         {/* Content Area - Actual file display */}
         <div className="flex-1 overflow-auto bg-gray-900">
           {/* PDF Display - Auto-open in new tab due to CORS restrictions */}
-          {note.file_type.toLowerCase() === 'pdf' && (
+          {note.file_type.toLowerCase() === "pdf" && (
             <div className="h-full flex items-center justify-center p-8">
               <div className="max-w-2xl w-full bg-gray-800 rounded-lg p-8 text-white text-center">
                 <div className="text-6xl mb-4">📄</div>
@@ -178,7 +161,7 @@ export default function NoteViewer({ note, onClose }: NoteViewerProps) {
                 <p className="text-gray-400 mb-6">
                   Click below to view your PDF document
                 </p>
-                
+
                 <div className="space-y-3">
                   <a
                     href={note.file_url}
@@ -189,9 +172,9 @@ export default function NoteViewer({ note, onClose }: NoteViewerProps) {
                     <FiEye size={24} />
                     Open PDF Document
                   </a>
-                  
+
                   <div className="text-sm text-gray-500">or</div>
-                  
+
                   <button
                     onClick={handleDownload}
                     disabled={downloading}
@@ -210,21 +193,26 @@ export default function NoteViewer({ note, onClose }: NoteViewerProps) {
                     )}
                   </button>
                 </div>
-                
+
                 <div className="mt-8 pt-6 border-t border-gray-700 text-left">
-                  <p className="text-sm text-gray-400 mb-3 font-semibold">Document Details:</p>
+                  <p className="text-sm text-gray-400 mb-3 font-semibold">
+                    Document Details:
+                  </p>
                   <div className="grid grid-cols-2 gap-4 text-sm text-gray-300">
                     <div>
-                      <strong className="text-gray-400">Type:</strong> PDF Document
+                      <strong className="text-gray-400">Type:</strong> PDF
+                      Document
                     </div>
                     <div>
-                      <strong className="text-gray-400">Size:</strong> {formatFileSize(note.file_size_bytes)}
+                      <strong className="text-gray-400">Size:</strong>{" "}
+                      {formatFileSize(note.file_size_bytes)}
                     </div>
                     <div className="col-span-2">
-                      <strong className="text-gray-400">Created:</strong> {new Date(note.created_at).toLocaleString()}
+                      <strong className="text-gray-400">Created:</strong>{" "}
+                      {new Date(note.created_at).toLocaleString()}
                     </div>
                   </div>
-                  
+
                   {note.description && (
                     <div className="mt-4">
                       <strong className="text-gray-400">Description:</strong>
@@ -237,7 +225,9 @@ export default function NoteViewer({ note, onClose }: NoteViewerProps) {
           )}
 
           {/* Image Display */}
-          {['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp'].includes(note.file_type.toLowerCase()) && (
+          {["jpg", "jpeg", "png", "gif", "bmp", "svg", "webp"].includes(
+            note.file_type.toLowerCase()
+          ) && (
             <div className="h-full flex items-center justify-center p-8">
               <img
                 src={note.file_url}
@@ -248,7 +238,9 @@ export default function NoteViewer({ note, onClose }: NoteViewerProps) {
           )}
 
           {/* Video Display */}
-          {['mp4', 'mov', 'avi', 'mkv', 'webm'].includes(note.file_type.toLowerCase()) && (
+          {["mp4", "mov", "avi", "mkv", "webm"].includes(
+            note.file_type.toLowerCase()
+          ) && (
             <div className="h-full flex items-center justify-center p-8">
               <video
                 src={note.file_url}
@@ -261,27 +253,57 @@ export default function NoteViewer({ note, onClose }: NoteViewerProps) {
           )}
 
           {/* Office Documents (DOCX, PPTX, etc.) - Use Google Docs Viewer */}
-          {['docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls'].includes(note.file_type.toLowerCase()) && (
+          {["docx", "doc", "pptx", "ppt", "xlsx", "xls"].includes(
+            note.file_type.toLowerCase()
+          ) && (
             <iframe
-              src={`https://docs.google.com/gview?url=${encodeURIComponent(note.file_url)}&embedded=true`}
+              src={`https://docs.google.com/gview?url=${encodeURIComponent(
+                note.file_url
+              )}&embedded=true`}
               className="w-full h-full border-0"
               title={note.title}
             />
           )}
 
           {/* Fallback - Show file info for unsupported types */}
-          {!['pdf', 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp', 'mp4', 'mov', 'avi', 'mkv', 'webm', 'docx', 'doc', 'pptx', 'ppt', 'xlsx', 'xls'].includes(note.file_type.toLowerCase()) && (
+          {![
+            "pdf",
+            "jpg",
+            "jpeg",
+            "png",
+            "gif",
+            "bmp",
+            "svg",
+            "webp",
+            "mp4",
+            "mov",
+            "avi",
+            "mkv",
+            "webm",
+            "docx",
+            "doc",
+            "pptx",
+            "ppt",
+            "xlsx",
+            "xls",
+          ].includes(note.file_type.toLowerCase()) && (
             <div className="h-full flex items-center justify-center p-8">
               <div className="max-w-4xl w-full bg-gray-800 rounded-lg p-8 text-white">
                 <div className="text-center mb-6">
                   <div className="text-6xl mb-4">📎</div>
-                  <h3 className="text-2xl font-semibold mb-2">Preview Not Available</h3>
-                  <p className="text-gray-400">This file type cannot be previewed directly.</p>
+                  <h3 className="text-2xl font-semibold mb-2">
+                    Preview Not Available
+                  </h3>
+                  <p className="text-gray-400">
+                    This file type cannot be previewed directly.
+                  </p>
                 </div>
 
                 <div className="space-y-6">
                   <div>
-                    <h4 className="text-lg font-semibold mb-3">File Information</h4>
+                    <h4 className="text-lg font-semibold mb-3">
+                      File Information
+                    </h4>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
                         <span className="text-gray-400">Title:</span>
@@ -289,7 +311,9 @@ export default function NoteViewer({ note, onClose }: NoteViewerProps) {
                       </div>
                       <div>
                         <span className="text-gray-400">File Type:</span>
-                        <p className="text-white font-medium">{note.file_type.toUpperCase()}</p>
+                        <p className="text-white font-medium">
+                          {note.file_type.toUpperCase()}
+                        </p>
                       </div>
                       <div>
                         <span className="text-gray-400">File Size:</span>
@@ -299,14 +323,18 @@ export default function NoteViewer({ note, onClose }: NoteViewerProps) {
                       </div>
                       <div>
                         <span className="text-gray-400">Views:</span>
-                        <p className="text-white font-medium">{note.view_count}</p>
+                        <p className="text-white font-medium">
+                          {note.view_count}
+                        </p>
                       </div>
                     </div>
                   </div>
 
                   {note.description && (
                     <div>
-                      <h4 className="text-lg font-semibold mb-2">Description</h4>
+                      <h4 className="text-lg font-semibold mb-2">
+                        Description
+                      </h4>
                       <p className="text-gray-300">{note.description}</p>
                     </div>
                   )}

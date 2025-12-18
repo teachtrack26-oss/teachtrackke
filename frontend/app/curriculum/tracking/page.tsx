@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import {
   FiCheckCircle,
   FiClock,
@@ -60,6 +61,7 @@ interface DashboardData {
 
 export default function CurriculumTrackingPage() {
   const router = useRouter();
+  const { isAuthenticated, loading: authLoading } = useCustomAuth();
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -70,22 +72,23 @@ export default function CurriculumTrackingPage() {
   const itemsPerPage = 5;
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
+    if (authLoading) return;
+    if (!isAuthenticated) {
       toast.error("Please login to access curriculum tracking");
       router.push("/login");
       return;
     }
-    fetchDashboardData();
-  }, [router]);
+    if (isAuthenticated) {
+      fetchDashboardData();
+    }
+  }, [authLoading, isAuthenticated, router]);
 
   const fetchDashboardData = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get(
         `/api/v1/dashboard/curriculum-progress`,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
       setData(response.data);

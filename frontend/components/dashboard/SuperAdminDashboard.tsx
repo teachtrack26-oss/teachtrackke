@@ -191,9 +191,10 @@ export default function SuperAdminDashboard() {
 
   const fetchStats = useCallback(async () => {
     try {
-      const token = localStorage.getItem("accessToken");
+      // const token = localStorage.getItem("accessToken");
       const statsRes = await axios.get("/api/v1/admin/stats", {
-        headers: { Authorization: `Bearer ${token}` },
+        // headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setStats(statsRes.data);
     } catch (error: any) {
@@ -205,15 +206,23 @@ export default function SuperAdminDashboard() {
 
   const fetchAnalytics = useCallback(async () => {
     try {
-      const token = localStorage.getItem("accessToken");
-      const headers = { Authorization: `Bearer ${token}` };
+      // const token = localStorage.getItem("accessToken");
+      // const headers = { Authorization: `Bearer ${token}` };
 
       const [trendsRes, curriculumRes, activityRes, healthRes] =
         await Promise.all([
-          axios.get("/api/v1/admin/analytics/trends", { headers }),
-          axios.get("/api/v1/admin/analytics/curriculum", { headers }),
-          axios.get("/api/v1/admin/analytics/activity", { headers }),
-          axios.get("/api/v1/admin/analytics/health", { headers }),
+          axios.get("/api/v1/admin/analytics/trends", {
+            withCredentials: true,
+          }),
+          axios.get("/api/v1/admin/analytics/curriculum", {
+            withCredentials: true,
+          }),
+          axios.get("/api/v1/admin/analytics/activity", {
+            withCredentials: true,
+          }),
+          axios.get("/api/v1/admin/analytics/health", {
+            withCredentials: true,
+          }),
         ]);
 
       setGrowthTrends(trendsRes.data);
@@ -235,20 +244,20 @@ export default function SuperAdminDashboard() {
       return;
 
     try {
-      const token = localStorage.getItem("accessToken");
-      const headers = { Authorization: `Bearer ${token}` };
+      // const token = localStorage.getItem("accessToken");
+      // const headers = { Authorization: `Bearer ${token}` };
 
       if (action === "delete") {
         await axios.post(
           "/api/v1/admin/users/bulk-delete",
           { user_ids: selectedUserIds },
-          { headers }
+          { withCredentials: true }
         );
       } else {
         await axios.post(
           "/api/v1/admin/users/bulk-ban",
           { user_ids: selectedUserIds, action },
-          { headers }
+          { withCredentials: true }
         );
       }
 
@@ -263,9 +272,10 @@ export default function SuperAdminDashboard() {
   const handleExportUsers = async () => {
     setIsExporting(true);
     try {
-      const token = localStorage.getItem("accessToken");
+      // const token = localStorage.getItem("accessToken");
       const res = await axios.get("/api/v1/admin/users/export", {
-        headers: { Authorization: `Bearer ${token}` },
+        // headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
         params: {
           search: userSearchTerm || undefined,
           role: userRoleFilter !== "all" ? userRoleFilter : undefined,
@@ -310,17 +320,20 @@ export default function SuperAdminDashboard() {
   const handleImpersonate = async (userId: number) => {
     if (!confirm("Are you sure you want to impersonate this user?")) return;
     try {
-      const token = localStorage.getItem("accessToken");
+      // const token = localStorage.getItem("accessToken");
       const res = await axios.post(
         `/api/v1/admin/users/${userId}/impersonate`,
         {},
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          // headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        }
       );
 
       // Save current admin token to restore later if needed (optional feature)
       // For now, just switch session
-      localStorage.setItem("accessToken", res.data.access_token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+      // localStorage.setItem("accessToken", res.data.access_token);
+      // localStorage.setItem("user", JSON.stringify(res.data.user));
 
       // Force reload to dashboard
       window.location.href = "/dashboard";
@@ -332,9 +345,10 @@ export default function SuperAdminDashboard() {
   const fetchUsers = useCallback(async () => {
     setUsersLoading(true);
     try {
-      const token = localStorage.getItem("accessToken");
+      // const token = localStorage.getItem("accessToken");
       const usersRes = await axios.get("/api/v1/admin/users", {
-        headers: { Authorization: `Bearer ${token}` },
+        // headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
         params: {
           page: userPage,
           limit: userPageSize,
@@ -362,9 +376,10 @@ export default function SuperAdminDashboard() {
   const fetchSchools = useCallback(async () => {
     setSchoolsLoading(true);
     try {
-      const token = localStorage.getItem("accessToken");
+      // const token = localStorage.getItem("accessToken");
       const schoolsRes = await axios.get("/api/v1/admin/schools", {
-        headers: { Authorization: `Bearer ${token}` },
+        // headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
         params: {
           page: schoolPage,
           limit: schoolPageSize,
@@ -440,12 +455,13 @@ export default function SuperAdminDashboard() {
   const handleUpgradeUser = async (userId: number) => {
     if (!confirm("Upgrade this user to Premium?")) return;
     try {
-      const token = localStorage.getItem("accessToken");
+      // const token = localStorage.getItem("accessToken");
       await axios.put(
         `/api/v1/admin/users/${userId}/upgrade`,
         {},
         {
-          headers: { Authorization: `Bearer ${token}` },
+          // headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
       toast.success("User upgraded to Premium!");
@@ -460,12 +476,13 @@ export default function SuperAdminDashboard() {
     if (!confirm(`Are you sure you want to ${action} this user?`)) return;
 
     try {
-      const token = localStorage.getItem("accessToken");
+      // const token = localStorage.getItem("accessToken");
       await axios.post(
         `/api/v1/admin/users/${user.id}/${action}`,
         {},
         {
-          headers: { Authorization: `Bearer ${token}` },
+          // headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
       toast.success(`User ${action}ned successfully`);
@@ -484,9 +501,10 @@ export default function SuperAdminDashboard() {
       return;
 
     try {
-      const token = localStorage.getItem("accessToken");
+      // const token = localStorage.getItem("accessToken");
       await axios.delete(`/api/v1/admin/users/${userId}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        // headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       toast.success("User deleted successfully");
       await Promise.all([fetchUsers(), fetchStats(), fetchSchools()]);
@@ -504,11 +522,14 @@ export default function SuperAdminDashboard() {
   const handleUpdateSchool = async () => {
     if (!selectedSchool) return;
     try {
-      const token = localStorage.getItem("accessToken");
+      // const token = localStorage.getItem("accessToken");
       await axios.patch(
         `/api/v1/admin/schools/${selectedSchool.school.id}`,
         editSchoolForm,
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          // headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        }
       );
       toast.success("School updated successfully");
       setIsEditingSchool(false);
@@ -523,11 +544,14 @@ export default function SuperAdminDashboard() {
   const handleUnlinkTeacher = async (userId: number) => {
     if (!confirm("Are you sure you want to unlink this teacher?")) return;
     try {
-      const token = localStorage.getItem("accessToken");
+      // const token = localStorage.getItem("accessToken");
       await axios.post(
         `/api/v1/admin/users/${userId}/unlink`,
         {},
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          // headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        }
       );
       toast.success("Teacher unlinked successfully");
       // Refresh data
@@ -545,11 +569,14 @@ export default function SuperAdminDashboard() {
       return;
 
     try {
-      const token = localStorage.getItem("accessToken");
+      // const token = localStorage.getItem("accessToken");
       await axios.post(
         `/api/v1/admin/users/${teacher.id}/${action}`,
         {},
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          // headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
+        }
       );
       toast.success(`Teacher ${action}ned successfully`);
       // Refresh data
@@ -567,11 +594,12 @@ export default function SuperAdminDashboard() {
   const handleViewSchoolTeachers = async (schoolId: number) => {
     setLoadingSchoolDetails(true);
     try {
-      const token = localStorage.getItem("accessToken");
+      // const token = localStorage.getItem("accessToken");
       const res = await axios.get(
         `/api/v1/admin/schools/${schoolId}/teachers`,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          // headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
       setSelectedSchool(res.data);

@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { FiArrowLeft, FiSave, FiFileText } from "react-icons/fi";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
+import { FiArrowLeft, FiSave, FiFileText, FiLock } from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -60,7 +61,14 @@ interface Subject {
 export default function EditLessonPlanPage() {
   const router = useRouter();
   const params = useParams();
+  const { user, isAuthenticated, loading: authLoading } = useCustomAuth();
   const planId = params?.id as string;
+
+  const isPremium =
+    user?.subscription_type === "INDIVIDUAL_PREMIUM" ||
+    user?.subscription_type === "SCHOOL_SPONSORED" ||
+    !!user?.school_id ||
+    user?.role === "SUPER_ADMIN";
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -110,15 +118,12 @@ export default function EditLessonPlanPage() {
 
   const fetchAutomationData = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
-      const headers = { Authorization: `Bearer ${token}` };
-
       const [entriesRes, slotsRes, settingsRes, subjectsRes] =
         await Promise.all([
-          axios.get("/api/v1/timetable/entries", { headers }),
-          axios.get("/api/v1/timetable/time-slots", { headers }),
-          axios.get("/api/v1/admin/school-settings", { headers }),
-          axios.get("/api/v1/subjects", { headers }),
+          axios.get("/api/v1/timetable/entries", { withCredentials: true }),
+          axios.get("/api/v1/timetable/time-slots", { withCredentials: true }),
+          axios.get("/api/v1/admin/school-settings", { withCredentials: true }),
+          axios.get("/api/v1/subjects", { withCredentials: true }),
         ]);
 
       setTimetableEntries(entriesRes.data);
@@ -133,10 +138,9 @@ export default function EditLessonPlanPage() {
 
   const fetchLessonPlan = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const cleanId = planId.replace(/-$/, "");
       const response = await axios.get(`/api/v1/lesson-plans/${cleanId}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
 
       // Ensure null values are converted to empty strings for inputs
@@ -305,11 +309,10 @@ export default function EditLessonPlanPage() {
 
     setGeneratingAuto(true);
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.post(
         `/api/v1/lesson-plans/${lessonPlan.id}/auto-generate`,
         {},
-        { headers: { Authorization: `Bearer ${token}` } }
+        { withCredentials: true }
       );
 
       const updatedPlan = response.data;
@@ -338,11 +341,10 @@ export default function EditLessonPlanPage() {
 
     setEnhancingAI(true);
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.post(
         `/api/v1/lesson-plans/${lessonPlan.id}/enhance`,
         {},
-        { headers: { Authorization: `Bearer ${token}` } }
+        { withCredentials: true }
       );
 
       const enhancedPlan = response.data;
@@ -380,7 +382,6 @@ export default function EditLessonPlanPage() {
     setSaving(true);
 
     try {
-      const token = localStorage.getItem("accessToken");
       const cleanId = planId.replace(/-$/, "");
 
       // Handle empty date string by converting to null or keeping as is depending on backend requirement
@@ -392,7 +393,7 @@ export default function EditLessonPlanPage() {
       }
 
       await axios.put(`/api/v1/lesson-plans/${cleanId}`, payload, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
 
       toast.success("Lesson plan updated successfully!");
@@ -419,7 +420,60 @@ export default function EditLessonPlanPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100 relative overflow-hidden">
+    <div
+      className={`min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100 relative overflow-hidden ${
+        !isPremium ? "select-none" : ""
+      }`}
+      onContextMenu={(e) => {
+        if (!isPremium) {
+          e.preventDefault();
+          toast.error("Right-click is disabled for preview.");
+        }
+      }}
+    >
+      {/* Watermark for non-premium users */}
+      {!isPremium && (
+        <div className="fixed inset-0 pointer-events-none z-50 grid grid-cols-2 gap-y-32 gap-x-12 content-start justify-items-center overflow-hidden opacity-10 p-10">
+          {Array.from({ length: 40 }).map((_, i) => (
+            <div
+              key={i}
+              className="transform -rotate-45 text-gray-900 text-3xl font-black whitespace-nowrap select-none"
+            >
+              {user?.email || "PREVIEW ONLY"}
+            </div>
+          ))}
+        </div>
+      )}
+      <style jsx global>{`
+        @media print {
+          /* Hide content for non-premium users during print */
+          ${!isPremium
+            ? `
+            body > * {
+              display: none !important;
+            }
+            body::after {
+              content: "Printing is available on Premium plans only. Please upgrade to print.";
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              font-size: 24pt;
+              font-weight: bold;
+              color: #555;
+              text-align: center;
+              padding: 20px;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              background: white;
+              z-index: 9999;
+            }
+          `
+            : ""}
+        }
+      `}</style>
       {/* Animated background */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 left-20 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
@@ -427,6 +481,34 @@ export default function EditLessonPlanPage() {
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 py-8 pt-24">
+        {/* Free Plan Banner */}
+        {!isPremium && (
+          <div className="mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 shadow-sm relative overflow-hidden no-print">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                  <FiLock className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900">
+                    Preview Mode Active
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Upgrade to Premium to edit this Lesson Plan without
+                    restrictions.
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => router.push("/pricing")}
+                className="whitespace-nowrap px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white text-sm font-bold rounded-lg shadow-md transition-all"
+              >
+                Upgrade Now
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-4 mb-4">

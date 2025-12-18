@@ -70,10 +70,11 @@ import type {
 } from "../dashboard-components";
 import SchoolAdminDashboard from "@/components/dashboard/SchoolAdminDashboard";
 import SuperAdminDashboard from "@/components/dashboard/SuperAdminDashboard";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL
-  ? `${process.env.NEXT_PUBLIC_API_URL}/api/v1`
-  : "/api/v1";
+// Force use of Next.js Proxy for client-side requests to ensure cookies are sent correctly
+// and to avoid CORS issues when accessing from different devices (e.g. 10.2.0.2)
+const API_BASE_URL = "/api/v1";
 
 interface Subject {
   id: number;
@@ -124,7 +125,11 @@ interface CurriculumDetails {
 }
 
 export default function DashboardPage() {
-  const { data: session, status } = useSession();
+  const {
+    user: authUser,
+    loading: authLoading,
+    isAuthenticated,
+  } = useCustomAuth();
   const router = useRouter();
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [loading, setLoading] = useState(true);
@@ -190,47 +195,14 @@ export default function DashboardPage() {
       assessmentsCreated: 0,
     });
 
-  // Sync session token to localStorage for Google OAuth users
   useEffect(() => {
-    if (status === "authenticated" && (session as any)?.accessToken) {
-      const sessionToken = (session as any).accessToken;
-      const storedToken = localStorage.getItem("accessToken");
-      if (!storedToken && sessionToken) {
-        localStorage.setItem("accessToken", sessionToken);
-        if ((session as any)?.user) {
-          localStorage.setItem("user", JSON.stringify((session as any).user));
-        }
-      }
+    if (authLoading) return;
+
+    if (isAuthenticated && authUser) {
+      setUser(authUser);
+      fetchSubjects();
     }
-  }, [session, status]);
-
-  useEffect(() => {
-    if (status === "loading") return; // Still loading
-
-    const storedToken =
-      typeof window !== "undefined"
-        ? localStorage.getItem("accessToken")
-        : null;
-    const storedUser =
-      typeof window !== "undefined" ? localStorage.getItem("user") : null;
-
-    const sessionToken = (session as any)?.accessToken || null;
-    const tokenToUse = sessionToken || storedToken;
-
-    if (!tokenToUse) {
-      router.push("/login");
-      return;
-    }
-
-    if (status === "authenticated" && session?.user) {
-      setUser(session.user);
-    } else if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-
-    fetchSubjects(tokenToUse);
-    // fetchTodayLessons will be called after subjects are loaded and education level is determined
-  }, [session, status, router]);
+  }, [authUser, isAuthenticated, authLoading]);
 
   // Update current time every minute
   useEffect(() => {
@@ -347,14 +319,17 @@ export default function DashboardPage() {
 
     // Fetch real dashboard data
     const fetchDashboardData = async () => {
-      const token = localStorage.getItem("accessToken");
-      if (!token) return;
+      // We don't need token from localStorage anymore
+      // const token = localStorage.getItem("accessToken");
+      // if (!token) return;
 
       try {
+        const config = { withCredentials: true };
+
         // 1. Curriculum Progress
         const progressRes = await axios.get(
           `${API_BASE_URL}/dashboard/curriculum-progress`,
-          { headers: { Authorization: `Bearer ${token}` } }
+          config
         );
 
         // Transform to match SubjectProgress interface
@@ -383,17 +358,16 @@ export default function DashboardPage() {
         setSubjectProgress(progressData);
 
         // 2. Stats / Performance Summary
-        const statsRes = await axios.get(`${API_BASE_URL}/dashboard/stats`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const statsRes = await axios.get(
+          `${API_BASE_URL}/dashboard/stats`,
+          config
+        );
         setPerformanceSummary(statsRes.data);
 
         // 3. Teaching Insights
         const insightsRes = await axios.get(
           `${API_BASE_URL}/dashboard/insights`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+          config
         );
         setTeachingInsights(insightsRes.data);
 
@@ -405,9 +379,7 @@ export default function DashboardPage() {
         // 4. Upcoming Deadlines
         const deadlinesRes = await axios.get(
           `${API_BASE_URL}/dashboard/deadlines`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+          config
         );
         // Ensure dates are Date objects
         const deadlinesData = deadlinesRes.data.map((d: any) => ({
@@ -419,9 +391,7 @@ export default function DashboardPage() {
         // 5. Resources
         const resourcesRes = await axios.get(
           `${API_BASE_URL}/dashboard/resources`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+          config
         );
         const resourcesData = resourcesRes.data.map((r: any) => ({
           ...r,
@@ -433,9 +403,6 @@ export default function DashboardPage() {
           console.warn(
             "Session expired (401) in fetchDashboardData, redirecting..."
           );
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("user");
-          sessionStorage.clear();
           router.push("/login");
           return;
         }
@@ -465,16 +432,14 @@ export default function DashboardPage() {
 
     // Update lesson day
     try {
-      const token = localStorage.getItem("accessToken");
       await axios.put(
         `${API_BASE_URL}/timetable/entries/${draggedLesson.id}`,
         { ...draggedLesson, day_of_week: targetDay },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { withCredentials: true }
       );
 
       // Refresh data
-      const tokenToUse = (session as any)?.accessToken || token;
-      if (tokenToUse) fetchSubjects(tokenToUse);
+      fetchSubjects();
     } catch (error) {
       console.error("Failed to reschedule lesson:", error);
     }
@@ -499,13 +464,12 @@ export default function DashboardPage() {
     );
   };
 
-  const fetchSubjects = async (token: string) => {
+  const fetchSubjects = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/subjects`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const config = {
+        withCredentials: true,
+      };
+      const response = await axios.get(`${API_BASE_URL}/subjects`, config);
       setSubjects(response.data);
 
       // Infer education level from the first subject's grade
@@ -525,33 +489,25 @@ export default function DashboardPage() {
         }
         setEducationLevel(level);
         // Now fetch today's lessons with the correct education level
-        fetchTodayLessons(token, level);
+        fetchTodayLessons(level);
       } else {
         // No subjects yet - redirect to curriculum selection for onboarding
-        const storedUser = localStorage.getItem("user");
-        if (storedUser) {
-          try {
-            const userObj = JSON.parse(storedUser);
-            // Redirect teachers to curriculum selection if they have no subjects
-            if (userObj.role === "TEACHER" || userObj.role === "SCHOOL_ADMIN") {
-              router.push("/curriculum/select");
-              return;
-            }
-          } catch (e) {
-            console.error("Error parsing user object", e);
+        if (authUser) {
+          const userObj = authUser as any;
+          // Redirect teachers to curriculum selection if they have no subjects
+          if (userObj.role === "TEACHER" || userObj.role === "SCHOOL_ADMIN") {
+            router.push("/curriculum/select");
+            return;
           }
         }
 
         // No subjects yet, still try to fetch lessons without education level filter
-        fetchTodayLessons(token, "");
+        fetchTodayLessons("");
       }
     } catch (error) {
       // If unauthorized, redirect to login and clear all session data
       if (axios.isAxiosError(error) && error.response?.status === 401) {
         console.warn("Session expired (401) in fetchSubjects, redirecting...");
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("user");
-        sessionStorage.clear();
         router.push("/login");
         return;
       }
@@ -561,7 +517,7 @@ export default function DashboardPage() {
     }
   };
 
-  const fetchTodayLessons = async (token: string, level: string) => {
+  const fetchTodayLessons = async (level: string) => {
     try {
       // Build query params
       const params = new URLSearchParams();
@@ -571,12 +527,14 @@ export default function DashboardPage() {
       const queryString = params.toString();
       const query = queryString ? `?${queryString}` : "";
 
+      const config = {
+        withCredentials: true,
+      };
+
       // Fetch time slots
       const slotsRes = await axios.get(
         `${API_BASE_URL}/timetable/time-slots${query}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        config
       );
       const allSlots = slotsRes.data.filter(
         (s: TimeSlot) => s.slot_type === "lesson"
@@ -586,9 +544,7 @@ export default function DashboardPage() {
       // Fetch timetable entries
       const entriesRes = await axios.get(
         `${API_BASE_URL}/timetable/entries${query}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        config
       );
 
       // Get today's day of week (JS getDay: 0=Sunday, 1=Monday, ...)
@@ -603,12 +559,12 @@ export default function DashboardPage() {
 
       // Fetch curriculum details for each lesson
       for (const entry of todayEntries) {
-        fetchCurriculumDetails(token, entry.subject_id);
+        fetchCurriculumDetails(entry.subject_id);
       }
 
       // If no lessons today, fetch next lesson
       if (todayEntries.length === 0) {
-        fetchNextLesson(token);
+        fetchNextLesson();
       }
 
       // Fetch all weekly entries for the calendar
@@ -640,13 +596,14 @@ export default function DashboardPage() {
     }
   };
 
-  const fetchNextLesson = async (token: string) => {
+  const fetchNextLesson = async () => {
     try {
+      const config = {
+        withCredentials: true,
+      };
       const response = await axios.get(
         `${API_BASE_URL}/timetable/entries/next`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        config
       );
       if (response.data) {
         setNextLesson(response.data);
@@ -656,17 +613,19 @@ export default function DashboardPage() {
     }
   };
 
-  const fetchCurriculumDetails = async (token: string, subjectId: number) => {
+  const fetchCurriculumDetails = async (subjectId: number) => {
     try {
       const subject = subjects.find((s) => s.id === subjectId);
       if (!subject) return;
 
+      const config = {
+        withCredentials: true,
+      };
+
       // Fetch the curriculum template and current progress
       const response = await axios.get(
         `${API_BASE_URL}/subjects/${subjectId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        config
       );
 
       const subjectData = response.data;
@@ -712,12 +671,8 @@ export default function DashboardPage() {
     }
 
     try {
-      const token =
-        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       await axios.delete(`${API_BASE_URL}/subjects/${subjectId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        withCredentials: true,
       });
 
       // Remove from state
@@ -1023,7 +978,7 @@ export default function DashboardPage() {
                           subjects.length >=
                           (user?.subscription_type === "INDIVIDUAL_BASIC"
                             ? 6
-                            : 2)
+                            : 6)
                             ? "bg-red-500"
                             : "bg-orange-500"
                         }`}
@@ -1032,7 +987,7 @@ export default function DashboardPage() {
                             (subjects.length /
                               (user?.subscription_type === "INDIVIDUAL_BASIC"
                                 ? 6
-                                : 2)) *
+                                : 6)) *
                               100,
                             100
                           )}%`,
@@ -1041,7 +996,7 @@ export default function DashboardPage() {
                     </div>
                     <span className="text-sm font-medium text-orange-800">
                       {subjects.length}/
-                      {user?.subscription_type === "INDIVIDUAL_BASIC" ? 6 : 2}{" "}
+                      {user?.subscription_type === "INDIVIDUAL_BASIC" ? 6 : 6}{" "}
                       Used
                     </span>
                   </div>
@@ -1049,7 +1004,7 @@ export default function DashboardPage() {
                   {subjects.length >=
                     (user?.subscription_type === "INDIVIDUAL_BASIC"
                       ? 6
-                      : 2) && (
+                      : 6) && (
                     <button
                       onClick={() =>
                         toast.success("Premium features coming soon!")

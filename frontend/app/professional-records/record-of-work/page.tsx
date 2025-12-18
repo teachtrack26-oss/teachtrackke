@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import Link from "next/link";
 import {
   FiArrowLeft,
@@ -66,7 +66,7 @@ interface FullRecordOfWork {
 
 export default function RecordsOfWorkListPage() {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { user, isAuthenticated, loading: authLoading } = useCustomAuth();
   const [loading, setLoading] = useState(true);
   const [records, setRecords] = useState<RecordOfWorkSummary[]>([]);
   const [filteredRecords, setFilteredRecords] = useState<RecordOfWorkSummary[]>(
@@ -125,11 +125,10 @@ export default function RecordsOfWorkListPage() {
 
       setBulkWeeksLoading(true);
       try {
-        const token = localStorage.getItem("accessToken");
         const responses = await Promise.all(
           selectedIds.map((id) =>
             axios.get(`/api/v1/records-of-work/${id}`, {
-              headers: { Authorization: `Bearer ${token}` },
+              withCredentials: true,
             })
           )
         );
@@ -165,8 +164,7 @@ export default function RecordsOfWorkListPage() {
   }, [selectedIds.join(",")]);
 
   const handleBulkDownload = async (type: "all" | "weekly") => {
-    const user = session?.user as any;
-    if (user?.subscription_type === "FREE") {
+    if ((user as any)?.subscription_type === "FREE") {
       toast.error("Bulk downloads are available on Premium plans only.");
       return;
     }
@@ -185,10 +183,9 @@ export default function RecordsOfWorkListPage() {
     const toastId = toast.loading("Preparing records...");
 
     try {
-      const token = localStorage.getItem("accessToken");
       const promises = selectedIds.map((id) =>
         axios.get(`/api/v1/records-of-work/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         })
       );
 
@@ -228,12 +225,10 @@ export default function RecordsOfWorkListPage() {
   };
 
   useEffect(() => {
-    if (status === "authenticated") {
+    if (!authLoading && isAuthenticated) {
       fetchRecords();
-    } else if (status === "unauthenticated") {
-      router.push("/login");
     }
-  }, [status]);
+  }, [authLoading, isAuthenticated]);
 
   useEffect(() => {
     filterRecords();
@@ -241,9 +236,8 @@ export default function RecordsOfWorkListPage() {
 
   const fetchRecords = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get("/api/v1/records-of-work", {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setRecords(response.data);
       setLoading(false);
@@ -307,9 +301,8 @@ export default function RecordsOfWorkListPage() {
     if (!confirm("Are you sure you want to delete this record?")) return;
 
     try {
-      const token = localStorage.getItem("accessToken");
       await axios.delete(`/api/v1/records-of-work/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       toast.success("Record deleted successfully");
       fetchRecords();
@@ -364,17 +357,17 @@ export default function RecordsOfWorkListPage() {
                     setBulkSelectedWeek(v === "all" ? "all" : parseInt(v, 10));
                   }}
                   disabled={
-                    (session?.user as any)?.subscription_type === "FREE" ||
+                    (user as any)?.subscription_type === "FREE" ||
                     bulkWeeksLoading ||
                     isBulkDownloading
                   }
                   className={`px-3 py-2 border border-gray-300 rounded-md text-sm bg-white ${
-                    (session?.user as any)?.subscription_type === "FREE"
+                    (user as any)?.subscription_type === "FREE"
                       ? "bg-gray-200 text-gray-500 cursor-not-allowed"
                       : "text-gray-700"
                   }`}
                   title={
-                    (session?.user as any)?.subscription_type === "FREE"
+                    (user as any)?.subscription_type === "FREE"
                       ? "Upgrade to download"
                       : bulkWeeksLoading
                       ? "Loading weeks..."
@@ -393,18 +386,18 @@ export default function RecordsOfWorkListPage() {
                   onClick={() => handleBulkDownload("all")}
                   disabled={isBulkDownloading}
                   className={`inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium ${
-                    (session?.user as any)?.subscription_type === "FREE"
+                    (user as any)?.subscription_type === "FREE"
                       ? "bg-gray-200 text-gray-500 cursor-not-allowed"
                       : "text-gray-700 bg-white hover:bg-gray-50"
                   }`}
                   title={
-                    (session?.user as any)?.subscription_type === "FREE"
+                    (user as any)?.subscription_type === "FREE"
                       ? "Upgrade to download"
                       : "Download Selected"
                   }
                 >
                   <FiDownload className="mr-2 -ml-1 h-5 w-5" />
-                  {(session?.user as any)?.subscription_type === "FREE"
+                  {(user as any)?.subscription_type === "FREE"
                     ? "Preview Only"
                     : "Download Selected"}
                 </button>
@@ -412,18 +405,18 @@ export default function RecordsOfWorkListPage() {
                   onClick={() => handleBulkDownload("weekly")}
                   disabled={isBulkDownloading}
                   className={`inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium ${
-                    (session?.user as any)?.subscription_type === "FREE"
+                    (user as any)?.subscription_type === "FREE"
                       ? "bg-gray-200 text-gray-500 cursor-not-allowed"
                       : "text-gray-700 bg-white hover:bg-gray-50"
                   }`}
                   title={
-                    (session?.user as any)?.subscription_type === "FREE"
+                    (user as any)?.subscription_type === "FREE"
                       ? "Upgrade to download"
                       : "Download Weekly"
                   }
                 >
                   <FiCalendar className="mr-2 -ml-1 h-5 w-5" />
-                  {(session?.user as any)?.subscription_type === "FREE"
+                  {(user as any)?.subscription_type === "FREE"
                     ? "Preview Only"
                     : "Download Weekly"}
                 </button>

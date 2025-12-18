@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { api } from "@/lib/api";
 import { toast } from "react-hot-toast";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import {
   FaChevronDown,
   FaChevronUp,
@@ -48,31 +49,26 @@ export default function ViewCurriculumPage() {
   const router = useRouter();
   const params = useParams();
   const templateId = params.id as string;
+  const { user, isAuthenticated, loading: authLoading } = useCustomAuth();
 
   const [template, setTemplate] = useState<Template | null>(null);
   const [loading, setLoading] = useState(true);
   const [expandedStrands, setExpandedStrands] = useState<Set<number>>(
     new Set()
   );
-  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
+  const isSuperAdmin = user?.role === "SUPER_ADMIN";
 
   useEffect(() => {
-    // Check user role
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-      setIsSuperAdmin(user.role === "SUPER_ADMIN");
-
+    if (!authLoading && isAuthenticated) {
       // Check if user has admin access
-      if (user.role !== "SUPER_ADMIN" && user.role !== "SCHOOL_ADMIN") {
+      if (user?.role !== "SUPER_ADMIN" && user?.role !== "SCHOOL_ADMIN") {
         toast.error("Access denied. Admin privileges required.");
         router.push("/dashboard");
         return;
       }
+      fetchTemplate();
     }
-
-    fetchTemplate();
-  }, [templateId, router]);
+  }, [templateId, router, authLoading, isAuthenticated, user]);
 
   const fetchTemplate = async () => {
     try {

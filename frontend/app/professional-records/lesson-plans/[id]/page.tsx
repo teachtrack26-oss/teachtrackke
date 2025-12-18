@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import {
   FiArrowLeft,
   FiDownload,
@@ -20,6 +20,7 @@ import {
   FiStar,
   FiLink,
   FiBox,
+  FiLock,
 } from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -54,7 +55,13 @@ export default function ViewLessonPlanPage() {
   const router = useRouter();
   const params = useParams();
   const planId = params?.id as string;
-  const { data: session } = useSession();
+  const { user, isAuthenticated, loading: authLoading } = useCustomAuth();
+
+  const isPremium =
+    user?.subscription_type === "INDIVIDUAL_PREMIUM" ||
+    user?.subscription_type === "SCHOOL_SPONSORED" ||
+    !!user?.school_id ||
+    user?.role === "SUPER_ADMIN";
 
   const [loading, setLoading] = useState(true);
   const [plan, setPlan] = useState<LessonPlan | null>(null);
@@ -67,12 +74,11 @@ export default function ViewLessonPlanPage() {
 
   const fetchLessonPlan = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       // Handle the case where the ID might have a trailing hyphen
       const cleanId = planId.replace(/-$/, "");
 
       const response = await axios.get(`/api/v1/lesson-plans/${cleanId}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setPlan(response.data);
     } catch (error) {
@@ -90,10 +96,9 @@ export default function ViewLessonPlanPage() {
     }
 
     try {
-      const token = localStorage.getItem("accessToken");
       const cleanId = planId.replace(/-$/, "");
       await axios.delete(`/api/v1/lesson-plans/${cleanId}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       toast.success("Lesson plan deleted successfully");
       router.push("/professional-records?tab=lessons");
@@ -149,6 +154,33 @@ export default function ViewLessonPlanPage() {
           .no-print {
             display: none !important;
           }
+
+          /* Hide content for non-premium users during print */
+          ${!isPremium
+            ? `
+            .print-full-width {
+              display: none !important;
+            }
+            body::after {
+              content: "Printing is available on Premium plans only. Please upgrade to print.";
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              font-size: 24pt;
+              font-weight: bold;
+              color: #555;
+              text-align: center;
+              padding: 20px;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              background: white;
+              z-index: 9999;
+            }
+          `
+            : ""}
 
           /* Reset container widths */
           .print-full-width {
@@ -248,8 +280,46 @@ export default function ViewLessonPlanPage() {
         }
       `}</style>
 
-      <div className="min-h-screen bg-white relative overflow-hidden">
+      <div
+        className={`min-h-screen bg-white relative overflow-hidden ${
+          !isPremium ? "select-none" : ""
+        }`}
+        onContextMenu={(e) => {
+          if (!isPremium) {
+            e.preventDefault();
+            toast.error("Right-click is disabled for preview.");
+          }
+        }}
+      >
         <div className="relative z-10 max-w-4xl mx-auto px-8 py-6 print-full-width">
+          {/* Free Plan Banner */}
+          {!isPremium && (
+            <div className="mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 shadow-sm relative overflow-hidden no-print">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                    <FiLock className="w-5 h-5 text-amber-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900">
+                      Preview Mode Active
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      Upgrade to Premium to download, print, and edit this
+                      Lesson Plan.
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => router.push("/pricing")}
+                  className="whitespace-nowrap px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white text-sm font-bold rounded-lg shadow-md transition-all"
+                >
+                  Upgrade Now
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Action Buttons */}
           <div className="mb-6 flex justify-between items-center no-print">
             <button
@@ -263,8 +333,7 @@ export default function ViewLessonPlanPage() {
             <div className="flex gap-2">
               <button
                 onClick={() => {
-                  const user = session?.user as any;
-                  if (user?.subscription_type === "FREE") {
+                  if (!isPremium) {
                     toast.error(
                       "Printing/Downloading is available on Premium plans only."
                     );
@@ -272,21 +341,16 @@ export default function ViewLessonPlanPage() {
                   }
                   window.print();
                 }}
+                disabled={!isPremium}
                 className={`px-4 py-2 rounded-lg font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 ${
-                  (session?.user as any)?.subscription_type === "FREE"
+                  !isPremium
                     ? "bg-gray-400 text-white cursor-not-allowed"
                     : "bg-gradient-to-r from-blue-600 to-cyan-600 text-white"
                 }`}
-                title={
-                  (session?.user as any)?.subscription_type === "FREE"
-                    ? "Upgrade to print"
-                    : "Print"
-                }
+                title={!isPremium ? "Upgrade to print" : "Print"}
               >
                 <FiDownload className="w-4 h-4" />
-                {(session?.user as any)?.subscription_type === "FREE"
-                  ? "Preview Only"
-                  : "Print"}
+                {!isPremium ? "Preview Only" : "Print"}
               </button>
               <button
                 onClick={() =>
@@ -309,199 +373,214 @@ export default function ViewLessonPlanPage() {
             </div>
           </div>
 
-          {/* Document Header */}
-          <div className="text-center mb-6 pb-4 border-b-2 border-gray-800">
-            <h1 className="text-3xl font-bold text-gray-900 uppercase tracking-wider">
-              LESSON PLAN
-            </h1>
-          </div>
+          <div className="relative">
+            {/* Watermark for non-premium users */}
+            {!isPremium && (
+              <div className="absolute inset-0 pointer-events-none z-50 grid grid-cols-2 gap-y-32 gap-x-12 content-start justify-items-center overflow-hidden opacity-10 p-10">
+                {Array.from({ length: 40 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="transform -rotate-45 text-gray-900 text-3xl font-black whitespace-nowrap select-none"
+                  >
+                    {user?.email || "PREVIEW ONLY"}
+                  </div>
+                ))}
+              </div>
+            )}
+            {/* Document Header */}
+            <div className="text-center mb-6 pb-4 border-b-2 border-gray-800">
+              <h1 className="text-3xl font-bold text-gray-900 uppercase tracking-wider">
+                LESSON PLAN
+              </h1>
+            </div>
 
-          {/* Header Info Grid */}
-          <div className="header-info-grid grid grid-cols-2 gap-x-8 gap-y-4 mb-8 p-6 bg-gray-50 border border-gray-200 rounded-xl">
-            <div className="flex items-center gap-3">
-              <span className="font-bold text-gray-700 w-32">
-                Learning Area:
-              </span>
-              <span className="text-gray-900 font-medium">
-                {plan.learning_area}
-              </span>
+            {/* Header Info Grid */}
+            <div className="header-info-grid grid grid-cols-2 gap-x-8 gap-y-4 mb-8 p-6 bg-gray-50 border border-gray-200 rounded-xl">
+              <div className="flex items-center gap-3">
+                <span className="font-bold text-gray-700 w-32">
+                  Learning Area:
+                </span>
+                <span className="text-gray-900 font-medium">
+                  {plan.learning_area}
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="font-bold text-gray-700 w-32">Grade:</span>
+                <span className="text-gray-900 font-medium">{plan.grade}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="font-bold text-gray-700 w-32">Date:</span>
+                <span className="text-gray-900 font-medium">
+                  {plan.date
+                    ? new Date(plan.date).toLocaleDateString(undefined, {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })
+                    : "Not set"}
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="font-bold text-gray-700 w-32">Time:</span>
+                <span className="text-gray-900 font-medium">
+                  {plan.time || "Not set"}
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="font-bold text-gray-700 w-32">Roll:</span>
+                <span className="text-gray-900 font-medium">
+                  {plan.roll || "Not set"}
+                </span>
+              </div>
             </div>
-            <div className="flex items-center gap-3">
-              <span className="font-bold text-gray-700 w-32">Grade:</span>
-              <span className="text-gray-900 font-medium">{plan.grade}</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="font-bold text-gray-700 w-32">Date:</span>
-              <span className="text-gray-900 font-medium">
-                {plan.date
-                  ? new Date(plan.date).toLocaleDateString(undefined, {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })
-                  : "Not set"}
-              </span>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="font-bold text-gray-700 w-32">Time:</span>
-              <span className="text-gray-900 font-medium">
-                {plan.time || "Not set"}
-              </span>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="font-bold text-gray-700 w-32">Roll:</span>
-              <span className="text-gray-900 font-medium">
-                {plan.roll || "Not set"}
-              </span>
-            </div>
-          </div>
 
-          {/* Main Content */}
-          <div className="space-y-6">
-            {/* Strand & Sub-strand */}
-            <div className="compact-grid grid md:grid-cols-2 gap-6">
+            {/* Main Content */}
+            <div className="space-y-6">
+              {/* Strand & Sub-strand */}
+              <div className="compact-grid grid md:grid-cols-2 gap-6">
+                <div className="section-card border border-gray-300 rounded-lg p-4">
+                  <h3 className="font-bold text-gray-700 mb-2 flex items-center gap-2">
+                    <FiLayers className="text-indigo-600" />
+                    Strand / Theme / Topic
+                  </h3>
+                  <p className="text-gray-900">{plan.strand_theme_topic}</p>
+                </div>
+                <div className="section-card border border-gray-300 rounded-lg p-4">
+                  <h3 className="font-bold text-gray-700 mb-2 flex items-center gap-2">
+                    <FiLayers className="text-purple-600" />
+                    Sub-strand / Sub-theme
+                  </h3>
+                  <p className="text-gray-900">
+                    {plan.sub_strand_sub_theme_sub_topic}
+                  </p>
+                </div>
+              </div>
+
+              {/* Learning Outcomes */}
               <div className="section-card border border-gray-300 rounded-lg p-4">
                 <h3 className="font-bold text-gray-700 mb-2 flex items-center gap-2">
-                  <FiLayers className="text-indigo-600" />
-                  Strand / Theme / Topic
+                  <FiTarget className="text-emerald-600" />
+                  Specific Learning Outcomes
                 </h3>
-                <p className="text-gray-900">{plan.strand_theme_topic}</p>
+                <div className="text-gray-900 whitespace-pre-wrap">
+                  {plan.specific_learning_outcomes}
+                </div>
               </div>
+
+              {/* Key Inquiry Questions */}
               <div className="section-card border border-gray-300 rounded-lg p-4">
                 <h3 className="font-bold text-gray-700 mb-2 flex items-center gap-2">
-                  <FiLayers className="text-purple-600" />
-                  Sub-strand / Sub-theme
+                  <FiHelpCircle className="text-amber-600" />
+                  Key Inquiry Questions
                 </h3>
-                <p className="text-gray-900">
-                  {plan.sub_strand_sub_theme_sub_topic}
-                </p>
+                <div className="text-gray-900 whitespace-pre-wrap">
+                  {plan.key_inquiry_questions}
+                </div>
               </div>
-            </div>
 
-            {/* Learning Outcomes */}
-            <div className="section-card border border-gray-300 rounded-lg p-4">
-              <h3 className="font-bold text-gray-700 mb-2 flex items-center gap-2">
-                <FiTarget className="text-emerald-600" />
-                Specific Learning Outcomes
-              </h3>
-              <div className="text-gray-900 whitespace-pre-wrap">
-                {plan.specific_learning_outcomes}
+              {/* Competencies & Values */}
+              <div className="compact-grid grid md:grid-cols-3 gap-4">
+                <div className="section-card border border-gray-300 rounded-lg p-4">
+                  <h3 className="font-bold text-gray-700 mb-2 text-sm flex items-center gap-2">
+                    <FiStar className="text-blue-600" />
+                    Core Competencies
+                  </h3>
+                  <p className="text-sm text-gray-900 whitespace-pre-wrap">
+                    {plan.core_competences}
+                  </p>
+                </div>
+                <div className="section-card border border-gray-300 rounded-lg p-4">
+                  <h3 className="font-bold text-gray-700 mb-2 text-sm flex items-center gap-2">
+                    <FiStar className="text-rose-600" />
+                    Values
+                  </h3>
+                  <p className="text-sm text-gray-900 whitespace-pre-wrap">
+                    {plan.values_to_be_developed}
+                  </p>
+                </div>
+                <div className="section-card border border-gray-300 rounded-lg p-4">
+                  <h3 className="font-bold text-gray-700 mb-2 text-sm flex items-center gap-2">
+                    <FiLink className="text-cyan-600" />
+                    PCIs
+                  </h3>
+                  <p className="text-sm text-gray-900 whitespace-pre-wrap">
+                    {plan.pcis_to_be_addressed}
+                  </p>
+                </div>
               </div>
-            </div>
 
-            {/* Key Inquiry Questions */}
-            <div className="section-card border border-gray-300 rounded-lg p-4">
-              <h3 className="font-bold text-gray-700 mb-2 flex items-center gap-2">
-                <FiHelpCircle className="text-amber-600" />
-                Key Inquiry Questions
-              </h3>
-              <div className="text-gray-900 whitespace-pre-wrap">
-                {plan.key_inquiry_questions}
-              </div>
-            </div>
-
-            {/* Competencies & Values */}
-            <div className="compact-grid grid md:grid-cols-3 gap-4">
+              {/* Learning Resources */}
               <div className="section-card border border-gray-300 rounded-lg p-4">
-                <h3 className="font-bold text-gray-700 mb-2 text-sm flex items-center gap-2">
-                  <FiStar className="text-blue-600" />
-                  Core Competencies
+                <h3 className="font-bold text-gray-700 mb-2 flex items-center gap-2">
+                  <FiBox className="text-orange-600" />
+                  Learning Resources
                 </h3>
-                <p className="text-sm text-gray-900 whitespace-pre-wrap">
-                  {plan.core_competences}
-                </p>
+                <div className="text-gray-900 whitespace-pre-wrap">
+                  {plan.learning_resources}
+                </div>
               </div>
-              <div className="section-card border border-gray-300 rounded-lg p-4">
-                <h3 className="font-bold text-gray-700 mb-2 text-sm flex items-center gap-2">
-                  <FiStar className="text-rose-600" />
-                  Values
+
+              {/* Lesson Steps */}
+              <div className="org-learning-container border border-gray-300 rounded-lg overflow-hidden">
+                <div className="org-learning-header bg-gray-100 px-4 py-2 border-b border-gray-300 font-bold text-gray-800">
+                  Organization of Learning
+                </div>
+                <div className="divide-y divide-gray-300">
+                  <div className="org-learning-item p-4">
+                    <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
+                      <span>Introduction</span>
+                      <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
+                        {5} min
+                      </span>
+                    </h4>
+                    <div className="text-gray-900 whitespace-pre-wrap">
+                      {plan.introduction}
+                    </div>
+                  </div>
+                  <div className="org-learning-item p-4">
+                    <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
+                      <span>Lesson Development</span>
+                      <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
+                        {(plan.lesson_duration_minutes || 40) - 10} min
+                      </span>
+                    </h4>
+                    <div className="text-gray-900 whitespace-pre-wrap">
+                      {plan.development}
+                    </div>
+                  </div>
+                  <div className="org-learning-item p-4">
+                    <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
+                      <span>Conclusion</span>
+                      <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
+                        {5} min
+                      </span>
+                    </h4>
+                    <div className="text-gray-900 whitespace-pre-wrap">
+                      {plan.conclusion}
+                    </div>
+                  </div>
+                  <div className="org-learning-item p-4">
+                    <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase">
+                      Summary
+                    </h4>
+                    <div className="text-gray-900 whitespace-pre-wrap">
+                      {plan.summary}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Reflection */}
+              <div className="section-card border border-gray-300 rounded-lg p-4 bg-yellow-50">
+                <h3 className="font-bold text-gray-700 mb-2 flex items-center gap-2">
+                  <FiCheckCircle className="text-yellow-600" />
+                  Reflection / Self-Evaluation
                 </h3>
-                <p className="text-sm text-gray-900 whitespace-pre-wrap">
-                  {plan.values_to_be_developed}
-                </p>
-              </div>
-              <div className="section-card border border-gray-300 rounded-lg p-4">
-                <h3 className="font-bold text-gray-700 mb-2 text-sm flex items-center gap-2">
-                  <FiLink className="text-cyan-600" />
-                  PCIs
-                </h3>
-                <p className="text-sm text-gray-900 whitespace-pre-wrap">
-                  {plan.pcis_to_be_addressed}
-                </p>
-              </div>
-            </div>
-
-            {/* Learning Resources */}
-            <div className="section-card border border-gray-300 rounded-lg p-4">
-              <h3 className="font-bold text-gray-700 mb-2 flex items-center gap-2">
-                <FiBox className="text-orange-600" />
-                Learning Resources
-              </h3>
-              <div className="text-gray-900 whitespace-pre-wrap">
-                {plan.learning_resources}
-              </div>
-            </div>
-
-            {/* Lesson Steps */}
-            <div className="org-learning-container border border-gray-300 rounded-lg overflow-hidden">
-              <div className="org-learning-header bg-gray-100 px-4 py-2 border-b border-gray-300 font-bold text-gray-800">
-                Organization of Learning
-              </div>
-              <div className="divide-y divide-gray-300">
-                <div className="org-learning-item p-4">
-                  <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
-                    <span>Introduction</span>
-                    <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
-                      {5} min
-                    </span>
-                  </h4>
-                  <div className="text-gray-900 whitespace-pre-wrap">
-                    {plan.introduction}
-                  </div>
+                <div className="text-gray-900 whitespace-pre-wrap min-h-[100px]">
+                  {plan.reflection_self_evaluation ||
+                    "To be filled after the lesson..."}
                 </div>
-                <div className="org-learning-item p-4">
-                  <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
-                    <span>Lesson Development</span>
-                    <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
-                      {(plan.lesson_duration_minutes || 40) - 10} min
-                    </span>
-                  </h4>
-                  <div className="text-gray-900 whitespace-pre-wrap">
-                    {plan.development}
-                  </div>
-                </div>
-                <div className="org-learning-item p-4">
-                  <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
-                    <span>Conclusion</span>
-                    <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
-                      {5} min
-                    </span>
-                  </h4>
-                  <div className="text-gray-900 whitespace-pre-wrap">
-                    {plan.conclusion}
-                  </div>
-                </div>
-                <div className="org-learning-item p-4">
-                  <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase">
-                    Summary
-                  </h4>
-                  <div className="text-gray-900 whitespace-pre-wrap">
-                    {plan.summary}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Reflection */}
-            <div className="section-card border border-gray-300 rounded-lg p-4 bg-yellow-50">
-              <h3 className="font-bold text-gray-700 mb-2 flex items-center gap-2">
-                <FiCheckCircle className="text-yellow-600" />
-                Reflection / Self-Evaluation
-              </h3>
-              <div className="text-gray-900 whitespace-pre-wrap min-h-[100px]">
-                {plan.reflection_self_evaluation ||
-                  "To be filled after the lesson..."}
               </div>
             </div>
           </div>

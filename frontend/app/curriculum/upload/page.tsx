@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import { FiUpload, FiFile, FiX, FiAlertCircle } from "react-icons/fi";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -78,7 +79,7 @@ const GRADES = [
 
 export default function CurriculumUploadPage() {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, loading: authLoading } = useCustomAuth();
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [formData, setFormData] = useState({
@@ -91,15 +92,11 @@ export default function CurriculumUploadPage() {
   const [dragActive, setDragActive] = useState(false);
 
   useEffect(() => {
-    // Check authentication
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
+    if (!authLoading && !isAuthenticated) {
       toast.error("Please login to upload curriculum");
       router.push("/login");
-      return;
     }
-    setIsAuthenticated(true);
-  }, [router]);
+  }, [authLoading, isAuthenticated, router]);
 
   useEffect(() => {
     // Update available learning areas when grade changes
@@ -191,7 +188,6 @@ export default function CurriculumUploadPage() {
     setLoading(true);
 
     try {
-      const token = localStorage.getItem("accessToken");
       const uploadFormData = new FormData();
       uploadFormData.append("file", selectedFile);
       uploadFormData.append("grade", formData.grade);
@@ -201,8 +197,8 @@ export default function CurriculumUploadPage() {
         `/api/v1/curriculum/upload`,
         uploadFormData,
         {
+          withCredentials: true,
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         }
@@ -242,12 +238,16 @@ export default function CurriculumUploadPage() {
     setSelectedFile(null);
   };
 
-  if (!isAuthenticated) {
+  if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
       </div>
     );
+  }
+
+  if (!isAuthenticated) {
+    return null; // Will redirect in useEffect
   }
 
   return (

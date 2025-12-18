@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import Link from "next/link";
 import {
   FiBookOpen,
@@ -22,6 +22,7 @@ import {
   FiShare2,
   FiCopy,
   FiCheckCircle,
+  FiLock,
 } from "react-icons/fi";
 import {
   BarChart,
@@ -49,13 +50,18 @@ interface Subject {
 interface SchemeOfWork {
   id: number;
   subject_id: number;
-  subject_name: string;
+  // API may return either subject_name or subject
+  subject_name?: string;
+  subject?: string;
   grade: string;
-  term_number: number;
-  term_year: number;
+  // API returns term/year, but older UI expected term_number/term_year
+  term?: string;
+  year?: number;
+  term_number?: number;
+  term_year?: number;
   total_weeks: number;
   total_lessons: number;
-  status: "draft" | "active" | "completed";
+  status?: "draft" | "active" | "completed";
   is_archived: boolean;
   created_at: string;
   updated_at: string;
@@ -88,7 +94,14 @@ interface RecordOfWork {
 
 export default function ProfessionalRecordsPage() {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { user, isAuthenticated, loading: authLoading } = useCustomAuth();
+
+  const isPremium =
+    user?.subscription_type === "INDIVIDUAL_PREMIUM" ||
+    user?.subscription_type === "SCHOOL_SPONSORED" ||
+    !!user?.school_id ||
+    user?.role === "SUPER_ADMIN";
+
   const [loading, setLoading] = useState(true);
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [activeTab, setActiveTab] = useState<"schemes" | "lessons" | "records">(
@@ -128,68 +141,73 @@ export default function ProfessionalRecordsPage() {
     subject_progress: [],
   });
 
-  // Sync session token to localStorage for Google OAuth users
   useEffect(() => {
-    if (status === "authenticated" && (session as any)?.accessToken) {
-      const sessionToken = (session as any).accessToken;
-      const storedToken = localStorage.getItem("accessToken");
-      if (!storedToken && sessionToken) {
-        localStorage.setItem("accessToken", sessionToken);
-        if ((session as any)?.user) {
-          localStorage.setItem("user", JSON.stringify((session as any).user));
-        }
-      }
+    if (!authLoading && isAuthenticated) {
+      fetchData();
     }
-  }, [session, status]);
-
-  useEffect(() => {
-    fetchData();
-  }, [showArchived, session, status]);
+  }, [showArchived, authLoading, isAuthenticated]);
 
   const fetchData = async () => {
-    // Wait for session status to be determined
-    if (status === "loading") return;
-
+    // Avoid firing requests before auth state is known.
+    if (authLoading || !isAuthenticated) return;
+    setLoading(true);
     try {
-      const sessionToken = (session as any)?.accessToken;
-      const storedToken = localStorage.getItem("accessToken");
-      const token = sessionToken || storedToken;
-
-      if (!token) {
-        // No token available, redirect to login
-        toast.error("Please login to access professional records");
-        router.push("/login");
-        return;
-      }
-
+      const config = { withCredentials: true };
       const archivedQuery = showArchived ? "?archived=true" : "";
 
       // Fetch subjects
-      const subjectsRes = await axios.get("/api/v1/subjects", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const subjectsRes = await axios.get("/api/v1/subjects", config);
       setSubjects(subjectsRes.data);
 
       // Fetch schemes of work
-      const schemesRes = await axios.get(`/api/v1/schemes${archivedQuery}`, {
-        headers: { Authorization: `Bearer ${token}` },
+      const schemesRes = await axios.get(
+        `/api/v1/schemes${archivedQuery}`,
+        config
+      );
+      const parseTermNumber = (termValue: unknown): number | undefined => {
+        if (!termValue) return undefined;
+        const match = String(termValue).match(/(\d+)/);
+        if (!match) return undefined;
+        const parsed = Number(match[1]);
+        return Number.isFinite(parsed) ? parsed : undefined;
+      };
+
+      const rawSchemes = Array.isArray(schemesRes.data)
+        ? schemesRes.data
+        : schemesRes.data?.items || [];
+
+      const normalizedSchemes: SchemeOfWork[] = rawSchemes.map((s: any) => {
+        const subject_name = s.subject_name ?? s.subject;
+        const term =
+          s.term ??
+          (s.term_number != null ? `Term ${s.term_number}` : undefined);
+        const year = s.year ?? s.term_year;
+
+        // If status is missing, assume active. If status is draft (old default), treat as active for display.
+        const normalizedStatus =
+          (s.status === "draft" ? "active" : s.status) ?? "active";
+
+        return {
+          ...s,
+          subject_name,
+          term,
+          year,
+          term_number: s.term_number ?? parseTermNumber(term),
+          term_year: s.term_year ?? year,
+          status: normalizedStatus,
+        };
       });
-      setSchemes(schemesRes.data);
+
+      setSchemes(normalizedSchemes);
 
       // Fetch schemes statistics
-      const statsRes = await axios.get("/api/v1/schemes/stats", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const statsRes = await axios.get("/api/v1/schemes/stats", config);
 
       // Fetch dashboard stats and charts data
       try {
         const [progressRes, insightsRes] = await Promise.all([
-          axios.get("/api/v1/dashboard/curriculum-progress", {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-          axios.get("/api/v1/dashboard/insights", {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
+          axios.get("/api/v1/dashboard/curriculum-progress", config),
+          axios.get("/api/v1/dashboard/insights", config),
         ]);
 
         // Process progress data
@@ -229,9 +247,7 @@ export default function ProfessionalRecordsPage() {
       try {
         const lessonPlansRes = await axios.get(
           `/api/v1/lesson-plans${archivedQuery}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+          config
         );
         setLessonPlans(lessonPlansRes.data);
       } catch (error) {
@@ -243,9 +259,7 @@ export default function ProfessionalRecordsPage() {
       try {
         const recordsRes = await axios.get(
           `/api/v1/records-of-work${archivedQuery}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
+          config
         );
         setRecordsOfWork(recordsRes.data);
       } catch (error) {
@@ -300,10 +314,8 @@ export default function ProfessionalRecordsPage() {
     }
 
     try {
-      const token =
-        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       await axios.post("/api/v1/lesson-plans/bulk-delete", selectedPlans, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       toast.success("Lesson plans deleted successfully");
       setSelectedPlans([]);
@@ -351,13 +363,11 @@ export default function ProfessionalRecordsPage() {
     }
 
     try {
-      const token =
-        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       // Delete each record individually
       await Promise.all(
         selectedRecords.map((id) =>
           axios.delete(`/api/v1/records-of-work/${id}`, {
-            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
           })
         )
       );
@@ -371,6 +381,11 @@ export default function ProfessionalRecordsPage() {
   };
 
   const handleExport = (type: "schemes" | "lessons" | "records") => {
+    if (!isPremium) {
+      toast.error("Export is available on Premium plans only.");
+      return;
+    }
+
     let data: any[] = [];
     let filename = "";
 
@@ -441,8 +456,6 @@ export default function ProfessionalRecordsPage() {
   ) => {
     if (!confirm("Are you sure you want to archive this item?")) return;
     try {
-      const token =
-        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       let endpoint = "";
       if (type === "scheme") endpoint = `/api/v1/schemes/${id}/archive`;
       else if (type === "lesson")
@@ -450,11 +463,7 @@ export default function ProfessionalRecordsPage() {
       else if (type === "record")
         endpoint = `/api/v1/records-of-work/${id}/archive`;
 
-      await axios.post(
-        endpoint,
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      await axios.post(endpoint, {}, { withCredentials: true });
       toast.success("Item archived successfully");
       fetchData();
     } catch (error) {
@@ -468,8 +477,6 @@ export default function ProfessionalRecordsPage() {
     id: number
   ) => {
     try {
-      const token =
-        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       let endpoint = "";
       if (type === "scheme") endpoint = `/api/v1/schemes/${id}/unarchive`;
       else if (type === "lesson")
@@ -477,11 +484,7 @@ export default function ProfessionalRecordsPage() {
       else if (type === "record")
         endpoint = `/api/v1/records-of-work/${id}/unarchive`;
 
-      await axios.post(
-        endpoint,
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      await axios.post(endpoint, {}, { withCredentials: true });
       toast.success("Item unarchived successfully");
       fetchData();
     } catch (error) {
@@ -495,12 +498,10 @@ export default function ProfessionalRecordsPage() {
     id: number
   ) => {
     try {
-      const token =
-        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       const res = await axios.post(
         `/api/v1/${type}/${id}/share`,
         {},
-        { headers: { Authorization: `Bearer ${token}` } }
+        { withCredentials: true }
       );
 
       // Copy to clipboard
@@ -518,12 +519,10 @@ export default function ProfessionalRecordsPage() {
   ) => {
     if (!confirm("Create a copy of this item?")) return;
     try {
-      const token =
-        localStorage.getItem("accessToken") || (session as any)?.accessToken;
       await axios.post(
         `/api/v1/${type}/${id}/duplicate`,
         {},
-        { headers: { Authorization: `Bearer ${token}` } }
+        { withCredentials: true }
       );
       toast.success("Item duplicated successfully");
       fetchData();
@@ -535,7 +534,9 @@ export default function ProfessionalRecordsPage() {
 
   // Helper functions for filtering
   const getUniqueSubjects = () => {
-    const schemesSubjects = schemes.map((s) => s.subject_name).filter(Boolean);
+    const schemesSubjects = schemes
+      .map((s) => s.subject_name || s.subject)
+      .filter(Boolean);
     const lessonSubjects = lessonPlans
       .map((lp) => lp.learning_area)
       .filter(Boolean);
@@ -558,16 +559,21 @@ export default function ProfessionalRecordsPage() {
 
   const getUniqueTerms = () => {
     const schemesTerms = schemes
-      .filter((s) => s.term_number != null)
-      .map((s) => `Term ${s.term_number}`);
+      .map(
+        (s) =>
+          s.term ||
+          (s.term_number != null ? `Term ${s.term_number}` : undefined)
+      )
+      .filter(Boolean);
     const recordTerms = recordsOfWork.map((r) => r.term).filter(Boolean);
     return Array.from(new Set([...schemesTerms, ...recordTerms])).sort();
   };
 
   const getUniqueYears = () => {
     const schemesYears = schemes
-      .filter((s) => s.term_year != null)
-      .map((s) => s.term_year.toString());
+      .map((s) => s.year ?? s.term_year)
+      .filter((y) => y != null)
+      .map((y) => String(y));
     const recordYears = recordsOfWork
       .filter((r) => r.year != null)
       .map((r) => r.year.toString());
@@ -578,23 +584,31 @@ export default function ProfessionalRecordsPage() {
 
   // Apply filters
   const filteredSchemes = schemes.filter((scheme) => {
+    const schemeSubject = scheme.subject_name || scheme.subject || "";
+    const schemeTerm =
+      scheme.term ||
+      (scheme.term_number != null ? `Term ${scheme.term_number}` : "");
+    const schemeYear = String(scheme.year ?? scheme.term_year ?? "");
+    const schemeStatus = (scheme.status || "active") as
+      | "draft"
+      | "active"
+      | "completed";
+
     // Search filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       const matchesSearch =
-        scheme.subject_name?.toLowerCase().includes(query) ||
+        schemeSubject.toLowerCase().includes(query) ||
         scheme.grade?.toLowerCase().includes(query);
       if (!matchesSearch) return false;
     }
 
-    if (filters.subject !== "all" && scheme.subject_name !== filters.subject)
+    if (filters.subject !== "all" && schemeSubject !== filters.subject)
       return false;
     if (filters.grade !== "all" && scheme.grade !== filters.grade) return false;
-    if (filters.term !== "all" && `Term ${scheme.term_number}` !== filters.term)
-      return false;
-    if (filters.year !== "all" && scheme.term_year?.toString() !== filters.year)
-      return false;
-    if (filters.status !== "all" && scheme.status !== filters.status)
+    if (filters.term !== "all" && schemeTerm !== filters.term) return false;
+    if (filters.year !== "all" && schemeYear !== filters.year) return false;
+    if (filters.status !== "all" && schemeStatus !== filters.status)
       return false;
     return true;
   });
@@ -697,6 +711,36 @@ export default function ProfessionalRecordsPage() {
             documentation
           </p>
         </div>
+
+        {/* Free Plan Banner */}
+        {!isPremium && (
+          <div className="mb-8 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-6 shadow-sm relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-amber-400/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
+            <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
+                  <FiLock className="w-6 h-6 text-amber-600" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-1">
+                    Preview Mode Active
+                  </h3>
+                  <p className="text-gray-600 max-w-xl">
+                    You are viewing Professional Records in preview mode.
+                    Upgrade to Premium to unlock full access, including PDF
+                    downloads, printing, and editing capabilities.
+                  </p>
+                </div>
+              </div>
+              <Link
+                href="/pricing"
+                className="whitespace-nowrap px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold rounded-lg shadow-lg shadow-orange-200 transition-all transform hover:-translate-y-0.5"
+              >
+                Upgrade Now
+              </Link>
+            </div>
+          </div>
+        )}
 
         {/* Premium Statistics Cards */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
@@ -939,7 +983,11 @@ export default function ProfessionalRecordsPage() {
               <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                 <button
                   onClick={() => handleExport("schemes")}
-                  className="bg-white text-indigo-600 border border-indigo-200 px-4 py-3 rounded-xl font-bold shadow-sm hover:bg-indigo-50 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
+                  disabled={!isPremium}
+                  className={`bg-white text-indigo-600 border border-indigo-200 px-4 py-3 rounded-xl font-bold shadow-sm hover:bg-indigo-50 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base ${
+                    !isPremium ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  title={!isPremium ? "Upgrade to export" : "Export"}
                 >
                   <FiDownload className="w-4 h-4 sm:w-5 sm:h-5" />
                   Export
@@ -1087,7 +1135,22 @@ export default function ProfessionalRecordsPage() {
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredSchemes.map((scheme) => {
-                  const theme = getSubjectTheme(scheme.subject_name);
+                  const subjectDisplay =
+                    scheme.subject_name || scheme.subject || "Unknown Subject";
+                  const theme = getSubjectTheme(subjectDisplay);
+                  const termDisplay =
+                    scheme.term ||
+                    (scheme.term_number != null
+                      ? `Term ${scheme.term_number}`
+                      : "Term");
+                  const yearDisplay = scheme.year ?? scheme.term_year;
+                  const termLabel = yearDisplay
+                    ? `${termDisplay} • ${yearDisplay}`
+                    : termDisplay;
+                  const status = (scheme.status || "active") as
+                    | "draft"
+                    | "active"
+                    | "completed";
                   const statusColors = {
                     draft: "bg-yellow-100 text-yellow-800",
                     active: "bg-green-100 text-green-800",
@@ -1110,13 +1173,11 @@ export default function ProfessionalRecordsPage() {
                           </span>
                         </div>
                         <h3 className="text-xl font-bold mb-2 break-words">
-                          {scheme.subject_name}
+                          {subjectDisplay}
                         </h3>
                         <div className="flex items-center gap-2 text-sm">
                           <FiCalendar className="w-4 h-4" />
-                          <span>
-                            Term {scheme.term_number} • {scheme.term_year}
-                          </span>
+                          <span>{termLabel}</span>
                         </div>
                         {scheme.teacher_name && (
                           <div className="flex items-center gap-2 text-sm mt-1 opacity-90">
@@ -1130,11 +1191,9 @@ export default function ProfessionalRecordsPage() {
                       <div className="p-6 flex-1 flex flex-col bg-white">
                         <div className="mb-4">
                           <span
-                            className={`px-3 py-1 rounded-full text-xs font-bold ${
-                              statusColors[scheme.status]
-                            }`}
+                            className={`px-3 py-1 rounded-full text-xs font-bold ${statusColors[status]}`}
                           >
-                            {scheme.status.toUpperCase()}
+                            {status.toUpperCase()}
                           </span>
                         </div>
 
@@ -1268,7 +1327,11 @@ export default function ProfessionalRecordsPage() {
                 )}
                 <button
                   onClick={() => handleExport("lessons")}
-                  className="bg-white text-emerald-600 border border-emerald-200 px-4 py-3 rounded-xl font-bold shadow-sm hover:bg-emerald-50 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
+                  disabled={!isPremium}
+                  className={`bg-white text-emerald-600 border border-emerald-200 px-4 py-3 rounded-xl font-bold shadow-sm hover:bg-emerald-50 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base ${
+                    !isPremium ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  title={!isPremium ? "Upgrade to export" : "Export"}
                 >
                   <FiDownload className="w-4 h-4 sm:w-5 sm:h-5" />
                   Export
@@ -1609,7 +1672,11 @@ export default function ProfessionalRecordsPage() {
                 )}
                 <button
                   onClick={() => handleExport("records")}
-                  className="bg-white text-green-600 border border-green-200 px-4 py-3 rounded-xl font-bold shadow-sm hover:bg-green-50 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
+                  disabled={!isPremium}
+                  className={`bg-white text-green-600 border border-green-200 px-4 py-3 rounded-xl font-bold shadow-sm hover:bg-green-50 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base ${
+                    !isPremium ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  title={!isPremium ? "Upgrade to export" : "Export"}
                 >
                   <FiDownload className="w-4 h-4 sm:w-5 sm:h-5" />
                   Export
@@ -1784,8 +1851,15 @@ export default function ProfessionalRecordsPage() {
                         <div className="flex gap-2 mt-auto">
                           <button
                             onClick={() => handleExport("records")}
-                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
-                            title="Download Record"
+                            disabled={!isPremium}
+                            className={`bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm ${
+                              !isPremium ? "opacity-50 cursor-not-allowed" : ""
+                            }`}
+                            title={
+                              !isPremium
+                                ? "Upgrade to download"
+                                : "Download Record"
+                            }
                           >
                             <FiDownload className="w-4 h-4" />
                           </button>

@@ -35,25 +35,20 @@ const TimetablePage = () => {
   });
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      toast.error("Please login");
-      router.push("/login");
-      return;
-    }
     loadData();
   }, []);
 
   const loadData = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
-      const headers = { Authorization: `Bearer ${token}` };
-
-      const scheduleRes = await fetch(
-        "http://localhost:8000/api/v1/timetable/schedules/active",
-        { headers }
-      );
+      const scheduleRes = await fetch("/api/v1/timetable/schedules/active", {
+        credentials: "include",
+      });
       if (!scheduleRes.ok) {
+        if (scheduleRes.status === 401) {
+          toast.error("Please login");
+          router.push("/login");
+          return;
+        }
         toast.error("No schedule. Please set up first.");
         router.push("/timetable/setup");
         return;
@@ -61,21 +56,19 @@ const TimetablePage = () => {
       const scheduleData = await scheduleRes.json();
       setSchedule(scheduleData);
 
-      const slotsRes = await fetch(
-        "http://localhost:8000/api/v1/timetable/time-slots",
-        { headers }
-      );
+      const slotsRes = await fetch("/api/v1/timetable/time-slots", {
+        credentials: "include",
+      });
       const slotsData = await slotsRes.json();
       setTimeSlots(slotsData.filter((s: any) => s.slot_type === "lesson"));
 
-      const entriesRes = await fetch(
-        "http://localhost:8000/api/v1/timetable/entries",
-        { headers }
-      );
+      const entriesRes = await fetch("/api/v1/timetable/entries", {
+        credentials: "include",
+      });
       setEntries(await entriesRes.json());
 
-      const subjectsRes = await fetch("http://localhost:8000/api/v1/subjects", {
-        headers,
+      const subjectsRes = await fetch("/api/v1/subjects", {
+        credentials: "include",
       });
       const subjectsData = await subjectsRes.json();
       setSubjects(subjectsData.subjects || subjectsData);
@@ -90,16 +83,15 @@ const TimetablePage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("accessToken");
       const url = editingEntry
-        ? `http://localhost:8000/api/v1/timetable/entries/${editingEntry.id}`
-        : "http://localhost:8000/api/v1/timetable/entries";
+        ? `/api/v1/timetable/entries/${editingEntry.id}`
+        : "/api/v1/timetable/entries";
       const response = await fetch(url, {
         method: editingEntry ? "PUT" : "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
+        credentials: "include",
         body: JSON.stringify(formData),
       });
       if (response.ok) {
@@ -121,14 +113,10 @@ const TimetablePage = () => {
     if (!confirm("Are you sure you want to delete this lesson?")) return;
 
     try {
-      const token = localStorage.getItem("accessToken");
-      const response = await fetch(
-        `http://localhost:8000/api/v1/timetable/entries/${entryId}`,
-        {
-          method: "DELETE",
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await fetch(`/api/v1/timetable/entries/${entryId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
 
       if (response.ok) {
         toast.success("Lesson deleted");

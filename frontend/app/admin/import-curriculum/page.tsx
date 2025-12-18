@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import {
   FiUpload,
   FiFile,
@@ -36,38 +37,33 @@ interface ImportResult {
 
 export default function ImportCurriculumPage() {
   const router = useRouter();
+  const {
+    user: authUser,
+    loading: authLoading,
+    isAuthenticated,
+  } = useCustomAuth();
   const [curricula, setCurricula] = useState<Curriculum[]>([]);
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState<ImportResult[]>([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      toast.error("Please login to access this page");
-      router.push("/login");
-      return;
-    }
+    if (authLoading) return;
 
-    // Check for Super Admin access
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-      if (user.role !== "SUPER_ADMIN") {
+    if (isAuthenticated && authUser) {
+      if (authUser.role !== "SUPER_ADMIN") {
         toast.error("Access denied. Super Admin privileges required.");
         router.push("/admin/dashboard");
         return;
       }
+      fetchCurricula();
     }
-
-    fetchCurricula();
-  }, [router]);
+  }, [isAuthenticated, authLoading, authUser, router]);
 
   const fetchCurricula = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const response = await axios.get(`/api/v1/admin/curricula`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setCurricula(response.data.curricula);
     } catch (error) {
@@ -85,7 +81,6 @@ export default function ImportCurriculumPage() {
     if (!files || files.length === 0) return;
 
     setUploading(true);
-    const token = localStorage.getItem("accessToken");
     const uploadResults: ImportResult[] = [];
 
     for (let i = 0; i < files.length; i++) {
@@ -98,8 +93,8 @@ export default function ImportCurriculumPage() {
           `/api/v1/admin/import-curriculum`,
           formData,
           {
+            withCredentials: true,
             headers: {
-              Authorization: `Bearer ${token}`,
               "Content-Type": "multipart/form-data",
             },
           }
@@ -138,9 +133,8 @@ export default function ImportCurriculumPage() {
     if (!confirm(`Delete ${subject}? This cannot be undone.`)) return;
 
     try {
-      const token = localStorage.getItem("accessToken");
       await axios.delete(`/api/v1/admin/curricula/${curriculumId}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       toast.success(`Deleted ${subject}`);
       fetchCurricula();

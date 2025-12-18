@@ -175,7 +175,7 @@ export default function SchemeGeneratorPage() {
     subject_id: 0,
     teacher_name: "",
     school: "",
-    term: "",
+    term: "Term 3",
     year: new Date().getFullYear(),
     subject: "",
     grade: "",
@@ -184,7 +184,7 @@ export default function SchemeGeneratorPage() {
     lessons_per_week: 5,
     default_textbook: "", // New field
     include_special_weeks: false,
-    status: "draft",
+    status: "active",
   });
 
   const [weeks, setWeeks] = useState<Week[]>([]);
@@ -195,23 +195,15 @@ export default function SchemeGeneratorPage() {
 
   const fetchInitialData = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
-
-      if (!token) {
-        toast.error("Please log in to continue");
-        router.push("/auth/login");
-        return;
-      }
-
       // Fetch subjects
       const subjectsRes = await axios.get("/api/v1/subjects", {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setSubjects(subjectsRes.data);
 
       // Get user info for teacher name
       const userRes = await axios.get("/api/v1/auth/me", {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setFormData((prev) => ({
         ...prev,
@@ -221,7 +213,7 @@ export default function SchemeGeneratorPage() {
       // Get school context (uses TeacherProfile for independent teachers, SchoolSettings for school-linked)
       try {
         const contextRes = await axios.get("/api/v1/profile/school-context", {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         });
 
         const contextData = contextRes.data;
@@ -236,7 +228,7 @@ export default function SchemeGeneratorPage() {
         // Fallback to legacy school-settings endpoint
         try {
           const settingsRes = await axios.get("/api/v1/school-settings", {
-            headers: { Authorization: `Bearer ${token}` },
+            withCredentials: true,
           });
 
           // Handle both object and array responses
@@ -259,7 +251,7 @@ export default function SchemeGeneratorPage() {
       try {
         // Fetch school terms
         const termsRes = await axios.get("/api/v1/school-terms", {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         });
         console.log("School terms response:", termsRes.data);
 
@@ -297,7 +289,7 @@ export default function SchemeGeneratorPage() {
       console.error("Failed to fetch initial data:", error);
       if (error.response?.status === 401) {
         toast.error("Session expired. Please log in again.");
-        router.push("/auth/login");
+        router.push("/login");
       } else {
         toast.error("Failed to load data");
       }
@@ -338,11 +330,9 @@ export default function SchemeGeneratorPage() {
 
     // Fetch strands with nested substrands for this subject
     try {
-      const token = localStorage.getItem("accessToken");
-
       // Get subject details including lessons_per_week
       const subjectRes = await axios.get(`/api/v1/subjects/${subjectId}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
 
       setFormData((prev) => ({
@@ -355,7 +345,7 @@ export default function SchemeGeneratorPage() {
       const strandsRes = await axios.get(
         `/api/v1/subjects/${subjectId}/strands`,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
       setStrands(strandsRes.data);
@@ -364,7 +354,7 @@ export default function SchemeGeneratorPage() {
       const lessonsRes = await axios.get(
         `/api/v1/subjects/${subjectId}/lessons`,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
       // Handle both array response (direct list) and object response ({ lessons: [...] })
@@ -571,8 +561,6 @@ export default function SchemeGeneratorPage() {
 
     setAutoPopulating(true);
     try {
-      const token = localStorage.getItem("accessToken");
-
       const payload = {
         subject_id: formData.subject_id,
         teacher_name: formData.teacher_name,
@@ -587,7 +575,7 @@ export default function SchemeGeneratorPage() {
       };
 
       const response = await axios.post("/api/v1/schemes/generate", payload, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
 
       const scheme = response.data;
@@ -808,14 +796,13 @@ export default function SchemeGeneratorPage() {
 
     setSaving(true);
     try {
-      const token = localStorage.getItem("accessToken");
       const schemeData = {
         ...formData,
         weeks: weeks,
       };
 
       const response = await axios.post("/api/v1/schemes", schemeData, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
 
       toast.success("Scheme of work created successfully!");
@@ -1001,18 +988,18 @@ export default function SchemeGeneratorPage() {
                   {!schoolTerms || schoolTerms.length === 0 ? (
                     <>
                       <option value="">Select a term (Manual Mode)</option>
-                      <option value="Term 1">Term 1 (No dates)</option>
-                      <option value="Term 2">Term 2 (No dates)</option>
-                      <option value="Term 3">Term 3 (No dates)</option>
+                      <option value="Term 3">Term 3 (Current)</option>
                     </>
                   ) : (
                     <>
                       <option value="">Select a term</option>
-                      {schoolTerms.map((term) => (
-                        <option key={term.id} value={term.term_name}>
-                          {term.term_name} ({term.year})
-                        </option>
-                      ))}
+                      {schoolTerms
+                        .filter((term) => term.term_name === "Term 3")
+                        .map((term) => (
+                          <option key={term.id} value={term.term_name}>
+                            {term.term_name} ({term.year})
+                          </option>
+                        ))}
                     </>
                   )}
                 </select>

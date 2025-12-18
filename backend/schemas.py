@@ -18,6 +18,12 @@ class UserCreate(UserBase):
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
+    captcha_id: Optional[str] = None
+    captcha_answer: Optional[str] = None
+
+class CaptchaResponse(BaseModel):
+    id: str
+    question: str
 
 class GoogleAuth(BaseModel):
     token: str  # Google ID token from frontend
@@ -28,6 +34,7 @@ class UserResponse(UserBase):
     is_admin: bool
     role: str
     subscription_type: str
+    school_id: Optional[int] = None
     created_at: datetime
     is_trial_active: bool = False
     trial_days_remaining: int = 0
@@ -649,7 +656,7 @@ class SchemeOfWorkBase(BaseModel):
     grade: str
     total_weeks: int
     total_lessons: int
-    status: Optional[str] = "draft"
+    status: Optional[str] = "active"
 
 class SchemeOfWorkCreate(SchemeOfWorkBase):
     weeks: List[SchemeWeekCreate]

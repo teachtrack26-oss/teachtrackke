@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { FiClock, FiSave, FiArrowLeft, FiCalendar } from "react-icons/fi";
@@ -22,6 +23,7 @@ interface Subject {
 export default function SubjectSchedulingPage() {
   const params = useParams();
   const router = useRouter();
+  const { isAuthenticated, loading: authLoading } = useCustomAuth();
   const subjectId = params.id as string;
 
   const [subject, setSubject] = useState<Subject | null>(null);
@@ -35,24 +37,25 @@ export default function SubjectSchedulingPage() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
+    if (authLoading) return;
+    if (!isAuthenticated) {
       toast.error("Please login to continue");
       router.push("/login");
       return;
     }
-    fetchData();
-  }, [subjectId, router]);
+    if (isAuthenticated) {
+      fetchData();
+    }
+  }, [subjectId, router, authLoading, isAuthenticated]);
 
   const fetchData = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
       const [subjectResponse, schedulingResponse] = await Promise.all([
         axios.get(`/api/v1/subjects/${subjectId}`, {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }),
         axios.get(`/api/v1/subjects/${subjectId}/scheduling`, {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }),
       ]);
 
@@ -69,9 +72,8 @@ export default function SubjectSchedulingPage() {
   const saveScheduling = async () => {
     setSaving(true);
     try {
-      const token = localStorage.getItem("accessToken");
       await axios.put(`/api/v1/subjects/${subjectId}/scheduling`, scheduling, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       toast.success("Scheduling updated successfully");
       router.push(`/curriculum/${subjectId}`);
