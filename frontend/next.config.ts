@@ -44,9 +44,7 @@ const nextConfig: NextConfig = {
   webpack: (config) => {
     return config;
   },
-  turbopack: {
-    root: __dirname,
-  },
+  // Removed turbopack.root - conflicts with Vercel's outputFileTracingRoot
   async rewrites() {
     // Use environment variable or fallback to localhost
     const backendUrl =
