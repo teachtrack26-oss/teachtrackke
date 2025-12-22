@@ -208,8 +208,8 @@ def login(response: Response, user_credentials: UserLogin, db: Session = Depends
             max_age=60 * 60 * 24 * 7, # 7 days
             expires=60 * 60 * 24 * 7,
             path="/",
-            samesite="lax",
-            secure=False # Set to True in production with HTTPS
+            samesite="none",
+            secure=True  # Required for SameSite=None
         )
         
         return {
@@ -299,8 +299,8 @@ async def google_auth(response: Response, google_data: GoogleAuth, db: Session =
             max_age=60 * 60 * 24 * 7, # 7 days
             expires=60 * 60 * 24 * 7,
             path="/",
-            samesite="lax",
-            secure=False # Set to True in production with HTTPS
+            samesite="none",
+            secure=True  # Required for SameSite=None
         )
 
         return {

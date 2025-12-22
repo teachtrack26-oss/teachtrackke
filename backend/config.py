@@ -1,3 +1,4 @@
+from pydantic import model_validator
 from pydantic_settings import BaseSettings
 from urllib.parse import quote_plus
 
@@ -8,6 +9,8 @@ class Settings(BaseSettings):
     DB_USER: str = "root"
     DB_PASSWORD: str = "2078@lk//K."
     DB_NAME: str = "teachtrack"
+    # Optional full DB URL override (preferred in Docker)
+    DATABASE_URL: str = ""
     
     # Security
     SECRET_KEY: str = "your-secret-key-change-in-production"
@@ -24,6 +27,8 @@ class Settings(BaseSettings):
         "http://127.0.0.1:3000",
         "http://192.168.0.102:3000",
         "http://10.2.0.2:3000",
+        "https://teachtrackke.vercel.app",  # Vercel production
+        "https://teachtrackke.duckdns.org",  # VPS domain
         "https://rubeolar-jaxon-unintuitively.ngrok-free.dev",  # Ngrok URL
     ]
     
@@ -74,11 +79,14 @@ class Settings(BaseSettings):
     def ALLOWED_FILE_TYPES_LIST(self) -> list:
         return [ext.strip() for ext in self.ALLOWED_FILE_TYPES.split(",")]
     
-    @property
-    def DATABASE_URL(self) -> str:
-        # URL encode the password to handle special characters
-        encoded_password = quote_plus(self.DB_PASSWORD)
-        return f"mysql+pymysql://{self.DB_USER}:{encoded_password}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+    @model_validator(mode="after")
+    def _set_database_url_if_missing(self):
+        if not self.DATABASE_URL:
+            encoded_password = quote_plus(self.DB_PASSWORD)
+            self.DATABASE_URL = (
+                f"mysql+pymysql://{self.DB_USER}:{encoded_password}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+            )
+        return self
     
     class Config:
         env_file = ".env"

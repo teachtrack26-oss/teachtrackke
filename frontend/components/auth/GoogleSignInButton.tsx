@@ -14,21 +14,16 @@ export default function GoogleSignInButton() {
     setError(null);
 
     try {
-      const res = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
-        }/api/v1/auth/google`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            token: credentialResponse.credential,
-          }),
-        }
-      );
+      const res = await fetch("/api/v1/auth/google", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          token: credentialResponse.credential,
+        }),
+      });
 
       const data = await res.json();
 

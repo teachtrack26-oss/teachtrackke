@@ -5,8 +5,6 @@ import { useParams } from "next/navigation";
 import axios from "axios";
 import { FiDownload, FiEye } from "react-icons/fi";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-
 interface SharedNote {
   id: number;
   title: string;
@@ -40,7 +38,7 @@ export default function SharedPresentationPage() {
 
   const loadSharedPresentation = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/v1/shared/${token}`);
+      const response = await axios.get(`/api/v1/shared/${token}`);
       setPresentation(response.data);
     } catch (err: any) {
       if (err.response?.status === 410) {

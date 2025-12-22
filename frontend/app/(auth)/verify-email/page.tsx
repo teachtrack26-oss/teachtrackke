@@ -22,9 +22,7 @@ function VerifyEmailContent() {
 
       try {
         const response = await fetch(
-          `${
-            process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
-          }/api/v1/auth/verify-email?token=${token}`
+          `/api/v1/auth/verify-email?token=${token}`
         );
 
         if (!response.ok) {

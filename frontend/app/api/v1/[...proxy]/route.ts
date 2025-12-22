@@ -1,6 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const BACKEND_URL_RAW =
+  process.env.BACKEND_URL ?? process.env.NEXT_PUBLIC_API_URL;
+
+function getBackendUrl(): string {
+  if (!BACKEND_URL_RAW) {
+    throw new Error(
+      "Missing BACKEND_URL (or NEXT_PUBLIC_API_URL). Set it to your FastAPI base URL, e.g. https://api.example.com"
+    );
+  }
+  return BACKEND_URL_RAW.replace(/\/+$/, "");
+}
 
 export async function GET(
   request: NextRequest,
@@ -49,7 +59,7 @@ async function proxyRequest(
 ) {
   try {
     const path = proxyPath.join("/");
-    const url = `${BACKEND_URL}/api/v1/${path}`;
+    const url = `${getBackendUrl()}/api/v1/${path}`;
 
     // Get search params from original request
     const searchParams = request.nextUrl.searchParams.toString();
@@ -64,6 +74,13 @@ async function proxyRequest(
         headers.set(key, value);
       }
     });
+
+    // Explicitly forward cookies from the incoming request
+    const cookies = request.cookies.getAll();
+    if (cookies.length > 0) {
+      const cookieString = cookies.map((c) => `${c.name}=${c.value}`).join("; ");
+      headers.set("cookie", cookieString);
+    }
 
     // Forward the original request body stream without reading it to avoid
     // corrupting binary payloads (e.g., file uploads). Reading as text breaks
@@ -90,21 +107,35 @@ async function proxyRequest(
     // binary content (PDFs, images, etc.). Also forward all headers.
     const responseHeaders = new Headers();
     response.headers.forEach((value, key) => {
-      responseHeaders.set(key, value);
+      // Skip set-cookie here - we'll handle it specially below
+      if (key.toLowerCase() !== "set-cookie") {
+        responseHeaders.set(key, value);
+      }
     });
 
-    return new NextResponse(response.body, {
+    // Handle set-cookie headers specially - they need getSetCookie() to get all values
+    const setCookieHeaders = response.headers.getSetCookie?.() || [];
+    
+    const nextResponse = new NextResponse(response.body, {
       status: response.status,
       statusText: response.statusText,
       headers: responseHeaders,
     });
+
+    // Append each set-cookie header individually (append, not set, to preserve multiple cookies)
+    for (const cookie of setCookieHeaders) {
+      nextResponse.headers.append("set-cookie", cookie);
+    }
+
+    return nextResponse;
   } catch (error) {
     console.error("[API Proxy] Error:", error);
 
     // Provide more helpful error messages
+    const backendForError = BACKEND_URL_RAW || "<unset>";
     const errorMessage =
       error instanceof Error
-        ? `Backend connection failed: ${error.message}. Make sure the backend server is running on ${BACKEND_URL}`
+        ? `Backend connection failed: ${error.message}. Backend URL: ${backendForError}`
         : "Backend connection failed. Make sure the backend server is running.";
 
     return NextResponse.json({ detail: errorMessage }, { status: 502 });

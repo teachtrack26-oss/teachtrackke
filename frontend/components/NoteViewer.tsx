@@ -44,11 +44,8 @@ export default function NoteViewer({ note, onClose }: NoteViewerProps) {
     try {
       setDownloading(true);
 
-      // Prefer relative API path so Next.js proxy & axios interceptors (auth) apply.
-      // Fallback to explicit backend URL only if NEXT_PUBLIC_API_URL is set.
-      const API_URL = process.env.NEXT_PUBLIC_API_URL
-        ? `${process.env.NEXT_PUBLIC_API_URL}/api/v1`
-        : "/api/v1";
+      // Always use same-origin API path so production never targets localhost.
+      const API_URL = "/api/v1";
 
       // Use backend download endpoint
       const response = await fetch(`${API_URL}/notes/${note.id}/download`, {

@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import { FiX, FiCopy, FiCheck, FiTrash2, FiExternalLink } from "react-icons/fi";
 import axios from "axios";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-
 interface ShareLink {
   id: number;
   share_url: string;
@@ -39,10 +37,9 @@ export default function ShareModal({
 
   const loadShareLinks = async () => {
     try {
-      const response = await axios.get(
-        `${API_URL}/api/v1/notes/${noteId}/shares`,
-        { withCredentials: true }
-      );
+      const response = await axios.get(`/api/v1/notes/${noteId}/shares`, {
+        withCredentials: true,
+      });
       setShareLinks(response.data);
     } catch (error) {
       console.error("Failed to load share links:", error);
@@ -53,7 +50,7 @@ export default function ShareModal({
     setLoading(true);
     try {
       const response = await axios.post(
-        `${API_URL}/api/v1/notes/${noteId}/share`,
+        `/api/v1/notes/${noteId}/share`,
         {
           expires_in_days: expiryDays > 0 ? expiryDays : null,
           allow_download: allowDownload,
@@ -73,7 +70,7 @@ export default function ShareModal({
     if (!confirm("Deactivate this share link?")) return;
 
     try {
-      await axios.delete(`${API_URL}/api/v1/shares/${shareId}`, {
+      await axios.delete(`/api/v1/shares/${shareId}`, {
         withCredentials: true,
       });
       setShareLinks(
