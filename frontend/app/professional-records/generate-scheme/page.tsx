@@ -853,23 +853,24 @@ export default function SchemeGeneratorPage() {
         </div>
 
         {/* Progress Steps */}
-        <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6 mb-8">
+        <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-4 sm:p-6 mb-8 overflow-hidden">
           <div className="flex items-center justify-between">
             <div
-              className={`flex items-center gap-3 ${
+              className={`flex items-center gap-1 sm:gap-3 flex-shrink-0 ${
                 currentStep >= 1 ? "text-indigo-600" : "text-gray-400"
               }`}
             >
               <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-sm sm:text-base flex-shrink-0 ${
                   currentStep >= 1 ? "bg-indigo-600 text-white" : "bg-gray-200"
                 }`}
               >
                 1
               </div>
-              <span className="font-medium">Basic Info</span>
+              <span className="font-medium text-xs sm:text-base hidden sm:inline">Basic Info</span>
+              <span className="font-medium text-xs sm:hidden">Basic<br/>Info</span>
             </div>
-            <div className="flex-1 h-1 mx-4 bg-gray-200">
+            <div className="flex-1 h-1 mx-1 sm:mx-4 bg-gray-200 min-w-[20px]">
               <div
                 className={`h-full ${
                   currentStep >= 2 ? "bg-indigo-600" : ""
@@ -877,20 +878,21 @@ export default function SchemeGeneratorPage() {
               ></div>
             </div>
             <div
-              className={`flex items-center gap-3 ${
+              className={`flex items-center gap-1 sm:gap-3 flex-shrink-0 ${
                 currentStep >= 2 ? "text-indigo-600" : "text-gray-400"
               }`}
             >
               <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-sm sm:text-base flex-shrink-0 ${
                   currentStep >= 2 ? "bg-indigo-600 text-white" : "bg-gray-200"
                 }`}
               >
                 2
               </div>
-              <span className="font-medium">Select Content</span>
+              <span className="font-medium text-xs sm:text-base hidden sm:inline">Select Content</span>
+              <span className="font-medium text-xs sm:hidden">Select<br/>Content</span>
             </div>
-            <div className="flex-1 h-1 mx-4 bg-gray-200">
+            <div className="flex-1 h-1 mx-1 sm:mx-4 bg-gray-200 min-w-[20px]">
               <div
                 className={`h-full ${
                   currentStep >= 3 ? "bg-indigo-600" : ""
@@ -898,18 +900,19 @@ export default function SchemeGeneratorPage() {
               ></div>
             </div>
             <div
-              className={`flex items-center gap-3 ${
+              className={`flex items-center gap-1 sm:gap-3 flex-shrink-0 ${
                 currentStep >= 3 ? "text-indigo-600" : "text-gray-400"
               }`}
             >
               <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-sm sm:text-base flex-shrink-0 ${
                   currentStep >= 3 ? "bg-indigo-600 text-white" : "bg-gray-200"
                 }`}
               >
                 3
               </div>
-              <span className="font-medium">Review & Save</span>
+              <span className="font-medium text-xs sm:text-base hidden sm:inline">Review & Save</span>
+              <span className="font-medium text-xs sm:hidden">Review<br/>& Save</span>
             </div>
           </div>
         </div>
@@ -930,7 +933,7 @@ export default function SchemeGeneratorPage() {
                 <select
                   value={formData.subject_id}
                   onChange={(e) => handleSubjectChange(Number(e.target.value))}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
+                  className="w-full px-3 sm:px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white text-sm sm:text-base truncate"
                   required
                 >
                   <option value={0}>Select a subject</option>
@@ -1127,40 +1130,40 @@ export default function SchemeGeneratorPage() {
         {currentStep === 2 && (
           <div className="space-y-6">
             {/* Auto-Populate Card */}
-            <div className="glass-card bg-gradient-to-r from-emerald-50 to-teal-50 backdrop-blur-xl rounded-2xl shadow-xl border border-emerald-200 p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-lg font-bold text-emerald-800 flex items-center gap-2">
-                    <FiZap className="w-5 h-5" />
+            <div className="glass-card bg-gradient-to-r from-emerald-50 to-teal-50 backdrop-blur-xl rounded-2xl shadow-xl border border-emerald-200 p-4 sm:p-6">
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <div className="flex-1">
+                  <h3 className="text-base sm:text-lg font-bold text-emerald-800 flex items-center gap-2">
+                    <FiZap className="w-5 h-5 flex-shrink-0" />
                     Auto-Populate from Curriculum
                   </h3>
-                  <p className="text-emerald-700 text-sm mt-1">
+                  <p className="text-emerald-700 text-xs sm:text-sm mt-1">
                     Automatically fill in your entire scheme using the CBC
                     curriculum database. All strands, sub-strands, and learning
                     outcomes will be populated.
                   </p>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
                   <button
                     onClick={() => setShowPreview(true)}
-                    className="bg-white text-emerald-700 border border-emerald-200 px-4 py-3 rounded-xl font-bold shadow-sm hover:shadow-md hover:bg-emerald-50 transition-all duration-300 flex items-center gap-2 whitespace-nowrap"
+                    className="bg-white text-emerald-700 border border-emerald-200 px-4 py-2.5 sm:py-3 rounded-xl font-bold shadow-sm hover:shadow-md hover:bg-emerald-50 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
                   >
-                    <FiEye className="w-5 h-5" />
+                    <FiEye className="w-4 h-4 sm:w-5 sm:h-5" />
                     Preview Content
                   </button>
                   <button
                     onClick={autoPopulateFromCurriculum}
                     disabled={autoPopulating}
-                    className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 disabled:opacity-50 whitespace-nowrap"
+                    className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 text-sm sm:text-base"
                   >
                     {autoPopulating ? (
                       <>
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                        <div className="animate-spin rounded-full h-4 w-4 sm:h-5 sm:w-5 border-b-2 border-white"></div>
                         Generating...
                       </>
                     ) : (
                       <>
-                        <FiZap className="w-5 h-5" />
+                        <FiZap className="w-4 h-4 sm:w-5 sm:h-5" />
                         Auto-Populate Scheme
                       </>
                     )}

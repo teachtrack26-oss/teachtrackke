@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 import { FiBook, FiSave, FiEdit2, FiArrowLeft } from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -93,7 +93,7 @@ const LEARNING_AREAS: { [key: string]: string[] } = {
 
 export default function TeacherLessonsConfigPage() {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { user, loading: authLoading } = useCustomAuth(true); // require auth
   const [loading, setLoading] = useState(true);
   const [configs, setConfigs] = useState<LessonConfig[]>([]);
   const [selectedLevel, setSelectedLevel] =
@@ -112,9 +112,11 @@ export default function TeacherLessonsConfigPage() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    if (status === "loading") return;
-    fetchConfigs();
-  }, [session, status]);
+    if (authLoading) return;
+    if (user) {
+      fetchConfigs();
+    }
+  }, [user, authLoading]);
 
   useEffect(() => {
     // Update selected grade when level changes
@@ -208,7 +210,7 @@ export default function TeacherLessonsConfigPage() {
   };
 
   // Loading state
-  if (status === "loading" || loading) {
+  if (authLoading || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
@@ -216,7 +218,14 @@ export default function TeacherLessonsConfigPage() {
     );
   }
 
-  // Auth check - removed to prevent flash, let useCustomAuth handle redirects
+  // If not authenticated, useCustomAuth will redirect
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
 
   const currentLearningAreas = LEARNING_AREAS[selectedLevel] || [];
 

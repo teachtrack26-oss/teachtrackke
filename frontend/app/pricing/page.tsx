@@ -468,11 +468,13 @@ export default function PricingPage() {
                     billingCycle === "yearly"
                       ? "bg-indigo-600 text-white shadow-sm"
                       : "text-gray-500 hover:text-gray-900"
-                  } relative w-1/2 whitespace-nowrap py-2 px-6 rounded-md text-sm font-medium focus:outline-none focus:z-10 sm:w-auto sm:px-8 transition-all duration-200`}
+                  } relative w-1/2 py-2 px-3 sm:px-6 rounded-md text-sm font-medium focus:outline-none focus:z-10 sm:w-auto sm:px-8 transition-all duration-200`}
                 >
-                  Yearly{" "}
-                  <span className="ml-1 text-xs text-amber-300 font-bold">
-                    (Save 30%)
+                  <span className="flex items-center justify-center gap-1 flex-wrap">
+                    <span>Yearly</span>
+                    <span className="text-xs text-amber-300 font-bold">
+                      (Save 30%)
+                    </span>
                   </span>
                 </button>
               </div>
