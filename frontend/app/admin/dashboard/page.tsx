@@ -13,6 +13,7 @@ import {
   FiSettings,
   FiArrowRight,
   FiClock,
+  FiCalendar,
 } from "react-icons/fi";
 
 interface CurriculumTemplate {
@@ -314,6 +315,20 @@ export default function AdminDashboard() {
               <h3 className="font-semibold text-gray-900">Payments</h3>
               <p className="text-sm text-gray-600 mt-1">
                 Track revenue & transactions
+              </p>
+            </button>
+          )}
+
+          {/* Academic Terms - Super Admin Only */}
+          {isSuperAdmin && (
+            <button
+              onClick={() => router.push("/admin/academic-terms")}
+              className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow text-left"
+            >
+              <FiCalendar className="w-8 h-8 text-orange-600 mb-2" />
+              <h3 className="font-semibold text-gray-900">Academic Terms</h3>
+              <p className="text-sm text-gray-600 mt-1">
+                Manage academic calendar
               </p>
             </button>
           )}

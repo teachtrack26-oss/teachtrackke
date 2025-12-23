@@ -3,13 +3,15 @@
 ## Production Environment (Contabo VPS)
 
 **Server Details**
+
 - **Provider:** Contabo
-- **IP Address:** `154.113.83.153`
+- **IP Address:** `75.119.131.232`
 - **Domain:** `teachtrackke.duckdns.org` (Managed via DuckDNS, points to VPS IP)
 - **OS User:** `root`
 - **Remote Path:** `/opt/teachtrack/`
 
 ### Deployment Stack
+
 The application runs via Docker Compose on the VPS.
 
 **Services:**
@@ -21,29 +23,36 @@ The application runs via Docker Compose on the VPS.
 | **Proxy** | `nginx` | `80`, `443` | Reverse Proxy & SSL Termination (Let's Encrypt) |
 
 ### Configuration Files
+
 - **Remote Compose File:** `/opt/teachtrack/docker-compose.vps.yml`
 - **Local Reference:** `deploy/docker-compose.vps.yml`
 - **Environment Variables:** `/opt/teachtrack/.env`
 
 ### Database Credentials
-*As configured in the production environment variables:*
+
+_As configured in the production environment variables:_
+
 - **DB Host:** `mysql`
 - **DB Name:** `teachtrack`
 - **DB User:** `teachtrack_user`
 - **DB Protocol:** MySQL 8.0
 
 ### SSL/HTTPS
+
 - Handled by **Nginx** container.
 - **Certificate Authority:** Let's Encrypt.
 - **URL:** `https://teachtrackke.duckdns.org`
 
 ### Useful Commands
+
 **SSH Access:**
+
 ```bash
-ssh root@154.113.83.153
+ssh root@75.119.131.232
 ```
 
 **Deploy Updates:**
+
 ```bash
 # 1. SSH into server
 # 2. Navigate to directory

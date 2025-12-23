@@ -645,6 +645,30 @@ class SchoolTerm(Base):
     school_settings = relationship("SchoolSettings", back_populates="terms")
     activities = relationship("CalendarActivity", back_populates="term", cascade="all, delete-orphan")
 
+class SystemTerm(Base):
+    """Global system-wide terms managed by Super Admin. These are the default Kenya academic calendar terms."""
+    __tablename__ = 'system_terms'
+    
+    id = Column(Integer, primary_key=True, index=True)
+    term_number = Column(Integer, nullable=False)  # 1, 2, or 3
+    term_name = Column(String(100), nullable=False)  # e.g., "Term 1", "Term 2", "Term 3"
+    year = Column(Integer, nullable=False)  # e.g., 2025, 2026
+    start_date = Column(TIMESTAMP, nullable=False)
+    end_date = Column(TIMESTAMP, nullable=False)
+    teaching_weeks = Column(Integer, nullable=False)  # Number of teaching weeks
+    mid_term_break_start = Column(TIMESTAMP, nullable=True)
+    mid_term_break_end = Column(TIMESTAMP, nullable=True)
+    is_current = Column(Boolean, default=False)  # Mark which term is currently active
+    created_by = Column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    # Unique constraint: only one term per term_number per year
+    __table_args__ = (
+        Index('idx_system_term_year_number', 'year', 'term_number', unique=True),
+    )
+
+
 class CalendarActivity(Base):
     __tablename__ = 'calendar_activities'
     id = Column(Integer, primary_key=True, index=True)

@@ -249,26 +249,42 @@ export default function SchemeGeneratorPage() {
 
       // Get school terms
       try {
-        // Fetch school terms
+        // Fetch school terms (now returns system terms managed by Super Admin)
         const termsRes = await axios.get("/api/v1/school-terms", {
           withCredentials: true,
         });
         console.log("School terms response:", termsRes.data);
 
         if (!termsRes.data || termsRes.data.length === 0) {
-          console.warn("Received empty school terms list from API");
-          // Don't show toast error immediately to avoid annoyance, but log it
+          console.warn("No academic terms configured. Contact administrator.");
+          toast.error(
+            "Academic terms not configured. Please contact your administrator.",
+            {
+              duration: 5000,
+            }
+          );
         }
 
         setSchoolTerms(termsRes.data || []);
 
         // Auto-select the current active term if available
-        const currentTerm = termsRes.data.find((t: any) => {
-          const now = new Date();
-          const start = new Date(t.start_date);
-          const end = new Date(t.end_date);
-          return now >= start && now <= end;
-        });
+        // First priority: term marked as is_current by admin
+        let currentTerm = termsRes.data.find((t: any) => t.is_current);
+
+        // Fallback: find term by date range
+        if (!currentTerm) {
+          currentTerm = termsRes.data.find((t: any) => {
+            const now = new Date();
+            const start = new Date(t.start_date);
+            const end = new Date(t.end_date);
+            return now >= start && now <= end;
+          });
+        }
+
+        // Last fallback: just use the first term in the list
+        if (!currentTerm && termsRes.data.length > 0) {
+          currentTerm = termsRes.data[0];
+        }
 
         if (currentTerm) {
           const weeksDiff = calculateWeeks(
@@ -279,7 +295,7 @@ export default function SchemeGeneratorPage() {
             ...prev,
             term: currentTerm.term_name,
             year: currentTerm.year,
-            total_weeks: weeksDiff,
+            total_weeks: currentTerm.teaching_weeks || weeksDiff,
           }));
         }
       } catch (err) {
@@ -1007,22 +1023,26 @@ export default function SchemeGeneratorPage() {
                 >
                   {!schoolTerms || schoolTerms.length === 0 ? (
                     <>
-                      <option value="">Select a term (Manual Mode)</option>
-                      <option value="Term 3">Term 3 (Current)</option>
+                      <option value="">No terms configured</option>
+                      <option value="Term 1">Term 1</option>
                     </>
                   ) : (
                     <>
                       <option value="">Select a term</option>
-                      {schoolTerms
-                        .filter((term) => term.term_name === "Term 3")
-                        .map((term) => (
-                          <option key={term.id} value={term.term_name}>
-                            {term.term_name} ({term.year})
-                          </option>
-                        ))}
+                      {schoolTerms.map((term) => (
+                        <option key={term.id} value={term.term_name}>
+                          {term.term_name} ({term.year})
+                          {term.is_current ? " - Current" : ""}
+                        </option>
+                      ))}
                     </>
                   )}
                 </select>
+                {schoolTerms && schoolTerms.length > 0 && (
+                  <p className="text-xs text-gray-500 mt-1">
+                    Academic terms are set by the system administrator.
+                  </p>
+                )}
               </div>
 
               <div>

@@ -8,7 +8,7 @@ from datetime import datetime
 from database import get_db
 from models import (
     User, UserRole, SubscriptionType, Term, SchoolSchedule, 
-    TimetableEntry, SchoolSettings, TeacherProfile
+    TimetableEntry, SchoolSettings, TeacherProfile, SystemTerm
 )
 from auth import verify_token
 
@@ -115,17 +115,80 @@ def get_current_admin(current_user: User = Depends(get_current_user)) -> User:
     return current_user
 
 def ensure_user_terms(db: Session, user: User) -> List[Term]:
-    """Ensure the current user has term data and one marked as current."""
-    terms = db.query(Term).filter(Term.user_id == user.id).order_by(Term.term_number).all()
-    if terms:
-        has_current = any(term.is_current for term in terms)
-        if not has_current and terms:
-            # Default to first term if none current
-            terms[0].is_current = True
+    """
+    Get terms for a user. Now uses SystemTerms as the source of truth.
+    Legacy user-specific terms are deprecated.
+    
+    Priority:
+    1. SystemTerms (global, managed by Super Admin)
+    2. Legacy user terms (for backward compatibility during migration)
+    3. Auto-generated defaults (only if nothing else exists)
+    """
+    current_year = datetime.now().year
+    
+    # First, try to get system terms for current year
+    system_terms = db.query(SystemTerm).filter(
+        SystemTerm.year == current_year
+    ).order_by(SystemTerm.term_number).all()
+    
+    # If no terms for current year, try next year (useful at year end)
+    if not system_terms:
+        system_terms = db.query(SystemTerm).filter(
+            SystemTerm.year == current_year + 1
+        ).order_by(SystemTerm.term_number).all()
+    
+    # If still no system terms, try previous year (for year transition)
+    if not system_terms:
+        system_terms = db.query(SystemTerm).filter(
+            SystemTerm.year == current_year - 1
+        ).order_by(SystemTerm.term_number).all()
+    
+    # Convert SystemTerm to Term-like objects for backward compatibility
+    if system_terms:
+        # Create Term-like objects from SystemTerm
+        result = []
+        for st in system_terms:
+            # Create a pseudo-Term object that matches the old interface
+            term = Term(
+                id=st.id,
+                user_id=user.id,  # Associate with user for compatibility
+                term_number=st.term_number,
+                term_name=st.term_name,
+                academic_year=str(st.year),
+                start_date=st.start_date,
+                end_date=st.end_date,
+                teaching_weeks=st.teaching_weeks,
+                is_current=st.is_current
+            )
+            # Don't add to session - these are read-only views
+            result.append(term)
+        
+        # Ensure at least one is marked as current
+        has_current = any(t.is_current for t in result)
+        if not has_current and result:
+            # Find the term that matches current date
+            today = datetime.now()
+            for t in result:
+                if t.start_date <= today <= t.end_date:
+                    t.is_current = True
+                    break
+            else:
+                # If no term matches current date, mark first as current
+                result[0].is_current = True
+        
+        return result
+    
+    # Fallback: Check for legacy user-specific terms
+    legacy_terms = db.query(Term).filter(Term.user_id == user.id).order_by(Term.term_number).all()
+    if legacy_terms:
+        has_current = any(term.is_current for term in legacy_terms)
+        if not has_current and legacy_terms:
+            legacy_terms[0].is_current = True
             db.commit()
-        return terms
-
-    current_year = 2025
+        return legacy_terms
+    
+    # Last resort: Create default terms for current year
+    # This should rarely happen if Super Admin has set up system terms
     default_definitions = [
         {
             "term_number": 1,
@@ -133,7 +196,7 @@ def ensure_user_terms(db: Session, user: User) -> List[Term]:
             "start_date": datetime(current_year, 1, 6, 0, 0, 0),
             "end_date": datetime(current_year, 4, 4, 23, 59, 59),
             "teaching_weeks": 13,
-            "is_current": True,
+            "is_current": False,
         },
         {
             "term_number": 2,
@@ -152,6 +215,16 @@ def ensure_user_terms(db: Session, user: User) -> List[Term]:
             "is_current": False,
         },
     ]
+    
+    # Determine current term based on date
+    today = datetime.now()
+    for definition in default_definitions:
+        if definition["start_date"] <= today <= definition["end_date"]:
+            definition["is_current"] = True
+            break
+    else:
+        # Default to first term if we're between terms
+        default_definitions[0]["is_current"] = True
 
     for definition in default_definitions:
         term = Term(

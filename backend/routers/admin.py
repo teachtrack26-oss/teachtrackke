@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 from database import get_db
 from models import (
     User, School, Payment, PaymentStatus, SystemAnnouncement, SystemSetting, CurriculumTemplate, TemplateStrand, TemplateSubstrand,
-    SchoolSettings, SchoolTerm, CalendarActivity, LessonConfiguration,
+    SchoolSettings, SchoolTerm, CalendarActivity, LessonConfiguration, SystemTerm,
     Subject, Lesson, SubStrand, Strand, ProgressLog, UserRole, SubscriptionType, SubscriptionStatus, Department
 )
 from schemas import (
@@ -1577,3 +1577,336 @@ def rollover_academic_year(
     db.commit()
     
     return {"message": "Academic year rollover completed successfully. Streams have been promoted."}
+
+
+# ============================================================================
+# SYSTEM TERMS (Super Admin Only - Global Term Management)
+# ============================================================================
+
+class SystemTermCreate(BaseModel):
+    term_number: int = Field(..., ge=1, le=3, description="Term number (1, 2, or 3)")
+    term_name: str = Field(..., description="Term name, e.g., 'Term 1'")
+    year: int = Field(..., description="Academic year, e.g., 2026")
+    start_date: str = Field(..., description="Start date in ISO format YYYY-MM-DD")
+    end_date: str = Field(..., description="End date in ISO format YYYY-MM-DD")
+    teaching_weeks: Optional[int] = Field(None, description="Number of teaching weeks (auto-calculated if not provided)")
+    mid_term_break_start: Optional[str] = None
+    mid_term_break_end: Optional[str] = None
+    is_current: bool = False
+
+class SystemTermUpdate(BaseModel):
+    term_name: Optional[str] = None
+    start_date: Optional[str] = None
+    end_date: Optional[str] = None
+    teaching_weeks: Optional[int] = None
+    mid_term_break_start: Optional[str] = None
+    mid_term_break_end: Optional[str] = None
+    is_current: Optional[bool] = None
+
+class SystemTermResponse(BaseModel):
+    id: int
+    term_number: int
+    term_name: str
+    year: int
+    start_date: str
+    end_date: str
+    teaching_weeks: int
+    mid_term_break_start: Optional[str] = None
+    mid_term_break_end: Optional[str] = None
+    is_current: bool
+    created_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
+
+
+def parse_date_string(date_str: str) -> datetime:
+    """Parse date string to datetime, handling multiple formats."""
+    try:
+        # Try ISO format first
+        return datetime.fromisoformat(date_str.replace('Z', '+00:00'))
+    except ValueError:
+        # Fallback to simple date string
+        return datetime.strptime(date_str.split('T')[0], "%Y-%m-%d")
+
+
+@router.get("/system-terms", response_model=List[SystemTermResponse])
+def get_system_terms(
+    year: Optional[int] = None,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    """Get all system-wide terms. Optionally filter by year."""
+    query = db.query(SystemTerm)
+    if year:
+        query = query.filter(SystemTerm.year == year)
+    terms = query.order_by(SystemTerm.year.desc(), SystemTerm.term_number).all()
+    
+    result = []
+    for t in terms:
+        result.append(SystemTermResponse(
+            id=t.id,
+            term_number=t.term_number,
+            term_name=t.term_name,
+            year=t.year,
+            start_date=t.start_date.isoformat() if t.start_date else "",
+            end_date=t.end_date.isoformat() if t.end_date else "",
+            teaching_weeks=t.teaching_weeks,
+            mid_term_break_start=t.mid_term_break_start.isoformat() if t.mid_term_break_start else None,
+            mid_term_break_end=t.mid_term_break_end.isoformat() if t.mid_term_break_end else None,
+            is_current=t.is_current,
+            created_at=t.created_at
+        ))
+    return result
+
+
+@router.post("/system-terms", response_model=SystemTermResponse)
+def create_system_term(
+    term_data: SystemTermCreate,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    """Create a new system-wide term. Only Super Admin can do this."""
+    # Check if term already exists for this year and term_number
+    existing = db.query(SystemTerm).filter(
+        SystemTerm.year == term_data.year,
+        SystemTerm.term_number == term_data.term_number
+    ).first()
+    
+    if existing:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"Term {term_data.term_number} for year {term_data.year} already exists. Use PUT to update."
+        )
+    
+    start_date = parse_date_string(term_data.start_date)
+    end_date = parse_date_string(term_data.end_date)
+    
+    # Auto-calculate teaching weeks if not provided
+    teaching_weeks = term_data.teaching_weeks
+    if not teaching_weeks:
+        days_diff = (end_date - start_date).days
+        teaching_weeks = max(1, days_diff // 7)
+    
+    mid_start = parse_date_string(term_data.mid_term_break_start) if term_data.mid_term_break_start else None
+    mid_end = parse_date_string(term_data.mid_term_break_end) if term_data.mid_term_break_end else None
+    
+    # If setting as current, unset others
+    if term_data.is_current:
+        db.query(SystemTerm).filter(SystemTerm.is_current == True).update({"is_current": False})
+    
+    new_term = SystemTerm(
+        term_number=term_data.term_number,
+        term_name=term_data.term_name,
+        year=term_data.year,
+        start_date=start_date,
+        end_date=end_date,
+        teaching_weeks=teaching_weeks,
+        mid_term_break_start=mid_start,
+        mid_term_break_end=mid_end,
+        is_current=term_data.is_current,
+        created_by=current_user.id
+    )
+    
+    db.add(new_term)
+    db.commit()
+    db.refresh(new_term)
+    
+    return SystemTermResponse(
+        id=new_term.id,
+        term_number=new_term.term_number,
+        term_name=new_term.term_name,
+        year=new_term.year,
+        start_date=new_term.start_date.isoformat(),
+        end_date=new_term.end_date.isoformat(),
+        teaching_weeks=new_term.teaching_weeks,
+        mid_term_break_start=new_term.mid_term_break_start.isoformat() if new_term.mid_term_break_start else None,
+        mid_term_break_end=new_term.mid_term_break_end.isoformat() if new_term.mid_term_break_end else None,
+        is_current=new_term.is_current,
+        created_at=new_term.created_at
+    )
+
+
+@router.put("/system-terms/{term_id}", response_model=SystemTermResponse)
+def update_system_term(
+    term_id: int,
+    term_data: SystemTermUpdate,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    """Update an existing system term. Only Super Admin can do this."""
+    term = db.query(SystemTerm).filter(SystemTerm.id == term_id).first()
+    if not term:
+        raise HTTPException(status_code=404, detail="System term not found")
+    
+    if term_data.term_name is not None:
+        term.term_name = term_data.term_name
+    
+    if term_data.start_date is not None:
+        term.start_date = parse_date_string(term_data.start_date)
+    
+    if term_data.end_date is not None:
+        term.end_date = parse_date_string(term_data.end_date)
+    
+    if term_data.teaching_weeks is not None:
+        term.teaching_weeks = term_data.teaching_weeks
+    elif term_data.start_date or term_data.end_date:
+        # Recalculate if dates changed
+        days_diff = (term.end_date - term.start_date).days
+        term.teaching_weeks = max(1, days_diff // 7)
+    
+    if term_data.mid_term_break_start is not None:
+        term.mid_term_break_start = parse_date_string(term_data.mid_term_break_start) if term_data.mid_term_break_start else None
+    
+    if term_data.mid_term_break_end is not None:
+        term.mid_term_break_end = parse_date_string(term_data.mid_term_break_end) if term_data.mid_term_break_end else None
+    
+    if term_data.is_current is not None:
+        if term_data.is_current:
+            # Unset other current terms
+            db.query(SystemTerm).filter(SystemTerm.id != term_id, SystemTerm.is_current == True).update({"is_current": False})
+        term.is_current = term_data.is_current
+    
+    db.commit()
+    db.refresh(term)
+    
+    return SystemTermResponse(
+        id=term.id,
+        term_number=term.term_number,
+        term_name=term.term_name,
+        year=term.year,
+        start_date=term.start_date.isoformat(),
+        end_date=term.end_date.isoformat(),
+        teaching_weeks=term.teaching_weeks,
+        mid_term_break_start=term.mid_term_break_start.isoformat() if term.mid_term_break_start else None,
+        mid_term_break_end=term.mid_term_break_end.isoformat() if term.mid_term_break_end else None,
+        is_current=term.is_current,
+        created_at=term.created_at
+    )
+
+
+@router.delete("/system-terms/{term_id}")
+def delete_system_term(
+    term_id: int,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    """Delete a system term. Only Super Admin can do this."""
+    term = db.query(SystemTerm).filter(SystemTerm.id == term_id).first()
+    if not term:
+        raise HTTPException(status_code=404, detail="System term not found")
+    
+    db.delete(term)
+    db.commit()
+    return {"message": f"System term '{term.term_name}' for year {term.year} deleted"}
+
+
+@router.post("/system-terms/generate-year/{year}")
+def generate_year_terms(
+    year: int,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    """
+    Generate default Kenya academic calendar terms for a given year.
+    Will not overwrite existing terms for that year.
+    """
+    # Check if terms already exist for this year
+    existing = db.query(SystemTerm).filter(SystemTerm.year == year).count()
+    if existing > 0:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"Terms for year {year} already exist. Delete them first or update individually."
+        )
+    
+    # Default Kenya academic calendar (approximate dates)
+    default_terms = [
+        {
+            "term_number": 1,
+            "term_name": "Term 1",
+            "start_date": datetime(year, 1, 6),  # Early January
+            "end_date": datetime(year, 4, 4),    # Early April
+            "teaching_weeks": 13,
+            "mid_term_break_start": datetime(year, 2, 17),
+            "mid_term_break_end": datetime(year, 2, 21),
+        },
+        {
+            "term_number": 2,
+            "term_name": "Term 2",
+            "start_date": datetime(year, 4, 28),  # Late April
+            "end_date": datetime(year, 8, 1),     # Early August
+            "teaching_weeks": 14,
+            "mid_term_break_start": datetime(year, 6, 2),
+            "mid_term_break_end": datetime(year, 6, 6),
+        },
+        {
+            "term_number": 3,
+            "term_name": "Term 3",
+            "start_date": datetime(year, 8, 25),  # Late August
+            "end_date": datetime(year, 10, 25),   # Late October
+            "teaching_weeks": 9,
+            "mid_term_break_start": None,
+            "mid_term_break_end": None,
+        },
+    ]
+    
+    # Determine which term is current based on today's date
+    today = datetime.now()
+    
+    created_terms = []
+    for term_def in default_terms:
+        is_current = (
+            term_def["start_date"] <= today <= term_def["end_date"]
+        ) if term_def["start_date"].year == today.year else False
+        
+        new_term = SystemTerm(
+            term_number=term_def["term_number"],
+            term_name=term_def["term_name"],
+            year=year,
+            start_date=term_def["start_date"],
+            end_date=term_def["end_date"],
+            teaching_weeks=term_def["teaching_weeks"],
+            mid_term_break_start=term_def["mid_term_break_start"],
+            mid_term_break_end=term_def["mid_term_break_end"],
+            is_current=is_current,
+            created_by=current_user.id
+        )
+        db.add(new_term)
+        created_terms.append(new_term)
+    
+    db.commit()
+    
+    return {
+        "message": f"Generated {len(created_terms)} terms for year {year}",
+        "terms": [
+            {
+                "term_number": t.term_number,
+                "term_name": t.term_name,
+                "start_date": t.start_date.isoformat(),
+                "end_date": t.end_date.isoformat(),
+                "is_current": t.is_current
+            } for t in created_terms
+        ]
+    }
+
+
+@router.post("/system-terms/set-current/{term_id}")
+def set_current_term(
+    term_id: int,
+    current_user: User = Depends(get_current_super_admin),
+    db: Session = Depends(get_db)
+):
+    """Set a specific term as the current active term."""
+    term = db.query(SystemTerm).filter(SystemTerm.id == term_id).first()
+    if not term:
+        raise HTTPException(status_code=404, detail="System term not found")
+    
+    # Unset all other current terms
+    db.query(SystemTerm).filter(SystemTerm.is_current == True).update({"is_current": False})
+    
+    # Set this term as current
+    term.is_current = True
+    db.commit()
+    
+    return {"message": f"'{term.term_name}' ({term.year}) is now the current term"}
+
