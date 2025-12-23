@@ -44,13 +44,20 @@ const nextConfig: NextConfig = {
   webpack: (config) => {
     return config;
   },
-  // Removed turbopack.root - conflicts with Vercel's outputFileTracingRoot
+  // Turbopack config for Next.js 16+ in monorepo
+  turbopack: {
+    root: ".",
+  },
   async rewrites() {
     // Use environment variable or fallback to localhost
     const backendUrl =
       process.env.NEXT_PUBLIC_API_URL || "http://10.2.0.2:8000";
 
     return [
+      {
+        source: "/api/v1/:path*",
+        destination: `${backendUrl}/api/v1/:path*`,
+      },
       {
         source: "/uploads/:path*",
         destination: `${backendUrl}/uploads/:path*`,
