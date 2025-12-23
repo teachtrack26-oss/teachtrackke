@@ -421,10 +421,10 @@ const TimetablePage = () => {
   useEffect(() => {
     if (authLoading) return;
 
-    if (isAuthenticated) {
+    if (isAuthenticated && user) {
       loadData();
     }
-  }, [selectedViewLevel, isAuthenticated, authLoading]);
+  }, [selectedViewLevel, isAuthenticated, authLoading, user]);
 
   // Timer and status update effect
   useEffect(() => {
