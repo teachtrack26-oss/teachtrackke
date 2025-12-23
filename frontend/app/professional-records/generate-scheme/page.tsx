@@ -867,8 +867,14 @@ export default function SchemeGeneratorPage() {
               >
                 1
               </div>
-              <span className="font-medium text-xs sm:text-base hidden sm:inline">Basic Info</span>
-              <span className="font-medium text-xs sm:hidden">Basic<br/>Info</span>
+              <span className="font-medium text-xs sm:text-base hidden sm:inline">
+                Basic Info
+              </span>
+              <span className="font-medium text-xs sm:hidden">
+                Basic
+                <br />
+                Info
+              </span>
             </div>
             <div className="flex-1 h-1 mx-1 sm:mx-4 bg-gray-200 min-w-[20px]">
               <div
@@ -889,8 +895,14 @@ export default function SchemeGeneratorPage() {
               >
                 2
               </div>
-              <span className="font-medium text-xs sm:text-base hidden sm:inline">Select Content</span>
-              <span className="font-medium text-xs sm:hidden">Select<br/>Content</span>
+              <span className="font-medium text-xs sm:text-base hidden sm:inline">
+                Select Content
+              </span>
+              <span className="font-medium text-xs sm:hidden">
+                Select
+                <br />
+                Content
+              </span>
             </div>
             <div className="flex-1 h-1 mx-1 sm:mx-4 bg-gray-200 min-w-[20px]">
               <div
@@ -911,8 +923,13 @@ export default function SchemeGeneratorPage() {
               >
                 3
               </div>
-              <span className="font-medium text-xs sm:text-base hidden sm:inline">Review & Save</span>
-              <span className="font-medium text-xs sm:hidden">Review<br/>& Save</span>
+              <span className="font-medium text-xs sm:text-base hidden sm:inline">
+                Review & Save
+              </span>
+              <span className="font-medium text-xs sm:hidden">
+                Review
+                <br />& Save
+              </span>
             </div>
           </div>
         </div>
@@ -933,7 +950,7 @@ export default function SchemeGeneratorPage() {
                 <select
                   value={formData.subject_id}
                   onChange={(e) => handleSubjectChange(Number(e.target.value))}
-                  className="w-full px-3 sm:px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white text-sm sm:text-base truncate"
+                  className="w-full px-3 sm:px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white text-sm sm:text-base"
                   required
                 >
                   <option value={0}>Select a subject</option>

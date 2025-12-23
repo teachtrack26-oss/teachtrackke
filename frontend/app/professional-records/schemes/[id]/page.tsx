@@ -850,8 +850,8 @@ export default function ViewSchemePage() {
 
               <div className="overflow-x-auto">
                 <table
-                  className="w-full border-collapse border border-gray-400"
-                  style={{ width: "100%", tableLayout: "fixed" }}
+                  className="w-full border-collapse border border-gray-400 min-w-[1280px]"
+                  style={{ tableLayout: "fixed" }}
                 >
                   <thead>
                     <tr className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
