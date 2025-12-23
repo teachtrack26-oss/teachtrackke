@@ -71,6 +71,7 @@ import type {
 import SchoolAdminDashboard from "@/components/dashboard/SchoolAdminDashboard";
 import SuperAdminDashboard from "@/components/dashboard/SuperAdminDashboard";
 import { useCustomAuth } from "@/hooks/useCustomAuth";
+import { getCachedData, setCachedData, CACHE_KEYS } from "@/lib/dataCache";
 
 // Force use of Next.js Proxy for client-side requests to ensure cookies are sent correctly
 // and to avoid CORS issues when accessing from different devices (e.g. 10.2.0.2)
@@ -178,17 +179,24 @@ export default function DashboardPage() {
   );
 
   // New widgets state
-  const [subjectProgress, setSubjectProgress] = useState<SubjectProgress[]>([]);
-  const [deadlines, setDeadlines] = useState<DeadlineItem[]>([]);
-  const [teachingInsights, setTeachingInsights] = useState<TeachingInsight>({
+  // New widgets state - Initialize from cache
+  const cachedSubjectProgress = getCachedData<SubjectProgress[]>(CACHE_KEYS.CURRICULUM_PROGRESS);
+  const cachedDeadlines = getCachedData<DeadlineItem[]>(CACHE_KEYS.DASHBOARD_DEADLINES);
+  const cachedInsights = getCachedData<TeachingInsight>(CACHE_KEYS.DASHBOARD_INSIGHTS);
+  const cachedResources = getCachedData<ResourceItem[]>(CACHE_KEYS.DASHBOARD_RESOURCES);
+  const cachedStats = getCachedData<PerformanceSummary>(CACHE_KEYS.DASHBOARD_STATS);
+
+  const [subjectProgress, setSubjectProgress] = useState<SubjectProgress[]>(cachedSubjectProgress || []);
+  const [deadlines, setDeadlines] = useState<DeadlineItem[]>(cachedDeadlines || []);
+  const [teachingInsights, setTeachingInsights] = useState<TeachingInsight>(cachedInsights || {
     mostTaughtSubjects: [],
     averageLessonDuration: 0,
     peakTeachingHours: [],
     weeklyComparison: [],
   });
-  const [resources, setResources] = useState<ResourceItem[]>([]);
+  const [resources, setResources] = useState<ResourceItem[]>(cachedResources || []);
   const [performanceSummary, setPerformanceSummary] =
-    useState<PerformanceSummary>({
+    useState<PerformanceSummary>(cachedStats || {
       lessonsCompleted: 0,
       totalLessons: 0,
       attendanceAverage: 0,
@@ -318,86 +326,92 @@ export default function DashboardPage() {
     ]);
 
     // Fetch real dashboard data
-    const fetchDashboardData = async () => {
-      // We don't need token from localStorage anymore
-      // const token = localStorage.getItem("accessToken");
-      // if (!token) return;
-
+    const fetchDashboardData = async (forceRefresh = false) => {
       try {
         const config = { withCredentials: true };
 
         // 1. Curriculum Progress
-        const progressRes = await axios.get(
-          `${API_BASE_URL}/dashboard/curriculum-progress`,
-          config
-        );
+        if (forceRefresh || !getCachedData(CACHE_KEYS.CURRICULUM_PROGRESS)) {
+           const progressRes = await axios.get(
+             `${API_BASE_URL}/dashboard/curriculum-progress`,
+             config
+           );
+           const subjectsList = Array.isArray(progressRes.data)
+             ? progressRes.data
+             : progressRes.data.subjects || [];
 
-        // Transform to match SubjectProgress interface
-        // Backend returns { subjects: [...], overview: {...} }
-        const subjectsList = Array.isArray(progressRes.data)
-          ? progressRes.data
-          : progressRes.data.subjects || [];
-
-        const progressData = subjectsList.map((s: any) => ({
-          id: s.id,
-          subjectName: s.subject_name,
-          grade: s.grade,
-          completedLessons: s.completed_lessons,
-          totalLessons: s.total_lessons,
-          progressPercentage: s.progress_percentage,
-          estimatedCompletionDate: new Date(
-            new Date().setDate(new Date().getDate() + 30)
-          ), // Mock estimate for now
-          status:
-            s.progress_percentage > 50
-              ? "ahead"
-              : s.progress_percentage > 20
-              ? "on-track"
-              : "behind",
-        }));
-        setSubjectProgress(progressData);
+           const progressData = subjectsList.map((s: any) => ({
+             id: s.id,
+             subjectName: s.subject_name,
+             grade: s.grade,
+             completedLessons: s.completed_lessons,
+             totalLessons: s.total_lessons,
+             progressPercentage: s.progress_percentage,
+             estimatedCompletionDate: new Date(
+               new Date().setDate(new Date().getDate() + 30)
+             ),
+             status:
+               s.progress_percentage > 50
+                 ? "ahead"
+                 : s.progress_percentage > 20
+                 ? "on-track"
+                 : "behind",
+           }));
+           setSubjectProgress(progressData);
+           setCachedData(CACHE_KEYS.CURRICULUM_PROGRESS, progressData);
+        }
 
         // 2. Stats / Performance Summary
-        const statsRes = await axios.get(
-          `${API_BASE_URL}/dashboard/stats`,
-          config
-        );
-        setPerformanceSummary(statsRes.data);
+        if (forceRefresh || !getCachedData(CACHE_KEYS.DASHBOARD_STATS)) {
+           const statsRes = await axios.get(
+             `${API_BASE_URL}/dashboard/stats`,
+             config
+           );
+           setPerformanceSummary(statsRes.data);
+           setCachedData(CACHE_KEYS.DASHBOARD_STATS, statsRes.data);
+        }
 
         // 3. Teaching Insights
-        const insightsRes = await axios.get(
-          `${API_BASE_URL}/dashboard/insights`,
-          config
-        );
-        setTeachingInsights(insightsRes.data);
-
-        // Use weeklyComparison for TrendGraph as well
-        if (insightsRes.data.weeklyComparison) {
-          setTrendData(insightsRes.data.weeklyComparison);
+        if (forceRefresh || !getCachedData(CACHE_KEYS.DASHBOARD_INSIGHTS)) {
+           const insightsRes = await axios.get(
+             `${API_BASE_URL}/dashboard/insights`,
+             config
+           );
+           setTeachingInsights(insightsRes.data);
+           if (insightsRes.data.weeklyComparison) {
+             setTrendData(insightsRes.data.weeklyComparison);
+           }
+           setCachedData(CACHE_KEYS.DASHBOARD_INSIGHTS, insightsRes.data);
         }
 
         // 4. Upcoming Deadlines
-        const deadlinesRes = await axios.get(
-          `${API_BASE_URL}/dashboard/deadlines`,
-          config
-        );
-        // Ensure dates are Date objects
-        const deadlinesData = deadlinesRes.data.map((d: any) => ({
-          ...d,
-          date: new Date(d.date),
-        }));
-        setDeadlines(deadlinesData);
+        if (forceRefresh || !getCachedData(CACHE_KEYS.DASHBOARD_DEADLINES)) {
+           const deadlinesRes = await axios.get(
+             `${API_BASE_URL}/dashboard/deadlines`,
+             config
+           );
+           const deadlinesData = deadlinesRes.data.map((d: any) => ({
+             ...d,
+             date: new Date(d.date),
+           }));
+           setDeadlines(deadlinesData);
+           setCachedData(CACHE_KEYS.DASHBOARD_DEADLINES, deadlinesData);
+        }
 
         // 5. Resources
-        const resourcesRes = await axios.get(
-          `${API_BASE_URL}/dashboard/resources`,
-          config
-        );
-        const resourcesData = resourcesRes.data.map((r: any) => ({
-          ...r,
-          lastAccessed: new Date(r.lastAccessed),
-        }));
-        setResources(resourcesData);
+        if (forceRefresh || !getCachedData(CACHE_KEYS.DASHBOARD_RESOURCES)) {
+           const resourcesRes = await axios.get(
+             `${API_BASE_URL}/dashboard/resources`,
+             config
+           );
+           const resourcesData = resourcesRes.data.map((r: any) => ({
+             ...r,
+             lastAccessed: new Date(r.lastAccessed),
+           }));
+           setResources(resourcesData);
+           setCachedData(CACHE_KEYS.DASHBOARD_RESOURCES, resourcesData);
+        }
+
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 401) {
           console.warn(

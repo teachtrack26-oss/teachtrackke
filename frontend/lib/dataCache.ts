@@ -77,4 +77,8 @@ export const CACHE_KEYS = {
   TIMETABLE_ENTRIES: 'timetable_entries',
   TIMETABLE_SLOTS: 'timetable_slots',
   CURRICULUM_TEMPLATES: 'curriculum_templates',
+  DASHBOARD_STATS: 'dashboard_stats',
+  DASHBOARD_DEADLINES: 'dashboard_deadlines',
+  DASHBOARD_RESOURCES: 'dashboard_resources',
+  NOTES: 'notes',
 };

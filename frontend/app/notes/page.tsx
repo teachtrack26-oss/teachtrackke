@@ -19,6 +19,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import FileUpload from "@/components/FileUpload";
 import NoteViewer from "@/components/NoteViewer";
+import { getCachedData, setCachedData, CACHE_KEYS } from "@/lib/dataCache";
 
 interface Note {
   id: number;
@@ -45,9 +46,14 @@ interface Subject {
 export default function NotesPage() {
   const router = useRouter();
   const { user, isAuthenticated, loading: authLoading } = useCustomAuth();
-  const [notes, setNotes] = useState<Note[]>([]);
-  const [subjects, setSubjects] = useState<Subject[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Initialize from cache
+  const cachedNotes = getCachedData<Note[]>(CACHE_KEYS.NOTES);
+  const cachedSubjects = getCachedData<Subject[]>(CACHE_KEYS.SUBJECTS);
+  const cachedEducationLevels = getCachedData<any>( 'education_levels');
+
+  const [notes, setNotes] = useState<Note[]>(cachedNotes || []);
+  const [subjects, setSubjects] = useState<Subject[]>(cachedSubjects || []);
+  const [loading, setLoading] = useState(!cachedNotes);
   const [searchTerm, setSearchTerm] = useState("");
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState<number | null>(null);
@@ -56,7 +62,7 @@ export default function NotesPage() {
   const [viewerNoteIndex, setViewerNoteIndex] = useState(0);
 
   // Cascading dropdown states
-  const [educationLevels, setEducationLevels] = useState<string[]>([]);
+  const [educationLevels, setEducationLevels] = useState<string[]>(cachedEducationLevels?.education_levels || []);
   const [grades, setGrades] = useState<string[]>([]);
   const [availableSubjects, setAvailableSubjects] = useState<string[]>([]);
   const [selectedEducationLevel, setSelectedEducationLevel] =
@@ -66,13 +72,15 @@ export default function NotesPage() {
 
   useEffect(() => {
     if (!authLoading && isAuthenticated) {
-      fetchData();
+      // If we have cached data, do background refresh
+      const hasCache = !!(cachedNotes && cachedSubjects);
+      fetchData(hasCache);
     }
   }, [authLoading, isAuthenticated]);
 
-  const fetchData = async () => {
+  const fetchData = async (isBackgroundRefresh = false) => {
     try {
-      setLoading(true);
+      if (!isBackgroundRefresh) setLoading(true);
 
       // First, try to make the request
       try {
@@ -90,8 +98,14 @@ export default function NotesPage() {
           ]);
 
         setNotes(notesResponse.data);
+        setCachedData(CACHE_KEYS.NOTES, notesResponse.data);
+
         setSubjects(subjectsResponse.data);
+        setCachedData(CACHE_KEYS.SUBJECTS, subjectsResponse.data);
+
         setEducationLevels(educationLevelsResponse.data.education_levels || []);
+        setCachedData('education_levels', educationLevelsResponse.data);
+
       } catch (error: any) {
         // If 401, redirect to login
         if (axios.isAxiosError(error) && error.response?.status === 401) {
@@ -237,6 +251,15 @@ export default function NotesPage() {
       (note.tags && note.tags.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
+  // Show loading first to prevent flash
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
+
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -248,14 +271,6 @@ export default function NotesPage() {
             Please login to access your notes.
           </p>
         </div>
-      </div>
-    );
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
       </div>
     );
   }
