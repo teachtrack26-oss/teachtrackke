@@ -648,11 +648,11 @@ export default function ViewSchemePage() {
           <div className="relative">
             {/* Watermark for non-premium users */}
             {!isPremium && (
-              <div className="absolute inset-0 pointer-events-none z-50 grid grid-cols-3 gap-y-32 gap-x-12 content-start justify-items-center overflow-hidden opacity-10 p-10">
+              <div className="absolute inset-0 pointer-events-none z-50 grid grid-cols-3 gap-y-32 gap-x-12 content-start justify-items-center overflow-hidden opacity-5 p-10">
                 {Array.from({ length: 60 }).map((_, i) => (
                   <div
                     key={i}
-                    className="transform -rotate-45 text-gray-900 text-3xl font-black whitespace-nowrap select-none"
+                    className="transform -rotate-45 text-gray-400 text-3xl font-bold whitespace-nowrap select-none"
                   >
                     {user?.email || "PREVIEW ONLY"}
                   </div>
