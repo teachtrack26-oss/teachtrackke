@@ -1,4 +1,6 @@
 "use client";
+
+import { getCachedData, setCachedData, CACHE_KEYS } from "@/lib/dataCache";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -431,7 +433,7 @@ const TimetablePage = () => {
     // ... (existing code)
   }, [schedule, timeSlots, entries, subjects]);
 
-  const loadData = async () => {
+  const loadData = async (forceRefresh = false) => {
     try {
       const config = { withCredentials: true };
 
@@ -441,14 +443,23 @@ const TimetablePage = () => {
 
         // Fetch all entries (no level filter)
         let fetchedEntries: any[] = [];
+        const entriesCacheKey = CACHE_KEYS.TIMETABLE_ENTRIES + "_ALL";
+        
         try {
-          const entriesRes = await axios.get(
-            "/api/v1/timetable/entries",
-            config
-          );
-          fetchedEntries = Array.isArray(entriesRes.data)
-            ? entriesRes.data
-            : [];
+          const cachedEntries = !forceRefresh ? getCachedData<any[]>(entriesCacheKey) : null;
+          
+          if (cachedEntries) {
+            fetchedEntries = cachedEntries;
+          } else {
+            const entriesRes = await axios.get(
+              "/api/v1/timetable/entries",
+              config
+            );
+            fetchedEntries = Array.isArray(entriesRes.data)
+              ? entriesRes.data
+              : [];
+            setCachedData(entriesCacheKey, fetchedEntries);
+          }
           setEntries(fetchedEntries);
         } catch (e) {
           setEntries([]);
@@ -568,25 +579,39 @@ const TimetablePage = () => {
       }
 
       // Fetch USER'S SUBJECTS (for displaying in timetable)
-      const userSubjectsRes = await axios.get("/api/v1/subjects", config);
-      const userSubjects = userSubjectsRes.data;
+      let userSubjects = [];
+      const cachedSubjects = !forceRefresh ? getCachedData<any[]>(CACHE_KEYS.SUBJECTS) : null;
+      
+      if (cachedSubjects) {
+        userSubjects = cachedSubjects;
+      } else {
+        const userSubjectsRes = await axios.get("/api/v1/subjects", config);
+        userSubjects = userSubjectsRes.data;
+        setCachedData(CACHE_KEYS.SUBJECTS, userSubjects);
+      }
       console.log("Loaded user subjects:", userSubjects);
 
       // Fetch all curriculum templates (learning areas) - any teacher can use any template
       // Only call admin endpoint if user is admin; otherwise use public endpoint directly
       let curriculumData = [];
-      try {
-        const isAdmin = user?.is_admin || user?.role === "SUPER_ADMIN" || user?.role === "SCHOOL_ADMIN";
-        const endpoint = isAdmin
-          ? "/api/v1/admin/curriculum-templates?is_active=true"
-          : "/api/v1/curriculum-templates";
-        
-        const templatesRes = await axios.get(endpoint, config);
-        curriculumData = templatesRes.data;
-      } catch (err) {
-        console.error("Failed to fetch curriculum templates", err);
-      }
+      const cachedTemplates = !forceRefresh ? getCachedData<any[]>(CACHE_KEYS.CURRICULUM_TEMPLATES) : null;
 
+      if (cachedTemplates) {
+        curriculumData = cachedTemplates;
+      } else {
+        try {
+          const isAdmin = user?.is_admin || user?.role === "SUPER_ADMIN" || user?.role === "SCHOOL_ADMIN";
+          const endpoint = isAdmin
+            ? "/api/v1/admin/curriculum-templates?is_active=true"
+            : "/api/v1/curriculum-templates";
+          
+          const templatesRes = await axios.get(endpoint, config);
+          curriculumData = templatesRes.data;
+          setCachedData(CACHE_KEYS.CURRICULUM_TEMPLATES, curriculumData);
+        } catch (err) {
+          console.error("Failed to fetch curriculum templates", err);
+        }
+      }
       // Transform curriculum templates to match expected format
       const transformedTemplates = curriculumData.map((template: any) => ({
         id: template.id,
@@ -637,7 +662,7 @@ const TimetablePage = () => {
       setIsAddModalOpen(false);
       setEditingEntry(null);
       setSelectedSubject(null);
-      loadData();
+      loadData(true);
     } catch (error: any) {
       console.error("Submit error:", error);
       toast.error(error.response?.data?.detail || "Failed to save lesson");
@@ -653,7 +678,7 @@ const TimetablePage = () => {
       });
 
       toast.success("Lesson deleted");
-      loadData();
+      loadData(true);
     } catch (error) {
       toast.error("Failed to delete lesson");
     }
@@ -925,7 +950,7 @@ const TimetablePage = () => {
           notes: "",
           is_double_lesson: false,
         });
-        loadData();
+        loadData(true);
       }
 
       if (failCount > 0) {

@@ -35,6 +35,7 @@ import {
 } from "recharts";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { getCachedData, setCachedData, CACHE_KEYS } from "@/lib/dataCache";
 
 interface Subject {
   id: number;
@@ -102,17 +103,25 @@ export default function ProfessionalRecordsPage() {
     !!user?.school_id ||
     user?.role === "SUPER_ADMIN";
 
-  const [loading, setLoading] = useState(true);
-  const [subjects, setSubjects] = useState<Subject[]>([]);
+  // Get cached data for instant load
+  const cachedSubjects = getCachedData<Subject[]>(CACHE_KEYS.SUBJECTS);
+  const cachedSchemes = getCachedData<SchemeOfWork[]>(CACHE_KEYS.SCHEMES);
+  const cachedLessonPlans = getCachedData<LessonPlan[]>(CACHE_KEYS.LESSON_PLANS);
+  const cachedRecords = getCachedData<RecordOfWork[]>(CACHE_KEYS.RECORDS_OF_WORK);
+  
+  const hasCache = !!(cachedSubjects || cachedSchemes || cachedLessonPlans || cachedRecords);
+
+  const [loading, setLoading] = useState(!hasCache);
+  const [subjects, setSubjects] = useState<Subject[]>(cachedSubjects || []);
   const [activeTab, setActiveTab] = useState<"schemes" | "lessons" | "records">(
     "schemes"
   );
   const [showArchived, setShowArchived] = useState(false);
 
-  // Data states
-  const [schemes, setSchemes] = useState<SchemeOfWork[]>([]);
-  const [lessonPlans, setLessonPlans] = useState<LessonPlan[]>([]);
-  const [recordsOfWork, setRecordsOfWork] = useState<RecordOfWork[]>([]);
+  // Data states - initialize from cache
+  const [schemes, setSchemes] = useState<SchemeOfWork[]>(cachedSchemes || []);
+  const [lessonPlans, setLessonPlans] = useState<LessonPlan[]>(cachedLessonPlans || []);
+  const [recordsOfWork, setRecordsOfWork] = useState<RecordOfWork[]>(cachedRecords || []);
   const [selectedPlans, setSelectedPlans] = useState<number[]>([]);
   const [selectedRecords, setSelectedRecords] = useState<number[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -143,14 +152,17 @@ export default function ProfessionalRecordsPage() {
 
   useEffect(() => {
     if (!authLoading && isAuthenticated) {
-      fetchData();
+      // If we have cached data, do background refresh; otherwise show loading
+      fetchData(hasCache);
     }
   }, [showArchived, authLoading, isAuthenticated]);
 
-  const fetchData = async () => {
+  const fetchData = async (isBackgroundRefresh = false) => {
     // Avoid firing requests before auth state is known.
     if (authLoading || !isAuthenticated) return;
-    setLoading(true);
+    if (!isBackgroundRefresh) {
+      setLoading(true);
+    }
     try {
       const config = { withCredentials: true };
       const archivedQuery = showArchived ? "?archived=true" : "";
@@ -158,6 +170,7 @@ export default function ProfessionalRecordsPage() {
       // Fetch subjects
       const subjectsRes = await axios.get("/api/v1/subjects", config);
       setSubjects(subjectsRes.data);
+      if (!showArchived) setCachedData(CACHE_KEYS.SUBJECTS, subjectsRes.data);
 
       // Fetch schemes of work
       const schemesRes = await axios.get(
@@ -199,6 +212,7 @@ export default function ProfessionalRecordsPage() {
       });
 
       setSchemes(normalizedSchemes);
+      if (!showArchived) setCachedData(CACHE_KEYS.SCHEMES, normalizedSchemes);
 
       // Fetch schemes statistics
       const statsRes = await axios.get("/api/v1/schemes/stats", config);
@@ -250,6 +264,7 @@ export default function ProfessionalRecordsPage() {
           config
         );
         setLessonPlans(lessonPlansRes.data);
+        if (!showArchived) setCachedData(CACHE_KEYS.LESSON_PLANS, lessonPlansRes.data);
       } catch (error) {
         console.log("Lesson plans not available yet");
         setLessonPlans([]);
@@ -262,6 +277,7 @@ export default function ProfessionalRecordsPage() {
           config
         );
         setRecordsOfWork(recordsRes.data);
+        if (!showArchived) setCachedData(CACHE_KEYS.RECORDS_OF_WORK, recordsRes.data);
       } catch (error) {
         console.log("Records of work not available yet");
         setRecordsOfWork([]);

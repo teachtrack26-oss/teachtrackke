@@ -18,6 +18,7 @@ import {
 } from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { getCachedData, setCachedData, CACHE_KEYS } from "@/lib/dataCache";
 
 interface Subject {
   id: number;
@@ -33,23 +34,35 @@ interface Subject {
 export default function CurriculumPage() {
   const router = useRouter();
   const { isAuthenticated, loading: authLoading } = useCustomAuth();
-  const [subjects, setSubjects] = useState<Subject[]>([]);
-  const [loading, setLoading] = useState(true);
+  
+  // Initialize from cache for instant load
+  const cachedSubjects = getCachedData<Subject[]>(CACHE_KEYS.SUBJECTS);
+  const [subjects, setSubjects] = useState<Subject[]>(cachedSubjects || []);
+  const [loading, setLoading] = useState(!cachedSubjects);
   const [searchTerm, setSearchTerm] = useState("");
   const [showUploadModal, setShowUploadModal] = useState(false);
 
   useEffect(() => {
     if (!authLoading && isAuthenticated) {
-      fetchSubjects();
+      // If we have cached data, show it immediately but still refresh in background
+      if (cachedSubjects) {
+        fetchSubjects(true); // Background refresh
+      } else {
+        fetchSubjects(false);
+      }
     }
   }, [authLoading, isAuthenticated]);
 
-  const fetchSubjects = async () => {
+  const fetchSubjects = async (isBackgroundRefresh = false) => {
+    if (!isBackgroundRefresh) {
+      setLoading(true);
+    }
     try {
       const response = await axios.get(`/api/v1/subjects`, {
         withCredentials: true,
       });
       setSubjects(response.data);
+      setCachedData(CACHE_KEYS.SUBJECTS, response.data);
     } catch (error) {
       console.error("Failed to fetch subjects:", error);
       if (axios.isAxiosError(error) && error.response?.status === 401) {
@@ -89,6 +102,15 @@ export default function CurriculumPage() {
     return { gradient: "from-purple-500 to-indigo-500", icon: "📚" };
   };
 
+  // Show loading first to prevent flash
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
+
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -100,14 +122,6 @@ export default function CurriculumPage() {
             Please login to access curriculum management.
           </p>
         </div>
-      </div>
-    );
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
       </div>
     );
   }
