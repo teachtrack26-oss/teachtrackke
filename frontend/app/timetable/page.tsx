@@ -573,25 +573,18 @@ const TimetablePage = () => {
       console.log("Loaded user subjects:", userSubjects);
 
       // Fetch all curriculum templates (learning areas) - any teacher can use any template
+      // Only call admin endpoint if user is admin; otherwise use public endpoint directly
       let curriculumData = [];
       try {
-        // Try admin endpoint first (works if user has admin access)
-        const adminRes = await axios.get(
-          "/api/v1/admin/curriculum-templates?is_active=true",
-          config
-        );
-        curriculumData = adminRes.data;
-      } catch (e) {
-        // Fall back to public endpoint
-        try {
-          const publicRes = await axios.get(
-            "/api/v1/curriculum-templates",
-            config
-          );
-          curriculumData = publicRes.data;
-        } catch (err) {
-          console.error("Failed to fetch curriculum templates", err);
-        }
+        const isAdmin = user?.is_admin || user?.role === "SUPER_ADMIN" || user?.role === "SCHOOL_ADMIN";
+        const endpoint = isAdmin
+          ? "/api/v1/admin/curriculum-templates?is_active=true"
+          : "/api/v1/curriculum-templates";
+        
+        const templatesRes = await axios.get(endpoint, config);
+        curriculumData = templatesRes.data;
+      } catch (err) {
+        console.error("Failed to fetch curriculum templates", err);
       }
 
       // Transform curriculum templates to match expected format
