@@ -25,6 +25,7 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState({
     score: 0,
     feedback: [] as string[],
@@ -104,8 +105,8 @@ export default function RegisterPage() {
         role: formData.role,
       });
 
-      toast.success("Account created successfully! Redirecting to login...");
-      setTimeout(() => router.push("/login"), 1500);
+      setRegistrationSuccess(true);
+      toast.success("Registration successful! Please check your email to verify your account.");
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.detail ||
@@ -155,6 +156,34 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-cyan-50 to-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-6 bg-white rounded-2xl shadow-2xl p-8">
+        {registrationSuccess ? (
+          <div className="text-center space-y-4">
+            <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100">
+              <svg className="h-10 w-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900">Check your email!</h2>
+            <p className="text-gray-600">
+              We've sent a verification link to <strong>{formData.email}</strong>
+            </p>
+            <p className="text-sm text-gray-500">
+              Click the link in the email to verify your account and start using TeachTrack.
+            </p>
+            <div className="pt-4">
+              <Link
+                href="/login"
+                className="inline-flex items-center justify-center w-full px-6 py-3 border border-transparent rounded-xl text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
+              >
+                Go to Login
+              </Link>
+            </div>
+            <p className="text-xs text-gray-500 mt-4">
+              Didn't receive the email? Check your spam folder or contact support.
+            </p>
+          </div>
+        ) : (
+          <>
         <div>
           <h2 className="text-center text-3xl font-extrabold text-gray-900">
             Create your TeachTrack account
@@ -459,6 +488,8 @@ export default function RegisterPage() {
             </Link>
           </p>
         </form>
+        </>
+        )}
       </div>
     </div>
   );
