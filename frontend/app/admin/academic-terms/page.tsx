@@ -74,13 +74,14 @@ export default function AcademicTermsPage() {
       }
       fetchTerms();
     }
-  }, [authLoading, user]);
+  }, [authLoading, user, selectedYear]); // Added selectedYear to refetch when filter changes
 
-  const fetchTerms = async () => {
+  const fetchTerms = async (yearOverride?: number) => {
+    const yearToFetch = yearOverride ?? selectedYear;
     setLoading(true);
     try {
       const res = await axios.get(
-        `/api/v1/admin/system-terms?year=${selectedYear}`,
+        `/api/v1/admin/system-terms?year=${yearToFetch}`,
         {
           withCredentials: true,
         }
@@ -109,7 +110,8 @@ export default function AcademicTermsPage() {
       );
       toast.success(res.data.message);
       setSelectedYear(year);
-      fetchTerms();
+      // Pass year directly to avoid stale state issue
+      fetchTerms(year);
     } catch (error: any) {
       toast.error(error.response?.data?.detail || "Failed to generate terms");
     } finally {
