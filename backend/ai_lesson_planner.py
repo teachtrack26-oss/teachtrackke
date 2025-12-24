@@ -139,7 +139,7 @@ async def generate_scheme_of_work(data, current_user, db):
     from models import (
         User, UserRole, SchemeOfWork, SchemeWeek, SchemeLesson, 
         CurriculumTemplate, TemplateStrand, TemplateSubstrand,
-        SchoolSettings, SchoolTerm, SubscriptionType
+        SchoolSettings, SchoolTerm, SubscriptionType, SystemTerm
     )
 
     # Enforce Free Plan Limits
@@ -246,7 +246,32 @@ async def generate_scheme_of_work(data, current_user, db):
                     SchoolTerm.term_number == term_number
                 ).first()
 
-            if school_term:
+            # Attempt 4: Try SystemTerm (new global terms table)
+            system_term = None
+            if not school_term:
+                system_term = db.query(SystemTerm).filter(
+                    SystemTerm.year == data.year,
+                    SystemTerm.term_number == term_number
+                ).first()
+                if system_term:
+                    print(f"[DEBUG] Found SystemTerm: id={system_term.id}")
+                    print(f"[DEBUG] SystemTerm start_date: {system_term.start_date}")
+                    print(f"[DEBUG] SystemTerm mid_term_break_start: {system_term.mid_term_break_start}")
+                    print(f"[DEBUG] SystemTerm mid_term_break_end: {system_term.mid_term_break_end}")
+
+            # Use SystemTerm if found and no SchoolTerm
+            if system_term and not school_term:
+                if system_term.start_date:
+                    term_start_date = system_term.start_date if isinstance(system_term.start_date, datetime) else datetime.strptime(str(system_term.start_date)[:10], "%Y-%m-%d")
+                    print(f"[DEBUG] Parsed term_start_date from SystemTerm: {term_start_date}")
+                
+                if system_term.mid_term_break_start and system_term.mid_term_break_end:
+                    mid_term_start = system_term.mid_term_break_start if isinstance(system_term.mid_term_break_start, datetime) else datetime.strptime(str(system_term.mid_term_break_start)[:10], "%Y-%m-%d")
+                    mid_term_end = system_term.mid_term_break_end if isinstance(system_term.mid_term_break_end, datetime) else datetime.strptime(str(system_term.mid_term_break_end)[:10], "%Y-%m-%d")
+                    print(f"[DEBUG] Mid Term Break from SystemTerm: {mid_term_start} to {mid_term_end}")
+                else:
+                    print(f"[DEBUG] No mid-term break dates found in SystemTerm")
+            elif school_term:
                 print(f"[DEBUG] Found SchoolTerm: id={school_term.id}")
                 print(f"[DEBUG] SchoolTerm start_date: {school_term.start_date}")
                 print(f"[DEBUG] SchoolTerm mid_term_break_start: {school_term.mid_term_break_start}")

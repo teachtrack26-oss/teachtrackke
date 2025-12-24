@@ -425,6 +425,16 @@ export default function SchemeGeneratorPage() {
     return lessons.filter((lesson) => lesson.substrand_id === substrandId);
   };
 
+  // Helper to calculate which week number a date falls in
+  const getWeekNumberForDate = (
+    targetDate: Date,
+    termStartDate: Date
+  ): number => {
+    const diffTime = targetDate.getTime() - termStartDate.getTime();
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return Math.floor(diffDays / 7) + 1;
+  };
+
   const generateWeeks = () => {
     if (selectedLessons.size === 0) {
       toast.error("Please select at least one lesson");
@@ -443,19 +453,60 @@ export default function SchemeGeneratorPage() {
     // Use the subject's lessons_per_week setting
     const lessonsPerWeek = formData.lessons_per_week || 5;
 
-    // Calculate how many weeks we actually need
+    // Find the current term to get mid-term break dates
+    const currentTerm = schoolTerms.find(
+      (t) => t.term_name === formData.term && t.year === formData.year
+    );
+
+    // Calculate half-term break week number if available
+    let halfTermWeekNumber: number | null = null;
+    if (
+      currentTerm?.start_date &&
+      currentTerm?.mid_term_break_start
+    ) {
+      const termStart = new Date(currentTerm.start_date);
+      const midTermStart = new Date(currentTerm.mid_term_break_start);
+      halfTermWeekNumber = getWeekNumberForDate(midTermStart, termStart);
+    }
+
+    // Calculate how many weeks we actually need (including half-term break)
     const requiredWeeks = Math.ceil(totalLessons / lessonsPerWeek);
     const actualWeeks = Math.max(requiredWeeks, formData.total_weeks);
 
     const generatedWeeks: Week[] = [];
-
     let lessonIndex = 0;
+    let displayWeekNum = 1;
 
     for (
       let weekNum = 1;
-      weekNum <= actualWeeks && lessonIndex < totalLessons;
+      weekNum <= actualWeeks + 1 && lessonIndex < totalLessons;
       weekNum++
     ) {
+      // Check if this is the half-term break week
+      if (halfTermWeekNumber && displayWeekNum === halfTermWeekNumber) {
+        // Insert half-term break week
+        generatedWeeks.push({
+          week_number: displayWeekNum,
+          lessons: [
+            {
+              lesson_id: 0,
+              lesson_number: 1,
+              lesson_title: "Half Term Break",
+              strand: "HALF TERM BREAK",
+              sub_strand: "",
+              specific_learning_outcomes: "",
+              key_inquiry_questions: "",
+              learning_experiences: "",
+              learning_resources: "",
+              assessment_methods: "",
+              reflection: "",
+            },
+          ],
+        });
+        displayWeekNum++;
+        continue; // Don't increment lessonIndex, skip to next week
+      }
+
       const weekLessons: WeekLesson[] = [];
 
       for (
@@ -513,17 +564,22 @@ export default function SchemeGeneratorPage() {
 
       if (weekLessons.length > 0) {
         generatedWeeks.push({
-          week_number: weekNum,
+          week_number: displayWeekNum,
           lessons: weekLessons,
         });
+        displayWeekNum++;
       }
     }
 
     setWeeks(generatedWeeks);
     setFormData((prev) => ({ ...prev, total_lessons: totalLessons }));
     setCurrentStep(3);
+    
+    const breakMsg = halfTermWeekNumber
+      ? ` (Half Term Break in Week ${halfTermWeekNumber})`
+      : "";
     toast.success(
-      `Generated ${generatedWeeks.length} weeks with ${totalLessons} lessons`
+      `Generated ${generatedWeeks.length} weeks with ${totalLessons} lessons${breakMsg}`
     );
   };
 
