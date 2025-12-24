@@ -669,6 +669,47 @@ class SystemTerm(Base):
     )
 
 
+class UserTermAdjustment(Base):
+    """
+    Allows schools or independent teachers to have slight adjustments to system term dates.
+    For example, if system says Jan 5, but a school opens on Jan 6 or 7.
+    This is linked to the system term but allows local variations.
+    """
+    __tablename__ = 'user_term_adjustments'
+    
+    id = Column(Integer, primary_key=True, index=True)
+    system_term_id = Column(Integer, ForeignKey("system_terms.id", ondelete="CASCADE"), nullable=False)
+    
+    # Who owns this adjustment - either a school or an individual teacher (not both)
+    school_id = Column(Integer, ForeignKey("schools.id", ondelete="CASCADE"), nullable=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=True)  # For independent teachers
+    
+    # Adjusted dates (can be slightly different from system term)
+    adjusted_start_date = Column(TIMESTAMP, nullable=False)
+    adjusted_end_date = Column(TIMESTAMP, nullable=False)
+    adjusted_teaching_weeks = Column(Integer, nullable=True)  # Auto-calculated or manual
+    
+    # Reason for adjustment
+    adjustment_reason = Column(String(255), nullable=True)  # e.g., "School board decision", "Regional calendar"
+    
+    # Track if this adjustment is active
+    is_active = Column(Boolean, default=True)
+    
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    system_term = relationship("SystemTerm", backref="adjustments")
+    school = relationship("School", backref="term_adjustments")
+    user = relationship("User", backref="term_adjustments")
+    
+    # Unique constraint: one adjustment per term per school or user
+    __table_args__ = (
+        Index('idx_adjustment_school_term', 'school_id', 'system_term_id', unique=True),
+        Index('idx_adjustment_user_term', 'user_id', 'system_term_id', unique=True),
+    )
+
+
 class CalendarActivity(Base):
     __tablename__ = 'calendar_activities'
     id = Column(Integer, primary_key=True, index=True)
