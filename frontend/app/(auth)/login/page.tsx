@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import GoogleSignInButtonNextAuth from "@/components/auth/GoogleSignInButtonNextAuth";
+import GoogleSignInButton from "@/components/auth/GoogleSignInButton";
 
 function LoginForm() {
   const router = useRouter();
@@ -193,7 +193,7 @@ function LoginForm() {
 
         {/* Google Sign In */}
         <div className="mb-6">
-          <GoogleSignInButtonNextAuth />
+          <GoogleSignInButton />
 
           {/* Helper text */}
           <p className="mt-3 text-center text-xs text-gray-500 italic">

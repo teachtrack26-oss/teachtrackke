@@ -7,11 +7,11 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import GoogleSignInButton from "@/components/auth/GoogleSignInButton";
 import { FiEye, FiEyeOff, FiCheck, FiX } from "react-icons/fi";
-import { useSession } from "next-auth/react";
+import { useCustomAuth } from "@/hooks/useCustomAuth";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { loading: authLoading, isAuthenticated } = useCustomAuth(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -32,12 +32,15 @@ export default function RegisterPage() {
 
   // Check if user is already logged in
   useEffect(() => {
-    if (status === "authenticated") {
+    if (authLoading) return;
+
+    if (isAuthenticated) {
       router.replace("/dashboard");
-    } else if (status === "unauthenticated") {
-      setCheckingAuth(false);
+      return;
     }
-  }, [status, router]);
+
+    setCheckingAuth(false);
+  }, [authLoading, isAuthenticated, router]);
 
   // Calculate password strength
   useEffect(() => {

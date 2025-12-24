@@ -2,121 +2,32 @@
 
 ## Current Status
 
-The app currently uses **mock authentication** with localStorage for demo purposes. This allows you to register and login without a backend server.
+The app uses the FastAPI backend for authentication and relies on an HttpOnly cookie set by the backend.
 
-## How It Works Now
+## How It Works
 
-### Registration
+### Email/password login
 
-1. Fill out the registration form
-2. Data is stored in browser's localStorage
-3. Success message appears
-4. Redirects to login page
+- Frontend calls `/api/v1/auth/login` (via the Next.js proxy).
+- Backend sets an HttpOnly cookie (JWT) and the frontend uses `/api/v1/auth/me` to load the current user.
 
-### Login
+### Google login
 
-1. Enter the email and password you registered with
-2. NextAuth validates against localStorage
-3. On success, redirects to dashboard
+- Frontend uses Google Identity Services to obtain a Google ID token.
+- Frontend posts that token to `/api/v1/auth/google`.
+- Backend verifies it and sets the same HttpOnly cookie used everywhere else.
 
-### Email Verification
+## Environment Variables (Frontend)
 
-- Currently disabled for demo
-- The verification page exists at `/verify-email` but auto-succeeds
-
-## Setting Up Google OAuth (Optional)
-
-To enable "Continue with Google" button:
-
-### 1. Get Google OAuth Credentials
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select existing one
-3. Enable Google+ API
-4. Go to **Credentials** → **Create Credentials** → **OAuth 2.0 Client ID**
-5. Configure consent screen if prompted
-6. Set Application type: **Web application**
-7. Add authorized redirect URIs:
-   - `http://localhost:3000/api/auth/callback/google`
-   - `http://10.2.0.2:3000/api/auth/callback/google` (for network access)
-8. Copy the **Client ID** and **Client Secret**
-
-### 2. Update Environment Variables
-
-Edit `.env.local` and add:
+Add to `.env.local`:
 
 ```bash
-# Google OAuth
-GOOGLE_CLIENT_ID=your-client-id-here.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=your-client-secret-here
-NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED=true
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=your-client-id-here.apps.googleusercontent.com
 ```
 
-### 3. Restart Development Server
+## Notes
 
-```bash
-npm run dev
-```
-
-The "Continue with Google" button will now appear and work!
-
-## Connecting to Real Backend
-
-When your FastAPI backend is ready:
-
-### 1. Update Registration (`register/page.tsx`)
-
-Replace the localStorage code with:
-
-```typescript
-const response = await axios.post(
-  `${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/register`,
-  formData
-);
-```
-
-### 2. Update NextAuth (`api/auth/[...nextauth]/route.ts`)
-
-Replace the authorize function with:
-
-```typescript
-async authorize(credentials) {
-  const response = await axios.post(
-    `${process.env.API_BASE_URL}/auth/login`,
-    {
-      email: credentials?.email,
-      password: credentials?.password,
-    }
-  );
-
-  if (response.data.user) {
-    return response.data.user;
-  }
-  return null;
-}
-```
-
-### 3. Environment Variables for Production
-
-Update `.env.local`:
-
-```bash
-NEXT_PUBLIC_API_URL=https://your-backend-api.com
-NEXTAUTH_SECRET=generate-a-secure-random-string
-NEXTAUTH_URL=https://your-frontend-domain.com
-```
-
-## Testing
-
-### Test User Accounts (Demo Mode)
-
-Since it's using localStorage, any account you create will work:
-
-1. Register with any email/password (min 8 chars)
-2. Login with the same credentials
-3. Data persists in browser until you clear storage
-
-### Clear Test Data
+- NextAuth is not used for login in this app, and `/api/auth/*` routes are intentionally not present.
 
 Open browser console and run:
 

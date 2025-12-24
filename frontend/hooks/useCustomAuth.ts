@@ -1,4 +1,3 @@
-import { useSession, signOut } from "next-auth/react";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
@@ -9,15 +8,24 @@ const AUTH_CACHE_DURATION = 5 * 60 * 1000;
 
 // Global cache to persist auth state across hook instances
 let globalAuthCache: {
-  user: any;
+  user: any | null;
+  timestamp: number;
+} | null = null;
+
+// Also cache the "not authenticated" state to avoid spamming /auth/me
+// from multiple components (Navbar + pages) when the user is logged out.
+let globalUnauthCache: {
   timestamp: number;
 } | null = null;
 
 export function useCustomAuth(requireAuth = true) {
-  const { data: session, status: nextAuthStatus } = useSession();
   const [user, setUser] = useState<any>(globalAuthCache?.user ?? null);
-  const [loading, setLoading] = useState(!globalAuthCache?.user);
-  const [isAuthenticated, setIsAuthenticated] = useState(!!globalAuthCache?.user);
+  const [loading, setLoading] = useState(
+    !globalAuthCache?.user && !globalUnauthCache
+  );
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!globalAuthCache?.user
+  );
   const router = useRouter();
   const pathname = usePathname();
   const [refreshCounter, setRefreshCounter] = useState(0);
@@ -28,6 +36,7 @@ export function useCustomAuth(requireAuth = true) {
     const handler = () => {
       // Clear cache on forced refresh
       globalAuthCache = null;
+      globalUnauthCache = null;
       hasCheckedRef.current = false;
       setLoading(true);
       setRefreshCounter((c) => c + 1);
@@ -39,6 +48,7 @@ export function useCustomAuth(requireAuth = true) {
 
   const refreshAuth = useCallback(() => {
     globalAuthCache = null;
+    globalUnauthCache = null;
     hasCheckedRef.current = false;
     setLoading(true);
     setRefreshCounter((c) => c + 1);
@@ -47,10 +57,30 @@ export function useCustomAuth(requireAuth = true) {
   useEffect(() => {
     const checkAuth = async () => {
       // If we have valid cached data, use it
-      if (globalAuthCache && Date.now() - globalAuthCache.timestamp < AUTH_CACHE_DURATION) {
+      if (
+        globalAuthCache &&
+        Date.now() - globalAuthCache.timestamp < AUTH_CACHE_DURATION
+      ) {
         setUser(globalAuthCache.user);
         setIsAuthenticated(true);
         setLoading(false);
+        return;
+      }
+
+      // If we recently confirmed the user is not authenticated, reuse that
+      if (
+        globalUnauthCache &&
+        Date.now() - globalUnauthCache.timestamp < AUTH_CACHE_DURATION
+      ) {
+        globalAuthCache = null;
+        setUser(null);
+        setIsAuthenticated(false);
+        setLoading(false);
+        hasCheckedRef.current = true;
+
+        if (requireAuth) {
+          router.push("/login");
+        }
         return;
       }
 
@@ -75,64 +105,35 @@ export function useCustomAuth(requireAuth = true) {
           setIsAuthenticated(true);
           setLoading(false);
           hasCheckedRef.current = true;
+          globalUnauthCache = null;
           return;
         }
       } catch (error: any) {
         // Only treat 401 as "not authenticated"
         // 403 means authenticated but not authorized - don't logout
         if (axios.isAxiosError(error) && error.response?.status === 401) {
-          console.log("Backend returned 401 - session expired or not logged in");
-        } else if (axios.isAxiosError(error) && error.response?.status === 403) {
+          // Expected when logged out; cache negative result to avoid repeated calls.
+          globalUnauthCache = { timestamp: Date.now() };
+        } else if (
+          axios.isAxiosError(error) &&
+          error.response?.status === 403
+        ) {
           // 403 = authenticated but forbidden - this shouldn't happen on /me
-          console.log("Backend returned 403 - unexpected on /auth/me");
-        } else {
-          console.log("Backend auth check failed, checking NextAuth session...");
-        }
-      }
-
-      // If NextAuth is still loading, don't conclude unauthenticated yet.
-      if (nextAuthStatus === "loading") {
-        return;
-      }
-
-      // If backend failed but NextAuth is authenticated, try to sync with backend
-      if (nextAuthStatus === "authenticated" && session) {
-        try {
-          // If logged in via Google (NextAuth), exchange Google id_token for backend cookie.
-          const googleIdToken = (session as any).googleIdToken;
-          if (googleIdToken) {
-            await axios.post(
-              "/api/v1/auth/google",
-              { token: googleIdToken },
-              { withCredentials: true }
-            );
-
-            // Now backend cookie should be set; re-check /me
-            const res = await axios.get("/api/v1/auth/me", {
-              withCredentials: true,
-            });
-
-            if (res.data) {
-              globalAuthCache = {
-                user: res.data,
-                timestamp: Date.now(),
-              };
-              setUser(res.data);
-              setIsAuthenticated(true);
-              setLoading(false);
-              hasCheckedRef.current = true;
-              return;
-            }
+          if (process.env.NODE_ENV !== "production") {
+            console.log("Backend returned 403 - unexpected on /auth/me");
           }
-
-          // Do NOT treat NextAuth-only session as authenticated for backend-protected pages.
-        } catch (error) {
-          console.error("Failed to sync NextAuth with backend:", error);
+        } else {
+          if (process.env.NODE_ENV !== "production") {
+            console.log("Backend auth check failed", error);
+          }
         }
       }
 
       // No authentication found
       globalAuthCache = null;
+      if (!globalUnauthCache) {
+        globalUnauthCache = { timestamp: Date.now() };
+      }
       setUser(null);
       setIsAuthenticated(false);
       setLoading(false);
@@ -144,7 +145,7 @@ export function useCustomAuth(requireAuth = true) {
     };
 
     checkAuth();
-  }, [nextAuthStatus, session, requireAuth, router, refreshCounter]);
+  }, [requireAuth, router, refreshCounter]);
 
   const logout = useCallback(async () => {
     try {
@@ -159,14 +160,8 @@ export function useCustomAuth(requireAuth = true) {
 
     // Clear all caches
     globalAuthCache = null;
+    globalUnauthCache = { timestamp: Date.now() };
     sessionStorage.clear();
-
-    // Clear NextAuth session
-    try {
-      await signOut({ redirect: false });
-    } catch (e) {
-      // NextAuth not available or no session
-    }
 
     setUser(null);
     setIsAuthenticated(false);
@@ -177,4 +172,3 @@ export function useCustomAuth(requireAuth = true) {
 
   return { user, loading, isAuthenticated, logout, refreshAuth };
 }
-

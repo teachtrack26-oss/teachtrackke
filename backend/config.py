@@ -86,6 +86,13 @@ class Settings(BaseSettings):
             self.DATABASE_URL = (
                 f"mysql+pymysql://{self.DB_USER}:{encoded_password}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
             )
+
+        # Normalize common env vars that are frequently pasted with trailing newlines/spaces.
+        if isinstance(self.GOOGLE_CLIENT_ID, str):
+            self.GOOGLE_CLIENT_ID = self.GOOGLE_CLIENT_ID.strip()
+        if isinstance(self.GOOGLE_CLIENT_SECRET, str):
+            self.GOOGLE_CLIENT_SECRET = self.GOOGLE_CLIENT_SECRET.strip()
+
         return self
     
     class Config:

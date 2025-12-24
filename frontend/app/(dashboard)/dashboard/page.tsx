@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -180,28 +179,48 @@ export default function DashboardPage() {
 
   // New widgets state
   // New widgets state - Initialize from cache
-  const cachedSubjectProgress = getCachedData<SubjectProgress[]>(CACHE_KEYS.CURRICULUM_PROGRESS);
-  const cachedDeadlines = getCachedData<DeadlineItem[]>(CACHE_KEYS.DASHBOARD_DEADLINES);
-  const cachedInsights = getCachedData<TeachingInsight>(CACHE_KEYS.DASHBOARD_INSIGHTS);
-  const cachedResources = getCachedData<ResourceItem[]>(CACHE_KEYS.DASHBOARD_RESOURCES);
-  const cachedStats = getCachedData<PerformanceSummary>(CACHE_KEYS.DASHBOARD_STATS);
+  const cachedSubjectProgress = getCachedData<SubjectProgress[]>(
+    CACHE_KEYS.CURRICULUM_PROGRESS
+  );
+  const cachedDeadlines = getCachedData<DeadlineItem[]>(
+    CACHE_KEYS.DASHBOARD_DEADLINES
+  );
+  const cachedInsights = getCachedData<TeachingInsight>(
+    CACHE_KEYS.DASHBOARD_INSIGHTS
+  );
+  const cachedResources = getCachedData<ResourceItem[]>(
+    CACHE_KEYS.DASHBOARD_RESOURCES
+  );
+  const cachedStats = getCachedData<PerformanceSummary>(
+    CACHE_KEYS.DASHBOARD_STATS
+  );
 
-  const [subjectProgress, setSubjectProgress] = useState<SubjectProgress[]>(cachedSubjectProgress || []);
-  const [deadlines, setDeadlines] = useState<DeadlineItem[]>(cachedDeadlines || []);
-  const [teachingInsights, setTeachingInsights] = useState<TeachingInsight>(cachedInsights || {
-    mostTaughtSubjects: [],
-    averageLessonDuration: 0,
-    peakTeachingHours: [],
-    weeklyComparison: [],
-  });
-  const [resources, setResources] = useState<ResourceItem[]>(cachedResources || []);
+  const [subjectProgress, setSubjectProgress] = useState<SubjectProgress[]>(
+    cachedSubjectProgress || []
+  );
+  const [deadlines, setDeadlines] = useState<DeadlineItem[]>(
+    cachedDeadlines || []
+  );
+  const [teachingInsights, setTeachingInsights] = useState<TeachingInsight>(
+    cachedInsights || {
+      mostTaughtSubjects: [],
+      averageLessonDuration: 0,
+      peakTeachingHours: [],
+      weeklyComparison: [],
+    }
+  );
+  const [resources, setResources] = useState<ResourceItem[]>(
+    cachedResources || []
+  );
   const [performanceSummary, setPerformanceSummary] =
-    useState<PerformanceSummary>(cachedStats || {
-      lessonsCompleted: 0,
-      totalLessons: 0,
-      attendanceAverage: 0,
-      assessmentsCreated: 0,
-    });
+    useState<PerformanceSummary>(
+      cachedStats || {
+        lessonsCompleted: 0,
+        totalLessons: 0,
+        attendanceAverage: 0,
+        assessmentsCreated: 0,
+      }
+    );
 
   useEffect(() => {
     if (authLoading) return;
@@ -332,86 +351,85 @@ export default function DashboardPage() {
 
         // 1. Curriculum Progress
         if (forceRefresh || !getCachedData(CACHE_KEYS.CURRICULUM_PROGRESS)) {
-           const progressRes = await axios.get(
-             `${API_BASE_URL}/dashboard/curriculum-progress`,
-             config
-           );
-           const subjectsList = Array.isArray(progressRes.data)
-             ? progressRes.data
-             : progressRes.data.subjects || [];
+          const progressRes = await axios.get(
+            `${API_BASE_URL}/dashboard/curriculum-progress`,
+            config
+          );
+          const subjectsList = Array.isArray(progressRes.data)
+            ? progressRes.data
+            : progressRes.data.subjects || [];
 
-           const progressData = subjectsList.map((s: any) => ({
-             id: s.id,
-             subjectName: s.subject_name,
-             grade: s.grade,
-             completedLessons: s.completed_lessons,
-             totalLessons: s.total_lessons,
-             progressPercentage: s.progress_percentage,
-             estimatedCompletionDate: new Date(
-               new Date().setDate(new Date().getDate() + 30)
-             ),
-             status:
-               s.progress_percentage > 50
-                 ? "ahead"
-                 : s.progress_percentage > 20
-                 ? "on-track"
-                 : "behind",
-           }));
-           setSubjectProgress(progressData);
-           setCachedData(CACHE_KEYS.CURRICULUM_PROGRESS, progressData);
+          const progressData = subjectsList.map((s: any) => ({
+            id: s.id,
+            subjectName: s.subject_name,
+            grade: s.grade,
+            completedLessons: s.completed_lessons,
+            totalLessons: s.total_lessons,
+            progressPercentage: s.progress_percentage,
+            estimatedCompletionDate: new Date(
+              new Date().setDate(new Date().getDate() + 30)
+            ),
+            status:
+              s.progress_percentage > 50
+                ? "ahead"
+                : s.progress_percentage > 20
+                ? "on-track"
+                : "behind",
+          }));
+          setSubjectProgress(progressData);
+          setCachedData(CACHE_KEYS.CURRICULUM_PROGRESS, progressData);
         }
 
         // 2. Stats / Performance Summary
         if (forceRefresh || !getCachedData(CACHE_KEYS.DASHBOARD_STATS)) {
-           const statsRes = await axios.get(
-             `${API_BASE_URL}/dashboard/stats`,
-             config
-           );
-           setPerformanceSummary(statsRes.data);
-           setCachedData(CACHE_KEYS.DASHBOARD_STATS, statsRes.data);
+          const statsRes = await axios.get(
+            `${API_BASE_URL}/dashboard/stats`,
+            config
+          );
+          setPerformanceSummary(statsRes.data);
+          setCachedData(CACHE_KEYS.DASHBOARD_STATS, statsRes.data);
         }
 
         // 3. Teaching Insights
         if (forceRefresh || !getCachedData(CACHE_KEYS.DASHBOARD_INSIGHTS)) {
-           const insightsRes = await axios.get(
-             `${API_BASE_URL}/dashboard/insights`,
-             config
-           );
-           setTeachingInsights(insightsRes.data);
-           if (insightsRes.data.weeklyComparison) {
-             setTrendData(insightsRes.data.weeklyComparison);
-           }
-           setCachedData(CACHE_KEYS.DASHBOARD_INSIGHTS, insightsRes.data);
+          const insightsRes = await axios.get(
+            `${API_BASE_URL}/dashboard/insights`,
+            config
+          );
+          setTeachingInsights(insightsRes.data);
+          if (insightsRes.data.weeklyComparison) {
+            setTrendData(insightsRes.data.weeklyComparison);
+          }
+          setCachedData(CACHE_KEYS.DASHBOARD_INSIGHTS, insightsRes.data);
         }
 
         // 4. Upcoming Deadlines
         if (forceRefresh || !getCachedData(CACHE_KEYS.DASHBOARD_DEADLINES)) {
-           const deadlinesRes = await axios.get(
-             `${API_BASE_URL}/dashboard/deadlines`,
-             config
-           );
-           const deadlinesData = deadlinesRes.data.map((d: any) => ({
-             ...d,
-             date: new Date(d.date),
-           }));
-           setDeadlines(deadlinesData);
-           setCachedData(CACHE_KEYS.DASHBOARD_DEADLINES, deadlinesData);
+          const deadlinesRes = await axios.get(
+            `${API_BASE_URL}/dashboard/deadlines`,
+            config
+          );
+          const deadlinesData = deadlinesRes.data.map((d: any) => ({
+            ...d,
+            date: new Date(d.date),
+          }));
+          setDeadlines(deadlinesData);
+          setCachedData(CACHE_KEYS.DASHBOARD_DEADLINES, deadlinesData);
         }
 
         // 5. Resources
         if (forceRefresh || !getCachedData(CACHE_KEYS.DASHBOARD_RESOURCES)) {
-           const resourcesRes = await axios.get(
-             `${API_BASE_URL}/dashboard/resources`,
-             config
-           );
-           const resourcesData = resourcesRes.data.map((r: any) => ({
-             ...r,
-             lastAccessed: new Date(r.lastAccessed),
-           }));
-           setResources(resourcesData);
-           setCachedData(CACHE_KEYS.DASHBOARD_RESOURCES, resourcesData);
+          const resourcesRes = await axios.get(
+            `${API_BASE_URL}/dashboard/resources`,
+            config
+          );
+          const resourcesData = resourcesRes.data.map((r: any) => ({
+            ...r,
+            lastAccessed: new Date(r.lastAccessed),
+          }));
+          setResources(resourcesData);
+          setCachedData(CACHE_KEYS.DASHBOARD_RESOURCES, resourcesData);
         }
-
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 401) {
           console.warn(

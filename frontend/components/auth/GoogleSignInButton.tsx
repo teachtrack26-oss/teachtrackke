@@ -14,6 +14,11 @@ export default function GoogleSignInButton() {
     setError(null);
 
     try {
+      const credential = credentialResponse?.credential;
+      if (!credential) {
+        throw new Error("Google did not return a credential token");
+      }
+
       const res = await fetch("/api/v1/auth/google", {
         method: "POST",
         headers: {
@@ -21,14 +26,21 @@ export default function GoogleSignInButton() {
         },
         credentials: "include",
         body: JSON.stringify({
-          token: credentialResponse.credential,
+          token: credential,
         }),
       });
 
-      const data = await res.json();
+      let data: any = null;
+      const contentType = res.headers.get("content-type") || "";
+      if (contentType.includes("application/json")) {
+        data = await res.json();
+      } else {
+        const text = await res.text();
+        data = { detail: text };
+      }
 
       if (!res.ok) {
-        throw new Error(data.detail || "Google sign-in failed");
+        throw new Error(data?.detail || "Google sign-in failed");
       }
 
       // Store token and user data
@@ -36,6 +48,7 @@ export default function GoogleSignInButton() {
       // localStorage.setItem("user", JSON.stringify(data.user));
 
       // Redirect to dashboard
+      window.dispatchEvent(new Event("teachtrack:authChanged"));
       router.push("/dashboard");
       router.refresh();
     } catch (err: any) {
@@ -46,11 +59,8 @@ export default function GoogleSignInButton() {
     }
   };
 
-  const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-  console.log(
-    "Google Client ID loaded:",
-    clientId ? "Yes (" + clientId.substring(0, 10) + "...)" : "No"
-  );
+  const clientIdRaw = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+  const clientId = clientIdRaw?.replace(/\s+/g, "");
 
   if (!clientId) {
     return (
@@ -61,17 +71,35 @@ export default function GoogleSignInButton() {
     );
   }
 
+  const handleGoogleError = () => {
+    const detailedError = `Google Sign-In Failed. This usually means:
+1. The Google Client ID doesn't match your domain
+2. Your domain isn't authorized in Google Cloud Console
+3. Check that 'Authorized JavaScript origins' includes: ${
+      window.location.origin
+    }
+
+Current domain: ${window.location.origin}
+Client ID: ${clientId.substring(0, 20)}...`;
+
+    console.error(detailedError);
+    setError(
+      "Google Sign-In configuration error. Check browser console for details."
+    );
+  };
+
   return (
     <div className="w-full flex flex-col items-center gap-2">
       <GoogleOAuthProvider clientId={clientId}>
         <div className="w-full flex justify-center">
           <GoogleLogin
             onSuccess={handleSuccess}
-            onError={() => setError("Google Sign-In Failed")}
+            onError={handleGoogleError}
             theme="filled_blue"
             shape="rectangular"
             text="continue_with"
             useOneTap={false}
+            ux_mode="popup"
           />
         </div>
       </GoogleOAuthProvider>

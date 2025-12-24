@@ -64,6 +64,21 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          // Required for Google Identity popups to communicate back via postMessage
+          // without being blocked by COOP isolation.
+          {
+            key: "Cross-Origin-Opener-Policy",
+            value: "same-origin-allow-popups",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default withPWA(nextConfig);
