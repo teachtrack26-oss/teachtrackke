@@ -1146,9 +1146,34 @@ export default function SchemeGeneratorPage() {
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  Enter the textbook series name (e.g., &quot;Mentor Mathematics Grade 3&quot;). 
-                  This name will appear in Resources for both Learner&apos;s Book and Teacher&apos;s Guide. 
-                  You can add page numbers after the scheme is generated.
+                  Enter the textbook series name (e.g., &quot;Mentor Mathematics
+                  Grade 3&quot;). This name will appear in Resources for both
+                  Learner&apos;s Book and Teacher&apos;s Guide. You can add page
+                  numbers after the scheme is generated.
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <FiCalendar className="inline w-4 h-4 mr-2" />
+                  Lessons per Week *
+                </label>
+                <input
+                  type="number"
+                  value={formData.lessons_per_week}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      lessons_per_week: Math.max(1, Math.min(10, Number(e.target.value))),
+                    })
+                  }
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
+                  min={1}
+                  max={10}
+                  required
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Number of lessons for this subject per week. Common values: 5 for core subjects (Math, English), 2-3 for non-core subjects.
                 </p>
               </div>
 
