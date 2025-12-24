@@ -98,12 +98,17 @@ export function useCustomAuth(requireAuth = true) {
       // If backend failed but NextAuth is authenticated, try to sync with backend
       if (nextAuthStatus === "authenticated" && session) {
         try {
-          const accessToken = (session as any).accessToken;
-          if (accessToken) {
+          // If logged in via Google (NextAuth), exchange Google id_token for backend cookie.
+          const googleIdToken = (session as any).googleIdToken;
+          if (googleIdToken) {
+            await axios.post(
+              "/api/v1/auth/google",
+              { token: googleIdToken },
+              { withCredentials: true }
+            );
+
+            // Now backend cookie should be set; re-check /me
             const res = await axios.get("/api/v1/auth/me", {
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-              },
               withCredentials: true,
             });
 
@@ -120,15 +125,7 @@ export function useCustomAuth(requireAuth = true) {
             }
           }
 
-          // Fallback to session user data
-          const sessionUser = (session as any).user;
-          if (sessionUser) {
-            setUser(sessionUser);
-            setIsAuthenticated(true);
-            setLoading(false);
-            hasCheckedRef.current = true;
-            return;
-          }
+          // Do NOT treat NextAuth-only session as authenticated for backend-protected pages.
         } catch (error) {
           console.error("Failed to sync NextAuth with backend:", error);
         }

@@ -57,6 +57,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: googleClientSecret,
     }),
   ],
+  callbacks: {
+    async jwt({ token, account }) {
+      // Persist Google's OIDC id_token so we can exchange it for a backend cookie.
+      // (Auth.js types are permissive here; we keep it minimal.)
+      if (account?.provider === "google" && (account as any).id_token) {
+        (token as any).googleIdToken = (account as any).id_token;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // Expose id_token to the client for backend sync.
+      (session as any).googleIdToken = (token as any).googleIdToken;
+      return session;
+    },
+  },
   pages: {
     signIn: "/login",
   },
