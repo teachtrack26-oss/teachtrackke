@@ -1020,6 +1020,7 @@ export default function SchemeGeneratorPage() {
                   value={formData.term}
                   onChange={(e) => handleTermChange(e.target.value)}
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
+                  disabled={true} // Term is read-only - always uses current term
                 >
                   {!schoolTerms || schoolTerms.length === 0 ? (
                     <>
@@ -1028,19 +1029,27 @@ export default function SchemeGeneratorPage() {
                     </>
                   ) : (
                     <>
-                      <option value="">Select a term</option>
-                      {schoolTerms.map((term) => (
-                        <option key={term.id} value={term.term_name}>
-                          {term.term_name} ({term.year})
-                          {term.is_current ? " - Current" : ""}
+                      {/* Only show the current term - schemes are generated for current term only */}
+                      {schoolTerms
+                        .filter((term) => term.is_current)
+                        .map((term) => (
+                          <option key={term.id} value={term.term_name}>
+                            {term.term_name} ({term.year}) - Current Term
+                          </option>
+                        ))}
+                      {/* Fallback if no term is marked current */}
+                      {!schoolTerms.some((t) => t.is_current) && (
+                        <option value={formData.term}>
+                          {formData.term} ({formData.year})
                         </option>
-                      ))}
+                      )}
                     </>
                   )}
                 </select>
                 {schoolTerms && schoolTerms.length > 0 && (
                   <p className="text-xs text-gray-500 mt-1">
-                    Academic terms are set by the system administrator.
+                    Schemes are generated for the current academic term set by
+                    the administrator.
                   </p>
                 )}
               </div>
