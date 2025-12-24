@@ -1,13 +1,31 @@
+import argparse
 import os
 import json
 import sys
+
+# Allow running from repo root (adds backend/ to sys.path)
+BACKEND_DIR = os.path.abspath(os.path.dirname(__file__))
+if BACKEND_DIR not in sys.path:
+    sys.path.insert(0, BACKEND_DIR)
+
 from sqlalchemy.orm import Session
+
 from database import SessionLocal
-from models import CurriculumTemplate, Subject, Strand, SubStrand, Lesson
+from models import CurriculumTemplate
 from curriculum_importer import import_curriculum_from_json
 
-def force_reimport_all(db: Session):
-    base_dir = r"c:\Users\MKT\desktop\teachtrack\data\curriculum"
+def _default_base_dir() -> str:
+    # backend/force_reimport_curriculum.py -> repo root/data/curriculum
+    repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    return os.path.join(repo_root, "data", "curriculum")
+
+
+def force_reimport_all(db: Session, base_dir: str, grade_filter: str | None = None):
+    base_dir = os.path.abspath(base_dir)
+    if grade_filter:
+        grade_filter = grade_filter.strip()
+        if grade_filter.isdigit():
+            grade_filter = f"Grade {grade_filter}"
     
     # Iterate G1 to G9
     for i in range(1, 10):
@@ -34,6 +52,9 @@ def force_reimport_all(db: Session):
                 if not subject_name or not grade_name:
                     print(f"Skipping {filename}: Missing subject or grade")
                     continue
+
+                if grade_filter and str(grade_name).strip().lower() != grade_filter.lower():
+                    continue
                     
                 # Find existing template
                 existing = db.query(CurriculumTemplate).filter(
@@ -58,6 +79,21 @@ def force_reimport_all(db: Session):
                 print(f"  Error processing {filename}: {e}")
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Force re-import curriculum JSON files (delete and re-create templates)")
+    parser.add_argument(
+        "--base-dir",
+        default=_default_base_dir(),
+        help="Directory containing curriculum JSONs (default: repo-root/data/curriculum)",
+    )
+    parser.add_argument(
+        "--grade",
+        default=None,
+        help='Optional grade filter. Examples: "Grade 8" or "8"',
+    )
+    args = parser.parse_args()
+
     db = SessionLocal()
-    force_reimport_all(db)
-    db.close()
+    try:
+        force_reimport_all(db, args.base_dir, args.grade)
+    finally:
+        db.close()

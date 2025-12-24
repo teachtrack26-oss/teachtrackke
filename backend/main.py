@@ -6,13 +6,14 @@ from fastapi.staticfiles import StaticFiles
 import os
 import uvicorn
 import logging
+from sqlalchemy import text
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 from database import engine, SessionLocal
-from models import SystemSetting
+from models import Base, SystemSetting
 
 from config import settings
 from auth_routes import router as auth_router
@@ -47,7 +48,25 @@ def ensure_system_settings_table_and_seed_pricing():
     will fall back to defaults.
     """
     try:
-        SystemSetting.__table__.create(bind=engine, checkfirst=True)
+        # This startup hook runs in every Gunicorn worker.
+        # Use a DB advisory lock to avoid concurrent DDL.
+        lock_key = "teachtrack_startup_schema"
+        acquired = 0
+
+        with engine.connect() as conn:
+            acquired = int(conn.execute(text("SELECT GET_LOCK(:k, 10)"), {"k": lock_key}).scalar() or 0)
+            if acquired != 1:
+                return
+
+        try:
+            # Ensure base schema exists first, otherwise FK references
+            # (e.g., system_settings.updated_by -> users.id) can fail.
+            Base.metadata.create_all(bind=engine)
+            SystemSetting.__table__.create(bind=engine, checkfirst=True)
+        finally:
+            # Release lock best-effort
+            with engine.connect() as conn:
+                conn.execute(text("SELECT RELEASE_LOCK(:k)"), {"k": lock_key})
 
         db = SessionLocal()
         try:

@@ -15,11 +15,17 @@ export default function GoogleSignInButtonNextAuth() {
       // Sign in with NextAuth
       const result: any = await signIn("google", {
         callbackUrl: "/dashboard",
-        redirect: true,
+        redirect: false,
       });
 
       if (result?.error) {
         setError(result.error);
+        return;
+      }
+
+      // When using `redirect: false`, NextAuth returns the URL to navigate to.
+      if (result?.url) {
+        window.location.href = result.url;
       }
     } catch (err: any) {
       console.error("Google Sign-In Error:", err);

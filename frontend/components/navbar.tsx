@@ -173,13 +173,17 @@ export default function Navbar() {
     return false;
   };
 
-  const handleProtectedRoute = (href: string, isPublic: boolean) => {
+  const handleProtectedRoute = (
+    e: React.MouseEvent,
+    href: string,
+    isPublic: boolean
+  ) => {
     if (!isPublic && !isLoggedIn) {
+      e.preventDefault();
       toast.error("Please login to access this page");
       router.push("/login");
       return;
     }
-    router.push(href);
     setIsMenuOpen(false);
   };
 
@@ -213,9 +217,11 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
             {navLinks.map((link) => (
-              <button
+              <Link
                 key={link.name}
-                onClick={() => handleProtectedRoute(link.href, link.public)}
+                href={link.href}
+                onClick={(e) => handleProtectedRoute(e, link.href, link.public)}
+                prefetch={true}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   (link as any).adminOnly
                     ? isActiveLink(link.href)
@@ -226,17 +232,16 @@ export default function Navbar() {
                     : "text-gray-600 hover:text-indigo-600 hover:bg-gray-50"
                 } ${
                   !link.public && !isLoggedIn
-                    ? "opacity-50 cursor-not-allowed"
+                    ? "opacity-50 cursor-not-allowed pointer-events-none"
                     : "cursor-pointer"
                 }`}
-                disabled={!link.public && !isLoggedIn}
               >
                 {(link as any).adminOnly && <span className="mr-1">⚙️</span>}
                 {link.name}
                 {!link.public && !isLoggedIn && (
                   <span className="ml-1 text-xs opacity-70">🔒</span>
                 )}
-              </button>
+              </Link>
             ))}
 
             {/* Auth Section */}
@@ -466,9 +471,11 @@ export default function Navbar() {
         <div className="md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-100 shadow-xl absolute w-full">
           <div className="px-4 pt-4 pb-6 space-y-2">
             {navLinks.map((link) => (
-              <button
+              <Link
                 key={link.name}
-                onClick={() => handleProtectedRoute(link.href, link.public)}
+                href={link.href}
+                onClick={(e) => handleProtectedRoute(e, link.href, link.public)}
+                prefetch={true}
                 className={`block w-full text-left px-4 py-3 rounded-xl text-base font-medium transition-all duration-200 ${
                   (link as any).adminOnly
                     ? isActiveLink(link.href)
@@ -479,10 +486,9 @@ export default function Navbar() {
                     : "text-gray-600 hover:text-indigo-600 hover:bg-gray-50"
                 } ${
                   !link.public && !isLoggedIn
-                    ? "opacity-50 cursor-not-allowed"
+                    ? "opacity-50 cursor-not-allowed pointer-events-none"
                     : "cursor-pointer"
                 }`}
-                disabled={!link.public && !isLoggedIn}
               >
                 <div className="flex items-center justify-between">
                   <span>
@@ -497,7 +503,7 @@ export default function Navbar() {
                     </span>
                   )}
                 </div>
-              </button>
+              </Link>
             ))}
 
             {/* Mobile Auth Section */}

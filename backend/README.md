@@ -90,6 +90,31 @@ SECRET_KEY=your-secret-key-here
 uvicorn main:app --reload
 ```
 
+## Import curriculum templates (Grade 1–9)
+
+Curriculum template JSON files live in `data/curriculum/` (e.g. `data/curriculum/G8/`).
+
+To import templates into the database configured via `DATABASE_URL`:
+
+- Import everything (idempotent; skips templates that already exist):
+
+  ```bash
+  python scripts/import_curriculum_dir.py
+  ```
+
+- Import Grade 8 only:
+
+  ```bash
+  python scripts/import_curriculum_dir.py --grade "Grade 8"
+  ```
+
+- Re-import (delete and recreate) Grade 8 only:
+  ```bash
+  python scripts/import_curriculum_dir.py --grade "Grade 8" --reimport
+  ```
+
+If you’re running in Docker, execute the same command inside the running backend container so it uses the production `DATABASE_URL`.
+
 ## API Documentation
 
 Once the server is running, visit:

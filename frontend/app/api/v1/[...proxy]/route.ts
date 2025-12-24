@@ -78,7 +78,9 @@ async function proxyRequest(
     // Explicitly forward cookies from the incoming request
     const cookies = request.cookies.getAll();
     if (cookies.length > 0) {
-      const cookieString = cookies.map((c) => `${c.name}=${c.value}`).join("; ");
+      const cookieString = cookies
+        .map((c) => `${c.name}=${c.value}`)
+        .join("; ");
       headers.set("cookie", cookieString);
     }
 
@@ -115,7 +117,7 @@ async function proxyRequest(
 
     // Handle set-cookie headers specially - they need getSetCookie() to get all values
     const setCookieHeaders = response.headers.getSetCookie?.() || [];
-    
+
     const nextResponse = new NextResponse(response.body, {
       status: response.status,
       statusText: response.statusText,

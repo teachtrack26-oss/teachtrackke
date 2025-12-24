@@ -314,9 +314,14 @@ async def generate_scheme_of_work(data, current_user, db):
             return "\n".join([f"- {item}" for item in field_data])
         return str(field_data)
 
+    # Get the user-provided default textbook name (if any)
+    user_default_textbook = getattr(data, 'default_textbook', None) or ""
+
     # Smart Generators for Resources and Assessment
     def generate_smart_resources(experiences, outcomes):
-        resources = ["Curriculum designs", "Textbooks"]
+        # Use user's textbook name if provided, otherwise generic "Textbooks"
+        textbook_entry = user_default_textbook if user_default_textbook else "Textbooks"
+        resources = ["Curriculum designs", textbook_entry]
         text = (str(experiences) + " " + str(outcomes)).lower()
         
         if "digital" in text or "video" in text or "watch" in text or "internet" in text or "online" in text:
@@ -378,8 +383,8 @@ async def generate_scheme_of_work(data, current_user, db):
             smart_resources = generate_smart_resources(sle, slo)
             smart_assessment = generate_smart_assessment(sle, slo)
 
-            # Textbook Data (if available in template)
-            tb_name = sub.default_textbook_name or ""
+            # Textbook Data (if available in template, otherwise use user's default)
+            tb_name = sub.default_textbook_name or user_default_textbook or ""
             tb_learner_pages = sub.default_learner_book_pages or ""
             tb_teacher_pages = sub.default_teacher_guide_pages or ""
 

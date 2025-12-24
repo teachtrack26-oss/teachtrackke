@@ -672,6 +672,7 @@ class SchemeAutoGenerateRequest(BaseModel):
     total_weeks: int
     lessons_per_week: int = 5
     include_special_weeks: bool = False
+    default_textbook: Optional[str] = None
 
 class SchemeOfWorkUpdate(BaseModel):
     teacher_name: Optional[str] = None

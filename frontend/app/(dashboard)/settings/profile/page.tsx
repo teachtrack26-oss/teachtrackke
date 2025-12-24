@@ -579,19 +579,7 @@ export default function TeacherSettingsPage() {
     );
   }
 
-  // Auth check
-  if (!isAuthenticated) {
-    return (
-      <div className="container mx-auto p-6 max-w-4xl">
-        <div className="bg-red-50 border-l-4 border-red-400 p-6 rounded-lg">
-          <h2 className="text-xl font-semibold text-red-800 mb-2">
-            Authentication Required
-          </h2>
-          <p className="text-red-700">Please log in to access your settings.</p>
-        </div>
-      </div>
-    );
-  }
+  // Auth check - removed to prevent flash, let useCustomAuth handle redirects
 
   // School-linked user message
   if (isSchoolLinked) {
