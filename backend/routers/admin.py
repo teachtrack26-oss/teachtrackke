@@ -1320,9 +1320,46 @@ def get_lessons_per_week_configs(
     current_user: User = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
-    if not current_user.school_id:
-        return []
-    return db.query(LessonConfiguration).filter(LessonConfiguration.school_id == current_user.school_id).all()
+    """
+    Get lesson configurations for a school (school admin) or independent teacher.
+    Returns configs in a wrapper object with 'configs' key for frontend compatibility.
+    """
+    from models import TeacherProfile
+    
+    # School admin with school_id - get school-wide configs
+    if current_user.school_id:
+        configs = db.query(LessonConfiguration).filter(
+            LessonConfiguration.school_id == current_user.school_id
+        ).all()
+        return {"configs": [
+            {
+                "subject_name": c.subject_name,
+                "grade": c.grade,
+                "lessons_per_week": c.lessons_per_week,
+                "double_lessons_per_week": c.double_lessons_per_week,
+                "single_lesson_duration": c.single_lesson_duration,
+                "double_lesson_duration": c.double_lesson_duration,
+                "user_count": 0
+            } for c in configs
+        ]}
+    
+    # Independent teacher - get their profile defaults
+    profile = db.query(TeacherProfile).filter(TeacherProfile.user_id == current_user.id).first()
+    if profile:
+        # Return default settings as a single config that applies to all subjects
+        return {"configs": [], "defaults": {
+            "lessons_per_week": profile.default_lessons_per_week or 5,
+            "double_lessons_per_week": profile.default_double_lessons_per_week or 0,
+            "single_lesson_duration": profile.default_lesson_duration or 40,
+            "double_lesson_duration": profile.default_double_lesson_duration or 80
+        }}
+    
+    return {"configs": [], "defaults": {
+        "lessons_per_week": 5,
+        "double_lessons_per_week": 0,
+        "single_lesson_duration": 40,
+        "double_lesson_duration": 80
+    }}
 
 @router.post("/lessons-per-week")
 def update_lessons_per_week_config(
@@ -1330,42 +1367,81 @@ def update_lessons_per_week_config(
     current_user: User = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
-    if not current_user.school_id:
-        raise HTTPException(status_code=400, detail="User not linked to a school")
-        
-    # Check if exists
-    config = db.query(LessonConfiguration).filter(
-        LessonConfiguration.school_id == current_user.school_id,
-        LessonConfiguration.grade == config_data.get("grade"),
-        LessonConfiguration.subject_name == config_data.get("subject_name")
-    ).first()
+    """
+    Update lesson configuration for a specific subject/grade.
+    - School admins: Updates LessonConfiguration table
+    - Independent teachers: Updates TeacherProfile defaults
+    """
+    from models import TeacherProfile
     
-    if config:
-        # Update existing
-        if "lessons_per_week" in config_data:
-            config.lessons_per_week = config_data["lessons_per_week"]
-        if "double_lessons_per_week" in config_data:
-            config.double_lessons_per_week = config_data["double_lessons_per_week"]
-        if "single_lesson_duration" in config_data:
-            config.single_lesson_duration = config_data["single_lesson_duration"]
-        if "double_lesson_duration" in config_data:
-            config.double_lesson_duration = config_data["double_lesson_duration"]
-    else:
-        # Create new
-        config = LessonConfiguration(
-            school_id=current_user.school_id,
-            subject_name=config_data.get("subject_name"),
-            grade=config_data.get("grade"),
-            lessons_per_week=config_data.get("lessons_per_week", 5),
-            double_lessons_per_week=config_data.get("double_lessons_per_week", 0),
-            single_lesson_duration=config_data.get("single_lesson_duration", 40),
-            double_lesson_duration=config_data.get("double_lesson_duration", 80)
-        )
-        db.add(config)
+    # School admin with school_id - save to LessonConfiguration
+    if current_user.school_id:
+        # Check if exists
+        config = db.query(LessonConfiguration).filter(
+            LessonConfiguration.school_id == current_user.school_id,
+            LessonConfiguration.grade == config_data.get("grade"),
+            LessonConfiguration.subject_name == config_data.get("subject_name")
+        ).first()
         
+        if config:
+            # Update existing
+            if "lessons_per_week" in config_data:
+                config.lessons_per_week = config_data["lessons_per_week"]
+            if "double_lessons_per_week" in config_data:
+                config.double_lessons_per_week = config_data["double_lessons_per_week"]
+            if "single_lesson_duration" in config_data:
+                config.single_lesson_duration = config_data["single_lesson_duration"]
+            if "double_lesson_duration" in config_data:
+                config.double_lesson_duration = config_data["double_lesson_duration"]
+        else:
+            # Create new
+            config = LessonConfiguration(
+                school_id=current_user.school_id,
+                subject_name=config_data.get("subject_name"),
+                grade=config_data.get("grade"),
+                lessons_per_week=config_data.get("lessons_per_week", 5),
+                double_lessons_per_week=config_data.get("double_lessons_per_week", 0),
+                single_lesson_duration=config_data.get("single_lesson_duration", 40),
+                double_lesson_duration=config_data.get("double_lesson_duration", 80)
+            )
+            db.add(config)
+            
+        db.commit()
+        db.refresh(config)
+        return {
+            "subject_name": config.subject_name,
+            "grade": config.grade,
+            "lessons_per_week": config.lessons_per_week,
+            "double_lessons_per_week": config.double_lessons_per_week,
+            "single_lesson_duration": config.single_lesson_duration,
+            "double_lesson_duration": config.double_lesson_duration
+        }
+    
+    # Independent teacher - update TeacherProfile defaults
+    profile = db.query(TeacherProfile).filter(TeacherProfile.user_id == current_user.id).first()
+    if not profile:
+        # Create profile if doesn't exist
+        profile = TeacherProfile(user_id=current_user.id)
+        db.add(profile)
+    
+    # Update defaults
+    if "lessons_per_week" in config_data:
+        profile.default_lessons_per_week = config_data["lessons_per_week"]
+    if "double_lessons_per_week" in config_data:
+        profile.default_double_lessons_per_week = config_data["double_lessons_per_week"]
+    if "single_lesson_duration" in config_data:
+        profile.default_lesson_duration = config_data["single_lesson_duration"]
+    if "double_lesson_duration" in config_data:
+        profile.default_double_lesson_duration = config_data["double_lesson_duration"]
+    
     db.commit()
-    db.refresh(config)
-    return config
+    return {
+        "message": "Default settings updated",
+        "lessons_per_week": profile.default_lessons_per_week,
+        "double_lessons_per_week": profile.default_double_lessons_per_week,
+        "single_lesson_duration": profile.default_lesson_duration,
+        "double_lesson_duration": profile.default_double_lesson_duration
+    }
 
 @router.post("/lessons-per-week/bulk")
 def bulk_update_lessons_config(
@@ -1373,52 +1449,78 @@ def bulk_update_lessons_config(
     current_user: User = Depends(get_current_admin_user),
     db: Session = Depends(get_db)
 ):
-    """Apply settings to all subjects in a specific grade"""
-    if not current_user.school_id:
-        raise HTTPException(status_code=400, detail="User not linked to a school")
+    """
+    Apply settings to all subjects in a specific grade.
+    - School admins: Updates LessonConfiguration table for each subject
+    - Independent teachers: Updates TeacherProfile defaults (applies to all subjects)
+    """
+    from models import TeacherProfile
     
     grade = bulk_data.get("grade")
-    subjects = bulk_data.get("subjects", []) # List of subject names
+    subjects = bulk_data.get("subjects", [])  # List of subject names
     
-    if not grade or not subjects:
-        raise HTTPException(status_code=400, detail="Grade and subjects are required")
-        
-    updated_count = 0
+    if not grade:
+        raise HTTPException(status_code=400, detail="Grade is required")
     
-    for subject_name in subjects:
-        # Check if exists
-        config = db.query(LessonConfiguration).filter(
-            LessonConfiguration.school_id == current_user.school_id,
-            LessonConfiguration.grade == grade,
-            LessonConfiguration.subject_name == subject_name
-        ).first()
+    # School admin with school_id
+    if current_user.school_id:
+        if not subjects:
+            raise HTTPException(status_code=400, detail="Subjects are required for school admins")
+            
+        updated_count = 0
         
-        if config:
-            # Update existing
-            if "lessons_per_week" in bulk_data:
-                config.lessons_per_week = bulk_data["lessons_per_week"]
-            if "double_lessons_per_week" in bulk_data:
-                config.double_lessons_per_week = bulk_data["double_lessons_per_week"]
-            if "single_lesson_duration" in bulk_data:
-                config.single_lesson_duration = bulk_data["single_lesson_duration"]
-            if "double_lesson_duration" in bulk_data:
-                config.double_lesson_duration = bulk_data["double_lesson_duration"]
-        else:
-            # Create new
-            config = LessonConfiguration(
-                school_id=current_user.school_id,
-                subject_name=subject_name,
-                grade=grade,
-                lessons_per_week=bulk_data.get("lessons_per_week", 5),
-                double_lessons_per_week=bulk_data.get("double_lessons_per_week", 0),
-                single_lesson_duration=bulk_data.get("single_lesson_duration", 40),
-                double_lesson_duration=bulk_data.get("double_lesson_duration", 80)
-            )
-            db.add(config)
-        updated_count += 1
-        
+        for subject_name in subjects:
+            # Check if exists
+            config = db.query(LessonConfiguration).filter(
+                LessonConfiguration.school_id == current_user.school_id,
+                LessonConfiguration.grade == grade,
+                LessonConfiguration.subject_name == subject_name
+            ).first()
+            
+            if config:
+                # Update existing
+                if "lessons_per_week" in bulk_data:
+                    config.lessons_per_week = bulk_data["lessons_per_week"]
+                if "double_lessons_per_week" in bulk_data:
+                    config.double_lessons_per_week = bulk_data["double_lessons_per_week"]
+                if "single_lesson_duration" in bulk_data:
+                    config.single_lesson_duration = bulk_data["single_lesson_duration"]
+                if "double_lesson_duration" in bulk_data:
+                    config.double_lesson_duration = bulk_data["double_lesson_duration"]
+            else:
+                # Create new
+                config = LessonConfiguration(
+                    school_id=current_user.school_id,
+                    subject_name=subject_name,
+                    grade=grade,
+                    lessons_per_week=bulk_data.get("lessons_per_week", 5),
+                    double_lessons_per_week=bulk_data.get("double_lessons_per_week", 0),
+                    single_lesson_duration=bulk_data.get("single_lesson_duration", 40),
+                    double_lesson_duration=bulk_data.get("double_lesson_duration", 80)
+                )
+                db.add(config)
+            updated_count += 1
+            
+        db.commit()
+        return {"message": f"Updated {updated_count} subjects for {grade}"}
+    
+    # Independent teacher - update TeacherProfile defaults
+    profile = db.query(TeacherProfile).filter(TeacherProfile.user_id == current_user.id).first()
+    if not profile:
+        profile = TeacherProfile(user_id=current_user.id)
+        db.add(profile)
+    
+    if "lessons_per_week" in bulk_data:
+        profile.default_lessons_per_week = bulk_data["lessons_per_week"]
+    if "double_lessons_per_week" in bulk_data:
+        profile.default_double_lessons_per_week = bulk_data["double_lessons_per_week"]
+    if "single_lesson_duration" in bulk_data:
+        profile.default_lesson_duration = bulk_data["single_lesson_duration"]
+    if "double_lesson_duration" in bulk_data:
+        profile.default_double_lesson_duration = bulk_data["double_lesson_duration"]
+    
     db.commit()
-    return {"message": f"Updated {updated_count} subjects for {grade}"}
+    return {"message": "Default settings updated for all subjects"}
 
 # ============================================================================
 # DEPARTMENTS

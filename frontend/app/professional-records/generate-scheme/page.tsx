@@ -1164,7 +1164,10 @@ export default function SchemeGeneratorPage() {
                   onChange={(e) =>
                     setFormData({
                       ...formData,
-                      lessons_per_week: Math.max(1, Math.min(10, Number(e.target.value))),
+                      lessons_per_week: Math.max(
+                        1,
+                        Math.min(10, Number(e.target.value))
+                      ),
                     })
                   }
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
@@ -1173,7 +1176,8 @@ export default function SchemeGeneratorPage() {
                   required
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  Number of lessons for this subject per week. Common values: 5 for core subjects (Math, English), 2-3 for non-core subjects.
+                  Number of lessons for this subject per week. Common values: 5
+                  for core subjects (Math, English), 2-3 for non-core subjects.
                 </p>
               </div>
 
