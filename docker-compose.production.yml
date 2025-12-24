@@ -12,7 +12,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: "2"
           memory: 2.5G
 
   # MySQL Database (ULTRA HIGH CONCURRENCY)
@@ -34,8 +34,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '4'
-          memory: 12G  # 8GB for buffer pool + overhead
+          cpus: "4"
+          memory: 12G # 8GB for buffer pool + overhead
 
   # Backend API (8 instances for load balancing - DOUBLED from 4)
   backend:
@@ -46,16 +46,17 @@ services:
       - ENV=production
       - REDIS_URL=redis://redis:6379/0
       - DATABASE_URL=mysql+pymysql://teachtrack_user:2078@lk//K.@db/teachtrack
+      - FRONTEND_URL=https://teachtrackke.vercel.app
     volumes:
       - ./backend:/app
     depends_on:
       - db
       - redis
     deploy:
-      replicas: 8  # Run 8 backend instances (doubled for 2000 users)
+      replicas: 8 # Run 8 backend instances (doubled for 2000 users)
       resources:
         limits:
-          cpus: '2'
+          cpus: "2"
           memory: 2G
 
   # Celery Workers for Background Tasks (4 workers - DOUBLED from 2)
@@ -66,11 +67,12 @@ services:
       - ENV=production
       - REDIS_URL=redis://redis:6379/0
       - DATABASE_URL=mysql+pymysql://teachtrack_user:2078@lk//K.@db/teachtrack
+      - FRONTEND_URL=https://teachtrackke.vercel.app
     depends_on:
       - db
       - redis
     deploy:
-      replicas: 4  # Run 4 worker instances (doubled for heavy load)
+      replicas: 4 # Run 4 worker instances (doubled for heavy load)
 
   # Frontend
   frontend:
