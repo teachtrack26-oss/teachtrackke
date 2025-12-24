@@ -319,9 +319,14 @@ async def generate_scheme_of_work(data, current_user, db):
 
     # Smart Generators for Resources and Assessment
     def generate_smart_resources(experiences, outcomes):
-        # Use user's textbook name if provided, otherwise generic "Textbooks"
-        textbook_entry = user_default_textbook if user_default_textbook else "Textbooks"
-        resources = ["Curriculum designs", textbook_entry]
+        # Build textbook entries - show both Learner's Book and Teacher's Guide
+        if user_default_textbook:
+            learner_book = f"{user_default_textbook} (Learner's Book)"
+            teacher_guide = f"{user_default_textbook} (Teacher's Guide)"
+            resources = ["Curriculum designs", learner_book, teacher_guide]
+        else:
+            resources = ["Curriculum designs", "Textbooks"]
+        
         text = (str(experiences) + " " + str(outcomes)).lower()
         
         if "digital" in text or "video" in text or "watch" in text or "internet" in text or "online" in text:

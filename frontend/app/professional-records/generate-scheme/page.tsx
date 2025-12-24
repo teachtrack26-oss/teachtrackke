@@ -1131,7 +1131,7 @@ export default function SchemeGeneratorPage() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   <FiBookOpen className="inline w-4 h-4 mr-2" />
-                  Default Textbook (Optional)
+                  Textbook Name (Optional)
                 </label>
                 <input
                   type="text"
@@ -1142,12 +1142,13 @@ export default function SchemeGeneratorPage() {
                       default_textbook: e.target.value,
                     })
                   }
-                  placeholder="e.g. Oxford English Grade 7"
+                  placeholder="e.g. Mentor Mathematics Grade 3"
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                  This will be applied to all lessons if no specific textbook is
-                  defined in the curriculum.
+                  Enter the textbook series name (e.g., &quot;Mentor Mathematics Grade 3&quot;). 
+                  This name will appear in Resources for both Learner&apos;s Book and Teacher&apos;s Guide. 
+                  You can add page numbers after the scheme is generated.
                 </p>
               </div>
 
