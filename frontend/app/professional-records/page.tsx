@@ -167,16 +167,26 @@ export default function ProfessionalRecordsPage() {
       const config = { withCredentials: true };
       const archivedQuery = showArchived ? "?archived=true" : "";
 
-      // Fetch subjects
-      const subjectsRes = await axios.get("/api/v1/subjects", config);
-      setSubjects(subjectsRes.data);
-      if (!showArchived) setCachedData(CACHE_KEYS.SUBJECTS, subjectsRes.data);
+      const [subjectsRes, schemesRes, statsRes, lessonPlansRes, recordsRes] =
+        await Promise.allSettled([
+          axios.get("/api/v1/subjects", config),
+          axios.get(`/api/v1/schemes${archivedQuery}`, config),
+          axios.get("/api/v1/schemes/stats", config),
+          axios.get(`/api/v1/lesson-plans${archivedQuery}`, config),
+          axios.get(`/api/v1/records-of-work${archivedQuery}`, config),
+        ]);
 
-      // Fetch schemes of work
-      const schemesRes = await axios.get(
-        `/api/v1/schemes${archivedQuery}`,
-        config
-      );
+      if (subjectsRes.status === "fulfilled") {
+        setSubjects(subjectsRes.value.data);
+        if (!showArchived)
+          setCachedData(CACHE_KEYS.SUBJECTS, subjectsRes.value.data);
+      } else {
+        throw subjectsRes.reason;
+      }
+
+      if (schemesRes.status !== "fulfilled") {
+        throw schemesRes.reason;
+      }
       const parseTermNumber = (termValue: unknown): number | undefined => {
         if (!termValue) return undefined;
         const match = String(termValue).match(/(\d+)/);
@@ -185,9 +195,9 @@ export default function ProfessionalRecordsPage() {
         return Number.isFinite(parsed) ? parsed : undefined;
       };
 
-      const rawSchemes = Array.isArray(schemesRes.data)
-        ? schemesRes.data
-        : schemesRes.data?.items || [];
+      const rawSchemes = Array.isArray(schemesRes.value.data)
+        ? schemesRes.value.data
+        : schemesRes.value.data?.items || [];
 
       const normalizedSchemes: SchemeOfWork[] = rawSchemes.map((s: any) => {
         const subject_name = s.subject_name ?? s.subject;
@@ -213,9 +223,6 @@ export default function ProfessionalRecordsPage() {
 
       setSchemes(normalizedSchemes);
       if (!showArchived) setCachedData(CACHE_KEYS.SCHEMES, normalizedSchemes);
-
-      // Fetch schemes statistics
-      const statsRes = await axios.get("/api/v1/schemes/stats", config);
 
       // Fetch dashboard stats and charts data
       try {
@@ -257,44 +264,40 @@ export default function ProfessionalRecordsPage() {
         }));
       }
 
-      // Fetch lesson plans
-      try {
-        const lessonPlansRes = await axios.get(
-          `/api/v1/lesson-plans${archivedQuery}`,
-          config
-        );
-        setLessonPlans(lessonPlansRes.data);
-        if (!showArchived) setCachedData(CACHE_KEYS.LESSON_PLANS, lessonPlansRes.data);
-      } catch (error) {
+      const fetchedLessonPlans =
+        lessonPlansRes.status === "fulfilled" ? lessonPlansRes.value.data : [];
+      const fetchedRecords =
+        recordsRes.status === "fulfilled" ? recordsRes.value.data : [];
+
+      if (lessonPlansRes.status !== "fulfilled") {
         console.log("Lesson plans not available yet");
-        setLessonPlans([]);
+      }
+      if (recordsRes.status !== "fulfilled") {
+        console.log("Records of work not available yet");
       }
 
-      // Fetch records from API
-      try {
-        const recordsRes = await axios.get(
-          `/api/v1/records-of-work${archivedQuery}`,
-          config
-        );
-        setRecordsOfWork(recordsRes.data);
-        if (!showArchived) setCachedData(CACHE_KEYS.RECORDS_OF_WORK, recordsRes.data);
-      } catch (error) {
-        console.log("Records of work not available yet");
-        setRecordsOfWork([]);
-      }
+      setLessonPlans(fetchedLessonPlans);
+      if (!showArchived)
+        setCachedData(CACHE_KEYS.LESSON_PLANS, fetchedLessonPlans);
+
+      setRecordsOfWork(fetchedRecords);
+      if (!showArchived)
+        setCachedData(CACHE_KEYS.RECORDS_OF_WORK, fetchedRecords);
 
       // Calculate stats
+      const statsData =
+        statsRes.status === "fulfilled" ? statsRes.value.data : {};
       setStats({
-        totalSchemes: statsRes.data.total_schemes || 0,
-        activeSchemes: statsRes.data.active_schemes || 0,
-        totalLessonPlans: lessonPlans.length || 0,
+        totalSchemes: statsData.total_schemes || 0,
+        activeSchemes: statsData.active_schemes || 0,
+        totalLessonPlans: fetchedLessonPlans.length || 0,
         taughtLessons:
-          lessonPlans.filter((lp) => lp.status === "taught").length || 0,
+          fetchedLessonPlans.filter((lp: any) => lp.status === "taught")
+            .length || 0,
         recordsThisWeek: 0,
-        completionRate: statsRes.data.active_schemes
+        completionRate: statsData.active_schemes
           ? Math.round(
-              (statsRes.data.completed_schemes / statsRes.data.total_schemes) *
-                100
+              (statsData.completed_schemes / statsData.total_schemes) * 100
             )
           : 0,
       });

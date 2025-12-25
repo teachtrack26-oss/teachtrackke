@@ -6,6 +6,7 @@ import { useCustomAuth } from "@/hooks/useCustomAuth";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { FiPrinter, FiArrowLeft, FiLock } from "react-icons/fi";
+import { getSessionCache, setSessionCache } from "@/lib/sessionCache";
 
 interface LessonPlan {
   id: number;
@@ -69,22 +70,37 @@ function PrintContent() {
       const ids = idsParam.split(",").map((id) => parseInt(id));
 
       try {
-        try {
-          const contextRes = await axios.get("/api/v1/profile/school-context", {
-            withCredentials: true,
-          });
-          setSchoolContext(contextRes.data);
-        } catch (err) {
-          console.log("No school context available");
+        const cachedContext = getSessionCache<SchoolContext>(
+          "teachtrack.schoolContext"
+        );
+        if (cachedContext) {
+          setSchoolContext(cachedContext);
         }
 
-        const promises = ids.map((id) =>
-          axios.get(`/api/v1/lesson-plans/${id}`, {
-            withCredentials: true,
-          })
-        );
+        const [responses, contextRes] = await Promise.all([
+          Promise.all(
+            ids.map((id) =>
+              axios.get(`/api/v1/lesson-plans/${id}`, {
+                withCredentials: true,
+              })
+            )
+          ),
+          cachedContext
+            ? Promise.resolve({ data: cachedContext })
+            : axios.get("/api/v1/profile/school-context", {
+                withCredentials: true,
+              }),
+        ]);
 
-        const responses = await Promise.all(promises);
+        if (contextRes?.data) {
+          setSchoolContext(contextRes.data);
+          setSessionCache(
+            "teachtrack.schoolContext",
+            contextRes.data,
+            10 * 60 * 1000
+          );
+        }
+
         const fetchedPlans = responses.map((res) => res.data);
 
         fetchedPlans.sort((a, b) => {

@@ -19,6 +19,7 @@ import {
 } from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { getSessionCache, setSessionCache } from "@/lib/sessionCache";
 
 interface WeekLesson {
   id: number;
@@ -114,20 +115,31 @@ export default function ViewSchemePage() {
     try {
       const config = { withCredentials: true };
 
-      // Fetch school context for teacher/school names
-      try {
-        const contextRes = await axios.get(
-          "/api/v1/profile/school-context",
-          config
-        );
-        console.log("School context response:", contextRes.data);
-        setSchoolContext(contextRes.data);
-      } catch (err) {
-        console.error("Failed to fetch school context:", err);
+      const cachedContext = getSessionCache<SchoolContext>(
+        "teachtrack.schoolContext"
+      );
+      if (cachedContext) {
+        setSchoolContext(cachedContext);
       }
 
-      const response = await axios.get(`/api/v1/schemes/${schemeId}`, config);
-      console.log("Scheme data:", response.data);
+      const [schemeRes, contextRes] = await Promise.allSettled([
+        axios.get(`/api/v1/schemes/${schemeId}`, config),
+        cachedContext
+          ? Promise.resolve({ data: cachedContext })
+          : axios.get("/api/v1/profile/school-context", config),
+      ]);
+
+      if (contextRes.status === "fulfilled") {
+        setSchoolContext(contextRes.value.data);
+        setSessionCache(
+          "teachtrack.schoolContext",
+          contextRes.value.data,
+          10 * 60 * 1000
+        );
+      }
+      if (schemeRes.status !== "fulfilled") {
+        throw schemeRes.reason;
+      }
       const parseTermNumber = (termValue: unknown): number | undefined => {
         if (!termValue) return undefined;
         const match = String(termValue).match(/(\d+)/);
@@ -136,7 +148,7 @@ export default function ViewSchemePage() {
         return Number.isFinite(parsed) ? parsed : undefined;
       };
 
-      const s = response.data;
+      const s = schemeRes.value.data;
       const subject_name = s.subject_name ?? s.subject;
       const term =
         s.term ?? (s.term_number != null ? `Term ${s.term_number}` : undefined);
