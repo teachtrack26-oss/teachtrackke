@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS schemes_of_work (
     year INT NOT NULL,
     subject VARCHAR(100) NOT NULL,
     grade VARCHAR(20) NOT NULL,
+    stream VARCHAR(50),
+    roll VARCHAR(50),
     
     -- Metadata
     total_weeks INT NOT NULL,
@@ -55,7 +57,7 @@ CREATE TABLE IF NOT EXISTS scheme_lessons (
     sub_strand VARCHAR(255) NOT NULL,
     specific_learning_outcomes TEXT NOT NULL,
     key_inquiry_questions TEXT,
-    learning_experiences TEXT NOT NULL,
+    learning_experiences TEXT,
     learning_resources TEXT,
 
     -- Textbook References

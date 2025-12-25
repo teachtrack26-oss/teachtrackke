@@ -40,8 +40,10 @@ def generate_lesson_plans_background(scheme_id: int, user_id: int):
     This prevents blocking the API when 500 teachers click "Generate" at once
     """
     from database import SessionLocal
-    from models import SchemeOfWork, LessonPlan, SchemeWeek, SchemeLesson
+    from models import SchemeOfWork, LessonPlan, SchemeWeek, SchemeLesson, SystemTerm, UserTermAdjustment
     from sqlalchemy.orm import joinedload
+    from datetime import timedelta
+    import re
     
     db = SessionLocal()
     try:
@@ -69,16 +71,59 @@ def generate_lesson_plans_background(scheme_id: int, user_id: int):
             }
         
         created_count = 0
+
+        # Resolve term start date (system term, optionally adjusted)
+        term_number = None
+        if scheme.term:
+            m = re.search(r"(\d+)", scheme.term)
+            if m:
+                term_number = int(m.group(1))
+
+        term_q = db.query(SystemTerm).filter(SystemTerm.year == scheme.year)
+        system_term = None
+        if scheme.term:
+            system_term = term_q.filter(SystemTerm.term_name == scheme.term).first()
+            if not system_term and term_number is not None:
+                system_term = term_q.filter(SystemTerm.term_number == term_number).first()
+        if not system_term:
+            system_term = term_q.order_by(SystemTerm.term_number.asc()).first()
+
+        term_start = None
+        if system_term:
+            adjustment = None
+            if getattr(scheme.user, 'school_id', None):
+                adjustment = db.query(UserTermAdjustment).filter(
+                    UserTermAdjustment.system_term_id == system_term.id,
+                    UserTermAdjustment.school_id == scheme.user.school_id,
+                    UserTermAdjustment.is_active == True,
+                ).first()
+            if not adjustment:
+                adjustment = db.query(UserTermAdjustment).filter(
+                    UserTermAdjustment.system_term_id == system_term.id,
+                    UserTermAdjustment.user_id == user_id,
+                    UserTermAdjustment.is_active == True,
+                ).first()
+            term_start = adjustment.adjusted_start_date if adjustment else system_term.start_date
         
         # Generate lesson plans for each lesson
         for week in scheme.weeks:
             for lesson in week.lessons:
+                planned_date = None
+                if term_start:
+                    week_start = term_start + timedelta(days=(week.week_number - 1) * 7)
+                    lesson_index = max((lesson.lesson_number or 1) - 1, 0)
+                    extra_weeks, day_index = divmod(lesson_index, 5)
+                    planned_dt = week_start + timedelta(weeks=extra_weeks, days=day_index)
+                    planned_date = planned_dt.date().isoformat()
+
                 lesson_plan = LessonPlan(
                     user_id=user_id,
                     subject_id=scheme.subject_id,
                     scheme_lesson_id=lesson.id,
                     learning_area=scheme.subject,
                     grade=scheme.grade,
+                    date=planned_date,
+                    roll=scheme.roll,
                     strand_theme_topic=lesson.strand,
                     sub_strand_sub_theme_sub_topic=lesson.sub_strand,
                     specific_learning_outcomes=lesson.specific_learning_outcomes,

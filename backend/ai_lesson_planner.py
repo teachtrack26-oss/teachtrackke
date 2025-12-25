@@ -183,6 +183,8 @@ async def generate_scheme_of_work(data, current_user, db):
         year=data.year,
         subject=data.subject,
         grade=data.grade,
+        stream=getattr(data, 'stream', None),
+        roll=getattr(data, 'roll', None),
         total_weeks=data.total_weeks,
         total_lessons=0, # Will update later
         status="active"

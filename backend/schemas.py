@@ -661,6 +661,8 @@ class SchemeOfWorkBase(BaseModel):
     year: int
     subject: str
     grade: str
+    stream: Optional[str] = None
+    roll: Optional[str] = None
     total_weeks: int
     total_lessons: int
     status: Optional[str] = "active"
@@ -676,6 +678,8 @@ class SchemeAutoGenerateRequest(BaseModel):
     year: int
     subject: str
     grade: str
+    stream: Optional[str] = None
+    roll: Optional[str] = None
     total_weeks: int
     lessons_per_week: int = 5
     include_special_weeks: bool = False
@@ -686,6 +690,9 @@ class SchemeOfWorkUpdate(BaseModel):
     school: Optional[str] = None
     term: Optional[str] = None
     year: Optional[int] = None
+    grade: Optional[str] = None
+    stream: Optional[str] = None
+    roll: Optional[str] = None
     status: Optional[str] = None
     weeks: Optional[List[SchemeWeekUpdate]] = None
 

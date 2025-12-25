@@ -6,7 +6,7 @@ from datetime import timedelta
 from io import BytesIO
 
 from database import get_db
-from models import User, UserRole, SchemeOfWork, SchemeWeek, SchemeLesson, Term, SubscriptionType, SchoolSettings, SchoolTerm
+from models import User, UserRole, SchemeOfWork, SchemeWeek, SchemeLesson, Term, SubscriptionType, SchoolSettings, SchoolTerm, SystemTerm, UserTermAdjustment
 from schemas import (
     SchemeOfWorkCreate, SchemeOfWorkUpdate, SchemeOfWorkResponse, SchemeOfWorkSummary, 
     SchemeAutoGenerateRequest, SchemeLessonUpdate, SchemeLessonCreate
@@ -103,6 +103,8 @@ async def create_scheme(
         year=data.year,
         subject=data.subject,
         grade=data.grade,
+        stream=getattr(data, 'stream', None),
+        roll=getattr(data, 'roll', None),
         total_weeks=data.total_weeks,
         total_lessons=data.total_lessons,
         status=data.status or "active"
@@ -225,6 +227,46 @@ async def generate_lesson_plans_from_scheme(
     """
     from models import LessonPlan, CurriculumTemplate, TemplateStrand, TemplateSubstrand
     from sqlalchemy import func
+    import re
+
+    def _resolve_term_start_date() -> "datetime | None":
+        """Resolve start date from system terms, applying user/school adjustments if present."""
+        term_number = None
+        if scheme.term:
+            m = re.search(r"(\d+)", scheme.term)
+            if m:
+                term_number = int(m.group(1))
+
+        term_q = db.query(SystemTerm).filter(SystemTerm.year == scheme.year)
+        if scheme.term:
+            term_exact = term_q.filter(SystemTerm.term_name == scheme.term).first()
+            if term_exact:
+                system_term = term_exact
+            elif term_number is not None:
+                system_term = term_q.filter(SystemTerm.term_number == term_number).first()
+            else:
+                system_term = term_q.order_by(SystemTerm.term_number.asc()).first()
+        else:
+            system_term = term_q.order_by(SystemTerm.term_number.asc()).first()
+
+        if not system_term:
+            return None
+
+        adjustment = None
+        if current_user.school_id:
+            adjustment = db.query(UserTermAdjustment).filter(
+                UserTermAdjustment.system_term_id == system_term.id,
+                UserTermAdjustment.school_id == current_user.school_id,
+                UserTermAdjustment.is_active == True,
+            ).first()
+        if not adjustment:
+            adjustment = db.query(UserTermAdjustment).filter(
+                UserTermAdjustment.system_term_id == system_term.id,
+                UserTermAdjustment.user_id == current_user.id,
+                UserTermAdjustment.is_active == True,
+            ).first()
+
+        return adjustment.adjusted_start_date if adjustment else system_term.start_date
     
     scheme = db.query(SchemeOfWork).filter(SchemeOfWork.id == scheme_id, SchemeOfWork.user_id == current_user.id).first()
     if not scheme:
@@ -248,6 +290,8 @@ async def generate_lesson_plans_from_scheme(
                 substrand_map[key] = sub
     
     count = 0
+
+    term_start = _resolve_term_start_date()
     
     for week in scheme.weeks:
         for lesson in week.lessons:
@@ -278,12 +322,23 @@ async def generate_lesson_plans_from_scheme(
             conclusion = f"Ask learners questions about {lesson.sub_strand}. Summarize key points."
             
             # Create new lesson plan
+            planned_date = None
+            if term_start:
+                # Week 1 starts on term_start. We assume 5-day teaching week.
+                week_start = term_start + timedelta(days=(week.week_number - 1) * 7)
+                lesson_index = max((lesson.lesson_number or 1) - 1, 0)
+                extra_weeks, day_index = divmod(lesson_index, 5)
+                planned_dt = week_start + timedelta(weeks=extra_weeks, days=day_index)
+                planned_date = planned_dt.date().isoformat()
+
             plan = LessonPlan(
                 user_id=current_user.id,
                 subject_id=scheme.subject_id,
                 scheme_lesson_id=lesson.id,
                 learning_area=scheme.subject,
                 grade=scheme.grade,
+                date=planned_date,
+                roll=scheme.roll,
                 strand_theme_topic=lesson.strand,
                 sub_strand_sub_theme_sub_topic=lesson.sub_strand,
                 specific_learning_outcomes=lesson.specific_learning_outcomes,

@@ -179,6 +179,8 @@ export default function SchemeGeneratorPage() {
     year: new Date().getFullYear(),
     subject: "",
     grade: "",
+    stream: "",
+    roll: "",
     total_weeks: 14,
     total_lessons: 0,
     lessons_per_week: 5,
@@ -639,6 +641,8 @@ export default function SchemeGeneratorPage() {
         year: formData.year,
         subject: formData.subject,
         grade: formData.grade,
+        stream: formData.stream || "",
+        roll: formData.roll || "",
         total_weeks: formData.total_weeks,
         lessons_per_week: formData.lessons_per_week || 5,
         include_special_weeks: formData.include_special_weeks,
@@ -1068,6 +1072,23 @@ export default function SchemeGeneratorPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <FiBookOpen className="inline w-4 h-4 mr-2" />
+                  Grade *
+                </label>
+                <input
+                  type="text"
+                  value={formData.grade}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50 text-gray-900"
+                  required
+                  readOnly
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Auto-filled from the selected subject.
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   <FiCalendar className="inline w-4 h-4 mr-2" />
                   Term *
                 </label>
@@ -1178,6 +1199,43 @@ export default function SchemeGeneratorPage() {
                 <p className="text-xs text-gray-500 mt-1">
                   Number of lessons for this subject per week. Common values: 5
                   for core subjects (Math, English), 2-3 for non-core subjects.
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Stream/Section (Optional)
+                </label>
+                <input
+                  type="text"
+                  value={formData.stream}
+                  onChange={(e) =>
+                    setFormData({ ...formData, stream: e.target.value })
+                  }
+                  placeholder="e.g., A, B, East, West"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Optional class stream/section to help prefill lesson plans.
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Roll (Optional)
+                </label>
+                <input
+                  type="text"
+                  value={formData.roll}
+                  onChange={(e) =>
+                    setFormData({ ...formData, roll: e.target.value })
+                  }
+                  placeholder="e.g., 40/40"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  This value will be copied into generated lesson plans (you can
+                  edit later).
                 </p>
               </div>
 

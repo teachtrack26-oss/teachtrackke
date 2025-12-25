@@ -4,6 +4,7 @@
 -- School Settings Table
 CREATE TABLE IF NOT EXISTS school_settings (
     id INT PRIMARY KEY AUTO_INCREMENT,
+    school_id INT,
     school_name VARCHAR(255) NOT NULL,
     school_email VARCHAR(255) NOT NULL,
     school_phone VARCHAR(50),
@@ -19,7 +20,9 @@ CREATE TABLE IF NOT EXISTS school_settings (
     grades_offered JSON,
     streams_per_grade JSON,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (school_id) REFERENCES schools(id) ON DELETE CASCADE,
+    INDEX idx_school_settings_school_id (school_id)
 );
 
 -- School Terms Table

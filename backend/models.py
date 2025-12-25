@@ -822,6 +822,10 @@ class SchemeOfWork(Base):
     year = Column(Integer, nullable=False)
     subject = Column(String(100), nullable=False)
     grade = Column(String(20), nullable=False)
+
+    # Optional class details (used to prefill generated lesson plans)
+    stream = Column(String(50))
+    roll = Column(String(50))
     
     # Metadata
     total_weeks = Column(Integer, nullable=False)
