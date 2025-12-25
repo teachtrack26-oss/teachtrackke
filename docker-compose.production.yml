@@ -77,7 +77,7 @@ services:
   # Celery Workers for Background Tasks (4 workers - DOUBLED from 2)
   celery_worker:
     build: ./backend
-    command: celery -A celery_app worker --loglevel=info --concurrency=16 --max-tasks-per-child=500
+    command: celery -A celery_app worker --loglevel=info --concurrency=16 --max-tasks-per-child=500 --uid=1000 --gid=1000
     working_dir: /app
     environment:
       - ENV=production
