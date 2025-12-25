@@ -17,6 +17,10 @@ RUN pip install --no-cache-dir -r requirements.txt -r requirements_production.tx
 # Copy application code
 COPY . .
 
+# Create a non-root user for Celery privilege dropping (keep default user as root)
+RUN groupadd -g 1000 appuser && \
+    useradd -m -u 1000 -g 1000 appuser
+
 # Expose port
 EXPOSE 8000
 
