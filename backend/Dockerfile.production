@@ -24,10 +24,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Install Python dependencies
 COPY requirements.txt .
-# Remove Windows-only package (python-magic-bin) and install
 RUN pip install --no-cache-dir --upgrade pip && \
-    grep -v "python-magic-bin" requirements.txt > requirements_linux.txt && \
-    pip install --no-cache-dir -r requirements_linux.txt && \
+    pip install --no-cache-dir -r requirements.txt && \
     pip install --no-cache-dir gunicorn uvloop httptools
 
 # Copy application code
