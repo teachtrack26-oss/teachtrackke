@@ -173,6 +173,8 @@ class User(Base):
     tsc_number = Column(String(50))  # Teachers Service Commission Number
     email_verified = Column(Boolean, default=False)
     verification_token = Column(String(255), index=True)
+    password_reset_token = Column(String(255), index=True, nullable=True)
+    password_reset_expires = Column(TIMESTAMP, nullable=True)
     google_id = Column(String(255), unique=True, nullable=True, index=True)  # For Google OAuth
     auth_provider = Column(String(50), default="local")  # local, google, etc.
     is_admin = Column(Boolean, default=False)  # Legacy Admin flag (keep for backward compatibility)

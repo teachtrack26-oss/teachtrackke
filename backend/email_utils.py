@@ -280,3 +280,137 @@ async def send_invitation_email(email: str, school_name: str, password: str):
     text_content = f"You have been invited to join {school_name} on TeachTrack. Your temporary password is: {password}"
     
     return await send_email(email, subject, html_content, text_content)
+
+
+def get_password_reset_email_html(username: str, reset_url: str) -> str:
+    """Generate HTML for password reset email"""
+    return f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reset Your Password - TeachTrack</title>
+    </head>
+    <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f5;">
+        <table role="presentation" style="width: 100%; border-collapse: collapse;">
+            <tr>
+                <td style="padding: 40px 0; text-align: center;">
+                    <table role="presentation" style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                        <!-- Header -->
+                        <tr>
+                            <td style="padding: 40px 40px 20px; text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px 12px 0 0;">
+                                <h1 style="margin: 0; color: #ffffff; font-size: 32px; font-weight: bold;">
+                                    📚 TeachTrack
+                                </h1>
+                            </td>
+                        </tr>
+                        
+                        <!-- Body -->
+                        <tr>
+                            <td style="padding: 40px;">
+                                <h2 style="margin: 0 0 20px; color: #333333; font-size: 24px;">
+                                    Reset Your Password
+                                </h2>
+                                
+                                <p style="margin: 0 0 20px; color: #666666; font-size: 16px; line-height: 1.6;">
+                                    Hi {username},
+                                </p>
+                                
+                                <p style="margin: 0 0 20px; color: #666666; font-size: 16px; line-height: 1.6;">
+                                    We received a request to reset your password for your TeachTrack account. Click the button below to set a new password:
+                                </p>
+                                
+                                <!-- Reset Button -->
+                                <div style="text-align: center; margin: 30px 0;">
+                                    <a href="{reset_url}" style="display: inline-block; padding: 16px 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #ffffff; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; box-shadow: 0 4px 6px rgba(102, 126, 234, 0.3);">
+                                        🔐 Reset Password
+                                    </a>
+                                </div>
+                                
+                                <p style="margin: 30px 0 0; color: #999999; font-size: 14px; line-height: 1.6;">
+                                    If the button doesn't work, copy and paste this link into your browser:
+                                </p>
+                                <p style="margin: 10px 0 0; color: #667eea; font-size: 14px; word-break: break-all;">
+                                    {reset_url}
+                                </p>
+                                
+                                <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid #e0e0e0;">
+                                    <p style="margin: 0; color: #999999; font-size: 13px;">
+                                        This link will expire in 1 hour. If you didn't request a password reset, you can safely ignore this email - your password will remain unchanged.
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <!-- Footer -->
+                        <tr>
+                            <td style="padding: 30px; background-color: #f9f9f9; border-radius: 0 0 12px 12px; text-align: center;">
+                                <p style="margin: 0 0 10px; color: #999999; font-size: 12px;">
+                                    © 2024 TeachTrack. All rights reserved.
+                                </p>
+                                <p style="margin: 0; color: #999999; font-size: 12px;">
+                                    Empowering educators, one lesson at a time 📖
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+    </html>
+    """
+
+
+def get_password_reset_email_text(username: str, reset_url: str) -> str:
+    """Generate plain text version for password reset email"""
+    return f"""
+Reset Your Password - TeachTrack
+
+Hi {username},
+
+We received a request to reset your password for your TeachTrack account.
+
+Click this link to reset your password:
+{reset_url}
+
+This link will expire in 1 hour.
+
+If you didn't request a password reset, you can safely ignore this email - your password will remain unchanged.
+
+Best regards,
+The TeachTrack Team
+
+---
+© 2024 TeachTrack. All rights reserved.
+    """
+
+
+async def send_password_reset_email(
+    to_email: str,
+    username: str,
+    reset_token: str
+) -> bool:
+    """
+    Send password reset email
+    
+    Args:
+        to_email: User's email address
+        username: User's full name
+        reset_token: Password reset token
+    
+    Returns:
+        bool: True if email sent successfully
+    """
+    reset_url = f"{settings.FRONTEND_URL}/reset-password?token={reset_token}"
+    
+    html_content = get_password_reset_email_html(username, reset_url)
+    text_content = get_password_reset_email_text(username, reset_url)
+    
+    return await send_email(
+        to_email=to_email,
+        subject="Reset Your Password - TeachTrack",
+        html_content=html_content,
+        text_content=text_content
+    )

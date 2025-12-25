@@ -22,6 +22,7 @@ NEXT_PUBLIC_API_URL=https://<your-backend-domain>
 ```
 
 Notes:
+
 - Use your public VPS domain (or public IP) that serves the FastAPI routes at `/api/v1/*`.
 - Do not use private/internal IPs like `10.x.x.x` in production.
 

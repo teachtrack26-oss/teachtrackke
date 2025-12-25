@@ -21,6 +21,13 @@ class UserLogin(BaseModel):
     captcha_id: Optional[str] = None
     captcha_answer: Optional[str] = None
 
+class PasswordResetRequest(BaseModel):
+    email: EmailStr
+
+class PasswordReset(BaseModel):
+    token: str
+    new_password: str
+
 class CaptchaResponse(BaseModel):
     id: str
     question: str
