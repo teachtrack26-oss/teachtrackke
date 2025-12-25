@@ -20,7 +20,10 @@ export default function ForgotPasswordPage() {
       setIsSubmitted(true);
     } catch (err: unknown) {
       const error = err as { response?: { data?: { detail?: string } } };
-      setError(error.response?.data?.detail || "Something went wrong. Please try again.");
+      setError(
+        error.response?.data?.detail ||
+          "Something went wrong. Please try again."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -32,19 +35,33 @@ export default function ForgotPasswordPage() {
         <div className="max-w-md w-full space-y-6">
           <div className="text-center">
             <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-4">
-              <svg className="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              <svg
+                className="h-8 w-8 text-green-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
               </svg>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">Check your email</h1>
+            <h1 className="text-2xl font-bold text-gray-900">
+              Check your email
+            </h1>
             <p className="mt-2 text-sm text-gray-600">
-              If an account exists for <strong>{email}</strong>, we&apos;ve sent a password reset link.
+              If an account exists for <strong>{email}</strong>, we&apos;ve sent
+              a password reset link.
             </p>
           </div>
 
           <div className="rounded-xl border border-gray-200 bg-white p-4">
             <p className="text-sm text-gray-700">
-              The link will expire in 1 hour. If you don&apos;t see the email, check your spam folder.
+              The link will expire in 1 hour. If you don&apos;t see the email,
+              check your spam folder.
             </p>
           </div>
 
@@ -85,7 +102,10 @@ export default function ForgotPasswordPage() {
           )}
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email address
             </label>
             <input
@@ -108,9 +128,24 @@ export default function ForgotPasswordPage() {
           >
             {isLoading ? (
               <>
-                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                <svg
+                  className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
                 </svg>
                 Sending...
               </>

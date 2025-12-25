@@ -148,10 +148,13 @@ async def generate_scheme(
 ):
     # AI Generation Logic
     # This calls the AI service
+    import traceback
     try:
         generated_scheme = await generate_scheme_of_work(data, current_user, db)
         return generated_scheme
     except Exception as e:
+        print(f"[ERROR] Scheme generation failed: {str(e)}")
+        print(f"[ERROR] Full traceback:\n{traceback.format_exc()}")
         raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
 
 @router.put("/{scheme_id}", response_model=SchemeOfWorkResponse)
