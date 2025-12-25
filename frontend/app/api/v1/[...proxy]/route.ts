@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 const BACKEND_URL_RAW =
   process.env.BACKEND_URL ??
   process.env.NEXT_PUBLIC_API_URL ??
-  (process.env.NODE_ENV === "development" ? "http://localhost:8000" : undefined);
+  (process.env.NODE_ENV === "development"
+    ? "http://localhost:8000"
+    : undefined);
 
 function getBackendUrl(): string {
   if (!BACKEND_URL_RAW) {
