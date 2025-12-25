@@ -62,6 +62,7 @@ services:
       - FRONTEND_URL=https://teachtrackke.vercel.app
     volumes:
       - ./backend:/app
+      - ./data:/data
     depends_on:
       db:
         condition: service_healthy
