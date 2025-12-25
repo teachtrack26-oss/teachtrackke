@@ -1,9 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
+from datetime import timedelta
+import re
 
 from database import get_db
-from models import User, UserRole, LessonPlan, SchemeLesson
+from models import User, UserRole, LessonPlan, SchemeLesson, SystemTerm, UserTermAdjustment
 from schemas import LessonPlanCreate, LessonPlanUpdate, LessonPlanResponse, LessonPlanSummary
 from dependencies import get_current_user
 from config import settings
@@ -42,6 +44,55 @@ async def create_lesson_plan_from_scheme(
     # Create plan from scheme lesson data
     # Ensure we have the scheme loaded to get subject details
     scheme = scheme_lesson.week.scheme
+
+    def _resolve_term_start_date() -> "datetime | None":
+        """Resolve start date from system terms, applying user/school adjustments if present."""
+        term_number = None
+        if scheme.term:
+            m = re.search(r"(\d+)", scheme.term)
+            if m:
+                term_number = int(m.group(1))
+
+        term_q = db.query(SystemTerm).filter(SystemTerm.year == scheme.year)
+        if scheme.term:
+            term_exact = term_q.filter(SystemTerm.term_name == scheme.term).first()
+            if term_exact:
+                system_term = term_exact
+            elif term_number is not None:
+                system_term = term_q.filter(SystemTerm.term_number == term_number).first()
+            else:
+                system_term = term_q.order_by(SystemTerm.term_number.asc()).first()
+        else:
+            system_term = term_q.order_by(SystemTerm.term_number.asc()).first()
+
+        if not system_term:
+            return None
+
+        adjustment = None
+        if current_user.school_id:
+            adjustment = db.query(UserTermAdjustment).filter(
+                UserTermAdjustment.system_term_id == system_term.id,
+                UserTermAdjustment.school_id == current_user.school_id,
+                UserTermAdjustment.is_active == True,
+            ).first()
+        if not adjustment:
+            adjustment = db.query(UserTermAdjustment).filter(
+                UserTermAdjustment.system_term_id == system_term.id,
+                UserTermAdjustment.user_id == current_user.id,
+                UserTermAdjustment.is_active == True,
+            ).first()
+
+        return adjustment.adjusted_start_date if adjustment else system_term.start_date
+
+    planned_date = None
+    term_start = _resolve_term_start_date()
+    if term_start:
+        # Week 1 starts on term_start. We assume 5-day teaching week.
+        week_start = term_start + timedelta(days=(scheme_lesson.week.week_number - 1) * 7)
+        lesson_index = max((scheme_lesson.lesson_number or 1) - 1, 0)
+        extra_weeks, day_index = divmod(lesson_index, 5)
+        planned_dt = week_start + timedelta(weeks=extra_weeks, days=day_index)
+        planned_date = planned_dt.date().isoformat()
     
     plan = LessonPlan(
         user_id=current_user.id,
@@ -49,6 +100,8 @@ async def create_lesson_plan_from_scheme(
         scheme_lesson_id=scheme_lesson.id,
         learning_area=scheme.subject,
         grade=scheme.grade,
+        date=planned_date,
+        roll=scheme.roll,
         strand_theme_topic=scheme_lesson.strand,
         sub_strand_sub_theme_sub_topic=scheme_lesson.sub_strand,
         specific_learning_outcomes=scheme_lesson.specific_learning_outcomes,
