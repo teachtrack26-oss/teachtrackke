@@ -16,6 +16,7 @@ services:
       - "8000:8000"
     environment:
       - ENV=development
+      - FRONTEND_URL=https://teachtrackke.vercel.app
     volumes:
       - ./backend:/app
     depends_on:

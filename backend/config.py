@@ -19,17 +19,14 @@ class Settings(BaseSettings):
     
     # API
     API_V1_PREFIX: str = "/api/v1"
-    FRONTEND_URL: str = "http://10.2.0.2:3000"
+    FRONTEND_URL: str = "https://teachtrackke.vercel.app"
     
     # CORS
     CORS_ORIGINS: list = [
         "http://localhost:3000",
         "http://127.0.0.1:3000",
-        "http://192.168.0.102:3000",
-        "http://10.2.0.2:3000",
         "https://teachtrackke.vercel.app",  # Vercel production
         "https://teachtrackke.duckdns.org",  # VPS domain
-        "https://rubeolar-jaxon-unintuitively.ngrok-free.dev",  # Ngrok URL
     ]
     
     # Google OAuth
