@@ -663,6 +663,7 @@ class SchemeOfWorkBase(BaseModel):
     grade: str
     stream: Optional[str] = None
     roll: Optional[str] = None
+    lesson_duration_minutes: Optional[int] = None
     total_weeks: int
     total_lessons: int
     status: Optional[str] = "active"
@@ -680,6 +681,7 @@ class SchemeAutoGenerateRequest(BaseModel):
     grade: str
     stream: Optional[str] = None
     roll: Optional[str] = None
+    lesson_duration_minutes: Optional[int] = None
     total_weeks: int
     lessons_per_week: int = 5
     include_special_weeks: bool = False
@@ -693,6 +695,7 @@ class SchemeOfWorkUpdate(BaseModel):
     grade: Optional[str] = None
     stream: Optional[str] = None
     roll: Optional[str] = None
+    lesson_duration_minutes: Optional[int] = None
     status: Optional[str] = None
     weeks: Optional[List[SchemeWeekUpdate]] = None
 
@@ -738,6 +741,7 @@ class LessonPlanBase(BaseModel):
     date: Optional[str] = None
     time: Optional[str] = None
     roll: Optional[str] = None
+    lesson_duration_minutes: Optional[int] = None
     strand_theme_topic: str
     sub_strand_sub_theme_sub_topic: str
     specific_learning_outcomes: str
@@ -762,6 +766,7 @@ class LessonPlanUpdate(BaseModel):
     date: Optional[str] = None
     time: Optional[str] = None
     roll: Optional[str] = None
+    lesson_duration_minutes: Optional[int] = None
     strand_theme_topic: Optional[str] = None
     sub_strand_sub_theme_sub_topic: Optional[str] = None
     specific_learning_outcomes: Optional[str] = None

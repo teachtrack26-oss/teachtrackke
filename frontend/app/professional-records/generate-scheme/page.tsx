@@ -181,6 +181,7 @@ export default function SchemeGeneratorPage() {
     grade: "",
     stream: "",
     roll: "",
+    lesson_duration_minutes: 40,
     total_weeks: 14,
     total_lessons: 0,
     lessons_per_week: 5,
@@ -643,6 +644,7 @@ export default function SchemeGeneratorPage() {
         grade: formData.grade,
         stream: formData.stream || "",
         roll: formData.roll || "",
+        lesson_duration_minutes: formData.lesson_duration_minutes,
         total_weeks: formData.total_weeks,
         lessons_per_week: formData.lessons_per_week || 5,
         include_special_weeks: formData.include_special_weeks,
@@ -1236,6 +1238,33 @@ export default function SchemeGeneratorPage() {
                 <p className="text-xs text-gray-500 mt-1">
                   This value will be copied into generated lesson plans (you can
                   edit later).
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Total Lesson Duration (Minutes) *
+                </label>
+                <input
+                  type="number"
+                  value={formData.lesson_duration_minutes}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      lesson_duration_minutes: Math.max(
+                        10,
+                        Math.min(240, Number(e.target.value))
+                      ),
+                    })
+                  }
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
+                  min={10}
+                  max={240}
+                  required
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Used to show accurate minutes in the Lesson Plan's
+                  Organization of Learning.
                 </p>
               </div>
 

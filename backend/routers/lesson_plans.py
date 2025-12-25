@@ -102,6 +102,7 @@ async def create_lesson_plan_from_scheme(
         grade=scheme.grade,
         date=planned_date,
         roll=scheme.roll,
+        lesson_duration_minutes=getattr(scheme, 'lesson_duration_minutes', None),
         strand_theme_topic=scheme_lesson.strand,
         sub_strand_sub_theme_sub_topic=scheme_lesson.sub_strand,
         specific_learning_outcomes=scheme_lesson.specific_learning_outcomes,

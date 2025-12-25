@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS schemes_of_work (
     grade VARCHAR(20) NOT NULL,
     stream VARCHAR(50),
     roll VARCHAR(50),
+    lesson_duration_minutes INT,
     
     -- Metadata
     total_weeks INT NOT NULL,
@@ -107,6 +108,7 @@ CREATE TABLE IF NOT EXISTS lesson_plans (
     date VARCHAR(50),
     time VARCHAR(50),
     roll VARCHAR(50),
+    lesson_duration_minutes INT,
     strand_theme_topic VARCHAR(255),
     sub_strand_sub_theme_sub_topic VARCHAR(255),
     core_competences TEXT,

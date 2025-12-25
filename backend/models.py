@@ -826,6 +826,9 @@ class SchemeOfWork(Base):
     # Optional class details (used to prefill generated lesson plans)
     stream = Column(String(50))
     roll = Column(String(50))
+
+    # Optional default lesson duration for generated plans (in minutes)
+    lesson_duration_minutes = Column(Integer)
     
     # Metadata
     total_weeks = Column(Integer, nullable=False)
@@ -903,6 +906,9 @@ class LessonPlan(Base):
     date = Column(String(50))
     time = Column(String(50))
     roll = Column(String(50))
+
+    # Total duration of the lesson (in minutes)
+    lesson_duration_minutes = Column(Integer)
     
     # Lesson Details
     strand_theme_topic = Column(String(255), nullable=False)

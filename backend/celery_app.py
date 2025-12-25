@@ -124,6 +124,7 @@ def generate_lesson_plans_background(scheme_id: int, user_id: int):
                     grade=scheme.grade,
                     date=planned_date,
                     roll=scheme.roll,
+                    lesson_duration_minutes=getattr(scheme, 'lesson_duration_minutes', None),
                     strand_theme_topic=lesson.strand,
                     sub_strand_sub_theme_sub_topic=lesson.sub_strand,
                     specific_learning_outcomes=lesson.specific_learning_outcomes,

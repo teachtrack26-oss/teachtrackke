@@ -105,6 +105,7 @@ async def create_scheme(
         grade=data.grade,
         stream=getattr(data, 'stream', None),
         roll=getattr(data, 'roll', None),
+        lesson_duration_minutes=getattr(data, 'lesson_duration_minutes', None),
         total_weeks=data.total_weeks,
         total_lessons=data.total_lessons,
         status=data.status or "active"
@@ -339,6 +340,7 @@ async def generate_lesson_plans_from_scheme(
                 grade=scheme.grade,
                 date=planned_date,
                 roll=scheme.roll,
+                lesson_duration_minutes=scheme.lesson_duration_minutes,
                 strand_theme_topic=lesson.strand,
                 sub_strand_sub_theme_sub_topic=lesson.sub_strand,
                 specific_learning_outcomes=lesson.specific_learning_outcomes,
