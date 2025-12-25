@@ -159,18 +159,32 @@ def delete_subject(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    # Prevent subject cycling (misuse prevention)
-    # Users cannot delete subjects themselves to free up slots for other teachers
-    if current_user.role not in [UserRole.SUPER_ADMIN, UserRole.SCHOOL_ADMIN]:
-         raise HTTPException(
-            status_code=403, 
-            detail="Subject deletion is restricted to prevent misuse. Please contact support to remove a subject."
-        )
-
     subject = db.query(Subject).filter(Subject.id == subject_id).first()
     if not subject:
         raise HTTPException(status_code=404, detail="Subject not found")
     
+    # Authorization check:
+    # - Super admins can delete any subject
+    # - School admins can delete subjects from teachers in their school
+    # - Teachers can only delete their OWN subjects (to allow swapping)
+    if current_user.role == UserRole.SUPER_ADMIN:
+        pass  # Can delete any
+    elif current_user.role == UserRole.SCHOOL_ADMIN:
+        # School admin can delete subjects from their school's teachers
+        subject_owner = db.query(User).filter(User.id == subject.user_id).first()
+        if subject_owner and subject_owner.school_id != current_user.school_id:
+            raise HTTPException(
+                status_code=403,
+                detail="You can only delete subjects from teachers in your school."
+            )
+    else:
+        # Regular teachers can only delete their own subjects
+        if subject.user_id != current_user.id:
+            raise HTTPException(
+                status_code=403,
+                detail="You can only delete your own subjects."
+            )
+    
     db.delete(subject)
     db.commit()
-    return {"message": "Subject deleted"}
+    return {"message": "Subject deleted successfully"}
