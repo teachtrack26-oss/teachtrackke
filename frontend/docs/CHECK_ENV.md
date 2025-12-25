@@ -7,6 +7,24 @@ NEXT_PUBLIC_GOOGLE_CLIENT_ID=1091679198456-kuap2p7jfcdskj1hle12jlqcfpjgmje9.apps
 NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
+## Production (Vercel)
+
+In Vercel, set either:
+
+```env
+BACKEND_URL=https://<your-backend-domain>
+```
+
+or:
+
+```env
+NEXT_PUBLIC_API_URL=https://<your-backend-domain>
+```
+
+Notes:
+- Use your public VPS domain (or public IP) that serves the FastAPI routes at `/api/v1/*`.
+- Do not use private/internal IPs like `10.x.x.x` in production.
+
 ## To Verify:
 
 1. Open: `frontend/.env.local`

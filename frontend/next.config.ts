@@ -49,9 +49,17 @@ const nextConfig: NextConfig = {
     root: ".",
   },
   async rewrites() {
-    // Use environment variable or fallback to localhost
+    // In production, require an explicit backend URL (Vercel env var).
+    // In development, default to local FastAPI.
     const backendUrl =
-      process.env.NEXT_PUBLIC_API_URL || "http://10.2.0.2:8000";
+      process.env.NEXT_PUBLIC_API_URL ||
+      (process.env.NODE_ENV === "development" ? "http://localhost:8000" : "");
+
+    if (!backendUrl) {
+      throw new Error(
+        "Missing NEXT_PUBLIC_API_URL for production build. Set it to your FastAPI base URL, e.g. https://api.example.com"
+      );
+    }
 
     return [
       {
