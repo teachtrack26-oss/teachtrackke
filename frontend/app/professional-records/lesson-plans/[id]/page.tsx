@@ -291,7 +291,7 @@ export default function ViewLessonPlanPage() {
           }
         }}
       >
-        <div className="relative z-10 max-w-4xl mx-auto px-8 py-6 print-full-width">
+        <div className="relative z-10 max-w-4xl mx-auto px-8 pt-24 pb-6 print-full-width">
           {/* Free Plan Banner */}
           {!isPremium && (
             <div className="mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 shadow-sm relative overflow-hidden no-print">
