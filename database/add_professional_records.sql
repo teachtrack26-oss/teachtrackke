@@ -57,6 +57,12 @@ CREATE TABLE IF NOT EXISTS scheme_lessons (
     key_inquiry_questions TEXT,
     learning_experiences TEXT NOT NULL,
     learning_resources TEXT,
+
+    -- Textbook References
+    textbook_name VARCHAR(500),
+    textbook_teacher_guide_pages VARCHAR(100),
+    textbook_learner_book_pages VARCHAR(100),
+
     assessment_methods TEXT,
     reflection TEXT,
     
