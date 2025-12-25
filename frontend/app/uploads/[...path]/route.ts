@@ -49,7 +49,16 @@ async function proxyUpload(
 
     const headers = new Headers();
     request.headers.forEach((value, key) => {
-      if (![["host"], ["connection"], ["content-length"]].flat().includes(key.toLowerCase())) {
+      const lower = key.toLowerCase();
+      if (
+        ![
+          "host",
+          "connection",
+          "content-length",
+          // Avoid double-decompression issues in proxy.
+          "accept-encoding",
+        ].includes(lower)
+      ) {
         headers.set(key, value);
       }
     });
@@ -62,7 +71,12 @@ async function proxyUpload(
 
     const responseHeaders = new Headers();
     response.headers.forEach((value, key) => {
-      if (key.toLowerCase() !== "set-cookie") {
+      const lower = key.toLowerCase();
+      if (
+        lower !== "set-cookie" &&
+        lower !== "content-encoding" &&
+        lower !== "content-length"
+      ) {
         responseHeaders.set(key, value);
       }
     });

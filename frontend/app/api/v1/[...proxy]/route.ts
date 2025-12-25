@@ -76,7 +76,14 @@ async function proxyRequest(
     const headers = new Headers();
     request.headers.forEach((value, key) => {
       if (
-        !["host", "connection", "content-length"].includes(key.toLowerCase())
+        ![
+          "host",
+          "connection",
+          "content-length",
+          // Avoid double-decompression issues when Node fetch auto-decodes gzip/br
+          // but the proxy forwards the original Content-Encoding header.
+          "accept-encoding",
+        ].includes(key.toLowerCase())
       ) {
         headers.set(key, value);
       }
@@ -117,7 +124,13 @@ async function proxyRequest(
     const responseHeaders = new Headers();
     response.headers.forEach((value, key) => {
       // Skip set-cookie here - we'll handle it specially below
-      if (key.toLowerCase() !== "set-cookie") {
+      const lower = key.toLowerCase();
+      if (
+        lower !== "set-cookie" &&
+        // Let Next/Vercel compute these correctly for the (possibly decoded) body.
+        lower !== "content-encoding" &&
+        lower !== "content-length"
+      ) {
         responseHeaders.set(key, value);
       }
     });
