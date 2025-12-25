@@ -1,9 +1,5 @@
--- Add Google OAuth support to users table
-ALTER TABLE users 
-ADD COLUMN google_id VARCHAR(255) UNIQUE,
-ADD COLUMN auth_provider VARCHAR(50) DEFAULT 'local',
-MODIFY COLUMN password_hash VARCHAR(255) NULL,
-ADD INDEX idx_google_id (google_id);
+-- Google OAuth support is now part of the base schema.
+-- Keep this file idempotent so fresh DB inits don't fail if columns already exist.
 
--- Update existing users to have 'local' auth provider
+-- Ensure existing users have a default auth_provider value.
 UPDATE users SET auth_provider = 'local' WHERE auth_provider IS NULL;

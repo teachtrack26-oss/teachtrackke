@@ -1,14 +1,14 @@
 -- Add scheduling configuration to users table
 ALTER TABLE users
-ADD COLUMN default_lesson_duration INT DEFAULT 40 COMMENT 'Default lesson duration in minutes',
-ADD COLUMN default_double_lesson_duration INT DEFAULT 80 COMMENT 'Default double lesson duration in minutes';
+ADD COLUMN IF NOT EXISTS default_lesson_duration INT DEFAULT 40 COMMENT 'Default lesson duration in minutes',
+ADD COLUMN IF NOT EXISTS default_double_lesson_duration INT DEFAULT 80 COMMENT 'Default double lesson duration in minutes';
 
 -- Add scheduling configuration to subjects table
 ALTER TABLE subjects
-ADD COLUMN lessons_per_week INT DEFAULT 5 COMMENT 'Number of lessons per week for this subject',
-ADD COLUMN single_lesson_duration INT DEFAULT 40 COMMENT 'Duration of single lesson in minutes',
-ADD COLUMN double_lesson_duration INT DEFAULT 80 COMMENT 'Duration of double lesson in minutes',
-ADD COLUMN double_lessons_per_week INT DEFAULT 0 COMMENT 'Number of double lessons per week';
+ADD COLUMN IF NOT EXISTS lessons_per_week INT DEFAULT 5 COMMENT 'Number of lessons per week for this subject',
+ADD COLUMN IF NOT EXISTS single_lesson_duration INT DEFAULT 40 COMMENT 'Duration of single lesson in minutes',
+ADD COLUMN IF NOT EXISTS double_lesson_duration INT DEFAULT 80 COMMENT 'Duration of double lesson in minutes',
+ADD COLUMN IF NOT EXISTS double_lessons_per_week INT DEFAULT 0 COMMENT 'Number of double lessons per week';
 
 -- Create terms table
 CREATE TABLE IF NOT EXISTS terms (

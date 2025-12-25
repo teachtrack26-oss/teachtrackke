@@ -2,19 +2,19 @@
 -- These fields store detailed learning information from templates
 
 ALTER TABLE sub_strands 
-ADD COLUMN specific_learning_outcomes JSON COMMENT 'Array of specific learning outcomes for this sub-strand';
+ADD COLUMN IF NOT EXISTS specific_learning_outcomes JSON COMMENT 'Array of specific learning outcomes for this sub-strand';
 
 ALTER TABLE sub_strands 
-ADD COLUMN suggested_learning_experiences JSON COMMENT 'Array of suggested learning activities';
+ADD COLUMN IF NOT EXISTS suggested_learning_experiences JSON COMMENT 'Array of suggested learning activities';
 
 ALTER TABLE sub_strands 
-ADD COLUMN core_competencies JSON COMMENT 'Array of core competencies to be developed';
+ADD COLUMN IF NOT EXISTS core_competencies JSON COMMENT 'Array of core competencies to be developed';
 
 ALTER TABLE sub_strands 
-ADD COLUMN `values` JSON COMMENT 'Array of values to be developed';
+ADD COLUMN IF NOT EXISTS `values` JSON COMMENT 'Array of values to be developed';
 
 ALTER TABLE sub_strands 
-ADD COLUMN pcis JSON COMMENT 'Array of Pertinent and Contemporary Issues (PCIs)';
+ADD COLUMN IF NOT EXISTS pcis JSON COMMENT 'Array of Pertinent and Contemporary Issues (PCIs)';
 
 ALTER TABLE sub_strands 
-ADD COLUMN links_to_other_subjects JSON COMMENT 'Array of links to other learning areas';
+ADD COLUMN IF NOT EXISTS links_to_other_subjects JSON COMMENT 'Array of links to other learning areas';
