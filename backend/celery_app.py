@@ -28,8 +28,9 @@ celery_app.conf.update(
     worker_max_tasks_per_child=1000,
 )
 
-# Auto-discover tasks from main module
-celery_app.autodiscover_tasks(['backend'])
+# Auto-discover tasks from the current module (tasks are defined in this file)
+# Since the backend folder is mounted as /app, we don't need to specify a package
+# celery_app.autodiscover_tasks()  # Auto-detect is not needed when tasks are in this file
 
 
 @celery_app.task(name='generate_lesson_plans_background')
