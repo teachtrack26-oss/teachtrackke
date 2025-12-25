@@ -1,14 +1,58 @@
--- Add scheduling configuration to users table
-ALTER TABLE users
-ADD COLUMN IF NOT EXISTS default_lesson_duration INT DEFAULT 40 COMMENT 'Default lesson duration in minutes',
-ADD COLUMN IF NOT EXISTS default_double_lesson_duration INT DEFAULT 80 COMMENT 'Default double lesson duration in minutes';
+-- Add scheduling configuration to users table (MySQL 8.0 compatible)
+SET @col_exists = (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS 
+                   WHERE TABLE_SCHEMA = 'teachtrack' 
+                   AND TABLE_NAME = 'users' 
+                   AND COLUMN_NAME = 'default_lesson_duration');
+SET @sql = IF(@col_exists = 0, 
+              'ALTER TABLE users ADD COLUMN default_lesson_duration INT DEFAULT 40 COMMENT ''Default lesson duration in minutes''', 
+              'SELECT "Column default_lesson_duration already exists"');
+PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
 
--- Add scheduling configuration to subjects table
-ALTER TABLE subjects
-ADD COLUMN IF NOT EXISTS lessons_per_week INT DEFAULT 5 COMMENT 'Number of lessons per week for this subject',
-ADD COLUMN IF NOT EXISTS single_lesson_duration INT DEFAULT 40 COMMENT 'Duration of single lesson in minutes',
-ADD COLUMN IF NOT EXISTS double_lesson_duration INT DEFAULT 80 COMMENT 'Duration of double lesson in minutes',
-ADD COLUMN IF NOT EXISTS double_lessons_per_week INT DEFAULT 0 COMMENT 'Number of double lessons per week';
+SET @col_exists = (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS 
+                   WHERE TABLE_SCHEMA = 'teachtrack' 
+                   AND TABLE_NAME = 'users' 
+                   AND COLUMN_NAME = 'default_double_lesson_duration');
+SET @sql = IF(@col_exists = 0, 
+              'ALTER TABLE users ADD COLUMN default_double_lesson_duration INT DEFAULT 80 COMMENT ''Default double lesson duration in minutes''', 
+              'SELECT "Column default_double_lesson_duration already exists"');
+PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+
+-- Add scheduling configuration to subjects table (MySQL 8.0 compatible)
+SET @col_exists = (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS 
+                   WHERE TABLE_SCHEMA = 'teachtrack' 
+                   AND TABLE_NAME = 'subjects' 
+                   AND COLUMN_NAME = 'lessons_per_week');
+SET @sql = IF(@col_exists = 0, 
+              'ALTER TABLE subjects ADD COLUMN lessons_per_week INT DEFAULT 5 COMMENT ''Number of lessons per week for this subject''', 
+              'SELECT "Column lessons_per_week already exists"');
+PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+
+SET @col_exists = (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS 
+                   WHERE TABLE_SCHEMA = 'teachtrack' 
+                   AND TABLE_NAME = 'subjects' 
+                   AND COLUMN_NAME = 'single_lesson_duration');
+SET @sql = IF(@col_exists = 0, 
+              'ALTER TABLE subjects ADD COLUMN single_lesson_duration INT DEFAULT 40 COMMENT ''Duration of single lesson in minutes''', 
+              'SELECT "Column single_lesson_duration already exists"');
+PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+
+SET @col_exists = (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS 
+                   WHERE TABLE_SCHEMA = 'teachtrack' 
+                   AND TABLE_NAME = 'subjects' 
+                   AND COLUMN_NAME = 'double_lesson_duration');
+SET @sql = IF(@col_exists = 0, 
+              'ALTER TABLE subjects ADD COLUMN double_lesson_duration INT DEFAULT 80 COMMENT ''Duration of double lesson in minutes''', 
+              'SELECT "Column double_lesson_duration already exists"');
+PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+
+SET @col_exists = (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS 
+                   WHERE TABLE_SCHEMA = 'teachtrack' 
+                   AND TABLE_NAME = 'subjects' 
+                   AND COLUMN_NAME = 'double_lessons_per_week');
+SET @sql = IF(@col_exists = 0, 
+              'ALTER TABLE subjects ADD COLUMN double_lessons_per_week INT DEFAULT 0 COMMENT ''Number of double lessons per week''', 
+              'SELECT "Column double_lessons_per_week already exists"');
+PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
 
 -- Create terms table
 CREATE TABLE IF NOT EXISTS terms (
