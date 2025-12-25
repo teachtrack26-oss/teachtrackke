@@ -28,7 +28,7 @@ function ResetPasswordForm() {
       }
 
       try {
-        const response = await api.get(`/api/v1/auth/verify-reset-token?token=${token}`);
+        const response = await api.get(`/auth/verify-reset-token?token=${token}`);
         if (response.data.valid) {
           setTokenValid(true);
           setUserEmail(response.data.email);
@@ -62,7 +62,7 @@ function ResetPasswordForm() {
     setIsLoading(true);
 
     try {
-      await api.post("/api/v1/auth/reset-password", {
+      await api.post("/auth/reset-password", {
         token,
         new_password: password,
       });
