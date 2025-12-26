@@ -112,10 +112,12 @@ export default function ViewLessonPlanPage() {
       const opt = {
         margin: [5, 5, 5, 5] as [number, number, number, number],
         filename: filename,
+        image: { type: "jpeg" as const, quality: 0.98 },
         html2canvas: {
-          scale: 1.5, // Reduced scale slightly for stability
+          scale: 2, // Better quality
           useCORS: true,
-          logging: true, // Enable logging to see what's wrong in console
+          allowTaint: true,
+          backgroundColor: "#ffffff", // Force white background to avoid transparent/complex color issues
         },
         jsPDF: {
           unit: "mm" as const,
