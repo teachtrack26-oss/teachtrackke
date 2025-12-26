@@ -223,3 +223,124 @@ async def enhance_lesson_plan_with_ai(
         print(f"AI Enhancement failed: {e}")
         
     return plan
+
+
+# PDF Generation imports
+from io import BytesIO
+from fastapi.responses import StreamingResponse
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import cm
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from models import SubscriptionType
+
+@router.get("/{lesson_plan_id}/pdf")
+async def lesson_plan_pdf(
+    lesson_plan_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    plan = db.query(LessonPlan).filter(LessonPlan.id == lesson_plan_id, LessonPlan.user_id == current_user.id).first()
+    if not plan:
+        raise HTTPException(status_code=404, detail="Lesson plan not found")
+
+    # Only PREMIUM or SCHOOL_SPONSORED users can download
+    is_school_linked = current_user.school_id is not None
+    is_premium = current_user.subscription_type in [SubscriptionType.SCHOOL_SPONSORED, SubscriptionType.INDIVIDUAL_PREMIUM]
+    is_trial = current_user.is_trial_active
+    is_super_admin = current_user.role == UserRole.SUPER_ADMIN
+    
+    if not (is_school_linked or is_premium or is_trial or is_super_admin):
+        raise HTTPException(
+            status_code=403,
+            detail="Downloads are available on Premium plans only. Please upgrade to download."
+        )
+
+    pdf_io = BytesIO()
+    doc = SimpleDocTemplate(pdf_io, pagesize=A4, leftMargin=1*cm, rightMargin=1*cm, topMargin=1*cm, bottomMargin=1*cm)
+    elements = []
+    styles = getSampleStyleSheet()
+    
+    # Title Style
+    title_style = ParagraphStyle('CustomTitle', parent=styles['Heading1'], fontName='Helvetica-Bold', fontSize=28, textColor=colors.HexColor('#1e293b'), alignment=TA_CENTER, spaceAfter=8, leading=34)
+    subtitle_style = ParagraphStyle('Subtitle', parent=styles['Normal'], fontName='Helvetica-Oblique', fontSize=14, textColor=colors.HexColor('#64748b'), alignment=TA_CENTER, spaceAfter=20, leading=18)
+    label_style = ParagraphStyle('Label', parent=styles['Normal'], fontName='Helvetica-Bold', fontSize=8, textColor=colors.HexColor('#64748b'), alignment=TA_CENTER, leading=10)
+    value_style = ParagraphStyle('Value', parent=styles['Normal'], fontName='Helvetica', fontSize=11, textColor=colors.HexColor('#0f172a'), alignment=TA_CENTER, leading=14)
+    section_title = ParagraphStyle('SectionTitle', parent=styles['Heading2'], fontName='Helvetica-Bold', fontSize=12, textColor=colors.HexColor('#1e40af'), spaceBefore=12, spaceAfter=6, leading=14)
+    body_style = ParagraphStyle('Body', parent=styles['Normal'], fontName='Helvetica', fontSize=10, textColor=colors.HexColor('#374151'), leading=14, spaceAfter=6)
+    
+    # Header
+    elements.append(Spacer(1, 1*cm))
+    elements.append(Paragraph("LESSON PLAN", title_style))
+    elements.append(Paragraph(f"{plan.learning_area or 'Subject'} • {plan.grade or 'Grade'}", subtitle_style))
+    
+    # Decorative Line
+    line_data = [[""]]
+    line_table = Table(line_data, colWidths=[8*cm], rowHeights=[2])
+    line_table.setStyle(TableStyle([
+        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#4F46E5')),
+        ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+    ]))
+    elements.append(line_table)
+    elements.append(Spacer(1, 1*cm))
+    
+    # Info Grid - Row 1
+    teacher_name = current_user.full_name if hasattr(current_user, 'full_name') else current_user.email
+    duration = f"{plan.lesson_duration_minutes} minutes" if plan.lesson_duration_minutes else "Not set"
+    
+    cell_1_1 = [Paragraph("DATE", label_style), Spacer(1, 2), Paragraph(plan.date or "-", value_style)]
+    cell_1_2 = [Paragraph("TIME", label_style), Spacer(1, 2), Paragraph(plan.time or "-", value_style)]
+    cell_1_3 = [Paragraph("DURATION", label_style), Spacer(1, 2), Paragraph(duration, value_style)]
+    
+    cell_2_1 = [Paragraph("ROLL", label_style), Spacer(1, 2), Paragraph(str(plan.roll) if plan.roll else "-", value_style)]
+    cell_2_2 = [Paragraph("GRADE", label_style), Spacer(1, 2), Paragraph(plan.grade or "-", value_style)]
+    cell_2_3 = [Paragraph("TEACHER", label_style), Spacer(1, 2), Paragraph(teacher_name or "-", value_style)]
+    
+    info_data = [
+        [cell_1_1, cell_1_2, cell_1_3],
+        [cell_2_1, cell_2_2, cell_2_3]
+    ]
+    
+    info_table = Table(info_data, colWidths=[6*cm, 6*cm, 6*cm])
+    info_table.setStyle(TableStyle([
+        ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+        ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+        ('TOPPADDING', (0,0), (-1,-1), 12),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 12),
+        ('LINEAFTER', (0,0), (1,-1), 0.5, colors.HexColor('#cbd5e1')),
+        ('LINEBELOW', (0,0), (-1,0), 0.5, colors.HexColor('#cbd5e1')),
+        ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#94a3b8')),
+        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#f8fafc')),
+    ]))
+    
+    elements.append(info_table)
+    elements.append(Spacer(1, 0.8*cm))
+    
+    # Content Sections
+    def add_section(title, content):
+        if content:
+            elements.append(Paragraph(title, section_title))
+            elements.append(Paragraph(content.replace('\n', '<br/>'), body_style))
+    
+    add_section("Strand / Theme / Topic", plan.strand_theme_topic)
+    add_section("Sub-strand / Sub-theme / Sub-topic", plan.sub_strand_sub_theme_sub_topic)
+    add_section("Specific Learning Outcomes", plan.specific_learning_outcomes)
+    add_section("Key Inquiry Questions", plan.key_inquiry_questions)
+    add_section("Core Competences", plan.core_competences)
+    add_section("Values to be Developed", plan.values_to_be_developed)
+    add_section("PCIs to be Addressed", plan.pcis_to_be_addressed)
+    add_section("Learning Resources", plan.learning_resources)
+    add_section("Introduction", plan.introduction)
+    add_section("Development (Lesson Steps)", plan.development)
+    add_section("Conclusion", plan.conclusion)
+    add_section("Summary", plan.summary)
+    add_section("Reflection / Self-Evaluation", plan.reflection_self_evaluation)
+    
+    doc.build(elements)
+    pdf_io.seek(0)
+    
+    filename = f"LessonPlan_{plan.learning_area}_{plan.grade}_{plan.date or 'undated'}.pdf".replace(" ", "_")
+    return StreamingResponse(pdf_io, media_type="application/pdf", headers={"Content-Disposition": f"attachment; filename={filename}"})
+

@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import { useCustomAuth } from "@/hooks/useCustomAuth";
 import {
   FiArrowLeft,
+  FiDownload,
   FiPrinter,
   FiEdit,
   FiTrash2,
@@ -65,6 +66,7 @@ export default function ViewLessonPlanPage() {
 
   const [loading, setLoading] = useState(true);
   const [plan, setPlan] = useState<LessonPlan | null>(null);
+  const [downloading, setDownloading] = useState(false);
 
   useEffect(() => {
     if (planId) {
@@ -87,6 +89,49 @@ export default function ViewLessonPlanPage() {
       router.push("/professional-records?tab=lessons");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDownloadPdf = async () => {
+    if (!plan) return;
+
+    if (!isPremium) {
+      toast.error("Downloads are available on Premium plans only.");
+      return;
+    }
+
+    setDownloading(true);
+    const loadingToast = toast.loading("Generating PDF...");
+
+    try {
+      const cleanId = planId.replace(/-$/, "");
+      const response = await axios.get(`/api/v1/lesson-plans/${cleanId}/pdf`, {
+        withCredentials: true,
+        responseType: "blob",
+      });
+
+      // Create blob link to download
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+
+      // Generate filename
+      const filename = `LessonPlan_${plan.learning_area}_${plan.grade}_${plan.date || "undated"}.pdf`.replace(/\s+/g, "_");
+      link.setAttribute("download", filename);
+
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+
+      toast.dismiss(loadingToast);
+      toast.success("PDF downloaded successfully!");
+    } catch (error) {
+      console.error("Failed to generate PDF:", error);
+      toast.dismiss(loadingToast);
+      toast.error("Failed to generate PDF");
+    } finally {
+      setDownloading(false);
     }
   };
 
@@ -332,6 +377,19 @@ export default function ViewLessonPlanPage() {
 
             <div className="flex gap-2">
               <button
+                onClick={handleDownloadPdf}
+                disabled={!isPremium || downloading}
+                className={`px-4 py-2 rounded-lg font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 ${
+                  !isPremium
+                    ? "bg-gray-400 text-white cursor-not-allowed"
+                    : "bg-gradient-to-r from-green-600 to-emerald-600 text-white"
+                }`}
+                title={!isPremium ? "Upgrade to download" : "Download PDF"}
+              >
+                <FiDownload className={`w-4 h-4 ${downloading ? "animate-bounce" : ""}`} />
+                {downloading ? "Downloading..." : "Download PDF"}
+              </button>
+              <button
                 onClick={() => {
                   if (!isPremium) {
                     toast.error(
@@ -347,10 +405,10 @@ export default function ViewLessonPlanPage() {
                     ? "bg-gray-400 text-white cursor-not-allowed"
                     : "bg-gradient-to-r from-blue-600 to-cyan-600 text-white"
                 }`}
-                title={!isPremium ? "Upgrade to print" : "Print or Save as PDF"}
+                title={!isPremium ? "Upgrade to print" : "Print"}
               >
                 <FiPrinter className="w-4 h-4" />
-                Print / Save PDF
+                Print
               </button>
               <button
                 onClick={() =>
