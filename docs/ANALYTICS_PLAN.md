@@ -21,10 +21,24 @@ We verify this against your requirements:
 
 **Why PostHog over GA4?**
 - **User-Centric:** GA4 aggregates data (marketing view). PostHog allows you to see exactly what "Teacher John" did (product view), which is crucial for a management platform.
-- **Session Replay:** You can watch a video of a teacher getting stuck on the "Generate Scheme" page and fix the UI immediately.
+- **Session Replay:** You can watch a session replay of a teacher getting stuck on the "Generate Scheme" page and fix the UI immediately.
 - **All-in-One:** No need to install multiple scripts (GA4 + Hotjar + Mixpanel). One script does it all.
 
-## 2. Integration Plan (Next.js)
+### Why Cloud over Self-Hosted (For Now)
+While PostHog can be self-hosted, the cloud version is recommended at this stage to reduce DevOps overhead, ensure automatic updates, and allow the team to focus on product development. Self-hosting can be reconsidered at scale (10k+ users).
+
+## 2. TeachTrack North Star Metrics
+Defining clear metrics elevates analytics from "collecting data" to "decision making".
+
+**Primary:**
+- **Weekly Active Teachers (WAT)**: The pulse of your platform.
+- **Time to First Value**: Metric tracking time from Login → First Scheme Created.
+
+**Secondary:**
+- **Avg Features Used per Teacher per Week**: Measures depth of engagement.
+- **Scheme Generation Success Rate**: Quality assurance metric.
+
+## 3. Integration Plan (Next.js)
 
 ### Step 1: Account Setup
 1.  Sign up at [PostHog.com](https://posthog.com).
@@ -71,12 +85,19 @@ posthog.identify(user.id, {
   school_id: user.school_id
 });
 ```
-This allows you to filter dashboards by "Role = Teacher" or specific Schools.
 
-## 3. Customizing for TeachTrack Goals
+### Event Naming Convention (Best Practice)
+Adopt a consistent schema early to keep dashboards clean:
+- `page_view` (Auto-captured)
+- `teacher_login`
+- `scheme_generate_clicked`
+- `scheme_created_success`
+- `lesson_plan_downloaded`
+
+## 4. Customizing for TeachTrack Goals
 
 ### Goal A: "Which pages and features are visited most"
-- **Solution:** PostHog "Autocapture" tracks every click.
+- **Solution:** PostHog "Auto-capture" tracks every click.
 - **Customization:** Create a Dashboard called "Teacher Engagement". Add a specific "Trend" insight filtering for URLs containing `/professional-records/lesson-plans` vs `/schemes-of-work`.
 
 ### Goal B: "Drop-off points"
@@ -91,12 +112,12 @@ This allows you to filter dashboards by "Role = Teacher" or specific Schools.
 ### Goal C: "How long teachers stay"
 - **Solution:** "Session Recording". You can filter sessions by duration > 5 mins to see what "power users" are doing, or < 30s to see why people leave.
 
-## 4. Privacy & Education Context
+## 5. Privacy & Education Context
 Since you are dealing with education data:
 1.  **Do not capture PII in events:** Do not track student names as event properties.
 2.  **Mask Input Fields:** PostHog automatically masks password fields. Ensure other sensitive inputs (student grades) are masked in session recordings by adding the class `ph-no-capture` to those HTML elements.
 3.  **Data Hosting:** Use the EU Cloud option which keeps data in Frankfurt, satisfying most strict privacy laws.
 
-## 5. Next Steps
+## 6. Next Steps
 1.  Confirm if you want to proceed with PostHog (recommended) or GA4.
 2.  I can generate the specific code changes (Provider, Layout, Auth integration) for you immediately.
