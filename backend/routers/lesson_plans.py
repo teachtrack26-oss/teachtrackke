@@ -180,6 +180,56 @@ async def bulk_delete_lesson_plans(
     db.commit()
     return {"message": "Plans deleted"}
 
+@router.post("/bulk-download")
+async def bulk_download_lesson_plans(
+    ids: List[int],
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    # Check premium status
+    is_school_linked = current_user.school_id is not None
+    is_premium = current_user.subscription_type in [SubscriptionType.SCHOOL_SPONSORED, SubscriptionType.INDIVIDUAL_PREMIUM]
+    is_trial = current_user.is_trial_active
+    is_super_admin = current_user.role == UserRole.SUPER_ADMIN
+    
+    if not (is_school_linked or is_premium or is_trial or is_super_admin):
+        raise HTTPException(
+            status_code=403,
+            detail="Bulk downloads are available on Premium plans only."
+        )
+    
+    # Get all lesson plans
+    plans = db.query(LessonPlan).filter(LessonPlan.id.in_(ids), LessonPlan.user_id == current_user.id).all()
+    
+    if not plans:
+        raise HTTPException(status_code=404, detail="No lesson plans found")
+    
+    # Import PyPDF2 for merging
+    try:
+        from PyPDF2 import PdfMerger
+    except ImportError:
+        raise HTTPException(status_code=500, detail="PDF merge library not available")
+    
+    merger = PdfMerger()
+    
+    # Generate PDF for each plan and add to merger
+    for plan in plans:
+        # Generate individual PDF (reuse the logic from single PDF endpoint)
+        individual_pdf = generate_single_lesson_pdf(plan, current_user)
+        merger.append(individual_pdf)
+    
+    # Write merged PDF to BytesIO
+    output = BytesIO()
+    merger.write(output)
+    merger.close()
+    output.seek(0)
+    
+    filename = f"LessonPlans_Bulk_{len(plans)}_plans.pdf"
+    return StreamingResponse(output, media_type="application/pdf", headers={"Content-Disposition": f"attachment; filename={filename}"})
+
+# Helper function to generate a single lesson plan PDF (extracted for reuse)
+def generate_single_lesson_pdf(plan: LessonPlan, current_user: User) -> BytesIO:
+
 @router.post("/{lesson_plan_id}/auto-generate", response_model=LessonPlanResponse)
 async def auto_generate_lesson_plan(
     lesson_plan_id: int,
@@ -259,18 +309,19 @@ async def lesson_plan_pdf(
         )
 
 
+
     pdf_io = BytesIO()
     doc = SimpleDocTemplate(pdf_io, pagesize=A4, leftMargin=0.8*cm, rightMargin=0.8*cm, topMargin=0.6*cm, bottomMargin=0.6*cm)
     elements = []
     styles = getSampleStyleSheet()
     
-    # Compact Title Styles for one-page fit
-    title_style = ParagraphStyle('CustomTitle', parent=styles['Heading1'], fontName='Helvetica-Bold', fontSize=20, textColor=colors.HexColor('#1e293b'), alignment=TA_CENTER, spaceAfter=4, leading=24)
-    subtitle_style = ParagraphStyle('Subtitle', parent=styles['Normal'], fontName='Helvetica-Oblique', fontSize=11, textColor=colors.HexColor('#64748b'), alignment=TA_CENTER, spaceAfter=8, leading=14)
-    label_style = ParagraphStyle('Label', parent=styles['Normal'], fontName='Helvetica-Bold', fontSize=7, textColor=colors.HexColor('#64748b'), alignment=TA_CENTER, leading=9)
-    value_style = ParagraphStyle('Value', parent=styles['Normal'], fontName='Helvetica', fontSize=9, textColor=colors.HexColor('#0f172a'), alignment=TA_CENTER, leading=11)
-    section_title = ParagraphStyle('SectionTitle', parent=styles['Heading2'], fontName='Helvetica-Bold', fontSize=9, textColor=colors.HexColor('#1e40af'), spaceBefore=4, spaceAfter=2, leading=11)
-    body_style = ParagraphStyle('Body', parent=styles['Normal'], fontName='Helvetica', fontSize=8, textColor=colors.HexColor('#374151'), leading=10, spaceAfter=3)
+    # Improved font sizes for readability
+    title_style = ParagraphStyle('CustomTitle', parent=styles['Heading1'], fontName='Helvetica-Bold', fontSize=24, textColor=colors.HexColor('#1e293b'), alignment=TA_CENTER, spaceAfter=4, leading=28)
+    subtitle_style = ParagraphStyle('Subtitle', parent=styles['Normal'], fontName='Helvetica-Oblique', fontSize=12, textColor=colors.HexColor('#64748b'), alignment=TA_CENTER, spaceAfter=8, leading=16)
+    label_style = ParagraphStyle('Label', parent=styles['Normal'], fontName='Helvetica-Bold', fontSize=8, textColor=colors.HexColor('#64748b'), alignment=TA_CENTER, leading=10)
+    value_style = ParagraphStyle('Value', parent=styles['Normal'], fontName='Helvetica', fontSize=10, textColor=colors.HexColor('#0f172a'), alignment=TA_CENTER, leading=12)
+    section_title = ParagraphStyle('SectionTitle', parent=styles['Heading2'], fontName='Helvetica-Bold', fontSize=10, textColor=colors.HexColor('#1e40af'), spaceBefore=5, spaceAfter=3, leading=12)
+    body_style = ParagraphStyle('Body', parent=styles['Normal'], fontName='Helvetica', fontSize=9, textColor=colors.HexColor('#374151'), leading=11, spaceAfter=4)
     
     # Header
     elements.append(Spacer(1, 0.3*cm))
@@ -279,7 +330,7 @@ async def lesson_plan_pdf(
     
     # Decorative Line
     line_data = [[""]]
-    line_table = Table(line_data, colWidths=[6*cm], rowHeights=[1.5])
+    line_table = Table(line_data, colWidths=[6*cm], rowHeights=[2])
     line_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#4F46E5')),
         ('ALIGN', (0,0), (-1,-1), 'CENTER'),
@@ -308,8 +359,8 @@ async def lesson_plan_pdf(
     info_table.setStyle(TableStyle([
         ('ALIGN', (0,0), (-1,-1), 'CENTER'),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('TOPPADDING', (0,0), (-1,-1), 6),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 6),
+        ('TOPPADDING', (0,0), (-1,-1), 8),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 8),
         ('LINEAFTER', (0,0), (1,-1), 0.5, colors.HexColor('#cbd5e1')),
         ('LINEBELOW', (0,0), (-1,0), 0.5, colors.HexColor('#cbd5e1')),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#94a3b8')),
@@ -346,15 +397,33 @@ async def lesson_plan_pdf(
         
         return '<br/>'.join(formatted)
     
-    # Content Sections
+    # Content Sections with borders
     def add_section(title, content, use_list_format=False):
         if content:
-            elements.append(Paragraph(title, section_title))
+            # Create a bordered section
+            section_elements = []
+            section_elements.append(Paragraph(title, section_title))
+            
             if use_list_format:
                 formatted_content = format_list_items(content)
             else:
                 formatted_content = content.replace('\n', '<br/>')
-            elements.append(Paragraph(formatted_content, body_style))
+            
+            section_elements.append(Paragraph(formatted_content, body_style))
+            
+            # Wrap in a table for border
+            section_table = Table([[section_elements]], colWidths=[18*cm])
+            section_table.setStyle(TableStyle([
+                ('VALIGN', (0,0), (-1,-1), 'TOP'),
+                ('LEFTPADDING', (0,0), (-1,-1), 6),
+                ('RIGHTPADDING', (0,0), (-1,-1), 6),
+                ('TOPPADDING', (0,0), (-1,-1), 4),
+                ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+                ('BOX', (0,0), (-1,-1), 0.5, colors.HexColor('#e5e7eb')),
+                ('BACKGROUND', (0,0), (-1,-1), colors.white),
+            ]))
+            elements.append(section_table)
+            elements.append(Spacer(1, 0.15*cm))
     
     # Sections with updated labels (removed "Topic" and "Sub-topic")
     add_section("Strand / Theme", plan.strand_theme_topic)
@@ -370,10 +439,24 @@ async def lesson_plan_pdf(
     add_section("Conclusion", plan.conclusion)
     add_section("Summary", plan.summary)
     
-    # Reflection section - always show with instruction, leave empty for teacher to fill
-    elements.append(Paragraph("Reflection / Self-Evaluation", section_title))
-    reflection_text = plan.reflection_self_evaluation if plan.reflection_self_evaluation else "<i>(To be filled after the lesson)</i>"
-    elements.append(Paragraph(reflection_text, body_style))
+    # Reflection section - always show, leave empty (no instruction text)
+    reflection_content = plan.reflection_self_evaluation if plan.reflection_self_evaluation else ""
+    if reflection_content or True:  # Always show
+        section_elements = []
+        section_elements.append(Paragraph("Reflection / Self-Evaluation", section_title))
+        section_elements.append(Paragraph(reflection_content if reflection_content else " ", body_style))
+        
+        section_table = Table([[section_elements]], colWidths=[18*cm])
+        section_table.setStyle(TableStyle([
+            ('VALIGN', (0,0), (-1,-1), 'TOP'),
+            ('LEFTPADDING', (0,0), (-1,-1), 6),
+            ('RIGHTPADDING', (0,0), (-1,-1), 6),
+            ('TOPPADDING', (0,0), (-1,-1), 4),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 20),  # Extra space for writing
+            ('BOX', (0,0), (-1,-1), 0.5, colors.HexColor('#e5e7eb')),
+            ('BACKGROUND', (0,0), (-1,-1), colors.white),
+        ]))
+        elements.append(section_table)
     
     doc.build(elements)
     pdf_io.seek(0)
