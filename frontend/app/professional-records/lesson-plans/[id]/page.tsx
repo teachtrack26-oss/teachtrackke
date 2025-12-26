@@ -433,6 +433,14 @@ export default function ViewLessonPlanPage() {
                   {plan.roll || "Not set"}
                 </span>
               </div>
+              <div className="flex items-center gap-3">
+                <span className="font-bold text-gray-700 w-32">Duration:</span>
+                <span className="text-gray-900 font-medium">
+                  {plan.lesson_duration_minutes
+                    ? `${plan.lesson_duration_minutes} minutes`
+                    : "Not set"}
+                </span>
+              </div>
             </div>
 
             {/* Main Content */}
@@ -525,13 +533,18 @@ export default function ViewLessonPlanPage() {
               <div className="org-learning-container border border-gray-300 rounded-lg overflow-hidden">
                 <div className="org-learning-header bg-gray-100 px-4 py-2 border-b border-gray-300 font-bold text-gray-800">
                   Organization of Learning
+                  {plan.lesson_duration_minutes && (
+                    <span className="ml-2 text-indigo-600 font-normal">
+                      (Total: {plan.lesson_duration_minutes} min)
+                    </span>
+                  )}
                 </div>
                 <div className="divide-y divide-gray-300">
                   <div className="org-learning-item p-4">
                     <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
                       <span>Introduction</span>
                       <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
-                        {5} min
+                        {plan.lesson_duration_minutes ? "5 min" : "N/A"}
                       </span>
                     </h4>
                     <div className="text-gray-900 whitespace-pre-wrap">
@@ -542,7 +555,9 @@ export default function ViewLessonPlanPage() {
                     <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
                       <span>Lesson Development</span>
                       <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
-                        {(plan.lesson_duration_minutes || 40) - 10} min
+                        {plan.lesson_duration_minutes
+                          ? `${Math.max(plan.lesson_duration_minutes - 10, 0)} min`
+                          : "N/A"}
                       </span>
                     </h4>
                     <div className="text-gray-900 whitespace-pre-wrap">
@@ -553,7 +568,7 @@ export default function ViewLessonPlanPage() {
                     <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
                       <span>Conclusion</span>
                       <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
-                        {5} min
+                        {plan.lesson_duration_minutes ? "5 min" : "N/A"}
                       </span>
                     </h4>
                     <div className="text-gray-900 whitespace-pre-wrap">

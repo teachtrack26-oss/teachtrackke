@@ -537,17 +537,21 @@ function PrintContent() {
               <tbody>
                 <tr>
                   <td>Introduction</td>
-                  <td>5 min</td>
+                  <td>{plan.lesson_duration_minutes ? "5 min" : "N/A"}</td>
                   <td className="whitespace-pre-wrap">{plan.introduction}</td>
                 </tr>
                 <tr>
                   <td>Development</td>
-                  <td>{(plan.lesson_duration_minutes || 40) - 10} min</td>
+                  <td>
+                    {plan.lesson_duration_minutes
+                      ? `${Math.max(plan.lesson_duration_minutes - 10, 0)} min`
+                      : "N/A"}
+                  </td>
                   <td className="whitespace-pre-wrap">{plan.development}</td>
                 </tr>
                 <tr>
                   <td>Conclusion</td>
-                  <td>5 min</td>
+                  <td>{plan.lesson_duration_minutes ? "5 min" : "N/A"}</td>
                   <td className="whitespace-pre-wrap">{plan.conclusion}</td>
                 </tr>
                 <tr>

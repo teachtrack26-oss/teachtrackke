@@ -15,6 +15,7 @@ interface LessonPlanData {
   date: string;
   time: string;
   roll: string;
+  lesson_duration_minutes: number | null;
   strand_theme_topic: string;
   sub_strand_sub_theme_sub_topic: string;
   specific_learning_outcomes: string;
@@ -81,6 +82,7 @@ export default function EditLessonPlanPage() {
     date: "",
     time: "",
     roll: "",
+    lesson_duration_minutes: null,
     strand_theme_topic: "",
     sub_strand_sub_theme_sub_topic: "",
     specific_learning_outcomes: "",
@@ -684,7 +686,28 @@ export default function EditLessonPlanPage() {
                     />
                   )}
                 </div>
-                <div className="md:col-span-2">
+                <div>
+                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                    DURATION (mins)
+                  </label>
+                  <input
+                    type="number"
+                    name="lesson_duration_minutes"
+                    value={lessonPlan.lesson_duration_minutes || ""}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setLessonPlan((prev) => ({
+                        ...prev,
+                        lesson_duration_minutes: val ? parseInt(val) : null,
+                      }));
+                    }}
+                    placeholder="e.g. 40"
+                    min={1}
+                    max={180}
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  />
+                </div>
+                <div className="md:col-span-3">
                   <label className="block text-sm font-bold text-gray-700 mb-2">
                     ROLL (Present / Total)
                   </label>
