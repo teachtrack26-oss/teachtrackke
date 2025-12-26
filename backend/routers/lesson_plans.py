@@ -227,56 +227,6 @@ async def bulk_download_lesson_plans(
     filename = f"LessonPlans_Bulk_{len(plans)}_plans.pdf"
     return StreamingResponse(output, media_type="application/pdf", headers={"Content-Disposition": f"attachment; filename={filename}"})
 
-# Helper function to generate a single lesson plan PDF (extracted for reuse)
-def generate_single_lesson_pdf(plan: LessonPlan, current_user: User) -> BytesIO:
-    # TODO: Implement this helper function for bulk downloads
-    # For now, this is a placeholder
-    pass
-
-@router.post("/{lesson_plan_id}/auto-generate", response_model=LessonPlanResponse)
-async def auto_generate_lesson_plan(
-    lesson_plan_id: int,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    # AI Generation
-    plan = db.query(LessonPlan).filter(LessonPlan.id == lesson_plan_id, LessonPlan.user_id == current_user.id).first()
-    if not plan:
-        raise HTTPException(status_code=404, detail="Lesson plan not found")
-        
-    # Call AI service
-    try:
-        plan = await generate_lesson_plan(plan)
-        db.commit()
-        db.refresh(plan)
-    except Exception as e:
-        print(f"AI Generation failed: {e}")
-        # We don't raise here to allow returning the partial plan, or we could raise.
-        # For now, let's just log and return the plan as is.
-        
-    return plan
-
-@router.post("/{lesson_plan_id}/enhance", response_model=LessonPlanResponse)
-async def enhance_lesson_plan_with_ai(
-    lesson_plan_id: int,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    # AI Enhancement
-    plan = db.query(LessonPlan).filter(LessonPlan.id == lesson_plan_id, LessonPlan.user_id == current_user.id).first()
-    if not plan:
-        raise HTTPException(status_code=404, detail="Lesson plan not found")
-        
-    # Call AI service (same as generate for now)
-    try:
-        plan = await generate_lesson_plan(plan)
-        db.commit()
-        db.refresh(plan)
-    except Exception as e:
-        print(f"AI Enhancement failed: {e}")
-        
-    return plan
-
 
 # PDF Generation imports
 from io import BytesIO
@@ -289,30 +239,8 @@ from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from models import SubscriptionType
 
-@router.get("/{lesson_plan_id}/pdf")
-async def lesson_plan_pdf(
-    lesson_plan_id: int,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
-):
-    plan = db.query(LessonPlan).filter(LessonPlan.id == lesson_plan_id, LessonPlan.user_id == current_user.id).first()
-    if not plan:
-        raise HTTPException(status_code=404, detail="Lesson plan not found")
-
-    # Only PREMIUM or SCHOOL_SPONSORED users can download
-    is_school_linked = current_user.school_id is not None
-    is_premium = current_user.subscription_type in [SubscriptionType.SCHOOL_SPONSORED, SubscriptionType.INDIVIDUAL_PREMIUM]
-    is_trial = current_user.is_trial_active
-    is_super_admin = current_user.role == UserRole.SUPER_ADMIN
-    
-    if not (is_school_linked or is_premium or is_trial or is_super_admin):
-        raise HTTPException(
-            status_code=403,
-            detail="Downloads are available on Premium plans only. Please upgrade to download."
-        )
-
-
-
+# Helper function to generate a single lesson plan PDF (extracted for reuse)
+def generate_single_lesson_pdf(plan: LessonPlan, current_user: User) -> BytesIO:
     pdf_io = BytesIO()
     doc = SimpleDocTemplate(pdf_io, pagesize=A4, leftMargin=0.8*cm, rightMargin=0.8*cm, topMargin=0.6*cm, bottomMargin=0.6*cm)
     elements = []
@@ -463,6 +391,77 @@ async def lesson_plan_pdf(
     
     doc.build(elements)
     pdf_io.seek(0)
+    return pdf_io
+
+
+@router.post("/{lesson_plan_id}/auto-generate", response_model=LessonPlanResponse)
+async def auto_generate_lesson_plan(
+    lesson_plan_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    # AI Generation
+    plan = db.query(LessonPlan).filter(LessonPlan.id == lesson_plan_id, LessonPlan.user_id == current_user.id).first()
+    if not plan:
+        raise HTTPException(status_code=404, detail="Lesson plan not found")
+        
+    # Call AI service
+    try:
+        plan = await generate_lesson_plan(plan)
+        db.commit()
+        db.refresh(plan)
+    except Exception as e:
+        print(f"AI Generation failed: {e}")
+        # We don't raise here to allow returning the partial plan, or we could raise.
+        # For now, let's just log and return the plan as is.
+        
+    return plan
+
+@router.post("/{lesson_plan_id}/enhance", response_model=LessonPlanResponse)
+async def enhance_lesson_plan_with_ai(
+    lesson_plan_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    # AI Enhancement
+    plan = db.query(LessonPlan).filter(LessonPlan.id == lesson_plan_id, LessonPlan.user_id == current_user.id).first()
+    if not plan:
+        raise HTTPException(status_code=404, detail="Lesson plan not found")
+        
+    # Call AI service (same as generate for now)
+    try:
+        plan = await generate_lesson_plan(plan)
+        db.commit()
+        db.refresh(plan)
+    except Exception as e:
+        print(f"AI Enhancement failed: {e}")
+        
+    return plan
+
+
+@router.get("/{lesson_plan_id}/pdf")
+async def lesson_plan_pdf(
+    lesson_plan_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    plan = db.query(LessonPlan).filter(LessonPlan.id == lesson_plan_id, LessonPlan.user_id == current_user.id).first()
+    if not plan:
+        raise HTTPException(status_code=404, detail="Lesson plan not found")
+
+    # Only PREMIUM or SCHOOL_SPONSORED users can download
+    is_school_linked = current_user.school_id is not None
+    is_premium = current_user.subscription_type in [SubscriptionType.SCHOOL_SPONSORED, SubscriptionType.INDIVIDUAL_PREMIUM]
+    is_trial = current_user.is_trial_active
+    is_super_admin = current_user.role == UserRole.SUPER_ADMIN
+    
+    if not (is_school_linked or is_premium or is_trial or is_super_admin):
+        raise HTTPException(
+            status_code=403,
+            detail="Downloads are available on Premium plans only. Please upgrade to download."
+        )
+
+    pdf_io = generate_single_lesson_pdf(plan, current_user)
     
     filename = f"LessonPlan_{plan.learning_area}_{plan.grade}_{plan.date or 'undated'}.pdf".replace(" ", "_")
     return StreamingResponse(pdf_io, media_type="application/pdf", headers={"Content-Disposition": f"attachment; filename={filename}"})
