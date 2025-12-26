@@ -229,6 +229,9 @@ async def bulk_download_lesson_plans(
 
 # Helper function to generate a single lesson plan PDF (extracted for reuse)
 def generate_single_lesson_pdf(plan: LessonPlan, current_user: User) -> BytesIO:
+    # TODO: Implement this helper function for bulk downloads
+    # For now, this is a placeholder
+    pass
 
 @router.post("/{lesson_plan_id}/auto-generate", response_model=LessonPlanResponse)
 async def auto_generate_lesson_plan(
