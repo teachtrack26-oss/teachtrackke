@@ -314,8 +314,12 @@ def generate_single_lesson_pdf(plan: LessonPlan, current_user: User) -> BytesIO:
         elif '- ' in text:
             items = [item.strip() for item in text.split('- ') if item.strip()]
         else:
-            # Try splitting by periods or newlines
-            items = [item.strip() for item in text.replace('\n', '. ').split('. ') if item.strip() and len(item.strip()) > 10]
+            # Try splitting by periods or newlines. If comma separated list (more than 1 comma), split by comma
+            clean_text = text.replace('\n', ' ')
+            if clean_text.count(',') >= 1 and not '.' in clean_text:
+                 items = [item.strip() for item in clean_text.split(',') if item.strip()]
+            else:
+                 items = [item.strip() for item in text.replace('\n', '. ').split('. ') if item.strip() and len(item.strip()) > 2] # Reduced min length
         
         if not items:
             return text.replace('\n', '<br/>')
@@ -355,16 +359,59 @@ def generate_single_lesson_pdf(plan: LessonPlan, current_user: User) -> BytesIO:
             ]))
             elements.append(section_table)
             elements.append(Spacer(1, 0.15*cm))
+
+    # Helper for Side-by-Side Sections (Flex-like box)
+    def add_side_by_side_section(title1, content1, title2, content2, use_list_format=True):
+        if not content1 and not content2:
+            return
+
+        # Prepare Cell 1
+        elements1 = []
+        if content1:
+            elements1.append(Paragraph(title1, section_title))
+            fmt1 = format_list_items(content1) if use_list_format else content1.replace('\n', '<br/>')
+            elements1.append(Paragraph(fmt1, body_style))
+        else:
+             elements1.append(Paragraph(title1, section_title)) # Keep title or empty? keep layout consistent
+
+        # Prepare Cell 2
+        elements2 = []
+        if content2:
+            elements2.append(Paragraph(title2, section_title))
+            fmt2 = format_list_items(content2) if use_list_format else content2.replace('\n', '<br/>')
+            elements2.append(Paragraph(fmt2, body_style))
+        else:
+             elements2.append(Paragraph(title2, section_title))
+
+        # Create 2-column table
+        # 18cm total width. 0.3cm gap. => 8.85cm each.
+        row_table = Table([[elements1, elements2]], colWidths=[8.85*cm, 8.85*cm])
+        row_table.setStyle(TableStyle([
+            ('VALIGN', (0,0), (-1,-1), 'TOP'),
+            ('LEFTPADDING', (0,0), (-1,-1), 6),
+            ('RIGHTPADDING', (0,0), (-1,-1), 6),
+            ('TOPPADDING', (0,0), (-1,-1), 4),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+            # Borders for individual cells
+            ('BOX', (0,0), (0,0), 0.5, colors.HexColor('#e5e7eb')), # Box around cell 1
+            ('BOX', (1,0), (1,0), 0.5, colors.HexColor('#e5e7eb')), # Box around cell 2
+            ('BACKGROUND', (0,0), (-1,-1), colors.white),
+        ]))
+        elements.append(row_table)
+        elements.append(Spacer(1, 0.15*cm))
     
-    # Sections with updated labels (removed "Topic" and "Sub-topic")
+    # Sections layout
     add_section("Strand / Theme", plan.strand_theme_topic)
     add_section("Sub-strand / Sub-theme", plan.sub_strand_sub_theme_sub_topic)
     add_section("Specific Learning Outcomes", plan.specific_learning_outcomes, use_list_format=True)
     add_section("Key Inquiry Questions", plan.key_inquiry_questions)
-    add_section("Core Competences", plan.core_competences, use_list_format=True)
-    add_section("Values to be Developed", plan.values_to_be_developed, use_list_format=True)
-    add_section("PCIs to be Addressed", plan.pcis_to_be_addressed)
-    add_section("Learning Resources", plan.learning_resources)
+    
+    # Side by side: Competences & Values
+    add_side_by_side_section("Core Competences", plan.core_competences, "Values to be Developed", plan.values_to_be_developed, use_list_format=True)
+    
+    # Side by side: PCIs & Resources
+    add_side_by_side_section("PCIs to be Addressed", plan.pcis_to_be_addressed, "Learning Resources", plan.learning_resources, use_list_format=True)
+
     add_section("Introduction", plan.introduction)
     add_section("Development (Lesson Steps)", plan.development)
     add_section("Conclusion", plan.conclusion)
