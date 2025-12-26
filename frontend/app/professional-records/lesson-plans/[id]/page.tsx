@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useCustomAuth } from "@/hooks/useCustomAuth";
 import {
   FiArrowLeft,
-  FiDownload,
   FiPrinter,
   FiEdit,
   FiTrash2,
@@ -66,8 +65,6 @@ export default function ViewLessonPlanPage() {
 
   const [loading, setLoading] = useState(true);
   const [plan, setPlan] = useState<LessonPlan | null>(null);
-  const [downloading, setDownloading] = useState(false);
-  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (planId) {
@@ -90,98 +87,6 @@ export default function ViewLessonPlanPage() {
       router.push("/professional-records?tab=lessons");
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleDownloadPDF = async () => {
-    if (!isPremium) {
-      toast.error("PDF download is available on Premium plans only.");
-      return;
-    }
-
-    if (!contentRef.current || !plan) return;
-
-    setDownloading(true);
-    try {
-      // Dynamically import html2pdf to avoid SSR issues
-      const html2pdf = (await import("html2pdf.js")).default;
-
-      const element = contentRef.current;
-      const filename = `LessonPlan_${plan.learning_area}_${plan.grade}_${plan.strand_theme_topic.substring(0, 20).replace(/[^a-zA-Z0-9]/g, "_")}.pdf`;
-
-      // Helper function to convert any color to hex
-      const colorToHex = (color: string): string => {
-        // If it's already hex, return as-is
-        if (color.startsWith("#")) return color;
-        // If it's transparent or empty, return white
-        if (!color || color === "transparent" || color === "rgba(0, 0, 0, 0)") return "#ffffff";
-        // If it contains lab, oklch, lch, oklab - return a fallback
-        if (color.includes("lab(") || color.includes("oklch(") || color.includes("lch(") || color.includes("oklab(")) {
-          return "#333333"; // Default to dark gray for text-like colors
-        }
-        // Try to parse rgb/rgba
-        const rgbMatch = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-        if (rgbMatch) {
-          const r = parseInt(rgbMatch[1]).toString(16).padStart(2, "0");
-          const g = parseInt(rgbMatch[2]).toString(16).padStart(2, "0");
-          const b = parseInt(rgbMatch[3]).toString(16).padStart(2, "0");
-          return `#${r}${g}${b}`;
-        }
-        return color; // Return as-is if we can't parse
-      };
-
-      // Sanitize all elements in the cloned document
-      const sanitizeColors = (el: Element) => {
-        const htmlEl = el as HTMLElement;
-        if (htmlEl.style) {
-          const computed = window.getComputedStyle(htmlEl);
-          // Sanitize common color properties
-          const colorProps = ["color", "backgroundColor", "borderColor", "borderTopColor", "borderRightColor", "borderBottomColor", "borderLeftColor"];
-          colorProps.forEach(prop => {
-            const value = computed.getPropertyValue(prop.replace(/([A-Z])/g, "-$1").toLowerCase());
-            if (value && (value.includes("lab(") || value.includes("oklch(") || value.includes("lch(") || value.includes("oklab("))) {
-              htmlEl.style.setProperty(prop.replace(/([A-Z])/g, "-$1").toLowerCase(), colorToHex(value));
-            }
-          });
-          // Force remove any background gradients that might use modern colors
-          const bgImage = computed.backgroundImage;
-          if (bgImage && bgImage !== "none" && (bgImage.includes("lab(") || bgImage.includes("oklch("))) {
-            htmlEl.style.backgroundImage = "none";
-          }
-        }
-        // Recursively process children
-        Array.from(el.children).forEach(sanitizeColors);
-      };
-
-      const opt = {
-        margin: [5, 5, 5, 5] as [number, number, number, number],
-        filename: filename,
-        image: { type: "jpeg" as const, quality: 0.98 },
-        html2canvas: {
-          scale: 2,
-          useCORS: true,
-          allowTaint: true,
-          backgroundColor: "#ffffff",
-          onclone: (clonedDoc: Document) => {
-            // Sanitize all colors in the cloned document before rendering
-            const clonedElement = clonedDoc.body;
-            sanitizeColors(clonedElement);
-          },
-        },
-        jsPDF: {
-          unit: "mm" as const,
-          format: "a4" as const,
-          orientation: "portrait" as const,
-        },
-      };
-
-      await html2pdf().set(opt).from(element).save();
-      toast.success("PDF downloaded successfully!");
-    } catch (error) {
-      console.error("Full PDF Generation Error:", error);
-      toast.error("Failed to generate PDF. Please try using Print instead.");
-    } finally {
-      setDownloading(false);
     }
   };
 
@@ -442,23 +347,10 @@ export default function ViewLessonPlanPage() {
                     ? "bg-gray-400 text-white cursor-not-allowed"
                     : "bg-gradient-to-r from-blue-600 to-cyan-600 text-white"
                 }`}
-                title={!isPremium ? "Upgrade to print" : "Print"}
+                title={!isPremium ? "Upgrade to print" : "Print or Save as PDF"}
               >
                 <FiPrinter className="w-4 h-4" />
-                Print
-              </button>
-              <button
-                onClick={handleDownloadPDF}
-                disabled={!isPremium || downloading}
-                className={`px-4 py-2 rounded-lg font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 ${
-                  !isPremium
-                    ? "bg-gray-400 text-white cursor-not-allowed"
-                    : "bg-gradient-to-r from-green-600 to-emerald-600 text-white"
-                }`}
-                title={!isPremium ? "Upgrade to download PDF" : "Download PDF"}
-              >
-                <FiDownload className={`w-4 h-4 ${downloading ? "animate-bounce" : ""}`} />
-                {downloading ? "Downloading..." : "Download PDF"}
+                Print / Save PDF
               </button>
               <button
                 onClick={() =>
