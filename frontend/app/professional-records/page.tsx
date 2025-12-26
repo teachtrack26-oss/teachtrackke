@@ -345,17 +345,53 @@ export default function ProfessionalRecordsPage() {
     }
   };
 
-  const handleBulkPrint = () => {
+  const handleBulkDownload = async () => {
     if (selectedPlans.length === 0) {
-      toast.error("Please select at least one lesson plan to print");
+      toast.error("Please select at least one lesson plan to download");
       return;
     }
-    const ids = selectedPlans.join(",");
-    // Open in new tab
-    window.open(
-      `/professional-records/lesson-plans/print?ids=${ids}`,
-      "_blank"
-    );
+
+    if (!isPremium) {
+      toast.error("Bulk download is a Premium feature");
+      return;
+    }
+
+    const toastId = toast.loading("Generating PDF bundle...");
+    try {
+      const response = await axios.post(
+        "/api/v1/lesson-plans/bulk-download", 
+        selectedPlans, 
+        { 
+          withCredentials: true,
+          responseType: 'blob'
+        }
+      );
+      
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      // Get filename from header if possible, or default
+      const contentDisposition = response.headers['content-disposition'];
+      let filename = 'LessonPlans_Bundle.pdf';
+      if (contentDisposition) {
+        const match = contentDisposition.match(/filename=(.+)/);
+        if (match && match[1]) filename = match[1].replace(/["']/g, "");
+      }
+      
+      link.setAttribute('download', filename);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      
+      toast.success("PDF bundle downloaded successfully!", { id: toastId });
+      setSelectedPlans([]);
+    } catch (error: any) {
+      console.error("Bulk download failed:", error);
+      const msg = error.response?.data?.detail || "Failed to download PDF bundle";
+      toast.error(msg, { id: toastId });
+    }
   };
 
   const toggleRecordSelection = (id: number) => {
@@ -1329,11 +1365,11 @@ export default function ProfessionalRecordsPage() {
                 {selectedPlans.length > 0 && (
                   <>
                     <button
-                      onClick={handleBulkPrint}
+                      onClick={handleBulkDownload}
                       className="bg-blue-600 text-white px-4 py-3 rounded-xl font-bold shadow-lg hover:bg-blue-700 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
                     >
                       <FiDownload className="w-4 h-4 sm:w-5 sm:h-5" />
-                      Print ({selectedPlans.length})
+                      Download PDF ({selectedPlans.length})
                     </button>
                     <button
                       onClick={handleBulkDelete}
