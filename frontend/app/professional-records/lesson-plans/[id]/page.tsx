@@ -112,11 +112,10 @@ export default function ViewLessonPlanPage() {
       const opt = {
         margin: [5, 5, 5, 5] as [number, number, number, number],
         filename: filename,
-        image: { type: "jpeg" as const, quality: 0.98 },
         html2canvas: {
-          scale: 2,
+          scale: 1.5, // Reduced scale slightly for stability
           useCORS: true,
-          letterRendering: true,
+          logging: true, // Enable logging to see what's wrong in console
         },
         jsPDF: {
           unit: "mm" as const,
@@ -128,8 +127,8 @@ export default function ViewLessonPlanPage() {
       await html2pdf().set(opt).from(element).save();
       toast.success("PDF downloaded successfully!");
     } catch (error) {
-      console.error("Failed to generate PDF:", error);
-      toast.error("Failed to generate PDF. Please try again.");
+      console.error("Full PDF Generation Error:", error);
+      toast.error("Failed to generate PDF. check console for details.");
     } finally {
       setDownloading(false);
     }
