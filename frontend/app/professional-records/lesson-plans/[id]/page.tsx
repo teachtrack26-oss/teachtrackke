@@ -373,7 +373,7 @@ export default function ViewLessonPlanPage() {
             </div>
           </div>
 
-          <div className="relative" ref={contentRef}>
+          <div className="relative">
             {/* Watermark for non-premium users */}
             {!isPremium && (
               <div className="absolute inset-0 pointer-events-none z-50 grid grid-cols-2 gap-y-32 gap-x-12 content-start justify-items-center overflow-hidden opacity-10 p-10">
