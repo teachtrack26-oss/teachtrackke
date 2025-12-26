@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useCustomAuth } from "@/hooks/useCustomAuth";
 import {
   FiArrowLeft,
   FiDownload,
+  FiPrinter,
   FiEdit,
   FiTrash2,
   FiCalendar,
@@ -65,6 +66,8 @@ export default function ViewLessonPlanPage() {
 
   const [loading, setLoading] = useState(true);
   const [plan, setPlan] = useState<LessonPlan | null>(null);
+  const [downloading, setDownloading] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (planId) {
@@ -87,6 +90,48 @@ export default function ViewLessonPlanPage() {
       router.push("/professional-records?tab=lessons");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDownloadPDF = async () => {
+    if (!isPremium) {
+      toast.error("PDF download is available on Premium plans only.");
+      return;
+    }
+
+    if (!contentRef.current || !plan) return;
+
+    setDownloading(true);
+    try {
+      // Dynamically import html2pdf to avoid SSR issues
+      const html2pdf = (await import("html2pdf.js")).default;
+
+      const element = contentRef.current;
+      const filename = `LessonPlan_${plan.learning_area}_${plan.grade}_${plan.strand_theme_topic.substring(0, 20).replace(/[^a-zA-Z0-9]/g, "_")}.pdf`;
+
+      const opt = {
+        margin: [5, 5, 5, 5] as [number, number, number, number],
+        filename: filename,
+        image: { type: "jpeg" as const, quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          letterRendering: true,
+        },
+        jsPDF: {
+          unit: "mm" as const,
+          format: "a4" as const,
+          orientation: "portrait" as const,
+        },
+      };
+
+      await html2pdf().set(opt).from(element).save();
+      toast.success("PDF downloaded successfully!");
+    } catch (error) {
+      console.error("Failed to generate PDF:", error);
+      toast.error("Failed to generate PDF. Please try again.");
+    } finally {
+      setDownloading(false);
     }
   };
 
@@ -335,7 +380,7 @@ export default function ViewLessonPlanPage() {
                 onClick={() => {
                   if (!isPremium) {
                     toast.error(
-                      "Printing/Downloading is available on Premium plans only."
+                      "Printing is available on Premium plans only."
                     );
                     return;
                   }
@@ -349,8 +394,21 @@ export default function ViewLessonPlanPage() {
                 }`}
                 title={!isPremium ? "Upgrade to print" : "Print"}
               >
-                <FiDownload className="w-4 h-4" />
-                {!isPremium ? "Preview Only" : "Print"}
+                <FiPrinter className="w-4 h-4" />
+                Print
+              </button>
+              <button
+                onClick={handleDownloadPDF}
+                disabled={!isPremium || downloading}
+                className={`px-4 py-2 rounded-lg font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 ${
+                  !isPremium
+                    ? "bg-gray-400 text-white cursor-not-allowed"
+                    : "bg-gradient-to-r from-green-600 to-emerald-600 text-white"
+                }`}
+                title={!isPremium ? "Upgrade to download PDF" : "Download PDF"}
+              >
+                <FiDownload className={`w-4 h-4 ${downloading ? "animate-bounce" : ""}`} />
+                {downloading ? "Downloading..." : "Download PDF"}
               </button>
               <button
                 onClick={() =>
@@ -373,7 +431,7 @@ export default function ViewLessonPlanPage() {
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative" ref={contentRef}>
             {/* Watermark for non-premium users */}
             {!isPremium && (
               <div className="absolute inset-0 pointer-events-none z-50 grid grid-cols-2 gap-y-32 gap-x-12 content-start justify-items-center overflow-hidden opacity-10 p-10">
