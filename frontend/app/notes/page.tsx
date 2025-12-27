@@ -254,7 +254,7 @@ export default function NotesPage() {
   // Show loading first to prevent flash
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#020617]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
@@ -276,7 +276,7 @@ export default function NotesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 relative overflow-hidden">
+    <div className="min-h-screen bg-[#020617] relative overflow-hidden">
       {/* Premium Animated Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-400/20 rounded-full blur-[128px] animate-blob"></div>
@@ -366,7 +366,7 @@ export default function NotesPage() {
                     className="w-full h-40 object-cover"
                   />
                 ) : (
-                  <div className="flex items-center justify-center h-40 bg-gradient-to-br from-gray-50 to-gray-100 group-hover:from-primary-50 group-hover:to-purple-50 transition-colors">
+                  <div className="flex items-center justify-center h-40 bg-gradient-to-br from-[#020617] to-gray-100 group-hover:from-primary-50 group-hover:to-purple-50 transition-colors">
                     <span className="text-5xl transform group-hover:scale-110 transition-transform">
                       {getFileIcon(note.file_type)}
                     </span>
@@ -418,7 +418,7 @@ export default function NotesPage() {
                     </p>
                   )}
 
-                  <div className="flex items-center justify-between text-xs text-gray-500 mb-3 pb-3 border-b border-gray-100">
+                  <div className="flex items-center justify-between text-xs text-gray-500 mb-3 pb-3 border-b border-white/10">
                     <span className="flex items-center gap-1.5">
                       <FiFile className="w-3 h-3" />
                       <span className="font-medium">
@@ -465,7 +465,7 @@ export default function NotesPage() {
       {selectedNote && !showUploadModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-200 flex justify-between items-center">
+            <div className="p-6 border-b border-white/10 flex justify-between items-center">
               <h2 className="text-xl font-semibold text-gray-900">
                 {selectedNote.title}
               </h2>
@@ -518,7 +518,7 @@ export default function NotesPage() {
                     className="w-full h-96 border rounded"
                   />
                 ) : (
-                  <div className="flex flex-col items-center justify-center h-48 bg-gray-100 rounded">
+                  <div className="flex flex-col items-center justify-center h-48 bg-[#0F172A] rounded">
                     <span className="text-6xl mb-4">
                       {getFileIcon(selectedNote.file_type)}
                     </span>
@@ -575,7 +575,7 @@ export default function NotesPage() {
       {showUploadModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-200 flex justify-between items-center">
+            <div className="p-6 border-b border-white/10 flex justify-between items-center">
               <h2 className="text-xl font-semibold text-gray-900">
                 Upload New Note
               </h2>
