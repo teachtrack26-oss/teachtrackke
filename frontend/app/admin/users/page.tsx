@@ -401,7 +401,7 @@ export default function AdminUsersPage() {
   const totalPages = Math.ceil(total / limit);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8 pt-24">
+    <div className="min-h-screen bg-[#020617] p-8 pt-24">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8 flex justify-between items-start">
@@ -518,7 +518,7 @@ export default function AdminUsersPage() {
             <>
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
+                  <thead className="bg-[#020617]">
                     <tr>
                       <th className="px-6 py-3 text-left">
                         <input
@@ -564,7 +564,7 @@ export default function AdminUsersPage() {
                     ) : (
                       users.map((user) => (
                         <React.Fragment key={user.id}>
-                          <tr className="hover:bg-gray-50">
+                          <tr className="hover:bg-[#020617]">
                             <td className="px-6 py-4 whitespace-nowrap">
                               <input
                                 type="checkbox"
@@ -627,7 +627,7 @@ export default function AdminUsersPage() {
                                     ? "bg-blue-100 text-blue-800"
                                     : user.is_admin
                                     ? "bg-green-100 text-green-800"
-                                    : "bg-gray-100 text-gray-800"
+                                    : "bg-[#0F172A] text-gray-800"
                                 }`}
                               >
                                 {user.role === "SUPER_ADMIN"
@@ -721,7 +721,7 @@ export default function AdminUsersPage() {
                               <tr>
                                 <td
                                   colSpan={6}
-                                  className="px-6 py-4 bg-gray-50"
+                                  className="px-6 py-4 bg-[#020617]"
                                 >
                                   <div className="space-y-2">
                                     <h4 className="font-semibold text-gray-700 mb-3">
@@ -794,14 +794,14 @@ export default function AdminUsersPage() {
                   <button
                     onClick={() => setPage(Math.max(1, page - 1))}
                     disabled={page === 1}
-                    className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                    className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-[#020617] disabled:opacity-50"
                   >
                     Previous
                   </button>
                   <button
                     onClick={() => setPage(Math.min(totalPages, page + 1))}
                     disabled={page === totalPages}
-                    className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                    className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-[#020617] disabled:opacity-50"
                   >
                     Next
                   </button>
@@ -828,7 +828,7 @@ export default function AdminUsersPage() {
                       <button
                         onClick={() => setPage(Math.max(1, page - 1))}
                         disabled={page === 1}
-                        className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                        className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-[#020617] disabled:opacity-50"
                       >
                         <span className="sr-only">Previous</span>
                         <FaChevronDown className="h-5 w-5 transform rotate-90" />
@@ -849,7 +849,7 @@ export default function AdminUsersPage() {
                             className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
                               page === p
                                 ? "z-10 bg-blue-50 border-blue-500 text-blue-600"
-                                : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50"
+                                : "bg-white border-gray-300 text-gray-500 hover:bg-[#020617]"
                             }`}
                           >
                             {p}
@@ -859,7 +859,7 @@ export default function AdminUsersPage() {
                       <button
                         onClick={() => setPage(Math.min(totalPages, page + 1))}
                         disabled={page === totalPages}
-                        className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                        className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-[#020617] disabled:opacity-50"
                       >
                         <span className="sr-only">Next</span>
                         <FaChevronDown className="h-5 w-5 transform -rotate-90" />
@@ -963,11 +963,11 @@ export default function AdminUsersPage() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Grade Levels (Select all that apply)
                   </label>
-                  <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto border rounded-md p-3 bg-gray-50">
+                  <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto border rounded-md p-3 bg-[#020617]">
                     {ALL_GRADES.map((grade) => (
                       <label
                         key={grade}
-                        className="flex items-center space-x-2 text-sm cursor-pointer hover:bg-gray-100 p-1 rounded"
+                        className="flex items-center space-x-2 text-sm cursor-pointer hover:bg-[#0F172A] p-1 rounded"
                       >
                         <input
                           type="checkbox"
@@ -995,7 +995,7 @@ export default function AdminUsersPage() {
                 <button
                   type="button"
                   onClick={() => setIsCreateModalOpen(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-[#020617]"
                 >
                   Cancel
                 </button>
@@ -1098,11 +1098,11 @@ export default function AdminUsersPage() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Grade Levels (Select all that apply)
                   </label>
-                  <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto border rounded-md p-3 bg-gray-50">
+                  <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto border rounded-md p-3 bg-[#020617]">
                     {ALL_GRADES.map((grade) => (
                       <label
                         key={grade}
-                        className="flex items-center space-x-2 text-sm cursor-pointer hover:bg-gray-100 p-1 rounded"
+                        className="flex items-center space-x-2 text-sm cursor-pointer hover:bg-[#0F172A] p-1 rounded"
                       >
                         <input
                           type="checkbox"
@@ -1130,7 +1130,7 @@ export default function AdminUsersPage() {
                 <button
                   type="button"
                   onClick={() => setIsEditModalOpen(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-[#020617]"
                 >
                   Cancel
                 </button>
@@ -1210,7 +1210,7 @@ export default function AdminUsersPage() {
                 <button
                   type="button"
                   onClick={() => setIsSubscriptionModalOpen(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-[#020617]"
                 >
                   Cancel
                 </button>

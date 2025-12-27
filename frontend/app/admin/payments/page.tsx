@@ -145,7 +145,7 @@ export default function AdminPaymentsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 pt-24">
+    <div className="min-h-screen bg-[#020617] py-8 pt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
@@ -233,7 +233,7 @@ export default function AdminPaymentsPage() {
 
         {/* Table */}
         <div className="bg-white rounded-lg shadow overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+          <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-900">
               Transactions
             </h2>
@@ -253,7 +253,7 @@ export default function AdminPaymentsPage() {
           ) : (
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+                <thead className="bg-[#020617]">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       Date
@@ -283,7 +283,7 @@ export default function AdminPaymentsPage() {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {items.map((p) => (
-                    <tr key={p.id} className="hover:bg-gray-50">
+                    <tr key={p.id} className="hover:bg-[#020617]">
                       <td className="px-6 py-3 text-sm text-gray-700 whitespace-nowrap">
                         {new Date(p.created_at).toLocaleString()}
                       </td>
@@ -316,7 +316,7 @@ export default function AdminPaymentsPage() {
                               ? "bg-amber-100 text-amber-800"
                               : p.status === "FAILED"
                               ? "bg-red-100 text-red-800"
-                              : "bg-gray-100 text-gray-700"
+                              : "bg-[#0F172A] text-gray-700"
                           }`}
                         >
                           {p.status}
@@ -348,8 +348,8 @@ export default function AdminPaymentsPage() {
                 disabled={page <= 1 || loading}
                 className={`px-3 py-2 rounded-md text-sm font-semibold ${
                   page <= 1 || loading
-                    ? "bg-gray-100 text-gray-400"
-                    : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
+                    ? "bg-[#0F172A] text-gray-400"
+                    : "bg-white border border-gray-300 text-gray-700 hover:bg-[#020617]"
                 }`}
               >
                 Prev
@@ -361,8 +361,8 @@ export default function AdminPaymentsPage() {
                 disabled={page >= totalPages || loading}
                 className={`px-3 py-2 rounded-md text-sm font-semibold ${
                   page >= totalPages || loading
-                    ? "bg-gray-100 text-gray-400"
-                    : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
+                    ? "bg-[#0F172A] text-gray-400"
+                    : "bg-white border border-gray-300 text-gray-700 hover:bg-[#020617]"
                 }`}
               >
                 Next
@@ -379,7 +379,7 @@ export default function AdminPaymentsPage() {
         {selectedPayment && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+              <div className="px-6 py-4 border-b border-white/10 flex justify-between items-center">
                 <h3 className="text-lg font-semibold text-gray-900">
                   Payment Details
                 </h3>
@@ -421,7 +421,7 @@ export default function AdminPaymentsPage() {
                             ? "bg-amber-100 text-amber-800"
                             : selectedPayment.status === "FAILED"
                             ? "bg-red-100 text-red-800"
-                            : "bg-gray-100 text-gray-700"
+                            : "bg-[#0F172A] text-gray-700"
                         }`}
                       >
                         {selectedPayment.status}
@@ -459,7 +459,7 @@ export default function AdminPaymentsPage() {
                   <h4 className="text-sm font-semibold text-gray-900 mb-2">
                     M-Pesa Result
                   </h4>
-                  <div className="bg-gray-50 p-3 rounded-md text-sm text-gray-700">
+                  <div className="bg-[#020617] p-3 rounded-md text-sm text-gray-700">
                     {selectedPayment.result_desc ||
                       "No result description available."}
                   </div>
@@ -470,7 +470,7 @@ export default function AdminPaymentsPage() {
                     <h4 className="text-sm font-semibold text-gray-900 mb-2">
                       Metadata
                     </h4>
-                    <div className="bg-gray-50 p-3 rounded-md overflow-x-auto">
+                    <div className="bg-[#020617] p-3 rounded-md overflow-x-auto">
                       <pre className="text-xs text-gray-700">
                         {JSON.stringify(
                           selectedPayment.mpesa_metadata,
@@ -500,7 +500,7 @@ export default function AdminPaymentsPage() {
               <div className="px-6 py-4 border-t border-gray-200 flex justify-end">
                 <button
                   onClick={() => setSelectedPayment(null)}
-                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 font-medium"
+                  className="px-4 py-2 bg-[#0F172A] text-gray-700 rounded-md hover:bg-gray-200 font-medium"
                 >
                   Close
                 </button>

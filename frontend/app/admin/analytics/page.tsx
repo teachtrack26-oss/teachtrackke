@@ -140,7 +140,7 @@ export default function AdminAnalyticsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8 pt-24">
+    <div className="min-h-screen bg-[#020617] p-8 pt-24">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -189,7 +189,7 @@ export default function AdminAnalyticsPage() {
                   To view your live analytics here, create a shared dashboard in
                   PostHog and add the URL to your environment variables.
                 </p>
-                <div className="bg-gray-50 p-4 rounded text-left text-sm font-mono text-gray-700 mb-4 break-all">
+                <div className="bg-[#020617] p-4 rounded text-left text-sm font-mono text-gray-700 mb-4 break-all">
                   NEXT_PUBLIC_POSTHOG_DASHBOARD_URL=https://eu.posthog.com/embedded/...
                 </div>
               </div>
@@ -364,7 +364,7 @@ export default function AdminAnalyticsPage() {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {analytics.department_stats.map((dept, index) => (
-                  <div key={index} className="p-4 border rounded-lg bg-gray-50">
+                  <div key={index} className="p-4 border rounded-lg bg-[#020617]">
                     <h4 className="font-bold text-primary-600">{dept.name}</h4>
                     <p className="text-sm text-gray-600 mt-1">
                       HOD: {dept.hod}
@@ -509,14 +509,14 @@ export default function AdminAnalyticsPage() {
 
         {/* Teacher Engagement Table */}
         <div className="bg-white rounded-lg shadow overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-200">
+          <div className="px-6 py-4 border-b border-white/10">
             <h3 className="text-lg font-semibold text-gray-900">
               Teacher Engagement Metrics
             </h3>
           </div>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+              <thead className="bg-[#020617]">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Teacher Email
@@ -534,7 +534,7 @@ export default function AdminAnalyticsPage() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {analytics.teacher_engagement.map((teacher) => (
-                  <tr key={teacher.user_id} className="hover:bg-gray-50">
+                  <tr key={teacher.user_id} className="hover:bg-[#020617]">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {teacher.email}
                     </td>
@@ -559,7 +559,7 @@ export default function AdminAnalyticsPage() {
                         className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                           teacher.subjects > 0
                             ? "bg-green-100 text-green-800"
-                            : "bg-gray-100 text-gray-800"
+                            : "bg-[#0F172A] text-gray-800"
                         }`}
                       >
                         {teacher.subjects > 0 ? "Active" : "Inactive"}

@@ -256,7 +256,7 @@ export default function CurriculumManagementPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 pt-24">
+    <div className="min-h-screen bg-[#020617] py-8 pt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8 flex justify-between items-center">
@@ -271,14 +271,14 @@ export default function CurriculumManagementPage() {
           <div className="flex gap-2">
             <button
               onClick={() => toast.success("Export feature coming soon!")}
-              className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 flex items-center gap-2"
+              className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-[#020617] flex items-center gap-2"
             >
               <FiDownload />
               Export
             </button>
             <button
               onClick={() => toast.success("Import feature coming soon!")}
-              className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 flex items-center gap-2"
+              className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-[#020617] flex items-center gap-2"
             >
               <FiUpload />
               Import
@@ -350,7 +350,7 @@ export default function CurriculumManagementPage() {
                 value={filterGrade}
                 onChange={(e) => setFilterGrade(e.target.value)}
                 disabled={!filterLevel}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 disabled:bg-gray-100"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 disabled:bg-[#0F172A]"
               >
                 <option value="">All Grades</option>
                 {filterLevel &&
@@ -431,7 +431,7 @@ export default function CurriculumManagementPage() {
             EDUCATION_LEVELS.filter((level) => groupedTemplates[level]).map(
               (level) => (
                 <div key={level} className="bg-white rounded-lg shadow">
-                  <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
+                  <div className="px-6 py-4 border-b border-white/10 bg-[#020617]">
                     <h2 className="text-xl font-bold text-gray-900">{level}</h2>
                     <p className="text-sm text-gray-600">
                       {groupedTemplates[level].length} subject(s)
@@ -439,7 +439,7 @@ export default function CurriculumManagementPage() {
                   </div>
                   <div className="overflow-x-auto">
                     <table className="min-w-full divide-y divide-gray-200">
-                      <thead className="bg-gray-50">
+                      <thead className="bg-[#020617]">
                         <tr>
                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                             Subject Name
@@ -460,7 +460,7 @@ export default function CurriculumManagementPage() {
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200">
                         {groupedTemplates[level].map((template) => (
-                          <tr key={template.id} className="hover:bg-gray-50">
+                          <tr key={template.id} className="hover:bg-[#020617]">
                             <td className="px-6 py-4">
                               <div className="font-medium text-gray-900">
                                 {template.subject}
@@ -580,7 +580,7 @@ export default function CurriculumManagementPage() {
                       setFormData({ ...formData, grade: e.target.value })
                     }
                     disabled={!formData.education_level}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 disabled:bg-gray-100"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 disabled:bg-[#0F172A]"
                     required
                   >
                     <option value="">Select Grade</option>
@@ -636,7 +636,7 @@ export default function CurriculumManagementPage() {
                       setShowAddModal(false);
                       resetForm();
                     }}
-                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-[#020617]"
                   >
                     Cancel
                   </button>
@@ -707,7 +707,7 @@ export default function CurriculumManagementPage() {
                       setFormData({ ...formData, grade: e.target.value })
                     }
                     disabled={!formData.education_level}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 disabled:bg-gray-100"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 disabled:bg-[#0F172A]"
                     required
                   >
                     <option value="">Select Grade</option>
@@ -763,7 +763,7 @@ export default function CurriculumManagementPage() {
                       setShowEditModal(false);
                       resetForm();
                     }}
-                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-[#020617]"
                   >
                     Cancel
                   </button>

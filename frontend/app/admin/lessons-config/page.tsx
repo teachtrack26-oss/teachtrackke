@@ -340,8 +340,8 @@ export default function LessonsConfigPage() {
                   return (
                     <tr
                       key={`${config.subject_name}-${config.grade}`}
-                      className={`border-b border-gray-100 hover:bg-primary-50/50 transition-colors ${
-                        index % 2 === 0 ? "bg-gray-50/50" : ""
+                      className={`border-b border-white/10 hover:bg-primary-50/50 transition-colors ${
+                        index % 2 === 0 ? "bg-[#020617]/50" : ""
                       }`}
                     >
                       <td className="py-4 px-4 font-medium text-gray-900">
@@ -453,7 +453,7 @@ export default function LessonsConfigPage() {
                             </button>
                             <button
                               onClick={cancelEditing}
-                              className="bg-gray-400 text-white px-3 py-1 rounded-lg hover:bg-gray-500 transition-colors"
+                              className="bg-gray-400 text-white px-3 py-1 rounded-lg hover:bg-[#020617]0 transition-colors"
                             >
                               Cancel
                             </button>

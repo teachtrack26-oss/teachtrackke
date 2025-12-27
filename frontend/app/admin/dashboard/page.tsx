@@ -232,7 +232,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 pt-24">
+    <div className="min-h-screen bg-[#020617] py-8 pt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
@@ -364,7 +364,7 @@ export default function AdminDashboard() {
         {/* Payments Overview - Super Admin Only */}
         {isSuperAdmin && (
           <div className="bg-white rounded-lg shadow overflow-hidden mb-8">
-            <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+            <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
               <div>
                 <h2 className="text-lg font-semibold text-gray-900">
                   Payments Overview
@@ -383,21 +383,21 @@ export default function AdminDashboard() {
 
             <div className="px-6 py-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <div className="bg-gray-50 rounded-lg p-4">
+                <div className="bg-[#020617] rounded-lg p-4">
                   <div className="text-sm text-gray-500">Total Revenue</div>
                   <div className="text-xl font-bold text-gray-900">
                     KES{" "}
                     {Number(paymentStats?.total_revenue || 0).toLocaleString()}
                   </div>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4">
+                <div className="bg-[#020617] rounded-lg p-4">
                   <div className="text-sm text-gray-500">Today</div>
                   <div className="text-xl font-bold text-gray-900">
                     KES{" "}
                     {Number(paymentStats?.revenue_today || 0).toLocaleString()}
                   </div>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4">
+                <div className="bg-[#020617] rounded-lg p-4">
                   <div className="text-sm text-gray-500">Completed</div>
                   <div className="text-xl font-bold text-gray-900">
                     {paymentStats?.total_completed ?? 0}
@@ -410,7 +410,7 @@ export default function AdminDashboard() {
               ) : (
                 <div className="overflow-x-auto">
                   <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
+                    <thead className="bg-[#020617]">
                       <tr>
                         <th className="px-4 py-2 text-left text-xs font-semibold text-gray-600 uppercase">
                           Date
@@ -428,7 +428,7 @@ export default function AdminDashboard() {
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
                       {recentPayments.map((p) => (
-                        <tr key={p.id} className="hover:bg-gray-50">
+                        <tr key={p.id} className="hover:bg-[#020617]">
                           <td className="px-4 py-2 text-sm text-gray-700 whitespace-nowrap">
                             {new Date(p.created_at).toLocaleString()}
                           </td>
@@ -452,7 +452,7 @@ export default function AdminDashboard() {
                                   ? "bg-amber-100 text-amber-800"
                                   : p.status === "FAILED"
                                   ? "bg-red-100 text-red-800"
-                                  : "bg-gray-100 text-gray-700"
+                                  : "bg-[#0F172A] text-gray-700"
                               }`}
                             >
                               {p.status}
@@ -471,7 +471,7 @@ export default function AdminDashboard() {
         {/* Pricing Control - Super Admin Only */}
         {isSuperAdmin && (
           <div className="bg-white rounded-lg shadow overflow-hidden mb-8">
-            <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+            <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
               <div>
                 <h2 className="text-lg font-semibold text-gray-900">
                   Pricing Control
@@ -621,7 +621,7 @@ export default function AdminDashboard() {
 
         {/* Recent Activity Section */}
         <div className="bg-white rounded-lg shadow overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+          <div className="px-6 py-4 border-b border-white/10 flex justify-between items-center">
             <h2 className="text-lg font-semibold text-gray-900">
               Recent Curriculum Updates
             </h2>
@@ -637,7 +637,7 @@ export default function AdminDashboard() {
               recentTemplates.map((template) => (
                 <div
                   key={template.id}
-                  className="px-6 py-4 hover:bg-gray-50 transition-colors flex items-center justify-between"
+                  className="px-6 py-4 hover:bg-[#020617] transition-colors flex items-center justify-between"
                 >
                   <div>
                     <h3 className="text-sm font-medium text-gray-900">

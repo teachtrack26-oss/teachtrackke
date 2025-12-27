@@ -1103,7 +1103,7 @@ export default function SchoolSettingsPage() {
                                       stream.pupils
                                     )
                                   }
-                                  className="text-xs text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded-md hover:bg-gray-200 flex items-center gap-1"
+                                  className="text-xs text-gray-500 bg-[#0F172A] px-1.5 py-0.5 rounded-md hover:bg-gray-200 flex items-center gap-1"
                                   title="Click to edit number of pupils"
                                 >
                                   {stream.pupils} pupils{" "}

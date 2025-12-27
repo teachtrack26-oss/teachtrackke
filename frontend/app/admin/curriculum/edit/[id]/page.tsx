@@ -442,7 +442,7 @@ export default function EditCurriculumPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-[#020617] p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
@@ -587,7 +587,7 @@ export default function EditCurriculumPage() {
                 className="border border-gray-200 rounded-lg"
               >
                 {/* Strand Header */}
-                <div className="bg-gray-50 p-4 flex items-center justify-between">
+                <div className="bg-[#020617] p-4 flex items-center justify-between">
                   <div className="flex items-center flex-1">
                     <button
                       onClick={() => toggleStrand(strand.id)}
@@ -685,7 +685,7 @@ export default function EditCurriculumPage() {
                         <div
                           key={substrand.id}
                           id={`item-${substrand.id}`}
-                          className="border border-gray-200 rounded-lg p-4 bg-gray-50"
+                          className="border border-gray-200 rounded-lg p-4 bg-[#020617]"
                         >
                           <div className="flex items-start justify-between mb-3">
                             <div className="flex-1">

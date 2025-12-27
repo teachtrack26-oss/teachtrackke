@@ -153,7 +153,7 @@ export default function ImportCurriculumPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-24 pb-12">
+    <div className="min-h-screen bg-[#020617] pt-24 pb-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
@@ -272,7 +272,7 @@ export default function ImportCurriculumPage() {
           ) : (
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+                <thead className="bg-[#020617]">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Subject
@@ -296,7 +296,7 @@ export default function ImportCurriculumPage() {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {curricula.map((curriculum) => (
-                    <tr key={curriculum.id} className="hover:bg-gray-50">
+                    <tr key={curriculum.id} className="hover:bg-[#020617]">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm font-medium text-gray-900">
                           {curriculum.subject}
@@ -317,7 +317,7 @@ export default function ImportCurriculumPage() {
                           className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
                             curriculum.is_active
                               ? "bg-green-100 text-green-800"
-                              : "bg-gray-100 text-gray-800"
+                              : "bg-[#0F172A] text-gray-800"
                           }`}
                         >
                           {curriculum.is_active ? "Active" : "Inactive"}
