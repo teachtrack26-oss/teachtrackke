@@ -1,20 +1,53 @@
 @import "tailwindcss";
 
 :root {
-  --primary: 221.2 83.2% 53.3%;
+  /* Saatosa Theme Variables */
+  /* Background: Deep Navy/Black (#020617) */
+  --background: 222.2 84% 4.9%; 
+  /* Foreground: White text on the dark background */
+  --foreground: 210 40% 98%;
+  
+  /* Cards: Pure White to pop against opacity */
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+ 
+  --primary: 221.2 83.2% 53.3%; /* Electric Blue */
   --primary-foreground: 210 40% 98%;
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
+  
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+}
+
+body {
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+  /* glowing background mashups */
+  background-image: 
+    radial-gradient(at 50% 0%, rgba(29, 78, 216, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(29, 78, 216, 0.1) 0px, transparent 50%);
+  background-attachment: fixed;
 }
 
 /* Glassmorphism and Premium Effects */
 .glass-card {
-  background: rgba(255, 255, 255, 0.85);
+  /* White Card with high opacity to stand out on dark bg (Like Saatosa Pricing) */
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05), 0 0 20px -5px rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   border-radius: 1.5rem;
+  
+  /* Ensure text inside card uses dark color */
+  color: #0f172a; 
+}
+
+/* Force headings inside glass-cards to be dark */
+.glass-card h1, .glass-card h2, .glass-card h3, .glass-card h4, .glass-card h5, .glass-card h6 {
+    color: #0f172a;
+}
+.glass-card p, .glass-card span, .glass-card div {
+    /* cascade color or explicit if needed, usually inherits from color: #0f172a */
 }
 
 .glass-button {
