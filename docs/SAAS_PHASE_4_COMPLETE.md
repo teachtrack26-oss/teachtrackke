@@ -119,8 +119,8 @@ The core SaaS infrastructure is now **COMPLETE**!
 
 ### Remaining (Optional):
 *   **Payment Integration**: Connect Stripe/M-Pesa for actual subscriptions.
-*   **Email Notifications**: Notify users when they're upgraded/banned.
-*   **Advanced Analytics**: Charts and graphs for growth tracking.
+*   ✅ **Email Notifications**: Integrated Resend for transactional emails (Welcome, Invite, Reset).
+*   ✅ **Advanced Analytics**: Integrated PostHog embedded dashboard.
 
 ---
 

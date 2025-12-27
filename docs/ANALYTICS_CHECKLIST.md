@@ -29,20 +29,20 @@
 - [ ] F2. Analyze Drop-Off Points
 
 ## 🅶 SESSION RECORDINGS & HEATMAPS
-- [ ] G1. Enable Session Recording (UI)
+- [x] G1. Enable Session Recording (UI)
 - [x] G2. Mask Sensitive Fields (`ph-no-capture`)
 
 ## 🅷 DASHBOARDS (WHAT YOU SEE DAILY)
-- [ ] H1. Create “Founder Dashboard”
-- [ ] H2. Create “Engagement Dashboard”
+- [x] H1. Create “Founder Dashboard”
+- [x] H2. Create “Engagement Dashboard” (Embedded in Super Admin)
 
 ## 🅸 PRIVACY & COMPLIANCE (EDUCATION SAFE)
-- [ ] I1. No PII in Events
+- [x] I1. No PII in Events
 - [ ] I2. Update Privacy Policy
 
 ## 🅹 TESTING & VALIDATION
-- [ ] J1. Local Testing
-- [ ] J2. Production Smoke Test
+- [x] J1. Local Testing
+- [x] J2. Production Smoke Test
 
 ## 🅺 MONITORING & COST CONTROL
 - [ ] K1. Monitor Monthly Event Usage
