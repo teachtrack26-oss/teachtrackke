@@ -152,6 +152,51 @@ export default function AdminAnalyticsPage() {
           </p>
         </div>
 
+        {/* PostHog Embedded Dashboard */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold text-gray-900">
+              Product Analytics (PostHog)
+            </h2>
+            <a
+              href="https://eu.posthog.com/dashboard"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-indigo-600 hover:text-indigo-800 text-sm font-medium"
+            >
+              Open in PostHog &rarr;
+            </a>
+          </div>
+          {process.env.NEXT_PUBLIC_POSTHOG_DASHBOARD_URL ? (
+            <div className="bg-white rounded-lg shadow overflow-hidden h-[800px] border border-gray-200">
+              <iframe
+                src={process.env.NEXT_PUBLIC_POSTHOG_DASHBOARD_URL}
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          ) : (
+            <div className="bg-white rounded-lg shadow p-8 text-center border-2 border-dashed border-gray-300">
+              <div className="max-w-md mx-auto">
+                <FaChartLine className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  Connect PostHog Dashboard
+                </h3>
+                <p className="text-gray-500 mb-6">
+                  To view your live analytics here, create a shared dashboard in
+                  PostHog and add the URL to your environment variables.
+                </p>
+                <div className="bg-gray-50 p-4 rounded text-left text-sm font-mono text-gray-700 mb-4 break-all">
+                  NEXT_PUBLIC_POSTHOG_DASHBOARD_URL=https://eu.posthog.com/embedded/...
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
         {/* Overview Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow p-6">
