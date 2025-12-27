@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900 transition-colors duration-300`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#020617] text-slate-50 transition-colors duration-300 min-h-screen selection:bg-primary-500 selection:text-white`}
       >
         <Providers>
           <Navbar />
