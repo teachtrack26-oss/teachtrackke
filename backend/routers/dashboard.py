@@ -9,6 +9,7 @@ from database import get_db
 from models import User, Subject, Lesson, ProgressLog, Note, Term
 from dependencies import get_current_user
 from config import settings
+from cache_manager import cache
 
 router = APIRouter(
     prefix=f"{settings.API_V1_PREFIX}/dashboard",
@@ -16,6 +17,7 @@ router = APIRouter(
 )
 
 @router.get("/stats")
+@cache.cache_response(key_prefix="dashboard_stats", ttl=300)
 def get_dashboard_stats(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
@@ -46,6 +48,7 @@ def get_dashboard_stats(
     }
 
 @router.get("/insights")
+@cache.cache_response(key_prefix="dashboard_insights", ttl=3600)
 def get_teaching_insights(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
@@ -116,6 +119,7 @@ def get_teaching_insights(
     }
 
 @router.get("/deadlines")
+@cache.cache_response(key_prefix="dashboard_deadlines", ttl=1800)
 def get_upcoming_deadlines(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
@@ -162,6 +166,7 @@ def get_upcoming_deadlines(
     return deadlines
 
 @router.get("/resources")
+@cache.cache_response(key_prefix="dashboard_resources", ttl=600)
 def get_recent_resources(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)

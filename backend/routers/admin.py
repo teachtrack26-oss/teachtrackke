@@ -19,6 +19,7 @@ from schemas import (
 )
 from dependencies import get_current_user, get_current_super_admin, get_current_admin_user
 from config import settings
+from cache_manager import cache
 from auth import create_access_token, get_password_hash
 import logging
 import traceback
@@ -201,6 +202,7 @@ def list_payments(
 
 
 @router.get("/payments/stats", response_model=AdminPaymentStatsResponse)
+@cache.cache_response(key_prefix="admin_payment_stats", ttl=300)
 def payment_stats(
     current_user: User = Depends(get_current_super_admin),
     db: Session = Depends(get_db),
@@ -306,6 +308,7 @@ def update_pricing_config_admin(
 # ============================================================================
 
 @router.get("/stats")
+@cache.cache_response(key_prefix="admin_stats", ttl=300)
 def get_platform_stats(
     current_user: User = Depends(get_current_super_admin),
     db: Session = Depends(get_db)
