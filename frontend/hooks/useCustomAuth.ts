@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
+import posthog from "posthog-js";
 
 // Cache duration in milliseconds (5 minutes)
 const AUTH_CACHE_DURATION = 5 * 60 * 1000;
@@ -64,6 +65,12 @@ export function useCustomAuth(requireAuth = true) {
         setUser(globalAuthCache.user);
         setIsAuthenticated(true);
         setLoading(false);
+        // Identify even on cache hit to ensure session continuity
+        posthog.identify(String(globalAuthCache.user.id), {
+            email: globalAuthCache.user.email,
+            role: globalAuthCache.user.role,
+            school_id: globalAuthCache.user.school_id
+        });
         return;
       }
 
@@ -96,6 +103,13 @@ export function useCustomAuth(requireAuth = true) {
         });
 
         if (res.data) {
+          // Identify User in PostHog
+          posthog.identify(String(res.data.id), {
+            email: res.data.email,
+            role: res.data.role,
+            school_id: res.data.school_id
+          });
+
           // Update global cache
           globalAuthCache = {
             user: res.data,
@@ -138,6 +152,7 @@ export function useCustomAuth(requireAuth = true) {
       setIsAuthenticated(false);
       setLoading(false);
       hasCheckedRef.current = true;
+      posthog.reset(); // Key: Reset posthog if auth check fails
 
       if (requireAuth) {
         router.push("/login");
@@ -165,6 +180,9 @@ export function useCustomAuth(requireAuth = true) {
 
     setUser(null);
     setIsAuthenticated(false);
+    
+    // Reset PostHog Session
+    posthog.reset();
 
     toast.success("Logged out successfully");
     window.location.href = "/";

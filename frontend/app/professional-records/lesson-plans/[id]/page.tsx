@@ -25,6 +25,7 @@ import {
 } from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
+import posthog from "posthog-js";
 
 interface LessonPlan {
   id: number;
@@ -125,7 +126,14 @@ export default function ViewLessonPlanPage() {
       window.URL.revokeObjectURL(url);
 
       toast.dismiss(loadingToast);
+      toast.dismiss(loadingToast);
       toast.success("PDF downloaded successfully!");
+
+      posthog.capture('lesson_plan_downloaded', {
+          count: 1,
+          method: 'single'
+      });
+
     } catch (error) {
       console.error("Failed to generate PDF:", error);
       toast.dismiss(loadingToast);

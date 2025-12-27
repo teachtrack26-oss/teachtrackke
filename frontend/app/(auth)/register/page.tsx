@@ -431,7 +431,7 @@ export default function RegisterPage() {
                       required
                       value={formData.password}
                       onChange={handleChange}
-                      className="w-full px-4 py-2.5 pr-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white text-gray-900 placeholder-gray-400"
+                      className="w-full px-4 py-2.5 pr-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white text-gray-900 placeholder-gray-400 ph-no-capture"
                       placeholder="••••••••"
                     />
                     <button

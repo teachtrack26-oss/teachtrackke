@@ -36,6 +36,7 @@ import {
 import axios from "axios";
 import toast from "react-hot-toast";
 import { getCachedData, setCachedData, CACHE_KEYS } from "@/lib/dataCache";
+import posthog from "posthog-js";
 
 interface Subject {
   id: number;
@@ -386,6 +387,12 @@ export default function ProfessionalRecordsPage() {
       window.URL.revokeObjectURL(url);
       
       toast.success("PDF bundle downloaded successfully!", { id: toastId });
+      
+      posthog.capture('lesson_plan_downloaded', {
+          count: selectedPlans.length,
+          method: 'bulk'
+      });
+
       setSelectedPlans([]);
     } catch (error: any) {
       console.error("Bulk download failed:", error);

@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import GoogleSignInButton from "@/components/auth/GoogleSignInButton";
+import posthog from "posthog-js";
 
 function LoginForm() {
   const router = useRouter();
@@ -109,6 +110,8 @@ function LoginForm() {
 
       if (userResponse.ok) {
         const user = await userResponse.json();
+
+        posthog.capture("teacher_login", { method: "email" });
 
         // Store user info in localStorage (but NOT the token)
         // localStorage.setItem("accessToken", data.access_token); // REMOVED for security
@@ -248,7 +251,7 @@ function LoginForm() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-xl focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-xl focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white ph-no-capture"
                 placeholder="••••••••"
               />
             </div>

@@ -21,6 +21,7 @@ import {
 } from "react-icons/fi";
 import axios from "axios";
 import toast from "react-hot-toast";
+import posthog from "posthog-js";
 
 interface Subject {
   id: number;
@@ -633,6 +634,11 @@ export default function SchemeGeneratorPage() {
     }
 
     setAutoPopulating(true);
+    posthog.capture('scheme_generate_clicked', {
+        method: 'auto_populate',
+        subject: formData.subject,
+        grade: formData.grade
+    });
     try {
       const payload = {
         subject_id: formData.subject_id,
@@ -702,6 +708,11 @@ export default function SchemeGeneratorPage() {
       setSchemeAlreadySaved(true);
       setSavedSchemeId(scheme.id);
       setCurrentStep(3);
+      
+      posthog.capture('scheme_created_success', {
+          method: 'auto_populate',
+          scheme_id: scheme.id
+      });
 
       toast.success(
         `🎉 Auto-populated ${generatedWeeks.length} weeks with ${scheme.total_lessons} lessons from curriculum!`
@@ -880,6 +891,11 @@ export default function SchemeGeneratorPage() {
 
       const response = await axios.post("/api/v1/schemes", schemeData, {
         withCredentials: true,
+      });
+
+      posthog.capture('scheme_created_success', {
+          method: 'manual_save',
+          scheme_id: response.data.id
       });
 
       toast.success("Scheme of work created successfully!");
