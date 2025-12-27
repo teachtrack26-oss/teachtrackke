@@ -184,7 +184,7 @@ export default function CurriculumSelectPage() {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -196,7 +196,7 @@ export default function CurriculumSelectPage() {
         <div className="mb-8">
           <button
             onClick={() => router.back()}
-            className="text-indigo-600 hover:text-indigo-700 mb-4 inline-flex items-center"
+            className="text-primary-600 hover:text-primary-700 mb-4 inline-flex items-center"
           >
             ← Back
           </button>
@@ -214,7 +214,7 @@ export default function CurriculumSelectPage() {
           {/* Grade Selection */}
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-              <span className="flex items-center justify-center w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full mr-3 font-bold text-sm">
+              <span className="flex items-center justify-center w-8 h-8 bg-primary-100 text-primary-600 rounded-full mr-3 font-bold text-sm">
                 1
               </span>
               Select Your Grade Level
@@ -223,7 +223,7 @@ export default function CurriculumSelectPage() {
               required
               value={selectedGrade}
               onChange={(e) => setSelectedGrade(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             >
               <option value="">Choose a grade...</option>
               {GRADES.map((grade) => (
@@ -239,7 +239,7 @@ export default function CurriculumSelectPage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center justify-between">
                 <div className="flex items-center">
-                  <span className="flex items-center justify-center w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full mr-3 font-bold text-sm">
+                  <span className="flex items-center justify-center w-8 h-8 bg-primary-100 text-primary-600 rounded-full mr-3 font-bold text-sm">
                     2
                   </span>
                   Select Subject Curriculum
@@ -255,7 +255,7 @@ export default function CurriculumSelectPage() {
                 <div className="mb-4 flex justify-end">
                   <button
                     onClick={toggleSelectAll}
-                    className="text-sm font-medium text-indigo-600 hover:text-indigo-800"
+                    className="text-sm font-medium text-primary-600 hover:text-primary-800"
                   >
                     {filteredTemplates.length > 0 &&
                     filteredTemplates.every((t) =>
@@ -269,7 +269,7 @@ export default function CurriculumSelectPage() {
 
               {loading ? (
                 <div className="flex items-center justify-center py-12">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
                 </div>
               ) : filteredTemplates.length === 0 ? (
                 <div className="flex items-start space-x-3 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
@@ -294,20 +294,20 @@ export default function CurriculumSelectPage() {
                       onClick={() => toggleTemplate(template.id)}
                       className={`relative p-5 border-2 rounded-lg text-left transition-all ${
                         selectedTemplates.includes(template.id)
-                          ? "border-indigo-600 bg-indigo-50"
-                          : "border-gray-200 hover:border-indigo-300 bg-white"
+                          ? "border-primary-600 bg-primary-50"
+                          : "border-gray-200 hover:border-primary-300 bg-white"
                       }`}
                     >
                       <div className="flex items-start space-x-3">
                         <div
                           className={`mt-1 ${
                             selectedTemplates.includes(template.id)
-                              ? "text-indigo-600"
+                              ? "text-primary-600"
                               : "text-gray-400"
                           }`}
                         >
                           {selectedTemplates.includes(template.id) ? (
-                            <div className="w-5 h-5 bg-indigo-600 rounded flex items-center justify-center">
+                            <div className="w-5 h-5 bg-primary-600 rounded flex items-center justify-center">
                               <FiCheck className="w-3 h-3 text-white" />
                             </div>
                           ) : (
@@ -358,7 +358,7 @@ export default function CurriculumSelectPage() {
                       return (
                         <span
                           key={grade}
-                          className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800"
+                          className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800"
                         >
                           {grade}: {count} subject{count !== 1 ? "s" : ""}
                         </span>
@@ -385,7 +385,7 @@ export default function CurriculumSelectPage() {
                     user?.subscription_type === "FREE" &&
                     selectedTemplates.length > 2
                       ? "bg-gray-400 text-white cursor-not-allowed"
-                      : "bg-indigo-600 text-white hover:bg-indigo-700"
+                      : "bg-primary-600 text-white hover:bg-primary-700"
                   }`}
                 >
                   {addingTemplate ? (
@@ -450,7 +450,7 @@ export default function CurriculumSelectPage() {
             Have a custom curriculum document?{" "}
             <button
               onClick={() => router.push("/curriculum/upload")}
-              className="text-indigo-600 hover:text-indigo-700 font-medium"
+              className="text-primary-600 hover:text-primary-700 font-medium"
             >
               Upload it here
             </button>

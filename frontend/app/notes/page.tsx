@@ -255,7 +255,7 @@ export default function NotesPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -279,7 +279,7 @@ export default function NotesPage() {
     <div className="min-h-screen bg-gray-50 relative overflow-hidden">
       {/* Premium Animated Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-400/20 rounded-full blur-[128px] animate-blob"></div>
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-400/20 rounded-full blur-[128px] animate-blob"></div>
         <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-400/20 rounded-full blur-[128px] animate-blob animation-delay-2000"></div>
         <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-pink-400/20 rounded-full blur-[128px] animate-blob animation-delay-4000"></div>
       </div>
@@ -288,10 +288,10 @@ export default function NotesPage() {
         {/* Premium Header */}
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary-600 to-purple-600 flex items-center justify-center shadow-lg">
               <FiBook className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
               My Notes
             </h1>
           </div>
@@ -309,12 +309,12 @@ export default function NotesPage() {
               placeholder="Search notes by title, description, or tags..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm transition-all"
+              className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-2xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 shadow-sm transition-all"
             />
           </div>
           <button
             onClick={() => setShowUploadModal(true)}
-            className="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg shadow-indigo-200 hover:shadow-indigo-300 transition-all"
+            className="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-primary-600 to-purple-600 hover:from-primary-700 hover:to-purple-700 text-white rounded-2xl font-semibold shadow-lg shadow-indigo-200 hover:shadow-indigo-300 transition-all"
           >
             <FiPlus className="w-5 h-5" />
             <span>Upload Note</span>
@@ -323,13 +323,13 @@ export default function NotesPage() {
 
         {/* Notes Grid */}
         {filteredNotes.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center relative overflow-hidden group">
-            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
-            <div className="absolute -top-24 -right-24 w-48 h-48 bg-indigo-50 rounded-full blur-3xl group-hover:bg-indigo-100 transition-colors duration-500"></div>
+          <div className="glass-card border border-gray-100 p-16 text-center relative overflow-hidden group">
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary-500 via-purple-500 to-pink-500"></div>
+            <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary-50 rounded-full blur-3xl group-hover:bg-primary-100 transition-colors duration-500"></div>
             <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-50 rounded-full blur-3xl group-hover:bg-purple-100 transition-colors duration-500"></div>
 
             <div className="relative z-10">
-              <div className="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-[2rem] flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <FiBook className="w-10 h-10 text-gray-400" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3">
@@ -343,7 +343,7 @@ export default function NotesPage() {
               {!searchTerm && (
                 <button
                   onClick={() => setShowUploadModal(true)}
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-600 to-purple-600 hover:from-primary-700 hover:to-purple-700 text-white rounded-2xl font-semibold shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all"
                 >
                   <FiPlus className="w-5 h-5" />
                   <span>Upload Your First Note</span>
@@ -356,7 +356,7 @@ export default function NotesPage() {
             {filteredNotes.map((note, index) => (
               <div
                 key={note.id}
-                className="group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden hover:-translate-y-1"
+                className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden hover:-translate-y-1"
               >
                 {/* Thumbnail or file icon */}
                 {note.thumbnail_url ? (
@@ -366,7 +366,7 @@ export default function NotesPage() {
                     className="w-full h-40 object-cover"
                   />
                 ) : (
-                  <div className="flex items-center justify-center h-40 bg-gradient-to-br from-gray-50 to-gray-100 group-hover:from-indigo-50 group-hover:to-purple-50 transition-colors">
+                  <div className="flex items-center justify-center h-40 bg-gradient-to-br from-gray-50 to-gray-100 group-hover:from-primary-50 group-hover:to-purple-50 transition-colors">
                     <span className="text-5xl transform group-hover:scale-110 transition-transform">
                       {getFileIcon(note.file_type)}
                     </span>
@@ -375,7 +375,7 @@ export default function NotesPage() {
 
                 <div className="p-5">
                   <div className="flex justify-between items-start mb-3">
-                    <h3 className="text-lg font-bold text-gray-900 line-clamp-2 flex-1 group-hover:text-indigo-600 transition-colors">
+                    <h3 className="text-lg font-bold text-gray-900 line-clamp-2 flex-1 group-hover:text-primary-600 transition-colors">
                       {note.title}
                     </h3>
                     <div className="flex space-x-1 ml-2">
@@ -385,7 +385,7 @@ export default function NotesPage() {
                           setViewerNoteIndex(index);
                           setShowViewer(true);
                         }}
-                        className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
+                        className="p-2 text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all"
                         title="Present"
                       >
                         <FiPlay className="w-4 h-4" />
@@ -600,7 +600,7 @@ export default function NotesPage() {
                   <select
                     value={selectedEducationLevel}
                     onChange={(e) => handleEducationLevelChange(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   >
                     <option value="">-- Select Education Level --</option>
                     {educationLevels.map((level) => (
@@ -620,7 +620,7 @@ export default function NotesPage() {
                     <select
                       value={selectedGrade}
                       onChange={(e) => handleGradeChange(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                       disabled={!selectedEducationLevel}
                     >
                       <option value="">-- Select Grade --</option>
@@ -642,7 +642,7 @@ export default function NotesPage() {
                     <select
                       value={selectedSubjectName}
                       onChange={(e) => setSelectedSubjectName(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                       disabled={!selectedGrade}
                     >
                       <option value="">-- Select Subject --</option>

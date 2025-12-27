@@ -162,7 +162,7 @@ export default function AdminAnalyticsPage() {
               href="https://eu.posthog.com/dashboard"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-indigo-600 hover:text-indigo-800 text-sm font-medium"
+              className="text-primary-600 hover:text-primary-800 text-sm font-medium"
             >
               Open in PostHog &rarr;
             </a>
@@ -365,7 +365,7 @@ export default function AdminAnalyticsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {analytics.department_stats.map((dept, index) => (
                   <div key={index} className="p-4 border rounded-lg bg-gray-50">
-                    <h4 className="font-bold text-indigo-600">{dept.name}</h4>
+                    <h4 className="font-bold text-primary-600">{dept.name}</h4>
                     <p className="text-sm text-gray-600 mt-1">
                       HOD: {dept.hod}
                     </p>

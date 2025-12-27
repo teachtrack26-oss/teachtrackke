@@ -786,11 +786,11 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F3F4F6] relative overflow-hidden font-sans selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-[#F3F4F6] relative overflow-hidden font-sans selection:bg-primary-500 selection:text-white">
       {/* Premium Animated Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-400/30 rounded-full mix-blend-multiply filter blur-[128px] animate-blob"></div>
-        <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-400/30 rounded-full mix-blend-multiply filter blur-[128px] animate-blob animation-delay-2000"></div>
+        <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary-400/30 rounded-full mix-blend-multiply filter blur-[128px] animate-blob animation-delay-2000"></div>
         <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-pink-400/30 rounded-full mix-blend-multiply filter blur-[128px] animate-blob animation-delay-4000"></div>
         <div className="absolute inset-0 bg-grid-slate-200/50 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]"></div>
       </div>
@@ -801,7 +801,7 @@ export default function DashboardPage() {
         <div className="container mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
             <div className="flex flex-col">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
                 Dashboard
               </h1>
               <p className="text-sm text-gray-500 font-medium flex items-center gap-2 mt-0.5">
@@ -819,9 +819,9 @@ export default function DashboardPage() {
               <div className="relative">
                 <button
                   onClick={() => setShowNotifications(!showNotifications)}
-                  className="p-2.5 rounded-xl bg-white/50 border border-white/60 hover:bg-white hover:shadow-md transition-all duration-300 group relative"
+                  className="p-2.5 rounded-2xl bg-white/50 border border-white/60 hover:bg-white hover:shadow-md transition-all duration-300 group relative"
                 >
-                  <FiBell className="w-5 h-5 text-gray-600 group-hover:text-indigo-600 transition-colors" />
+                  <FiBell className="w-5 h-5 text-gray-600 group-hover:text-primary-600 transition-colors" />
                   {notifications.filter((n) => !n.read).length > 0 && (
                     <span className="absolute top-2 right-2.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white animate-pulse"></span>
                   )}
@@ -838,24 +838,24 @@ export default function DashboardPage() {
               {/* Customization */}
               <button
                 onClick={() => setShowCustomization(!showCustomization)}
-                className="p-2.5 rounded-xl bg-white/50 border border-white/60 hover:bg-white hover:shadow-md transition-all duration-300 group"
+                className="p-2.5 rounded-2xl bg-white/50 border border-white/60 hover:bg-white hover:shadow-md transition-all duration-300 group"
               >
-                <FiSettings className="w-5 h-5 text-gray-600 group-hover:text-indigo-600 transition-colors" />
+                <FiSettings className="w-5 h-5 text-gray-600 group-hover:text-primary-600 transition-colors" />
               </button>
 
               <div className="h-8 w-[1px] bg-gray-200 mx-1"></div>
 
               <Link
                 href="/timetable"
-                className="hidden md:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/50 border border-white/60 hover:bg-white hover:shadow-md transition-all duration-300 text-sm font-semibold text-gray-700 group"
+                className="hidden md:flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/50 border border-white/60 hover:bg-white hover:shadow-md transition-all duration-300 text-sm font-semibold text-gray-700 group"
               >
-                <FiClock className="w-4 h-4 text-gray-500 group-hover:text-indigo-600 transition-colors" />
+                <FiClock className="w-4 h-4 text-gray-500 group-hover:text-primary-600 transition-colors" />
                 <span>Timetable</span>
               </Link>
 
               <Link
                 href="/curriculum"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg shadow-indigo-200 hover:shadow-indigo-300 transition-all duration-300 text-sm font-semibold"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-primary-600 to-purple-600 hover:from-primary-700 hover:to-purple-700 text-white shadow-lg shadow-indigo-200 hover:shadow-indigo-300 transition-all duration-300 text-sm font-semibold"
               >
                 <FiPlus className="w-4 h-4" />
                 <span className="hidden sm:inline">Add Subject</span>
@@ -1077,9 +1077,9 @@ function EmptySchedule({
 
   return (
     <div className="space-y-8">
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center relative overflow-hidden group hover:shadow-lg transition-all duration-500">
-        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
-        <div className="absolute -top-24 -right-24 w-48 h-48 bg-indigo-50 rounded-full blur-3xl group-hover:bg-indigo-100 transition-colors duration-500"></div>
+      <div className="glass-card border border-gray-100 p-12 text-center relative overflow-hidden group hover:shadow-lg transition-all duration-500">
+        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary-500 via-purple-500 to-pink-500"></div>
+        <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary-50 rounded-full blur-3xl group-hover:bg-primary-100 transition-colors duration-500"></div>
         <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-50 rounded-full blur-3xl group-hover:bg-purple-100 transition-colors duration-500"></div>
 
         <div className="relative z-10">
@@ -1089,7 +1089,7 @@ function EmptySchedule({
           <h3 className="text-3xl font-bold text-gray-900 mb-3 tracking-tight">
             No Lessons Today!{" "}
             {isWeekend && (
-              <span className="text-indigo-600">It's {dayName}</span>
+              <span className="text-primary-600">It's {dayName}</span>
             )}
           </h3>
           <p className="text-gray-500 mb-8 max-w-md mx-auto text-lg leading-relaxed">
@@ -1099,7 +1099,7 @@ function EmptySchedule({
           </p>
           <Link
             href="/timetable"
-            className="inline-flex items-center gap-2 bg-gray-900 hover:bg-gray-800 text-white font-medium px-8 py-3.5 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+            className="inline-flex items-center gap-2 bg-gray-900 hover:bg-gray-800 text-white font-medium px-8 py-3.5 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
           >
             <FiClock className="w-5 h-5" />
             <span>
@@ -1111,16 +1111,16 @@ function EmptySchedule({
 
       {/* Show next lesson if available */}
       {nextLesson && (
-        <div className="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-2xl shadow-xl p-1 relative overflow-hidden">
+        <div className="bg-gradient-to-br from-primary-600 to-purple-700 rounded-[2rem] shadow-xl p-1 relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
-          <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 sm:p-8 relative z-10">
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 sm:p-8 relative z-10">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-inner border border-white/20 flex-shrink-0">
+              <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-[2rem] flex items-center justify-center shadow-inner border border-white/20 flex-shrink-0">
                 <FiCalendar className="w-8 h-8 text-white" />
               </div>
 
               <div className="flex-1">
-                <div className="flex items-center gap-2 text-indigo-100 mb-1 font-medium">
+                <div className="flex items-center gap-2 text-primary-100 mb-1 font-medium">
                   <span className="uppercase tracking-wider text-xs bg-white/20 px-2 py-0.5 rounded">
                     Up Next
                   </span>
@@ -1208,21 +1208,21 @@ function LessonCard({
 
   return (
     <div
-      className={`group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden ${config.border}`}
+      className={`group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden ${config.border}`}
     >
       {/* Lesson Header */}
       <div className="p-5">
         <div className="flex justify-between items-start">
           <div className="flex items-start gap-4 flex-1">
             <div
-              className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-sm bg-gradient-to-br ${theme.gradient} text-white transform group-hover:scale-110 transition-transform duration-300`}
+              className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm bg-gradient-to-br ${theme.gradient} text-white transform group-hover:scale-110 transition-transform duration-300`}
             >
               <span className="text-2xl">{theme.icon}</span>
             </div>
 
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-1">
-                <h3 className="text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">
+                <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">
                   {subject?.subject_name || "Unknown Subject"}
                 </h3>
                 <span
@@ -1235,7 +1235,7 @@ function LessonCard({
 
               <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-500 mt-2">
                 <div className="flex items-center gap-1.5">
-                  <FiClock className="w-4 h-4 text-indigo-400" />
+                  <FiClock className="w-4 h-4 text-primary-400" />
                   <span className="font-medium text-gray-700">
                     {timeSlot?.start_time} - {timeSlot?.end_time}
                   </span>
@@ -1264,7 +1264,7 @@ function LessonCard({
             onClick={onToggleExpand}
             className={`p-2 rounded-lg transition-all duration-200 ${
               isExpanded
-                ? "bg-indigo-50 text-indigo-600 rotate-180"
+                ? "bg-primary-50 text-primary-600 rotate-180"
                 : "hover:bg-gray-50 text-gray-400 hover:text-gray-600"
             }`}
           >
@@ -1278,9 +1278,9 @@ function LessonCard({
         <div className="p-6 bg-white/60 backdrop-blur-sm space-y-6">
           {/* Current Topic */}
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-gradient-to-br from-indigo-50 to-purple-50 p-4 rounded-xl border-2 border-indigo-200">
+            <div className="bg-gradient-to-br from-primary-50 to-purple-50 p-4 rounded-2xl border-2 border-primary-200">
               <div className="flex items-center gap-2 mb-2">
-                <FiLayers className="w-5 h-5 text-indigo-600" />
+                <FiLayers className="w-5 h-5 text-primary-600" />
                 <h4 className="font-bold text-gray-900">Current Strand</h4>
               </div>
               <p className="text-sm text-gray-700">
@@ -1290,7 +1290,7 @@ function LessonCard({
                 {curriculum.strand.strand_name}
               </p>
             </div>
-            <div className="bg-gradient-to-br from-violet-50 to-purple-50 p-4 rounded-xl border-2 border-violet-200">
+            <div className="bg-gradient-to-br from-violet-50 to-purple-50 p-4 rounded-2xl border-2 border-violet-200">
               <div className="flex items-center gap-2 mb-2">
                 <FiTarget className="w-5 h-5 text-violet-600" />
                 <h4 className="font-bold text-gray-900">Current Sub-Strand</h4>
@@ -1306,7 +1306,7 @@ function LessonCard({
 
           {/* Specific Learning Outcomes */}
           {curriculum.substrand.specific_learning_outcomes?.length > 0 && (
-            <div className="bg-green-50/80 p-5 rounded-xl border-2 border-green-200">
+            <div className="bg-green-50/80 p-5 rounded-2xl border-2 border-green-200">
               <div className="flex items-center gap-2 mb-3">
                 <FiCheckCircle className="w-5 h-5 text-green-600" />
                 <h4 className="font-bold text-gray-900 text-lg">
@@ -1331,7 +1331,7 @@ function LessonCard({
 
           {/* Key Inquiry Questions */}
           {curriculum.substrand.key_inquiry_questions?.length > 0 && (
-            <div className="bg-blue-50/80 p-5 rounded-xl border-2 border-blue-200">
+            <div className="bg-blue-50/80 p-5 rounded-2xl border-2 border-blue-200">
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-2xl">❓</span>
                 <h4 className="font-bold text-gray-900 text-lg">
@@ -1356,7 +1356,7 @@ function LessonCard({
 
           {/* Core Competencies */}
           {curriculum.substrand.core_competencies?.length > 0 && (
-            <div className="bg-purple-50/80 p-5 rounded-xl border-2 border-purple-200">
+            <div className="bg-purple-50/80 p-5 rounded-2xl border-2 border-purple-200">
               <div className="flex items-center gap-2 mb-3">
                 <FiZap className="w-5 h-5 text-purple-600" />
                 <h4 className="font-bold text-gray-900 text-lg">
@@ -1378,7 +1378,7 @@ function LessonCard({
 
           {/* Values */}
           {curriculum.substrand.values?.length > 0 && (
-            <div className="bg-rose-50/80 p-5 rounded-xl border-2 border-rose-200">
+            <div className="bg-rose-50/80 p-5 rounded-2xl border-2 border-rose-200">
               <div className="flex items-center gap-2 mb-3">
                 <FiHeart className="w-5 h-5 text-rose-600" />
                 <h4 className="font-bold text-gray-900 text-lg">Values</h4>
@@ -1398,7 +1398,7 @@ function LessonCard({
 
           {/* PCIs (Pertinent and Contemporary Issues) */}
           {curriculum.substrand.pertinent_issues?.length > 0 && (
-            <div className="bg-amber-50/80 p-5 rounded-xl border-2 border-amber-200">
+            <div className="bg-amber-50/80 p-5 rounded-2xl border-2 border-amber-200">
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-2xl">⚠️</span>
                 <h4 className="font-bold text-gray-900 text-lg">
@@ -1420,7 +1420,7 @@ function LessonCard({
 
           {/* Links to Other Subjects */}
           {curriculum.substrand.links_to_other_subjects?.length > 0 && (
-            <div className="bg-teal-50/80 p-5 rounded-xl border-2 border-teal-200">
+            <div className="bg-teal-50/80 p-5 rounded-2xl border-2 border-teal-200">
               <div className="flex items-center gap-2 mb-3">
                 <FiLink className="w-5 h-5 text-teal-600" />
                 <h4 className="font-bold text-gray-900 text-lg">
@@ -1460,7 +1460,7 @@ function EmptyState() {
       <div className="mt-6 flex justify-center">
         <Link
           href="/curriculum"
-          className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-xl shadow-xl flex items-center gap-2 transition-colors"
+          className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-6 py-3 rounded-2xl shadow-xl flex items-center gap-2 transition-colors"
         >
           <FiBook /> Browse Curriculum Library
         </Link>
@@ -1483,7 +1483,7 @@ function SubjectCard({
   };
 
   return (
-    <div className="bg-surface rounded-2xl shadow-2xl p-8 hover:shadow-xl transition-shadow">
+    <div className="bg-surface rounded-[2rem] shadow-2xl p-8 hover:shadow-xl transition-shadow">
       <div className="flex justify-between items-start mb-4">
         <div>
           <h3 className="text-lg font-semibold text-foreground">
@@ -1518,18 +1518,18 @@ function SubjectCard({
       <div className="flex gap-3 mb-3">
         <Link
           href={`/subjects/${subject.id}`}
-          className="flex-1 text-center py-2 border border-border rounded-xl hover:bg-background text-sm font-semibold text-primary-600 transition-colors"
+          className="flex-1 text-center py-2 border border-border rounded-2xl hover:bg-background text-sm font-semibold text-primary-600 transition-colors"
         >
           View Details
         </Link>
-        <button className="flex-1 bg-success text-white py-2 rounded-xl hover:bg-green-700 text-sm font-semibold transition-colors">
+        <button className="flex-1 bg-success text-white py-2 rounded-2xl hover:bg-green-700 text-sm font-semibold transition-colors">
           ✓ Mark Complete
         </button>
       </div>
 
       <button
         onClick={() => onDelete(subject.id)}
-        className="w-full py-2 border border-red-500 text-red-500 rounded-xl hover:bg-red-50 text-sm font-semibold transition-colors"
+        className="w-full py-2 border border-red-500 text-red-500 rounded-2xl hover:bg-red-50 text-sm font-semibold transition-colors"
       >
         Delete Subject
       </button>
@@ -1595,18 +1595,18 @@ function WeeklyCalendar({
   return (
     <div
       id="weekly-calendar"
-      className="glass-card bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6"
+      className="glass-card bg-white/70 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-6"
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-            <FiCalendar className="w-5 h-5 text-indigo-600" />
+            <FiCalendar className="w-5 h-5 text-primary-600" />
             {getWeekLabel()}
           </h3>
           {weekOffset !== 0 && (
             <button
               onClick={() => onWeekChange && onWeekChange(0)}
-              className="text-xs bg-indigo-100 text-indigo-600 px-2 py-1 rounded-lg hover:bg-indigo-200"
+              className="text-xs bg-primary-100 text-primary-600 px-2 py-1 rounded-lg hover:bg-primary-200"
             >
               Today
             </button>
@@ -1628,7 +1628,7 @@ function WeeklyCalendar({
           </button>
           <Link
             href="/timetable"
-            className="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
+            className="text-sm text-primary-600 hover:text-primary-700 font-medium"
           >
             Full →
           </Link>
@@ -1644,12 +1644,12 @@ function WeeklyCalendar({
           return (
             <div
               key={day.day}
-              className={`relative p-3 rounded-xl transition-all duration-200 ${
+              className={`relative p-3 rounded-2xl transition-all duration-200 ${
                 isToday
-                  ? "bg-gradient-to-br from-indigo-500 to-purple-500 text-white shadow-lg scale-105"
+                  ? "bg-gradient-to-br from-primary-500 to-purple-500 text-white shadow-lg scale-105"
                   : isPast
                   ? "bg-gray-100 border border-gray-200"
-                  : "bg-white border border-gray-200 hover:border-indigo-300 hover:shadow-md"
+                  : "bg-white border border-gray-200 hover:border-primary-300 hover:shadow-md"
               }`}
               onDragOver={(e) => onDragOver && onDragOver(e)}
               onDrop={() => onDrop && onDrop(day.day)}
@@ -1711,10 +1711,10 @@ function WeeklyCalendar({
 // Quick Stats Widget
 function QuickStats({ stats }: { stats: any }) {
   return (
-    <div className="glass-card bg-gradient-to-br from-indigo-50/70 to-purple-50/70 backdrop-blur-xl rounded-2xl shadow-xl border border-indigo-200/60 p-6">
+    <div className="glass-card bg-gradient-to-br from-primary-50/70 to-purple-50/70 backdrop-blur-xl rounded-[2rem] shadow-xl border border-primary-200/60 p-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-          <FiTrendingUp className="w-5 h-5 text-indigo-600" />
+          <FiTrendingUp className="w-5 h-5 text-primary-600" />
           This Week's Progress
         </h3>
       </div>
@@ -1746,11 +1746,11 @@ function QuickStats({ stats }: { stats: any }) {
                     strokeDashoffset={`${
                       2 * Math.PI * 28 * (1 - stats.progressPercentage / 100)
                     }`}
-                    className="text-indigo-600 transition-all duration-500"
+                    className="text-primary-600 transition-all duration-500"
                   />
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-lg font-bold text-indigo-600">
+                  <span className="text-lg font-bold text-primary-600">
                     {stats.progressPercentage}%
                   </span>
                 </div>
@@ -1767,7 +1767,7 @@ function QuickStats({ stats }: { stats: any }) {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 gap-3">
-          <div className="bg-white/60 backdrop-blur-sm rounded-xl p-3 border border-white/60">
+          <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-3 border border-white/60">
             <div className="flex items-center gap-2 mb-1">
               <FiActivity className="w-4 h-4 text-green-600" />
               <p className="text-xs text-gray-600">Total Lessons</p>
@@ -1777,7 +1777,7 @@ function QuickStats({ stats }: { stats: any }) {
             </p>
           </div>
 
-          <div className="bg-white/60 backdrop-blur-sm rounded-xl p-3 border border-white/60">
+          <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-3 border border-white/60">
             <div className="flex items-center gap-2 mb-1">
               <FiFileText className="w-4 h-4 text-blue-600" />
               <p className="text-xs text-gray-600">Lesson Plans</p>
@@ -1789,7 +1789,7 @@ function QuickStats({ stats }: { stats: any }) {
         </div>
 
         {/* Motivational Message */}
-        <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-3 rounded-xl text-center">
+        <div className="bg-gradient-to-r from-primary-500 to-purple-500 text-white p-3 rounded-2xl text-center">
           <p className="text-sm font-semibold">
             {stats.progressPercentage >= 80
               ? "🎉 Excellent progress!"
@@ -1837,9 +1837,9 @@ function QuickActions() {
   ];
 
   return (
-    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6">
+    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-6">
       <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-        <FiZap className="w-5 h-5 text-indigo-600" />
+        <FiZap className="w-5 h-5 text-primary-600" />
         Quick Actions
       </h3>
 
@@ -1848,10 +1848,10 @@ function QuickActions() {
           <Link
             key={idx}
             href={action.href}
-            className="group relative overflow-hidden bg-white hover:shadow-xl transition-all duration-300 rounded-xl border border-gray-200 hover:border-indigo-300 p-4 flex flex-col items-center justify-center gap-2"
+            className="group relative overflow-hidden bg-white hover:shadow-xl transition-all duration-300 rounded-2xl border border-gray-200 hover:border-primary-300 p-4 flex flex-col items-center justify-center gap-2"
           >
             <div
-              className={`w-12 h-12 bg-gradient-to-r ${action.color} rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}
+              className={`w-12 h-12 bg-gradient-to-r ${action.color} rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}
             >
               <action.icon className="w-6 h-6" />
             </div>
@@ -1865,7 +1865,7 @@ function QuickActions() {
         ))}
       </div>
 
-      <div className="mt-4 p-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
+      <div className="mt-4 p-3 bg-gradient-to-r from-primary-50 to-purple-50 rounded-2xl border border-primary-100">
         <p className="text-xs text-gray-600 text-center">
           💡 <span className="font-semibold">Tip:</span> Create lesson plans
           ahead to stay organized!

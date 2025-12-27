@@ -241,7 +241,7 @@ export default function CurriculumUploadPage() {
   if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -257,7 +257,7 @@ export default function CurriculumUploadPage() {
         <div className="mb-8">
           <button
             onClick={() => router.back()}
-            className="text-indigo-600 hover:text-indigo-700 mb-4 inline-flex items-center"
+            className="text-primary-600 hover:text-primary-700 mb-4 inline-flex items-center"
           >
             ← Back
           </button>
@@ -283,7 +283,7 @@ export default function CurriculumUploadPage() {
               onChange={(e) =>
                 setFormData({ ...formData, grade: e.target.value })
               }
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             >
               <option value="">Choose a grade...</option>
               {GRADES.map((grade) => (
@@ -318,8 +318,8 @@ export default function CurriculumUploadPage() {
                       key={area}
                       className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all ${
                         formData.learningArea === area
-                          ? "border-indigo-600 bg-indigo-50"
-                          : "border-gray-200 hover:border-indigo-300 bg-white"
+                          ? "border-primary-600 bg-primary-50"
+                          : "border-gray-200 hover:border-primary-300 bg-white"
                       }`}
                     >
                       <input
@@ -333,7 +333,7 @@ export default function CurriculumUploadPage() {
                             learningArea: e.target.value,
                           })
                         }
-                        className="w-4 h-4 text-indigo-600 focus:ring-indigo-500"
+                        className="w-4 h-4 text-primary-600 focus:ring-primary-500"
                       />
                       <span className="ml-3 text-sm font-medium text-gray-900">
                         {area}
@@ -362,8 +362,8 @@ export default function CurriculumUploadPage() {
                     onDrop={handleDrop}
                     className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
                       dragActive
-                        ? "border-indigo-600 bg-indigo-50"
-                        : "border-gray-300 hover:border-indigo-400"
+                        ? "border-primary-600 bg-primary-50"
+                        : "border-gray-300 hover:border-primary-400"
                     }`}
                   >
                     <FiUpload className="mx-auto h-12 w-12 text-gray-400 mb-4" />
@@ -371,7 +371,7 @@ export default function CurriculumUploadPage() {
                       Drag and drop your curriculum file here, or
                     </p>
                     <label className="inline-block">
-                      <span className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 cursor-pointer transition-colors">
+                      <span className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 cursor-pointer transition-colors">
                         Browse Files
                       </span>
                       <input
@@ -425,7 +425,7 @@ export default function CurriculumUploadPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+                className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
               >
                 {loading ? (
                   <>

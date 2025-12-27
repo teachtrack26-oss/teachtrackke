@@ -124,8 +124,8 @@ export function NotificationsDropdown({
   const unreadCount = notifications.filter((n) => !n.read).length;
 
   return (
-    <div className="absolute top-full right-0 mt-2 w-96 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 max-h-96 overflow-hidden flex flex-col">
-      <div className="p-4 border-b border-gray-200 flex justify-between items-center bg-gradient-to-r from-indigo-50 to-purple-50">
+    <div className="absolute top-full right-0 mt-2 w-96 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 max-h-96 overflow-hidden flex flex-col">
+      <div className="p-4 border-b border-gray-200 flex justify-between items-center bg-gradient-to-r from-primary-50 to-purple-50">
         <h3 className="font-bold text-gray-900">
           Notifications {unreadCount > 0 && `(${unreadCount})`}
         </h3>
@@ -148,7 +148,7 @@ export function NotificationsDropdown({
             <div
               key={notif.id}
               className={`p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer ${
-                !notif.read ? "bg-indigo-50/50" : ""
+                !notif.read ? "bg-primary-50/50" : ""
               }`}
               onClick={() => onMarkRead(notif.id)}
             >
@@ -175,7 +175,7 @@ export function NotificationsDropdown({
                   </p>
                 </div>
                 {!notif.read && (
-                  <div className="w-2 h-2 bg-indigo-600 rounded-full flex-shrink-0 mt-2" />
+                  <div className="w-2 h-2 bg-primary-600 rounded-full flex-shrink-0 mt-2" />
                 )}
               </div>
             </div>
@@ -189,10 +189,10 @@ export function NotificationsDropdown({
 // Trend Graph Widget
 export function TrendGraph({ data }: { data: any[] }) {
   return (
-    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6">
+    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-          <FiBarChart2 className="w-5 h-5 text-indigo-600" />
+          <FiBarChart2 className="w-5 h-5 text-primary-600" />
           Weekly Trends
         </h3>
         <span className="text-xs text-gray-500">Last 4 weeks</span>
@@ -230,16 +230,16 @@ export function TrendGraph({ data }: { data: any[] }) {
       </ResponsiveContainer>
 
       <div className="grid grid-cols-2 gap-3 mt-4">
-        <div className="bg-indigo-50 p-3 rounded-xl">
+        <div className="bg-primary-50 p-3 rounded-2xl">
           <div className="flex items-center gap-2 mb-1">
-            <div className="w-3 h-3 bg-indigo-600 rounded-full" />
+            <div className="w-3 h-3 bg-primary-600 rounded-full" />
             <span className="text-xs text-gray-600">Total Lessons</span>
           </div>
-          <p className="text-2xl font-bold text-indigo-600">
+          <p className="text-2xl font-bold text-primary-600">
             {data[data.length - 1]?.lessons || 0}
           </p>
         </div>
-        <div className="bg-green-50 p-3 rounded-xl">
+        <div className="bg-green-50 p-3 rounded-2xl">
           <div className="flex items-center gap-2 mb-1">
             <div className="w-3 h-3 bg-green-600 rounded-full" />
             <span className="text-xs text-gray-600">Completed</span>
@@ -262,10 +262,10 @@ export function AttendanceWidget({
   onMarkAttendance: (lessonId: number, present: number) => void;
 }) {
   return (
-    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6">
+    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-          <FiUsers className="w-5 h-5 text-indigo-600" />
+          <FiUsers className="w-5 h-5 text-primary-600" />
           Quick Attendance
         </h3>
         <span className="text-xs text-gray-500">Today's Classes</span>
@@ -281,7 +281,7 @@ export function AttendanceWidget({
           data.map((entry) => (
             <div
               key={entry.lessonId}
-              className="bg-white p-4 rounded-xl border border-gray-200"
+              className="bg-white p-4 rounded-2xl border border-gray-200"
             >
               <div className="flex items-start justify-between mb-3">
                 <div>
@@ -309,7 +309,7 @@ export function AttendanceWidget({
                       parseInt(e.target.value) || 0
                     )
                   }
-                  className="w-20 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-20 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   placeholder="0"
                 />
                 <span className="text-sm text-gray-600">
@@ -351,7 +351,7 @@ export function AttendanceWidget({
       </div>
 
       {data.length > 0 && (
-        <div className="mt-4 p-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
+        <div className="mt-4 p-3 bg-gradient-to-r from-primary-50 to-purple-50 rounded-2xl border border-primary-100">
           <p className="text-xs text-gray-600 text-center">
             📊 Average attendance:{" "}
             {data.length > 0
@@ -445,11 +445,11 @@ export function CustomizationPanel({
   };
 
   return (
-    <div className="bg-gradient-to-r from-indigo-50 to-purple-50 border-t border-indigo-200 p-6">
+    <div className="bg-gradient-to-r from-primary-50 to-purple-50 border-t border-primary-200 p-6">
       <div className="container mx-auto">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-            <FiSettings className="w-5 h-5 text-indigo-600" />
+            <FiSettings className="w-5 h-5 text-primary-600" />
             Customize Dashboard
           </h3>
           <button
@@ -470,9 +470,9 @@ export function CustomizationPanel({
                   [widget.key]: !localPrefs[widget.key],
                 })
               }
-              className={`p-4 rounded-xl border-2 transition-all duration-200 ${
+              className={`p-4 rounded-2xl border-2 transition-all duration-200 ${
                 localPrefs[widget.key]
-                  ? "bg-white border-indigo-500 shadow-lg"
+                  ? "bg-white border-primary-500 shadow-lg"
                   : "bg-white/60 border-gray-200 opacity-50"
               }`}
             >
@@ -502,7 +502,7 @@ export function CustomizationPanel({
           </button>
           <button
             onClick={handleSave}
-            className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-colors shadow-lg"
+            className="px-4 py-2 bg-gradient-to-r from-primary-600 to-purple-600 text-white rounded-lg hover:from-primary-700 hover:to-purple-700 transition-colors shadow-lg"
           >
             Save Changes
           </button>
@@ -553,10 +553,10 @@ export function CurriculumProgressTracker({
   };
 
   return (
-    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6">
+    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-          <FiTarget className="w-5 h-5 text-indigo-600" />
+          <FiTarget className="w-5 h-5 text-primary-600" />
           Curriculum Progress
         </h3>
         <span className="text-xs text-gray-500">
@@ -574,7 +574,7 @@ export function CurriculumProgressTracker({
           subjects.map((subject) => (
             <div
               key={subject.id}
-              className="bg-white p-4 rounded-xl border border-gray-200"
+              className="bg-white p-4 rounded-2xl border border-gray-200"
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
@@ -607,7 +607,7 @@ export function CurriculumProgressTracker({
               {/* Progress Bar */}
               <div className="relative h-3 bg-gray-200 rounded-full overflow-hidden mb-2">
                 <div
-                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-indigo-500 to-purple-600 transition-all duration-500"
+                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary-500 to-purple-600 transition-all duration-500"
                   style={{ width: `${subject.progressPercentage}%` }}
                 />
                 {/* Milestone markers */}
@@ -618,7 +618,7 @@ export function CurriculumProgressTracker({
 
               <div className="flex items-center justify-between text-xs">
                 <div className="flex items-center gap-4">
-                  <span className="font-bold text-indigo-600">
+                  <span className="font-bold text-primary-600">
                     {Math.round(subject.progressPercentage)}%
                   </span>
                   <div className="flex gap-1">
@@ -679,10 +679,10 @@ export function CurriculumProgressTracker({
       </div>
 
       {subjects.length > 0 && (
-        <div className="mt-4 p-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
+        <div className="mt-4 p-3 bg-gradient-to-r from-primary-50 to-purple-50 rounded-2xl border border-primary-100">
           <div className="flex items-center justify-between text-xs">
             <span className="text-gray-600">Overall Progress:</span>
-            <span className="font-bold text-indigo-600">
+            <span className="font-bold text-primary-600">
               {Math.round(
                 subjects.reduce((sum, s) => sum + s.progressPercentage, 0) /
                   subjects.length
@@ -726,10 +726,10 @@ export function UpcomingDeadlinesWidget({
   );
 
   return (
-    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6">
+    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-          <FiCalendar className="w-5 h-5 text-indigo-600" />
+          <FiCalendar className="w-5 h-5 text-primary-600" />
           📅 Upcoming Deadlines
         </h3>
         <span className="text-xs text-gray-500">
@@ -747,7 +747,7 @@ export function UpcomingDeadlinesWidget({
           sortedDeadlines.slice(0, 5).map((deadline) => (
             <div
               key={deadline.id}
-              className={`p-3 rounded-xl border-2 ${getUrgencyColor(
+              className={`p-3 rounded-2xl border-2 ${getUrgencyColor(
                 deadline.daysUntil
               )}`}
             >
@@ -786,7 +786,7 @@ export function UpcomingDeadlinesWidget({
       </div>
 
       {sortedDeadlines.length > 0 && (
-        <div className="mt-4 p-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
+        <div className="mt-4 p-3 bg-gradient-to-r from-primary-50 to-purple-50 rounded-2xl border border-primary-100">
           <p className="text-xs text-gray-600 text-center">
             🔔 {sortedDeadlines.filter((d) => d.daysUntil <= 7).length}{" "}
             deadlines in the next week
@@ -806,10 +806,10 @@ export function TeachingInsightsWidget({
   const COLORS = ["#6366f1", "#8b5cf6", "#ec4899", "#f59e0b", "#10b981"];
 
   return (
-    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6">
+    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-          <FiPieChart className="w-5 h-5 text-indigo-600" />
+          <FiPieChart className="w-5 h-5 text-primary-600" />
           Teaching Insights
         </h3>
         <span className="text-xs text-gray-500">This Month</span>
@@ -868,16 +868,16 @@ export function TeachingInsightsWidget({
 
       {/* Key Metrics Grid */}
       <div className="grid grid-cols-2 gap-3 mb-4">
-        <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 p-3 rounded-xl">
+        <div className="bg-gradient-to-br from-primary-50 to-primary-100 p-3 rounded-2xl">
           <div className="flex items-center gap-2 mb-1">
-            <FiClock className="w-4 h-4 text-indigo-600" />
+            <FiClock className="w-4 h-4 text-primary-600" />
             <span className="text-xs text-gray-600">Avg Duration</span>
           </div>
-          <p className="text-2xl font-bold text-indigo-600">
+          <p className="text-2xl font-bold text-primary-600">
             {insights.averageLessonDuration} min
           </p>
         </div>
-        <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-3 rounded-xl">
+        <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-3 rounded-2xl">
           <div className="flex items-center gap-2 mb-1">
             <FiTarget className="w-4 h-4 text-purple-600" />
             <span className="text-xs text-gray-600">Peak Hour</span>
@@ -901,7 +901,7 @@ export function TeachingInsightsWidget({
         </ResponsiveContainer>
       </div>
 
-      <div className="mt-4 p-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
+      <div className="mt-4 p-3 bg-gradient-to-r from-primary-50 to-purple-50 rounded-2xl border border-primary-100">
         <p className="text-xs text-gray-600 text-center">
           📈 {insights.mostTaughtSubjects.reduce((sum, s) => sum + s.count, 0)}{" "}
           lessons taught this month
@@ -968,10 +968,10 @@ export function ResourceCenterWidget({
   );
 
   return (
-    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6">
+    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-          <FiFolder className="w-5 h-5 text-indigo-600" />
+          <FiFolder className="w-5 h-5 text-primary-600" />
           Resource Center
         </h3>
         <span className="text-xs text-gray-500">
@@ -989,14 +989,14 @@ export function ResourceCenterWidget({
           sortedResources.slice(0, 6).map((resource) => (
             <div
               key={resource.id}
-              className="bg-white p-3 rounded-xl border border-gray-200 hover:border-indigo-300 hover:shadow-md transition-all cursor-pointer group"
+              className="bg-white p-3 rounded-2xl border border-gray-200 hover:border-primary-300 hover:shadow-md transition-all cursor-pointer group"
             >
               <div className="flex items-center gap-3">
-                <div className="flex-shrink-0 p-2 bg-gray-50 rounded-lg group-hover:bg-indigo-50 transition-colors">
+                <div className="flex-shrink-0 p-2 bg-gray-50 rounded-lg group-hover:bg-primary-50 transition-colors">
                   {getResourceIcon(resource.type)}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h4 className="font-semibold text-gray-900 text-sm truncate group-hover:text-indigo-600 transition-colors">
+                  <h4 className="font-semibold text-gray-900 text-sm truncate group-hover:text-primary-600 transition-colors">
                     {resource.title}
                   </h4>
                   <div className="flex items-center gap-2 mt-1">
@@ -1019,7 +1019,7 @@ export function ResourceCenterWidget({
                   </div>
                 </div>
                 <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <FiCheckCircle className="w-5 h-5 text-indigo-600" />
+                  <FiCheckCircle className="w-5 h-5 text-primary-600" />
                 </div>
               </div>
             </div>
@@ -1076,12 +1076,12 @@ export function PerformanceSummaryCards({
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {/* Lessons Card */}
-      <div className="glass-card bg-gradient-to-br from-indigo-50 to-indigo-100 backdrop-blur-xl rounded-2xl shadow-xl border border-indigo-200 p-6">
+      <div className="glass-card bg-gradient-to-br from-primary-50 to-primary-100 backdrop-blur-xl rounded-[2rem] shadow-xl border border-primary-200 p-6">
         <div className="flex items-center justify-between mb-4">
-          <div className="p-3 bg-white rounded-xl shadow-sm">
-            <FiBook className="w-6 h-6 text-indigo-600" />
+          <div className="p-3 bg-white rounded-2xl shadow-sm">
+            <FiBook className="w-6 h-6 text-primary-600" />
           </div>
-          <span className="text-xs font-semibold text-indigo-600 bg-white px-3 py-1 rounded-full">
+          <span className="text-xs font-semibold text-primary-600 bg-white px-3 py-1 rounded-full">
             This Term
           </span>
         </div>
@@ -1090,25 +1090,25 @@ export function PerformanceSummaryCards({
         </h3>
         <div className="mb-3">
           <div className="flex items-baseline gap-2">
-            <span className="text-4xl font-bold text-indigo-600">
+            <span className="text-4xl font-bold text-primary-600">
               {performance.lessonsCompleted}
             </span>
             <span className="text-xl font-semibold text-gray-500">
               / {performance.totalLessons}
             </span>
           </div>
-          <p className="text-sm text-indigo-600 font-semibold mt-1">
+          <p className="text-sm text-primary-600 font-semibold mt-1">
             {lessonsPercentage}% Complete
           </p>
         </div>
         {/* Progress Bar */}
         <div className="relative h-2 bg-white rounded-full overflow-hidden">
           <div
-            className="absolute top-0 left-0 h-full bg-gradient-to-r from-indigo-500 to-indigo-600 transition-all duration-500"
+            className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary-500 to-primary-600 transition-all duration-500"
             style={{ width: `${lessonsPercentage}%` }}
           />
         </div>
-        <div className="mt-3 flex items-center gap-1 text-xs text-indigo-600">
+        <div className="mt-3 flex items-center gap-1 text-xs text-primary-600">
           <FiTrendingUp className="w-3 h-3" />
           <span>
             {performance.totalLessons - performance.lessonsCompleted} lessons
@@ -1118,9 +1118,9 @@ export function PerformanceSummaryCards({
       </div>
 
       {/* Attendance Card */}
-      <div className="glass-card bg-gradient-to-br from-green-50 to-green-100 backdrop-blur-xl rounded-2xl shadow-xl border border-green-200 p-6">
+      <div className="glass-card bg-gradient-to-br from-green-50 to-green-100 backdrop-blur-xl rounded-[2rem] shadow-xl border border-green-200 p-6">
         <div className="flex items-center justify-between mb-4">
-          <div className="p-3 bg-white rounded-xl shadow-sm">
+          <div className="p-3 bg-white rounded-2xl shadow-sm">
             <FiUsers className="w-6 h-6 text-green-600" />
           </div>
           <span className="text-xs font-semibold text-green-600 bg-white px-3 py-1 rounded-full">
@@ -1158,9 +1158,9 @@ export function PerformanceSummaryCards({
       </div>
 
       {/* Assessments Card */}
-      <div className="glass-card bg-gradient-to-br from-purple-50 to-purple-100 backdrop-blur-xl rounded-2xl shadow-xl border border-purple-200 p-6">
+      <div className="glass-card bg-gradient-to-br from-purple-50 to-purple-100 backdrop-blur-xl rounded-[2rem] shadow-xl border border-purple-200 p-6">
         <div className="flex items-center justify-between mb-4">
-          <div className="p-3 bg-white rounded-xl shadow-sm">
+          <div className="p-3 bg-white rounded-2xl shadow-sm">
             <FiAward className="w-6 h-6 text-purple-600" />
           </div>
           <span className="text-xs font-semibold text-purple-600 bg-white px-3 py-1 rounded-full">

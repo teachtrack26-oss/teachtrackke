@@ -130,9 +130,9 @@ export default function RegisterPage() {
 
   if (checkingAuth) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-cyan-50 to-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-cyan-50 to-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>
@@ -156,8 +156,8 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-cyan-50 to-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-6 bg-white rounded-2xl shadow-2xl p-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-cyan-50 to-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-6 bg-white rounded-[2rem] shadow-2xl p-8">
         {registrationSuccess ? (
           <div className="text-center space-y-4">
             <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100">
@@ -189,7 +189,7 @@ export default function RegisterPage() {
             <div className="pt-4">
               <Link
                 href="/login"
-                className="inline-flex items-center justify-center w-full px-6 py-3 border border-transparent rounded-xl text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
+                className="inline-flex items-center justify-center w-full px-6 py-3 border border-transparent rounded-2xl text-base font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors"
               >
                 Go to Login
               </Link>
@@ -209,7 +209,7 @@ export default function RegisterPage() {
                 Already have an account?{" "}
                 <Link
                   href="/login"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  className="font-medium text-primary-600 hover:text-primary-500"
                 >
                   Sign in
                 </Link>
@@ -217,13 +217,13 @@ export default function RegisterPage() {
             </div>
 
             {/* Account Type Selection */}
-            <div className="flex p-1 bg-gray-100 rounded-xl">
+            <div className="flex p-1 bg-gray-100 rounded-2xl">
               <button
                 type="button"
                 onClick={() => setFormData({ ...formData, role: "TEACHER" })}
                 className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
                   formData.role === "TEACHER"
-                    ? "bg-white text-indigo-600 shadow-sm"
+                    ? "bg-white text-primary-600 shadow-sm"
                     : "text-gray-500 hover:text-gray-700"
                 }`}
               >
@@ -236,7 +236,7 @@ export default function RegisterPage() {
                 }
                 className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
                   formData.role === "SCHOOL_ADMIN"
-                    ? "bg-white text-indigo-600 shadow-sm"
+                    ? "bg-white text-primary-600 shadow-sm"
                     : "text-gray-500 hover:text-gray-700"
                 }`}
               >
@@ -284,7 +284,7 @@ export default function RegisterPage() {
                     required
                     value={formData.fullName}
                     onChange={handleChange}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white text-gray-900 placeholder-gray-400"
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 placeholder-gray-400"
                     placeholder="Mary Wanjiku"
                   />
                 </div>
@@ -304,7 +304,7 @@ export default function RegisterPage() {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white text-gray-900 placeholder-gray-400"
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 placeholder-gray-400"
                     placeholder="teacher@example.com"
                   />
                 </div>
@@ -323,7 +323,7 @@ export default function RegisterPage() {
                     type="tel"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white text-gray-900 placeholder-gray-400"
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 placeholder-gray-400"
                     placeholder="0712345678"
                   />
                 </div>
@@ -346,7 +346,7 @@ export default function RegisterPage() {
                     required={formData.role === "SCHOOL_ADMIN"}
                     value={formData.school}
                     onChange={handleChange}
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white text-gray-900 placeholder-gray-400"
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 placeholder-gray-400"
                     placeholder={
                       formData.role === "SCHOOL_ADMIN"
                         ? "e.g., Nairobi Primary School"
@@ -379,7 +379,7 @@ export default function RegisterPage() {
                         type="text"
                         value={formData.tscNumber}
                         onChange={handleChange}
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white text-gray-900 placeholder-gray-400"
+                        className="w-full px-4 py-2.5 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 placeholder-gray-400"
                         placeholder="123456"
                       />
                       <p className="mt-1 text-xs text-gray-500">
@@ -399,7 +399,7 @@ export default function RegisterPage() {
                         name="gradeLevel"
                         value={formData.gradeLevel}
                         onChange={handleChange}
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white text-gray-900"
+                        className="w-full px-4 py-2.5 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
                       >
                         <option value="">Select grade (optional)</option>
                         {[...Array(10)].map((_, i) => (
@@ -431,7 +431,7 @@ export default function RegisterPage() {
                       required
                       value={formData.password}
                       onChange={handleChange}
-                      className="w-full px-4 py-2.5 pr-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white text-gray-900 placeholder-gray-400 ph-no-capture"
+                      className="w-full px-4 py-2.5 pr-12 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 placeholder-gray-400 ph-no-capture"
                       placeholder="••••••••"
                     />
                     <button
@@ -489,7 +489,7 @@ export default function RegisterPage() {
                 <button
                   type="submit"
                   disabled={loading || passwordStrength.score < 1}
-                  className="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-semibold rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-semibold rounded-2xl text-white bg-primary-600 hover:bg-primary-700 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   {loading ? "Creating account..." : "Create account"}
                 </button>
@@ -499,14 +499,14 @@ export default function RegisterPage() {
                 By signing up, you agree to our{" "}
                 <Link
                   href="/terms"
-                  className="text-indigo-600 hover:text-indigo-500 font-medium"
+                  className="text-primary-600 hover:text-primary-500 font-medium"
                 >
                   Terms of Service
                 </Link>{" "}
                 and{" "}
                 <Link
                   href="/privacy"
-                  className="text-indigo-600 hover:text-indigo-500 font-medium"
+                  className="text-primary-600 hover:text-primary-500 font-medium"
                 >
                   Privacy Policy
                 </Link>

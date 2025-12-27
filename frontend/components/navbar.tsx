@@ -200,11 +200,11 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center group">
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-105 transition-transform duration-300">
+              <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-105 transition-transform duration-300">
                 T
               </div>
               <div className="ml-3 flex flex-col">
-                <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="text-xl font-bold bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
                   TeachTrack
                 </span>
                 <span className="text-xs text-gray-500 font-medium tracking-wider">
@@ -225,11 +225,11 @@ export default function Navbar() {
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   (link as any).adminOnly
                     ? isActiveLink(link.href)
-                      ? "text-white bg-gradient-to-r from-purple-600 to-indigo-600 shadow-md"
-                      : "text-purple-600 bg-purple-50 hover:bg-gradient-to-r hover:from-purple-600 hover:to-indigo-600 hover:text-white border border-purple-200"
+                      ? "text-white bg-gradient-to-r from-purple-600 to-primary-600 shadow-md"
+                      : "text-purple-600 bg-purple-50 hover:bg-gradient-to-r hover:from-purple-600 hover:to-primary-600 hover:text-white border border-purple-200"
                     : isActiveLink(link.href)
-                    ? "text-indigo-600 bg-indigo-50 shadow-sm"
-                    : "text-gray-600 hover:text-indigo-600 hover:bg-gray-50"
+                    ? "text-primary-600 bg-primary-50 shadow-sm"
+                    : "text-gray-600 hover:text-primary-600 hover:bg-gray-50"
                 } ${
                   !link.public && !isLoggedIn
                     ? "opacity-50 cursor-not-allowed pointer-events-none"
@@ -248,7 +248,7 @@ export default function Navbar() {
             <div className="flex items-center space-x-4 ml-6 pl-6 border-l border-gray-200">
               {isLoggedIn ? (
                 <div className="flex items-center space-x-4">
-                  <button className="p-2 text-gray-400 hover:text-indigo-600 transition-colors relative">
+                  <button className="p-2 text-gray-400 hover:text-primary-600 transition-colors relative">
                     <FiBell className="w-5 h-5" />
                     <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
                   </button>
@@ -260,7 +260,7 @@ export default function Navbar() {
                       }
                       className="flex items-center space-x-3 pl-1 pr-2 py-1 rounded-full hover:bg-gray-50 transition-all duration-300 border border-transparent hover:border-gray-200"
                     >
-                      <div className="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-semibold shadow-md">
+                      <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center text-white font-semibold shadow-md">
                         {(user?.name || user?.full_name || user?.email)
                           ?.charAt(0)
                           .toUpperCase() || "U"}
@@ -289,7 +289,7 @@ export default function Navbar() {
 
                     {/* Dropdown Menu */}
                     {isAccountDropdownOpen && (
-                      <div className="absolute right-0 mt-4 w-72 bg-white rounded-2xl shadow-xl border border-gray-100 py-2 z-50 animate-fade-in-up">
+                      <div className="absolute right-0 mt-4 w-72 bg-white rounded-[2rem] shadow-xl border border-gray-100 py-2 z-50 animate-fade-in-up">
                         {/* User Info */}
                         <div className="px-6 py-4 border-b border-gray-50 bg-gray-50/50">
                           <p className="text-sm font-bold text-gray-900">
@@ -324,12 +324,12 @@ export default function Navbar() {
 
                         {/* Next Lesson Info */}
                         {nextLesson && (
-                          <div className="mx-4 my-2 p-3 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl border border-indigo-100">
+                          <div className="mx-4 my-2 p-3 bg-gradient-to-br from-primary-50 to-purple-50 rounded-2xl border border-primary-100">
                             <div className="flex justify-between items-start mb-1">
-                              <span className="text-xs font-semibold text-indigo-600 uppercase tracking-wider">
+                              <span className="text-xs font-semibold text-primary-600 uppercase tracking-wider">
                                 Next Lesson
                               </span>
-                              <span className="text-xs font-bold text-indigo-600 bg-white px-2 py-0.5 rounded-full shadow-sm">
+                              <span className="text-xs font-bold text-primary-600 bg-white px-2 py-0.5 rounded-full shadow-sm">
                                 {countdown}
                               </span>
                             </div>
@@ -348,10 +348,10 @@ export default function Navbar() {
                           {/* Billing / My Plan */}
                           <Link
                             href="/pricing"
-                            className="flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-xl transition-all duration-200 group"
+                            className="flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-2xl transition-all duration-200 group"
                             onClick={() => setIsAccountDropdownOpen(false)}
                           >
-                            <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-indigo-100 group-hover:text-indigo-600 transition-colors">
+                            <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-primary-100 group-hover:text-primary-600 transition-colors">
                               <FiCreditCard className="w-4 h-4" />
                             </div>
                             <div className="flex-1">
@@ -377,9 +377,9 @@ export default function Navbar() {
                           {/* Theme Toggle - Disabled */}
                           {/* <button
                             onClick={toggleTheme}
-                            className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-xl transition-all duration-200 group text-left"
+                            className="w-full flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-2xl transition-all duration-200 group text-left"
                           >
-                            <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-indigo-100 group-hover:text-indigo-600 transition-colors">
+                            <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-primary-100 group-hover:text-primary-600 transition-colors">
                               {isDarkMode ? (
                                 <FiSun className="w-4 h-4" />
                               ) : (
@@ -395,10 +395,10 @@ export default function Navbar() {
 
                           <Link
                             href="/dashboard"
-                            className="flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-xl transition-all duration-200 group"
+                            className="flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-2xl transition-all duration-200 group"
                             onClick={() => setIsAccountDropdownOpen(false)}
                           >
-                            <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-indigo-100 group-hover:text-indigo-600 transition-colors">
+                            <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-primary-100 group-hover:text-primary-600 transition-colors">
                               <FiUser className="w-4 h-4" />
                             </div>
                             <span className="font-medium">Dashboard</span>
@@ -406,10 +406,10 @@ export default function Navbar() {
 
                           <Link
                             href="/settings/profile"
-                            className="flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-indigo-600 rounded-xl transition-all duration-200 group"
+                            className="flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary-600 rounded-2xl transition-all duration-200 group"
                             onClick={() => setIsAccountDropdownOpen(false)}
                           >
-                            <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-indigo-100 group-hover:text-indigo-600 transition-colors">
+                            <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-primary-100 group-hover:text-primary-600 transition-colors">
                               <FiSettings className="w-4 h-4" />
                             </div>
                             <span className="font-medium">Settings</span>
@@ -419,7 +419,7 @@ export default function Navbar() {
                         <div className="border-t border-gray-100 mt-1 pt-2 px-2 pb-1">
                           <button
                             onClick={handleLogout}
-                            className="flex items-center space-x-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 rounded-xl transition-all duration-200 group"
+                            className="flex items-center space-x-3 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 rounded-2xl transition-all duration-200 group"
                           >
                             <div className="p-2 bg-red-50 rounded-lg group-hover:bg-red-100 transition-colors">
                               <FiLogOut className="w-4 h-4" />
@@ -435,7 +435,7 @@ export default function Navbar() {
                 <div className="flex items-center space-x-4">
                   <Link
                     href="/login"
-                    className="text-sm text-gray-600 hover:text-indigo-600 font-semibold transition-colors"
+                    className="text-sm text-gray-600 hover:text-primary-600 font-semibold transition-colors"
                   >
                     Log in
                   </Link>
@@ -454,7 +454,7 @@ export default function Navbar() {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-xl text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 focus:outline-none transition-colors"
+              className="inline-flex items-center justify-center p-2 rounded-2xl text-gray-500 hover:text-primary-600 hover:bg-primary-50 focus:outline-none transition-colors"
             >
               {isMenuOpen ? (
                 <FiX className="block h-6 w-6" />
@@ -476,14 +476,14 @@ export default function Navbar() {
                 href={link.href}
                 onClick={(e) => handleProtectedRoute(e, link.href, link.public)}
                 prefetch={true}
-                className={`block w-full text-left px-4 py-3 rounded-xl text-base font-medium transition-all duration-200 ${
+                className={`block w-full text-left px-4 py-3 rounded-2xl text-base font-medium transition-all duration-200 ${
                   (link as any).adminOnly
                     ? isActiveLink(link.href)
-                      ? "text-white bg-gradient-to-r from-purple-600 to-indigo-600 shadow-md"
+                      ? "text-white bg-gradient-to-r from-purple-600 to-primary-600 shadow-md"
                       : "text-purple-600 bg-purple-50 border border-purple-200"
                     : isActiveLink(link.href)
-                    ? "text-indigo-600 bg-indigo-50"
-                    : "text-gray-600 hover:text-indigo-600 hover:bg-gray-50"
+                    ? "text-primary-600 bg-primary-50"
+                    : "text-gray-600 hover:text-primary-600 hover:bg-gray-50"
                 } ${
                   !link.public && !isLoggedIn
                     ? "opacity-50 cursor-not-allowed pointer-events-none"
@@ -511,7 +511,7 @@ export default function Navbar() {
               {isLoggedIn ? (
                 <div className="space-y-3">
                   <div className="px-4 flex items-center space-x-3 mb-4">
-                    <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold">
+                    <div className="w-10 h-10 rounded-full bg-primary-600 flex items-center justify-center text-white font-bold">
                       {(user?.name || user?.full_name || user?.email)
                         ?.charAt(0)
                         .toUpperCase() || "U"}
@@ -529,7 +529,7 @@ export default function Navbar() {
 
                   <Link
                     href="/dashboard"
-                    className="flex items-center space-x-3 px-4 py-3 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-xl transition-colors"
+                    className="flex items-center space-x-3 px-4 py-3 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-2xl transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <FiUser className="w-5 h-5" />
@@ -538,7 +538,7 @@ export default function Navbar() {
 
                   <button
                     onClick={handleLogout}
-                    className="flex items-center space-x-3 w-full px-4 py-3 text-base font-medium text-red-600 hover:bg-red-50 rounded-xl transition-colors"
+                    className="flex items-center space-x-3 w-full px-4 py-3 text-base font-medium text-red-600 hover:bg-red-50 rounded-2xl transition-colors"
                   >
                     <FiLogOut className="w-5 h-5" />
                     <span>Sign Out</span>
@@ -548,14 +548,14 @@ export default function Navbar() {
                 <div className="grid grid-cols-2 gap-4 px-2">
                   <Link
                     href="/login"
-                    className="flex items-center justify-center px-4 py-3 text-base font-bold text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-xl border border-gray-200 transition-colors"
+                    className="flex items-center justify-center px-4 py-3 text-base font-bold text-gray-700 hover:text-primary-600 hover:bg-gray-50 rounded-2xl border border-gray-200 transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Log in
                   </Link>
                   <Link
                     href="/register"
-                    className="flex items-center justify-center px-4 py-3 text-base font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-lg transition-colors"
+                    className="flex items-center justify-center px-4 py-3 text-base font-bold text-white bg-primary-600 hover:bg-primary-700 rounded-2xl shadow-lg transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Get Started

@@ -224,7 +224,7 @@ export default function AdminDashboard() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading admin dashboard...</p>
         </div>
       </div>
@@ -248,11 +248,11 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <button
             onClick={() => router.push("/admin/school-settings")}
-            className="bg-gradient-to-br from-indigo-500 to-purple-600 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-white text-left"
+            className="bg-gradient-to-br from-primary-500 to-purple-600 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-white text-left"
           >
             <FiSettings className="w-8 h-8 mb-2" />
             <h3 className="font-semibold">School Settings</h3>
-            <p className="text-sm text-indigo-100 mt-1">
+            <p className="text-sm text-primary-100 mt-1">
               Configure school details
             </p>
           </button>
@@ -299,7 +299,7 @@ export default function AdminDashboard() {
               onClick={() => router.push("/admin/import-curriculum")}
               className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow text-left"
             >
-              <FiUpload className="w-8 h-8 text-indigo-600 mb-2" />
+              <FiUpload className="w-8 h-8 text-primary-600 mb-2" />
               <h3 className="font-semibold text-gray-900">Import Curriculum</h3>
               <p className="text-sm text-gray-600 mt-1">Upload JSON files</p>
             </button>
@@ -375,7 +375,7 @@ export default function AdminDashboard() {
               </div>
               <button
                 onClick={() => router.push("/admin/payments")}
-                className="text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center"
+                className="text-primary-600 hover:text-primary-800 text-sm font-medium flex items-center"
               >
                 View All <FiArrowRight className="ml-1" />
               </button>
@@ -486,7 +486,7 @@ export default function AdminDashboard() {
                 className={`px-4 py-2 rounded-md text-sm font-semibold text-white ${
                   pricingLoading || pricingSaving || !pricingConfig
                     ? "bg-gray-400"
-                    : "bg-indigo-600 hover:bg-indigo-700"
+                    : "bg-primary-600 hover:bg-primary-700"
                 }`}
               >
                 {pricingSaving ? "Saving..." : "Save"}
@@ -627,7 +627,7 @@ export default function AdminDashboard() {
             </h2>
             <button
               onClick={() => router.push("/admin/curriculum")}
-              className="text-indigo-600 hover:text-indigo-800 text-sm font-medium flex items-center"
+              className="text-primary-600 hover:text-primary-800 text-sm font-medium flex items-center"
             >
               View All <FiArrowRight className="ml-1" />
             </button>

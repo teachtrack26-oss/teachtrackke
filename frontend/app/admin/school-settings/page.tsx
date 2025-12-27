@@ -702,9 +702,9 @@ export default function SchoolSettingsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-primary-100">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-indigo-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-700 font-medium">
             Loading school settings...
           </p>
@@ -714,11 +714,11 @@ export default function SchoolSettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-primary-100 relative overflow-hidden">
       {/* Animated background */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 left-20 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-        <div className="absolute top-40 right-20 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+        <div className="absolute top-40 right-20 w-96 h-96 bg-primary-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-8 pt-24">
@@ -726,11 +726,11 @@ export default function SchoolSettingsPage() {
         <div className="mb-8">
           <button
             onClick={() => router.push("/admin/dashboard")}
-            className="text-indigo-600 hover:text-indigo-800 font-medium mb-4 flex items-center gap-2"
+            className="text-primary-600 hover:text-primary-800 font-medium mb-4 flex items-center gap-2"
           >
             ← Back to Admin Dashboard
           </button>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-600 via-purple-600 to-violet-600 bg-clip-text text-transparent">
             School Settings
           </h1>
           <p className="text-gray-700 mt-2 text-lg">
@@ -739,13 +739,13 @@ export default function SchoolSettingsPage() {
         </div>
 
         {/* Tab Navigation */}
-        <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 mb-6 p-2">
+        <div className="glass-card bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 mb-6 p-2">
           <div className="flex gap-2">
             <button
               onClick={() => setActiveSection("basic")}
-              className={`flex-1 px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
+              className={`flex-1 px-6 py-3 rounded-2xl font-bold transition-all duration-300 ${
                 activeSection === "basic"
-                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                  ? "bg-gradient-to-r from-primary-600 to-purple-600 text-white shadow-lg"
                   : "text-gray-700 hover:bg-white/60"
               }`}
             >
@@ -753,9 +753,9 @@ export default function SchoolSettingsPage() {
             </button>
             <button
               onClick={() => setActiveSection("terms")}
-              className={`flex-1 px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
+              className={`flex-1 px-6 py-3 rounded-2xl font-bold transition-all duration-300 ${
                 activeSection === "terms"
-                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                  ? "bg-gradient-to-r from-primary-600 to-purple-600 text-white shadow-lg"
                   : "text-gray-700 hover:bg-white/60"
               }`}
             >
@@ -763,9 +763,9 @@ export default function SchoolSettingsPage() {
             </button>
             <button
               onClick={() => setActiveSection("calendar")}
-              className={`flex-1 px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
+              className={`flex-1 px-6 py-3 rounded-2xl font-bold transition-all duration-300 ${
                 activeSection === "calendar"
-                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                  ? "bg-gradient-to-r from-primary-600 to-purple-600 text-white shadow-lg"
                   : "text-gray-700 hover:bg-white/60"
               }`}
             >
@@ -773,9 +773,9 @@ export default function SchoolSettingsPage() {
             </button>
             <button
               onClick={() => setActiveSection("timetable")}
-              className={`flex-1 px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
+              className={`flex-1 px-6 py-3 rounded-2xl font-bold transition-all duration-300 ${
                 activeSection === "timetable"
-                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                  ? "bg-gradient-to-r from-primary-600 to-purple-600 text-white shadow-lg"
                   : "text-gray-700 hover:bg-white/60"
               }`}
             >
@@ -783,9 +783,9 @@ export default function SchoolSettingsPage() {
             </button>
             <button
               onClick={() => setActiveSection("departments")}
-              className={`flex-1 px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
+              className={`flex-1 px-6 py-3 rounded-2xl font-bold transition-all duration-300 ${
                 activeSection === "departments"
-                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                  ? "bg-gradient-to-r from-primary-600 to-purple-600 text-white shadow-lg"
                   : "text-gray-700 hover:bg-white/60"
               }`}
             >
@@ -793,9 +793,9 @@ export default function SchoolSettingsPage() {
             </button>
             <button
               onClick={() => setActiveSection("rollover")}
-              className={`flex-1 px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
+              className={`flex-1 px-6 py-3 rounded-2xl font-bold transition-all duration-300 ${
                 activeSection === "rollover"
-                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                  ? "bg-gradient-to-r from-primary-600 to-purple-600 text-white shadow-lg"
                   : "text-gray-700 hover:bg-white/60"
               }`}
             >
@@ -806,7 +806,7 @@ export default function SchoolSettingsPage() {
 
         {/* Basic Information Section */}
         {activeSection === "basic" && (
-          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
+          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-8">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -824,15 +824,15 @@ export default function SchoolSettingsPage() {
                       <img
                         src={logoPreview}
                         alt="School Logo"
-                        className="w-full h-full rounded-full object-cover border-4 border-indigo-200"
+                        className="w-full h-full rounded-full object-cover border-4 border-primary-200"
                       />
                     </div>
                   ) : (
-                    <div className="w-32 h-32 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center mb-4 border-4 border-indigo-200">
-                      <FiImage className="w-12 h-12 text-indigo-400" />
+                    <div className="w-32 h-32 bg-gradient-to-br from-primary-100 to-purple-100 rounded-full flex items-center justify-center mb-4 border-4 border-primary-200">
+                      <FiImage className="w-12 h-12 text-primary-400" />
                     </div>
                   )}
-                  <label className="cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2">
+                  <label className="cursor-pointer bg-gradient-to-r from-primary-600 to-purple-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2">
                     <FiUpload />
                     Upload Logo
                     <input
@@ -860,7 +860,7 @@ export default function SchoolSettingsPage() {
                     onChange={(e) =>
                       setSettings({ ...settings, school_name: e.target.value })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all"
                     required
                   />
                 </div>
@@ -874,7 +874,7 @@ export default function SchoolSettingsPage() {
                     onChange={(e) =>
                       setSettings({ ...settings, school_type: e.target.value })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all"
                     required
                   >
                     {schoolTypes.map((type) => (
@@ -895,7 +895,7 @@ export default function SchoolSettingsPage() {
                     onChange={(e) =>
                       setSettings({ ...settings, school_email: e.target.value })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all"
                     required
                   />
                 </div>
@@ -910,7 +910,7 @@ export default function SchoolSettingsPage() {
                     onChange={(e) =>
                       setSettings({ ...settings, school_phone: e.target.value })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all"
                   />
                 </div>
 
@@ -927,7 +927,7 @@ export default function SchoolSettingsPage() {
                       })
                     }
                     rows={3}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all"
                   />
                 </div>
 
@@ -941,7 +941,7 @@ export default function SchoolSettingsPage() {
                     onChange={(e) =>
                       setSettings({ ...settings, county: e.target.value })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all"
                   />
                 </div>
 
@@ -955,7 +955,7 @@ export default function SchoolSettingsPage() {
                     onChange={(e) =>
                       setSettings({ ...settings, sub_county: e.target.value })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all"
                   />
                 </div>
 
@@ -972,7 +972,7 @@ export default function SchoolSettingsPage() {
                         principal_name: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all"
                   />
                 </div>
 
@@ -989,7 +989,7 @@ export default function SchoolSettingsPage() {
                         deputy_principal_name: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all"
                   />
                 </div>
 
@@ -1003,7 +1003,7 @@ export default function SchoolSettingsPage() {
                     onChange={(e) =>
                       setSettings({ ...settings, school_motto: e.target.value })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all"
                     placeholder="e.g., Excellence in Education"
                   />
                 </div>
@@ -1021,7 +1021,7 @@ export default function SchoolSettingsPage() {
                         established_year: parseInt(e.target.value),
                       })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all"
                     min="1900"
                     max={new Date().getFullYear()}
                   />
@@ -1043,7 +1043,7 @@ export default function SchoolSettingsPage() {
                         type="checkbox"
                         checked={settings.grades_offered.includes(grade)}
                         onChange={() => handleGradeToggle(grade)}
-                        className="w-5 h-5 text-indigo-600 rounded focus:ring-2 focus:ring-indigo-500"
+                        className="w-5 h-5 text-primary-600 rounded focus:ring-2 focus:ring-primary-500"
                       />
                       <span className="text-sm font-medium text-gray-800">
                         {grade}
@@ -1063,7 +1063,7 @@ export default function SchoolSettingsPage() {
                     {settings.grades_offered.map((grade) => (
                       <div
                         key={grade}
-                        className="bg-gradient-to-br from-indigo-50 to-purple-50 p-4 rounded-xl border-2 border-indigo-200"
+                        className="bg-gradient-to-br from-primary-50 to-purple-50 p-4 rounded-2xl border-2 border-primary-200"
                       >
                         <div className="flex justify-between items-center mb-2">
                           <h4 className="font-bold text-gray-900">{grade}</h4>
@@ -1079,7 +1079,7 @@ export default function SchoolSettingsPage() {
                             <button
                               type="button"
                               onClick={() => handleAddStream(grade)}
-                              className="text-sm bg-indigo-600 text-white px-3 py-1 rounded-lg hover:bg-indigo-700 flex items-center gap-1"
+                              className="text-sm bg-primary-600 text-white px-3 py-1 rounded-lg hover:bg-primary-700 flex items-center gap-1"
                             >
                               <FiPlus className="w-4 h-4" /> Add Stream
                             </button>
@@ -1090,7 +1090,7 @@ export default function SchoolSettingsPage() {
                             (stream, idx) => (
                               <span
                                 key={`${stream.name}-${idx}`}
-                                className="inline-flex items-center gap-2 bg-white px-3 py-1 rounded-lg text-sm font-medium text-gray-800 border border-indigo-200"
+                                className="inline-flex items-center gap-2 bg-white px-3 py-1 rounded-lg text-sm font-medium text-gray-800 border border-primary-200"
                               >
                                 {grade}
                                 {stream.name ? ` ${stream.name}` : ""}
@@ -1139,7 +1139,7 @@ export default function SchoolSettingsPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="bg-gradient-to-r from-primary-600 to-purple-600 hover:from-primary-700 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <FiSave className="w-5 h-5" />
                   {saving ? "Saving..." : "Save School Settings"}
@@ -1151,7 +1151,7 @@ export default function SchoolSettingsPage() {
 
         {/* School Terms Section */}
         {activeSection === "terms" && (
-          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
+          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-8">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold text-gray-900">
                 School Terms Configuration
@@ -1166,7 +1166,7 @@ export default function SchoolSettingsPage() {
                   });
                   setShowTermModal(true);
                 }}
-                className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2"
+                className="bg-gradient-to-r from-primary-600 to-purple-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2"
               >
                 <FiPlus /> Add Term
               </button>
@@ -1178,7 +1178,7 @@ export default function SchoolSettingsPage() {
                 return (
                   <div
                     key={termNum}
-                    className="bg-gradient-to-br from-indigo-50 to-purple-50 p-6 rounded-xl border-2 border-indigo-200"
+                    className="bg-gradient-to-br from-primary-50 to-purple-50 p-6 rounded-2xl border-2 border-primary-200"
                   >
                     <h3 className="text-xl font-bold text-gray-900 mb-4">
                       Term {termNum}
@@ -1256,7 +1256,7 @@ export default function SchoolSettingsPage() {
                             });
                             setShowTermModal(true);
                           }}
-                          className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+                          className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700"
                         >
                           Configure Term
                         </button>
@@ -1271,7 +1271,7 @@ export default function SchoolSettingsPage() {
 
         {/* Calendar Activities Section */}
         {activeSection === "calendar" && (
-          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
+          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-8">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold text-gray-900">
                 Calendar of Activities
@@ -1286,7 +1286,7 @@ export default function SchoolSettingsPage() {
                   });
                   setShowActivityModal(true);
                 }}
-                className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2"
+                className="bg-gradient-to-r from-primary-600 to-purple-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2"
               >
                 <FiPlus /> Add Activity
               </button>
@@ -1296,7 +1296,7 @@ export default function SchoolSettingsPage() {
               {terms.map((term) => (
                 <div
                   key={term.id}
-                  className="bg-gradient-to-br from-indigo-50 to-purple-50 p-6 rounded-xl border-2 border-indigo-200"
+                  className="bg-gradient-to-br from-primary-50 to-purple-50 p-6 rounded-2xl border-2 border-primary-200"
                 >
                   <h3 className="text-xl font-bold text-gray-900 mb-4">
                     Term {term.term_number} - {term.year}
@@ -1312,11 +1312,11 @@ export default function SchoolSettingsPage() {
                       .map((activity) => (
                         <div
                           key={activity.id}
-                          className="bg-white p-4 rounded-lg border border-indigo-200 flex justify-between items-center"
+                          className="bg-white p-4 rounded-lg border border-primary-200 flex justify-between items-center"
                         >
                           <div className="flex-1">
                             <div className="flex items-center gap-3">
-                              <FiCalendar className="w-5 h-5 text-indigo-600" />
+                              <FiCalendar className="w-5 h-5 text-primary-600" />
                               <div>
                                 <h4 className="font-bold text-gray-900">
                                   {activity.activity_name}
@@ -1369,7 +1369,7 @@ export default function SchoolSettingsPage() {
 
         {/* Timetable Configuration Section */}
         {activeSection === "timetable" && (
-          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
+          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-8">
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
                 Timetable Configuration
@@ -1388,7 +1388,7 @@ export default function SchoolSettingsPage() {
                 <select
                   value={selectedLevel}
                   onChange={(e) => setSelectedLevel(e.target.value)}
-                  className="w-full appearance-none bg-white px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all font-medium text-lg"
+                  className="w-full appearance-none bg-white px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all font-medium text-lg"
                 >
                   {EDUCATION_LEVELS.map((level) => (
                     <option key={level.id} value={level.id}>
@@ -1404,7 +1404,7 @@ export default function SchoolSettingsPage() {
 
             {scheduleLoading ? (
               <div className="flex justify-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
               </div>
             ) : (
               <form
@@ -1415,9 +1415,9 @@ export default function SchoolSettingsPage() {
                 className="space-y-8"
               >
                 {/* Basic Timing */}
-                <div className="bg-gradient-to-br from-indigo-50 to-purple-50 p-6 rounded-xl border-2 border-indigo-200">
+                <div className="bg-gradient-to-br from-primary-50 to-purple-50 p-6 rounded-2xl border-2 border-primary-200">
                   <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                    <FiClock className="text-indigo-600" /> Basic Timing
+                    <FiClock className="text-primary-600" /> Basic Timing
                   </h3>
                   <div className="grid md:grid-cols-3 gap-6">
                     <div>
@@ -1433,7 +1433,7 @@ export default function SchoolSettingsPage() {
                             school_start_time: e.target.value,
                           })
                         }
-                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
+                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500"
                         required
                       />
                     </div>
@@ -1455,7 +1455,7 @@ export default function SchoolSettingsPage() {
                               : 0,
                           })
                         }
-                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
+                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500"
                         required
                       />
                     </div>
@@ -1477,7 +1477,7 @@ export default function SchoolSettingsPage() {
                               : 0,
                           })
                         }
-                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
+                        className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500"
                         required
                       />
                     </div>
@@ -1487,7 +1487,7 @@ export default function SchoolSettingsPage() {
                 {/* Sessions Grid */}
                 <div className="grid md:grid-cols-2 gap-6">
                   {/* Session 1 */}
-                  <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                  <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
                     <h4 className="font-bold text-gray-900 mb-4">
                       Session 1 (Morning)
                     </h4>
@@ -1537,7 +1537,7 @@ export default function SchoolSettingsPage() {
                   </div>
 
                   {/* Session 2 */}
-                  <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                  <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
                     <h4 className="font-bold text-gray-900 mb-4">
                       Session 2 (Mid-Morning)
                     </h4>
@@ -1587,7 +1587,7 @@ export default function SchoolSettingsPage() {
                   </div>
 
                   {/* Session 3 */}
-                  <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                  <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
                     <h4 className="font-bold text-gray-900 mb-4">
                       Session 3 (Before Lunch)
                     </h4>
@@ -1637,7 +1637,7 @@ export default function SchoolSettingsPage() {
                   </div>
 
                   {/* Session 4 */}
-                  <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                  <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
                     <h4 className="font-bold text-gray-900 mb-4">
                       Session 4 (Afternoon)
                     </h4>
@@ -1663,11 +1663,11 @@ export default function SchoolSettingsPage() {
                         />
                       </div>
                       <div className="pt-8">
-                        <div className="bg-indigo-50 p-4 rounded-lg">
+                        <div className="bg-primary-50 p-4 rounded-lg">
                           <p className="text-sm text-gray-600">
                             Estimated End Time
                           </p>
-                          <p className="text-2xl font-bold text-indigo-600">
+                          <p className="text-2xl font-bold text-primary-600">
                             {calculateEndTime()}
                           </p>
                         </div>
@@ -1681,7 +1681,7 @@ export default function SchoolSettingsPage() {
                   <button
                     type="submit"
                     disabled={saving}
-                    className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 disabled:opacity-50"
+                    className="bg-gradient-to-r from-primary-600 to-purple-600 hover:from-primary-700 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 disabled:opacity-50"
                   >
                     <FiSave className="w-5 h-5" />
                     {saving ? "Saving..." : "Save Timetable Configuration"}
@@ -1696,7 +1696,7 @@ export default function SchoolSettingsPage() {
       {/* Term Modal */}
       {showTermModal && editingTerm && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="glass-modal bg-white/95 backdrop-blur-2xl rounded-2xl max-w-2xl w-full p-8 shadow-2xl">
+          <div className="glass-modal bg-white/95 backdrop-blur-2xl rounded-[2rem] max-w-2xl w-full p-8 shadow-2xl">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">
               {editingTerm.id ? "Edit" : "Add"} Term {editingTerm.term_number}
             </h3>
@@ -1714,7 +1714,7 @@ export default function SchoolSettingsPage() {
                         term_number: parseInt(e.target.value) as any,
                       })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                   >
                     <option value="1">Term 1</option>
                     <option value="2">Term 2</option>
@@ -1734,7 +1734,7 @@ export default function SchoolSettingsPage() {
                         year: parseInt(e.target.value),
                       })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                   />
                 </div>
                 <div>
@@ -1750,7 +1750,7 @@ export default function SchoolSettingsPage() {
                         start_date: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                   />
                 </div>
                 <div>
@@ -1766,7 +1766,7 @@ export default function SchoolSettingsPage() {
                         end_date: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                   />
                 </div>
                 <div>
@@ -1782,7 +1782,7 @@ export default function SchoolSettingsPage() {
                         mid_term_break_start: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                   />
                 </div>
                 <div>
@@ -1798,7 +1798,7 @@ export default function SchoolSettingsPage() {
                         mid_term_break_end: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                   />
                 </div>
               </div>
@@ -1808,13 +1808,13 @@ export default function SchoolSettingsPage() {
                     setShowTermModal(false);
                     setEditingTerm(null);
                   }}
-                  className="flex-1 px-6 py-3 bg-gray-200 text-gray-800 rounded-xl font-bold hover:bg-gray-300"
+                  className="flex-1 px-6 py-3 bg-gray-200 text-gray-800 rounded-2xl font-bold hover:bg-gray-300"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSaveTerm}
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl"
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-primary-600 to-purple-600 text-white rounded-2xl font-bold shadow-lg hover:shadow-xl"
                 >
                   Save Term
                 </button>
@@ -1826,7 +1826,7 @@ export default function SchoolSettingsPage() {
 
       {/* Departments Section */}
       {activeSection === "departments" && (
-        <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
+        <div className="glass-card bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-8">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold text-gray-900">Departments</h2>
             <button
@@ -1835,7 +1835,7 @@ export default function SchoolSettingsPage() {
                 setDeptForm({ name: "", description: "", hod_id: "" });
                 setShowDeptModal(true);
               }}
-              className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center gap-2"
+              className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 flex items-center gap-2"
             >
               <FiPlus /> Add Department
             </button>
@@ -1845,7 +1845,7 @@ export default function SchoolSettingsPage() {
             {departments.map((dept) => (
               <div
                 key={dept.id}
-                className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center"
+                className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center"
               >
                 <div>
                   <h3 className="font-bold text-lg text-gray-900">
@@ -1853,7 +1853,7 @@ export default function SchoolSettingsPage() {
                   </h3>
                   <p className="text-gray-600">{dept.description}</p>
                   {dept.hod_name && (
-                    <p className="text-sm text-indigo-600 mt-1">
+                    <p className="text-sm text-primary-600 mt-1">
                       HOD: {dept.hod_name}
                     </p>
                   )}
@@ -1894,7 +1894,7 @@ export default function SchoolSettingsPage() {
       {/* Department Modal */}
       {showDeptModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl">
+          <div className="bg-white rounded-[2rem] p-8 max-w-md w-full shadow-2xl">
             <h3 className="text-2xl font-bold mb-6">
               {editingDept ? "Edit Department" : "Add Department"}
             </h3>
@@ -1910,7 +1910,7 @@ export default function SchoolSettingsPage() {
                   onChange={(e) =>
                     setDeptForm({ ...deptForm, name: e.target.value })
                   }
-                  className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                  className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                 />
               </div>
               <div>
@@ -1922,7 +1922,7 @@ export default function SchoolSettingsPage() {
                   onChange={(e) =>
                     setDeptForm({ ...deptForm, description: e.target.value })
                   }
-                  className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                  className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                 />
               </div>
               <div>
@@ -1934,7 +1934,7 @@ export default function SchoolSettingsPage() {
                   onChange={(e) =>
                     setDeptForm({ ...deptForm, hod_id: e.target.value })
                   }
-                  className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                  className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                 >
                   <option value="">Select HOD</option>
                   {teachers.map((teacher) => (
@@ -1948,13 +1948,13 @@ export default function SchoolSettingsPage() {
                 <button
                   type="button"
                   onClick={() => setShowDeptModal(false)}
-                  className="flex-1 px-6 py-3 bg-gray-200 text-gray-800 rounded-xl font-bold hover:bg-gray-300"
+                  className="flex-1 px-6 py-3 bg-gray-200 text-gray-800 rounded-2xl font-bold hover:bg-gray-300"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl"
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-primary-600 to-purple-600 text-white rounded-2xl font-bold shadow-lg hover:shadow-xl"
                 >
                   Save
                 </button>
@@ -1966,7 +1966,7 @@ export default function SchoolSettingsPage() {
 
       {/* Rollover Section */}
       {activeSection === "rollover" && (
-        <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8 text-center">
+        <div className="glass-card bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-8 text-center">
           <div className="max-w-2xl mx-auto">
             <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-8 text-left">
               <div className="flex">
@@ -1993,7 +1993,7 @@ export default function SchoolSettingsPage() {
 
             <button
               onClick={() => setShowRolloverModal(true)}
-              className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold text-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all"
+              className="px-8 py-4 bg-gradient-to-r from-primary-600 to-purple-600 text-white rounded-2xl font-bold text-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all"
             >
               Start New Academic Year
             </button>
@@ -2004,7 +2004,7 @@ export default function SchoolSettingsPage() {
       {/* Rollover Confirmation Modal */}
       {showRolloverModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl text-center">
+          <div className="bg-white rounded-[2rem] p-8 max-w-md w-full shadow-2xl text-center">
             <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <FiClock className="w-8 h-8 text-red-600" />
             </div>
@@ -2016,14 +2016,14 @@ export default function SchoolSettingsPage() {
             <div className="flex gap-4">
               <button
                 onClick={() => setShowRolloverModal(false)}
-                className="flex-1 px-6 py-3 bg-gray-200 text-gray-800 rounded-xl font-bold hover:bg-gray-300"
+                className="flex-1 px-6 py-3 bg-gray-200 text-gray-800 rounded-2xl font-bold hover:bg-gray-300"
               >
                 Cancel
               </button>
               <button
                 onClick={handleRollover}
                 disabled={rolloverLoading}
-                className="flex-1 px-6 py-3 bg-red-600 text-white rounded-xl font-bold shadow-lg hover:bg-red-700 disabled:opacity-50"
+                className="flex-1 px-6 py-3 bg-red-600 text-white rounded-2xl font-bold shadow-lg hover:bg-red-700 disabled:opacity-50"
               >
                 {rolloverLoading ? "Processing..." : "Confirm Rollover"}
               </button>
@@ -2035,7 +2035,7 @@ export default function SchoolSettingsPage() {
       {/* Activity Modal */}
       {showActivityModal && editingActivity && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="glass-modal bg-white/95 backdrop-blur-2xl rounded-2xl max-w-2xl w-full p-8 shadow-2xl">
+          <div className="glass-modal bg-white/95 backdrop-blur-2xl rounded-[2rem] max-w-2xl w-full p-8 shadow-2xl">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">
               {editingActivity.id ? "Edit" : "Add"} Calendar Activity
             </h3>
@@ -2052,7 +2052,7 @@ export default function SchoolSettingsPage() {
                       term_id: parseInt(e.target.value),
                     })
                   }
-                  className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                  className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                 >
                   {terms.map((term) => (
                     <option key={term.id} value={term.id}>
@@ -2074,7 +2074,7 @@ export default function SchoolSettingsPage() {
                       activity_name: e.target.value,
                     })
                   }
-                  className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                  className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                   placeholder="e.g., Term 1 Opening Day"
                 />
               </div>
@@ -2091,7 +2091,7 @@ export default function SchoolSettingsPage() {
                         activity_type: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                   >
                     {activityTypes.map((type) => (
                       <option key={type} value={type}>
@@ -2113,7 +2113,7 @@ export default function SchoolSettingsPage() {
                         activity_date: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                   />
                 </div>
               </div>
@@ -2130,7 +2130,7 @@ export default function SchoolSettingsPage() {
                     })
                   }
                   rows={3}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                  className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                   placeholder="Additional details about this activity..."
                 />
               </div>
@@ -2140,13 +2140,13 @@ export default function SchoolSettingsPage() {
                     setShowActivityModal(false);
                     setEditingActivity(null);
                   }}
-                  className="flex-1 px-6 py-3 bg-gray-200 text-gray-800 rounded-xl font-bold hover:bg-gray-300"
+                  className="flex-1 px-6 py-3 bg-gray-200 text-gray-800 rounded-2xl font-bold hover:bg-gray-300"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSaveActivity}
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl"
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-primary-600 to-purple-600 text-white rounded-2xl font-bold shadow-lg hover:shadow-xl"
                 >
                   Save Activity
                 </button>

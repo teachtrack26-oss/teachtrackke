@@ -65,7 +65,7 @@ export default function CreateRecordOfWorkPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -76,7 +76,7 @@ export default function CreateRecordOfWorkPage() {
         <div className="mb-8">
           <Link
             href="/professional-records"
-            className="inline-flex items-center text-indigo-600 hover:text-indigo-700 mb-4"
+            className="inline-flex items-center text-primary-600 hover:text-primary-700 mb-4"
           >
             <FiArrowLeft className="mr-2" /> Back to Professional Records
           </Link>
@@ -103,7 +103,7 @@ export default function CreateRecordOfWorkPage() {
                 <div className="mt-6">
                   <Link
                     href="/professional-records/generate-scheme"
-                    className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                    className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
                   >
                     <FiBookOpen className="mr-2 -ml-1 h-5 w-5" />
                     Create Scheme
@@ -116,12 +116,12 @@ export default function CreateRecordOfWorkPage() {
                   <div className="px-4 py-4 sm:px-6 flex items-center justify-between hover:bg-gray-50">
                     <div className="flex items-center">
                       <div className="flex-shrink-0">
-                        <div className="h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center">
-                          <FiBookOpen className="h-6 w-6 text-indigo-600" />
+                        <div className="h-12 w-12 rounded-full bg-primary-100 flex items-center justify-center">
+                          <FiBookOpen className="h-6 w-6 text-primary-600" />
                         </div>
                       </div>
                       <div className="ml-4">
-                        <h3 className="text-lg font-medium text-indigo-600 truncate">
+                        <h3 className="text-lg font-medium text-primary-600 truncate">
                           {scheme.subject_name}
                         </h3>
                         <div className="flex items-center text-sm text-gray-500">
@@ -140,8 +140,8 @@ export default function CreateRecordOfWorkPage() {
                         disabled={generating === scheme.id}
                         className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white ${
                           generating === scheme.id
-                            ? "bg-indigo-400 cursor-not-allowed"
-                            : "bg-indigo-600 hover:bg-indigo-700"
+                            ? "bg-primary-400 cursor-not-allowed"
+                            : "bg-primary-600 hover:bg-primary-700"
                         }`}
                       >
                         {generating === scheme.id ? (

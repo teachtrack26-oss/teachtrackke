@@ -410,9 +410,9 @@ export default function EditLessonPlanPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-primary-100">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-indigo-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-700 font-medium">
             Loading lesson plan...
           </p>
@@ -423,7 +423,7 @@ export default function EditLessonPlanPage() {
 
   return (
     <div
-      className={`min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100 relative overflow-hidden ${
+      className={`min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-primary-100 relative overflow-hidden ${
         !isPremium ? "select-none" : ""
       }`}
       onContextMenu={(e) => {
@@ -479,13 +479,13 @@ export default function EditLessonPlanPage() {
       {/* Animated background */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 left-20 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-        <div className="absolute top-40 right-20 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+        <div className="absolute top-40 right-20 w-96 h-96 bg-primary-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 py-8 pt-24">
         {/* Free Plan Banner */}
         {!isPremium && (
-          <div className="mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 shadow-sm relative overflow-hidden no-print">
+          <div className="mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-4 shadow-sm relative overflow-hidden no-print">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
@@ -516,7 +516,7 @@ export default function EditLessonPlanPage() {
           <div className="flex items-center gap-4 mb-4">
             <button
               onClick={() => router.push("/professional-records?tab=lessons")}
-              className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-medium"
+              className="flex items-center gap-2 text-primary-600 hover:text-primary-800 font-medium"
             >
               <FiArrowLeft className="w-5 h-5" />
               Back to Professional Records
@@ -538,11 +538,11 @@ export default function EditLessonPlanPage() {
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl">
+            <div className="p-3 bg-gradient-to-r from-primary-600 to-purple-600 rounded-2xl">
               <FiFileText className="w-8 h-8 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 bg-clip-text text-transparent">
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-600 via-purple-600 to-violet-600 bg-clip-text text-transparent">
                 Edit Lesson Plan
               </h1>
               <p className="text-gray-700 mt-1">
@@ -554,7 +554,7 @@ export default function EditLessonPlanPage() {
 
         {/* Lesson Plan Form */}
         <form onSubmit={handleSubmit}>
-          <div className="glass-card bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8 mb-6">
+          <div className="glass-card bg-white/80 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-8 mb-6">
             {/* Header Section */}
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center border-b-2 border-gray-300 pb-3">
@@ -569,7 +569,7 @@ export default function EditLessonPlanPage() {
                   </label>
                   <select
                     onChange={handleTimetableSelect}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white"
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white"
                   >
                     <option value="">-- Select a slot to auto-fill --</option>
                     {timetableEntries.map((entry) => {
@@ -621,7 +621,7 @@ export default function EditLessonPlanPage() {
                     name="learning_area"
                     value={lessonPlan.learning_area}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     required
                   />
                 </div>
@@ -637,7 +637,7 @@ export default function EditLessonPlanPage() {
                       handleInputChange(e);
                       handleGradeChange(e.target.value);
                     }}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     required
                   />
                 </div>
@@ -650,7 +650,7 @@ export default function EditLessonPlanPage() {
                     name="date"
                     value={lessonPlan.date}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   />
                 </div>
                 <div>
@@ -662,7 +662,7 @@ export default function EditLessonPlanPage() {
                       name="time"
                       value={lessonPlan.time}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     >
                       <option value="">Select Time</option>
                       {timeSlots
@@ -682,7 +682,7 @@ export default function EditLessonPlanPage() {
                       name="time"
                       value={lessonPlan.time}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     />
                   )}
                 </div>
@@ -704,7 +704,7 @@ export default function EditLessonPlanPage() {
                     placeholder="e.g. 40"
                     min={1}
                     max={180}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   />
                 </div>
                 <div className="md:col-span-3">
@@ -741,7 +741,7 @@ export default function EditLessonPlanPage() {
                         placeholder="Present"
                         value={presentLearners}
                         onChange={(e) => handleRollChange(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                       />
                       <span className="text-gray-500 font-bold">/</span>
                       <input
@@ -767,7 +767,7 @@ export default function EditLessonPlanPage() {
                   name="strand_theme_topic"
                   value={lessonPlan.strand_theme_topic}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   required
                 />
               </div>
@@ -781,7 +781,7 @@ export default function EditLessonPlanPage() {
                   name="sub_strand_sub_theme_sub_topic"
                   value={lessonPlan.sub_strand_sub_theme_sub_topic}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 />
               </div>
 
@@ -794,7 +794,7 @@ export default function EditLessonPlanPage() {
                   value={lessonPlan.specific_learning_outcomes}
                   onChange={handleInputChange}
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 />
               </div>
 
@@ -807,7 +807,7 @@ export default function EditLessonPlanPage() {
                   value={lessonPlan.key_inquiry_questions}
                   onChange={handleInputChange}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 />
               </div>
 
@@ -820,7 +820,7 @@ export default function EditLessonPlanPage() {
                   value={lessonPlan.core_competences}
                   onChange={handleInputChange}
                   rows={2}
-                  className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 />
               </div>
 
@@ -833,7 +833,7 @@ export default function EditLessonPlanPage() {
                   value={lessonPlan.values_to_be_developed}
                   onChange={handleInputChange}
                   rows={2}
-                  className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 />
               </div>
 
@@ -846,7 +846,7 @@ export default function EditLessonPlanPage() {
                   value={lessonPlan.pcis_to_be_addressed}
                   onChange={handleInputChange}
                   rows={2}
-                  className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 />
               </div>
 
@@ -859,7 +859,7 @@ export default function EditLessonPlanPage() {
                   value={lessonPlan.learning_resources}
                   onChange={handleInputChange}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 />
               </div>
 
@@ -919,7 +919,7 @@ export default function EditLessonPlanPage() {
                       value={lessonPlan.introduction}
                       onChange={handleInputChange}
                       rows={4}
-                      className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     />
                   </div>
 
@@ -932,7 +932,7 @@ export default function EditLessonPlanPage() {
                       value={lessonPlan.development}
                       onChange={handleInputChange}
                       rows={6}
-                      className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     />
                   </div>
 
@@ -945,7 +945,7 @@ export default function EditLessonPlanPage() {
                       value={lessonPlan.conclusion}
                       onChange={handleInputChange}
                       rows={4}
-                      className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     />
                   </div>
 
@@ -958,7 +958,7 @@ export default function EditLessonPlanPage() {
                       value={lessonPlan.summary}
                       onChange={handleInputChange}
                       rows={3}
-                      className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     />
                   </div>
                 </div>
@@ -975,7 +975,7 @@ export default function EditLessonPlanPage() {
                     value={lessonPlan.reflection_self_evaluation}
                     onChange={handleInputChange}
                     rows={4}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     placeholder="Reflect on what went well, challenges faced, and areas for improvement..."
                   />
                 </div>
@@ -995,14 +995,14 @@ export default function EditLessonPlanPage() {
                   )}`
                 )
               }
-              className="px-6 py-3 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition-all duration-300"
+              className="px-6 py-3 border border-gray-300 rounded-2xl text-gray-700 font-medium hover:bg-gray-50 transition-all duration-300"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={saving}
-              className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 disabled:opacity-50"
+              className="bg-gradient-to-r from-primary-600 to-purple-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 disabled:opacity-50"
             >
               <FiSave className="w-5 h-5" />
               {saving ? "Saving..." : "Save Changes"}

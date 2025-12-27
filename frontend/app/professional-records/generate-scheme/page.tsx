@@ -910,9 +910,9 @@ export default function SchemeGeneratorPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-primary-100">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-indigo-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-700 font-medium">Loading...</p>
         </div>
       </div>
@@ -920,11 +920,11 @@ export default function SchemeGeneratorPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-primary-100 relative overflow-hidden">
       {/* Animated background */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 left-20 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-        <div className="absolute top-40 right-20 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+        <div className="absolute top-40 right-20 w-96 h-96 bg-primary-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
@@ -932,12 +932,12 @@ export default function SchemeGeneratorPage() {
         <div className="mb-8">
           <button
             onClick={() => router.push("/professional-records")}
-            className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 mb-4 font-medium"
+            className="flex items-center gap-2 text-primary-600 hover:text-primary-800 mb-4 font-medium"
           >
             <FiArrowLeft className="w-5 h-5" />
             Back to Professional Records
           </button>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-600 via-purple-600 to-violet-600 bg-clip-text text-transparent">
             Generate Scheme of Work
           </h1>
           <p className="text-gray-700 mt-2 text-lg">
@@ -946,16 +946,16 @@ export default function SchemeGeneratorPage() {
         </div>
 
         {/* Progress Steps */}
-        <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-4 sm:p-6 mb-8 overflow-hidden">
+        <div className="glass-card bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-4 sm:p-6 mb-8 overflow-hidden">
           <div className="flex items-center justify-between">
             <div
               className={`flex items-center gap-1 sm:gap-3 flex-shrink-0 ${
-                currentStep >= 1 ? "text-indigo-600" : "text-gray-400"
+                currentStep >= 1 ? "text-primary-600" : "text-gray-400"
               }`}
             >
               <div
                 className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-sm sm:text-base flex-shrink-0 ${
-                  currentStep >= 1 ? "bg-indigo-600 text-white" : "bg-gray-200"
+                  currentStep >= 1 ? "bg-primary-600 text-white" : "bg-gray-200"
                 }`}
               >
                 1
@@ -972,18 +972,18 @@ export default function SchemeGeneratorPage() {
             <div className="flex-1 h-1 mx-1 sm:mx-4 bg-gray-200 min-w-[20px]">
               <div
                 className={`h-full ${
-                  currentStep >= 2 ? "bg-indigo-600" : ""
+                  currentStep >= 2 ? "bg-primary-600" : ""
                 } transition-all duration-300`}
               ></div>
             </div>
             <div
               className={`flex items-center gap-1 sm:gap-3 flex-shrink-0 ${
-                currentStep >= 2 ? "text-indigo-600" : "text-gray-400"
+                currentStep >= 2 ? "text-primary-600" : "text-gray-400"
               }`}
             >
               <div
                 className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-sm sm:text-base flex-shrink-0 ${
-                  currentStep >= 2 ? "bg-indigo-600 text-white" : "bg-gray-200"
+                  currentStep >= 2 ? "bg-primary-600 text-white" : "bg-gray-200"
                 }`}
               >
                 2
@@ -1000,18 +1000,18 @@ export default function SchemeGeneratorPage() {
             <div className="flex-1 h-1 mx-1 sm:mx-4 bg-gray-200 min-w-[20px]">
               <div
                 className={`h-full ${
-                  currentStep >= 3 ? "bg-indigo-600" : ""
+                  currentStep >= 3 ? "bg-primary-600" : ""
                 } transition-all duration-300`}
               ></div>
             </div>
             <div
               className={`flex items-center gap-1 sm:gap-3 flex-shrink-0 ${
-                currentStep >= 3 ? "text-indigo-600" : "text-gray-400"
+                currentStep >= 3 ? "text-primary-600" : "text-gray-400"
               }`}
             >
               <div
                 className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-sm sm:text-base flex-shrink-0 ${
-                  currentStep >= 3 ? "bg-indigo-600 text-white" : "bg-gray-200"
+                  currentStep >= 3 ? "bg-primary-600 text-white" : "bg-gray-200"
                 }`}
               >
                 3
@@ -1029,7 +1029,7 @@ export default function SchemeGeneratorPage() {
 
         {/* Step 1: Basic Information */}
         {currentStep === 1 && (
-          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
+          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">
               Basic Information
             </h2>
@@ -1043,7 +1043,7 @@ export default function SchemeGeneratorPage() {
                 <select
                   value={formData.subject_id}
                   onChange={(e) => handleSubjectChange(Number(e.target.value))}
-                  className="w-full px-3 sm:px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white text-sm sm:text-base"
+                  className="w-full px-3 sm:px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 bg-white text-sm sm:text-base"
                   required
                 >
                   <option value={0}>Select a subject</option>
@@ -1066,7 +1066,7 @@ export default function SchemeGeneratorPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, teacher_name: e.target.value })
                   }
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 bg-white"
                   required
                 />
               </div>
@@ -1082,7 +1082,7 @@ export default function SchemeGeneratorPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, school: e.target.value })
                   }
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50 text-gray-900"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-gray-50 text-gray-900"
                   required
                   readOnly
                 />
@@ -1096,7 +1096,7 @@ export default function SchemeGeneratorPage() {
                 <input
                   type="text"
                   value={formData.grade}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50 text-gray-900"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-gray-50 text-gray-900"
                   required
                   readOnly
                 />
@@ -1113,7 +1113,7 @@ export default function SchemeGeneratorPage() {
                 <select
                   value={formData.term}
                   onChange={(e) => handleTermChange(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 bg-white"
                   disabled={true} // Term is read-only - always uses current term
                 >
                   {!schoolTerms || schoolTerms.length === 0 ? (
@@ -1159,7 +1159,7 @@ export default function SchemeGeneratorPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, year: Number(e.target.value) })
                   }
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50 text-gray-900"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-gray-50 text-gray-900"
                   min={2020}
                   max={2030}
                   required
@@ -1182,7 +1182,7 @@ export default function SchemeGeneratorPage() {
                     })
                   }
                   placeholder="e.g. Mentor Mathematics Grade 3"
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 bg-white"
                 />
                 <p className="text-xs text-gray-500 mt-1">
                   Enter the textbook series name (e.g., &quot;Mentor Mathematics
@@ -1209,7 +1209,7 @@ export default function SchemeGeneratorPage() {
                       ),
                     })
                   }
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 bg-white"
                   min={1}
                   max={10}
                   required
@@ -1231,7 +1231,7 @@ export default function SchemeGeneratorPage() {
                     setFormData({ ...formData, stream: e.target.value })
                   }
                   placeholder="e.g., A, B, East, West"
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 bg-white"
                 />
                 <p className="text-xs text-gray-500 mt-1">
                   Optional class stream/section to help prefill lesson plans.
@@ -1249,7 +1249,7 @@ export default function SchemeGeneratorPage() {
                     setFormData({ ...formData, roll: e.target.value })
                   }
                   placeholder="e.g., 40/40"
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 bg-white"
                 />
                 <p className="text-xs text-gray-500 mt-1">
                   This value will be copied into generated lesson plans (you can
@@ -1273,7 +1273,7 @@ export default function SchemeGeneratorPage() {
                       ),
                     })
                   }
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 bg-white"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 bg-white"
                   min={10}
                   max={240}
                   required
@@ -1288,7 +1288,7 @@ export default function SchemeGeneratorPage() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Total Weeks *
                   {formData.total_weeks && (
-                    <span className="ml-2 text-xs text-indigo-600 font-normal">
+                    <span className="ml-2 text-xs text-primary-600 font-normal">
                       (Auto-calculated from term dates)
                     </span>
                   )}
@@ -1302,7 +1302,7 @@ export default function SchemeGeneratorPage() {
                       total_weeks: Number(e.target.value),
                     })
                   }
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-50 text-gray-900"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-gray-50 text-gray-900"
                   min={1}
                   max={20}
                   required
@@ -1311,7 +1311,7 @@ export default function SchemeGeneratorPage() {
               </div>
 
               <div className="md:col-span-2">
-                <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+                <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-2xl cursor-pointer hover:bg-gray-50 transition-colors">
                   <div className="relative inline-flex items-center cursor-pointer">
                     <input
                       type="checkbox"
@@ -1324,7 +1324,7 @@ export default function SchemeGeneratorPage() {
                       }
                       className="sr-only peer"
                     />
-                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
                   </div>
                   <div>
                     <span className="block text-sm font-medium text-gray-900">
@@ -1352,7 +1352,7 @@ export default function SchemeGeneratorPage() {
                   }
                   setCurrentStep(2);
                 }}
-                className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300"
+                className="bg-gradient-to-r from-primary-600 to-purple-600 text-white px-8 py-3 rounded-2xl font-bold shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 Next: Select Content
               </button>
@@ -1364,7 +1364,7 @@ export default function SchemeGeneratorPage() {
         {currentStep === 2 && (
           <div className="space-y-6">
             {/* Auto-Populate Card */}
-            <div className="glass-card bg-gradient-to-r from-emerald-50 to-teal-50 backdrop-blur-xl rounded-2xl shadow-xl border border-emerald-200 p-4 sm:p-6">
+            <div className="glass-card bg-gradient-to-r from-emerald-50 to-teal-50 backdrop-blur-xl rounded-[2rem] shadow-xl border border-emerald-200 p-4 sm:p-6">
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div className="flex-1">
                   <h3 className="text-base sm:text-lg font-bold text-emerald-800 flex items-center gap-2">
@@ -1380,7 +1380,7 @@ export default function SchemeGeneratorPage() {
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
                   <button
                     onClick={() => setShowPreview(true)}
-                    className="bg-white text-emerald-700 border border-emerald-200 px-4 py-2.5 sm:py-3 rounded-xl font-bold shadow-sm hover:shadow-md hover:bg-emerald-50 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
+                    className="bg-white text-emerald-700 border border-emerald-200 px-4 py-2.5 sm:py-3 rounded-2xl font-bold shadow-sm hover:shadow-md hover:bg-emerald-50 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
                   >
                     <FiEye className="w-4 h-4 sm:w-5 sm:h-5" />
                     Preview Content
@@ -1388,7 +1388,7 @@ export default function SchemeGeneratorPage() {
                   <button
                     onClick={autoPopulateFromCurriculum}
                     disabled={autoPopulating}
-                    className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 text-sm sm:text-base"
+                    className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-2xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 text-sm sm:text-base"
                   >
                     {autoPopulating ? (
                       <>
@@ -1415,14 +1415,14 @@ export default function SchemeGeneratorPage() {
               <div className="flex-1 h-px bg-gray-300"></div>
             </div>
 
-            <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
+            <div className="glass-card bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">
                 Select Lessons
               </h2>
               <p className="text-gray-600 mb-4">
                 Expand strands and substrands to select individual lessons
               </p>
-              <div className="text-sm text-indigo-600 font-medium mb-6">
+              <div className="text-sm text-primary-600 font-medium mb-6">
                 {selectedLessons.size} lesson
                 {selectedLessons.size !== 1 ? "s" : ""} selected
               </div>
@@ -1439,19 +1439,19 @@ export default function SchemeGeneratorPage() {
                   {strands.map((strand) => (
                     <div
                       key={strand.id}
-                      className="border border-gray-200 rounded-xl overflow-hidden"
+                      className="border border-gray-200 rounded-2xl overflow-hidden"
                     >
                       {/* Strand Header */}
                       <div
-                        className="bg-indigo-50 p-4 cursor-pointer hover:bg-indigo-100 transition-colors"
+                        className="bg-primary-50 p-4 cursor-pointer hover:bg-primary-100 transition-colors"
                         onClick={() => toggleStrand(strand.id)}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             {expandedStrands.has(strand.id) ? (
-                              <FiChevronDown className="w-5 h-5 text-indigo-600" />
+                              <FiChevronDown className="w-5 h-5 text-primary-600" />
                             ) : (
-                              <FiChevronRight className="w-5 h-5 text-indigo-600" />
+                              <FiChevronRight className="w-5 h-5 text-primary-600" />
                             )}
                             <span className="font-bold text-gray-900">
                               {strand.strand_name}
@@ -1524,14 +1524,14 @@ export default function SchemeGeneratorPage() {
                                             }
                                             className={`p-3 rounded-lg cursor-pointer transition-all duration-200 flex items-start gap-3 ${
                                               selectedLessons.has(lesson.id)
-                                                ? "bg-indigo-50 border-2 border-indigo-400"
+                                                ? "bg-primary-50 border-2 border-primary-400"
                                                 : "bg-gray-50 border-2 border-transparent hover:border-gray-300"
                                             }`}
                                           >
                                             <div
                                               className={`w-5 h-5 rounded flex items-center justify-center mt-0.5 flex-shrink-0 ${
                                                 selectedLessons.has(lesson.id)
-                                                  ? "bg-indigo-600"
+                                                  ? "bg-primary-600"
                                                   : "bg-gray-300"
                                               }`}
                                             >
@@ -1578,7 +1578,7 @@ export default function SchemeGeneratorPage() {
                 <button
                   onClick={generateWeeks}
                   disabled={selectedLessons.size === 0}
-                  className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="bg-gradient-to-r from-primary-600 to-purple-600 text-white px-8 py-3 rounded-2xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Generate Scheme ({selectedLessons.size} lesson
                   {selectedLessons.size !== 1 ? "s" : ""} selected)
@@ -1591,7 +1591,7 @@ export default function SchemeGeneratorPage() {
         {/* Step 3: Review and Edit */}
         {currentStep === 3 && (
           <div className="space-y-6">
-            <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
+            <div className="glass-card bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-8">
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
@@ -1623,7 +1623,7 @@ export default function SchemeGeneratorPage() {
                     schemeAlreadySaved
                       ? "bg-gradient-to-r from-emerald-500 to-green-500"
                       : "bg-gradient-to-r from-green-600 to-emerald-600"
-                  } text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 disabled:opacity-50`}
+                  } text-white px-6 py-3 rounded-2xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 disabled:opacity-50`}
                 >
                   {schemeAlreadySaved ? (
                     <FiCheck className="w-5 h-5" />
@@ -1642,9 +1642,9 @@ export default function SchemeGeneratorPage() {
                 {weeks.map((week, weekIndex) => (
                   <div
                     key={week.week_number}
-                    className="border border-gray-200 rounded-xl p-6 bg-white"
+                    className="border border-gray-200 rounded-2xl p-6 bg-white"
                   >
-                    <h3 className="text-lg font-bold text-indigo-600 mb-4">
+                    <h3 className="text-lg font-bold text-primary-600 mb-4">
                       Week {week.week_number}
                       <span className="text-sm font-normal text-gray-500 ml-2">
                         {getWeekDateRange(week.week_number)}
@@ -1655,7 +1655,7 @@ export default function SchemeGeneratorPage() {
                       {week.lessons.map((lesson, lessonIndex) => (
                         <div
                           key={lessonIndex}
-                          className="border-l-4 border-indigo-500 pl-4 space-y-3"
+                          className="border-l-4 border-primary-500 pl-4 space-y-3"
                         >
                           <div className="font-semibold text-gray-900">
                             Lesson {lesson.lesson_number}: {lesson.lesson_title}
@@ -1680,7 +1680,7 @@ export default function SchemeGeneratorPage() {
                                     e.target.value
                                   )
                                 }
-                                className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
+                                className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500"
                               />
                             </div>
 
@@ -1699,7 +1699,7 @@ export default function SchemeGeneratorPage() {
                                     e.target.value
                                   )
                                 }
-                                className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
+                                className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500"
                               />
                             </div>
                           </div>
@@ -1719,7 +1719,7 @@ export default function SchemeGeneratorPage() {
                                 )
                               }
                               rows={3}
-                              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
+                              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500"
                             />
                           </div>
 
@@ -1738,7 +1738,7 @@ export default function SchemeGeneratorPage() {
                                 )
                               }
                               rows={2}
-                              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
+                              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500"
                             />
                           </div>
 
@@ -1757,7 +1757,7 @@ export default function SchemeGeneratorPage() {
                                 )
                               }
                               rows={3}
-                              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500"
+                              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500"
                             />
                           </div>
 
@@ -1856,7 +1856,7 @@ export default function SchemeGeneratorPage() {
                                     key={resource}
                                     className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 transition-colors text-xs ${
                                       isSelected
-                                        ? "bg-indigo-50 border border-indigo-300"
+                                        ? "bg-primary-50 border border-primary-300"
                                         : ""
                                     }`}
                                   >
@@ -1870,7 +1870,7 @@ export default function SchemeGeneratorPage() {
                                           resource
                                         )
                                       }
-                                      className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500"
+                                      className="w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
                                     />
                                     <span className="text-gray-700">
                                       {resource}
@@ -1899,7 +1899,7 @@ export default function SchemeGeneratorPage() {
                                     key={method}
                                     className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 transition-colors text-xs ${
                                       isSelected
-                                        ? "bg-indigo-50 border border-indigo-300"
+                                        ? "bg-primary-50 border border-primary-300"
                                         : ""
                                     }`}
                                   >
@@ -1913,7 +1913,7 @@ export default function SchemeGeneratorPage() {
                                           method
                                         )
                                       }
-                                      className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500"
+                                      className="w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
                                     />
                                     <span className="text-gray-700">
                                       {method}
@@ -1944,7 +1944,7 @@ export default function SchemeGeneratorPage() {
                 <button
                   onClick={saveScheme}
                   disabled={saving}
-                  className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 disabled:opacity-50"
+                  className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-3 rounded-2xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 disabled:opacity-50"
                 >
                   <FiSave className="w-5 h-5" />
                   {saving ? "Saving..." : "Save Scheme of Work"}
@@ -1958,7 +1958,7 @@ export default function SchemeGeneratorPage() {
       {/* Preview Modal */}
       {showPreview && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col animate-in fade-in zoom-in duration-200">
+          <div className="bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col animate-in fade-in zoom-in duration-200">
             <div className="p-6 border-b border-gray-100 flex items-center justify-between">
               <div>
                 <h3 className="text-xl font-bold text-gray-900">
@@ -1978,15 +1978,15 @@ export default function SchemeGeneratorPage() {
 
             <div className="p-6 overflow-y-auto flex-1 space-y-6">
               <div className="grid grid-cols-3 gap-4 mb-6">
-                <div className="bg-indigo-50 p-4 rounded-xl text-center">
-                  <div className="text-2xl font-bold text-indigo-600">
+                <div className="bg-primary-50 p-4 rounded-2xl text-center">
+                  <div className="text-2xl font-bold text-primary-600">
                     {strands.length}
                   </div>
-                  <div className="text-xs font-medium text-indigo-800 uppercase tracking-wider">
+                  <div className="text-xs font-medium text-primary-800 uppercase tracking-wider">
                     Strands
                   </div>
                 </div>
-                <div className="bg-purple-50 p-4 rounded-xl text-center">
+                <div className="bg-purple-50 p-4 rounded-2xl text-center">
                   <div className="text-2xl font-bold text-purple-600">
                     {strands.reduce((acc, s) => acc + s.sub_strands.length, 0)}
                   </div>
@@ -1994,7 +1994,7 @@ export default function SchemeGeneratorPage() {
                     Sub-strands
                   </div>
                 </div>
-                <div className="bg-emerald-50 p-4 rounded-xl text-center">
+                <div className="bg-emerald-50 p-4 rounded-2xl text-center">
                   <div className="text-2xl font-bold text-emerald-600">
                     {lessons.length}
                   </div>
@@ -2008,7 +2008,7 @@ export default function SchemeGeneratorPage() {
                 {strands.map((strand) => (
                   <div
                     key={strand.id}
-                    className="border border-gray-200 rounded-xl overflow-hidden"
+                    className="border border-gray-200 rounded-2xl overflow-hidden"
                   >
                     <div className="bg-gray-50 px-4 py-3 border-b border-gray-200 font-semibold text-gray-800">
                       {strand.strand_name}
@@ -2038,7 +2038,7 @@ export default function SchemeGeneratorPage() {
             <div className="p-6 border-t border-gray-100 bg-gray-50 rounded-b-2xl flex justify-end">
               <button
                 onClick={() => setShowPreview(false)}
-                className="px-6 py-2 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-colors"
+                className="px-6 py-2 bg-gray-900 text-white rounded-2xl font-medium hover:bg-gray-800 transition-colors"
               >
                 Close Preview
               </button>

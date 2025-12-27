@@ -620,7 +620,7 @@ export default function SuperAdminDashboard() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -651,7 +651,7 @@ export default function SuperAdminDashboard() {
             <li className="inline-flex items-center">
               <a
                 href="/dashboard"
-                className="inline-flex items-center hover:text-indigo-600 transition-colors"
+                className="inline-flex items-center hover:text-primary-600 transition-colors"
               >
                 <FiHome className="w-4 h-4 mr-2" />
                 Dashboard
@@ -678,7 +678,7 @@ export default function SuperAdminDashboard() {
 
         {/* Header */}
         <div className="mb-8 flex items-center gap-3">
-          <div className="p-3 bg-red-100 rounded-xl">
+          <div className="p-3 bg-red-100 rounded-2xl">
             <FiShield className="w-8 h-8 text-red-600" />
           </div>
           <div>
@@ -692,9 +692,9 @@ export default function SuperAdminDashboard() {
         {/* Stats Overview */}
         {stats && (
           <div className="grid md:grid-cols-4 gap-6 mb-8">
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <div className="glass-card p-6">
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-blue-50 rounded-xl">
+                <div className="p-3 bg-blue-50 rounded-2xl">
                   <FiUsers className="w-6 h-6 text-blue-600" />
                 </div>
                 <div>
@@ -706,9 +706,9 @@ export default function SuperAdminDashboard() {
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <div className="glass-card p-6">
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-green-50 rounded-xl">
+                <div className="p-3 bg-green-50 rounded-2xl">
                   <FiBriefcase className="w-6 h-6 text-green-600" />
                 </div>
                 <div>
@@ -720,9 +720,9 @@ export default function SuperAdminDashboard() {
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <div className="glass-card p-6">
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-purple-50 rounded-xl">
+                <div className="p-3 bg-purple-50 rounded-2xl">
                   <FiBook className="w-6 h-6 text-purple-600" />
                 </div>
                 <div>
@@ -734,9 +734,9 @@ export default function SuperAdminDashboard() {
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <div className="glass-card p-6">
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-amber-50 rounded-xl">
+                <div className="p-3 bg-amber-50 rounded-2xl">
                   <FiZap className="w-6 h-6 text-amber-600" />
                 </div>
                 <div>
@@ -752,24 +752,24 @@ export default function SuperAdminDashboard() {
 
         {/* Subscription Breakdown */}
         {stats && (
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-8">
+          <div className="glass-card p-6 mb-8">
             <h3 className="text-lg font-bold text-gray-900 mb-4">
               Subscription Distribution
             </h3>
             <div className="grid md:grid-cols-3 gap-4">
-              <div className="p-4 bg-orange-50 rounded-xl">
+              <div className="p-4 bg-orange-50 rounded-2xl">
                 <p className="text-sm text-gray-600">Individual Basic</p>
                 <p className="text-3xl font-bold text-orange-600">
                   {stats.subscriptions.basic}
                 </p>
               </div>
-              <div className="p-4 bg-purple-50 rounded-xl">
+              <div className="p-4 bg-purple-50 rounded-2xl">
                 <p className="text-sm text-gray-600">Individual Premium</p>
                 <p className="text-3xl font-bold text-purple-600">
                   {stats.subscriptions.premium}
                 </p>
               </div>
-              <div className="p-4 bg-blue-50 rounded-xl">
+              <div className="p-4 bg-blue-50 rounded-2xl">
                 <p className="text-sm text-gray-600">School Sponsored</p>
                 <p className="text-3xl font-bold text-blue-600">
                   {stats.subscriptions.school_sponsored}
@@ -785,7 +785,7 @@ export default function SuperAdminDashboard() {
             onClick={() => setActiveTab("overview")}
             className={`px-4 py-2 rounded-lg font-medium transition-colors whitespace-nowrap ${
               activeTab === "overview"
-                ? "bg-indigo-600 text-white"
+                ? "bg-primary-600 text-white"
                 : "bg-white text-gray-700 hover:bg-gray-50"
             }`}
           >
@@ -795,7 +795,7 @@ export default function SuperAdminDashboard() {
             onClick={() => setActiveTab("users")}
             className={`px-4 py-2 rounded-lg font-medium transition-colors whitespace-nowrap ${
               activeTab === "users"
-                ? "bg-indigo-600 text-white"
+                ? "bg-primary-600 text-white"
                 : "bg-white text-gray-700 hover:bg-gray-50"
             }`}
           >
@@ -805,7 +805,7 @@ export default function SuperAdminDashboard() {
             onClick={() => setActiveTab("schools")}
             className={`px-4 py-2 rounded-lg font-medium transition-colors whitespace-nowrap ${
               activeTab === "schools"
-                ? "bg-indigo-600 text-white"
+                ? "bg-primary-600 text-white"
                 : "bg-white text-gray-700 hover:bg-gray-50"
             }`}
           >
@@ -819,7 +819,7 @@ export default function SuperAdminDashboard() {
             {/* Charts Row */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* User Growth Chart */}
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <div className="glass-card p-6">
                 <h3 className="text-lg font-bold text-gray-900 mb-4">
                   User Growth
                 </h3>
@@ -843,7 +843,7 @@ export default function SuperAdminDashboard() {
               </div>
 
               {/* Curriculum Progress Chart */}
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <div className="glass-card p-6">
                 <h3 className="text-lg font-bold text-gray-900 mb-4">
                   Curriculum Progress by Grade
                 </h3>
@@ -868,9 +868,9 @@ export default function SuperAdminDashboard() {
             {/* Activity & Health Row */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Recent Activity */}
-              <div className="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <div className="lg:col-span-2 glass-card p-6">
                 <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <FiActivity className="text-indigo-600" /> Recent Activity
+                  <FiActivity className="text-primary-600" /> Recent Activity
                 </h3>
                 <div className="space-y-4">
                   {activityLogs.map((log, i) => (
@@ -904,7 +904,7 @@ export default function SuperAdminDashboard() {
               </div>
 
               {/* System Health */}
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <div className="glass-card p-6">
                 <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
                   <FiServer className="text-gray-600" /> System Health
                 </h3>
@@ -974,7 +974,7 @@ export default function SuperAdminDashboard() {
                         <span className="font-medium text-gray-900 text-sm">
                           Resend (Emails)
                         </span>
-                        <FiExternalLink className="w-3 h-3 text-gray-400 group-hover:text-indigo-600" />
+                        <FiExternalLink className="w-3 h-3 text-gray-400 group-hover:text-primary-600" />
                       </div>
                     </a>
 
@@ -988,7 +988,7 @@ export default function SuperAdminDashboard() {
                         <span className="font-medium text-gray-900 text-sm">
                           PostHog (Analytics)
                         </span>
-                        <FiExternalLink className="w-3 h-3 text-gray-400 group-hover:text-indigo-600" />
+                        <FiExternalLink className="w-3 h-3 text-gray-400 group-hover:text-primary-600" />
                       </div>
                     </a>
 
@@ -1002,7 +1002,7 @@ export default function SuperAdminDashboard() {
                         <span className="font-medium text-gray-900 text-sm">
                           Vercel (Deployments)
                         </span>
-                        <FiExternalLink className="w-3 h-3 text-gray-400 group-hover:text-indigo-600" />
+                        <FiExternalLink className="w-3 h-3 text-gray-400 group-hover:text-primary-600" />
                       </div>
                     </a>
                   </div>
@@ -1014,7 +1014,7 @@ export default function SuperAdminDashboard() {
 
         {/* Users Tab */}
         {activeTab === "users" && (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div className="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden">
             <div className="p-6 border-b border-gray-100">
               <div className="flex flex-wrap gap-4 items-center justify-between">
                 <div className="flex flex-wrap gap-4 items-center flex-1">
@@ -1028,7 +1028,7 @@ export default function SuperAdminDashboard() {
                         setUserPage(1);
                       }}
                       placeholder="Search by email or name..."
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                     />
                   </div>
                   <select
@@ -1037,7 +1037,7 @@ export default function SuperAdminDashboard() {
                       setUserRoleFilter(e.target.value);
                       setUserPage(1);
                     }}
-                    className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                   >
                     <option value="all">All Roles</option>
                     <option value="TEACHER">Teachers</option>
@@ -1050,7 +1050,7 @@ export default function SuperAdminDashboard() {
                       setUserPageSize(Number(e.target.value));
                       setUserPage(1);
                     }}
-                    className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                   >
                     <option value={10}>10 / page</option>
                     <option value={25}>25 / page</option>
@@ -1060,7 +1060,7 @@ export default function SuperAdminDashboard() {
                 <button
                   onClick={handleExportUsers}
                   disabled={isExporting}
-                  className="px-4 py-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 font-medium flex items-center gap-2"
+                  className="px-4 py-2 bg-primary-50 text-primary-600 rounded-lg hover:bg-primary-100 font-medium flex items-center gap-2"
                 >
                   <FiDownload className="w-4 h-4" />
                   {isExporting ? "Exporting..." : "Export CSV"}
@@ -1069,8 +1069,8 @@ export default function SuperAdminDashboard() {
 
               {/* Bulk Actions Bar */}
               {selectedUserIds.length > 0 && (
-                <div className="mt-4 p-3 bg-indigo-50 rounded-lg flex items-center justify-between animate-fade-in">
-                  <span className="text-sm font-medium text-indigo-900">
+                <div className="mt-4 p-3 bg-primary-50 rounded-lg flex items-center justify-between animate-fade-in">
+                  <span className="text-sm font-medium text-primary-900">
                     {selectedUserIds.length} users selected
                   </span>
                   <div className="flex gap-2">
@@ -1115,7 +1115,7 @@ export default function SuperAdminDashboard() {
                             setSelectedUserIds([]);
                           }
                         }}
-                        className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                       />
                     </th>
                     <th className="px-6 py-4 text-left font-medium">User</th>
@@ -1139,7 +1139,7 @@ export default function SuperAdminDashboard() {
                         className="px-6 py-8 text-center text-gray-500"
                       >
                         <div className="flex flex-col items-center gap-2">
-                          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-indigo-600"></div>
+                          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary-600"></div>
                           <span>Loading users...</span>
                         </div>
                       </td>
@@ -1179,7 +1179,7 @@ export default function SuperAdminDashboard() {
                                 );
                               }
                             }}
-                            className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                            className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                           />
                         </td>
                         <td className="px-6 py-4">
@@ -1331,7 +1331,7 @@ export default function SuperAdminDashboard() {
 
         {/* Schools Tab */}
         {activeTab === "schools" && (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div className="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden">
             <div className="p-6 border-b border-gray-100">
               <div className="flex flex-wrap gap-4 items-center">
                 <div className="flex-1 min-w-[220px] relative">
@@ -1344,7 +1344,7 @@ export default function SuperAdminDashboard() {
                       setSchoolPage(1);
                     }}
                     placeholder="Search school names..."
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
                 <select
@@ -1353,7 +1353,7 @@ export default function SuperAdminDashboard() {
                     setSchoolSubscriptionFilter(e.target.value);
                     setSchoolPage(1);
                   }}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                 >
                   <option value="all">All Subscriptions</option>
                   <option value="ACTIVE">Active</option>
@@ -1366,7 +1366,7 @@ export default function SuperAdminDashboard() {
                     setSchoolSortBy(e.target.value as SchoolSortField);
                     setSchoolPage(1);
                   }}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                 >
                   <option value="name">Sort by Name</option>
                   <option value="teacher_count">Sort by Teachers</option>
@@ -1398,7 +1398,7 @@ export default function SuperAdminDashboard() {
                     setSchoolPageSize(Number(e.target.value));
                     setSchoolPage(1);
                   }}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                 >
                   <option value={10}>10 / page</option>
                   <option value={25}>25 / page</option>
@@ -1432,7 +1432,7 @@ export default function SuperAdminDashboard() {
                         className="px-6 py-8 text-center text-gray-500"
                       >
                         <div className="flex flex-col items-center gap-2">
-                          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-indigo-600"></div>
+                          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary-600"></div>
                           <span>Loading schools...</span>
                         </div>
                       </td>
@@ -1477,7 +1477,7 @@ export default function SuperAdminDashboard() {
                               onClick={() =>
                                 handleViewSchoolTeachers(school.id)
                               }
-                              className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-lg hover:bg-indigo-200 text-sm font-medium flex items-center gap-1"
+                              className="px-3 py-1 bg-primary-100 text-primary-700 rounded-lg hover:bg-primary-200 text-sm font-medium flex items-center gap-1"
                             >
                               <FiUsers className="w-3 h-3" />
                               View Teachers
@@ -1529,7 +1529,7 @@ export default function SuperAdminDashboard() {
         {/* School Teachers Modal */}
         {selectedSchool && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            <div className="bg-white rounded-[2rem] shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
               {/* Modal Header */}
               <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
                 <div>
@@ -1543,7 +1543,7 @@ export default function SuperAdminDashboard() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setIsEditingSchool(!isEditingSchool)}
-                    className="px-3 py-1.5 text-sm font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg"
+                    className="px-3 py-1.5 text-sm font-medium text-primary-600 bg-primary-50 hover:bg-primary-100 rounded-lg"
                   >
                     {isEditingSchool ? "Cancel Edit" : "Edit Settings"}
                   </button>
@@ -1560,7 +1560,7 @@ export default function SuperAdminDashboard() {
               <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
                 {/* Edit Form */}
                 {isEditingSchool && (
-                  <div className="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200">
+                  <div className="mb-6 p-4 bg-gray-50 rounded-2xl border border-gray-200">
                     <h4 className="text-sm font-semibold text-gray-900 mb-4">
                       Edit School Settings
                     </h4>
@@ -1578,7 +1578,7 @@ export default function SuperAdminDashboard() {
                               max_teachers: parseInt(e.target.value),
                             })
                           }
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                         />
                       </div>
                       <div>
@@ -1593,7 +1593,7 @@ export default function SuperAdminDashboard() {
                               subscription_status: e.target.value,
                             })
                           }
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                         >
                           <option value="ACTIVE">Active</option>
                           <option value="INACTIVE">Inactive</option>
@@ -1606,7 +1606,7 @@ export default function SuperAdminDashboard() {
                     <div className="flex justify-end">
                       <button
                         onClick={handleUpdateSchool}
-                        className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium text-sm"
+                        className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 font-medium text-sm"
                       >
                         Save Changes
                       </button>
@@ -1867,8 +1867,8 @@ export default function SuperAdminDashboard() {
         {/* Loading Overlay for School Details */}
         {loadingSchoolDetails && (
           <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600 mx-auto"></div>
+            <div className="bg-white p-6 rounded-2xl shadow-lg">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto"></div>
               <p className="mt-3 text-gray-600">Loading school details...</p>
             </div>
           </div>

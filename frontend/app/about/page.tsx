@@ -57,7 +57,7 @@ export default function AboutPage() {
       icon: <FiBookOpen className="w-8 h-8 text-white" />,
       title: "Complete Curriculum",
       description: "Pre-loaded CBC curricula (Grades 1-10) with strands, sub-strands, learning outcomes, core competencies, and detailed tracking.",
-      color: "from-indigo-500 to-purple-600",
+      color: "from-primary-500 to-purple-600",
     },
     {
       icon: <FiClock className="w-8 h-8 text-white" />,
@@ -100,15 +100,15 @@ export default function AboutPage() {
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden bg-gray-900">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-gray-900 opacity-90" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-purple-900 to-gray-900 opacity-90" />
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-block px-4 py-1.5 mb-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-indigo-300 font-medium text-sm animate-fade-in">
+          <div className="inline-block px-4 py-1.5 mb-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-primary-300 font-medium text-sm animate-fade-in">
             👋 Empowering Kenyan Educators
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-8 tracking-tight">
-            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">TeachTrack</span>
+            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-primary-400">TeachTrack</span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
             We're on a mission to simplify teaching administration so educators can focus on what truly matters: inspiring the next generation.
@@ -127,7 +127,7 @@ export default function AboutPage() {
               { label: "Hours Saved", value: 2500, suffix: "+" },
             ].map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-4xl font-bold text-indigo-600 mb-2">
+                <div className="text-4xl font-bold text-primary-600 mb-2">
                   <AnimatedCounter end={stat.value} suffix={stat.suffix} />
                 </div>
                 <div className="text-gray-600 font-medium">{stat.label}</div>
@@ -159,8 +159,8 @@ export default function AboutPage() {
             </div>
             <div className="grid grid-cols-2 gap-6">
               {values.map((value, index) => (
-                <div key={index} className="bg-gray-50 p-6 rounded-2xl border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                  <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mb-4">
+                <div key={index} className="bg-gray-50 p-6 rounded-[2rem] border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                  <div className="w-12 h-12 bg-primary-100 text-primary-600 rounded-2xl flex items-center justify-center mb-4">
                     {value.icon}
                   </div>
                   <h3 className="font-bold text-gray-900 mb-2">{value.title}</h3>
@@ -192,7 +192,7 @@ export default function AboutPage() {
               >
                 <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${feature.color} opacity-10 rounded-bl-full transition-transform group-hover:scale-150 duration-700`} />
                 
-                <div className={`inline-flex p-3 rounded-2xl bg-gradient-to-br ${feature.color} shadow-lg mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`inline-flex p-3 rounded-[2rem] bg-gradient-to-br ${feature.color} shadow-lg mb-6 group-hover:scale-110 transition-transform duration-300`}>
                   {feature.icon}
                 </div>
                 
@@ -211,26 +211,26 @@ export default function AboutPage() {
       {/* CTA Section */}
       <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-16 text-center shadow-2xl">
+          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-primary-600 to-purple-600 px-8 py-16 text-center shadow-2xl">
             <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20" />
             <div className="relative z-10">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
                 Ready to Transform Your Teaching?
               </h2>
-              <p className="text-indigo-100 text-lg mb-10 max-w-2xl mx-auto">
+              <p className="text-primary-100 text-lg mb-10 max-w-2xl mx-auto">
                 Join hundreds of Kenyan teachers who have already switched to a smarter, more efficient way of managing their classrooms.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   href="/register"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-white text-indigo-600 font-bold rounded-xl hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-600 font-bold rounded-2xl hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
                 >
                   Start Free Trial
                   <FiArrowRight className="ml-2 w-5 h-5" />
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-indigo-700/50 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:bg-indigo-700/70 transition-all duration-300"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-primary-700/50 backdrop-blur-sm text-white font-bold rounded-2xl border border-white/20 hover:bg-primary-700/70 transition-all duration-300"
                 >
                   Contact Sales
                 </Link>

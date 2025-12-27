@@ -109,7 +109,7 @@ export default function RecordOfWorkDetailPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -195,7 +195,7 @@ export default function RecordOfWorkDetailPage() {
       <div className="max-w-7xl mx-auto">
         {/* Free Plan Banner */}
         {!isPremium && (
-          <div className="mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 shadow-sm relative overflow-hidden print:hidden">
+          <div className="mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-4 shadow-sm relative overflow-hidden print:hidden">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
@@ -225,7 +225,7 @@ export default function RecordOfWorkDetailPage() {
         <div className="mb-8 flex justify-between items-center bg-white p-4 rounded-lg shadow-sm border border-gray-200 print:hidden">
           <Link
             href="/professional-records/record-of-work"
-            className="inline-flex items-center text-indigo-600 hover:text-indigo-700 font-medium"
+            className="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium"
           >
             <FiArrowLeft className="mr-2" /> Back to Records
           </Link>
@@ -235,7 +235,7 @@ export default function RecordOfWorkDetailPage() {
               className={`inline-flex items-center px-4 py-2 border shadow-sm text-sm font-medium rounded-md transition-colors ${
                 isEditing
                   ? "border-green-600 text-green-600 bg-green-50 hover:bg-green-100"
-                  : "border-indigo-600 text-indigo-600 bg-indigo-50 hover:bg-indigo-100"
+                  : "border-primary-600 text-primary-600 bg-primary-50 hover:bg-primary-100"
               }`}
             >
               {isEditing ? (

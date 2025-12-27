@@ -225,7 +225,7 @@ export default function AcademicTermsPage() {
   if (authLoading || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -258,7 +258,7 @@ export default function AcademicTermsPage() {
                 resetForm();
                 setShowForm(true);
               }}
-              className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+              className="flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
             >
               <FiPlus className="mr-2" />
               Add Term
@@ -267,7 +267,7 @@ export default function AcademicTermsPage() {
         </div>
 
         {/* Year Filter & Generate */}
-        <div className="bg-white rounded-xl shadow-sm p-4 mb-6 flex flex-wrap gap-4 items-center justify-between">
+        <div className="bg-white rounded-2xl shadow-sm p-4 mb-6 flex flex-wrap gap-4 items-center justify-between">
           <div className="flex items-center gap-4">
             <label className="text-sm font-medium text-gray-700">
               Filter by Year:
@@ -312,7 +312,7 @@ export default function AcademicTermsPage() {
         </div>
 
         {/* Terms Table */}
-        <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
           {terms.length === 0 ? (
             <div className="p-12 text-center">
               <FiCalendar className="mx-auto h-12 w-12 text-gray-400" />
@@ -390,7 +390,7 @@ export default function AcademicTermsPage() {
                       ) : (
                         <button
                           onClick={() => handleSetCurrent(term)}
-                          className="text-indigo-600 hover:text-indigo-900 text-sm"
+                          className="text-primary-600 hover:text-primary-900 text-sm"
                         >
                           Set as Current
                         </button>
@@ -399,7 +399,7 @@ export default function AcademicTermsPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-right">
                       <button
                         onClick={() => handleEdit(term)}
-                        className="text-indigo-600 hover:text-indigo-900 mr-3"
+                        className="text-primary-600 hover:text-primary-900 mr-3"
                       >
                         <FiEdit2 className="h-4 w-4" />
                       </button>
@@ -420,7 +420,7 @@ export default function AcademicTermsPage() {
         {/* Modal Form */}
         {showForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-xl font-bold text-gray-900">
@@ -599,7 +599,7 @@ export default function AcademicTermsPage() {
                           is_current: e.target.checked,
                         })
                       }
-                      className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                      className="h-4 w-4 text-primary-600 border-gray-300 rounded"
                     />
                     <label
                       htmlFor="is_current"
@@ -622,7 +622,7 @@ export default function AcademicTermsPage() {
                     </button>
                     <button
                       type="submit"
-                      className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                      className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
                     >
                       {editingTerm ? "Update Term" : "Create Term"}
                     </button>

@@ -52,7 +52,7 @@ const DraggableLesson = ({
     return (
       <div ref={setNodeRef} style={style} className="opacity-50">
         <div
-          className={`p-4 rounded-xl bg-gradient-to-br ${theme.gradient} border-l-4 ${theme.border} shadow-lg`}
+          className={`p-4 rounded-2xl bg-gradient-to-br ${theme.gradient} border-l-4 ${theme.border} shadow-lg`}
         >
           <div className="font-bold text-sm text-white">{subjectName}</div>
         </div>
@@ -66,7 +66,7 @@ const DraggableLesson = ({
       style={style}
       {...listeners}
       {...attributes}
-      className={`glass-lesson relative overflow-hidden p-4 rounded-xl bg-gradient-to-br ${theme.gradient} border-l-4 ${theme.border} ${theme.shadow} backdrop-blur-sm border border-white/60 group hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-grab active:cursor-grabbing mb-3`}
+      className={`glass-lesson relative overflow-hidden p-4 rounded-2xl bg-gradient-to-br ${theme.gradient} border-l-4 ${theme.border} ${theme.shadow} backdrop-blur-sm border border-white/60 group hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-grab active:cursor-grabbing mb-3`}
       onClick={onEdit}
     >
       {/* Pattern overlay */}
@@ -142,16 +142,16 @@ const DroppableCell = ({ id, dayIndex, slotId, children, onClick }: any) => {
       ref={setNodeRef}
       className={`p-3 align-top transition-colors duration-200 ${
         isOver
-          ? "bg-indigo-100/50 dark:bg-indigo-900/30 ring-2 ring-indigo-400 ring-inset rounded-lg"
+          ? "bg-primary-100/50 dark:bg-primary-900/30 ring-2 ring-primary-400 ring-inset rounded-lg"
           : ""
       }`}
     >
       <div
         onClick={onClick}
-        className={`w-full min-h-[110px] rounded-xl border-2 border-dashed ${
+        className={`w-full min-h-[110px] rounded-2xl border-2 border-dashed ${
           isOver
-            ? "border-indigo-400 bg-indigo-50/30 dark:bg-indigo-900/20"
-            : "border-gray-300 dark:border-gray-700 bg-gradient-to-br from-gray-100/80 to-slate-100/80 dark:from-gray-800/80 dark:to-slate-800/80 hover:from-indigo-100/60 hover:to-purple-100/60 dark:hover:from-indigo-900/40 dark:hover:to-purple-900/40 hover:border-indigo-400"
+            ? "border-primary-400 bg-primary-50/30 dark:bg-primary-900/20"
+            : "border-gray-300 dark:border-gray-700 bg-gradient-to-br from-gray-100/80 to-slate-100/80 dark:from-gray-800/80 dark:to-slate-800/80 hover:from-primary-100/60 hover:to-purple-100/60 dark:hover:from-primary-900/40 dark:hover:to-purple-900/40 hover:border-primary-400"
         } backdrop-blur-sm transition-all duration-300 flex flex-col items-center justify-center group cursor-pointer`}
       >
         {children}
@@ -183,10 +183,10 @@ const getSubjectTheme = (subjectName: string) => {
   }
   if (name.includes("physics")) {
     return {
-      gradient: "from-indigo-500/90 to-purple-500/90",
-      border: "border-indigo-400",
+      gradient: "from-primary-500/90 to-purple-500/90",
+      border: "border-primary-400",
       icon: "⚛️",
-      iconBg: "bg-indigo-600",
+      iconBg: "bg-primary-600",
       pattern: "pattern-zigzag",
       shadow: "shadow-indigo-200",
     };
@@ -345,10 +345,10 @@ const getSubjectTheme = (subjectName: string) => {
     name.includes("ire")
   ) {
     return {
-      gradient: "from-indigo-600/90 to-blue-600/90",
-      border: "border-indigo-500",
+      gradient: "from-primary-600/90 to-blue-600/90",
+      border: "border-primary-500",
       icon: "📿",
-      iconBg: "bg-indigo-700",
+      iconBg: "bg-primary-700",
       pattern: "pattern-dots",
       shadow: "shadow-indigo-200",
     };
@@ -979,11 +979,11 @@ const TimetablePage = () => {
 
   if (isLoading)
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100 relative overflow-hidden">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-primary-100 relative overflow-hidden">
         {/* Animated background patterns */}
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-20 left-20 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
-          <div className="absolute top-40 right-20 w-72 h-72 bg-indigo-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
+          <div className="absolute top-40 right-20 w-72 h-72 bg-primary-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
           <div className="absolute bottom-20 left-40 w-72 h-72 bg-violet-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
         </div>
         <div className="relative">
@@ -1050,7 +1050,7 @@ const TimetablePage = () => {
       `}</style>
       {/* Premium Animated Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-400/20 rounded-full blur-[128px] animate-blob"></div>
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-400/20 rounded-full blur-[128px] animate-blob"></div>
         <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-400/20 rounded-full blur-[128px] animate-blob animation-delay-2000"></div>
         <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-pink-400/20 rounded-full blur-[128px] animate-blob animation-delay-4000"></div>
       </div>
@@ -1064,7 +1064,7 @@ const TimetablePage = () => {
           {/* Live Status Timer */}
           {currentStatus && (
             <div
-              className={`glass-card mb-6 p-5 rounded-2xl shadow-xl border border-white/60 print:hidden ${
+              className={`glass-card mb-6 p-5 rounded-[2rem] shadow-xl border border-white/60 print:hidden ${
                 currentStatus.type === "in-lesson"
                   ? "bg-gradient-to-r from-green-400/30 to-emerald-400/30"
                   : currentStatus.type === "free-period"
@@ -1078,7 +1078,7 @@ const TimetablePage = () => {
                 <div className="flex items-center space-x-4">
                   {/* Animated Icon */}
                   <div
-                    className={`w-14 h-14 rounded-xl flex items-center justify-center shadow-lg ${
+                    className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg ${
                       currentStatus.type === "in-lesson"
                         ? "bg-gradient-to-br from-green-500 to-emerald-600 animate-pulse"
                         : currentStatus.type === "free-period"
@@ -1129,7 +1129,7 @@ const TimetablePage = () => {
 
                 {/* Current Time Display */}
                 <div className="text-right">
-                  <div className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                  <div className="text-4xl font-bold bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
                     {currentTime.toLocaleTimeString("en-US", {
                       hour: "2-digit",
                       minute: "2-digit",
@@ -1170,10 +1170,10 @@ const TimetablePage = () => {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary-600 to-purple-600 flex items-center justify-center shadow-lg">
                   <FiClock className="w-6 h-6 text-white" />
                 </div>
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
+                <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
                   Weekly Timetable
                 </h1>
               </div>
@@ -1186,7 +1186,7 @@ const TimetablePage = () => {
                 <select
                   value={selectedViewLevel}
                   onChange={(e) => setSelectedViewLevel(e.target.value)}
-                  className="appearance-none bg-white border border-gray-200 px-4 py-3 pr-10 rounded-xl text-gray-700 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer transition-all font-medium"
+                  className="appearance-none bg-white border border-gray-200 px-4 py-3 pr-10 rounded-2xl text-gray-700 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary-500 cursor-pointer transition-all font-medium"
                 >
                   <option value="All Levels">All Levels</option>
                   {Object.keys(educationLevels).map((level) => (
@@ -1211,7 +1211,7 @@ const TimetablePage = () => {
                   window.print();
                 }}
                 disabled={!isPremium}
-                className={`inline-flex items-center gap-2 px-4 py-3 border rounded-xl font-semibold transition-all shadow-sm hover:shadow group print:hidden ${
+                className={`inline-flex items-center gap-2 px-4 py-3 border rounded-2xl font-semibold transition-all shadow-sm hover:shadow group print:hidden ${
                   !isPremium
                     ? "bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200"
                     : "bg-white border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700"
@@ -1241,14 +1241,14 @@ const TimetablePage = () => {
                   setBulkLessons([{ day_of_week: 1, time_slot_id: 0 }]);
                   setIsBulkModalOpen(true);
                 }}
-                className="inline-flex items-center gap-2 px-4 py-3 bg-white border border-gray-200 hover:border-green-300 hover:bg-green-50 text-gray-700 hover:text-green-700 rounded-xl font-semibold transition-all shadow-sm hover:shadow group"
+                className="inline-flex items-center gap-2 px-4 py-3 bg-white border border-gray-200 hover:border-green-300 hover:bg-green-50 text-gray-700 hover:text-green-700 rounded-2xl font-semibold transition-all shadow-sm hover:shadow group"
               >
                 <FiBook className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span className="hidden sm:inline">Bulk Add</span>
               </button>
               <button
                 onClick={() => openAddModal()}
-                className="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg shadow-indigo-200 hover:shadow-indigo-300 transition-all"
+                className="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-primary-600 to-purple-600 hover:from-primary-700 hover:to-purple-700 text-white rounded-2xl font-semibold shadow-lg shadow-indigo-200 hover:shadow-indigo-300 transition-all"
               >
                 <FiPlus className="w-5 h-5" />
                 <span>Add Lesson</span>
@@ -1258,9 +1258,9 @@ const TimetablePage = () => {
 
           {/* Schedule Information Card */}
           {schedule && (
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 mb-8 hover:shadow-lg transition-all duration-300">
+            <div className="bg-white dark:bg-gray-800 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-700 p-6 mb-8 hover:shadow-lg transition-all duration-300">
               <div className="flex items-start">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center shadow-md">
                   <FiInfo className="w-6 h-6 text-white" />
                 </div>
                 <div className="flex-1 ml-4">
@@ -1268,16 +1268,16 @@ const TimetablePage = () => {
                     {schedule.schedule_name}
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-3 border border-indigo-100 dark:border-indigo-800">
+                    <div className="bg-gradient-to-br from-blue-50 to-primary-50 dark:from-blue-900/20 dark:to-primary-900/20 rounded-2xl p-3 border border-primary-100 dark:border-primary-800">
                       <span className="text-gray-600 dark:text-gray-300 block text-xs font-medium mb-1">
                         School Hours
                       </span>
-                      <p className="font-bold text-indigo-700 dark:text-indigo-300">
+                      <p className="font-bold text-primary-700 dark:text-primary-300">
                         {schedule.school_start_time} -{" "}
                         {schedule.school_end_time}
                       </p>
                     </div>
-                    <div className="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 rounded-xl p-3 border border-purple-100 dark:border-purple-800">
+                    <div className="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 rounded-2xl p-3 border border-purple-100 dark:border-purple-800">
                       <span className="text-gray-600 dark:text-gray-300 block text-xs font-medium mb-1">
                         Lesson Duration
                       </span>
@@ -1286,7 +1286,7 @@ const TimetablePage = () => {
                         {schedule.double_lesson_duration} min
                       </p>
                     </div>
-                    <div className="bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 rounded-xl p-3 border border-emerald-100 dark:border-emerald-800">
+                    <div className="bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 rounded-2xl p-3 border border-emerald-100 dark:border-emerald-800">
                       <span className="text-gray-600 dark:text-gray-300 block text-xs font-medium mb-1">
                         Total Lessons
                       </span>
@@ -1294,7 +1294,7 @@ const TimetablePage = () => {
                         {timeSlots.length} per day
                       </p>
                     </div>
-                    <div className="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 rounded-xl p-3 border border-orange-100 dark:border-orange-800">
+                    <div className="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 rounded-2xl p-3 border border-orange-100 dark:border-orange-800">
                       <span className="text-gray-600 dark:text-gray-300 block text-xs font-medium mb-1">
                         Breaks
                       </span>
@@ -1314,14 +1314,14 @@ const TimetablePage = () => {
 
         {/* Timetable Content */}
         <DndContext onDragEnd={handleDragEnd}>
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-violet-500/10 dark:from-indigo-900/20 dark:via-purple-900/20 dark:to-violet-900/20 border-b border-white/40 dark:border-gray-700">
-                    <th className="p-5 text-left font-bold text-gray-800 dark:text-gray-100 sticky left-0 bg-gradient-to-r from-indigo-50/80 via-purple-50/80 to-violet-50/80 dark:from-gray-800/90 dark:via-gray-800/90 dark:to-gray-800/90 backdrop-blur-xl z-10 border-r border-white/40 dark:border-gray-700">
+                  <tr className="bg-gradient-to-r from-primary-500/10 via-purple-500/10 to-violet-500/10 dark:from-primary-900/20 dark:via-purple-900/20 dark:to-violet-900/20 border-b border-white/40 dark:border-gray-700">
+                    <th className="p-5 text-left font-bold text-gray-800 dark:text-gray-100 sticky left-0 bg-gradient-to-r from-primary-50/80 via-purple-50/80 to-violet-50/80 dark:from-gray-800/90 dark:via-gray-800/90 dark:to-gray-800/90 backdrop-blur-xl z-10 border-r border-white/40 dark:border-gray-700">
                       <div className="flex items-center space-x-2">
-                        <FiClock className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                        <FiClock className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                         <span>Time</span>
                       </div>
                     </th>
@@ -1332,7 +1332,7 @@ const TimetablePage = () => {
                           idx === 0
                             ? "text-blue-700 dark:text-blue-400"
                             : idx === 1
-                            ? "text-indigo-700 dark:text-indigo-400"
+                            ? "text-primary-700 dark:text-primary-400"
                             : idx === 2
                             ? "text-purple-700 dark:text-purple-400"
                             : idx === 3
@@ -1351,12 +1351,12 @@ const TimetablePage = () => {
                       key={slot.id}
                       className="border-b border-white/30 dark:border-gray-700 hover:bg-white/20 dark:hover:bg-gray-700/20 transition-colors duration-200"
                     >
-                      <td className="p-5 bg-gradient-to-r from-indigo-50/80 via-purple-50/80 to-violet-50/80 dark:from-gray-800/90 dark:via-gray-800/90 dark:to-gray-800/90 backdrop-blur-xl sticky left-0 z-10 border-r border-white/40 dark:border-gray-700">
+                      <td className="p-5 bg-gradient-to-r from-primary-50/80 via-purple-50/80 to-violet-50/80 dark:from-gray-800/90 dark:via-gray-800/90 dark:to-gray-800/90 backdrop-blur-xl sticky left-0 z-10 border-r border-white/40 dark:border-gray-700">
                         <div className="flex items-center space-x-3">
                           <div
                             className={`w-10 h-10 rounded-lg flex items-center justify-center shadow-md ${
                               slotIdx % 3 === 0
-                                ? "bg-gradient-to-br from-blue-500 to-indigo-600"
+                                ? "bg-gradient-to-br from-blue-500 to-primary-600"
                                 : slotIdx % 3 === 1
                                 ? "bg-gradient-to-br from-purple-500 to-violet-600"
                                 : "bg-gradient-to-br from-pink-500 to-rose-600"
@@ -1441,9 +1441,9 @@ const TimetablePage = () => {
         {/* Add/Edit Lesson Modal */}
         {isAddModalOpen && (
           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-            <div className="glass-modal bg-white/95 dark:bg-gray-800/95 backdrop-blur-2xl rounded-2xl max-w-lg w-full p-8 max-h-[90vh] overflow-y-auto border border-white/60 dark:border-gray-700 shadow-2xl">
+            <div className="glass-modal bg-white/95 dark:bg-gray-800/95 backdrop-blur-2xl rounded-[2rem] max-w-lg w-full p-8 max-h-[90vh] overflow-y-auto border border-white/60 dark:border-gray-700 shadow-2xl">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
                   {editingEntry ? "Edit Lesson" : "Add New Lesson"}
                 </h3>
                 <button
@@ -1470,7 +1470,7 @@ const TimetablePage = () => {
                   <select
                     value={selectedEducationLevel}
                     onChange={(e) => handleEducationLevelChange(e.target.value)}
-                    className="w-full bg-white/60 dark:bg-gray-700/60 backdrop-blur-sm border-2 border-indigo-200 dark:border-indigo-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400 transition-all duration-200 font-medium dark:text-white"
+                    className="w-full bg-white/60 dark:bg-gray-700/60 backdrop-blur-sm border-2 border-primary-200 dark:border-primary-700 rounded-2xl px-4 py-3 focus:ring-2 focus:ring-primary-500 focus:border-primary-400 transition-all duration-200 font-medium dark:text-white"
                     required
                   >
                     <option value="" className="dark:bg-gray-800">
@@ -1497,7 +1497,7 @@ const TimetablePage = () => {
                     <select
                       value={selectedGrade}
                       onChange={(e) => handleGradeChange(e.target.value)}
-                      className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       required
                     >
                       <option value="" className="dark:bg-gray-800">
@@ -1530,7 +1530,7 @@ const TimetablePage = () => {
                       onChange={(e) =>
                         handleSubjectChange(parseInt(e.target.value))
                       }
-                      className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       required
                     >
                       <option value="" className="dark:bg-gray-800">
@@ -1569,7 +1569,7 @@ const TimetablePage = () => {
                           day_of_week: parseInt(e.target.value),
                         })
                       }
-                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500"
                       required
                     >
                       {DAYS.map((day, index) => (
@@ -1605,7 +1605,7 @@ const TimetablePage = () => {
                           time_slot_id: parseInt(e.target.value),
                         });
                       }}
-                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500"
                       required
                     >
                       <option value="0">Select time</option>
@@ -1655,7 +1655,7 @@ const TimetablePage = () => {
                           ? `e.g., ${selectedGrade} A, ${selectedGrade} East`
                           : "e.g., Grade 5A, Form 2 East"
                       }
-                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500"
                       required
                     />
                     <p className="mt-1 text-xs text-gray-500">
@@ -1677,7 +1677,7 @@ const TimetablePage = () => {
                         })
                       }
                       placeholder="e.g., Lab 1, Room 204"
-                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500"
                     />
                   </div>
                 </div>
@@ -1694,7 +1694,7 @@ const TimetablePage = () => {
                         is_double_lesson: e.target.checked,
                       })
                     }
-                    className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
                   />
                   <label
                     htmlFor="double"
@@ -1716,7 +1716,7 @@ const TimetablePage = () => {
                     }
                     rows={3}
                     placeholder="Additional information about this lesson..."
-                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
 
@@ -1729,13 +1729,13 @@ const TimetablePage = () => {
                       setEditingEntry(null);
                       setSelectedSubject(null);
                     }}
-                    className="flex-1 px-6 py-3 bg-white/60 dark:bg-gray-700/60 backdrop-blur-sm border-2 border-gray-300 dark:border-gray-600 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 hover:border-gray-400 dark:hover:border-gray-500 font-bold transition-all duration-200 shadow-md hover:shadow-lg"
+                    className="flex-1 px-6 py-3 bg-white/60 dark:bg-gray-700/60 backdrop-blur-sm border-2 border-gray-300 dark:border-gray-600 rounded-2xl text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 hover:border-gray-400 dark:hover:border-gray-500 font-bold transition-all duration-200 shadow-md hover:shadow-lg"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
+                    className="flex-1 px-6 py-3 bg-gradient-to-r from-primary-600 to-purple-600 hover:from-primary-700 hover:to-purple-700 text-white rounded-2xl font-bold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
                   >
                     {editingEntry ? "Update Lesson" : "Add Lesson"}
                   </button>
@@ -1748,7 +1748,7 @@ const TimetablePage = () => {
         {/* Bulk Add Modal */}
         {isBulkModalOpen && (
           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-            <div className="glass-modal bg-white/95 dark:bg-gray-800/95 backdrop-blur-2xl rounded-2xl max-w-3xl w-full p-8 max-h-[90vh] overflow-y-auto border border-white/60 dark:border-gray-700 shadow-2xl">
+            <div className="glass-modal bg-white/95 dark:bg-gray-800/95 backdrop-blur-2xl rounded-[2rem] max-w-3xl w-full p-8 max-h-[90vh] overflow-y-auto border border-white/60 dark:border-gray-700 shadow-2xl">
               <div className="flex justify-between items-center mb-6">
                 <div>
                   <h3 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">
@@ -1774,9 +1774,9 @@ const TimetablePage = () => {
 
               <form onSubmit={handleBulkSubmit} className="space-y-6">
                 {/* Common Subject Information */}
-                <div className="bg-gradient-to-br from-indigo-50/70 to-purple-50/70 dark:from-indigo-900/30 dark:to-purple-900/30 backdrop-blur-sm p-6 rounded-2xl border-2 border-indigo-200/60 dark:border-indigo-700/60 shadow-lg">
+                <div className="bg-gradient-to-br from-primary-50/70 to-purple-50/70 dark:from-primary-900/30 dark:to-purple-900/30 backdrop-blur-sm p-6 rounded-[2rem] border-2 border-primary-200/60 dark:border-primary-700/60 shadow-lg">
                   <h4 className="font-bold text-gray-900 dark:text-white mb-4 text-lg flex items-center">
-                    <span className="w-2 h-2 bg-indigo-600 rounded-full mr-2"></span>
+                    <span className="w-2 h-2 bg-primary-600 rounded-full mr-2"></span>
                     Common Information (applies to all lessons)
                   </h4>
 
@@ -1791,7 +1791,7 @@ const TimetablePage = () => {
                         onChange={(e) =>
                           handleEducationLevelChange(e.target.value)
                         }
-                        className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                        className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500"
                         required
                       >
                         <option value="" className="dark:bg-gray-800">
@@ -1818,7 +1818,7 @@ const TimetablePage = () => {
                         <select
                           value={selectedGrade}
                           onChange={(e) => handleGradeChange(e.target.value)}
-                          className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                          className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500"
                           required
                         >
                           <option value="" className="dark:bg-gray-800">
@@ -1851,7 +1851,7 @@ const TimetablePage = () => {
                           onChange={(e) =>
                             handleSubjectChange(parseInt(e.target.value))
                           }
-                          className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                          className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500"
                           required
                         >
                           <option value="" className="dark:bg-gray-800">
@@ -1896,7 +1896,7 @@ const TimetablePage = () => {
                               ? `e.g., ${selectedGrade} A, ${selectedGrade} East`
                               : "e.g., Grade 5A"
                           }
-                          className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                          className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500"
                           required
                         />
                       </div>
@@ -1915,7 +1915,7 @@ const TimetablePage = () => {
                             })
                           }
                           placeholder="e.g., Lab 1, Room 204"
-                          className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                          className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500"
                         />
                       </div>
                     </div>
@@ -1932,7 +1932,7 @@ const TimetablePage = () => {
                             is_double_lesson: e.target.checked,
                           })
                         }
-                        className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
                       />
                       <label
                         htmlFor="bulk-double"
@@ -1955,7 +1955,7 @@ const TimetablePage = () => {
                     <button
                       type="button"
                       onClick={addBulkLessonRow}
-                      className="text-sm bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:from-indigo-600 hover:to-purple-600 font-bold flex items-center shadow-md hover:shadow-lg transition-all duration-200"
+                      className="text-sm bg-gradient-to-r from-primary-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:from-primary-600 hover:to-purple-600 font-bold flex items-center shadow-md hover:shadow-lg transition-all duration-200"
                     >
                       <FiPlus className="w-4 h-4 mr-1" />
                       Add Another Time Slot
@@ -1966,7 +1966,7 @@ const TimetablePage = () => {
                     {bulkLessons.map((lesson, index) => (
                       <div
                         key={index}
-                        className="flex gap-3 items-start p-4 bg-gradient-to-r from-white/70 to-indigo-50/70 dark:from-gray-800/70 dark:to-indigo-900/30 backdrop-blur-sm rounded-xl border-2 border-indigo-200/50 dark:border-indigo-700/50 shadow-md hover:shadow-lg transition-all duration-200"
+                        className="flex gap-3 items-start p-4 bg-gradient-to-r from-white/70 to-primary-50/70 dark:from-gray-800/70 dark:to-primary-900/30 backdrop-blur-sm rounded-2xl border-2 border-primary-200/50 dark:border-primary-700/50 shadow-md hover:shadow-lg transition-all duration-200"
                       >
                         <div className="flex-1 grid grid-cols-2 gap-3">
                           <div>
@@ -1982,7 +1982,7 @@ const TimetablePage = () => {
                                   parseInt(e.target.value)
                                 )
                               }
-                              className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500"
+                              className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500"
                               required
                             >
                               {DAYS.map((day, dayIndex) => (
@@ -2020,7 +2020,7 @@ const TimetablePage = () => {
                                   parseInt(e.target.value)
                                 );
                               }}
-                              className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500"
+                              className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500"
                               required
                             >
                               <option value="0" className="dark:bg-gray-800">
@@ -2093,13 +2093,13 @@ const TimetablePage = () => {
                       setIsBulkModalOpen(false);
                       setBulkLessons([{ day_of_week: 1, time_slot_id: 0 }]);
                     }}
-                    className="flex-1 px-6 py-3 bg-white/60 backdrop-blur-sm border-2 border-gray-300 rounded-xl text-gray-700 hover:bg-gray-100 hover:border-gray-400 font-bold transition-all duration-200 shadow-md hover:shadow-lg"
+                    className="flex-1 px-6 py-3 bg-white/60 backdrop-blur-sm border-2 border-gray-300 rounded-2xl text-gray-700 hover:bg-gray-100 hover:border-gray-400 font-bold transition-all duration-200 shadow-md hover:shadow-lg"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-6 py-3 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
+                    className="flex-1 px-6 py-3 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white rounded-2xl font-bold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
                   >
                     Add{" "}
                     {

@@ -511,32 +511,32 @@ const TimetableSetupPage = () => {
             </div>
 
             {/* Summary */}
-            <div className="bg-indigo-50 rounded-lg p-4">
+            <div className="bg-primary-50 rounded-lg p-4">
               <h4 className="font-medium text-gray-900 mb-2">
                 Schedule Summary
               </h4>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                 <div>
                   <p className="text-gray-600">Total Lessons</p>
-                  <p className="text-xl font-bold text-indigo-600">
+                  <p className="text-xl font-bold text-primary-600">
                     {totalLessons}
                   </p>
                 </div>
                 <div>
                   <p className="text-gray-600">Start Time</p>
-                  <p className="text-xl font-bold text-indigo-600">
+                  <p className="text-xl font-bold text-primary-600">
                     {config.school_start_time}
                   </p>
                 </div>
                 <div>
                   <p className="text-gray-600">Estimated End</p>
-                  <p className="text-xl font-bold text-indigo-600">
+                  <p className="text-xl font-bold text-primary-600">
                     {calculateEndTime()}
                   </p>
                 </div>
                 <div>
                   <p className="text-gray-600">Break Time</p>
-                  <p className="text-xl font-bold text-indigo-600">
+                  <p className="text-xl font-bold text-primary-600">
                     {config.first_break_duration +
                       config.second_break_duration +
                       config.lunch_break_duration}{" "}
@@ -558,7 +558,7 @@ const TimetableSetupPage = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 flex items-center"
+                className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 flex items-center"
               >
                 {isLoading ? (
                   <>

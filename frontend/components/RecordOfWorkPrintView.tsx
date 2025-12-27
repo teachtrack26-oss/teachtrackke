@@ -218,7 +218,7 @@ export const RecordOfWorkPrintView = React.forwardRef<
                 <td className="border border-gray-800 p-2 align-top">
                   {isEditing && onUpdateEntry ? (
                     <textarea
-                      className="w-full h-full min-h-[60px] p-1 border border-gray-200 rounded focus:ring-2 focus:ring-indigo-500 resize-none bg-white"
+                      className="w-full h-full min-h-[60px] p-1 border border-gray-200 rounded focus:ring-2 focus:ring-primary-500 resize-none bg-white"
                       placeholder="Enter reflection..."
                       value={entry.reflection || ""}
                       onChange={(e) =>
@@ -235,7 +235,7 @@ export const RecordOfWorkPrintView = React.forwardRef<
                   {isEditing && onUpdateEntry ? (
                     <input
                       type="text"
-                      className="w-full text-center border border-gray-200 rounded focus:ring-2 focus:ring-indigo-500 bg-white"
+                      className="w-full text-center border border-gray-200 rounded focus:ring-2 focus:ring-primary-500 bg-white"
                       placeholder="Sign"
                       value={entry.signature || ""}
                       onChange={(e) =>

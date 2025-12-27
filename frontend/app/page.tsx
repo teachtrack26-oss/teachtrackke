@@ -141,17 +141,17 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 items-center">
             <button
               onClick={handleGetStarted}
-              className="group relative px-10 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-2xl text-lg font-bold shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-105"
+              className="group relative px-10 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-[2rem] text-lg font-bold shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-105"
             >
               <span className="relative z-10">
                 {isLoggedIn ? "Go to Dashboard" : "Get Started Free"}
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-2xl blur opacity-0 group-hover:opacity-70 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-[2rem] blur opacity-0 group-hover:opacity-70 transition-opacity duration-300" />
             </button>
 
             <a
               href="#features"
-              className="px-10 py-5 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white rounded-2xl text-lg font-semibold hover:bg-white/20 transition-all duration-300"
+              className="px-10 py-5 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white rounded-[2rem] text-lg font-semibold hover:bg-white/20 transition-all duration-300"
             >
               Learn More
             </a>
@@ -183,7 +183,7 @@ export default function Home() {
       {/* Animated Stats Section - NEW */}
       <section
         id="stats-section"
-        className="py-16 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600"
+        className="py-16 bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600"
       >
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
@@ -220,7 +220,7 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
                 Everything You Need
               </span>{" "}
               to Stay Organized
@@ -237,8 +237,8 @@ export default function Home() {
                 title: "Complete CBC Curriculum",
                 description:
                   "Pre-loaded curricula for Grades 1-10 with all strands, sub-strands, learning outcomes, and core competencies.",
-                color: "from-indigo-500 to-purple-600",
-                bgColor: "bg-indigo-50",
+                color: "from-primary-500 to-purple-600",
+                bgColor: "bg-primary-50",
               },
               {
                 icon: <FiCheckCircle className="w-12 h-12" />,
@@ -270,7 +270,7 @@ export default function Home() {
                 className={`group relative overflow-hidden rounded-3xl ${feature.bgColor} p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2`}
               >
                 <div
-                  className={`inline-block p-4 rounded-2xl bg-gradient-to-br ${feature.color} text-white mb-6 group-hover:scale-110 transition-transform duration-300`}
+                  className={`inline-block p-4 rounded-[2rem] bg-gradient-to-br ${feature.color} text-white mb-6 group-hover:scale-110 transition-transform duration-300`}
                 >
                   {feature.icon}
                 </div>
@@ -343,7 +343,7 @@ export default function Home() {
                   "{testimonial.content}"
                 </p>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg">
                     {testimonial.name.charAt(0)}
                   </div>
                   <div>
@@ -412,7 +412,7 @@ export default function Home() {
                 className="group relative flex items-start gap-6 p-8 bg-gradient-to-r from-gray-50 to-white rounded-3xl hover:shadow-xl transition-all duration-500 hover:-translate-x-2 border border-gray-100"
               >
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-16 h-16 rounded-[2rem] bg-gradient-to-br from-primary-600 to-purple-600 text-white flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform duration-300">
                     {step.number}
                   </div>
                 </div>
@@ -421,7 +421,7 @@ export default function Home() {
                     <h3 className="text-2xl font-bold text-gray-900">
                       {step.title}
                     </h3>
-                    <div className="text-indigo-600">{step.icon}</div>
+                    <div className="text-primary-600">{step.icon}</div>
                   </div>
                   <p className="text-gray-600 leading-relaxed text-lg">
                     {step.description}
@@ -430,7 +430,7 @@ export default function Home() {
 
                 {/* Connection line (except last item) */}
                 {index < 3 && (
-                  <div className="absolute left-14 top-full w-0.5 h-6 bg-gradient-to-b from-indigo-300 to-transparent" />
+                  <div className="absolute left-14 top-full w-0.5 h-6 bg-gradient-to-b from-primary-300 to-transparent" />
                 )}
               </div>
             ))}
@@ -440,7 +440,7 @@ export default function Home() {
 
       {/* CTA Section - Enhanced */}
       <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-700 via-purple-700 to-pink-700" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-700 via-purple-700 to-pink-700" />
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-0 left-0 w-96 h-96 bg-cyan-400 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-pink-400 rounded-full blur-3xl" />
@@ -460,12 +460,12 @@ export default function Home() {
 
           <button
             onClick={handleGetStarted}
-            className="group relative px-12 py-6 bg-white text-indigo-700 rounded-2xl text-xl font-bold shadow-2xl hover:shadow-white/30 transition-all duration-300 hover:scale-105"
+            className="group relative px-12 py-6 bg-white text-primary-700 rounded-[2rem] text-xl font-bold shadow-2xl hover:shadow-white/30 transition-all duration-300 hover:scale-105"
           >
             <span className="relative z-10">
               {isLoggedIn ? "Go to Dashboard" : "Start Free Trial"}
             </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-2xl blur opacity-0 group-hover:opacity-40 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-[2rem] blur opacity-0 group-hover:opacity-40 transition-opacity duration-300" />
           </button>
 
           <p className="mt-6 text-white/90 text-lg">

@@ -110,7 +110,7 @@ export default function NoteViewer({ note, onClose }: NoteViewerProps) {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setShowShareModal(true)}
-                className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-2"
+                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2"
                 title="Share"
               >
                 <FiShare2 size={18} />
@@ -164,7 +164,7 @@ export default function NoteViewer({ note, onClose }: NoteViewerProps) {
                     href={note.file_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-lg font-semibold shadow-lg"
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-lg font-semibold shadow-lg"
                   >
                     <FiEye size={24} />
                     Open PDF Document
@@ -356,7 +356,7 @@ export default function NoteViewer({ note, onClose }: NoteViewerProps) {
                     <button
                       onClick={handleDownload}
                       disabled={downloading}
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {downloading ? (
                         <>

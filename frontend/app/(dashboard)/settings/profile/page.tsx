@@ -574,7 +574,7 @@ export default function TeacherSettingsPage() {
   if (authLoading || loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -623,8 +623,8 @@ export default function TeacherSettingsPage() {
                 onClick={() => setActiveSection(tab.id as any)}
                 className={`flex items-center gap-2 px-6 py-4 font-medium transition-colors whitespace-nowrap ${
                   activeSection === tab.id
-                    ? "text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50"
-                    : "text-gray-600 hover:text-indigo-600 hover:bg-gray-50"
+                    ? "text-primary-600 border-b-2 border-primary-600 bg-primary-50"
+                    : "text-gray-600 hover:text-primary-600 hover:bg-gray-50"
                 }`}
               >
                 <tab.icon className="w-5 h-5" />
@@ -634,7 +634,7 @@ export default function TeacherSettingsPage() {
             {/* Link to Lessons Config */}
             <a
               href="/settings/lessons-config"
-              className="flex items-center gap-2 px-6 py-4 font-medium text-gray-600 hover:text-indigo-600 hover:bg-gray-50 transition-colors whitespace-nowrap border-l border-gray-200"
+              className="flex items-center gap-2 px-6 py-4 font-medium text-gray-600 hover:text-primary-600 hover:bg-gray-50 transition-colors whitespace-nowrap border-l border-gray-200"
             >
               <FiBook className="w-5 h-5" />
               Lessons Per Week
@@ -667,7 +667,7 @@ export default function TeacherSettingsPage() {
                   )}
                 </div>
                 <div>
-                  <label className="cursor-pointer bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 inline-flex items-center gap-2">
+                  <label className="cursor-pointer bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 inline-flex items-center gap-2">
                     <FiUpload className="w-4 h-4" />
                     Upload Logo
                     <input
@@ -696,7 +696,7 @@ export default function TeacherSettingsPage() {
                   onChange={(e) =>
                     setSettings({ ...settings, school_name: e.target.value })
                   }
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="Enter school name"
                 />
               </div>
@@ -710,7 +710,7 @@ export default function TeacherSettingsPage() {
                   onChange={(e) =>
                     setSettings({ ...settings, school_type: e.target.value })
                   }
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary-500"
                 >
                   {SCHOOL_TYPES.map((type) => (
                     <option key={type} value={type}>
@@ -729,7 +729,7 @@ export default function TeacherSettingsPage() {
                   onChange={(e) =>
                     setSettings({ ...settings, county: e.target.value })
                   }
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary-500"
                 >
                   <option value="">Select County</option>
                   {KENYAN_COUNTIES.map((county) => (
@@ -750,7 +750,7 @@ export default function TeacherSettingsPage() {
                   onChange={(e) =>
                     setSettings({ ...settings, sub_county: e.target.value })
                   }
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary-500"
                   placeholder="Enter sub-county"
                 />
               </div>
@@ -764,7 +764,7 @@ export default function TeacherSettingsPage() {
                   onChange={(e) =>
                     setSettings({ ...settings, school_address: e.target.value })
                   }
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary-500"
                   rows={2}
                   placeholder="P.O. Box, Town"
                 />
@@ -780,7 +780,7 @@ export default function TeacherSettingsPage() {
                   onChange={(e) =>
                     setSettings({ ...settings, school_motto: e.target.value })
                   }
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary-500"
                   placeholder="Enter school motto"
                 />
               </div>
@@ -801,9 +801,9 @@ export default function TeacherSettingsPage() {
                       type="checkbox"
                       checked={settings.grades_offered.includes(grade)}
                       onChange={() => toggleGrade(grade)}
-                      className="w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
+                      className="w-5 h-5 rounded border-gray-300 text-primary-600 focus:ring-primary-500 cursor-pointer"
                     />
-                    <span className="text-gray-700 group-hover:text-indigo-600 transition-colors">
+                    <span className="text-gray-700 group-hover:text-primary-600 transition-colors">
                       {grade}
                     </span>
                   </label>
@@ -821,7 +821,7 @@ export default function TeacherSettingsPage() {
                   {settings.grades_offered.map((grade) => (
                     <div
                       key={grade}
-                      className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-4 border border-indigo-100"
+                      className="bg-gradient-to-r from-primary-50 to-purple-50 rounded-2xl p-4 border border-primary-100"
                     >
                       <div className="flex justify-between items-center mb-3">
                         <h4 className="font-semibold text-gray-800">{grade}</h4>
@@ -829,7 +829,7 @@ export default function TeacherSettingsPage() {
                           <button
                             type="button"
                             onClick={() => addSingleClass(grade)}
-                            className="bg-indigo-500 text-white px-3 py-1.5 rounded-lg text-sm hover:bg-indigo-600 transition-colors flex items-center gap-1"
+                            className="bg-primary-500 text-white px-3 py-1.5 rounded-lg text-sm hover:bg-primary-600 transition-colors flex items-center gap-1"
                           >
                             <FiPlus className="w-4 h-4" />
                             Single Class
@@ -908,7 +908,7 @@ export default function TeacherSettingsPage() {
               <button
                 onClick={handleSaveBasicSettings}
                 disabled={saving}
-                className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 disabled:opacity-50 flex items-center gap-2"
+                className="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 disabled:opacity-50 flex items-center gap-2"
               >
                 <FiSave className="w-5 h-5" />
                 {saving ? "Saving..." : "Save Settings"}
@@ -934,7 +934,7 @@ export default function TeacherSettingsPage() {
                   });
                   setShowTermModal(true);
                 }}
-                className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 flex items-center gap-2"
+                className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 flex items-center gap-2"
               >
                 <FiPlus className="w-5 h-5" />
                 Add Term
@@ -970,7 +970,7 @@ export default function TeacherSettingsPage() {
                           setEditingTerm(term);
                           setShowTermModal(true);
                         }}
-                        className="p-2 text-indigo-600 hover:bg-indigo-50 rounded-lg"
+                        className="p-2 text-primary-600 hover:bg-primary-50 rounded-lg"
                       >
                         <FiEdit2 className="w-5 h-5" />
                       </button>
@@ -1013,7 +1013,7 @@ export default function TeacherSettingsPage() {
                     }}
                     className={`px-4 py-2 rounded-lg transition-colors ${
                       selectedLevel === level.id
-                        ? "bg-indigo-600 text-white"
+                        ? "bg-primary-600 text-white"
                         : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                     }`}
                   >
@@ -1254,7 +1254,7 @@ export default function TeacherSettingsPage() {
               <button
                 onClick={handleSaveSchedule}
                 disabled={saving}
-                className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 disabled:opacity-50 flex items-center gap-2"
+                className="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 disabled:opacity-50 flex items-center gap-2"
               >
                 <FiSave className="w-5 h-5" />
                 {saving ? "Saving..." : "Save Schedule"}
@@ -1395,7 +1395,7 @@ export default function TeacherSettingsPage() {
                 </button>
                 <button
                   onClick={handleSaveTerm}
-                  className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+                  className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700"
                 >
                   Save Term
                 </button>

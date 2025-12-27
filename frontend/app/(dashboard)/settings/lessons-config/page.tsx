@@ -213,7 +213,7 @@ export default function TeacherLessonsConfigPage() {
   if (authLoading || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -222,7 +222,7 @@ export default function TeacherLessonsConfigPage() {
   if (!user) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -235,7 +235,7 @@ export default function TeacherLessonsConfigPage() {
         {/* Back Link */}
         <Link
           href="/settings/profile"
-          className="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-800 mb-6"
+          className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-800 mb-6"
         >
           <FiArrowLeft className="w-4 h-4" />
           Back to Settings
@@ -244,7 +244,7 @@ export default function TeacherLessonsConfigPage() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-3">
-            <FiBook className="w-8 h-8 text-indigo-600" />
+            <FiBook className="w-8 h-8 text-primary-600" />
             Lessons Per Week Configuration
           </h1>
           <p className="text-gray-600 mt-2">
@@ -263,7 +263,7 @@ export default function TeacherLessonsConfigPage() {
               <select
                 value={selectedLevel}
                 onChange={(e) => setSelectedLevel(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 {Object.keys(GRADE_LEVELS).map((level) => (
                   <option key={level} value={level}>
@@ -279,7 +279,7 @@ export default function TeacherLessonsConfigPage() {
               <select
                 value={selectedGrade}
                 onChange={(e) => setSelectedGrade(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 {(
                   GRADE_LEVELS[selectedLevel as keyof typeof GRADE_LEVELS] || []
@@ -335,7 +335,7 @@ export default function TeacherLessonsConfigPage() {
                   return (
                     <tr
                       key={`${config.subject_name}-${config.grade}`}
-                      className={`border-b border-gray-100 hover:bg-indigo-50/50 transition-colors ${
+                      className={`border-b border-gray-100 hover:bg-primary-50/50 transition-colors ${
                         index % 2 === 0 ? "bg-gray-50/50" : ""
                       }`}
                     >
@@ -355,10 +355,10 @@ export default function TeacherLessonsConfigPage() {
                                 lessons_per_week: parseInt(e.target.value) || 5,
                               })
                             }
-                            className="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-indigo-500"
+                            className="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-primary-500"
                           />
                         ) : (
-                          <span className="font-semibold text-indigo-600">
+                          <span className="font-semibold text-primary-600">
                             {config.lessons_per_week}
                           </span>
                         )}
@@ -377,7 +377,7 @@ export default function TeacherLessonsConfigPage() {
                                   parseInt(e.target.value) || 0,
                               })
                             }
-                            className="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-indigo-500"
+                            className="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-primary-500"
                           />
                         ) : (
                           <span className="text-gray-700">
@@ -399,7 +399,7 @@ export default function TeacherLessonsConfigPage() {
                                   parseInt(e.target.value) || 40,
                               })
                             }
-                            className="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-indigo-500"
+                            className="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-primary-500"
                           />
                         ) : (
                           <span className="text-gray-700">
@@ -421,7 +421,7 @@ export default function TeacherLessonsConfigPage() {
                                   parseInt(e.target.value) || 80,
                               })
                             }
-                            className="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-indigo-500"
+                            className="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-primary-500"
                           />
                         ) : (
                           <span className="text-gray-700">
@@ -450,7 +450,7 @@ export default function TeacherLessonsConfigPage() {
                         ) : (
                           <button
                             onClick={() => startEditing(config)}
-                            className="bg-indigo-600 text-white px-3 py-1 rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-1 mx-auto"
+                            className="bg-primary-600 text-white px-3 py-1 rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-1 mx-auto"
                           >
                             <FiEdit2 className="w-4 h-4" />
                             Edit
@@ -465,7 +465,7 @@ export default function TeacherLessonsConfigPage() {
           </div>
 
           {/* Info Box */}
-          <div className="mt-8 p-4 bg-indigo-50 rounded-xl">
+          <div className="mt-8 p-4 bg-primary-50 rounded-2xl">
             <h3 className="font-semibold text-gray-900 mb-2">How it works:</h3>
             <ul className="text-sm text-gray-700 space-y-1">
               <li>

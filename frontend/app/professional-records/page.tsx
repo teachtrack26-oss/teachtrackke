@@ -739,7 +739,7 @@ export default function ProfessionalRecordsPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-indigo-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-700 font-medium">
             Loading professional records...
           </p>
@@ -752,7 +752,7 @@ export default function ProfessionalRecordsPage() {
     <div className="min-h-screen bg-gray-50 relative overflow-hidden pt-24">
       {/* Premium Animated Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-400/20 rounded-full blur-[128px] animate-blob"></div>
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-400/20 rounded-full blur-[128px] animate-blob"></div>
         <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-400/20 rounded-full blur-[128px] animate-blob animation-delay-2000"></div>
         <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-pink-400/20 rounded-full blur-[128px] animate-blob animation-delay-4000"></div>
       </div>
@@ -761,10 +761,10 @@ export default function ProfessionalRecordsPage() {
         {/* Premium Header */}
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary-600 to-purple-600 flex items-center justify-center shadow-lg">
               <FiFileText className="w-6 h-6 text-white" />
             </div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
               Professional Records
             </h1>
           </div>
@@ -776,7 +776,7 @@ export default function ProfessionalRecordsPage() {
 
         {/* Free Plan Banner */}
         {!isPremium && (
-          <div className="mb-8 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-6 shadow-sm relative overflow-hidden">
+          <div className="mb-8 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-6 shadow-sm relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-amber-400/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
             <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
               <div className="flex items-start gap-4">
@@ -806,12 +806,12 @@ export default function ProfessionalRecordsPage() {
 
         {/* Premium Statistics Cards */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-          <div className="group bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-lg hover:border-indigo-200 transition-all">
+          <div className="group glass-card p-5 hover:shadow-lg hover:border-primary-200 transition-all">
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center">
                 <FiBookOpen className="w-5 h-5 text-white" />
               </div>
-              <div className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              <div className="text-3xl font-bold bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
                 {stats.totalSchemes}
               </div>
             </div>
@@ -820,7 +820,7 @@ export default function ProfessionalRecordsPage() {
             </div>
           </div>
 
-          <div className="group bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-lg hover:border-green-200 transition-all">
+          <div className="group glass-card p-5 hover:shadow-lg hover:border-green-200 transition-all">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
                 <FiCheckSquare className="w-5 h-5 text-white" />
@@ -834,7 +834,7 @@ export default function ProfessionalRecordsPage() {
             </div>
           </div>
 
-          <div className="group bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-lg hover:border-purple-200 transition-all">
+          <div className="group glass-card p-5 hover:shadow-lg hover:border-purple-200 transition-all">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
                 <FiFileText className="w-5 h-5 text-white" />
@@ -848,7 +848,7 @@ export default function ProfessionalRecordsPage() {
             </div>
           </div>
 
-          <div className="group bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-lg hover:border-emerald-200 transition-all">
+          <div className="group glass-card p-5 hover:shadow-lg hover:border-emerald-200 transition-all">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
                 <FiUsers className="w-5 h-5 text-white" />
@@ -862,7 +862,7 @@ export default function ProfessionalRecordsPage() {
             </div>
           </div>
 
-          <div className="group bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-lg hover:border-orange-200 transition-all">
+          <div className="group glass-card p-5 hover:shadow-lg hover:border-orange-200 transition-all">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center">
                 <FiClock className="w-5 h-5 text-white" />
@@ -874,7 +874,7 @@ export default function ProfessionalRecordsPage() {
             <div className="text-sm font-medium text-gray-600">This Week</div>
           </div>
 
-          <div className="group bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-lg hover:border-blue-200 transition-all">
+          <div className="group glass-card p-5 hover:shadow-lg hover:border-blue-200 transition-all">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center">
                 <FiTrendingUp className="w-5 h-5 text-white" />
@@ -893,7 +893,7 @@ export default function ProfessionalRecordsPage() {
         {!loading && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             {/* Weekly Activity Chart */}
-            <div className="glass-card bg-white/60 backdrop-blur-xl rounded-xl shadow-lg border border-white/60 p-6">
+            <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg border border-white/60 p-6">
               <h3 className="text-lg font-bold text-gray-800 mb-4">
                 Weekly Teaching Activity
               </h3>
@@ -923,7 +923,7 @@ export default function ProfessionalRecordsPage() {
             </div>
 
             {/* Subject Progress */}
-            <div className="glass-card bg-white/60 backdrop-blur-xl rounded-xl shadow-lg border border-white/60 p-6">
+            <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg border border-white/60 p-6">
               <h3 className="text-lg font-bold text-gray-800 mb-4">
                 Subject Progress
               </h3>
@@ -935,13 +935,13 @@ export default function ProfessionalRecordsPage() {
                         <span className="font-semibold text-gray-800">
                           {subject.subject} ({subject.grade})
                         </span>
-                        <span className="text-indigo-600 font-bold">
+                        <span className="text-primary-600 font-bold">
                           {subject.progress}%
                         </span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2.5">
                         <div
-                          className="bg-gradient-to-r from-indigo-500 to-purple-500 h-2.5 rounded-full transition-all duration-1000 ease-out"
+                          className="bg-gradient-to-r from-primary-500 to-purple-500 h-2.5 rounded-full transition-all duration-1000 ease-out"
                           style={{ width: `${subject.progress}%` }}
                         ></div>
                       </div>
@@ -964,13 +964,13 @@ export default function ProfessionalRecordsPage() {
 
         {/* Tab Navigation */}
         <div className="flex flex-col md:flex-row gap-4 mb-6">
-          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-2 flex-1">
+          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-2 flex-1">
             <div className="flex gap-2">
               <button
                 onClick={() => setActiveTab("schemes")}
-                className={`flex-1 px-3 sm:px-6 py-3 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base ${
+                className={`flex-1 px-3 sm:px-6 py-3 rounded-2xl font-bold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base ${
                   activeTab === "schemes"
-                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                    ? "bg-gradient-to-r from-primary-600 to-purple-600 text-white shadow-lg"
                     : "text-gray-700 hover:bg-white/60"
                 }`}
               >
@@ -980,9 +980,9 @@ export default function ProfessionalRecordsPage() {
               </button>
               <button
                 onClick={() => setActiveTab("lessons")}
-                className={`flex-1 px-3 sm:px-6 py-3 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base ${
+                className={`flex-1 px-3 sm:px-6 py-3 rounded-2xl font-bold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base ${
                   activeTab === "lessons"
-                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                    ? "bg-gradient-to-r from-primary-600 to-purple-600 text-white shadow-lg"
                     : "text-gray-700 hover:bg-white/60"
                 }`}
               >
@@ -992,9 +992,9 @@ export default function ProfessionalRecordsPage() {
               </button>
               <button
                 onClick={() => setActiveTab("records")}
-                className={`flex-1 px-3 sm:px-6 py-3 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base ${
+                className={`flex-1 px-3 sm:px-6 py-3 rounded-2xl font-bold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base ${
                   activeTab === "records"
-                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                    ? "bg-gradient-to-r from-primary-600 to-purple-600 text-white shadow-lg"
                     : "text-gray-700 hover:bg-white/60"
                 }`}
               >
@@ -1005,10 +1005,10 @@ export default function ProfessionalRecordsPage() {
             </div>
           </div>
 
-          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-2 flex items-center justify-center gap-3 px-6">
+          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-2 flex items-center justify-center gap-3 px-6">
             <span
               className={`text-sm font-bold ${
-                !showArchived ? "text-indigo-600" : "text-gray-500"
+                !showArchived ? "text-primary-600" : "text-gray-500"
               }`}
             >
               Active
@@ -1016,7 +1016,7 @@ export default function ProfessionalRecordsPage() {
             <button
               onClick={() => setShowArchived(!showArchived)}
               className={`w-14 h-8 rounded-full p-1 transition-colors duration-300 flex items-center ${
-                showArchived ? "bg-indigo-600" : "bg-gray-300"
+                showArchived ? "bg-primary-600" : "bg-gray-300"
               }`}
             >
               <div
@@ -1027,7 +1027,7 @@ export default function ProfessionalRecordsPage() {
             </button>
             <span
               className={`text-sm font-bold ${
-                showArchived ? "text-indigo-600" : "text-gray-500"
+                showArchived ? "text-primary-600" : "text-gray-500"
               }`}
             >
               Archived
@@ -1037,7 +1037,7 @@ export default function ProfessionalRecordsPage() {
 
         {/* Schemes of Work Tab */}
         {activeTab === "schemes" && (
-          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
+          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-8">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
               <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
                 Schemes of Work
@@ -1046,7 +1046,7 @@ export default function ProfessionalRecordsPage() {
                 <button
                   onClick={() => handleExport("schemes")}
                   disabled={!isPremium}
-                  className={`bg-white text-indigo-600 border border-indigo-200 px-4 py-3 rounded-xl font-bold shadow-sm hover:bg-indigo-50 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base ${
+                  className={`bg-white text-primary-600 border border-primary-200 px-4 py-3 rounded-2xl font-bold shadow-sm hover:bg-primary-50 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base ${
                     !isPremium ? "opacity-50 cursor-not-allowed" : ""
                   }`}
                   title={!isPremium ? "Upgrade to export" : "Export"}
@@ -1056,7 +1056,7 @@ export default function ProfessionalRecordsPage() {
                 </button>
                 <Link
                   href="/professional-records/generate-scheme"
-                  className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 sm:px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
+                  className="bg-gradient-to-r from-primary-600 to-purple-600 text-white px-4 sm:px-6 py-3 rounded-2xl font-bold shadow-lg hover:shadow-xl flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
                 >
                   <FiPlus className="w-4 h-4 sm:w-5 sm:h-5" />
                   <span className="hidden sm:inline">Create New Scheme</span>
@@ -1067,7 +1067,7 @@ export default function ProfessionalRecordsPage() {
 
             {/* Filters */}
             {schemes.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6 p-4 bg-white/40 rounded-xl">
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6 p-4 bg-white/40 rounded-2xl">
                 <div className="relative">
                   <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                   <input
@@ -1075,7 +1075,7 @@ export default function ProfessionalRecordsPage() {
                     placeholder="Search schemes..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   />
                 </div>
                 <select
@@ -1083,7 +1083,7 @@ export default function ProfessionalRecordsPage() {
                   onChange={(e) =>
                     setFilters({ ...filters, subject: e.target.value })
                   }
-                  className="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="all">All Subjects</option>
                   {getUniqueSubjects().map((subject) => (
@@ -1098,7 +1098,7 @@ export default function ProfessionalRecordsPage() {
                   onChange={(e) =>
                     setFilters({ ...filters, grade: e.target.value })
                   }
-                  className="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="all">All Grades</option>
                   {getUniqueGrades().map((grade) => (
@@ -1113,7 +1113,7 @@ export default function ProfessionalRecordsPage() {
                   onChange={(e) =>
                     setFilters({ ...filters, term: e.target.value })
                   }
-                  className="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="all">All Terms</option>
                   {getUniqueTerms().map((term) => (
@@ -1128,7 +1128,7 @@ export default function ProfessionalRecordsPage() {
                   onChange={(e) =>
                     setFilters({ ...filters, year: e.target.value })
                   }
-                  className="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="all">All Years</option>
                   {getUniqueYears().map((year) => (
@@ -1143,7 +1143,7 @@ export default function ProfessionalRecordsPage() {
                   onChange={(e) =>
                     setFilters({ ...filters, status: e.target.value })
                   }
-                  className="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="all">All Statuses</option>
                   <option value="draft">Draft</option>
@@ -1172,7 +1172,7 @@ export default function ProfessionalRecordsPage() {
                       status: "all",
                     })
                   }
-                  className="bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-indigo-700 transition-all duration-300"
+                  className="bg-primary-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg hover:bg-primary-700 transition-all duration-300"
                 >
                   Clear Filters
                 </button>
@@ -1188,7 +1188,7 @@ export default function ProfessionalRecordsPage() {
                 </p>
                 <Link
                   href="/professional-records/generate-scheme"
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-primary-600 to-purple-600 text-white font-bold px-6 py-3 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <FiPlus className="w-5 h-5" />
                   Create Scheme
@@ -1222,7 +1222,7 @@ export default function ProfessionalRecordsPage() {
                   return (
                     <div
                       key={scheme.id}
-                      className="glass-card bg-white/80 backdrop-blur-xl rounded-xl shadow-lg border border-white/60 hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden"
+                      className="glass-card bg-white/80 backdrop-blur-xl rounded-2xl shadow-lg border border-white/60 hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden"
                     >
                       {/* Gradient Header */}
                       <div
@@ -1344,7 +1344,7 @@ export default function ProfessionalRecordsPage() {
 
         {/* Lesson Plans Tab */}
         {activeTab === "lessons" && (
-          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
+          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-8">
             <div className="flex flex-col gap-4 mb-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
@@ -1359,7 +1359,7 @@ export default function ProfessionalRecordsPage() {
                         lessonPlans.length > 0
                       }
                       onChange={toggleSelectAll}
-                      className="w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
+                      className="w-5 h-5 rounded border-gray-300 text-primary-600 focus:ring-primary-500 cursor-pointer"
                     />
                     <span className="text-sm font-medium text-gray-700">
                       Select All
@@ -1373,14 +1373,14 @@ export default function ProfessionalRecordsPage() {
                   <>
                     <button
                       onClick={handleBulkDownload}
-                      className="bg-blue-600 text-white px-4 py-3 rounded-xl font-bold shadow-lg hover:bg-blue-700 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
+                      className="bg-blue-600 text-white px-4 py-3 rounded-2xl font-bold shadow-lg hover:bg-blue-700 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
                     >
                       <FiDownload className="w-4 h-4 sm:w-5 sm:h-5" />
                       Download PDF ({selectedPlans.length})
                     </button>
                     <button
                       onClick={handleBulkDelete}
-                      className="bg-red-600 text-white px-4 py-3 rounded-xl font-bold shadow-lg hover:bg-red-700 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
+                      className="bg-red-600 text-white px-4 py-3 rounded-2xl font-bold shadow-lg hover:bg-red-700 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
                     >
                       <FiTrash2 className="w-4 h-4 sm:w-5 sm:h-5" />
                       Delete ({selectedPlans.length})
@@ -1390,7 +1390,7 @@ export default function ProfessionalRecordsPage() {
                 <button
                   onClick={() => handleExport("lessons")}
                   disabled={!isPremium}
-                  className={`bg-white text-emerald-600 border border-emerald-200 px-4 py-3 rounded-xl font-bold shadow-sm hover:bg-emerald-50 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base ${
+                  className={`bg-white text-emerald-600 border border-emerald-200 px-4 py-3 rounded-2xl font-bold shadow-sm hover:bg-emerald-50 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base ${
                     !isPremium ? "opacity-50 cursor-not-allowed" : ""
                   }`}
                   title={!isPremium ? "Upgrade to export" : "Export"}
@@ -1400,7 +1400,7 @@ export default function ProfessionalRecordsPage() {
                 </button>
                 <Link
                   href="/professional-records/create-lesson-plan"
-                  className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-4 sm:px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
+                  className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-4 sm:px-6 py-3 rounded-2xl font-bold shadow-lg hover:shadow-xl flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
                 >
                   <FiPlus className="w-4 h-4 sm:w-5 sm:h-5" />
                   <span className="hidden sm:inline">Create Lesson Plan</span>
@@ -1411,7 +1411,7 @@ export default function ProfessionalRecordsPage() {
 
             {/* Filters for Lesson Plans */}
             {lessonPlans.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6 p-4 bg-white/40 rounded-xl">
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6 p-4 bg-white/40 rounded-2xl">
                 <div className="relative">
                   <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                   <input
@@ -1501,7 +1501,7 @@ export default function ProfessionalRecordsPage() {
                       status: "all",
                     })
                   }
-                  className="bg-emerald-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-emerald-700 transition-all duration-300"
+                  className="bg-emerald-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg hover:bg-emerald-700 transition-all duration-300"
                 >
                   Clear Filters
                 </button>
@@ -1526,7 +1526,7 @@ export default function ProfessionalRecordsPage() {
                 </div>
                 <Link
                   href="/professional-records/create-lesson-plan"
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold px-6 py-3 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <FiPlus className="w-5 h-5" />
                   Create Manual Lesson Plan
@@ -1544,9 +1544,9 @@ export default function ProfessionalRecordsPage() {
                   return (
                     <div
                       key={lessonPlan.id}
-                      className={`glass-card bg-white/80 backdrop-blur-xl rounded-xl shadow-lg border ${
+                      className={`glass-card bg-white/80 backdrop-blur-xl rounded-2xl shadow-lg border ${
                         selectedPlans.includes(lessonPlan.id)
-                          ? "border-indigo-500 ring-2 ring-indigo-500"
+                          ? "border-primary-500 ring-2 ring-primary-500"
                           : "border-white/60"
                       } hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden relative`}
                     >
@@ -1556,7 +1556,7 @@ export default function ProfessionalRecordsPage() {
                           type="checkbox"
                           checked={selectedPlans.includes(lessonPlan.id)}
                           onChange={() => toggleSelection(lessonPlan.id)}
-                          className="w-6 h-6 rounded border-white text-indigo-600 focus:ring-indigo-500 shadow-sm cursor-pointer"
+                          className="w-6 h-6 rounded border-white text-primary-600 focus:ring-primary-500 shadow-sm cursor-pointer"
                         />
                       </div>
 
@@ -1697,7 +1697,7 @@ export default function ProfessionalRecordsPage() {
 
         {/* Records of Work Tab */}
         {activeTab === "records" && (
-          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
+          <div className="glass-card bg-white/60 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-8">
             <div className="flex flex-col gap-4 mb-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
@@ -1726,7 +1726,7 @@ export default function ProfessionalRecordsPage() {
                 {selectedRecords.length > 0 && (
                   <button
                     onClick={handleBulkDeleteRecords}
-                    className="bg-red-600 text-white px-4 py-3 rounded-xl font-bold shadow-lg hover:bg-red-700 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
+                    className="bg-red-600 text-white px-4 py-3 rounded-2xl font-bold shadow-lg hover:bg-red-700 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
                   >
                     <FiTrash2 className="w-4 h-4 sm:w-5 sm:h-5" />
                     Delete ({selectedRecords.length})
@@ -1735,7 +1735,7 @@ export default function ProfessionalRecordsPage() {
                 <button
                   onClick={() => handleExport("records")}
                   disabled={!isPremium}
-                  className={`bg-white text-green-600 border border-green-200 px-4 py-3 rounded-xl font-bold shadow-sm hover:bg-green-50 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base ${
+                  className={`bg-white text-green-600 border border-green-200 px-4 py-3 rounded-2xl font-bold shadow-sm hover:bg-green-50 flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base ${
                     !isPremium ? "opacity-50 cursor-not-allowed" : ""
                   }`}
                   title={!isPremium ? "Upgrade to export" : "Export"}
@@ -1745,7 +1745,7 @@ export default function ProfessionalRecordsPage() {
                 </button>
                 <Link
                   href="/professional-records/record-of-work/create"
-                  className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 sm:px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
+                  className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 sm:px-6 py-3 rounded-2xl font-bold shadow-lg hover:shadow-xl flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base"
                 >
                   <FiPlus className="w-4 h-4 sm:w-5 sm:h-5" />
                   <span className="hidden sm:inline">Create Record</span>
@@ -1756,7 +1756,7 @@ export default function ProfessionalRecordsPage() {
 
             {/* Filters for Records of Work */}
             {recordsOfWork.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6 p-4 bg-white/40 rounded-xl">
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6 p-4 bg-white/40 rounded-2xl">
                 <div className="relative">
                   <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                   <input
@@ -1848,7 +1848,7 @@ export default function ProfessionalRecordsPage() {
                       status: "all",
                     })
                   }
-                  className="bg-green-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-green-700 transition-all duration-300"
+                  className="bg-green-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg hover:bg-green-700 transition-all duration-300"
                 >
                   Clear Filters
                 </button>
@@ -1864,7 +1864,7 @@ export default function ProfessionalRecordsPage() {
                 </p>
                 <Link
                   href="/professional-records/record-of-work/create"
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold px-6 py-3 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <FiPlus className="w-5 h-5" />
                   Create Record
@@ -1878,7 +1878,7 @@ export default function ProfessionalRecordsPage() {
                   return (
                     <div
                       key={record.id}
-                      className={`glass-card bg-white/80 backdrop-blur-xl rounded-xl shadow-lg border hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden relative ${
+                      className={`glass-card bg-white/80 backdrop-blur-xl rounded-2xl shadow-lg border hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden relative ${
                         isSelected
                           ? "border-green-500 ring-2 ring-green-500"
                           : "border-white/60"

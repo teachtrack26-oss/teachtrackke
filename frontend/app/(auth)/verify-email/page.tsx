@@ -44,12 +44,12 @@ function VerifyEmailContent() {
   }, [token, router]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-cyan-50 to-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white rounded-2xl shadow-2xl p-8 text-center">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-cyan-50 to-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-white rounded-[2rem] shadow-2xl p-8 text-center">
         {status === "loading" && (
           <>
             <div className="flex justify-center">
-              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-indigo-600"></div>
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-600"></div>
             </div>
             <h2 className="text-2xl font-bold text-gray-900">
               Verifying your email...
@@ -76,7 +76,7 @@ function VerifyEmailContent() {
             </p>
             <Link
               href="/login"
-              className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-colors"
+              className="inline-block bg-primary-600 text-white px-6 py-3 rounded-2xl font-semibold hover:bg-primary-700 transition-colors"
             >
               Go to Login
             </Link>
@@ -98,7 +98,7 @@ function VerifyEmailContent() {
             </p>
             <Link
               href="/register"
-              className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-colors"
+              className="inline-block bg-primary-600 text-white px-6 py-3 rounded-2xl font-semibold hover:bg-primary-700 transition-colors"
             >
               Register Again
             </Link>
@@ -113,10 +113,10 @@ export default function VerifyEmailPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-cyan-50 to-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-md w-full space-y-8 bg-white rounded-2xl shadow-2xl p-8 text-center">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-cyan-50 to-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-md w-full space-y-8 bg-white rounded-[2rem] shadow-2xl p-8 text-center">
             <div className="flex justify-center">
-              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-indigo-600"></div>
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-600"></div>
             </div>
             <h2 className="text-2xl font-bold text-gray-900">Loading...</h2>
           </div>

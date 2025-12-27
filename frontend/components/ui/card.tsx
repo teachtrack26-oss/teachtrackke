@@ -30,7 +30,7 @@ export function Step({
 }) {
   return (
     <div className="flex items-start gap-6">
-      <div className="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+      <div className="flex-shrink-0 w-12 h-12 bg-primary-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
         {number}
       </div>
       <div>

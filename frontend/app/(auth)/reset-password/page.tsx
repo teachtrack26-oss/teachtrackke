@@ -89,7 +89,7 @@ function ResetPasswordForm() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
         <div className="text-center">
           <svg
-            className="animate-spin h-8 w-8 text-indigo-600 mx-auto mb-4"
+            className="animate-spin h-8 w-8 text-primary-600 mx-auto mb-4"
             fill="none"
             viewBox="0 0 24 24"
           >
@@ -140,7 +140,7 @@ function ResetPasswordForm() {
           </p>
           <Link
             href="/login"
-            className="inline-block text-sm font-medium text-indigo-600 hover:text-indigo-500"
+            className="inline-block text-sm font-medium text-primary-600 hover:text-primary-500"
           >
             Go to login now
           </Link>
@@ -175,7 +175,7 @@ function ResetPasswordForm() {
             <p className="mt-2 text-sm text-gray-600">{error}</p>
           </div>
 
-          <div className="rounded-xl border border-gray-200 bg-white p-4">
+          <div className="rounded-2xl border border-gray-200 bg-white p-4">
             <p className="text-sm text-gray-700">
               Password reset links expire after 1 hour. Please request a new
               one.
@@ -185,14 +185,14 @@ function ResetPasswordForm() {
           <div className="flex items-center justify-center gap-4">
             <Link
               href="/forgot-password"
-              className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+              className="text-sm font-medium text-primary-600 hover:text-primary-500"
             >
               Request new link
             </Link>
             <span className="text-gray-300">|</span>
             <Link
               href="/login"
-              className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+              className="text-sm font-medium text-primary-600 hover:text-primary-500"
             >
               Back to login
             </Link>
@@ -234,7 +234,7 @@ function ResetPasswordForm() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
               placeholder="Enter new password"
               minLength={6}
             />
@@ -255,7 +255,7 @@ function ResetPasswordForm() {
               required
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
               placeholder="Confirm new password"
               minLength={6}
             />
@@ -264,7 +264,7 @@ function ResetPasswordForm() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? (
               <>
@@ -298,7 +298,7 @@ function ResetPasswordForm() {
         <div className="text-center">
           <Link
             href="/login"
-            className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+            className="text-sm font-medium text-primary-600 hover:text-primary-500"
           >
             ← Back to sign in
           </Link>
@@ -315,7 +315,7 @@ export default function ResetPasswordPage() {
         <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
           <div className="text-center">
             <svg
-              className="animate-spin h-8 w-8 text-indigo-600 mx-auto mb-4"
+              className="animate-spin h-8 w-8 text-primary-600 mx-auto mb-4"
               fill="none"
               viewBox="0 0 24 24"
             >

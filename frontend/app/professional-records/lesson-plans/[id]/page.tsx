@@ -163,9 +163,9 @@ export default function ViewLessonPlanPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-primary-100">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-indigo-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-700 font-medium">
             Loading lesson plan...
           </p>
@@ -347,7 +347,7 @@ export default function ViewLessonPlanPage() {
         <div className="relative z-10 max-w-4xl mx-auto px-8 pt-24 pb-6 print-full-width">
           {/* Free Plan Banner */}
           {!isPremium && (
-            <div className="mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 shadow-sm relative overflow-hidden no-print">
+            <div className="mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-4 shadow-sm relative overflow-hidden no-print">
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
@@ -377,7 +377,7 @@ export default function ViewLessonPlanPage() {
           <div className="mb-6 flex justify-between items-center no-print">
             <button
               onClick={() => router.push("/professional-records?tab=lessons")}
-              className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-medium"
+              className="flex items-center gap-2 text-primary-600 hover:text-primary-800 font-medium"
             >
               <FiArrowLeft className="w-5 h-5" />
               Back to Lesson Plans
@@ -424,7 +424,7 @@ export default function ViewLessonPlanPage() {
                     `/professional-records/lesson-plans/${planId}/edit`
                   )
                 }
-                className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-lg font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300"
+                className="bg-gradient-to-r from-primary-600 to-purple-600 text-white px-4 py-2 rounded-lg font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300"
               >
                 <FiEdit className="w-4 h-4" />
                 Edit
@@ -461,7 +461,7 @@ export default function ViewLessonPlanPage() {
             </div>
 
             {/* Header Info Grid */}
-            <div className="header-info-grid grid grid-cols-2 gap-x-8 gap-y-4 mb-8 p-6 bg-gray-50 border border-gray-200 rounded-xl">
+            <div className="header-info-grid grid grid-cols-2 gap-x-8 gap-y-4 mb-8 p-6 bg-gray-50 border border-gray-200 rounded-2xl">
               <div className="flex items-center gap-3">
                 <span className="font-bold text-gray-700 w-32">
                   Learning Area:
@@ -515,7 +515,7 @@ export default function ViewLessonPlanPage() {
               <div className="compact-grid grid md:grid-cols-2 gap-6">
                 <div className="section-card border border-gray-300 rounded-lg p-4">
                   <h3 className="font-bold text-gray-700 mb-2 flex items-center gap-2">
-                    <FiLayers className="text-indigo-600" />
+                    <FiLayers className="text-primary-600" />
                     Strand / Theme / Topic
                   </h3>
                   <p className="text-gray-900">{plan.strand_theme_topic}</p>
@@ -600,7 +600,7 @@ export default function ViewLessonPlanPage() {
                 <div className="org-learning-header bg-gray-100 px-4 py-2 border-b border-gray-300 font-bold text-gray-800">
                   Organization of Learning
                   {plan.lesson_duration_minutes && (
-                    <span className="ml-2 text-indigo-600 font-normal">
+                    <span className="ml-2 text-primary-600 font-normal">
                       (Total: {plan.lesson_duration_minutes} min)
                     </span>
                   )}
@@ -609,7 +609,7 @@ export default function ViewLessonPlanPage() {
                   <div className="org-learning-item p-4">
                     <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
                       <span>Introduction</span>
-                      <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
+                      <span className="text-primary-600 bg-primary-50 px-2 py-0.5 rounded-full text-xs normal-case">
                         {plan.lesson_duration_minutes ? "5 min" : "N/A"}
                       </span>
                     </h4>
@@ -620,7 +620,7 @@ export default function ViewLessonPlanPage() {
                   <div className="org-learning-item p-4">
                     <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
                       <span>Lesson Development</span>
-                      <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
+                      <span className="text-primary-600 bg-primary-50 px-2 py-0.5 rounded-full text-xs normal-case">
                         {plan.lesson_duration_minutes
                           ? `${Math.max(plan.lesson_duration_minutes - 10, 0)} min`
                           : "N/A"}
@@ -633,7 +633,7 @@ export default function ViewLessonPlanPage() {
                   <div className="org-learning-item p-4">
                     <h4 className="font-bold text-gray-700 mb-2 text-sm uppercase flex justify-between">
                       <span>Conclusion</span>
-                      <span className="text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full text-xs normal-case">
+                      <span className="text-primary-600 bg-primary-50 px-2 py-0.5 rounded-full text-xs normal-case">
                         {plan.lesson_duration_minutes ? "5 min" : "N/A"}
                       </span>
                     </h4>

@@ -94,7 +94,7 @@ const TimetablePage = () => {
   if (isLoading)
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
+        <div className="w-16 h-16 border-4 border-primary-200 border-t-indigo-600 rounded-full animate-spin"></div>
       </div>
     );
 
@@ -119,7 +119,7 @@ const TimetablePage = () => {
                 setEditingEntry(null);
                 setIsAddModalOpen(true);
               }}
-              className="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center"
+              className="bg-primary-600 text-white px-4 py-2 rounded-lg flex items-center"
             >
               <FiPlus className="mr-2" />
               Add Lesson
@@ -166,7 +166,7 @@ const TimetablePage = () => {
                             return (
                               <div
                                 key={entry.id}
-                                className="p-3 rounded-lg bg-indigo-50 border-l-4 border-indigo-500 group cursor-pointer"
+                                className="p-3 rounded-lg bg-primary-50 border-l-4 border-primary-500 group cursor-pointer"
                                 onClick={() => {
                                   setEditingEntry(entry);
                                   setFormData({
@@ -231,7 +231,7 @@ const TimetablePage = () => {
                               });
                               setIsAddModalOpen(true);
                             }}
-                            className="w-full min-h-[80px] text-gray-400 hover:text-indigo-600"
+                            className="w-full min-h-[80px] text-gray-400 hover:text-primary-600"
                           >
                             <FiPlus className="w-5 h-5 mx-auto" />
                           </button>
@@ -402,7 +402,7 @@ const TimetablePage = () => {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg"
+                    className="flex-1 px-4 py-2 bg-primary-600 text-white rounded-lg"
                   >
                     {editingEntry ? "Update" : "Add"}
                   </button>

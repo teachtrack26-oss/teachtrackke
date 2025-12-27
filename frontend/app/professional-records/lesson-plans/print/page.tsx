@@ -336,7 +336,7 @@ function PrintContent() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => router.push("/professional-records?tab=lessons")}
-            className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-medium"
+            className="flex items-center gap-2 text-primary-600 hover:text-primary-800 font-medium"
           >
             <FiArrowLeft className="w-5 h-5" />
             Back
@@ -371,7 +371,7 @@ function PrintContent() {
         {/* Free Plan Banner */}
         {!isPremium && (
           <div className="max-w-[210mm] mx-auto mb-6 no-print">
-            <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 shadow-sm relative overflow-hidden">
+            <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-4 shadow-sm relative overflow-hidden">
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">

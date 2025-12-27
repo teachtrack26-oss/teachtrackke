@@ -224,7 +224,7 @@ export default function CurriculumDetailPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -238,7 +238,7 @@ export default function CurriculumDetailPage() {
           </h1>
           <button
             onClick={() => router.push("/curriculum")}
-            className="text-indigo-600 hover:text-indigo-700"
+            className="text-primary-600 hover:text-primary-700"
           >
             Return to Curriculum
           </button>
@@ -258,7 +258,7 @@ export default function CurriculumDetailPage() {
           <div className="mb-8">
             <button
               onClick={() => router.push("/curriculum")}
-              className="text-indigo-600 hover:text-indigo-700 mb-4 inline-flex items-center"
+              className="text-primary-600 hover:text-primary-700 mb-4 inline-flex items-center"
             >
               ← Back to Curriculum
             </button>
@@ -277,13 +277,13 @@ export default function CurriculumDetailPage() {
               <h2 className="text-xl font-semibold text-gray-900">
                 Overall Progress
               </h2>
-              <span className="text-2xl font-bold text-indigo-600">
+              <span className="text-2xl font-bold text-primary-600">
                 {Math.round(subject.progress_percentage)}%
               </span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-3">
               <div
-                className="bg-indigo-600 h-3 rounded-full transition-all duration-300"
+                className="bg-primary-600 h-3 rounded-full transition-all duration-300"
                 style={{ width: `${subject.progress_percentage}%` }}
               />
             </div>
@@ -441,7 +441,7 @@ export default function CurriculumDetailPage() {
                                             (competency, idx) => (
                                               <li
                                                 key={idx}
-                                                className="text-gray-700 pl-4 border-l-2 border-indigo-400"
+                                                className="text-gray-700 pl-4 border-l-2 border-primary-400"
                                               >
                                                 {competency}
                                               </li>
@@ -535,7 +535,7 @@ export default function CurriculumDetailPage() {
                                       <div className="border-t border-gray-200 pt-6 mt-6">
                                         <div className="flex items-center justify-between mb-4">
                                           <h5 className="font-semibold text-gray-900 flex items-center">
-                                            <FiCheckCircle className="w-5 h-5 mr-2 text-indigo-600" />
+                                            <FiCheckCircle className="w-5 h-5 mr-2 text-primary-600" />
                                             Lessons ({completedCount} /{" "}
                                             {substrandLessons.length} completed)
                                           </h5>
@@ -578,7 +578,7 @@ export default function CurriculumDetailPage() {
                                                       lesson.is_completed
                                                     )
                                                   }
-                                                  className="mt-1 h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 cursor-pointer disabled:cursor-wait"
+                                                  className="mt-1 h-5 w-5 text-primary-600 border-gray-300 rounded focus:ring-primary-500 cursor-pointer disabled:cursor-wait"
                                                 />
                                                 <div className="flex-1 min-w-0">
                                                   <label
@@ -612,7 +612,7 @@ export default function CurriculumDetailPage() {
                                                 </div>
                                                 {completingLesson ===
                                                   lesson.id && (
-                                                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-indigo-600"></div>
+                                                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-600"></div>
                                                 )}
                                               </div>
                                             ))}

@@ -659,7 +659,7 @@ export default function AdminUsersPage() {
                               <div className="flex space-x-2">
                                 <button
                                   onClick={() => openSubscriptionModal(user)}
-                                  className="text-indigo-600 hover:text-indigo-900"
+                                  className="text-primary-600 hover:text-primary-900"
                                   title="Manage Subscription"
                                 >
                                   <FaUserShield />

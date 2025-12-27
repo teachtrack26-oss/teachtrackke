@@ -248,7 +248,7 @@ export default function CurriculumManagementPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading curriculum templates...</p>
         </div>
       </div>
@@ -288,7 +288,7 @@ export default function CurriculumManagementPage() {
                 resetForm();
                 setShowAddModal(true);
               }}
-              className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center gap-2"
+              className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 flex items-center gap-2"
             >
               <FiPlus />
               Add New Subject
@@ -316,7 +316,7 @@ export default function CurriculumManagementPage() {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search subjects..."
-                  className="w-full pl-10 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  className="w-full pl-10 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                 />
               </div>
             </div>
@@ -331,7 +331,7 @@ export default function CurriculumManagementPage() {
                   setFilterLevel(e.target.value);
                   setFilterGrade("");
                 }}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
               >
                 <option value="">All Levels</option>
                 {EDUCATION_LEVELS.map((level) => (
@@ -350,7 +350,7 @@ export default function CurriculumManagementPage() {
                 value={filterGrade}
                 onChange={(e) => setFilterGrade(e.target.value)}
                 disabled={!filterLevel}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-100"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 disabled:bg-gray-100"
               >
                 <option value="">All Grades</option>
                 {filterLevel &&
@@ -369,7 +369,7 @@ export default function CurriculumManagementPage() {
               <select
                 value={filterActive}
                 onChange={(e) => setFilterActive(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
               >
                 <option value="all">All</option>
                 <option value="active">Active</option>
@@ -396,7 +396,7 @@ export default function CurriculumManagementPage() {
         {/* Summary Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-white p-4 rounded-lg shadow">
-            <div className="text-2xl font-bold text-indigo-600">
+            <div className="text-2xl font-bold text-primary-600">
               {templates.length}
             </div>
             <div className="text-sm text-gray-600">Total Templates</div>
@@ -499,7 +499,7 @@ export default function CurriculumManagementPage() {
                               </button>
                               <button
                                 onClick={() => openEditModal(template)}
-                                className="text-indigo-600 hover:text-indigo-900 mr-4"
+                                className="text-primary-600 hover:text-primary-900 mr-4"
                                 title="Edit Metadata"
                               >
                                 <FiEdit className="inline w-5 h-5" />
@@ -558,7 +558,7 @@ export default function CurriculumManagementPage() {
                         grade: "",
                       });
                     }}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                     required
                   >
                     <option value="">Select Level</option>
@@ -580,7 +580,7 @@ export default function CurriculumManagementPage() {
                       setFormData({ ...formData, grade: e.target.value })
                     }
                     disabled={!formData.education_level}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-100"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 disabled:bg-gray-100"
                     required
                   >
                     <option value="">Select Grade</option>
@@ -605,7 +605,7 @@ export default function CurriculumManagementPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, subject: e.target.value })
                     }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                     placeholder="e.g., Mathematics"
                     required
                   />
@@ -619,7 +619,7 @@ export default function CurriculumManagementPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, is_active: e.target.checked })
                     }
-                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                   />
                   <label
                     htmlFor="is_active_add"
@@ -642,7 +642,7 @@ export default function CurriculumManagementPage() {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                    className="flex-1 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
                   >
                     Add Subject
                   </button>
@@ -685,7 +685,7 @@ export default function CurriculumManagementPage() {
                         grade: "",
                       });
                     }}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                     required
                   >
                     <option value="">Select Level</option>
@@ -707,7 +707,7 @@ export default function CurriculumManagementPage() {
                       setFormData({ ...formData, grade: e.target.value })
                     }
                     disabled={!formData.education_level}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-100"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 disabled:bg-gray-100"
                     required
                   >
                     <option value="">Select Grade</option>
@@ -732,7 +732,7 @@ export default function CurriculumManagementPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, subject: e.target.value })
                     }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                     placeholder="e.g., Mathematics"
                     required
                   />
@@ -746,7 +746,7 @@ export default function CurriculumManagementPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, is_active: e.target.checked })
                     }
-                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                   />
                   <label
                     htmlFor="is_active_edit"
@@ -769,7 +769,7 @@ export default function CurriculumManagementPage() {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                    className="flex-1 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
                   >
                     Update Subject
                   </button>

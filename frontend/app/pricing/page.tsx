@@ -304,7 +304,7 @@ export default function PricingPage() {
                   <p className="text-gray-500 mb-6">
                     Thank you for subscribing. Your account has been upgraded.
                   </p>
-                  <div className="text-sm text-indigo-600 font-medium animate-pulse">
+                  <div className="text-sm text-primary-600 font-medium animate-pulse">
                     Redirecting to dashboard...
                   </div>
                 </div>
@@ -455,7 +455,7 @@ export default function PricingPage() {
                   onClick={() => setBillingCycle("termly")}
                   className={`${
                     billingCycle === "termly"
-                      ? "bg-indigo-600 text-white shadow-sm"
+                      ? "bg-primary-600 text-white shadow-sm"
                       : "text-gray-500 hover:text-gray-900"
                   } relative w-1/2 whitespace-nowrap py-2 px-6 rounded-md text-sm font-medium focus:outline-none focus:z-10 sm:w-auto sm:px-8 transition-all duration-200`}
                 >
@@ -466,7 +466,7 @@ export default function PricingPage() {
                   onClick={() => setBillingCycle("yearly")}
                   className={`${
                     billingCycle === "yearly"
-                      ? "bg-indigo-600 text-white shadow-sm"
+                      ? "bg-primary-600 text-white shadow-sm"
                       : "text-gray-500 hover:text-gray-900"
                   } relative w-1/2 py-2 px-3 sm:px-6 rounded-md text-sm font-medium focus:outline-none focus:z-10 sm:w-auto sm:px-8 transition-all duration-200`}
                 >
@@ -485,7 +485,7 @@ export default function PricingPage() {
         <div className="grid grid-cols-1 gap-y-10 lg:grid-cols-3 lg:gap-x-8">
           {/* Free Plan */}
           <div
-            className={`relative flex flex-col bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ${
+            className={`relative flex flex-col bg-white rounded-[2rem] shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ${
               currentPlan === "SCHOOL_SPONSORED" ? "opacity-60 grayscale" : ""
             }`}
           >
@@ -585,7 +585,7 @@ export default function PricingPage() {
 
           {/* Termly Plan */}
           <div
-            className={`relative flex flex-col bg-white rounded-2xl shadow-xl border-2 border-indigo-500 transform scale-105 z-10 ${
+            className={`relative flex flex-col bg-white rounded-[2rem] shadow-xl border-2 border-primary-500 transform scale-105 z-10 ${
               currentPlan === "SCHOOL_SPONSORED"
                 ? "border-blue-500 ring-4 ring-blue-100"
                 : ""
@@ -597,7 +597,7 @@ export default function PricingPage() {
                   className={`inline-flex rounded-full px-4 py-1 text-sm font-semibold tracking-wider uppercase text-white shadow-sm ${
                     currentPlan === "SCHOOL_SPONSORED"
                       ? "bg-blue-600"
-                      : "bg-indigo-600"
+                      : "bg-primary-600"
                   }`}
                 >
                   {currentPlan === "SCHOOL_SPONSORED"
@@ -634,7 +634,7 @@ export default function PricingPage() {
                     className={`flex-shrink-0 w-5 h-5 ${
                       currentPlan === "SCHOOL_SPONSORED"
                         ? "text-blue-500"
-                        : "text-indigo-500"
+                        : "text-primary-500"
                     }`}
                   />
                   <span className="ml-3 text-gray-900 font-medium">
@@ -646,7 +646,7 @@ export default function PricingPage() {
                     className={`flex-shrink-0 w-5 h-5 ${
                       currentPlan === "SCHOOL_SPONSORED"
                         ? "text-blue-500"
-                        : "text-indigo-500"
+                        : "text-primary-500"
                     }`}
                   />
                   <span className="ml-3 text-gray-900 font-medium">
@@ -658,7 +658,7 @@ export default function PricingPage() {
                     className={`flex-shrink-0 w-5 h-5 ${
                       currentPlan === "SCHOOL_SPONSORED"
                         ? "text-blue-500"
-                        : "text-indigo-500"
+                        : "text-primary-500"
                     }`}
                   />
                   <span className="ml-3 text-gray-900 font-medium">
@@ -670,7 +670,7 @@ export default function PricingPage() {
                     className={`flex-shrink-0 w-5 h-5 ${
                       currentPlan === "SCHOOL_SPONSORED"
                         ? "text-blue-500"
-                        : "text-indigo-500"
+                        : "text-primary-500"
                     }`}
                   />
                   <span className="ml-3 text-gray-900 font-medium">
@@ -682,7 +682,7 @@ export default function PricingPage() {
                     className={`flex-shrink-0 w-5 h-5 ${
                       currentPlan === "SCHOOL_SPONSORED"
                         ? "text-blue-500"
-                        : "text-indigo-500"
+                        : "text-primary-500"
                     }`}
                   />
                   <span className="ml-3 text-gray-900 font-medium">
@@ -695,7 +695,7 @@ export default function PricingPage() {
               className={`p-8 rounded-b-2xl ${
                 currentPlan === "SCHOOL_SPONSORED"
                   ? "bg-blue-50"
-                  : "bg-indigo-50"
+                  : "bg-primary-50"
               }`}
             >
               <button
@@ -708,7 +708,7 @@ export default function PricingPage() {
                   currentPlan === "INDIVIDUAL_BASIC" ||
                   currentPlan === "SCHOOL_SPONSORED"
                     ? "bg-blue-600 text-white cursor-default"
-                    : "bg-indigo-600 text-white hover:bg-indigo-700 hover:scale-105"
+                    : "bg-primary-600 text-white hover:bg-primary-700 hover:scale-105"
                 }`}
               >
                 {currentPlan === "INDIVIDUAL_BASIC"
@@ -722,7 +722,7 @@ export default function PricingPage() {
 
           {/* Yearly Plan */}
           <div
-            className={`relative flex flex-col bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ${
+            className={`relative flex flex-col bg-white rounded-[2rem] shadow-lg border border-gray-100 hover:shadow-xl transition-shadow duration-300 ${
               currentPlan === "SCHOOL_SPONSORED" ? "opacity-60 grayscale" : ""
             }`}
           >
@@ -789,7 +789,7 @@ export default function PricingPage() {
                   currentPlan === "INDIVIDUAL_PREMIUM" ||
                   currentPlan === "SCHOOL_SPONSORED"
                     ? "bg-gray-100 text-gray-400 border-gray-200 cursor-default"
-                    : "bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100"
+                    : "bg-primary-50 text-primary-700 border-primary-200 hover:bg-primary-100"
                 }`}
               >
                 {currentPlan === "INDIVIDUAL_PREMIUM"

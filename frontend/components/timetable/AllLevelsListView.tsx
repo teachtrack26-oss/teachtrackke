@@ -22,7 +22,7 @@ const getSubjectTheme = (subjectName: string) => {
     return {
       color: "indigo",
       icon: "⚛️",
-      gradient: "from-indigo-500 to-purple-500",
+      gradient: "from-primary-500 to-purple-500",
     };
   if (name.includes("chemistry"))
     return {
@@ -96,7 +96,7 @@ const getSubjectTheme = (subjectName: string) => {
     return {
       color: "indigo",
       icon: "📿",
-      gradient: "from-indigo-600 to-blue-600",
+      gradient: "from-primary-600 to-blue-600",
     };
 
   // Default
@@ -137,7 +137,7 @@ export default function AllLevelsListView({
 
   if (!hasEntries) {
     return (
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center">
+      <div className="glass-card border border-gray-100 p-12 text-center">
         <div className="text-6xl mb-4">📅</div>
         <h3 className="text-xl font-bold text-gray-800 mb-2">
           No Lessons Scheduled
@@ -158,15 +158,15 @@ export default function AllLevelsListView({
       {entriesByDay.map(({ day, dayIndex, entries: dayEntries }) => (
         <div
           key={day}
-          className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+          className="glass-card border border-gray-100 overflow-hidden"
         >
           {/* Day Header */}
           <div
             className={`px-6 py-4 bg-gradient-to-r ${
               dayIndex === 1
-                ? "from-blue-500 to-indigo-500"
+                ? "from-blue-500 to-primary-500"
                 : dayIndex === 2
-                ? "from-indigo-500 to-purple-500"
+                ? "from-primary-500 to-purple-500"
                 : dayIndex === 3
                 ? "from-purple-500 to-violet-500"
                 : dayIndex === 4
@@ -216,7 +216,7 @@ export default function AllLevelsListView({
 
                       {/* Subject Icon */}
                       <div
-                        className={`flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br ${theme.gradient} flex items-center justify-center text-2xl shadow-md`}
+                        className={`flex-shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br ${theme.gradient} flex items-center justify-center text-2xl shadow-md`}
                       >
                         {theme.icon}
                       </div>

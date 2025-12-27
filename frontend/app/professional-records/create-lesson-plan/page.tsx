@@ -132,11 +132,11 @@ export default function CreateLessonPlanPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-primary-100 relative overflow-hidden">
       {/* Animated background */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 left-20 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-        <div className="absolute top-40 right-20 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+        <div className="absolute top-40 right-20 w-96 h-96 bg-primary-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 py-8">
@@ -144,14 +144,14 @@ export default function CreateLessonPlanPage() {
         <div className="mb-8">
           <button
             onClick={() => router.push("/professional-records")}
-            className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 mb-4 font-medium"
+            className="flex items-center gap-2 text-primary-600 hover:text-primary-800 mb-4 font-medium"
           >
             <FiArrowLeft className="w-5 h-5" />
             Back to Professional Records
           </button>
 
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl">
+            <div className="p-3 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl">
               <FiFileText className="w-8 h-8 text-white" />
             </div>
             <div>
@@ -167,7 +167,7 @@ export default function CreateLessonPlanPage() {
 
         {/* Lesson Plan Form */}
         <form onSubmit={handleSubmit}>
-          <div className="glass-card bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8 mb-6">
+          <div className="glass-card bg-white/80 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-8 mb-6">
             {/* Header Section */}
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center border-b-2 border-gray-300 pb-3">
@@ -459,14 +459,14 @@ export default function CreateLessonPlanPage() {
             <button
               type="button"
               onClick={() => router.push("/professional-records")}
-              className="px-6 py-3 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition-all duration-300"
+              className="px-6 py-3 border border-gray-300 rounded-2xl text-gray-700 font-medium hover:bg-gray-50 transition-all duration-300"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 disabled:opacity-50"
+              className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 disabled:opacity-50"
             >
               <FiSave className="w-5 h-5" />
               {loading ? "Creating..." : "Create Lesson Plan"}

@@ -97,7 +97,7 @@ export default function SubjectSchedulingPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -111,7 +111,7 @@ export default function SubjectSchedulingPage() {
           </h2>
           <button
             onClick={() => router.push("/curriculum")}
-            className="text-indigo-600 hover:text-indigo-700"
+            className="text-primary-600 hover:text-primary-700"
           >
             Return to Curriculum
           </button>
@@ -126,7 +126,7 @@ export default function SubjectSchedulingPage() {
         {/* Header */}
         <button
           onClick={() => router.push(`/curriculum/${subjectId}`)}
-          className="text-indigo-600 hover:text-indigo-700 mb-4 inline-flex items-center"
+          className="text-primary-600 hover:text-primary-700 mb-4 inline-flex items-center"
         >
           <FiArrowLeft className="mr-2" />
           Back to Curriculum
@@ -144,7 +144,7 @@ export default function SubjectSchedulingPage() {
         {/* Scheduling Form */}
         <div className="bg-white rounded-lg shadow-md p-6">
           <div className="flex items-center mb-6">
-            <FiClock className="w-6 h-6 text-indigo-600 mr-3" />
+            <FiClock className="w-6 h-6 text-primary-600 mr-3" />
             <h2 className="text-xl font-semibold text-gray-900">
               Weekly Schedule Configuration
             </h2>
@@ -165,7 +165,7 @@ export default function SubjectSchedulingPage() {
                     lessons_per_week: parseInt(e.target.value) || 5,
                   })
                 }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 min="1"
                 max="15"
               />
@@ -188,7 +188,7 @@ export default function SubjectSchedulingPage() {
                     single_lesson_duration: parseInt(e.target.value) || 40,
                   })
                 }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 min="20"
                 max="90"
                 step="5"
@@ -212,7 +212,7 @@ export default function SubjectSchedulingPage() {
                     double_lesson_duration: parseInt(e.target.value) || 80,
                   })
                 }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 min="40"
                 max="120"
                 step="5"
@@ -239,7 +239,7 @@ export default function SubjectSchedulingPage() {
                     ),
                   })
                 }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 min="0"
                 max={scheduling.lessons_per_week}
               />
@@ -250,11 +250,11 @@ export default function SubjectSchedulingPage() {
             </div>
 
             {/* Summary Card */}
-            <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
-              <h3 className="text-sm font-semibold text-indigo-900 mb-3">
+            <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
+              <h3 className="text-sm font-semibold text-primary-900 mb-3">
                 📊 Weekly Summary
               </h3>
-              <div className="space-y-2 text-sm text-indigo-800">
+              <div className="space-y-2 text-sm text-primary-800">
                 <div className="flex justify-between">
                   <span>Single lessons per week:</span>
                   <span className="font-semibold">
@@ -268,7 +268,7 @@ export default function SubjectSchedulingPage() {
                     {scheduling.double_lessons_per_week}
                   </span>
                 </div>
-                <div className="flex justify-between pt-2 border-t border-indigo-300">
+                <div className="flex justify-between pt-2 border-t border-primary-300">
                   <span className="font-semibold">
                     Total teaching time per week:
                   </span>
@@ -290,7 +290,7 @@ export default function SubjectSchedulingPage() {
               <button
                 onClick={saveScheduling}
                 disabled={saving}
-                className="flex-1 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center"
+                className="flex-1 bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-lg font-medium transition-colors inline-flex items-center justify-center"
               >
                 <FiSave className="mr-2" />
                 {saving ? "Saving..." : "Save Scheduling"}

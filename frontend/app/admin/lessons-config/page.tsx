@@ -231,7 +231,7 @@ export default function LessonsConfigPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -250,7 +250,7 @@ export default function LessonsConfigPage() {
         </div>
 
         {/* Grade Level Selector */}
-        <div className="glass-card bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6 mb-6">
+        <div className="glass-card bg-white/80 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-6 mb-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -261,7 +261,7 @@ export default function LessonsConfigPage() {
                 onChange={(e) =>
                   setSelectedLevel(e.target.value as keyof typeof GRADE_LEVELS)
                 }
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 {Object.keys(GRADE_LEVELS).map((level) => (
                   <option key={level} value={level}>
@@ -277,7 +277,7 @@ export default function LessonsConfigPage() {
               <select
                 value={selectedGrade}
                 onChange={(e) => setSelectedGrade(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 {GRADE_LEVELS[selectedLevel].map((grade) => (
                   <option key={grade} value={grade}>
@@ -289,14 +289,14 @@ export default function LessonsConfigPage() {
           </div>
         </div>
 
-        <div className="glass-card bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8">
+        <div className="glass-card bg-white/80 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-8">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold text-gray-900">
               {selectedGrade} Learning Areas
             </h2>
             <button
               onClick={() => setShowBulkModal(true)}
-              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-2"
+              className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2"
             >
               <FiEdit2 /> Bulk Settings for {selectedGrade}
             </button>
@@ -340,7 +340,7 @@ export default function LessonsConfigPage() {
                   return (
                     <tr
                       key={`${config.subject_name}-${config.grade}`}
-                      className={`border-b border-gray-100 hover:bg-indigo-50/50 transition-colors ${
+                      className={`border-b border-gray-100 hover:bg-primary-50/50 transition-colors ${
                         index % 2 === 0 ? "bg-gray-50/50" : ""
                       }`}
                     >
@@ -360,10 +360,10 @@ export default function LessonsConfigPage() {
                                 lessons_per_week: parseInt(e.target.value) || 5,
                               })
                             }
-                            className="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-indigo-500"
+                            className="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-primary-500"
                           />
                         ) : (
-                          <span className="font-semibold text-indigo-600">
+                          <span className="font-semibold text-primary-600">
                             {config.lessons_per_week}
                           </span>
                         )}
@@ -382,7 +382,7 @@ export default function LessonsConfigPage() {
                                   parseInt(e.target.value) || 0,
                               })
                             }
-                            className="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-indigo-500"
+                            className="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-primary-500"
                           />
                         ) : (
                           <span className="text-gray-700">
@@ -405,7 +405,7 @@ export default function LessonsConfigPage() {
                                   parseInt(e.target.value) || 40,
                               })
                             }
-                            className="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-indigo-500"
+                            className="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-primary-500"
                           />
                         ) : (
                           <span className="text-gray-700">
@@ -428,7 +428,7 @@ export default function LessonsConfigPage() {
                                   parseInt(e.target.value) || 80,
                               })
                             }
-                            className="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-indigo-500"
+                            className="w-20 px-2 py-1 border border-gray-300 rounded text-center focus:ring-2 focus:ring-primary-500"
                           />
                         ) : (
                           <span className="text-gray-700">
@@ -461,7 +461,7 @@ export default function LessonsConfigPage() {
                         ) : (
                           <button
                             onClick={() => startEditing(config)}
-                            className="bg-indigo-600 text-white px-3 py-1 rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-1 mx-auto"
+                            className="bg-primary-600 text-white px-3 py-1 rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-1 mx-auto"
                           >
                             <FiEdit2 className="w-4 h-4" />
                             Edit
@@ -475,7 +475,7 @@ export default function LessonsConfigPage() {
             </table>
           </div>
 
-          <div className="mt-8 p-4 bg-indigo-50 rounded-xl">
+          <div className="mt-8 p-4 bg-primary-50 rounded-2xl">
             <h3 className="font-semibold text-gray-900 mb-2">How it works:</h3>
             <ul className="text-sm text-gray-700 space-y-1">
               <li>
@@ -499,7 +499,7 @@ export default function LessonsConfigPage() {
       {/* Bulk Update Modal */}
       {showBulkModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl">
+          <div className="bg-white rounded-[2rem] p-8 max-w-md w-full shadow-2xl">
             <h3 className="text-2xl font-bold mb-6">
               Bulk Settings for {selectedGrade}
             </h3>
@@ -520,7 +520,7 @@ export default function LessonsConfigPage() {
                       lessons_per_week: parseInt(e.target.value) || 5,
                     })
                   }
-                  className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                  className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                 />
               </div>
               <div>
@@ -536,7 +536,7 @@ export default function LessonsConfigPage() {
                       double_lessons_per_week: parseInt(e.target.value) || 0,
                     })
                   }
-                  className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                  className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -553,7 +553,7 @@ export default function LessonsConfigPage() {
                         single_lesson_duration: parseInt(e.target.value) || 40,
                       })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                   />
                 </div>
                 <div>
@@ -569,7 +569,7 @@ export default function LessonsConfigPage() {
                         double_lesson_duration: parseInt(e.target.value) || 80,
                       })
                     }
-                    className="w-full px-4 py-3 rounded-xl border-2 border-indigo-200 focus:border-indigo-500"
+                    className="w-full px-4 py-3 rounded-2xl border-2 border-primary-200 focus:border-primary-500"
                   />
                 </div>
               </div>
@@ -577,13 +577,13 @@ export default function LessonsConfigPage() {
             <div className="flex gap-4 pt-8">
               <button
                 onClick={() => setShowBulkModal(false)}
-                className="flex-1 px-6 py-3 bg-gray-200 text-gray-800 rounded-xl font-bold hover:bg-gray-300"
+                className="flex-1 px-6 py-3 bg-gray-200 text-gray-800 rounded-2xl font-bold hover:bg-gray-300"
               >
                 Cancel
               </button>
               <button
                 onClick={handleBulkSave}
-                className="flex-1 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl"
+                className="flex-1 px-6 py-3 bg-gradient-to-r from-primary-600 to-purple-600 text-white rounded-2xl font-bold shadow-lg hover:shadow-xl"
               >
                 Apply to All
               </button>

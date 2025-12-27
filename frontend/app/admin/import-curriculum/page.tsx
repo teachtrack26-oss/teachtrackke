@@ -147,7 +147,7 @@ export default function ImportCurriculumPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -168,13 +168,13 @@ export default function ImportCurriculumPage() {
         {/* Upload Section */}
         <div className="bg-white rounded-lg shadow-md p-8 mb-8">
           <div className="flex items-center mb-6">
-            <FiUpload className="w-6 h-6 text-indigo-600 mr-3" />
+            <FiUpload className="w-6 h-6 text-primary-600 mr-3" />
             <h2 className="text-xl font-semibold text-gray-900">
               Upload Curriculum Files
             </h2>
           </div>
 
-          <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-indigo-400 transition-colors">
+          <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary-400 transition-colors">
             <input
               type="file"
               id="curriculum-upload"
@@ -195,7 +195,7 @@ export default function ImportCurriculumPage() {
               <button
                 type="button"
                 disabled={uploading}
-                className="mt-4 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-medium transition-colors inline-flex items-center"
+                className="mt-4 bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white px-6 py-2 rounded-lg font-medium transition-colors inline-flex items-center"
               >
                 <FiUpload className="mr-2" />
                 {uploading ? "Uploading..." : "Select Files"}
@@ -255,7 +255,7 @@ export default function ImportCurriculumPage() {
         {/* Imported Curricula List */}
         <div className="bg-white rounded-lg shadow-md p-6">
           <div className="flex items-center mb-6">
-            <FiList className="w-6 h-6 text-indigo-600 mr-3" />
+            <FiList className="w-6 h-6 text-primary-600 mr-3" />
             <h2 className="text-xl font-semibold text-gray-900">
               Imported Curricula ({curricula.length})
             </h2>

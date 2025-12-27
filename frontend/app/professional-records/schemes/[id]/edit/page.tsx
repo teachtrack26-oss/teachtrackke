@@ -365,9 +365,9 @@ export default function EditSchemePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-primary-100">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-indigo-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-700 font-medium">Loading scheme...</p>
         </div>
       </div>
@@ -380,7 +380,7 @@ export default function EditSchemePage() {
 
   return (
     <div
-      className={`min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100 relative overflow-hidden ${
+      className={`min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-primary-100 relative overflow-hidden ${
         !isPremium ? "select-none" : ""
       }`}
       onContextMenu={(e) => {
@@ -436,13 +436,13 @@ export default function EditSchemePage() {
       {/* Animated background */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 left-20 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-        <div className="absolute top-40 right-20 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+        <div className="absolute top-40 right-20 w-96 h-96 bg-primary-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
         {/* Free Plan Banner */}
         {!isPremium && (
-          <div className="mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 shadow-sm relative overflow-hidden no-print">
+          <div className="mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-4 shadow-sm relative overflow-hidden no-print">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
@@ -474,7 +474,7 @@ export default function EditSchemePage() {
             onClick={() =>
               router.push(`/professional-records/schemes/${schemeId}`)
             }
-            className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 mb-4 font-medium"
+            className="flex items-center gap-2 text-primary-600 hover:text-primary-800 mb-4 font-medium"
           >
             <FiArrowLeft className="w-5 h-5" />
             Back to View Scheme
@@ -482,7 +482,7 @@ export default function EditSchemePage() {
 
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 bg-clip-text text-transparent">
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-600 via-purple-600 to-violet-600 bg-clip-text text-transparent">
                 Edit Scheme of Work
               </h1>
               <p className="text-lg text-gray-700 mt-2">
@@ -501,7 +501,7 @@ export default function EditSchemePage() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 disabled:opacity-50"
+              className="bg-gradient-to-r from-primary-600 to-purple-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 disabled:opacity-50"
             >
               <FiSave className="w-5 h-5" />
               {saving ? "Saving..." : "Save Changes"}
@@ -514,7 +514,7 @@ export default function EditSchemePage() {
           {scheme.weeks.map((week, weekIndex) => (
             <div
               key={week.week_number}
-              className="glass-card bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-6"
+              className="glass-card bg-white/80 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-6"
             >
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold text-gray-900">
@@ -533,10 +533,10 @@ export default function EditSchemePage() {
                 {week.lessons.map((lesson, lessonIndex) => (
                   <div
                     key={lessonIndex}
-                    className="bg-gray-50 rounded-xl p-6 border border-gray-200"
+                    className="bg-gray-50 rounded-2xl p-6 border border-gray-200"
                   >
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="font-bold text-lg text-indigo-600">
+                      <h3 className="font-bold text-lg text-primary-600">
                         Lesson {lessonIndex + 1}
                       </h3>
                       {week.lessons.length > 1 && (
@@ -565,7 +565,7 @@ export default function EditSchemePage() {
                               e.target.value
                             )
                           }
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                         />
                       </div>
 
@@ -584,7 +584,7 @@ export default function EditSchemePage() {
                               e.target.value
                             )
                           }
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                         />
                       </div>
 
@@ -603,7 +603,7 @@ export default function EditSchemePage() {
                             )
                           }
                           rows={4}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                         />
                       </div>
 
@@ -622,7 +622,7 @@ export default function EditSchemePage() {
                             )
                           }
                           rows={3}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                         />
                       </div>
 
@@ -641,7 +641,7 @@ export default function EditSchemePage() {
                             )
                           }
                           rows={4}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                         />
                       </div>
 
@@ -736,7 +736,7 @@ export default function EditSchemePage() {
                                 key={resource}
                                 className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 transition-colors ${
                                   isSelected
-                                    ? "bg-indigo-50 border border-indigo-300"
+                                    ? "bg-primary-50 border border-primary-300"
                                     : ""
                                 }`}
                               >
@@ -750,7 +750,7 @@ export default function EditSchemePage() {
                                       resource
                                     )
                                   }
-                                  className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500"
+                                  className="w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
                                 />
                                 <span className="text-sm text-gray-700">
                                   {resource}
@@ -779,7 +779,7 @@ export default function EditSchemePage() {
                                 key={method}
                                 className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 transition-colors ${
                                   isSelected
-                                    ? "bg-indigo-50 border border-indigo-300"
+                                    ? "bg-primary-50 border border-primary-300"
                                     : ""
                                 }`}
                               >
@@ -793,7 +793,7 @@ export default function EditSchemePage() {
                                       method
                                     )
                                   }
-                                  className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500"
+                                  className="w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
                                 />
                                 <span className="text-sm text-gray-700">
                                   {method}
@@ -822,7 +822,7 @@ export default function EditSchemePage() {
                             )
                           }
                           rows={2}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                           placeholder="Fill this after teaching the lesson..."
                         />
                       </div>
@@ -839,7 +839,7 @@ export default function EditSchemePage() {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 disabled:opacity-50"
+            className="bg-gradient-to-r from-primary-600 to-purple-600 text-white px-8 py-4 rounded-2xl font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300 disabled:opacity-50"
           >
             <FiSave className="w-5 h-5" />
             {saving ? "Saving..." : "Save All Changes"}

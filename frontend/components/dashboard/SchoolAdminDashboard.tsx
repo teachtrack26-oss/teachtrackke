@@ -132,10 +132,10 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
 
   if (!school) {
     return (
-      <div className="max-w-2xl mx-auto mt-10 p-8 bg-white rounded-2xl shadow-xl">
+      <div className="max-w-2xl mx-auto mt-10 p-8 bg-white rounded-[2rem] shadow-xl">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <FiBriefcase className="w-8 h-8 text-indigo-600" />
+          <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <FiBriefcase className="w-8 h-8 text-primary-600" />
           </div>
           <h2 className="text-3xl font-bold text-gray-900">
             Setup Your School
@@ -155,7 +155,7 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
               required
               value={schoolName}
               onChange={(e) => setSchoolName(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               placeholder="e.g. Nairobi Primary School"
             />
           </div>
@@ -170,12 +170,12 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
               min="1"
               value={maxTeachers}
               onChange={(e) => setMaxTeachers(parseInt(e.target.value) || 0)}
-              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               placeholder="e.g. 20"
             />
           </div>
 
-          <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+          <div className="bg-gray-50 p-4 rounded-2xl border border-gray-200">
             <h3 className="text-sm font-semibold text-gray-900 mb-3">
               Teachers per Level
             </h3>
@@ -201,7 +201,7 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
                         [level]: parseInt(e.target.value) || 0,
                       })
                     }
-                    className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+                    className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm"
                   />
                 </div>
               ))}
@@ -211,7 +211,7 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
           <button
             type="submit"
             disabled={creatingSchool}
-            className="w-full py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors disabled:opacity-50"
+            className="w-full py-3 bg-primary-600 text-white rounded-2xl font-bold hover:bg-primary-700 transition-colors disabled:opacity-50"
           >
             {creatingSchool ? "Creating..." : "Create School Profile"}
           </button>
@@ -226,9 +226,9 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">{school.name}</h1>
         <div className="grid md:grid-cols-3 gap-6 mt-6">
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+          <div className="glass-card p-6">
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-blue-50 rounded-xl">
+              <div className="p-3 bg-blue-50 rounded-2xl">
                 <FiUsers className="w-6 h-6 text-blue-600" />
               </div>
               <div>
@@ -248,9 +248,9 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+          <div className="glass-card p-6">
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-green-50 rounded-xl">
+              <div className="p-3 bg-green-50 rounded-2xl">
                 <FiCheckCircle className="w-6 h-6 text-green-600" />
               </div>
               <div>
@@ -265,7 +265,7 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
       </div>
 
       {/* Teacher Management */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="glass-card border border-gray-100 overflow-hidden">
         <div className="p-6 border-b border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
           <h2 className="text-xl font-bold text-gray-900">Manage Teachers</h2>
 
@@ -279,11 +279,11 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
               value={inviteEmail}
               onChange={(e) => setInviteEmail(e.target.value)}
               placeholder="teacher@email.com"
-              className="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 flex-1 md:w-64"
+              className="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 flex-1 md:w-64"
             />
             <button
               type="submit"
-              className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center gap-2 font-medium"
+              className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 flex items-center gap-2 font-medium"
             >
               <FiPlus /> Add Teacher
             </button>

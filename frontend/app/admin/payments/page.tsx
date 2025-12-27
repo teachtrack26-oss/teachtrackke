@@ -224,7 +224,7 @@ export default function AdminPaymentsPage() {
 
             <button
               onClick={() => fetchAll(1, statusFilter, q)}
-              className="px-4 py-2 bg-indigo-600 text-white rounded-md font-semibold hover:bg-indigo-700"
+              className="px-4 py-2 bg-primary-600 text-white rounded-md font-semibold hover:bg-primary-700"
             >
               Apply
             </button>
@@ -325,7 +325,7 @@ export default function AdminPaymentsPage() {
                       <td className="px-6 py-3 text-sm whitespace-nowrap">
                         <button
                           onClick={() => setSelectedPayment(p)}
-                          className="text-indigo-600 hover:text-indigo-900 font-medium"
+                          className="text-primary-600 hover:text-primary-900 font-medium"
                         >
                           Details
                         </button>

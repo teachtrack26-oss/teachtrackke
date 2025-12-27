@@ -173,7 +173,7 @@ const TimetablePage = () => {
   if (isLoading)
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
+        <div className="w-16 h-16 border-4 border-primary-200 border-t-indigo-600 rounded-full animate-spin"></div>
       </div>
     );
 
@@ -201,7 +201,7 @@ const TimetablePage = () => {
               </button>
               <button
                 onClick={() => openAddModal()}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center"
+                className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg flex items-center"
               >
                 <FiPlus className="mr-2" />
                 Add Lesson
@@ -213,7 +213,7 @@ const TimetablePage = () => {
           {schedule && (
             <div className="bg-white rounded-lg shadow-sm border p-4 mb-6">
               <div className="flex items-start">
-                <FiInfo className="w-5 h-5 text-indigo-600 mr-3 mt-1" />
+                <FiInfo className="w-5 h-5 text-primary-600 mr-3 mt-1" />
                 <div className="flex-1">
                   <h3 className="font-medium text-gray-900 mb-2">
                     {schedule.schedule_name}
@@ -303,7 +303,7 @@ const TimetablePage = () => {
                             return (
                               <div
                                 key={entry.id}
-                                className="p-3 rounded-lg bg-indigo-50 border-l-4 border-indigo-500 group hover:shadow-md transition-shadow cursor-pointer mb-2"
+                                className="p-3 rounded-lg bg-primary-50 border-l-4 border-primary-500 group hover:shadow-md transition-shadow cursor-pointer mb-2"
                                 onClick={() => openEditModal(entry)}
                               >
                                 <div className="flex justify-between items-start">
@@ -325,7 +325,7 @@ const TimetablePage = () => {
                                         </div>
                                       )}
                                       {entry.is_double_lesson && (
-                                        <div className="text-indigo-600 font-medium">
+                                        <div className="text-primary-600 font-medium">
                                           Double Lesson
                                         </div>
                                       )}
@@ -358,7 +358,7 @@ const TimetablePage = () => {
                         ) : (
                           <button
                             onClick={() => openAddModal(slot.id, dayIndex + 1)}
-                            className="w-full min-h-[80px] text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg border-2 border-dashed border-gray-200 hover:border-indigo-300 transition-colors flex items-center justify-center"
+                            className="w-full min-h-[80px] text-gray-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg border-2 border-dashed border-gray-200 hover:border-primary-300 transition-colors flex items-center justify-center"
                           >
                             <FiPlus className="w-5 h-5" />
                           </button>
@@ -403,7 +403,7 @@ const TimetablePage = () => {
                     onChange={(e) =>
                       handleSubjectChange(parseInt(e.target.value))
                     }
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     required
                   >
                     <option value="">Select a subject</option>
@@ -429,7 +429,7 @@ const TimetablePage = () => {
                           day_of_week: parseInt(e.target.value),
                         })
                       }
-                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500"
                       required
                     >
                       {DAYS.map((day, index) => (
@@ -452,7 +452,7 @@ const TimetablePage = () => {
                           time_slot_id: parseInt(e.target.value),
                         })
                       }
-                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500"
                       required
                     >
                       <option value="">Select time</option>
@@ -481,7 +481,7 @@ const TimetablePage = () => {
                         })
                       }
                       placeholder="e.g., Grade 5A, Form 2 East"
-                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500"
                       required
                     />
                     <p className="mt-1 text-xs text-gray-500">
@@ -503,7 +503,7 @@ const TimetablePage = () => {
                         })
                       }
                       placeholder="e.g., Lab 1, Room 204"
-                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                      className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500"
                     />
                   </div>
                 </div>
@@ -520,7 +520,7 @@ const TimetablePage = () => {
                         is_double_lesson: e.target.checked,
                       })
                     }
-                    className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
                   />
                   <label
                     htmlFor="double"
@@ -542,7 +542,7 @@ const TimetablePage = () => {
                     }
                     rows={3}
                     placeholder="Additional information about this lesson..."
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500"
+                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
 
@@ -561,7 +561,7 @@ const TimetablePage = () => {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium"
+                    className="flex-1 px-4 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 font-medium"
                   >
                     {editingEntry ? "Update Lesson" : "Add Lesson"}
                   </button>

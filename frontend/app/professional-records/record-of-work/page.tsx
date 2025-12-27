@@ -323,7 +323,7 @@ export default function RecordsOfWorkListPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -336,7 +336,7 @@ export default function RecordsOfWorkListPage() {
           <div>
             <Link
               href="/professional-records"
-              className="inline-flex items-center text-indigo-600 hover:text-indigo-700 mb-2"
+              className="inline-flex items-center text-primary-600 hover:text-primary-700 mb-2"
             >
               <FiArrowLeft className="mr-2" /> Back to Dashboard
             </Link>
@@ -424,7 +424,7 @@ export default function RecordsOfWorkListPage() {
             )}
             <Link
               href="/professional-records/record-of-work/create"
-              className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
             >
               <FiPlus className="mr-2 -ml-1 h-5 w-5" />
               Create New Record
@@ -448,7 +448,7 @@ export default function RecordsOfWorkListPage() {
                 placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
               />
             </div>
             <select
@@ -456,7 +456,7 @@ export default function RecordsOfWorkListPage() {
               onChange={(e) =>
                 setFilters({ ...filters, subject: e.target.value })
               }
-              className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+              className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md"
             >
               <option value="all">All Subjects</option>
               {getUniqueSubjects().map((s) => (
@@ -470,7 +470,7 @@ export default function RecordsOfWorkListPage() {
               onChange={(e) =>
                 setFilters({ ...filters, grade: e.target.value })
               }
-              className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+              className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md"
             >
               <option value="all">All Grades</option>
               {getUniqueGrades().map((g) => (
@@ -482,7 +482,7 @@ export default function RecordsOfWorkListPage() {
             <select
               value={filters.term}
               onChange={(e) => setFilters({ ...filters, term: e.target.value })}
-              className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+              className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md"
             >
               <option value="all">All Terms</option>
               {getUniqueTerms().map((t) => (
@@ -494,7 +494,7 @@ export default function RecordsOfWorkListPage() {
             <select
               value={filters.year}
               onChange={(e) => setFilters({ ...filters, year: e.target.value })}
-              className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+              className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md"
             >
               <option value="all">All Years</option>
               {getUniqueYears().map((y) => (
@@ -516,7 +516,7 @@ export default function RecordsOfWorkListPage() {
                 currentItems.length > 0
               }
               onChange={toggleSelectAll}
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded mr-2"
+              className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded mr-2"
             />
             <span className="text-sm text-gray-700 font-medium">
               Select All
@@ -534,7 +534,7 @@ export default function RecordsOfWorkListPage() {
                       type="checkbox"
                       checked={selectedIds.includes(record.id)}
                       onChange={() => toggleSelection(record.id)}
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                     />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -542,7 +542,7 @@ export default function RecordsOfWorkListPage() {
                       <div className="flex items-center justify-between">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between mb-2">
-                            <p className="text-sm font-medium text-indigo-600 truncate">
+                            <p className="text-sm font-medium text-primary-600 truncate">
                               {record.learning_area}
                             </p>
                             <div className="ml-2 flex-shrink-0 flex">
@@ -567,7 +567,7 @@ export default function RecordsOfWorkListPage() {
                         <div className="ml-5 flex items-center gap-2">
                           <Link
                             href={`/professional-records/record-of-work/${record.id}`}
-                            className="p-2 text-gray-400 hover:text-indigo-600 transition-colors"
+                            className="p-2 text-gray-400 hover:text-primary-600 transition-colors"
                             title="View & Edit"
                           >
                             <FiEdit className="h-5 w-5" />
@@ -639,7 +639,7 @@ export default function RecordsOfWorkListPage() {
                       onClick={() => paginate(i + 1)}
                       className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
                         currentPage === i + 1
-                          ? "z-10 bg-indigo-50 border-indigo-500 text-indigo-600"
+                          ? "z-10 bg-primary-50 border-primary-500 text-primary-600"
                           : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50"
                       }`}
                     >

@@ -403,9 +403,9 @@ export default function ViewSchemePage() {
 
   if (loading || authLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-purple-50 to-primary-100">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-indigo-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-700 font-medium">Loading scheme...</p>
         </div>
       </div>
@@ -572,7 +572,7 @@ export default function ViewSchemePage() {
         <div className="relative z-10 max-w-full mx-auto px-8 py-6 print-full-width print-container">
           {/* Free Plan Banner */}
           {!isPremium && (
-            <div className="mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 shadow-sm relative overflow-hidden no-print">
+            <div className="mb-6 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-4 shadow-sm relative overflow-hidden no-print">
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
@@ -602,7 +602,7 @@ export default function ViewSchemePage() {
           <div className="mb-4 flex justify-between items-center no-print">
             <button
               onClick={() => router.push("/professional-records")}
-              className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-medium"
+              className="flex items-center gap-2 text-primary-600 hover:text-primary-800 font-medium"
             >
               <FiArrowLeft className="w-5 h-5" />
               Back to Professional Records
@@ -642,7 +642,7 @@ export default function ViewSchemePage() {
                 onClick={() =>
                   router.push(`/professional-records/schemes/${schemeId}/edit`)
                 }
-                className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-lg font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300"
+                className="bg-gradient-to-r from-primary-600 to-purple-600 text-white px-4 py-2 rounded-lg font-bold shadow-lg hover:shadow-xl flex items-center gap-2 transition-all duration-300"
               >
                 <FiEdit className="w-4 h-4" />
                 Edit
@@ -733,19 +733,19 @@ export default function ViewSchemePage() {
 
             {/* Stats Cards - Hidden on print */}
             <div className="grid md:grid-cols-3 gap-6 mb-8 no-print">
-              <div className="glass-card bg-white/60 backdrop-blur-xl rounded-xl shadow-lg border border-white/60 p-6">
+              <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg border border-white/60 p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600 mb-1">Total Weeks</p>
-                    <p className="text-3xl font-bold text-indigo-600">
+                    <p className="text-3xl font-bold text-primary-600">
                       {scheme.total_weeks}
                     </p>
                   </div>
-                  <FiClock className="w-10 h-10 text-indigo-500" />
+                  <FiClock className="w-10 h-10 text-primary-500" />
                 </div>
               </div>
 
-              <div className="glass-card bg-white/60 backdrop-blur-xl rounded-xl shadow-lg border border-white/60 p-6">
+              <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg border border-white/60 p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600 mb-1">Total Lessons</p>
@@ -757,7 +757,7 @@ export default function ViewSchemePage() {
                 </div>
               </div>
 
-              <div className="glass-card bg-white/60 backdrop-blur-xl rounded-xl shadow-lg border border-white/60 p-6">
+              <div className="glass-card bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg border border-white/60 p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600 mb-1">
@@ -773,7 +773,7 @@ export default function ViewSchemePage() {
             </div>
 
             {/* Scheme Header */}
-            <div className="glass-card bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-8 mb-6 no-print">
+            <div className="glass-card bg-white/80 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-8 mb-6 no-print">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -789,7 +789,7 @@ export default function ViewSchemePage() {
                       ""
                     }
                     readOnly
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   />
                 </div>
                 <div>
@@ -801,7 +801,7 @@ export default function ViewSchemePage() {
                     placeholder="Enter school name"
                     value={schoolContext?.school_name || scheme.school || ""}
                     readOnly
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                   />
                 </div>
                 <div>
@@ -855,7 +855,7 @@ export default function ViewSchemePage() {
             </div>
 
             {/* Scheme of Work Table */}
-            <div className="glass-card bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/60 p-4 overflow-x-auto print:p-0 relative">
+            <div className="glass-card bg-white/80 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-4 overflow-x-auto print:p-0 relative">
               <h2 className="text-2xl font-bold text-gray-900 mb-4 no-print">
                 Scheme of Work
               </h2>
@@ -866,7 +866,7 @@ export default function ViewSchemePage() {
                   style={{ tableLayout: "fixed" }}
                 >
                   <thead>
-                    <tr className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+                    <tr className="bg-gradient-to-r from-primary-600 to-purple-600 text-white">
                       <th
                         className="border border-gray-400 px-2 py-2 text-left text-xs font-bold"
                         style={{ width: "4%" }}
@@ -1078,7 +1078,7 @@ export default function ViewSchemePage() {
                                     handleCreateLessonPlan(lesson.id)
                                   }
                                   disabled={generatingPlans}
-                                  className="p-2 text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors"
+                                  className="p-2 text-primary-600 hover:bg-primary-50 rounded-full transition-colors"
                                   title="Create Lesson Plan"
                                 >
                                   <FiFilePlus className="w-4 h-4" />

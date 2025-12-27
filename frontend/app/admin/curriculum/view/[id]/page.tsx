@@ -118,7 +118,7 @@ export default function ViewCurriculumPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading curriculum...</p>
         </div>
       </div>
@@ -132,7 +132,7 @@ export default function ViewCurriculumPage() {
           <p className="text-red-600">Curriculum not found</p>
           <button
             onClick={() => router.push("/admin/dashboard")}
-            className="mt-4 text-indigo-600 hover:underline"
+            className="mt-4 text-primary-600 hover:underline"
           >
             Back to Dashboard
           </button>
@@ -148,7 +148,7 @@ export default function ViewCurriculumPage() {
         <div className="mb-6">
           <button
             onClick={() => router.push("/admin/dashboard")}
-            className="flex items-center text-gray-600 hover:text-indigo-600 mb-4 transition-colors"
+            className="flex items-center text-gray-600 hover:text-primary-600 mb-4 transition-colors"
           >
             <FaArrowLeft className="mr-2" />
             Back to Dashboard
@@ -182,7 +182,7 @@ export default function ViewCurriculumPage() {
                   onClick={() =>
                     router.push(`/admin/curriculum/edit/${template.id}`)
                   }
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center gap-2"
+                  className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 flex items-center gap-2"
                 >
                   <FiEdit className="w-4 h-4" />
                   Edit
@@ -195,8 +195,8 @@ export default function ViewCurriculumPage() {
         {/* Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           <div className="bg-white rounded-lg shadow p-4 flex items-center gap-4">
-            <div className="p-3 bg-indigo-100 rounded-lg">
-              <FaLayerGroup className="w-6 h-6 text-indigo-600" />
+            <div className="p-3 bg-primary-100 rounded-lg">
+              <FaLayerGroup className="w-6 h-6 text-primary-600" />
             </div>
             <div>
               <p className="text-2xl font-bold text-gray-900">
@@ -246,14 +246,14 @@ export default function ViewCurriculumPage() {
         <div className="flex justify-end gap-2 mb-4">
           <button
             onClick={expandAll}
-            className="text-sm text-indigo-600 hover:text-indigo-800"
+            className="text-sm text-primary-600 hover:text-primary-800"
           >
             Expand All
           </button>
           <span className="text-gray-300">|</span>
           <button
             onClick={collapseAll}
-            className="text-sm text-indigo-600 hover:text-indigo-800"
+            className="text-sm text-primary-600 hover:text-primary-800"
           >
             Collapse All
           </button>
@@ -282,10 +282,10 @@ export default function ViewCurriculumPage() {
                   {/* Strand Header */}
                   <button
                     onClick={() => toggleStrand(strand.id)}
-                    className="w-full px-6 py-4 flex items-center justify-between bg-gradient-to-r from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 transition-colors"
+                    className="w-full px-6 py-4 flex items-center justify-between bg-gradient-to-r from-primary-50 to-purple-50 hover:from-primary-100 hover:to-purple-100 transition-colors"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="flex items-center justify-center w-8 h-8 bg-indigo-600 text-white rounded-full text-sm font-bold">
+                      <span className="flex items-center justify-center w-8 h-8 bg-primary-600 text-white rounded-full text-sm font-bold">
                         {strandIndex + 1}
                       </span>
                       <div className="text-left">

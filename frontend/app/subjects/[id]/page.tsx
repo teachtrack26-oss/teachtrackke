@@ -94,7 +94,7 @@ export default function SubjectDetailPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -108,7 +108,7 @@ export default function SubjectDetailPage() {
           </h1>
           <button
             onClick={() => router.push("/dashboard")}
-            className="text-indigo-600 hover:text-indigo-700"
+            className="text-primary-600 hover:text-primary-700"
           >
             Back to Dashboard
           </button>
@@ -124,7 +124,7 @@ export default function SubjectDetailPage() {
         <div className="mb-8">
           <button
             onClick={() => router.push("/dashboard")}
-            className="inline-flex items-center text-indigo-600 hover:text-indigo-700 mb-4"
+            className="inline-flex items-center text-primary-600 hover:text-primary-700 mb-4"
           >
             <FiArrowLeft className="mr-2" />
             Back to Dashboard
@@ -139,7 +139,7 @@ export default function SubjectDetailPage() {
                 <p className="text-gray-600">{subject.grade}</p>
               </div>
               <div className="text-right">
-                <div className="text-3xl font-bold text-indigo-600">
+                <div className="text-3xl font-bold text-primary-600">
                   {Math.round(subject.progress_percentage)}%
                 </div>
                 <p className="text-sm text-gray-600">
@@ -153,7 +153,7 @@ export default function SubjectDetailPage() {
             <div className="mt-4">
               <div className="w-full bg-gray-200 rounded-full h-3">
                 <div
-                  className="bg-indigo-600 h-3 rounded-full transition-all duration-300"
+                  className="bg-primary-600 h-3 rounded-full transition-all duration-300"
                   style={{ width: `${subject.progress_percentage}%` }}
                 />
               </div>
@@ -220,7 +220,7 @@ export default function SubjectDetailPage() {
                   className="w-full px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition-colors"
                 >
                   <div className="flex items-center space-x-3">
-                    <span className="font-semibold text-indigo-600">
+                    <span className="font-semibold text-primary-600">
                       {strand.strand_code}
                     </span>
                     <h3 className="text-lg font-semibold text-gray-900">

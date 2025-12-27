@@ -164,7 +164,7 @@ export default function CurriculumTrackingPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -178,7 +178,7 @@ export default function CurriculumTrackingPage() {
           </h1>
           <button
             onClick={() => router.push("/curriculum")}
-            className="text-indigo-600 hover:text-indigo-700"
+            className="text-primary-600 hover:text-primary-700"
           >
             Return to Curriculum
           </button>
@@ -194,7 +194,7 @@ export default function CurriculumTrackingPage() {
         <div className="mb-8">
           <button
             onClick={() => router.push("/curriculum")}
-            className="text-indigo-600 hover:text-indigo-700 mb-4 inline-flex items-center"
+            className="text-primary-600 hover:text-primary-700 mb-4 inline-flex items-center"
           >
             ← Back to Curriculum
           </button>
@@ -210,8 +210,8 @@ export default function CurriculumTrackingPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-indigo-100 rounded-lg">
-                <FiBook className="w-6 h-6 text-indigo-600" />
+              <div className="p-3 bg-primary-100 rounded-lg">
+                <FiBook className="w-6 h-6 text-primary-600" />
               </div>
             </div>
             <div className="text-2xl font-bold text-gray-900">
@@ -270,7 +270,7 @@ export default function CurriculumTrackingPage() {
                 <select
                   value={educationLevelFilter}
                   onChange={(e) => setEducationLevelFilter(e.target.value)}
-                  className="text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                  className="text-sm border-gray-300 rounded-md shadow-sm focus:border-primary-500 focus:ring-primary-500"
                 >
                   <option value="All">All Levels</option>
                   <option value="Pre-Primary">Pre-Primary</option>
@@ -282,7 +282,7 @@ export default function CurriculumTrackingPage() {
                 <select
                   value={gradeFilter}
                   onChange={(e) => setGradeFilter(e.target.value)}
-                  className="text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                  className="text-sm border-gray-300 rounded-md shadow-sm focus:border-primary-500 focus:ring-primary-500"
                 >
                   <option value="All">All Grades</option>
                   {Array.from(new Set(data.subjects.map((s) => s.grade)))
@@ -317,7 +317,7 @@ export default function CurriculumTrackingPage() {
                     </div>
                     <button
                       onClick={() => router.push(`/curriculum/${subject.id}`)}
-                      className="text-indigo-600 hover:text-indigo-700 text-sm font-medium"
+                      className="text-primary-600 hover:text-primary-700 text-sm font-medium"
                     >
                       View Details →
                     </button>
@@ -376,7 +376,7 @@ export default function CurriculumTrackingPage() {
                               <div key={substrand.substrand_code}>
                                 <div className="flex justify-between text-xs text-gray-500 mb-1">
                                   <span className="flex items-center">
-                                    <span className="inline-block w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2"></span>
+                                    <span className="inline-block w-1.5 h-1.5 bg-primary-400 rounded-full mr-2"></span>
                                     {substrand.substrand_code}.{" "}
                                     {substrand.substrand_name}
                                   </span>
@@ -448,7 +448,7 @@ export default function CurriculumTrackingPage() {
                 </p>
                 <button
                   onClick={() => router.push("/curriculum/select")}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+                  className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
                 >
                   Add CBC Curriculum
                 </button>
