@@ -167,18 +167,18 @@ function LoginForm() {
   // Show loading state while checking authentication
   if (checkingAuth) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-cyan-50 to-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#020617]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
+          <p className="mt-4 text-slate-400">Loading...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-cyan-50 to-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white rounded-[2rem] shadow-2xl p-8">
+    <div className="min-h-screen flex items-center justify-center bg-[#020617] py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-white rounded-[2rem] shadow-2xl shadow-primary-500/5 p-8 border border-white/10">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Welcome back to TeachTrack
@@ -206,10 +206,10 @@ function LoginForm() {
 
           <div className="relative mt-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300" />
+              <div className="w-full border-t border-gray-200" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">
+              <span className="px-2 bg-white text-slate-500">
                 Or continue with email
               </span>
             </div>

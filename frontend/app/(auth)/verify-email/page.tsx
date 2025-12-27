@@ -44,8 +44,8 @@ function VerifyEmailContent() {
   }, [token, router]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-cyan-50 to-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white rounded-[2rem] shadow-2xl p-8 text-center">
+    <div className="min-h-screen flex items-center justify-center bg-[#020617] py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-white rounded-[2rem] shadow-2xl shadow-primary-500/5 p-8 border border-white/10 text-center">
         {status === "loading" && (
           <>
             <div className="flex justify-center">
@@ -113,8 +113,8 @@ export default function VerifyEmailPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-cyan-50 to-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-md w-full space-y-8 bg-white rounded-[2rem] shadow-2xl p-8 text-center">
+        <div className="min-h-screen flex items-center justify-center bg-[#020617] py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-md w-full space-y-8 bg-white rounded-[2rem] shadow-2xl shadow-primary-500/5 p-8 border border-white/10 text-center">
             <div className="flex justify-center">
               <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-600"></div>
             </div>
