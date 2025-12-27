@@ -97,7 +97,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#020617]">
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden bg-gray-900">
         <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-purple-900 to-gray-900 opacity-90" />
@@ -117,7 +117,7 @@ export default function AboutPage() {
       </section>
 
       {/* Stats Section */}
-      <section id="about-stats" className="py-12 bg-white border-b border-gray-100">
+      <section id="about-stats" className="py-12 bg-[#0F172A] border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
@@ -130,7 +130,7 @@ export default function AboutPage() {
                 <div className="text-4xl font-bold text-primary-600 mb-2">
                   <AnimatedCounter end={stat.value} suffix={stat.suffix} />
                 </div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
+                <div className="text-slate-400 font-medium">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -138,14 +138,14 @@ export default function AboutPage() {
       </section>
 
       {/* Mission Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-[#020617]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
                 Our Mission
               </h2>
-              <div className="prose prose-lg text-gray-600">
+              <div className="prose prose-lg text-slate-400">
                 <p className="mb-6">
                   TeachTrack was born from a simple observation: Kenyan teachers spend too much time on paperwork and not enough time with their students.
                 </p>
@@ -159,12 +159,12 @@ export default function AboutPage() {
             </div>
             <div className="grid grid-cols-2 gap-6">
               {values.map((value, index) => (
-                <div key={index} className="bg-gray-50 p-6 rounded-[2rem] border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                  <div className="w-12 h-12 bg-primary-100 text-primary-600 rounded-2xl flex items-center justify-center mb-4">
+                <div key={index} className="bg-white/5 backdrop-blur-sm p-6 rounded-[2rem] border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                  <div className="w-12 h-12 bg-primary-500/20 text-primary-400 rounded-2xl flex items-center justify-center mb-4">
                     {value.icon}
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-2">{value.title}</h3>
-                  <p className="text-sm text-gray-600">{value.description}</p>
+                  <h3 className="font-bold text-white mb-2">{value.title}</h3>
+                  <p className="text-sm text-slate-400">{value.description}</p>
                 </div>
               ))}
             </div>
@@ -173,13 +173,13 @@ export default function AboutPage() {
       </section>
 
       {/* Features Grid */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-[#0F172A]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Built for Modern Teaching
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
               A complete ecosystem for the modern Kenyan educator
             </p>
           </div>
@@ -209,7 +209,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-[#020617]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-primary-600 to-purple-600 px-8 py-16 text-center shadow-2xl">
             <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20" />
