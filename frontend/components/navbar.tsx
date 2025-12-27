@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { useCustomAuth } from "@/hooks/useCustomAuth";
 import {
@@ -200,16 +201,14 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center group">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-105 transition-transform duration-300">
-                T
-              </div>
-              <div className="ml-3 flex flex-col">
-                <span className="text-xl font-bold bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
-                  TeachTrack
-                </span>
-                <span className="text-xs text-slate-500 font-medium tracking-wider">
-                  CBC EDITION
-                </span>
+              <div className="relative w-40 h-10 transition-transform duration-300 group-hover:scale-105">
+                <Image
+                  src="/logo.png"
+                  alt="TeachTrack Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
             </Link>
           </div>
