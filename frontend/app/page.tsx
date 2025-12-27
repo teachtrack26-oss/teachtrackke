@@ -94,7 +94,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-[#020617]">
       {/* Hero Section - Enhanced */}
       <header className="relative h-[700px] md:h-[800px] overflow-hidden">
         <div className="absolute inset-0">
@@ -216,16 +216,16 @@ export default function Home() {
       </section>
 
       {/* Features Section - Enhanced */}
-      <section id="features" className="py-24 bg-white">
+      <section id="features" className="py-24 bg-[#020617]">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
               <span className="bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
                 Everything You Need
               </span>{" "}
-              to Stay Organized
+              <span className="text-white">to Stay Organized</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
               Powerful features designed specifically for Kenyan CBC teachers
             </p>
           </div>
@@ -292,13 +292,13 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section - NEW */}
-      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-24 bg-[#0F172A]">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
               Loved by Teachers Across Kenya
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-slate-400">
               See what educators are saying about TeachTrack
             </p>
           </div>
@@ -329,7 +329,7 @@ export default function Home() {
             ].map((testimonial, index) => (
               <div
                 key={index}
-                className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100"
+                className="bg-white rounded-3xl p-8 shadow-2xl hover:shadow-cyan-500/20 transition-all duration-500 hover:-translate-y-2 border border-white/10"
               >
                 <div className="flex gap-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
@@ -362,16 +362,16 @@ export default function Home() {
       </section>
 
       {/* How It Works - Enhanced */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-[#020617]">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
               Get Started in{" "}
               <span className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
                 4 Simple Steps
               </span>
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-slate-400">
               From setup to success in minutes
             </p>
           </div>
@@ -409,7 +409,7 @@ export default function Home() {
             ].map((step, index) => (
               <div
                 key={index}
-                className="group relative flex items-start gap-6 p-8 bg-gradient-to-r from-gray-50 to-white rounded-3xl hover:shadow-xl transition-all duration-500 hover:-translate-x-2 border border-gray-100"
+                className="group relative flex items-start gap-6 p-8 bg-white/5 backdrop-blur-sm rounded-3xl hover:shadow-xl hover:shadow-primary-500/10 transition-all duration-500 hover:-translate-x-2 border border-white/10"
               >
                 <div className="flex-shrink-0">
                   <div className="w-16 h-16 rounded-[2rem] bg-gradient-to-br from-primary-600 to-purple-600 text-white flex items-center justify-center text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform duration-300">
@@ -418,12 +418,12 @@ export default function Home() {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-3">
-                    <h3 className="text-2xl font-bold text-gray-900">
+                    <h3 className="text-2xl font-bold text-white">
                       {step.title}
                     </h3>
                     <div className="text-primary-600">{step.icon}</div>
                   </div>
-                  <p className="text-gray-600 leading-relaxed text-lg">
+                  <p className="text-slate-400 leading-relaxed text-lg">
                     {step.description}
                   </p>
                 </div>
