@@ -279,7 +279,7 @@ export default function PricingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50 to-slate-100 pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative">
+    <div className="min-h-screen bg-[#020617] pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative">
       {/* Payment Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center">
@@ -334,7 +334,7 @@ export default function PricingPage() {
                         setPaymentStatus(null);
                         setCheckoutRequestId(null);
                       }}
-                      className="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                      className="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-[#0F172A]"
                     >
                       Cancel
                     </button>
@@ -397,7 +397,7 @@ export default function PricingPage() {
                       <button
                         type="button"
                         onClick={() => setIsModalOpen(false)}
-                        className="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                        className="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-[#0F172A]"
                       >
                         Cancel
                       </button>
@@ -423,10 +423,10 @@ export default function PricingPage() {
 
       <div className="max-w-7xl mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
+          <h1 className="text-4xl font-extrabold text-white sm:text-5xl sm:tracking-tight lg:text-6xl">
             Simple, Transparent Pricing
           </h1>
-          <p className="mt-5 text-xl text-gray-500">
+          <p className="mt-5 text-xl text-slate-400">
             Choose the plan that fits your teaching needs. Upgrade anytime to
             unlock full potential.
           </p>
@@ -493,7 +493,7 @@ export default function PricingPage() {
               <h3 className="text-xl font-semibold text-gray-900">
                 Mwalimu Starter
               </h3>
-              <p className="absolute top-0 py-1.5 px-4 bg-gray-100 text-gray-500 text-xs font-bold uppercase tracking-wide transform -translate-y-1/2 rounded-full">
+              <p className="absolute top-0 py-1.5 px-4 bg-[#1E293B] text-gray-500 text-xs font-bold uppercase tracking-wide transform -translate-y-1/2 rounded-full">
                 30-Day Free Trial
               </p>
               <p className="mt-4 flex items-baseline text-gray-900">
@@ -552,7 +552,7 @@ export default function PricingPage() {
                 </li>
               </ul>
             </div>
-            <div className="p-8 bg-gray-50 rounded-b-2xl">
+            <div className="p-8 bg-[#0F172A] rounded-b-2xl">
               <button
                 onClick={() => {
                   if (currentPlan === "FREE" && user?.has_subjects === false) {
@@ -568,8 +568,8 @@ export default function PricingPage() {
                 className={`w-full block border rounded-md py-3 text-sm font-semibold text-center ${
                   (currentPlan === "FREE" && user?.has_subjects !== false) ||
                   currentPlan === "SCHOOL_SPONSORED"
-                    ? "bg-gray-100 text-gray-400 border-gray-200 cursor-default"
-                    : "bg-white text-gray-900 border-gray-300 hover:bg-gray-50"
+                    ? "bg-[#1E293B] text-gray-400 border-gray-200 cursor-default"
+                    : "bg-white text-gray-900 border-gray-300 hover:bg-[#0F172A]"
                 }`}
               >
                 {currentPlan === "FREE"
@@ -778,7 +778,7 @@ export default function PricingPage() {
                 </li>
               </ul>
             </div>
-            <div className="p-8 bg-gray-50 rounded-b-2xl">
+            <div className="p-8 bg-[#0F172A] rounded-b-2xl">
               <button
                 onClick={() => handleSubscribe("YEARLY")}
                 disabled={
@@ -788,7 +788,7 @@ export default function PricingPage() {
                 className={`w-full block border rounded-md py-3 text-sm font-semibold text-center ${
                   currentPlan === "INDIVIDUAL_PREMIUM" ||
                   currentPlan === "SCHOOL_SPONSORED"
-                    ? "bg-gray-100 text-gray-400 border-gray-200 cursor-default"
+                    ? "bg-[#1E293B] text-gray-400 border-gray-200 cursor-default"
                     : "bg-primary-50 text-primary-700 border-primary-200 hover:bg-primary-100"
                 }`}
               >
