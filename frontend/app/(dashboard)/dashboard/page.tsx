@@ -786,18 +786,18 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F3F4F6] relative overflow-hidden font-sans selection:bg-primary-500 selection:text-white">
+    <div className="min-h-screen bg-[#020617] relative overflow-hidden font-sans selection:bg-primary-500 selection:text-white">
       {/* Premium Animated Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-400/30 rounded-full mix-blend-multiply filter blur-[128px] animate-blob"></div>
-        <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary-400/30 rounded-full mix-blend-multiply filter blur-[128px] animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-pink-400/30 rounded-full mix-blend-multiply filter blur-[128px] animate-blob animation-delay-4000"></div>
-        <div className="absolute inset-0 bg-grid-slate-200/50 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]"></div>
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-600/20 rounded-full mix-blend-multiply filter blur-[128px] animate-blob"></div>
+        <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary-600/20 rounded-full mix-blend-multiply filter blur-[128px] animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] bg-pink-600/20 rounded-full mix-blend-multiply filter blur-[128px] animate-blob animation-delay-4000"></div>
+        <div className="absolute inset-0 bg-grid-slate-800/30 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]"></div>
       </div>
 
       {/* Header */}
       {/* Premium Glass Header */}
-      <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/70 border-b border-white/50 shadow-sm transition-all duration-300">
+      <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#0F172A]/80 border-b border-white/10 shadow-sm transition-all duration-300">
         <div className="container mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
             <div className="flex flex-col">
@@ -1595,7 +1595,7 @@ function WeeklyCalendar({
   return (
     <div
       id="weekly-calendar"
-      className="glass-card bg-white/70 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-6"
+      className="glass-card bg-white/90 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-6"
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
@@ -1837,7 +1837,7 @@ function QuickActions() {
   ];
 
   return (
-    <div className="glass-card bg-white/70 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-6">
+    <div className="glass-card bg-white/90 backdrop-blur-xl rounded-[2rem] shadow-xl border border-white/60 p-6">
       <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
         <FiZap className="w-5 h-5 text-primary-600" />
         Quick Actions

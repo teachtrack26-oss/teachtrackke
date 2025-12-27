@@ -175,7 +175,7 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
             />
           </div>
 
-          <div className="bg-gray-50 p-4 rounded-2xl border border-gray-200">
+          <div className="bg-[#020617] p-4 rounded-2xl border border-gray-200">
             <h3 className="text-sm font-semibold text-gray-900 mb-3">
               Teachers per Level
             </h3>
@@ -238,7 +238,7 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
                 </p>
               </div>
             </div>
-            <div className="mt-4 w-full bg-gray-100 rounded-full h-2">
+            <div className="mt-4 w-full bg-[#0F172A] rounded-full h-2">
               <div
                 className="bg-blue-600 h-2 rounded-full transition-all"
                 style={{
@@ -266,7 +266,7 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
 
       {/* Teacher Management */}
       <div className="glass-card border border-gray-100 overflow-hidden">
-        <div className="p-6 border-b border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="p-6 border-b border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
           <h2 className="text-xl font-bold text-gray-900">Manage Teachers</h2>
 
           <form
@@ -292,7 +292,7 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
 
         <div className="overflow-x-auto">
           <table className="w-full text-left">
-            <thead className="bg-gray-50 text-gray-500 text-sm uppercase">
+            <thead className="bg-[#020617] text-gray-500 text-sm uppercase">
               <tr>
                 <th className="px-6 py-4 font-medium">Name</th>
                 <th className="px-6 py-4 font-medium">Email</th>
@@ -312,7 +312,7 @@ export default function SchoolAdminDashboard({ user }: { user: any }) {
                 </tr>
               ) : (
                 teachers.map((teacher) => (
-                  <tr key={teacher.id} className="hover:bg-gray-50">
+                  <tr key={teacher.id} className="hover:bg-[#020617]">
                     <td className="px-6 py-4 font-medium text-gray-900">
                       {teacher.full_name}
                     </td>

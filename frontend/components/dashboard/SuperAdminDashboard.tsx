@@ -640,7 +640,7 @@ export default function SuperAdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-6">
+    <div className="min-h-screen bg-[#020617] p-4 md:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Breadcrumbs */}
         <nav
@@ -786,7 +786,7 @@ export default function SuperAdminDashboard() {
             className={`px-4 py-2 rounded-lg font-medium transition-colors whitespace-nowrap ${
               activeTab === "overview"
                 ? "bg-primary-600 text-white"
-                : "bg-white text-gray-700 hover:bg-gray-50"
+                : "bg-white text-gray-700 hover:bg-[#020617]"
             }`}
           >
             Overview
@@ -796,7 +796,7 @@ export default function SuperAdminDashboard() {
             className={`px-4 py-2 rounded-lg font-medium transition-colors whitespace-nowrap ${
               activeTab === "users"
                 ? "bg-primary-600 text-white"
-                : "bg-white text-gray-700 hover:bg-gray-50"
+                : "bg-white text-gray-700 hover:bg-[#020617]"
             }`}
           >
             All Users ({userTotal})
@@ -806,7 +806,7 @@ export default function SuperAdminDashboard() {
             className={`px-4 py-2 rounded-lg font-medium transition-colors whitespace-nowrap ${
               activeTab === "schools"
                 ? "bg-primary-600 text-white"
-                : "bg-white text-gray-700 hover:bg-gray-50"
+                : "bg-white text-gray-700 hover:bg-[#020617]"
             }`}
           >
             Schools ({schoolTotal})
@@ -910,7 +910,7 @@ export default function SuperAdminDashboard() {
                 </h3>
                 {systemHealth ? (
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center justify-between p-3 bg-[#020617] rounded-lg">
                       <div className="flex items-center gap-2">
                         <div
                           className={`w-3 h-3 rounded-full ${
@@ -927,7 +927,7 @@ export default function SuperAdminDashboard() {
                         {systemHealth.status}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center justify-between p-3 bg-[#020617] rounded-lg">
                       <div className="flex items-center gap-2">
                         <FiDatabase className="text-gray-500" />
                         <span className="font-medium text-gray-700">
@@ -953,8 +953,8 @@ export default function SuperAdminDashboard() {
                   </div>
                 ) : (
                   <div className="animate-pulse space-y-4">
-                    <div className="h-10 bg-gray-100 rounded-lg"></div>
-                    <div className="h-10 bg-gray-100 rounded-lg"></div>
+                    <div className="h-10 bg-[#0F172A] rounded-lg"></div>
+                    <div className="h-10 bg-[#0F172A] rounded-lg"></div>
                   </div>
                 )}
 
@@ -968,7 +968,7 @@ export default function SuperAdminDashboard() {
                       href="https://resend.com/emails"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors border border-gray-200 group"
+                      className="block p-3 bg-[#020617] hover:bg-[#0F172A] rounded-lg transition-colors border border-gray-200 group"
                     >
                       <div className="flex items-center justify-between">
                         <span className="font-medium text-gray-900 text-sm">
@@ -982,7 +982,7 @@ export default function SuperAdminDashboard() {
                       href="https://eu.posthog.com/dashboard"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors border border-gray-200 group"
+                      className="block p-3 bg-[#020617] hover:bg-[#0F172A] rounded-lg transition-colors border border-gray-200 group"
                     >
                       <div className="flex items-center justify-between">
                         <span className="font-medium text-gray-900 text-sm">
@@ -996,7 +996,7 @@ export default function SuperAdminDashboard() {
                       href="https://vercel.com/dashboard"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors border border-gray-200 group"
+                      className="block p-3 bg-[#020617] hover:bg-[#0F172A] rounded-lg transition-colors border border-gray-200 group"
                     >
                       <div className="flex items-center justify-between">
                         <span className="font-medium text-gray-900 text-sm">
@@ -1015,7 +1015,7 @@ export default function SuperAdminDashboard() {
         {/* Users Tab */}
         {activeTab === "users" && (
           <div className="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden">
-            <div className="p-6 border-b border-gray-100">
+            <div className="p-6 border-b border-white/10">
               <div className="flex flex-wrap gap-4 items-center justify-between">
                 <div className="flex flex-wrap gap-4 items-center flex-1">
                   <div className="flex-1 min-w-[220px] relative">
@@ -1099,7 +1099,7 @@ export default function SuperAdminDashboard() {
 
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50 text-gray-500 text-sm uppercase">
+                <thead className="bg-[#020617] text-gray-500 text-sm uppercase">
                   <tr>
                     <th className="px-6 py-4 w-4">
                       <input
@@ -1159,7 +1159,7 @@ export default function SuperAdminDashboard() {
                     users.map((user) => (
                       <tr
                         key={user.id}
-                        className={`hover:bg-gray-50 ${
+                        className={`hover:bg-[#020617] ${
                           !user.is_active ? "bg-red-50" : ""
                         }`}
                       >
@@ -1208,7 +1208,7 @@ export default function SuperAdminDashboard() {
                                 ? "bg-red-100 text-red-700"
                                 : user.role === "SCHOOL_ADMIN"
                                 ? "bg-blue-100 text-blue-700"
-                                : "bg-gray-100 text-gray-700"
+                                : "bg-[#0F172A] text-gray-700"
                             }`}
                           >
                             {user.role === "SUPER_ADMIN"
@@ -1302,7 +1302,7 @@ export default function SuperAdminDashboard() {
                 <button
                   onClick={() => setUserPage((prev) => Math.max(prev - 1, 1))}
                   disabled={userPage === 1 || userTotal === 0}
-                  className="px-3 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 flex items-center gap-1"
+                  className="px-3 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#020617] flex items-center gap-1"
                 >
                   <FiChevronLeft className="w-4 h-4" />
                   Previous
@@ -1319,7 +1319,7 @@ export default function SuperAdminDashboard() {
                     )
                   }
                   disabled={userPage >= userTotalPages || userTotal === 0}
-                  className="px-3 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 flex items-center gap-1"
+                  className="px-3 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#020617] flex items-center gap-1"
                 >
                   Next
                   <FiChevronRight className="w-4 h-4" />
@@ -1332,7 +1332,7 @@ export default function SuperAdminDashboard() {
         {/* Schools Tab */}
         {activeTab === "schools" && (
           <div className="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden">
-            <div className="p-6 border-b border-gray-100">
+            <div className="p-6 border-b border-white/10">
               <div className="flex flex-wrap gap-4 items-center">
                 <div className="flex-1 min-w-[220px] relative">
                   <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -1380,7 +1380,7 @@ export default function SuperAdminDashboard() {
                     );
                     setSchoolPage(1);
                   }}
-                  className="px-3 py-2 border border-gray-300 rounded-lg flex items-center gap-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                  className="px-3 py-2 border border-gray-300 rounded-lg flex items-center gap-2 text-sm font-medium text-gray-700 hover:bg-[#020617]"
                 >
                   {schoolSortOrder === "asc" ? (
                     <>
@@ -1409,7 +1409,7 @@ export default function SuperAdminDashboard() {
 
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50 text-gray-500 text-sm uppercase">
+                <thead className="bg-[#020617] text-gray-500 text-sm uppercase">
                   <tr>
                     <th className="px-6 py-4 text-left font-medium">
                       School Name
@@ -1450,7 +1450,7 @@ export default function SuperAdminDashboard() {
                   )}
                   {!schoolsLoading &&
                     schools.map((school) => (
-                      <tr key={school.id} className="hover:bg-gray-50">
+                      <tr key={school.id} className="hover:bg-[#020617]">
                         <td className="px-6 py-4 font-medium text-gray-900">
                           {school.name}
                         </td>
@@ -1498,7 +1498,7 @@ export default function SuperAdminDashboard() {
                 <button
                   onClick={() => setSchoolPage((prev) => Math.max(prev - 1, 1))}
                   disabled={schoolPage === 1 || schoolTotal === 0}
-                  className="px-3 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 flex items-center gap-1"
+                  className="px-3 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#020617] flex items-center gap-1"
                 >
                   <FiChevronLeft className="w-4 h-4" />
                   Previous
@@ -1516,7 +1516,7 @@ export default function SuperAdminDashboard() {
                     )
                   }
                   disabled={schoolPage >= schoolTotalPages || schoolTotal === 0}
-                  className="px-3 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 flex items-center gap-1"
+                  className="px-3 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#020617] flex items-center gap-1"
                 >
                   Next
                   <FiChevronRight className="w-4 h-4" />
@@ -1531,7 +1531,7 @@ export default function SuperAdminDashboard() {
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-[2rem] shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
               {/* Modal Header */}
-              <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+              <div className="px-6 py-4 border-b border-white/10 flex justify-between items-center">
                 <div>
                   <h3 className="text-xl font-bold text-gray-900">
                     {selectedSchool.school.name}
@@ -1549,7 +1549,7 @@ export default function SuperAdminDashboard() {
                   </button>
                   <button
                     onClick={() => setSelectedSchool(null)}
-                    className="p-2 hover:bg-gray-100 rounded-lg"
+                    className="p-2 hover:bg-[#0F172A] rounded-lg"
                   >
                     <FiX className="w-5 h-5" />
                   </button>
@@ -1560,7 +1560,7 @@ export default function SuperAdminDashboard() {
               <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
                 {/* Edit Form */}
                 {isEditingSchool && (
-                  <div className="mb-6 p-4 bg-gray-50 rounded-2xl border border-gray-200">
+                  <div className="mb-6 p-4 bg-[#020617] rounded-2xl border border-gray-200">
                     <h4 className="text-sm font-semibold text-gray-900 mb-4">
                       Edit School Settings
                     </h4>
@@ -1624,7 +1624,7 @@ export default function SuperAdminDashboard() {
                       className={`p-4 rounded-lg border ${
                         !selectedSchool.school_admin.is_active
                           ? "bg-red-50 border-red-200"
-                          : "bg-gray-50 border-gray-200"
+                          : "bg-[#020617] border-gray-200"
                       }`}
                     >
                       <div className="flex items-center justify-between">

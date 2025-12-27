@@ -147,7 +147,7 @@ export function NotificationsDropdown({
           notifications.map((notif) => (
             <div
               key={notif.id}
-              className={`p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer ${
+              className={`p-4 border-b border-white/10 hover:bg-[#020617] transition-colors cursor-pointer ${
                 !notif.read ? "bg-primary-50/50" : ""
               }`}
               onClick={() => onMarkRead(notif.id)}
@@ -535,7 +535,7 @@ export function CurriculumProgressTracker({
       case "behind":
         return "text-red-600 bg-red-50";
       default:
-        return "text-gray-600 bg-gray-50";
+        return "text-gray-600 bg-[#020617]";
     }
   };
 
@@ -958,7 +958,7 @@ export function ResourceCenterWidget({
       case "shared":
         return "bg-amber-50 text-amber-700 border-amber-200";
       default:
-        return "bg-gray-50 text-gray-700 border-gray-200";
+        return "bg-[#020617] text-gray-700 border-gray-200";
     }
   };
 
@@ -992,7 +992,7 @@ export function ResourceCenterWidget({
               className="bg-white p-3 rounded-2xl border border-gray-200 hover:border-primary-300 hover:shadow-md transition-all cursor-pointer group"
             >
               <div className="flex items-center gap-3">
-                <div className="flex-shrink-0 p-2 bg-gray-50 rounded-lg group-hover:bg-primary-50 transition-colors">
+                <div className="flex-shrink-0 p-2 bg-[#020617] rounded-lg group-hover:bg-primary-50 transition-colors">
                   {getResourceIcon(resource.type)}
                 </div>
                 <div className="flex-1 min-w-0">
