@@ -510,41 +510,91 @@ export default function Navbar() {
             <div className="pt-6 mt-6 border-t border-white/10">
               {isLoggedIn ? (
                 <div className="space-y-3">
-                  <div className="px-4 flex items-center space-x-3 mb-4">
-                    <div className="w-10 h-10 rounded-full bg-primary-600 flex items-center justify-center text-white font-bold">
-                      {(user?.name || user?.full_name || user?.email)
-                        ?.charAt(0)
-                        .toUpperCase() || "U"}
-                    </div>
-                    <div>
-                      <div className="font-bold text-white">
-                        {user?.name ||
-                          user?.full_name ||
-                          user?.email?.split("@")[0] ||
-                          "Account"}
+                  <div className="px-4 mb-4">
+                    <div className="flex items-center space-x-3 mb-3">
+                      <div className="w-12 h-12 rounded-full bg-primary-600 flex items-center justify-center text-white font-bold text-xl shadow-lg border-2 border-primary-400">
+                        {(user?.name || user?.full_name || user?.email)
+                          ?.charAt(0)
+                          .toUpperCase() || "U"}
                       </div>
-                      <div className="text-xs text-slate-500">{user?.email}</div>
+                      <div>
+                        <div className="font-bold text-white text-lg">
+                          {user?.name ||
+                            user?.full_name ||
+                            user?.email?.split("@")[0] ||
+                            "Account"}
+                        </div>
+                        <div className="text-sm text-slate-400">{user?.email}</div>
+                      </div>
+                    </div>
+                    
+                    {/* User Badge - Mobile */}
+                    <div className="mt-2">
+                        <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase ${
+                          user?.subscription_type === 'SCHOOL_SPONSORED'
+                            ? 'bg-blue-100 text-blue-800'
+                            : user?.subscription_type === 'INDIVIDUAL_PREMIUM'
+                            ? 'bg-amber-100 text-amber-800' // Yellow badge like screenshot
+                            : 'bg-gray-100 text-gray-800'
+                        }`}>
+                          {user?.subscription_type === 'SCHOOL_SPONSORED'
+                            ? 'School Plan'
+                            : user?.subscription_type === 'INDIVIDUAL_PREMIUM'
+                            ? 'Individual Premium'
+                            : 'Free Plan'}
+                        </span>
                     </div>
                   </div>
 
-                  <Link
-                    href="/dashboard"
-                    className="flex items-center space-x-3 px-4 py-3 text-base font-medium text-slate-300 hover:text-primary-600 hover:bg-[#0F172A]/5 rounded-2xl transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    <FiUser className="w-5 h-5" />
-                    <span>Dashboard</span>
-                  </Link>
+                  <div className="px-2 space-y-1">
+                      <Link
+                        href="/pricing"
+                        className="flex items-center space-x-3 px-4 py-3 text-base font-medium text-slate-300 hover:text-primary-600 hover:bg-[#0F172A]/30 rounded-2xl transition-all duration-200"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <div className="p-2 bg-white/5 rounded-lg text-slate-400">
+                           <FiCreditCard className="w-5 h-5" />
+                        </div>
+                        <div className="flex-1">
+                           <span className="block text-white">My Plan</span>
+                           <span className="text-xs text-slate-500">Manage subscription</span>
+                        </div>
+                      </Link>
 
-                  <button
-                    onClick={handleLogout}
-                    className="flex items-center space-x-3 w-full px-4 py-3 text-base font-medium text-red-600 hover:bg-red-50 rounded-2xl transition-colors"
-                  >
-                    <FiLogOut className="w-5 h-5" />
-                    <span>Sign Out</span>
-                  </button>
+                      <Link
+                        href="/dashboard"
+                        className="flex items-center space-x-3 px-4 py-3 text-base font-medium text-slate-300 hover:text-primary-600 hover:bg-[#0F172A]/30 rounded-2xl transition-all duration-200"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                         <div className="p-2 bg-white/5 rounded-lg text-slate-400">
+                           <FiUser className="w-5 h-5" />
+                         </div>
+                        <span className="text-white">Dashboard</span>
+                      </Link>
+
+                      <Link
+                        href="/settings/profile"
+                        className="flex items-center space-x-3 px-4 py-3 text-base font-medium text-slate-300 hover:text-primary-600 hover:bg-[#0F172A]/30 rounded-2xl transition-all duration-200"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                         <div className="p-2 bg-white/5 rounded-lg text-slate-400">
+                           <FiSettings className="w-5 h-5" />
+                         </div>
+                        <span className="text-white">Settings</span>
+                      </Link>
+
+                      <button
+                        onClick={handleLogout}
+                        className="flex items-center space-x-3 w-full px-4 py-3 text-base font-medium text-red-400 hover:bg-red-500/10 rounded-2xl transition-all duration-200 mt-4 border border-red-500/20"
+                      >
+                         <div className="p-2 bg-red-500/10 rounded-lg text-red-400">
+                           <FiLogOut className="w-5 h-5" />
+                         </div>
+                        <span>Sign Out</span>
+                      </button>
+                  </div>
                 </div>
-              ) : (
+) : (
                 <div className="grid grid-cols-2 gap-4 px-2">
                   <Link
                     href="/login"
