@@ -67,8 +67,8 @@ export default function PricingPage() {
   const yearlyLabel = pricingConfig?.yearly?.label || "Yearly Saver";
   const termlyDurationLabel = pricingConfig?.termly?.duration_label || "/term";
   const yearlyDurationLabel = pricingConfig?.yearly?.duration_label || "/year";
-  const termlyPriceKes = Number(pricingConfig?.termly?.price_kes ?? 350);
-  const yearlyPriceKes = Number(pricingConfig?.yearly?.price_kes ?? 1000);
+  const termlyPriceKes = Number(pricingConfig?.termly?.price_kes ?? 200);
+  const yearlyPriceKes = Number(pricingConfig?.yearly?.price_kes ?? 500);
   const yearlySavingsKes = Math.max(0, termlyPriceKes * 3 - yearlyPriceKes);
 
   const handleSubscribe = async (plan: string) => {
