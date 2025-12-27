@@ -25,6 +25,7 @@ import {
   FiLogIn,
   FiEdit2,
   FiHome,
+  FiExternalLink,
 } from "react-icons/fi";
 import {
   LineChart,
@@ -956,6 +957,56 @@ export default function SuperAdminDashboard() {
                     <div className="h-10 bg-gray-100 rounded-lg"></div>
                   </div>
                 )}
+
+                {/* Integrated Services Links */}
+                <div className="mt-6 pt-6 border-t border-gray-100">
+                  <h3 className="text-sm font-bold text-gray-900 mb-3 flex items-center gap-2">
+                    <FiZap className="text-amber-500" /> Integrated Services
+                  </h3>
+                  <div className="space-y-2">
+                    <a
+                      href="https://resend.com/emails"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors border border-gray-200 group"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-medium text-gray-900 text-sm">
+                          Resend (Emails)
+                        </span>
+                        <FiExternalLink className="w-3 h-3 text-gray-400 group-hover:text-indigo-600" />
+                      </div>
+                    </a>
+
+                    <a
+                      href="https://eu.posthog.com/dashboard"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors border border-gray-200 group"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-medium text-gray-900 text-sm">
+                          PostHog (Analytics)
+                        </span>
+                        <FiExternalLink className="w-3 h-3 text-gray-400 group-hover:text-indigo-600" />
+                      </div>
+                    </a>
+
+                    <a
+                      href="https://vercel.com/dashboard"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors border border-gray-200 group"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-medium text-gray-900 text-sm">
+                          Vercel (Deployments)
+                        </span>
+                        <FiExternalLink className="w-3 h-3 text-gray-400 group-hover:text-indigo-600" />
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

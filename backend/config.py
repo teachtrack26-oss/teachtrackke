@@ -34,12 +34,18 @@ class Settings(BaseSettings):
     GOOGLE_CLIENT_SECRET: str = ""
     GOOGLE_REDIRECT_URI: str = "https://rubeolar-jaxon-unintuitively.ngrok-free.dev/api/auth/callback/google"
     
-    # Email Configuration (Gmail SMTP)
+    # Email Configuration
+    RESEND_API_KEY: str = ""  # Get from https://resend.com/api-keys
+
+    # Legacy SMTP (Gmail)
     SMTP_HOST: str = "smtp.gmail.com"
     SMTP_PORT: int = 587
     SMTP_USER: str = "teachtrack26@gmail.com"
     SMTP_PASSWORD: str = ""  # App password from Gmail
-    FROM_EMAIL: str = "teachtrack26@gmail.com"
+    
+    # Sender Identity
+    # Note: For Resend testing, use 'onboarding@resend.dev' if you haven't verified a domain.
+    FROM_EMAIL: str = "onboarding@resend.dev" 
     FROM_NAME: str = "TeachTrack"
     
     # Email Verification

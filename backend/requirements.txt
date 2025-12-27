@@ -29,3 +29,4 @@ google-auth==2.29.0
 google-auth-oauthlib==1.2.0
 aiosmtplib==3.0.1
 reportlab==4.2.5
+resend==2.6.0

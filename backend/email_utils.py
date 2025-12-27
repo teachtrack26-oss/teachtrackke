@@ -4,8 +4,10 @@ Handles sending verification emails, password reset emails, etc.
 """
 
 import aiosmtplib
+import resend
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from fastapi.concurrency import run_in_threadpool
 from config import settings
 import logging
 
@@ -19,17 +21,33 @@ async def send_email(
     text_content: str = None
 ) -> bool:
     """
-    Send an email using Gmail SMTP
-    
-    Args:
-        to_email: Recipient email address
-        subject: Email subject
-        html_content: HTML body of the email
-        text_content: Plain text version (optional)
-    
-    Returns:
-        bool: True if email sent successfully, False otherwise
+    Send an email using Resend (preferred) or Gmail SMTP (fallback)
     """
+    # 1. Try Resend API first (Reliable)
+    if settings.RESEND_API_KEY:
+        try:
+            resend.api_key = settings.RESEND_API_KEY
+            
+            def _send_resend():
+                return resend.Emails.send({
+                    "from": f"{settings.FROM_NAME} <{settings.FROM_EMAIL}>",
+                    "to": to_email,
+                    "subject": subject,
+                    "html": html_content,
+                    "text": text_content or "Please view this email in an HTML-compatible client."
+                })
+            
+            # Run blocking call in threadpool
+            await run_in_threadpool(_send_resend)
+            
+            logger.info(f"Email sent via Resend to {to_email}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Resend API failed: {str(e)}. Attempting SMTP fallback...")
+            # Fall through to SMTP
+
+    # 2. Fallback to SMTP
     try:
         # Create message
         message = MIMEMultipart("alternative")
@@ -56,11 +74,11 @@ async def send_email(
             password=settings.SMTP_PASSWORD,
         )
         
-        logger.info(f"Email sent successfully to {to_email}")
+        logger.info(f"Email sent via SMTP to {to_email}")
         return True
         
     except Exception as e:
-        logger.error(f"Failed to send email to {to_email}: {str(e)}")
+        logger.error(f"All email methods failed for {to_email}: {str(e)}")
         return False
 
 
