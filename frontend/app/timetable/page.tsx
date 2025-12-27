@@ -76,7 +76,7 @@ const DraggableLesson = ({
 
       {/* Double lesson badge */}
       {entry.is_double_lesson && (
-        <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-bold text-gray-700 shadow-md">
+        <div className="absolute top-2 right-2 bg-[#0F172A]/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-bold text-gray-700 shadow-md">
           Double
         </div>
       )}
@@ -112,7 +112,7 @@ const DraggableLesson = ({
           <button
             onPointerDown={(e) => e.stopPropagation()}
             onClick={onEdit}
-            className="p-2 bg-white/90 backdrop-blur-sm text-blue-600 rounded-lg hover:bg-white shadow-md transition-all duration-200 hover:scale-110"
+            className="p-2 bg-[#0F172A]/90 backdrop-blur-sm text-blue-600 rounded-lg hover:bg-white shadow-md transition-all duration-200 hover:scale-110"
             title="Edit"
           >
             <FiEdit className="w-4 h-4" />
@@ -120,7 +120,7 @@ const DraggableLesson = ({
           <button
             onPointerDown={(e) => e.stopPropagation()}
             onClick={onDelete}
-            className="p-2 bg-white/90 backdrop-blur-sm text-red-600 rounded-lg hover:bg-white shadow-md transition-all duration-200 hover:scale-110"
+            className="p-2 bg-[#0F172A]/90 backdrop-blur-sm text-red-600 rounded-lg hover:bg-white shadow-md transition-all duration-200 hover:scale-110"
             title="Delete"
           >
             <FiTrash2 className="w-4 h-4" />
@@ -356,7 +356,7 @@ const getSubjectTheme = (subjectName: string) => {
 
   // Default theme for unlisted subjects
   return {
-    gradient: "from-gray-500/90 to-slate-500/90",
+    gradient: "from-[#020617]0/90 to-slate-500/90",
     border: "border-gray-400",
     icon: "📚",
     iconBg: "bg-gray-600",
@@ -993,7 +993,7 @@ const TimetablePage = () => {
     );
 
   return (
-    <div className="min-h-screen bg-gray-50 relative overflow-hidden">
+    <div className="min-h-screen bg-[#020617] relative overflow-hidden">
       <style>{`
         @media print {
           @page {
@@ -1213,8 +1213,8 @@ const TimetablePage = () => {
                 disabled={!isPremium}
                 className={`inline-flex items-center gap-2 px-4 py-3 border rounded-2xl font-semibold transition-all shadow-sm hover:shadow group print:hidden ${
                   !isPremium
-                    ? "bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200"
-                    : "bg-white border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700"
+                    ? "bg-[#0F172A] text-gray-400 cursor-not-allowed border-gray-200"
+                    : "bg-white border-gray-200 hover:border-gray-300 hover:bg-[#020617] text-gray-700"
                 }`}
                 title={!isPremium ? "Upgrade to print" : "Print"}
               >
@@ -1729,7 +1729,7 @@ const TimetablePage = () => {
                       setEditingEntry(null);
                       setSelectedSubject(null);
                     }}
-                    className="flex-1 px-6 py-3 bg-white/60 dark:bg-gray-700/60 backdrop-blur-sm border-2 border-gray-300 dark:border-gray-600 rounded-2xl text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 hover:border-gray-400 dark:hover:border-gray-500 font-bold transition-all duration-200 shadow-md hover:shadow-lg"
+                    className="flex-1 px-6 py-3 bg-white/60 dark:bg-gray-700/60 backdrop-blur-sm border-2 border-gray-300 dark:border-gray-600 rounded-2xl text-gray-700 dark:text-gray-200 hover:bg-[#0F172A] dark:hover:bg-gray-600 hover:border-gray-400 dark:hover:border-gray-500 font-bold transition-all duration-200 shadow-md hover:shadow-lg"
                   >
                     Cancel
                   </button>
@@ -2093,7 +2093,7 @@ const TimetablePage = () => {
                       setIsBulkModalOpen(false);
                       setBulkLessons([{ day_of_week: 1, time_slot_id: 0 }]);
                     }}
-                    className="flex-1 px-6 py-3 bg-white/60 backdrop-blur-sm border-2 border-gray-300 rounded-2xl text-gray-700 hover:bg-gray-100 hover:border-gray-400 font-bold transition-all duration-200 shadow-md hover:shadow-lg"
+                    className="flex-1 px-6 py-3 bg-white/60 backdrop-blur-sm border-2 border-gray-300 rounded-2xl text-gray-700 hover:bg-[#0F172A] hover:border-gray-400 font-bold transition-all duration-200 shadow-md hover:shadow-lg"
                   >
                     Cancel
                   </button>

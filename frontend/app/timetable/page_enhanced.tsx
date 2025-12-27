@@ -172,13 +172,13 @@ const TimetablePage = () => {
 
   if (isLoading)
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#020617]">
         <div className="w-16 h-16 border-4 border-primary-200 border-t-indigo-600 rounded-full animate-spin"></div>
       </div>
     );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#020617]">
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Header with Schedule Info */}
         <div className="mb-6">
@@ -194,7 +194,7 @@ const TimetablePage = () => {
             <div className="flex space-x-3">
               <button
                 onClick={() => router.push("/timetable/setup")}
-                className="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg flex items-center text-gray-700"
+                className="bg-[#0F172A] hover:bg-gray-200 px-4 py-2 rounded-lg flex items-center text-gray-700"
               >
                 <FiSettings className="mr-2" />
                 Setup
@@ -257,8 +257,8 @@ const TimetablePage = () => {
         <div className="bg-white rounded-lg shadow border overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-gray-50 border-b">
-                <th className="p-4 text-left font-semibold text-gray-700 sticky left-0 bg-gray-50 z-10">
+              <tr className="bg-[#020617] border-b">
+                <th className="p-4 text-left font-semibold text-gray-700 sticky left-0 bg-[#020617] z-10">
                   Time
                 </th>
                 {DAYS.map((day) => (
@@ -273,8 +273,8 @@ const TimetablePage = () => {
             </thead>
             <tbody>
               {timeSlots.map((slot) => (
-                <tr key={slot.id} className="border-b hover:bg-gray-50">
-                  <td className="p-4 bg-gray-50 sticky left-0 z-10 border-r">
+                <tr key={slot.id} className="border-b hover:bg-[#020617]">
+                  <td className="p-4 bg-[#020617] sticky left-0 z-10 border-r">
                     <div className="flex items-center">
                       <FiClock className="w-4 h-4 text-gray-500 mr-2" />
                       <div>
@@ -555,7 +555,7 @@ const TimetablePage = () => {
                       setEditingEntry(null);
                       setSelectedSubject(null);
                     }}
-                    className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
+                    className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-[#020617] font-medium"
                   >
                     Cancel
                   </button>

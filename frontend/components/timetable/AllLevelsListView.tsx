@@ -100,7 +100,7 @@ const getSubjectTheme = (subjectName: string) => {
     };
 
   // Default
-  return { color: "gray", icon: "📚", gradient: "from-gray-500 to-slate-500" };
+  return { color: "gray", icon: "📚", gradient: "from-[#020617]0 to-slate-500" };
 };
 
 export default function AllLevelsListView({
@@ -196,7 +196,7 @@ export default function AllLevelsListView({
                 return (
                   <div
                     key={entry.id}
-                    className="p-4 hover:bg-gray-50 transition-colors group"
+                    className="p-4 hover:bg-[#020617] transition-colors group"
                   >
                     <div className="flex items-start gap-4">
                       {/* Time */}

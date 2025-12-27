@@ -93,13 +93,13 @@ const TimetablePage = () => {
 
   if (isLoading)
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#020617]">
         <div className="w-16 h-16 border-4 border-primary-200 border-t-indigo-600 rounded-full animate-spin"></div>
       </div>
     );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#020617]">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8 flex justify-between items-center">
           <div>
@@ -109,7 +109,7 @@ const TimetablePage = () => {
           <div className="flex space-x-3">
             <button
               onClick={() => router.push("/timetable/setup")}
-              className="bg-gray-100 px-4 py-2 rounded-lg flex items-center"
+              className="bg-[#0F172A] px-4 py-2 rounded-lg flex items-center"
             >
               <FiSettings className="mr-2" />
               Setup
@@ -129,8 +129,8 @@ const TimetablePage = () => {
         <div className="bg-white rounded-lg shadow border overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-gray-50 border-b">
-                <th className="p-4 text-left sticky left-0 bg-gray-50">Time</th>
+              <tr className="bg-[#020617] border-b">
+                <th className="p-4 text-left sticky left-0 bg-[#020617]">Time</th>
                 {DAYS.map((d) => (
                   <th key={d} className="p-4 min-w-[180px]">
                     {d}
@@ -141,7 +141,7 @@ const TimetablePage = () => {
             <tbody>
               {timeSlots.map((slot) => (
                 <tr key={slot.id} className="border-b">
-                  <td className="p-4 bg-gray-50 sticky left-0">
+                  <td className="p-4 bg-[#020617] sticky left-0">
                     <FiClock className="inline mr-2" />
                     <div className="text-sm">
                       {slot.label}

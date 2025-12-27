@@ -186,7 +186,7 @@ const TimetableSetupPage = () => {
     config.lessons_after_lunch;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#020617]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <button
           onClick={() => router.push("/timetable")}
@@ -551,7 +551,7 @@ const TimetableSetupPage = () => {
               <button
                 type="button"
                 onClick={() => router.push("/timetable")}
-                className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+                className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-[#020617]"
               >
                 Cancel
               </button>
