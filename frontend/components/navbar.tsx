@@ -201,7 +201,7 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center group">
-              <div className="relative w-40 h-10 transition-transform duration-300 group-hover:scale-105">
+              <div className="relative w-48 h-12 bg-white rounded-xl px-3 py-1.5 shadow-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-105 overflow-hidden">
                 <Image
                   src="/logo.png"
                   alt="TeachTrack Logo"
