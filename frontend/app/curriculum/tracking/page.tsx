@@ -188,7 +188,7 @@ export default function CurriculumTrackingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-6 pb-12">
+    <div className="min-h-screen bg-[#020617] pt-6 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
@@ -385,7 +385,7 @@ export default function CurriculumTrackingPage() {
                                     {substrand.total_lessons}
                                   </span>
                                 </div>
-                                <div className="w-full bg-gray-100 rounded-full h-1.5">
+                                <div className="w-full bg-[#0F172A] rounded-full h-1.5">
                                   <div
                                     className="bg-green-500 h-1.5 rounded-full transition-all duration-300"
                                     style={{
@@ -412,8 +412,8 @@ export default function CurriculumTrackingPage() {
                   disabled={currentPage === 1}
                   className={`px-3 py-1 rounded-md text-sm font-medium ${
                     currentPage === 1
-                      ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-300"
+                      ? "bg-[#0F172A] text-gray-400 cursor-not-allowed"
+                      : "bg-white text-gray-700 hover:bg-[#020617] border border-gray-300"
                   }`}
                 >
                   Previous
@@ -428,8 +428,8 @@ export default function CurriculumTrackingPage() {
                   disabled={currentPage === totalPages}
                   className={`px-3 py-1 rounded-md text-sm font-medium ${
                     currentPage === totalPages
-                      ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-300"
+                      ? "bg-[#0F172A] text-gray-400 cursor-not-allowed"
+                      : "bg-white text-gray-700 hover:bg-[#020617] border border-gray-300"
                   }`}
                 >
                   Next
@@ -468,7 +468,7 @@ export default function CurriculumTrackingPage() {
                   {data.recent_completions.map((completion, idx) => (
                     <div
                       key={idx}
-                      className="flex items-start space-x-3 pb-4 border-b border-gray-100 last:border-b-0 last:pb-0"
+                      className="flex items-start space-x-3 pb-4 border-b border-white/10 last:border-b-0 last:pb-0"
                     >
                       <div className="p-2 bg-green-100 rounded-lg flex-shrink-0">
                         <FiCheckCircle className="w-4 h-4 text-green-600" />

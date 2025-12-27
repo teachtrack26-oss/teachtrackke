@@ -190,7 +190,7 @@ export default function CurriculumSelectPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-24 pb-12">
+    <div className="min-h-screen bg-[#020617] pt-24 pb-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
@@ -337,7 +337,7 @@ export default function CurriculumSelectPage() {
           {selectedTemplates.length > 0 && (
             <div className="bg-white rounded-lg shadow-md p-6">
               {/* Selection Summary */}
-              <div className="mb-4 pb-4 border-b border-gray-100">
+              <div className="mb-4 pb-4 border-b border-white/10">
                 <h4 className="text-sm font-medium text-gray-700 mb-2">
                   Selected Subjects Summary:
                 </h4>

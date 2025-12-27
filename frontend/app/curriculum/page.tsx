@@ -105,7 +105,7 @@ export default function CurriculumPage() {
   // Show loading first to prevent flash
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#020617]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
@@ -113,7 +113,7 @@ export default function CurriculumPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#020617]">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">
             Authentication Required
@@ -127,7 +127,7 @@ export default function CurriculumPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 relative overflow-hidden">
+    <div className="min-h-screen bg-[#020617] relative overflow-hidden">
       {/* Premium Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-400/20 rounded-full blur-[128px] animate-blob"></div>
@@ -295,7 +295,7 @@ export default function CurriculumPage() {
                           {Math.round(subject.progress_percentage)}%
                         </span>
                       </div>
-                      <div className="relative w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+                      <div className="relative w-full bg-[#0F172A] rounded-full h-3 overflow-hidden">
                         <div
                           className={`absolute top-0 left-0 h-full bg-gradient-to-r ${getProgressColor(
                             subject.progress_percentage
@@ -309,7 +309,7 @@ export default function CurriculumPage() {
 
                     {/* Stats */}
                     <div className="grid grid-cols-2 gap-4 mb-5">
-                      <div className="text-center p-3 bg-gray-50 rounded-lg">
+                      <div className="text-center p-3 bg-[#020617] rounded-lg">
                         <div className="text-2xl font-bold text-gray-900">
                           {subject.total_lessons}
                         </div>
@@ -330,7 +330,7 @@ export default function CurriculumPage() {
                     {/* Action Button */}
                     <button
                       onClick={() => router.push(`/curriculum/${subject.id}`)}
-                      className="w-full bg-gradient-to-r from-gray-50 to-gray-100 hover:from-primary-600 hover:to-purple-600 text-gray-700 hover:text-white border border-gray-200 hover:border-transparent py-3 rounded-2xl font-semibold transition-all duration-300 shadow-sm hover:shadow-md group"
+                      className="w-full bg-gradient-to-r from-[#020617] to-gray-100 hover:from-primary-600 hover:to-purple-600 text-gray-700 hover:text-white border border-gray-200 hover:border-transparent py-3 rounded-2xl font-semibold transition-all duration-300 shadow-sm hover:shadow-md group"
                     >
                       <span className="flex items-center justify-center gap-2">
                         Manage Curriculum
@@ -418,7 +418,7 @@ export default function CurriculumPage() {
       {showUploadModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-[2rem] max-w-2xl w-full shadow-2xl">
-            <div className="p-6 border-b border-gray-100">
+            <div className="p-6 border-b border-white/10">
               <h2 className="text-2xl font-bold text-gray-900">
                 Upload Curriculum Document
               </h2>
@@ -448,7 +448,7 @@ export default function CurriculumPage() {
             <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
               <button
                 onClick={() => setShowUploadModal(false)}
-                className="px-6 py-2.5 text-gray-700 border border-gray-300 rounded-2xl hover:bg-gray-50 transition-colors font-medium"
+                className="px-6 py-2.5 text-gray-700 border border-gray-300 rounded-2xl hover:bg-[#020617] transition-colors font-medium"
               >
                 Cancel
               </button>

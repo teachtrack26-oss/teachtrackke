@@ -252,7 +252,7 @@ export default function CurriculumDetailPage() {
       watermarkText={userEmail || "CONFIDENTIAL"}
       isSuperAdmin={isSuperAdmin}
     >
-      <div className="min-h-screen bg-gray-50 pt-6 pb-12">
+      <div className="min-h-screen bg-[#020617] pt-6 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-8">
@@ -311,7 +311,7 @@ export default function CurriculumDetailPage() {
                     {/* Strand Header */}
                     <button
                       onClick={() => toggleStrand(strand.id)}
-                      className="w-full p-6 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                      className="w-full p-6 flex items-center justify-between hover:bg-[#020617] transition-colors"
                     >
                       <div className="flex items-center space-x-4">
                         {expandedStrands.has(strand.id) ? (
@@ -338,12 +338,12 @@ export default function CurriculumDetailPage() {
                           .map((subStrand) => (
                             <div
                               key={subStrand.id}
-                              className="border-b border-gray-100 last:border-b-0"
+                              className="border-b border-white/10 last:border-b-0"
                             >
                               {/* Sub-Strand Header */}
                               <button
                                 onClick={() => toggleSubStrand(subStrand.id)}
-                                className="w-full p-6 pl-16 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                                className="w-full p-6 pl-16 flex items-center justify-between hover:bg-[#020617] transition-colors"
                               >
                                 <div className="flex items-center space-x-4">
                                   {expandedSubStrands.has(subStrand.id) ? (
@@ -365,7 +365,7 @@ export default function CurriculumDetailPage() {
 
                               {/* Sub-Strand Details */}
                               {expandedSubStrands.has(subStrand.id) && (
-                                <div className="p-6 pl-24 bg-gray-50 space-y-6">
+                                <div className="p-6 pl-24 bg-[#020617] space-y-6">
                                   {/* Specific Learning Outcomes */}
                                   {subStrand.specific_learning_outcomes &&
                                     subStrand.specific_learning_outcomes
@@ -562,7 +562,7 @@ export default function CurriculumDetailPage() {
                                                 className={`flex items-start space-x-3 p-3 rounded-lg transition-colors ${
                                                   lesson.is_completed
                                                     ? "bg-green-50"
-                                                    : "bg-white hover:bg-gray-50"
+                                                    : "bg-white hover:bg-[#020617]"
                                                 }`}
                                               >
                                                 <input

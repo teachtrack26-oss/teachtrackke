@@ -251,7 +251,7 @@ export default function CurriculumUploadPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-6 pb-12">
+    <div className="min-h-screen bg-[#020617] pt-6 pb-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
@@ -418,7 +418,7 @@ export default function CurriculumUploadPage() {
               <button
                 type="button"
                 onClick={() => router.back()}
-                className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors"
+                className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-[#020617] font-medium transition-colors"
               >
                 Cancel
               </button>

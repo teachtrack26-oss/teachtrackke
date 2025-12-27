@@ -121,7 +121,7 @@ export default function SubjectSchedulingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-6 pb-12">
+    <div className="min-h-screen bg-[#020617] pt-6 pb-12">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <button
@@ -297,7 +297,7 @@ export default function SubjectSchedulingPage() {
               </button>
               <button
                 onClick={() => router.push(`/curriculum/${subjectId}`)}
-                className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+                className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-[#020617] transition-colors"
               >
                 Cancel
               </button>
