@@ -1082,7 +1082,7 @@ export default function SchemeGeneratorPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, school: e.target.value })
                   }
-                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-gray-50 text-gray-900"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-[#020617] text-gray-900"
                   required
                   readOnly
                 />
@@ -1096,7 +1096,7 @@ export default function SchemeGeneratorPage() {
                 <input
                   type="text"
                   value={formData.grade}
-                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-gray-50 text-gray-900"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-[#020617] text-gray-900"
                   required
                   readOnly
                 />
@@ -1159,7 +1159,7 @@ export default function SchemeGeneratorPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, year: Number(e.target.value) })
                   }
-                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-gray-50 text-gray-900"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-[#020617] text-gray-900"
                   min={2020}
                   max={2030}
                   required
@@ -1302,7 +1302,7 @@ export default function SchemeGeneratorPage() {
                       total_weeks: Number(e.target.value),
                     })
                   }
-                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-gray-50 text-gray-900"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-[#020617] text-gray-900"
                   min={1}
                   max={20}
                   required
@@ -1311,7 +1311,7 @@ export default function SchemeGeneratorPage() {
               </div>
 
               <div className="md:col-span-2">
-                <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-2xl cursor-pointer hover:bg-gray-50 transition-colors">
+                <label className="flex items-center gap-3 p-4 border border-gray-200 rounded-2xl cursor-pointer hover:bg-[#020617] transition-colors">
                   <div className="relative inline-flex items-center cursor-pointer">
                     <input
                       type="checkbox"
@@ -1525,7 +1525,7 @@ export default function SchemeGeneratorPage() {
                                             className={`p-3 rounded-lg cursor-pointer transition-all duration-200 flex items-start gap-3 ${
                                               selectedLessons.has(lesson.id)
                                                 ? "bg-primary-50 border-2 border-primary-400"
-                                                : "bg-gray-50 border-2 border-transparent hover:border-gray-300"
+                                                : "bg-[#020617] border-2 border-transparent hover:border-gray-300"
                                             }`}
                                           >
                                             <div
@@ -1846,7 +1846,7 @@ export default function SchemeGeneratorPage() {
                             <label className="text-xs font-medium text-gray-600 mb-2 block">
                               Learning Resources (Select all that apply)
                             </label>
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-3 bg-gray-50 rounded-lg border border-gray-200 max-h-48 overflow-y-auto">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-3 bg-[#020617] rounded-lg border border-gray-200 max-h-48 overflow-y-auto">
                               {LEARNING_RESOURCES_OPTIONS.map((resource) => {
                                 const isSelected = (
                                   lesson.selected_resources || []
@@ -1854,7 +1854,7 @@ export default function SchemeGeneratorPage() {
                                 return (
                                   <label
                                     key={resource}
-                                    className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 transition-colors text-xs ${
+                                    className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-[#0F172A] transition-colors text-xs ${
                                       isSelected
                                         ? "bg-primary-50 border border-primary-300"
                                         : ""
@@ -1889,7 +1889,7 @@ export default function SchemeGeneratorPage() {
                             <label className="text-xs font-medium text-gray-600 mb-2 block">
                               Assessment Methods (Select all that apply)
                             </label>
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-3 bg-gray-50 rounded-lg border border-gray-200 max-h-48 overflow-y-auto">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-3 bg-[#020617] rounded-lg border border-gray-200 max-h-48 overflow-y-auto">
                               {ASSESSMENT_METHODS_OPTIONS.map((method) => {
                                 const isSelected = (
                                   lesson.selected_assessment_methods || []
@@ -1897,7 +1897,7 @@ export default function SchemeGeneratorPage() {
                                 return (
                                   <label
                                     key={method}
-                                    className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 transition-colors text-xs ${
+                                    className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-[#0F172A] transition-colors text-xs ${
                                       isSelected
                                         ? "bg-primary-50 border border-primary-300"
                                         : ""
@@ -1959,7 +1959,7 @@ export default function SchemeGeneratorPage() {
       {showPreview && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col animate-in fade-in zoom-in duration-200">
-            <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+            <div className="p-6 border-b border-white/10 flex items-center justify-between">
               <div>
                 <h3 className="text-xl font-bold text-gray-900">
                   Curriculum Content Preview
@@ -1970,7 +1970,7 @@ export default function SchemeGeneratorPage() {
               </div>
               <button
                 onClick={() => setShowPreview(false)}
-                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                className="p-2 hover:bg-[#0F172A] rounded-full transition-colors"
               >
                 <FiX className="w-5 h-5 text-gray-500" />
               </button>
@@ -2010,17 +2010,17 @@ export default function SchemeGeneratorPage() {
                     key={strand.id}
                     className="border border-gray-200 rounded-2xl overflow-hidden"
                   >
-                    <div className="bg-gray-50 px-4 py-3 border-b border-gray-200 font-semibold text-gray-800">
+                    <div className="bg-[#020617] px-4 py-3 border-b border-white/10 font-semibold text-gray-800">
                       {strand.strand_name}
                     </div>
                     <div className="divide-y divide-gray-100">
                       {strand.sub_strands.map((sub) => (
                         <div
                           key={sub.id}
-                          className="px-4 py-3 text-sm text-gray-600 flex justify-between items-center hover:bg-gray-50"
+                          className="px-4 py-3 text-sm text-gray-600 flex justify-between items-center hover:bg-[#020617]"
                         >
                           <span>{sub.substrand_name}</span>
-                          <span className="text-xs bg-gray-100 px-2 py-1 rounded-full text-gray-500">
+                          <span className="text-xs bg-[#0F172A] px-2 py-1 rounded-full text-gray-500">
                             {
                               lessons.filter((l) => l.substrand_id === sub.id)
                                 .length
@@ -2035,7 +2035,7 @@ export default function SchemeGeneratorPage() {
               </div>
             </div>
 
-            <div className="p-6 border-t border-gray-100 bg-gray-50 rounded-b-2xl flex justify-end">
+            <div className="p-6 border-t border-gray-100 bg-[#020617] rounded-b-2xl flex justify-end">
               <button
                 onClick={() => setShowPreview(false)}
                 className="px-6 py-2 bg-gray-900 text-white rounded-2xl font-medium hover:bg-gray-800 transition-colors"

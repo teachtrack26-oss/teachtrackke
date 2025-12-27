@@ -322,14 +322,14 @@ export default function RecordsOfWorkListPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#020617]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-24 pb-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#020617] pt-24 pb-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
@@ -388,7 +388,7 @@ export default function RecordsOfWorkListPage() {
                   className={`inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium ${
                     (user as any)?.subscription_type === "FREE"
                       ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                      : "text-gray-700 bg-white hover:bg-gray-50"
+                      : "text-gray-700 bg-white hover:bg-[#020617]"
                   }`}
                   title={
                     (user as any)?.subscription_type === "FREE"
@@ -407,7 +407,7 @@ export default function RecordsOfWorkListPage() {
                   className={`inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium ${
                     (user as any)?.subscription_type === "FREE"
                       ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                      : "text-gray-700 bg-white hover:bg-gray-50"
+                      : "text-gray-700 bg-white hover:bg-[#020617]"
                   }`}
                   title={
                     (user as any)?.subscription_type === "FREE"
@@ -508,7 +508,7 @@ export default function RecordsOfWorkListPage() {
 
         {/* Records List */}
         <div className="bg-white shadow overflow-hidden sm:rounded-md">
-          <div className="px-4 py-3 bg-gray-50 border-b border-gray-200 flex items-center">
+          <div className="px-4 py-3 bg-[#020617] border-b border-white/10 flex items-center">
             <input
               type="checkbox"
               checked={
@@ -527,7 +527,7 @@ export default function RecordsOfWorkListPage() {
               currentItems.map((record) => (
                 <li
                   key={record.id}
-                  className="flex items-center hover:bg-gray-50 transition duration-150 ease-in-out"
+                  className="flex items-center hover:bg-[#020617] transition duration-150 ease-in-out"
                 >
                   <div className="pl-4">
                     <input
@@ -627,7 +627,7 @@ export default function RecordsOfWorkListPage() {
                     className={`relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium ${
                       currentPage === 1
                         ? "text-gray-300 cursor-not-allowed"
-                        : "text-gray-500 hover:bg-gray-50"
+                        : "text-gray-500 hover:bg-[#020617]"
                     }`}
                   >
                     <span className="sr-only">Previous</span>
@@ -640,7 +640,7 @@ export default function RecordsOfWorkListPage() {
                       className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
                         currentPage === i + 1
                           ? "z-10 bg-primary-50 border-primary-500 text-primary-600"
-                          : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50"
+                          : "bg-white border-gray-300 text-gray-500 hover:bg-[#020617]"
                       }`}
                     >
                       {i + 1}
@@ -652,7 +652,7 @@ export default function RecordsOfWorkListPage() {
                     className={`relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium ${
                       currentPage === totalPages
                         ? "text-gray-300 cursor-not-allowed"
-                        : "text-gray-500 hover:bg-gray-50"
+                        : "text-gray-500 hover:bg-[#020617]"
                     }`}
                   >
                     <span className="sr-only">Next</span>

@@ -64,14 +64,14 @@ export default function CreateRecordOfWorkPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#020617]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#020617] py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
           <Link
@@ -113,7 +113,7 @@ export default function CreateRecordOfWorkPage() {
             ) : (
               schemes.map((scheme) => (
                 <li key={scheme.id}>
-                  <div className="px-4 py-4 sm:px-6 flex items-center justify-between hover:bg-gray-50">
+                  <div className="px-4 py-4 sm:px-6 flex items-center justify-between hover:bg-[#020617]">
                     <div className="flex items-center">
                       <div className="flex-shrink-0">
                         <div className="h-12 w-12 rounded-full bg-primary-100 flex items-center justify-center">

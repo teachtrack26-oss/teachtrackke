@@ -732,12 +732,12 @@ export default function ProfessionalRecordsPage() {
       return { gradient: "from-emerald-500 to-teal-500", icon: "🌿" };
     if (name.includes("social"))
       return { gradient: "from-teal-500 to-cyan-500", icon: "🌍" };
-    return { gradient: "from-gray-500 to-slate-500", icon: "📚" };
+    return { gradient: "from-[#020617]0 to-slate-500", icon: "📚" };
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#020617]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-700 font-medium">
@@ -749,7 +749,7 @@ export default function ProfessionalRecordsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 relative overflow-hidden pt-24">
+    <div className="min-h-screen bg-[#020617] relative overflow-hidden pt-24">
       {/* Premium Animated Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-400/20 rounded-full blur-[128px] animate-blob"></div>
@@ -1284,14 +1284,14 @@ export default function ProfessionalRecordsPage() {
                           </Link>
                           <Link
                             href={`/professional-records/schemes/${scheme.id}/edit`}
-                            className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                            className="flex-1 bg-[#0F172A] hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
                           >
                             <FiEdit className="w-4 h-4" />
                             Edit
                           </Link>
                           <button
                             onClick={() => handleShare("schemes", scheme.id)}
-                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                            className="bg-[#0F172A] hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
                             title="Share"
                           >
                             <FiShare2 className="w-4 h-4" />
@@ -1300,7 +1300,7 @@ export default function ProfessionalRecordsPage() {
                             onClick={() =>
                               handleDuplicate("schemes", scheme.id)
                             }
-                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                            className="bg-[#0F172A] hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
                             title="Duplicate"
                           >
                             <FiCopy className="w-4 h-4" />
@@ -1311,14 +1311,14 @@ export default function ProfessionalRecordsPage() {
                                 ? handleUnarchive("scheme", scheme.id)
                                 : handleArchive("scheme", scheme.id)
                             }
-                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                            className="bg-[#0F172A] hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
                             title={showArchived ? "Unarchive" : "Archive"}
                           >
                             <FiArchive className="w-4 h-4" />
                           </button>
                           <button
                             onClick={() => handleShare("schemes", scheme.id)}
-                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                            className="bg-[#0F172A] hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
                             title="Share"
                           >
                             <FiShare2 className="w-4 h-4" />
@@ -1327,7 +1327,7 @@ export default function ProfessionalRecordsPage() {
                             onClick={() =>
                               handleDuplicate("schemes", scheme.id)
                             }
-                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                            className="bg-[#0F172A] hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
                             title="Duplicate"
                           >
                             <FiCopy className="w-4 h-4" />
@@ -1633,7 +1633,7 @@ export default function ProfessionalRecordsPage() {
                           </Link>
                           <Link
                             href={`/professional-records/lesson-plans/${lessonPlan.id}/edit`}
-                            className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                            className="flex-1 bg-[#0F172A] hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
                           >
                             <FiEdit className="w-4 h-4" />
                             Edit
@@ -1642,7 +1642,7 @@ export default function ProfessionalRecordsPage() {
                             onClick={() =>
                               handleShare("lesson-plans", lessonPlan.id)
                             }
-                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                            className="bg-[#0F172A] hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
                             title="Share"
                           >
                             <FiShare2 className="w-4 h-4" />
@@ -1651,7 +1651,7 @@ export default function ProfessionalRecordsPage() {
                             onClick={() =>
                               handleDuplicate("lesson-plans", lessonPlan.id)
                             }
-                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                            className="bg-[#0F172A] hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
                             title="Duplicate"
                           >
                             <FiCopy className="w-4 h-4" />
@@ -1662,7 +1662,7 @@ export default function ProfessionalRecordsPage() {
                                 ? handleUnarchive("lesson", lessonPlan.id)
                                 : handleArchive("lesson", lessonPlan.id)
                             }
-                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                            className="bg-[#0F172A] hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
                             title={showArchived ? "Unarchive" : "Archive"}
                           >
                             <FiArchive className="w-4 h-4" />
@@ -1671,7 +1671,7 @@ export default function ProfessionalRecordsPage() {
                             onClick={() =>
                               handleShare("lesson-plans", lessonPlan.id)
                             }
-                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                            className="bg-[#0F172A] hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
                             title="Share"
                           >
                             <FiShare2 className="w-4 h-4" />
@@ -1680,7 +1680,7 @@ export default function ProfessionalRecordsPage() {
                             onClick={() =>
                               handleDuplicate("lesson-plans", lessonPlan.id)
                             }
-                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                            className="bg-[#0F172A] hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
                             title="Duplicate"
                           >
                             <FiCopy className="w-4 h-4" />
@@ -1914,7 +1914,7 @@ export default function ProfessionalRecordsPage() {
                           <button
                             onClick={() => handleExport("records")}
                             disabled={!isPremium}
-                            className={`bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm ${
+                            className={`bg-[#0F172A] hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm ${
                               !isPremium ? "opacity-50 cursor-not-allowed" : ""
                             }`}
                             title={
@@ -1936,7 +1936,7 @@ export default function ProfessionalRecordsPage() {
                             onClick={() =>
                               handleShare("records-of-work", record.id)
                             }
-                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                            className="bg-[#0F172A] hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
                             title="Share"
                           >
                             <FiShare2 className="w-4 h-4" />
@@ -1947,7 +1947,7 @@ export default function ProfessionalRecordsPage() {
                                 ? handleUnarchive("record", record.id)
                                 : handleArchive("record", record.id)
                             }
-                            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
+                            className="bg-[#0F172A] hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 text-sm"
                             title={showArchived ? "Unarchive" : "Archive"}
                           >
                             <FiArchive className="w-4 h-4" />

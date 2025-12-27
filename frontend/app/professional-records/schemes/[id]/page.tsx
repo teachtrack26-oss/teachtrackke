@@ -679,7 +679,7 @@ export default function ViewSchemePage() {
             </div>
 
             {/* Scheme Info Grid - Compact */}
-            <div className="mb-3 p-2 bg-gray-50 border border-gray-300 scheme-header relative">
+            <div className="mb-3 p-2 bg-[#020617] border border-gray-300 scheme-header relative">
               <div className="grid grid-cols-4 gap-x-3 gap-y-1 text-sm scheme-info-grid">
                 <div>
                   <span className="font-bold">Teacher:</span>{" "}
@@ -812,7 +812,7 @@ export default function ViewSchemePage() {
                     type="text"
                     value={scheme.subject || scheme.subject_name}
                     disabled
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-[#020617]"
                   />
                 </div>
                 <div>
@@ -823,7 +823,7 @@ export default function ViewSchemePage() {
                     type="text"
                     value={scheme.grade}
                     disabled
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-[#020617]"
                   />
                 </div>
                 <div>
@@ -837,7 +837,7 @@ export default function ViewSchemePage() {
                       (scheme.term_number ? `Term ${scheme.term_number}` : "")
                     }
                     disabled
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-[#020617]"
                   />
                 </div>
                 <div>
@@ -848,7 +848,7 @@ export default function ViewSchemePage() {
                     type="text"
                     value={scheme.year || scheme.term_year}
                     disabled
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-[#020617]"
                   />
                 </div>
               </div>
@@ -1015,11 +1015,11 @@ export default function ViewSchemePage() {
                         return (
                           <tr
                             key={`${week.week_number}-${lessonIdx}`}
-                            className="hover:bg-gray-50"
+                            className="hover:bg-[#020617]"
                           >
                             {lessonIdx === 0 && (
                               <td
-                                className="border border-gray-400 px-2 py-2 text-xs font-semibold text-center bg-gray-50 align-middle"
+                                className="border border-gray-400 px-2 py-2 text-xs font-semibold text-center bg-[#020617] align-middle"
                                 rowSpan={week.lessons.length}
                               >
                                 <div className="font-bold">
@@ -1044,7 +1044,7 @@ export default function ViewSchemePage() {
                                 )}
                               </td>
                             )}
-                            <td className="border border-gray-400 px-2 py-2 text-xs font-semibold text-center bg-gray-50">
+                            <td className="border border-gray-400 px-2 py-2 text-xs font-semibold text-center bg-[#020617]">
                               {lessonIdx + 1}
                             </td>
                             <td className="border border-gray-400 px-2 py-2 text-xs">

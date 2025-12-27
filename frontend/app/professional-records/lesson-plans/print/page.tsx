@@ -138,7 +138,7 @@ function PrintContent() {
 
   return (
     <div
-      className={`min-h-screen bg-gray-100 pb-10 ${
+      className={`min-h-screen bg-[#0F172A] pb-10 ${
         !isPremium ? "select-none" : ""
       }`}
       onContextMenu={(e) => {

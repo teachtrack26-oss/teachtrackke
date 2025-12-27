@@ -174,7 +174,7 @@ export default function CreateLessonPlanPage() {
                 CBC LESSON PLAN
               </h2>
 
-              <div className="grid md:grid-cols-5 gap-4 mb-6 p-4 bg-gray-50 border border-gray-300">
+              <div className="grid md:grid-cols-5 gap-4 mb-6 p-4 bg-[#020617] border border-gray-300">
                 <div>
                   <label className="block text-sm font-bold text-gray-700 mb-2">
                     LEARNING AREA *
@@ -459,7 +459,7 @@ export default function CreateLessonPlanPage() {
             <button
               type="button"
               onClick={() => router.push("/professional-records")}
-              className="px-6 py-3 border border-gray-300 rounded-2xl text-gray-700 font-medium hover:bg-gray-50 transition-all duration-300"
+              className="px-6 py-3 border border-gray-300 rounded-2xl text-gray-700 font-medium hover:bg-[#020617] transition-all duration-300"
             >
               Cancel
             </button>

@@ -561,7 +561,7 @@ export default function EditLessonPlanPage() {
                 CBC LESSON PLAN
               </h2>
 
-              <div className="grid md:grid-cols-5 gap-4 mb-6 p-4 bg-gray-50 border border-gray-300">
+              <div className="grid md:grid-cols-5 gap-4 mb-6 p-4 bg-[#020617] border border-gray-300">
                 {/* Timetable Selection - Spans 2 columns */}
                 <div className="md:col-span-2">
                   <label className="block text-sm font-bold text-gray-700 mb-2">
@@ -748,7 +748,7 @@ export default function EditLessonPlanPage() {
                         type="number"
                         value={totalLearners}
                         readOnly
-                        className="w-20 px-3 py-2 bg-gray-100 border border-gray-300 rounded text-gray-500"
+                        className="w-20 px-3 py-2 bg-[#0F172A] border border-gray-300 rounded text-gray-500"
                       />
                     </div>
                   </div>
@@ -995,7 +995,7 @@ export default function EditLessonPlanPage() {
                   )}`
                 )
               }
-              className="px-6 py-3 border border-gray-300 rounded-2xl text-gray-700 font-medium hover:bg-gray-50 transition-all duration-300"
+              className="px-6 py-3 border border-gray-300 rounded-2xl text-gray-700 font-medium hover:bg-[#020617] transition-all duration-300"
             >
               Cancel
             </button>

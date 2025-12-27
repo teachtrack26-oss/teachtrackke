@@ -325,9 +325,9 @@ export default function ViewLessonPlanPage() {
           }
 
           /* Remove heavy backgrounds */
-          .bg-gray-50,
+          .bg-[#020617],
           .bg-yellow-50,
-          .bg-gray-100 {
+          .bg-[#0F172A] {
             background-color: transparent !important;
           }
         }
@@ -461,7 +461,7 @@ export default function ViewLessonPlanPage() {
             </div>
 
             {/* Header Info Grid */}
-            <div className="header-info-grid grid grid-cols-2 gap-x-8 gap-y-4 mb-8 p-6 bg-gray-50 border border-gray-200 rounded-2xl">
+            <div className="header-info-grid grid grid-cols-2 gap-x-8 gap-y-4 mb-8 p-6 bg-[#020617] border border-gray-200 rounded-2xl">
               <div className="flex items-center gap-3">
                 <span className="font-bold text-gray-700 w-32">
                   Learning Area:
@@ -597,7 +597,7 @@ export default function ViewLessonPlanPage() {
 
               {/* Lesson Steps */}
               <div className="org-learning-container border border-gray-300 rounded-lg overflow-hidden">
-                <div className="org-learning-header bg-gray-100 px-4 py-2 border-b border-gray-300 font-bold text-gray-800">
+                <div className="org-learning-header bg-[#0F172A] px-4 py-2 border-b border-gray-300 font-bold text-gray-800">
                   Organization of Learning
                   {plan.lesson_duration_minutes && (
                     <span className="ml-2 text-primary-600 font-normal">

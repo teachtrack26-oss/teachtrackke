@@ -108,7 +108,7 @@ export default function RecordOfWorkDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#020617]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
@@ -152,7 +152,7 @@ export default function RecordOfWorkDetailPage() {
 
   return (
     <div
-      className={`min-h-screen bg-gray-50 pt-24 pb-8 px-4 sm:px-6 lg:px-8 ${
+      className={`min-h-screen bg-[#020617] pt-24 pb-8 px-4 sm:px-6 lg:px-8 ${
         !isPremium ? "select-none" : ""
       }`}
       onContextMenu={(e) => {
@@ -277,7 +277,7 @@ export default function RecordOfWorkDetailPage() {
               className={`inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md transition-colors ${
                 !isPremium
                   ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-                  : "text-gray-700 bg-white hover:bg-gray-50"
+                  : "text-gray-700 bg-white hover:bg-[#020617]"
               }`}
               title={!isPremium ? "Upgrade to download" : "Download"}
             >

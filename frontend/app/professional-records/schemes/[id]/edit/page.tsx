@@ -533,7 +533,7 @@ export default function EditSchemePage() {
                 {week.lessons.map((lesson, lessonIndex) => (
                   <div
                     key={lessonIndex}
-                    className="bg-gray-50 rounded-2xl p-6 border border-gray-200"
+                    className="bg-[#020617] rounded-2xl p-6 border border-gray-200"
                   >
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="font-bold text-lg text-primary-600">
@@ -726,7 +726,7 @@ export default function EditSchemePage() {
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
                           Learning Resources (Select all that apply)
                         </label>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-4 bg-gray-50 rounded-lg border border-gray-200 max-h-64 overflow-y-auto">
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-4 bg-[#020617] rounded-lg border border-gray-200 max-h-64 overflow-y-auto">
                           {LEARNING_RESOURCES_OPTIONS.map((resource) => {
                             const isSelected = (
                               lesson.selected_resources || []
@@ -734,7 +734,7 @@ export default function EditSchemePage() {
                             return (
                               <label
                                 key={resource}
-                                className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 transition-colors ${
+                                className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-[#0F172A] transition-colors ${
                                   isSelected
                                     ? "bg-primary-50 border border-primary-300"
                                     : ""
@@ -769,7 +769,7 @@ export default function EditSchemePage() {
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
                           Assessment Methods (Select all that apply)
                         </label>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-4 bg-gray-50 rounded-lg border border-gray-200 max-h-64 overflow-y-auto">
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-4 bg-[#020617] rounded-lg border border-gray-200 max-h-64 overflow-y-auto">
                           {ASSESSMENT_METHODS_OPTIONS.map((method) => {
                             const isSelected = (
                               lesson.selected_assessment_methods || []
@@ -777,7 +777,7 @@ export default function EditSchemePage() {
                             return (
                               <label
                                 key={method}
-                                className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-gray-100 transition-colors ${
+                                className={`flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-[#0F172A] transition-colors ${
                                   isSelected
                                     ? "bg-primary-50 border border-primary-300"
                                     : ""
